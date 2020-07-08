@@ -6,11 +6,11 @@ Run a Command
 
 You can run all raw database operations using the
 ``MongoDatabase.runCommand()`` method. A raw database operation is a
-command you can execute directly on the MongoDB server CLI. Commands
-include administrative and diagnostic tasks, such as fetching server
-stats or initializing a replica set. Call the ``runCommand()`` method
-with a Bson command object on an instance of a database to run your raw
-database operation.
+command you can execute directly on the MongoDB server CLI. These
+commands include administrative and diagnostic tasks, such as fetching
+server stats or initializing a replica set. Call the ``runCommand()``
+method with a Bson command object on an instance of a ``MongoDatabase``
+to run your raw database operation.
 
 .. note::
     Use the :manual:`mongo shell </reference/mongo-shell>` for
@@ -24,6 +24,9 @@ parameter.
 
 Example
 -------
+
+In the following sample code, we send the ``dbStats`` command to request
+statistics of a specific MongoDB database.
 
 .. include:: /includes/connect-guide-note.rst
 
@@ -43,4 +46,4 @@ page, see the following API documentation:
 
 - :java-sync-api:`runCommand <com/mongodb/client/MongoDatabase.html#runCommand(org.bson.conversions.Bson)>`
 - :manual:`command <reference/command/>`
-- :manual:`read preference <core/read-preference/>`
+- :manual:`dbStats <reference/command/dbStats/>`
