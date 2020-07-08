@@ -22,7 +22,6 @@ public class RunCommand {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
 
             try {
-                // find the storage statistics for the "sample_mflix" database using the 'dbStats' command
                 Bson command = new BsonDocument("dbStats", new BsonInt64(1));
                 Document commandResult = database.runCommand(command);
                 System.out.println("dbStats: " + commandResult.toJson());
