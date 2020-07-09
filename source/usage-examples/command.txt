@@ -14,7 +14,9 @@ to run your raw database operation.
 
 .. note::
     Use the :manual:`mongo shell </reference/mongo-shell>` for
-    administrative tasks instead of the Java driver whenever possible.
+    administrative tasks instead of the Java driver whenever possible,
+    since these tasks are often quicker and easier to implement with the
+    shell than in a Java application.
 
 The ``runCommand()`` method accepts a command in Bson format.
 By default, ``runCommand`` returns an object of type
