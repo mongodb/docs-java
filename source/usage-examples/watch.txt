@@ -1,0 +1,139 @@
+=================
+Watch for Changes
+=================
+
+.. default-domain:: mongodb
+
+Open a Change Stream
+--------------------
+
+You can keep track of changes to data in MongoDB, such as changes to a
+collection, database, or deployment, by opening a **change stream**. A change
+stream allows applications to watch for changes to data and react to them.
+You can open a change stream by calling the ``watch()`` method on
+a ``MongoCollection``, ``MongoDatabase``, or ``MongoClient`` object. The
+change stream returns **change event** documents when they occur.
+
+The ``watch()`` method optionally takes an **aggregation pipeline**  which
+consists of an array of **stages** as the first parameter to filter and
+transform the change event output as follows:. 
+
+.. code-block:: java
+
+   List<Bson> pipeline = Arrays.asList(
+                           Aggregates.match(
+                              Filters.lt("fullDocument.runtime", 15)));
+   ChangeStreamIterable<Document> changeStream = database.watch(pipeline);
+
+To configure options for the change stream, use member methods of the
+``ChangeStreamIterable`` object returned by ``watch()``. Refer to the
+links at the end of this section for more information on the settings
+you can configure.
+
+The ``watch()`` method returns an instance of a ``ChangeStreamIterable``.
+You can call ``forEach()`` on the ``ChangeStreamIterable`` to handle
+events as they occur, or you can use the ``iterator()`` method to access
+the underlying ``MongoIterator``. This allows you to call manual methods
+on the change stream such as ``hasNext()`` to check for remaining
+documents in the stream and ``next()`` to request the next document in
+the stream. See the link to the ``ChangeStreamIterable`` API
+documentation below for more details on the available methods.
+
+Visit the following resources for additional material on the classes and
+methods presented above:
+
+- :manual:`change streams </changeStreams/>`
+- :manual:`change events </reference/change-events/>`
+- :manual:`aggregation pipeline </reference/operator/aggregation-pipeline/>`
+- :manual:`aggregation stages </changeStreams/#modify-change-stream-output>`
+- :java-sync-api:`ChangeStreamIterable <com/mongodb/client/ChangeStreamIterable.html>`
+- :java-sync-api:`MongoCollection.watch() <com/mongodb/client/MongoCollection.html#watch()>`
+- :java-sync-api:`MongoDatabase.watch() <com/mongodb/client/MongoDatabase.html#watch()>`
+- :java-sync-api:`MongoClient.watch() <com/mongodb/client/MongoClient.html#watch()>`
+
+Process the Change Stream Events
+--------------------------------
+
+To capture events from a change stream, call the ``forEach()`` method
+with a callback function as shown below:
+
+.. code-block:: java
+
+   changeStream.forEach(event -> System.out.println("Change observed: " + event));
+
+The callback function triggers when a change event is emitted. You can
+specify logic in the callback to process the event document when it is
+received.
+
+.. admonition:: forEach() blocks the current thread
+   :class: important
+
+   Calls to ``forEach()`` block the current thread as long as the
+   corresponding change stream listens for events. If your program
+   needs to continue executing other logic, such as processing requests or
+   responding to user input, consider creating and listening to your
+   change stream in a separate thread.
+
+.. note::
+
+   For update operation change events, change streams only return the modified
+   fields by default rather than the full updated document. You can configure
+   your change stream to also return the most current version of the document
+   by calling the ``fullDocument()`` member method of the ``ChangeStreamIterable``
+   object with the value ``FullDocument.UPDATE_LOOKUP`` as follows:
+
+   .. code-block:: java
+
+      ChangeStreamIterable<Document> changeStream = database.watch()
+                .fullDocument(FullDocument.UPDATE_LOOKUP);
+
+Example
+-------
+
+The following example uses two separate applications to demonstrate how
+to listen for changes using a change stream:
+
+- The first application, named ``Watch``, opens a change stream
+  on the ``movies`` collection in the ``sample_mflix`` database.
+  ``Watch`` uses a callback to receive and print change events
+  that occur on the collection.
+
+- The second application, named ``WatchCompanion``, inserts a
+  single document into the ``movies`` collection in the ``sample_mflix``
+  database.
+
+First, run ``Watch`` to open the change stream on the collection and
+define a callback on the change stream using the ``forEach()`` method.
+Next, run ``WatchCompanion`` to generate a change event by performing
+a change to the collection.
+
+.. include:: /includes/connect-guide-note.rst
+
+``Watch.java``:
+
+.. literalinclude:: /includes/usage-examples/code-snippets/Watch.java
+   :language: java
+
+``WatchCompanion.java``:
+
+.. literalinclude:: /includes/usage-examples/code-snippets/WatchCompanion.java
+   :language: java
+
+If you run the example above, you should see output similar to the
+following:
+
+.. code-block::
+
+   received a change to the collection: ChangeStreamDocument{
+     operationType=OperationType{value='insert'},
+     resumeToken={"_data": "825EC..."},
+     namespace=sample_mflix.movies,
+     destinationNamespace=null,
+     fullDocument=Document{{_id=5ec3..., test=sample movie document}},
+     documentKey={"_id": {"$oid": "5ec3..."}},
+     clusterTime=Timestamp{...},
+     updateDescription=null,
+     txnNumber=null,
+     lsid=null
+   }
+
