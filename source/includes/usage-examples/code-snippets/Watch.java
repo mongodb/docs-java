@@ -1,12 +1,14 @@
 package usage.examples;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.client.ChangeStreamIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.changestream.FullDocument;
 
 public class Watch {
@@ -20,9 +22,13 @@ public class Watch {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            ChangeStreamIterable<Document> changeStream = database.watch()
+            List<Bson> pipeline = Arrays.asList(
+                Aggregates.match(
+                        Filters.in("operationType",
+                                Arrays.asList("insert", "update", "replace"))));
+            ChangeStreamIterable<Document> changeStream = database.watch(pipeline)
                 .fullDocument(FullDocument.UPDATE_LOOKUP);
-            changeStream.forEach(event -> System.out.println("received a change to the collection: " + event));
+            changeStream.forEach(event -> System.out.println("Received a change to the collection: " + event));
         }
     }
 }
