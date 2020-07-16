@@ -30,20 +30,26 @@ The ``watch()`` method returns an instance of ``ChangeStreamIterable``, a class
 that offers several methods to access, organize, and traverse the results.
 ``ChangeStreamIterable`` also inherits methods from its parent class,
 ``MongoIterable`` which implements the core Java interface ``Iterable``.
+
 You can call ``forEach()`` on the ``ChangeStreamIterable`` to handle
 events as they occur, or you can use the ``iterator()`` method which
 returns a ``MongoCursor`` instance that you can use to traverse the results.
-You can call methods on the ``MongoCursor`` such as ``hasNext()`` to check
-whether additional results exist, or ``next()`` to return the next document
-in the collection. Unlike the ``MongoCursor`` returned by other queries,
-a ``MongoCursor`` associated with a change stream will wait until a
-change event arrives before returning a result from ``next()`` and
-``hasNext()`` instead of throwing a ``java.util.NoSuchElementException``.
 
-To configure options for processing the change stream, use member methods of the
-``ChangeStreamIterable`` object returned by ``watch()``. See the link to
-the ``ChangeStreamIterable`` API documentation at the bottom of this example
-for more details on the available methods.
+You can call methods on the ``MongoCursor`` such as ``hasNext()`` to check
+whether additional results exist, ``next()`` to return the next document
+in the collection, or ``tryNext()``, to immediately return either
+the next available element in the change stream or ``null``. Unlike the
+``MongoCursor`` returned by other queries, a ``MongoCursor`` associated
+with a change stream waits until a change event arrives before
+returning a result from ``next()``. As a result, calls to ``next()``
+using a change stream's ``MongoCursor`` never throw a
+``java.util.NoSuchElementException``.
+
+To configure options for processing the documents returned from the change
+stream, use member methods of the ``ChangeStreamIterable`` object returned
+by ``watch()``. See the link to the ``ChangeStreamIterable`` API
+documentation at the bottom of this example for more details on the
+available methods.
 
 How to Process Change Stream Events with a Callback
 ---------------------------------------------------
@@ -90,7 +96,7 @@ to listen for changes using a change stream:
 - The first application, named ``Watch``, opens a change stream
   on the ``movies`` collection in the ``sample_mflix`` database.
   ``Watch`` uses an aggregation pipeline to filter changes based on
-  ``operationType`` so that it only receives insert, update, and replace
+  ``operationType`` so that it only receives insert, and update
   events (deletes are excluded by omission). ``Watch`` uses a callback
   to receive and print the filtered change events that occur on the
   collection.

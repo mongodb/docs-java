@@ -25,7 +25,7 @@ public class Watch {
             List<Bson> pipeline = Arrays.asList(
                 Aggregates.match(
                         Filters.in("operationType",
-                                Arrays.asList("insert", "update", "replace"))));
+                                Arrays.asList("insert", "update"))));
             ChangeStreamIterable<Document> changeStream = database.watch(pipeline)
                 .fullDocument(FullDocument.UPDATE_LOOKUP);
             changeStream.forEach(event -> System.out.println("Received a change to the collection: " + event));
