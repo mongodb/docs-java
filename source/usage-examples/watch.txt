@@ -96,7 +96,7 @@ to listen for changes using a change stream:
 - The first application, named ``Watch``, opens a change stream
   on the ``movies`` collection in the ``sample_mflix`` database.
   ``Watch`` uses an aggregation pipeline to filter changes based on
-  ``operationType`` so that it only receives insert, and update
+  ``operationType`` so that it only receives insert and update
   events (deletes are excluded by omission). ``Watch`` uses a callback
   to receive and print the filtered change events that occur on the
   collection.
