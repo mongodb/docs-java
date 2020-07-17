@@ -28,7 +28,14 @@ public class Watch {
                                 Arrays.asList("insert", "update"))));
             ChangeStreamIterable<Document> changeStream = database.watch(pipeline)
                 .fullDocument(FullDocument.UPDATE_LOOKUP);
-            changeStream.forEach(event -> System.out.println("Received a change to the collection: " + event));
+            // variables referenced in a lambda must be final; final array gives us a mutable integer
+            final int[] numberOfEvents = {0};
+            changeStream.forEach(event -> {
+            System.out.println("Received a change to the collection: " + event);
+                if (++numberOfEvents[0] >= 2) {
+                  System.exit(0);
+                }
+            });
         }
     }
 }
