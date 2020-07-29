@@ -1,0 +1,636 @@
+================
+Connection Guide
+================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+This guide shows you how to connect to a MongoDB instance or replica set
+deployment using the Java driver. For information about authenticating
+with a MongoDB instance, see :ref:`Authentication <authentication>`.
+
+.. _mongoclient:
+
+MongoClient
+-----------
+
+Use the ``MongoClients.create()`` method to instantiate an instance of a
+``MongoClient``. As each ``MongoClient`` represents a threadsafe *pool* of
+connections to the database, most applications only require a single
+instance of a ``MongoClient``, even across multiple threads. All resource
+usage limits apply to individual ``MongoClient`` instances.
+
+.. _connection-uri:
+
+Connection URI
+--------------
+
+The **connection URI** is the set of instructions that the driver uses to
+connect to a MongoDB deployment. It instructs the driver on how it should
+connect to MongoDB and how it should behave while connected. The following
+example shows each part of the connection URI:
+
+.. figure:: /includes/figures/connection_string_parts.png
+
+In this example, for the protocol, we use ``mongodb+srv`` which specifies the
+:manual:`DNS Seedlist Connection Format
+</reference/connection-string/#dns-seedlist-connection-format>`. This indicates
+that the hostname following it corresponds to the DNS SRV record of your
+MongoDB instance or deployment. If your instance or deployment does not have a
+DNS SRV record, use ``mongodb`` to specify the :manual:`Standard Connection
+Format </reference/connection-string/#standard-connection-string-format>`.
+
+.. note::
+
+   If your deployment is on MongoDB Atlas, follow the
+   :atlas:`Atlas driver connection guide <driver-connection?jmp=docs_driver_java>`
+   to retrieve your connection string.
+
+The next part of the connection string contains your username and password
+if you are using password-based authentication. Replace the value of ``user``
+with your username and ``pass`` with your password. If you are using an
+authentication mechanism that does not require a username and password, omit
+this part of the connection URI.
+
+The next part of the connection string specifies the hostname or IP address and
+port of your MongoDB instance. In the example below, we use ``sample-hostname``
+as the hostname and ``27017`` as the port. Replace these values to point to
+your MongoDB instance.
+
+The last part of the connection string contains connection and authentication
+options as parameters. In the example below, we set two connection options:
+``retryWrites=true`` and ``w=majority``. For more information on connection
+options, skip to the :ref:`connection options <connection-options>` section.
+
+The code below shows how you can use the sample connection URI in a client to
+connect to MongoDB.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/srv.java
+   :language: java
+
+.. _jndi:
+
+Java Naming and Directory Interface (JNDI)
+------------------------------------------
+
+MongoClientFactory includes a `JNDI <http://docs.oracle.com/javase/8/docs/technotes/guides/jndi/index.html>`__
+ObjectFactory implementation that returns ``MongoClient`` instances
+based on a :ref:`connection URI <connection-uri>`.
+
+.. _jndi-wildfly:
+
+Wildfly (formerly JBoss)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. In a `Wildfly <http://wildfly.org/>`__ installation, create a new module
+   for MongoDB at `modules/system/layers/base/org/mongodb/main`. Copy the
+   ``mongo-java-driver.jar`` jar file into the module. Add the following
+   ``module.xml`` file into the module:
+
+   .. code-block:: xml
+
+      <module xmlns="urn:jboss:module:1.3" name="org.mongodb">
+         <resources>
+            <resource-root path="mongodb-driver-sync-4.1.0-rc0.jar"/>
+         </resources>
+         <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.transaction.api"/>
+            <module name="javax.servlet.api" optional="true"/>
+         </dependencies>
+      </module>
+
+#. Add a binding to the naming subsystem configuration that references the
+   above module, the ``MongoClientFactory`` class, and the
+   :ref:`connection string <connection-uri>` for the MongoDB cluster.
+
+   .. code-block:: xml
+
+      <subsystem xmlns="urn:jboss:domain:naming:2.0">
+         <bindings>
+            <object-factory name="java:global/MyMongoClient" module="org.mongodb" class="com.mongodb.client.MongoClientFactory">
+               <environment>
+                  <property name="connectionString" value="mongodb://localhost:27017"/>
+               </environment>
+            </object-factory>
+         </bindings>
+         <remote-naming/>
+      </subsystem>
+
+This will make a MongoClient instance accessible via the JNDI name
+``MyMongoClient`` in the ``java:global`` context.
+
+.. _jndi-tomcat:
+
+Tomcat
+~~~~~~
+
+1. Copy the ``mongo-java-driver.jar`` jar file into the ``lib`` directory
+   of your `Tomcat <http://tomcat.apache.org/>`__ installation.
+
+#. In ``context.xml`` of your application, add a resource that references
+   the ``MongoClientFactory`` class and the :ref:`connection string
+   <connection-uri>` for the MongoDB cluster:
+
+   .. code-block:: xml
+
+      <Resource name="mongodb/MyMongoClient"
+         auth="Container"
+         type="com.mongodb.MongoClient"
+         closeMethod="close"
+         factory="com.mongodb.client.MongoClientFactory"
+         singleton="true"
+         connectionString="mongodb://localhost:27017"/>
+
+#. In ``web.xml`` of your application, add a reference to the
+   ``MongoClientFactory`` resource defined in the previous step:
+
+   .. code-block:: xml
+
+      <resource-ref>
+        <res-ref-name>
+          mongodb/MyMongoClient
+        </res-ref-name>
+        <res-type>
+          com.mongodb.MongoClient
+        </res-type>
+        <res-auth>
+          Container
+        </res-auth>
+      </resource-ref>
+
+This will make a ``MongoClient`` instance accessible via the JNDI name
+``mongodb/MyMongoClient`` in the ``java:comp/env`` context.
+
+.. _tls:
+
+TLS/SSL
+-------
+
+You can connect to MongoDB instances with the
+:wiki:`TLS/SSL </Transport_Layer_Security>` security protocol using
+the underlying TLS/SSL support in the JDK. To configure your connection
+to use TLS/SSL, enable the TLS/SSL settings in either the
+:java-sync-api:`ConnectionString
+<com/mongodb/ConnectionString.html>` or :java-sync-api:`MongoClientSettings
+<com/mongodb/MongoClientSettings.html>` objects.
+
+.. _tls-connectionstring:
+
+Enable TLS/SSL via ConnectionString
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable TLS/SSL with a :java-sync-api:`ConnectionString
+<com/mongodb/ConnectionString.html>`, assign the connection string
+parameter ``ssl`` a value of ``true`` in the connection string passed to
+``MongoClients.create()``:
+
+.. code-block:: java
+
+   MongoClient mongoClient = MongoClients.create("mongodb://localhost/?ssl=true");
+
+.. _tls-mongoclientsettings:
+
+Enable TLS/SSL via MongoClientSettings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable TLS/SSL with :java-sync-api:`MongoClientSettings
+<com/mongodb/MongoClientSettings.html>`, set the ``enabled``
+property of the builder to ``true`` using the
+:java-sync-api:`applyToSslSettings()
+<com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
+builder block:
+
+.. code-block:: java
+   :emphasize-lines: 2-3
+
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .applyToSslSettings(builder -> 
+            builder.enabled(true))
+        .build();
+   MongoClient client = MongoClients.create(settings);
+
+.. _tls-disable-hostname-verification:
+
+Disable Hostname Verification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+By default, the driver ensures that the hostname included in the server's
+SSL certificate(s) matches the hostname(s) provided when constructing a
+``MongoClient``. If your application needs to disable hostname
+verification, you can explicitly disable this by setting the
+``invalidHostNameAllowed`` property of the builder to true in the
+``applytoSslSettings()`` builder modifier:
+
+.. code-block:: java
+   :emphasize-lines: 4
+
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .applyToSslSettings(builder -> {
+                    builder.enabled(true);
+                    builder.invalidHostNameAllowed(true);
+                })
+        .build();
+
+.. _tls-configure-jvm-truststore:
+
+Configure the JVM TrustStore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Most applications need to configure two JVM system properties to ensure
+that the client is able to validate the TLS/SSL certificate presented
+by a connected MongoDB instance.
+
+- ``javax.net.ssl.trustStore``: the path to a trust store containing the
+  certificate of the signing authority
+
+- ``javax.net.ssl.trustStorePassword``: the password to access the trust
+  store defined in ``javax.net.ssl.trustStore``
+
+You can create a trust store with the `keytool
+<http://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html>`__
+command line tool provided as part of the JDK:
+
+.. code-block:: console
+
+   keytool -importcert -trustcacerts -file <path to certificate authority file>
+            -keystore <path to trust store> -storepass <password>
+
+A typical application also needs to set two JVM system properties to 
+ensure that the client presents a TLS/SSL certificate to the MongoDB
+server:
+
+- ``javax.net.ssl.keyStore``: the path to a key store containing the client's
+  TLS/SSL certificates
+
+- ``javax.net.ssl.keyStorePassword``: the password to access the key store
+  defined in ``javax.net.ssl.keyStore``
+
+You can create a key store with the `keytool
+<http://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html>`__
+or `openssl <https://www.openssl.org/docs/apps/openssl.html>`__ command
+line tools.
+
+For more information on configuring a Java application to use TLS/SSL,
+please refer to the `JSSE Reference Guide
+<http://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html>`__.
+
+.. _tls-custom-sslContext:
+
+Customize TLS/SSL Configuration with an SSLContext
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your TLS/SSL configuration requires additional customization, you can
+set the ``sslContext`` property of your ``MongoClient`` by
+passing an ``SSLContext`` object to the builder in the
+``applyToSslSettings()`` block:
+
+.. code-block:: java
+   :emphasize-lines: 5
+
+   SSLContext sslContext = ...
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .applyToSslSettings(builder -> {
+                    builder.enabled(true);
+                    builder.context(sslContext);
+                })
+        .build();
+   MongoClient client = MongoClients.create(settings);
+
+.. _tls-restrict-tls-1.2:
+
+Restrict Connections to TLS 1.2 Only
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To restrict your application to use only the TLS 1.2 protocol, set the
+``jdk.tls.client.protocols`` system property to "TLSv1.2".
+
+.. note::
+
+   Java Runtime Environments (JREs) prior to Java 8 only enabled
+   the TLS 1.2 protocol in update releases. If your JRE has not enabled
+   the TLS 1.2 protocol, you may need to upgrade to a later release to
+   connect using TLS 1.2.
+
+.. _compression:
+
+Compression
+-----------
+
+You can compress messages passing between your MongoDB instance and the
+Java driver. MongoDB drivers support up to three different algorithms
+depending on release version:
+
+1. `Snappy <https://google.github.io/snappy/>`__: available in MongoDB 3.4 and later.
+
+2. `Zlib <https://zlib.net/>`__: available in MongoDB 3.6 and later.
+
+3. `Zstandard <https://github.com/facebook/zstd/>`__: available in MongoDB 4.2 and later.
+
+You can specify one or more compression algorithms, but the driver will
+only use the first compressor in the list supported by the connected
+MongoDB instance.
+
+.. _compression-connectionstring:
+
+Enable Compression via ConnectionString
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable compression with a :java-sync-api:`ConnectionString
+<com/mongodb/ConnectionString.html>`, use the connection
+string parameter ``compressors`` in the connection string passed to
+``MongoClients.create()``. You can specify one or more compression
+algorithms, separating multiple algorithms with commas:
+
+.. code-block:: java
+
+   ConnectionString connectionString = new ConnectionString("mongodb://localhost/?compressors=snappy,zlib,zstd");
+   MongoClient mongoClient = MongoClients.create(connectionString);
+
+Specify compression algorithms using the following strings:
+
+- "snappy" for `Snappy <https://google.github.io/snappy/>`__ compression.
+
+- "zlib" for `Zlib <https://zlib.net/>`__ compression.
+
+- "zstd" for `Zstandard <https://github.com/facebook/zstd/>`__ compression.
+
+.. _compression-mongoclientsettings:
+
+Enable Compression via MongoClientSettings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable compression with :java-sync-api:`MongoClientSettings
+<com/mongodb/MongoClientSettings.html>`, pass the
+``compressorList()`` builder method a list of ``MongoCompressor``
+instances. You can specify one or more compression algorithms in the list:
+
+.. code-block:: java
+   :emphasize-lines: 2-4
+
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .compressorList(Arrays.asList(MongoCompressor.createSnappyCompressor(),
+                                      MongoCompressor.createZlibCompressor(),
+                                      MongoCompressor.createZstdCompressor()))
+        .build();
+   MongoClient client = MongoClients.create(settings);
+
+.. _compression-dependencies:
+
+Compression Algorithm Dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The JDK supports `Zlib <https://zlib.net/>`__ compression natively, but
+`Snappy <https://google.github.io/snappy/>`__ and
+`Zstandard <https://github.com/facebook/zstd/>`__ depend upon open source
+implementations. See 
+`snappy-java <https://github.com/xerial/snappy-java>`__ and
+`zstd-java <https://github.com/luben/zstd-jni>`__ for details.
+
+.. _connect-replica-set:
+
+Connect to a Replica Set
+------------------------
+
+A MongoDB replica set deployment is a group of connected instances that
+store the same set of data. This configuration of instances provides data
+redundancy and high data availability.
+
+To connect to a replica set deployment, specify the hostname and port numbers
+of one or more members of the replica set separated by commas.
+
+.. code-block:: none
+
+   mongodb://host1:27017,host2:27017,host3:27017/?replicaSet=myRs
+
+.. note::
+
+   Although it is possible to connect to a replica set deployment by
+   providing only a single host, you should provide the driver with the
+   full list to ensure that it is able to connect even if one host fails.
+
+.. _connection-options:
+
+Connection Options
+------------------
+
+This section explains MongoDB connection and authentication options
+supported by the Java driver. You can pass the connection options as
+parameters of the connection URI to specify the behavior of the client.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option Name
+     - Type
+     - Description
+
+   * - **maxPoolSize**
+     - integer
+     - Specifies the maximum size of the instance connection pool.
+
+   * - **waitQueueTimeoutMS**
+     - integer
+     - Specifies the maximum amount of time, in milliseconds, that a
+       thread may wait for a connection to become available.
+
+   * - **serverSelectionTimeoutMS**
+     - integer
+     - Specifies the maximum amount of time, in milliseconds, the driver
+       will wait for server selection to succeed before throwing an
+       exception.
+
+   * - **localThresholdMS**
+     - integer
+     - When communicating with multiple instances of MongoDB in a replica
+       set, the Java driver will only send requests to a server whose
+       response time is less than or equal to the server with the fastest
+       response time plus the local threshold, in milliseconds.
+
+   * - **heartbeatFrequencyMS**
+     - integer
+     - Specifies the frequency, in milliseconds, that the driver will
+       wait between attempts to determine the current state of each
+       server in the cluster.
+
+   * - **replicaSet**
+     - string
+     - Specifies that the :ref:`connection string <connection-uri>`
+       provided includes multiple hosts. When specified, the Java driver
+       attempts to find all members of that set.
+
+   * - **ssl**
+     - boolean
+     - Specifies that all communication with MongoDB instances should
+       use TLS.
+
+   * - **tls**
+     - boolean
+     - Specifies that all communication with MongoDB instances should
+       use TLS. Supersedes the **ssl** option.
+
+   * - **tlsInsecure**
+     - boolean
+     - Specifies that the driver should allow invalid host names for TLS
+       connections. Has the same effect as setting
+       **tlsAllowInvalidHostnames** to true. To relax TLS security
+       constraints in other ways, use a
+       :ref:`custom SSLContext <tls-custom-sslContext>`.
+
+   * - **sslInvalidHostNameAllowed**
+     - boolean
+     - Specifies that the driver should allow invalid host names for TLS
+       connections.
+
+   * - **tlsAllowInvalidHostnames**
+     - boolean
+     - Specifies that the driver should allow invalid host names for TLS
+       connections. Supersedes **sslInvalidHostNameAllowed**.
+
+   * - **connectTimeoutMS**
+     - integer
+     - Specifies the maximum amount of time, in milliseconds, the Java
+       driver will wait for a connection to open before timing out.
+
+   * - **socketTimeoutMS**
+     - integer
+     - Specifies the maximum amount of time, in milliseconds, the Java
+       driver will wait to send or receive a request before timing out.
+
+   * - **maxIdleTimeMS**
+     - integer
+     - Specifies the maximum amount of time, in milliseconds, the Java
+       driver will allow a pooled connection to idle before closing the
+       connection.
+
+   * - **maxLifeTimeMS**
+     - integer
+     - Specifies the maximum amount of time, in milliseconds, the Java
+       driver will continue to use a pooled connection before closing the
+       connection.
+
+   * - **safe**
+     - boolean
+     - Specifies that the driver ensures that all writes are acknowledged
+       by the connected MongoDB instance. Throws an exception on any write
+       that does not receive acknowledgement from the connected MongoDB
+       instance.
+
+   * - **journal**
+     - boolean
+     - Specifies that the driver must wait for the connected MongoDB
+       instance to group commit to the journal file on disk for all writes.
+
+   * - **w**
+     - string or integer
+     - Specifies the write concern. For more information on values, see
+       the server documentation for the :manual:`w option
+       </reference/write-concern/#w-option>`. Implies **safe=true**.
+
+   * - **wtimeoutMS**
+     - integer
+     - Specifies a time limit, in milliseconds, for the write concern. For
+       more information, see the server documentation for the
+       :manual:`wtimeoutMS option
+       </reference/connection-string/#urioption.wtimeoutMS>`. Implies
+       **safe=true**.
+
+   * - **readPreference**
+     - string
+     - Specifies the read preference. For more information on values, see
+       the server documentation for the :manual:`readPreference option
+       </reference/connection-string/#urioption.readPreference>`.
+
+   * - **readPreferenceTags**
+     - string
+     - Specifies the read preference tags. For more information on values, see
+       the server documentation for the :manual:`readPreferenceTags option
+       </reference/connection-string/#urioption.readPreferenceTags>`.
+
+   * - **maxStalenessSeconds**
+     - integer
+     - Specifies, in seconds, how stale a secondardy can be before the
+       Java driver stops communicating with that secondary. Not providing
+       a parameter or explicitly setting it to ``-1`` indicates that there
+       should be no staleness check for secondaries. The minimum value is
+       either 90 seconds or the hearbeat frequency plus 10 seconds, whichever
+       is greater. For more information, see the server documentation for the
+       :manual:`maxStalenessSeconds option
+       </reference/connection-string/#urioption.maxStalenessSeconds>`.
+
+   * - **authMechanism**
+     - string
+     - Specifies the authentication mechanism that the Java driver should
+       use if a credential was supplied. By default, the client will pick
+       the most secure mechanism available based on the server version.
+       Possible values include: ``MONGO-CR``, ``GSSAPI``, ``PLAIN``, and
+       ``MONGODB-X509``.
+
+   * - **authSource**
+     - string
+     - Specifies the database that the supplied credentials should be
+       validated against. Defaults to ``admin``.
+
+   * - **authMechanismProperties**
+     - string
+     - Specifies authentication properties for the specified authentication
+       mechanism. For more information, see the server
+       documentation for the :manual:`authMechanismProperties option
+       </reference/connection-string/#urioption.authMechanismProperties>`.
+
+   * - **authMechanismProperties**
+     - string
+     - Specifies authentication properties for the specified authentication
+       mechanism as a list of colon-separated properties and values.
+       For more information, see the MongoDB Manual documentation for
+       the :manual:`authMechanismProperties option
+       </reference/connection-string/#urioption.authMechanismProperties>`.
+
+   * - **appName**
+     - string
+     - Specifies the name of the application provided to MongoDB instances
+       during the connection handshake. Can be used for server logs and
+       profiling.
+
+   * - **compressors**
+     - string
+     - Specifies one or more compression algorithms that the Java driver
+       will attempt to use to compress requests sent to the connected
+       MongoDB instance. Possible values include: ``zlib``, ``snappy``,
+       and ``zstd``.
+
+   * - **zlibCompressionLevel**
+     - integer
+     - Specifies the degree of compression that `Zlib <https://zlib.net/>`__
+       should employ to decrease the size of requests to the connected
+       MongoDB instance. The level can range from ``-1`` to ``9``, with
+       lower values compressing faster (but resulting in larger requests)
+       and larger values compressing slower (but resulting in smaller
+       requests).
+
+   * - **retryWrites**
+     - boolean
+     - Specifies that the Java driver must retry supported write operations
+       if they fail due to a network error. Defaults to true.
+
+   * - **retryReads**
+     - boolean
+     - Specifies that the Java driver must retry supported read operations
+       if they fail due to a network error. Defaults to true.
+
+   * - **uuidRepresentation**
+     - string
+     - Specifies the UUID representation to use for read and write
+       operations. For more information, see the the driver documentation
+       for the :java-sync-api:`MongoClientSettings.getUuidRepresentation() method
+       <com/mongodb/MongoClientSettings.html#getUuidRepresentation()>`.
+
+   * - **directConnection**
+     - boolean
+     - Specifies that the Java driver must connect to the host directly.
+
+For a complete list of options, see the :java-sync-api:`ConnectionString
+<com/mongodb/ConnectionString.html>` API reference page.
