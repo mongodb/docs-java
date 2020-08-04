@@ -101,8 +101,8 @@ Wildfly (formerly JBoss)
    ``mongo-java-driver.jar`` jar file into the module. Add the following
    ``module.xml`` file into the module:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/wildfly-module-4.0.0.xml
-   :language: xml
+   .. literalinclude:: /includes/fundamentals/code-snippets/wildfly-module-4.0.0.xml
+      :language: xml
 
 
 #. Add a binding to the naming subsystem configuration that references the
@@ -188,7 +188,8 @@ redundancy and high data availability.
 
 To connect to a replica set deployment, specify the hostname (or IP address)
 and port numbers of one or more members of the replica set separated by commas.
-Use the :ref:`replica set option <replica-set-option>` to specify the name
+Use the :manual:`replica set option
+</reference/connection-string/#urioption.replicaSet>` to specify the name
 of the replica set with which your application is connecting. When the
 replica set option is specified, the driver assumes that your
 connection string uses a seed list of multiple hosts instead of a single
@@ -324,8 +325,6 @@ parameters of the connection URI to specify the behavior of the client.
      - Specifies the frequency, in milliseconds, that the driver will
        wait between attempts to determine the current state of each
        server in the cluster.
-
-.. _replica-set-option:
 
    * - **replicaSet**
      - string
