@@ -26,7 +26,7 @@ public class RunCommand {
                 Document commandResult = database.runCommand(command);
                 System.out.println("Connected successfully to server.");
             } catch (MongoException me) {
-                System.err.println("An error occurred: " + me);
+                System.err.println("An error occurred while attempting to run a command: " + me);
             }
         }
     }
