@@ -18,38 +18,45 @@ to use TLS/SSL, enable the TLS/SSL settings in either the
 <com/mongodb/ConnectionString.html>` or :java-sync-api:`MongoClientSettings
 <com/mongodb/MongoClientSettings.html>` objects.
 
-.. _tls-connectionstring:
+.. _tls-enable:
 
-Enable TLS/SSL via Connection String
-------------------------------------
+Enable TLS/SSL
+--------------
 
-To enable TLS/SSL on a connection with a :java-sync-api:`ConnectionString
-<com/mongodb/ConnectionString.html>`, assign the connection string
-parameter ``tls`` a value of ``true`` in the connection string passed to
-``MongoClients.create()``:
+You can enable TLS/SSL for the connection to your MongoDB instance
+in two different ways: through a parameter in your connection string, or
+using a method in the ``MongoClientSettings.Builder`` class.
 
-.. code-block:: java
+.. tabs::
 
-   MongoClient mongoClient = MongoClients.create("mongodb+srv://<user>:<password>@<cluster-url>?tls=true");
+   .. tab:: ConnectionString
+      :tabid: connectionstring
 
-.. _tls-mongoclientsettings:
+      To enable TLS/SSL on a connection with a :java-sync-api:`ConnectionString
+      <com/mongodb/ConnectionString.html>`, assign the connection string
+      parameter ``tls`` a value of ``true`` in the connection string passed to
+      ``MongoClients.create()``:
 
-Enable TLS/SSL via Mongo Client Settings
-----------------------------------------
+      .. code-block:: java
 
-To configure your ``MongoClient``'s TLS/SSL connection options using the
-``MongoClientSettings.Builder`` class, call the :java-sync-api:`applyToSslSettings()
-<com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
-method. Set the ``enabled`` property to ``true`` in the ``SslSettings.Builder``
-block to enable TLS/SSL:
+         MongoClient mongoClient = MongoClients.create("mongodb+srv://<user>:<password>@<cluster-url>?tls=true");
 
-.. code-block:: java
+   .. tab:: MongoClientSettings
+      :tabid: mongoclientsettings
 
-   MongoClientSettings settings = MongoClientSettings.builder()
-        .applyToSslSettings(builder -> 
-            builder.enabled(true))
-        .build();
-   MongoClient client = MongoClients.create(settings);
+      To configure your ``MongoClient``'s TLS/SSL connection options using the
+      ``MongoClientSettings.Builder`` class, call the :java-sync-api:`applyToSslSettings()
+      <com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
+      method. Set the ``enabled`` property to ``true`` in the ``SslSettings.Builder``
+      block to enable TLS/SSL:
+
+      .. code-block:: java
+
+         MongoClientSettings settings = MongoClientSettings.builder()
+                .applyToSslSettings(builder -> 
+                    builder.enabled(true))
+                .build();
+         MongoClient client = MongoClients.create(settings);
 
 .. _tls_configure-certificates:
 
@@ -128,7 +135,7 @@ TLS/SSL certificate(s) matches the hostname(s) provided when constructing
 a ``MongoClient``. If you need to disable hostname verification for your
 application, you can explicitly disable this by setting the
 ``invalidHostNameAllowed`` property of the builder to ``true`` in the
-``applytoSslSettings()`` builder block:
+``applytoSslSettings()`` builder lambda:
 
 .. code-block:: java
 
@@ -170,7 +177,7 @@ If your TLS/SSL configuration requires additional customization, you can
 set the ``sslContext`` property of your ``MongoClient`` by
 passing an `SSLContext
 <https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/class-use/SSLContext.html>`__
-object to the builder in the ``applyToSslSettings()`` block:
+object to the builder in the ``applyToSslSettings()`` lambda:
 
 .. code-block:: java
 

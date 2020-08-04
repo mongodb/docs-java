@@ -14,8 +14,14 @@ Connection Guide
    /fundamentals/connection/jndi
 
 This guide shows you how to connect to a MongoDB instance or replica set
-deployment using the driver. For information about authenticating
-with a MongoDB instance, see :ref:`Authentication <authentication>`.
+deployment using the driver.
+
+For information about authenticating with a MongoDB instance,
+see :doc:`Authentication </fundamentals/auth>`. To learn more about using
+the driver with the Java Naming and Directory Interface (JNDI), see
+:doc:`JNDI <fundamentals/connection/jndi>`. To configure TLS/SSL security
+for connections to your MongoDB instance, see :doc:`TLS/SSL
+<fundamentals/connection/tls>`.
 
 .. _mongoclient:
 
@@ -135,51 +141,58 @@ You can specify one or more compression algorithms, but the driver uses
 the first compressor in the list supported by the connected
 MongoDB instance.
 
-.. _compression-connectionstring:
+.. _compression:
 
-Enable Compression via Connection String
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enable Compression
+~~~~~~~~~~~~~~~~~~
 
-To enable compression with a :java-sync-api:`ConnectionString
-<com/mongodb/ConnectionString.html>`, use the parameter ``compressors``
-in the connection string passed to
-``MongoClients.create()``. You can specify one or more compression
-algorithms, separating multiple algorithms with commas:
+You can enable compression for the connection to your MongoDB instance
+in two different ways: through a parameter in your connection string, or
+using a method in the ``MongoClientSettings.Builder`` class.
 
-.. code-block:: java
+.. tabs::
 
-   ConnectionString connectionString = new ConnectionString("mongodb+srv://<user>:<password>@<cluster-url>?compressors=snappy,zlib,zstd");
-   MongoClient mongoClient = MongoClients.create(connectionString);
+   .. tab:: ConnectionString
+      :tabid: connectionstring
 
-Specify compression algorithms using the following strings:
+      To enable compression with a :java-sync-api:`ConnectionString
+      <com/mongodb/ConnectionString.html>`, use the parameter ``compressors``
+      in the connection string passed to
+      ``MongoClients.create()``. You can specify one or more compression
+      algorithms, separating multiple algorithms with commas:
 
-- "snappy" for `Snappy <https://google.github.io/snappy/>`__ compression.
+      .. code-block:: java
 
-- "zlib" for `Zlib <https://zlib.net/>`__ compression.
+         ConnectionString connectionString = new ConnectionString("mongodb+srv://<user>:<password>@<cluster-url>?compressors=snappy,zlib,zstd");
+         MongoClient mongoClient = MongoClients.create(connectionString);
 
-- "zstd" for `Zstandard <https://github.com/facebook/zstd/>`__ compression.
+      Specify compression algorithms using the following strings:
 
-.. _compression-mongoclientsettings:
+      - "snappy" for `Snappy <https://google.github.io/snappy/>`__ compression.
 
-Enable Compression via Mongo Client Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      - "zlib" for `Zlib <https://zlib.net/>`__ compression.
 
-To enable compression with :java-sync-api:`MongoClientSettings
-<com/mongodb/MongoClientSettings.html>`, pass the
-:java-sync-api:`compressorList()
-<com/mongodb/MongoClientSettings.Builder.html#compressorList(java.util.List)>`
-builder method a list of :java-sync-api:`MongoCompressor <com/mongodb/MongoCompressor.html>`
-instances. You can specify one or more compression algorithms in the list:
+      - "zstd" for `Zstandard <https://github.com/facebook/zstd/>`__ compression.
 
-.. code-block:: java
-   :emphasize-lines: 2-4
+   .. tab:: MongoClientSettings
+      :tabid: mongoclientsettings
 
-   MongoClientSettings settings = MongoClientSettings.builder()
-        .compressorList(Arrays.asList(MongoCompressor.createSnappyCompressor(),
-                                      MongoCompressor.createZlibCompressor(),
-                                      MongoCompressor.createZstdCompressor()))
-        .build();
-   MongoClient client = MongoClients.create(settings);
+      To enable compression with :java-sync-api:`MongoClientSettings
+      <com/mongodb/MongoClientSettings.html>`, pass the
+      :java-sync-api:`compressorList()
+      <com/mongodb/MongoClientSettings.Builder.html#compressorList(java.util.List)>`
+      builder method a list of :java-sync-api:`MongoCompressor <com/mongodb/MongoCompressor.html>`
+      instances. You can specify one or more compression algorithms in the list:
+
+      .. code-block:: java
+         :emphasize-lines: 2-4
+
+         MongoClientSettings settings = MongoClientSettings.builder()
+              .compressorList(Arrays.asList(MongoCompressor.createSnappyCompressor(),
+                                            MongoCompressor.createZlibCompressor(),
+                                            MongoCompressor.createZstdCompressor()))
+              .build();
+         MongoClient client = MongoClients.create(settings);
 
 .. _compression-dependencies:
 

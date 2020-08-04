@@ -9,93 +9,92 @@ Java Naming and Directory Interface (JNDI)
    :depth: 2
    :class: singlecol
 
-MongoClientFactory includes a `JNDI <http://docs.oracle.com/javase/8/docs/technotes/guides/jndi/index.html>`__
+MongoClientFactory includes a `JNDI
+<http://docs.oracle.com/javase/8/docs/technotes/guides/jndi/index.html>`__
 ``ObjectFactory`` implementation that returns ``MongoClient`` instances
 based on a :ref:`connection URI <connection-uri>`. Follow the guides
 below to configure your application to connect using a JNDI DataSource.
 
-.. _jndi-wildfly:
+.. tabs::
 
-Wildfly (formerly JBoss)
-------------------------
+   .. tab:: Wildfly (formerly JBoss)
+      :tabid: wildfly
 
-1. In a `Wildfly <http://wildfly.org/>`__ installation, create a new module
-   for MongoDB at `modules/system/layers/base/org/mongodb/main`. Copy the
-   ``mongo-java-driver.jar`` jar file into the module. Add the following
-   ``module.xml`` file into the module:
+      1. In a `Wildfly <http://wildfly.org/>`__ installation, create a new module
+         for MongoDB at `modules/system/layers/base/org/mongodb/main`. Copy the
+         ``mongo-java-driver.jar`` jar file into the module. Add the following
+         ``module.xml`` file into the module:
 
-   .. literalinclude:: /includes/fundamentals/code-snippets/wildfly-module-4.0.0.xml
-      :language: xml
+         .. literalinclude:: /includes/fundamentals/code-snippets/wildfly-module-4.0.0.xml
+            :language: xml
 
 
-#. Add a binding to the naming subsystem configuration that references the
-   above module, the ``MongoClientFactory`` class, and the
-   :ref:`connection string <connection-uri>` for the MongoDB cluster.
+      #. Add a binding to the naming subsystem configuration that references the
+         above module, the ``MongoClientFactory`` class, and the
+         :ref:`connection string <connection-uri>` for the MongoDB cluster.
 
-   .. code-block:: xml
+         .. code-block:: xml
 
-      <subsystem xmlns="urn:jboss:domain:naming:2.0">
-         <bindings>
-            <object-factory name="java:global/MyMongoClient" module="org.mongodb" class="com.mongodb.client.MongoClientFactory">
-               <environment>
-                  <property name="connectionString" value="mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority"/>
-               </environment>
-            </object-factory>
-         </bindings>
-         <remote-naming/>
-      </subsystem>
+            <subsystem xmlns="urn:jboss:domain:naming:2.0">
+               <bindings>
+                  <object-factory name="java:global/MyMongoClient" module="org.mongodb" class="com.mongodb.client.MongoClientFactory">
+                     <environment>
+                        <property name="connectionString" value="mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority"/>
+                     </environment>
+                  </object-factory>
+               </bindings>
+               <remote-naming/>
+            </subsystem>
 
-   .. note::
+         .. note::
 
-      Replace the placeholder connection value URI in the ``property`` tag
-      with a value that points to your MongoDB installation.
+            Replace the placeholder connection value URI in the ``property`` tag
+            with a value that points to your MongoDB installation.
 
-This will make a MongoClient instance accessible via the JNDI name
-``MyMongoClient`` in the ``java:global`` context.
+      This will make a MongoClient instance accessible via the JNDI name
+      ``MyMongoClient`` in the ``java:global`` context.
 
-.. _jndi-tomcat:
+   .. tab:: Tomcat
+      :tabid: tomcat
 
-Tomcat
-------
+      1. Copy the ``mongo-java-driver.jar`` jar file into the ``lib`` directory
+         of your `Tomcat <http://tomcat.apache.org/>`__ installation.
 
-1. Copy the ``mongo-java-driver.jar`` jar file into the ``lib`` directory
-   of your `Tomcat <http://tomcat.apache.org/>`__ installation.
+      #. In ``context.xml`` of your application, add a resource that references
+         the ``MongoClientFactory`` class and the :ref:`connection string
+         <connection-uri>` for the MongoDB cluster:
 
-#. In ``context.xml`` of your application, add a resource that references
-   the ``MongoClientFactory`` class and the :ref:`connection string
-   <connection-uri>` for the MongoDB cluster:
+         .. code-block:: xml
 
-   .. code-block:: xml
+            <Resource name="mongodb/MyMongoClient"
+               auth="Container"
+               type="com.mongodb.MongoClient"
+               closeMethod="close"
+               factory="com.mongodb.client.MongoClientFactory"
+               singleton="true"
+               connectionString="mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority"/>
 
-      <Resource name="mongodb/MyMongoClient"
-         auth="Container"
-         type="com.mongodb.MongoClient"
-         closeMethod="close"
-         factory="com.mongodb.client.MongoClientFactory"
-         singleton="true"
-         connectionString="mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority"/>
+         .. note::
 
-   .. note::
+            Replace the placeholder connection value URI in the ``connectionString``
+            attribute with a value that points to your MongoDB installation.
 
-      Replace the placeholder connection value URI in the ``connectionString``
-      attribute with a value that points to your MongoDB installation.
+      #. In ``web.xml`` of your application, add a reference to the
+         ``MongoClientFactory`` resource defined in the previous step:
 
-#. In ``web.xml`` of your application, add a reference to the
-   ``MongoClientFactory`` resource defined in the previous step:
+         .. code-block:: xml
 
-   .. code-block:: xml
+            <resource-ref>
+              <res-ref-name>
+                mongodb/MyMongoClient
+              </res-ref-name>
+              <res-type>
+                com.mongodb.MongoClient
+              </res-type>
+              <res-auth>
+                Container
+              </res-auth>
+            </resource-ref>
 
-      <resource-ref>
-        <res-ref-name>
-          mongodb/MyMongoClient
-        </res-ref-name>
-        <res-type>
-          com.mongodb.MongoClient
-        </res-type>
-        <res-auth>
-          Container
-        </res-auth>
-      </resource-ref>
-
-This will make a ``MongoClient`` instance accessible via the JNDI name
-``mongodb/MyMongoClient`` in the ``java:comp/env`` context.
+      This will make a ``MongoClient`` instance accessible via the JNDI name
+      ``mongodb/MyMongoClient`` in the ``java:comp/env`` context.
