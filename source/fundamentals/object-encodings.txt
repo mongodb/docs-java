@@ -16,7 +16,7 @@ method.
 To use a class in this way, a :java-docs:`Codec
 <apidocs/bson/org/bson/codecs/Codec.html>` for it must be registered in the
 :java-docs:`CodecRegistery
-<apidocs/bson/org/bson/codecs/configuration/CodecRegistry.html?is-external=true>`
+<apidocs/bson/org/bson/codecs/configuration/CodecRegistry.html>`
 of the ``MongoCollection``.
 
 Default Codecs
@@ -80,7 +80,7 @@ UUID Class
 ----------
 
 By default, the driver encodes instances of `UUID
-<https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/UUID.html?is-external=true>`__
+<https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/UUID.html>`__
 using a byte ordering that is not compatible with other MongoDB drivers.
 If your application requires interoperability across multiple drivers,
 you can change the default ``UUID`` encoding with the
