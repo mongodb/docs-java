@@ -15,7 +15,7 @@ Access a Database
 -----------------
 
 Use the :java-sync-api:`getDatabase()
-<com/mongodb/MongoClient.html#getDatabase(java.lang.String)>` method of
+<com/mongodb/client/MongoClient.html#getDatabase(java.lang.String)>` method of
 a ``MongoClient`` instance to access a database in a MongoDB instance.
 
 The following example accesses a database named "testDatabase":
@@ -61,8 +61,9 @@ Capped Collection
 ~~~~~~~~~~~~~~~~~
 
 To create a :manual:`collection with a maximum size </core/capped-collections>`, use the
-:java-sync-api:`CreateCollectionOptions.capped() <>`
-method with a specified size.
+:java-sync-api:`CreateCollectionOptions.capped()
+<com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`
+method with a specified size:
 
 .. code-bock:: java
 
