@@ -1,0 +1,133 @@
+=========================
+Databases and Collections
+=========================
+
+.. default-domain:: mongodb
+
+Overview
+--------
+
+MongoDB organizes data into databases, collections, and documents.
+Each MongoDB instance contains databases. Databases are comprised of
+collections. Collections contain documents.
+
+Access a Database
+-----------------
+
+Use the :java-sync-api:`getDatabase()
+<com/mongodb/MongoClient.html#getDatabase(java.lang.String)>` method of
+a ``MongoClient`` instance to access a database in a MongoDB instance.
+
+The following example accesses a database named "testDatabase":
+
+.. code-block:: java
+
+   MongoDatabase database = mongoClient.getDatabase("testDatabase");
+
+Access a Collection
+-------------------
+
+Use the :java-sync-api:`getCollection()
+<com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)>`
+method of a ``MongoDatabase`` instance to access a collection in a
+database of your connected MongoDB instance.
+
+The following example accesses a collection named "testCollection" from
+a ``MongoDatabase``:
+
+.. code-block:: java
+
+   MongoDatabase database = mongoClient.getDatabase("testDatabase");
+   MongoCollection<Document> collection = database.getCollection("testCollection");
+
+.. note::
+
+   If the provided collection name does not already exist in the database,
+   MongoDB implicitly creates the collection when you first insert data
+   into that collection.
+
+Create a Collection
+-------------------
+
+Use the :java-sync-api:`createCollection() 
+<com/mongodb/client/MongoDatabase.html#createCollection(java.lang.String,com.mongodb.client.model.CreateCollectionOptions)>`
+method of a ``MongoDatabase`` instance to create a collection in a
+database of your connected MongoDB instance. You can specify collection
+options like maximum size and document validation rules when using the
+:java-sync-api:`CreateCollectionOptions
+<com/mongodb/client/model/CreateCollectionOptions.html>` class.
+
+Capped Collection
+~~~~~~~~~~~~~~~~~
+
+To create a :manual:`collection with a maximum size </core/capped-collections>`, use the
+:java-sync-api:`CreateCollectionOptions.capped() <>`
+method with a specified size.
+
+.. code-bock:: java
+
+   database.createCollection("exampleCappedCollection",
+          new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
+
+Document Validation
+~~~~~~~~~~~~~~~~~~~
+
+MongoDB provides the ability to :manual:`validate documents
+</core/document-validation>` against a series of filters during writes
+to a collection. You can specify these filters using the
+:java-sync-api:`ValidationOptions
+<com/mongodb/client/model/ValidationOptions.html>` class, which accepts
+a filter document that specifies the validation rules and expressions:
+
+.. code-block:: java
+
+   ValidationOptions collOptions = new ValidationOptions().validator(
+        Filters.or(Filters.exists("commander"), Filters.exists("first officer")));
+   database.createCollection("ships",
+        new CreateCollectionOptions().validationOptions(collOptions));
+
+Get a List of Collections
+-------------------------
+
+You can query for a list of collections in a database using the
+:java-sync-api:`MongoDatabase.listCollectionNames()
+<com/mongodb/client/MongoDatabase.html#listCollectionNames()>` method:
+
+.. code-block:: java
+
+   for (String name : database.listCollectionNames()) {
+      System.out.println(name);
+   }
+
+Drop a Collection
+-----------------
+
+You can remove a collection from the database using the 
+:java-sync-api:`MongoCollection.drop()
+<com/mongodb/client/MongoCollection.html#drop()>` method:
+
+.. code-block:: java
+
+   MongoCollection<Document> collection = database.getCollection("bass");
+   collection.drop();
+
+Overriding Default Read and Write Concerns
+------------------------------------------
+
+Read and write concerns are usually shared across entire MongoDB instance
+connections. However, if you do need to execute operations with different
+read and write concerns from your usual defaults, you can use the
+following methods to obtain a separate instance of a collection or database
+with a different level of read concern, write concern, or read preference:
+
+- :java-sync-api:`MongoDatabase.withReadConcern <com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)>`
+
+- :java-sync-api:`MongoDatabase.withReadPreference <com/mongodb/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)>`
+
+- :java-sync-api:`MongoDatabase.withWriteConcern <com/mongodb/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)>`
+
+- :java-sync-api:`MongoCollection.withReadConcern <com/mongodb/client/MongoCollection.html#withReadConcern(com.mongodb.ReadConcern)>`
+
+- :java-sync-api:`MongoCollection.withReadPreference<com/mongodb/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)>`
+
+- :java-sync-api:`MongoCollection.withWriteConcern <com/mongodb/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)>`

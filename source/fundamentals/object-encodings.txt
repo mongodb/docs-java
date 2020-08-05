@@ -1,0 +1,91 @@
+===============
+Object Encoding
+===============
+
+.. default-domain:: mongodb
+
+Overview
+--------
+
+You can customize the class that represents BSON documents in a collection
+using an optional second parameter of the
+:java-sync-api:`MongoDatabase.getCollection()
+<com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`
+method.
+
+To use a class in this way, a :java-sync-api:`Codec
+<bson/org/bson/codecs/Codec.html>` for it must be registered in the
+:java-sync-api:`CodecRegistery
+<bson/org/bson/codecs/configuration/CodecRegistry.html?is-external=true>`
+of the ``MongoCollection``.
+
+Default Codecs
+--------------
+
+By default, every ``MongoCollection`` has ``Codec``s registered for
+three classes:
+
+- ``Document``
+- ``BasicDBObject``
+- ``BsonDocument``
+
+Custom Codecs
+-------------
+
+Applications are free to register ``Codec`` implementations for other
+classes by adding them to the ``CodecRegistery``. You can configure
+``CodecRegistery`` instances at the ``MongoClient``, ``MongoDatabase``,
+and ``MongoCollection`` levels.
+
+To register a ``Codec`` for a ``MongoClient``, use the
+``MongoClientSettings`` class:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .codecRegistry(codecRegistry).build();
+   MongoClient client = MongoClients.create(settings);
+
+To register a ``Codec`` for a ``MongoDatabase``, use the
+``withCodecRegistery()`` method:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+   MongoDatabase database = client.getDatabase("exampleDatabase")
+                               .withCodecRegistry(codecRegistry);
+
+To register a ``Codec`` for a ``MongoCollection``, use the
+``withCodecRegistery()`` method:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+   MongoCollection<Document> collection = database.getCollection("exampleCollection")
+                                               .withCodecRegistry(codecRegistry);
+
+UUID Class
+----------
+
+By default, the driver encodes instances of ``UUID`` using a byte
+ordering that is not compatible with other MongoDB drivers. If your
+application requires interoperability across multiple drivers, you can
+change the default ``UUID`` encoding with the
+``UuidRepresentation.STANDARD`` ``Codec``:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)),
+                               MongoClientSettings.getDefaultCodecRegistry());
+
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .codecRegistry(codecRegistry).build();
+   MongoClient client = MongoClients.create(settings);
