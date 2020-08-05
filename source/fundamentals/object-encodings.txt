@@ -15,7 +15,7 @@ method.
 
 To use a class in this way, a :java-docs:`Codec
 <apidocs/bson/org/bson/codecs/Codec.html>` for it must be registered in the
-:java-docs:`CodecRegistery
+:java-docs:`CodecRegistry
 <apidocs/bson/org/bson/codecs/configuration/CodecRegistry.html>`
 of the ``MongoCollection``.
 
@@ -33,8 +33,8 @@ Custom Codecs
 -------------
 
 Applications are free to register ``Codec`` implementations for other
-classes by adding them to the ``CodecRegistery``. You can configure
-``CodecRegistery`` instances at the ``MongoClient``, ``MongoDatabase``,
+classes by adding them to the ``CodecRegistry``. You can configure
+``CodecRegistry`` instances at the ``MongoClient``, ``MongoDatabase``,
 and ``MongoCollection`` levels.
 
 To register a ``Codec`` for a ``MongoClient``, use the
@@ -51,7 +51,7 @@ To register a ``Codec`` for a ``MongoClient``, use the
    MongoClient client = MongoClients.create(settings);
 
 To register a ``Codec`` for a ``MongoDatabase``, use the
-:java-sync-api:`withCodecRegistery()
+:java-sync-api:`withCodecRegistry()
 <com/mongodb/client/MongoDatabase.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
 method:
 
@@ -64,7 +64,7 @@ method:
                                .withCodecRegistry(codecRegistry);
 
 To register a ``Codec`` for a ``MongoCollection``, use the
-:java-sync-api:`withCodecRegistery()
+:java-sync-api:`withCodecRegistry()
 <com/mongodb/client/MongoCollection.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
 method:
 
