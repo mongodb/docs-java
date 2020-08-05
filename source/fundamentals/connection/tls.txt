@@ -18,6 +18,14 @@ to use TLS/SSL, enable the TLS/SSL settings in either the
 <com/mongodb/ConnectionString.html>` or :java-sync-api:`MongoClientSettings
 <com/mongodb/MongoClientSettings.html>` objects.
 
+.. note:: Debugging TLS/SSL
+
+   If you experience trouble setting up your TLS/SSL connection, you can
+   use the ``-Djavax.net.debug=all`` system property to view additional
+   log statements. See `the Oracle guide to debugging TLS/SSL connections
+   <https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html>`__
+   for more information.
+
 .. _tls-enable:
 
 Enable TLS/SSL
