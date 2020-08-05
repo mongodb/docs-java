@@ -54,15 +54,15 @@ Use the :java-sync-api:`createCollection()
 method of a ``MongoDatabase`` instance to create a collection in a
 database of your connected MongoDB instance. You can specify collection
 options like maximum size and document validation rules when using the
-:java-core-api:`CreateCollectionOptions
-<com/mongodb/client/model/CreateCollectionOptions.html?is-external=true>` class.
+`CreateCollectionOptions
+<http://mongodb.github.io/mongo-java-driver/4.0/apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html?is-external=true>`__ class.
 
 Capped Collection
 ~~~~~~~~~~~~~~~~~
 
 To create a :manual:`collection with a maximum size </core/capped-collections>`, use the
-:java-core-api:`CreateCollectionOptions.capped()
-<com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`
+`CreateCollectionOptions.capped()
+<http://mongodb.github.io/mongo-java-driver/4.0/apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`__
 method with a specified size:
 
 .. code-bock:: java
@@ -76,8 +76,9 @@ Document Validation
 MongoDB provides the ability to :manual:`validate documents
 </core/document-validation>` against a series of filters during writes
 to a collection. You can specify these filters using the
-:java-core-api:`ValidationOptions
-<com/mongodb/client/model/ValidationOptions.html>` class, which accepts
+`ValidationOptions
+<http://mongodb.github.io/mongo-java-driver/4.0/apidocs/mongodb-driver-core/com/mongodb/client/model/ValidationOptions.html>`__
+class, which accepts
 a filter document that specifies the validation rules and expressions:
 
 .. code-block:: java
