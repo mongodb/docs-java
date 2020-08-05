@@ -54,14 +54,14 @@ Use the :java-sync-api:`createCollection()
 method of a ``MongoDatabase`` instance to create a collection in a
 database of your connected MongoDB instance. You can specify collection
 options like maximum size and document validation rules when using the
-:java-sync-api:`CreateCollectionOptions
-<com/mongodb/client/model/CreateCollectionOptions.html>` class.
+:java-core-api:`CreateCollectionOptions
+<com/mongodb/client/model/CreateCollectionOptions.html?is-external=true>` class.
 
 Capped Collection
 ~~~~~~~~~~~~~~~~~
 
 To create a :manual:`collection with a maximum size </core/capped-collections>`, use the
-:java-sync-api:`CreateCollectionOptions.capped()
+:java-core-api:`CreateCollectionOptions.capped()
 <com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`
 method with a specified size:
 
@@ -76,7 +76,7 @@ Document Validation
 MongoDB provides the ability to :manual:`validate documents
 </core/document-validation>` against a series of filters during writes
 to a collection. You can specify these filters using the
-:java-sync-api:`ValidationOptions
+:java-core-api:`ValidationOptions
 <com/mongodb/client/model/ValidationOptions.html>` class, which accepts
 a filter document that specifies the validation rules and expressions:
 
