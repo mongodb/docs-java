@@ -54,32 +54,40 @@ Use the :java-sync-api:`createCollection()
 method of a ``MongoDatabase`` instance to create a collection in a
 database of your connected MongoDB instance. You can specify collection
 options like maximum size and document validation rules when using the
-`CreateCollectionOptions
-<http://mongodb.github.io/mongo-java-driver/4.0/apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html>`__ class.
+:java-docs:`CreateCollectionOptions
+<apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html>`
+class.
+
+.. code-block:: java
+
+   database.createCollection("exampleCappedCollection");
 
 Capped Collection
 ~~~~~~~~~~~~~~~~~
 
-To create a :manual:`collection with a maximum size </core/capped-collections>`, use the
-`CreateCollectionOptions.capped()
-<http://mongodb.github.io/mongo-java-driver/4.0/apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`__
+A **capped collection** is a collection with a preset maximum size.
+To create a capped collection, use the :java-docs:`CreateCollectionOptions.capped()
+<apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`
 method with a specified size:
 
 .. code-bock:: java
 
-   database.createCollection("exampleCappedCollection",
-          new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
+   database.createCollection("exampleCappedCollection", 
+      new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
+
+For more information, see the :manual:`server documentation for capped
+collections </core/capped-collections>`.
 
 Document Validation
 ~~~~~~~~~~~~~~~~~~~
 
-MongoDB provides the ability to :manual:`validate documents
-</core/document-validation>` against a series of filters during writes
-to a collection. You can specify these filters using the
-`ValidationOptions
-<http://mongodb.github.io/mongo-java-driver/4.0/apidocs/mongodb-driver-core/com/mongodb/client/model/ValidationOptions.html>`__
-class, which accepts
-a filter document that specifies the validation rules and expressions:
+**Document validation** provides the ability to validate documents
+against a series of filters during writes to a collection. You can
+specify these filters using the :java-docs:`ValidationOptions
+<apidocs/mongodb-driver-core/com/mongodb/client/model/ValidationOptions.html>`
+class, which accepts a series of :java-docs:`Filters
+<apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`
+that specifies the validation rules and expressions:
 
 .. code-block:: java
 
@@ -87,6 +95,9 @@ a filter document that specifies the validation rules and expressions:
         Filters.or(Filters.exists("commander"), Filters.exists("first officer")));
    database.createCollection("ships",
         new CreateCollectionOptions().validationOptions(collOptions));
+
+For more information, see the :manual:`server documentation for document
+validation </core/document-validation>`.
 
 Get a List of Collections
 -------------------------
@@ -113,23 +124,50 @@ You can remove a collection from the database using the
    MongoCollection<Document> collection = database.getCollection("bass");
    collection.drop();
 
-Overriding Default Read and Write Concerns
-------------------------------------------
+.. warning:: Dropping a Collection Deletes All Data in the Collection
 
-Read and write concerns are usually shared across entire MongoDB instance
-connections. However, if you do need to execute operations with different
-read and write concerns from your usual defaults, you can use the
-following methods to obtain a separate instance of a collection or database
-with a different level of read concern, write concern, or read preference:
+   Dropping a collection from your database also implicitly removes all
+   documents that previously belonged to that collection. Only drop
+   collections that contain data that is no longer needed.
 
-- :java-sync-api:`MongoDatabase.withReadConcern <com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)>`
+Specify Read Preferences, Read Concerns and  Write Concerns
+-----------------------------------------------------------
 
-- :java-sync-api:`MongoDatabase.withReadPreference <com/mongodb/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)>`
+**Read preferences**, **read concerns**, and **write concerns** control
+how the driver routes read operations and waits for acknowledgement for
+read and write operations when connected to a MongoDB replica set.
 
-- :java-sync-api:`MongoDatabase.withWriteConcern <com/mongodb/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)>`
+Read preferences, read concerns, and write concerns apply to all
+read and write operations, and default settings are shared across entire
+MongoDB instance connections at the MongoClient level.
 
-- :java-sync-api:`MongoCollection.withReadConcern <com/mongodb/client/MongoCollection.html#withReadConcern(com.mongodb.ReadConcern)>`
+However, if your application requires a different read preference, read
+concern, or write concern for a ``MongoDatabase`` or ``MongoCollection``,
+you can use the following methods to obtain an instance of a collection
+or database with your preferred preference or concern:
 
-- :java-sync-api:`MongoCollection.withReadPreference<com/mongodb/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)>`
+- :java-sync-api:`MongoDatabase.withReadConcern() <com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)>`
 
-- :java-sync-api:`MongoCollection.withWriteConcern <com/mongodb/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)>`
+- :java-sync-api:`MongoDatabase.withReadPreference() <com/mongodb/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)>`
+
+- :java-sync-api:`MongoDatabase.withWriteConcern() <com/mongodb/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)>`
+
+- :java-sync-api:`MongoCollection.withReadConcern()<com/mongodb/client/MongoCollection.html#withReadConcern(com.mongodb.ReadConcern)>`
+
+- :java-sync-api:`MongoCollection.withReadPreference() <com/mongodb/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)>`
+
+- :java-sync-api:`MongoCollection.withWriteConcern() <com/mongodb/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)>`
+
+.. note::
+
+   The ``withReadConcern()``, ``withReadPrefrence()``, and
+   ``withWriteConcern`` methods create a new instance of a
+   ``MongoDatabase`` or ``MongoCollection`` with the desired preference
+   or concern. The ``MongoDatabase`` or ``MongoCollection`` upon which
+   the method is called retains its original preference and concern
+   settings.
+
+For more information, see the server documentation on
+:manual:`read preferences <core/read-preference/>`,
+:manual:`read concerns <reference/read-concern/>`, and
+:manual:`write concerns <reference/write-concern/>`.
