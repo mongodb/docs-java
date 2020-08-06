@@ -1,0 +1,134 @@
+====================
+Object Serialization
+====================
+
+.. default-domain:: mongodb
+
+Overview
+--------
+
+MongoDB stores data as :manual:`MongoDB Extended JSON
+<reference/mongodb-extended-json/>` containing fields that correspond
+with BSON data types. **Object serialization** instructs the driver how to
+translate data between Extended JSON and Java objects. The driver uses
+``Codec``s to describe object serialization.
+
+You can choose the class that represents BSON documents in a collection
+using an optional second parameter of the
+:java-sync-api:`MongoDatabase.getCollection()
+<com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`
+method. To use a cutom class, you must pass a :java-docs:`Codec
+<apidocs/bson/org/bson/codecs/Codec.html>` that corresponds to the class
+to the :java-docs:`CodecRegistry
+<apidocs/bson/org/bson/codecs/configuration/CodecRegistry.html>`
+of the ``MongoCollection``.
+
+Default Codecs
+--------------
+
+By default, every ``MongoCollection`` has ``Codec``s registered for
+three classes:
+
+- ``Document``
+- ``BasicDBObject``
+- ``BsonDocument``
+
+This means that you can use the ``Document``, ``BasicDBObject``, and
+``BsonDocument`` classes to represent data in a ``MongoCollection``
+without explicitly specifying a ``Codec``. For instance, the following
+example creates three instances of the "exampleCollection" collection in
+the "exampleDatabase" database, one for each of classes with built-in
+serialization support:
+
+.. code-block:: java
+
+   MongoClient client = MongoClients.create("mongodb+srv://<user>:<password>@<cluster-url>");
+   MongoDatabase database = client.getDatabase("exampleDatabase");
+   MongoCollection<Document> documentCollection = database.getCollection("exampleCollection", Document.class);
+   MongoCollection<BasicDBObject> basidDBObjectCollection = database.getCollection("exampleCollection", BasicDBObject.class);
+   MongoCollection<BsonDocument> BsonDocumentCollection = database.getCollection("exampleCollection", BsonDocument.class);
+
+Custom Codecs
+-------------
+
+You can register a ``Codec`` implementation for other classes in your
+application by adding the custom ``Codec`` to the ``CodecRegistry``. You
+can configure ``CodecRegistry`` instances at the ``MongoClient``,
+``MongoDatabase``, and ``MongoCollection`` levels.
+
+Register a Custom Codec for a Client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add a ``Codec`` to the ``CodecRegistry`` of a ``MongoClient``, and all
+queries to any database or collection accessed through that
+``MongoClient`` have access to that ``Codec``.
+To register a ``Codec`` for a ``MongoClient``, use the
+:java-api-sync:`MongoClientSettings
+<com/mongodb/MongoClientSettings.html>` class:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .codecRegistry(codecRegistry).build();
+   MongoClient client = MongoClients.create(settings);
+
+Register a Custom Codec for a Database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add a ``Codec`` to the ``CodecRegistry`` of a ``MongoDatabase``, and all
+queries to any collection accessed through that ``MongoDatabase`` have
+access to that ``Codec``. To register a ``Codec`` for a
+``MongoDatabase``, use the :java-sync-api:`withCodecRegistry()
+<com/mongodb/client/MongoDatabase.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
+method:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+   MongoDatabase database = client.getDatabase("exampleDatabase")
+                               .withCodecRegistry(codecRegistry);
+
+Register a Custom Codec for a Collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add a ``Codec`` to the ``CodecRegistry`` of a ``MongoCollection``, and
+any queries against that collection have access to that ``Codec``.
+To register a ``Codec`` for a ``MongoCollection``, use the
+:java-sync-api:`withCodecRegistry()
+<com/mongodb/client/MongoCollection.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
+method:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+   MongoCollection<Document> collection = database.getCollection("exampleCollection")
+                                               .withCodecRegistry(codecRegistry);
+
+UUID Class
+----------
+
+By default, the driver encodes instances of the `UUID
+<https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/UUID.html>`__
+class using a byte ordering that is not compatible with other MongoDB drivers.
+If your application requires interoperability across multiple drivers,
+use the ``UUID`` serialization provided by the
+:java-sync-api:`UuidRepresentation.STANDARD
+<bson/org/bson/UuidRepresentation.html#STANDARD>` ``Codec`` as shown in
+the following example:
+
+.. code-block:: java
+
+   CodecRegistry codecRegistry =
+      CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)),
+                               MongoClientSettings.getDefaultCodecRegistry());
+
+   MongoClientSettings settings = MongoClientSettings.builder()
+        .codecRegistry(codecRegistry).build();
+   MongoClient client = MongoClients.create(settings);
