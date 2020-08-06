@@ -98,3 +98,11 @@ below to configure your application to connect using a JNDI DataSource.
 
       This will make a ``MongoClient`` instance accessible via the JNDI name
       ``mongodb/MyMongoClient`` in the ``java:comp/env`` context.
+
+.. note::
+
+   For JNDI implementations other than those listed here, you can create
+   your own ``Factory`` wrapper based on the driver's built-in 
+   :java-docs:`MongoClientFactory
+   <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClientFactory.html>`
+   implementation.
