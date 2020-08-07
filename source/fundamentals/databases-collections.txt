@@ -61,8 +61,8 @@ Create a Collection
 
 Use the :java-sync-api:`createCollection()
 <com/mongodb/client/MongoDatabase.html#createCollection(java.lang.String,com.mongodb.client.model.CreateCollectionOptions)>`
-method of a ``MongoDatabase`` instance to create a collection in a
-database of your connected MongoDB instance:
+method of a ``MongoDatabase`` instance to create a collection called
+"exampleCollection" in a database of your connected MongoDB instance:
 
 .. code-block:: java
 
@@ -85,7 +85,7 @@ method with a specified size:
 .. code-block:: java
 
    database.createCollection("exampleCappedCollection",
-      new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
+       new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
 
 For more information, see the server documentation for :manual:`capped
 collections </core/capped-collections>`.
@@ -104,9 +104,9 @@ that specifies the validation rules and expressions:
 .. code-block:: java
 
    ValidationOptions collOptions = new ValidationOptions().validator(
-        Filters.or(Filters.exists("commander"), Filters.exists("first officer")));
+       Filters.or(Filters.exists("commander"), Filters.exists("first officer")));
    database.createCollection("ships",
-        new CreateCollectionOptions().validationOptions(collOptions));
+       new CreateCollectionOptions().validationOptions(collOptions));
 
 For more information, see the server documentation for :manual:`document
 validation </core/document-validation>`.
@@ -121,7 +121,7 @@ You can query for a list of collections in a database using the
 .. code-block:: java
 
    for (String name : database.listCollectionNames()) {
-      System.out.println(name);
+       System.out.println(name);
    }
 
 Drop a Collection
