@@ -7,16 +7,26 @@ Databases and Collections
 Overview
 --------
 
-MongoDB organizes data into databases, collections, and documents.
-Each MongoDB instance contains databases. Databases are comprised of
-collections. Collections contain documents.
+MongoDB organizes data into a hierachy of the following levels:
+
+- databases
+
+- collections
+
+- documents
+
+Databases are the top level of data organization in a MongoDB instance.
+Databases are organized into collections, which contain documents.
+Documents contain literal data like strings, numbers, and dates as well
+as other (embedded) documents.
 
 Access a Database
 -----------------
 
 Use the :java-sync-api:`getDatabase()
 <com/mongodb/client/MongoClient.html#getDatabase(java.lang.String)>` method of
-a ``MongoClient`` instance to access a database in a MongoDB instance.
+a ``MongoClient`` instance to access a ``MongoDatabase`` in a MongoDB
+instance.
 
 The following example accesses a database named "testDatabase":
 
@@ -29,8 +39,8 @@ Access a Collection
 
 Use the :java-sync-api:`getCollection()
 <com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)>`
-method of a ``MongoDatabase`` instance to access a collection in a
-database of your connected MongoDB instance.
+method of a ``MongoDatabase`` instance to access a
+``MongoCollection`` in a database of your connected MongoDB instance.
 
 The following example accesses a collection named "testCollection" from
 a ``MongoDatabase``:
@@ -49,18 +59,24 @@ a ``MongoDatabase``:
 Create a Collection
 -------------------
 
-Use the :java-sync-api:`createCollection() 
+Use the :java-sync-api:`createCollection()
 <com/mongodb/client/MongoDatabase.html#createCollection(java.lang.String,com.mongodb.client.model.CreateCollectionOptions)>`
 method of a ``MongoDatabase`` instance to create a collection in a
-database of your connected MongoDB instance. You can specify collection
-options like maximum size and document validation rules when using the
-:java-docs:`CreateCollectionOptions
-<apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html>`
-class.
+database of your connected MongoDB instance:
+
+.. code-block:: java
+
+   TODO: REMOVE THIS BLOCK THIS IS ONLY FOR TESTING A MISSING CODE-BLOCK
 
 .. code-block:: java
 
    database.createCollection("exampleCappedCollection");
+
+You can specify collection options like maximum size and document
+validation rules using the :java-docs:`CreateCollectionOptions
+<apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html>`
+class. ``createCollection()`` accepts an instance of
+``CreateCollectionOptions`` as an optional second parameter.
 
 Capped Collection
 ~~~~~~~~~~~~~~~~~
@@ -75,7 +91,7 @@ method with a specified size:
    database.createCollection("exampleCappedCollection", 
       new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
 
-For more information, see the :manual:`server documentation for capped
+For more information, see the server documentation for :manual:`capped
 collections </core/capped-collections>`.
 
 Document Validation
@@ -96,7 +112,7 @@ that specifies the validation rules and expressions:
    database.createCollection("ships",
         new CreateCollectionOptions().validationOptions(collOptions));
 
-For more information, see the :manual:`server documentation for document
+For more information, see the server documentation for :manual:`document
 validation </core/document-validation>`.
 
 Get a List of Collections
@@ -126,9 +142,9 @@ You can remove a collection from the database using the
 
 .. warning:: Dropping a Collection Deletes All Data in the Collection
 
-   Dropping a collection from your database also implicitly removes all
-   documents that previously belonged to that collection. Only drop
-   collections that contain data that is no longer needed.
+   Dropping a collection from your database also permanently deletes all
+   documents within that collection. Only drop collections that contain
+   data that is no longer needed.
 
 Specify Read Preferences, Read Concerns and  Write Concerns
 -----------------------------------------------------------
@@ -136,15 +152,15 @@ Specify Read Preferences, Read Concerns and  Write Concerns
 **Read preferences**, **read concerns**, and **write concerns** control
 how the driver routes read operations and waits for acknowledgement for
 read and write operations when connected to a MongoDB replica set.
-
 Read preferences, read concerns, and write concerns apply to all
-read and write operations, and default settings are shared across entire
-MongoDB instance connections at the MongoClient level.
+read and write operations.
 
-However, if your application requires a different read preference, read
-concern, or write concern for a ``MongoDatabase`` or ``MongoCollection``,
-you can use the following methods to obtain an instance of a collection
-or database with your preferred preference or concern:
+``MongoDatabase`` and ``MongoCollection`` instances inherit their
+concern and preference settings from the ``MongoClient`` used to create
+them. However, you can use the following methods to obtain an instance
+of a ``MongoDatabase`` or ``MongoCollection`` with a read preference,
+read concern, or write concern that differs from the setting in your
+``MongoClient``:
 
 - :java-sync-api:`MongoDatabase.withReadConcern() <com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)>`
 
@@ -160,7 +176,7 @@ or database with your preferred preference or concern:
 
 .. note::
 
-   The ``withReadConcern()``, ``withReadPrefrence()``, and
+   The ``withReadConcern()``, ``withReadPreference()``, and
    ``withWriteConcern`` methods create a new instance of a
    ``MongoDatabase`` or ``MongoCollection`` with the desired preference
    or concern. The ``MongoDatabase`` or ``MongoCollection`` upon which
