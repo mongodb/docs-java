@@ -11,7 +11,7 @@ MongoDB stores data as :manual:`MongoDB Extended JSON
 <reference/mongodb-extended-json/>` containing fields that correspond
 with BSON data types. **Object serialization** instructs the driver how to
 translate data between Extended JSON and Java objects. The driver uses
-``Codec``s to describe object serialization.
+the ``Codec`` class to describe object serialization.
 
 You can choose the class that represents BSON documents in a collection
 using an optional second parameter of the
@@ -26,7 +26,7 @@ of the ``MongoCollection``.
 Default Codecs
 --------------
 
-By default, every ``MongoCollection`` has ``Codec``s registered for
+By default, every ``MongoCollection`` has a ``Codec`` registered for
 three classes:
 
 - ``Document``
