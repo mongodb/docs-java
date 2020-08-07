@@ -102,9 +102,8 @@ To connect to a replica set deployment, specify the hostname (or IP address)
 and port numbers of one or more members of the replica set separated by commas.
 By default, specifying the hostname and port number of a single MongoDB
 instance only connects to the specified member of the replica set.
-However, you can automatically discover and connect all members of the
-replica set by creating a replica set connection in several different
-ways. To create a replica set connection:
+However, you can automatically discover and connect to all members of the
+replica set in several different ways. To create a replica set connection:
 
 - specify the name of the replica set using the ``replicaSet`` parameter
 
@@ -113,8 +112,7 @@ ways. To create a replica set connection:
 - specify multiple hosts, instead of a single host
 
 Each of these methods causes the driver to discover any unspecified
-hosts in the replica set, allowing additional resilience in the event of
-a host failure.
+hosts in the replica set.
 
 The connection string below specifies three hosts in the cluster and
 replica set named "myRs".
