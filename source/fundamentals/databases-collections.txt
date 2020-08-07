@@ -66,7 +66,7 @@ database of your connected MongoDB instance:
 
 .. code-block:: java
 
-   database.createCollection("exampleCappedCollection");
+   database.createCollection("exampleCollection");
 
 You can specify collection options like maximum size and document
 validation rules using the :java-docs:`CreateCollectionOptions
@@ -82,9 +82,13 @@ To create a capped collection, use the :java-docs:`CreateCollectionOptions.cappe
 <apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`
 method with a specified size:
 
+.. code-block:: java
+
+   EXAMPLE TEST
+
 .. code-bock:: java
 
-   database.createCollection("exampleCappedCollection", 
+   database.createCollection("exampleCappedCollection",
       new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
 
 For more information, see the server documentation for :manual:`capped
