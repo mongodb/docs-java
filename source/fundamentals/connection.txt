@@ -101,12 +101,20 @@ redundancy and high data availability.
 To connect to a replica set deployment, specify the hostname (or IP address)
 and port numbers of one or more members of the replica set separated by commas.
 By default, specifying the hostname and port number of a single MongoDB
-instance will cause the driver to only connect to the MongoDB instance provided.
-However, if you specify the name of the replica set using the
-``replicaSet`` parameter, the driver creates a replica set connection
-and will discover all of the members of the set. Specifying multiple hosts
-also causes the driver to create a replica set connection and discover
-all members of the set.
+instance only connects to the specified member of the replica set.
+However, you can automatically discover and connect all members of the
+replica set by creating a replica set connection in several different
+ways. To create a replica set connection:
+
+- specify the name of the replica set using the ``replicaSet`` parameter
+
+- specify the ``directConnection`` parameter with a value of ``false``
+
+- specify multiple hosts, instead of a single host
+
+Each of these methods causes the driver to discover any unspecified
+hosts in the replica set, allowing additional resilience in the event of
+a host failure.
 
 The connection string below specifies three hosts in the cluster and
 replica set named "myRs".
@@ -154,7 +162,7 @@ MongoDB instance.
    :ref:`add explicit dependencies <compression-dependencies>` for those
    algorithms.
 
-.. _compression:
+.. _compression-enable:
 
 Enable Compression
 ~~~~~~~~~~~~~~~~~~
