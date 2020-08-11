@@ -13,6 +13,12 @@ with BSON data types. **Object serialization** instructs the driver how to
 translate data between Extended JSON and Java objects. The driver uses
 the ``Codec`` class to describe object serialization.
 
+To use a custom method of object serialization, add a ``Codec`` to the
+``CodecRegistry`` of any ``MongoClient``, ``MongoDatabase``, or
+``MongoCollection``.
+
+
+
 You can choose the class that represents BSON documents in a collection
 using an optional second parameter of the
 :java-sync-api:`MongoDatabase.getCollection()
