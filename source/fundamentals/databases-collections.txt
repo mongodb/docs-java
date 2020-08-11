@@ -74,22 +74,6 @@ validation rules using the :java-docs:`CreateCollectionOptions
 class. ``createCollection()`` accepts an instance of
 ``CreateCollectionOptions`` as an optional second parameter.
 
-Capped Collection
-~~~~~~~~~~~~~~~~~
-
-A **capped collection** is a collection with a preset maximum size.
-To create a capped collection, use the :java-docs:`CreateCollectionOptions.capped()
-<apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html?is-external=true#capped(boolean)>`
-method with a specified size:
-
-.. code-block:: java
-
-   database.createCollection("exampleCappedCollection",
-       new CreateCollectionOptions().capped(true).sizeInBytes(0x100000));
-
-For more information, see the server documentation for :manual:`capped
-collections </core/capped-collections>`.
-
 Document Validation
 ~~~~~~~~~~~~~~~~~~~
 
