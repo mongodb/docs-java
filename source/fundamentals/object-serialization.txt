@@ -44,9 +44,12 @@ serialization support:
 
    MongoClient client = MongoClients.create("mongodb+srv://<user>:<password>@<cluster-url>");
    MongoDatabase database = client.getDatabase("exampleDatabase");
-   MongoCollection<Document> documentCollection = database.getCollection("exampleCollection", Document.class);
-   MongoCollection<BasicDBObject> basicDBObjectCollection = database.getCollection("exampleCollection", BasicDBObject.class);
-   MongoCollection<BsonDocument> BsonDocumentCollection = database.getCollection("exampleCollection", BsonDocument.class);
+   MongoCollection<Document> documentCollection =
+       database.getCollection("exampleCollection", Document.class);
+   MongoCollection<BasicDBObject> basicDBObjectCollection =
+       database.getCollection("exampleCollection", BasicDBObject.class);
+   MongoCollection<BsonDocument> BsonDocumentCollection =
+       database.getCollection("exampleCollection", BsonDocument.class);
 
 Custom Codecs
 -------------
@@ -57,14 +60,13 @@ which serialization is not supported by default with a **custom codec**.
 Create a Custom Codec
 ~~~~~~~~~~~~~~~~~~~~~
 
-To create a custom codec for your class, you can use a codec.
 You can create a custom codec for a class in the following ways:
 
-- use an existing non-default codec that is compatible
+- Use an existing non-default codec that is compatible
   with your class, such as :java-docs:`UuidCodec
   <apidocs/bson/org/bson/codecs/UuidCodec.html>`.
 
-- create your own codec by implementing the :java-docs:`Codec
+- Create your own codec by implementing the :java-docs:`Codec
   <apidocs/bson/org/bson/codecs/Codec.html>` interface in a
   codec class that serializes and deserializes your class.
 
@@ -92,7 +94,7 @@ Use a Custom Codec with a Client
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To customize the ``CodecRegistry`` of a ``MongoClient``, pass a
-``CodecRegistry`` to the :java-sync-api:`MongoClientSettings.Builder.codecRegistry()
+``CodecRegistry`` to the :java-docs:`MongoClientSettings.Builder.codecRegistry()
 <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#codecRegistry(org.bson.codecs.configuration.CodecRegistry)>` method in the
 ``MongoClientSettings`` builder object and pass the
 :java-api-sync:`MongoClientSettings <com/mongodb/MongoClientSettings.html>`
@@ -125,7 +127,7 @@ Use a Custom Codec with a Database
 ``MongoDatabase`` instance with a custom ``CodecRegistry`` from an
 existing ``MongoDatabase`` instance using the
 :java-sync-api:`MongoDatabase.withCodecRegistry()
-<apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
+<com/mongodb/client/MongoDatabase.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
 method.
 
 The following example creates a ``MongoDatabase`` with a
@@ -152,7 +154,7 @@ Use a Custom Codec with a Collection
 ``MongoCollection`` instance with a custom ``CodecRegistry`` from an
 existing ``MongoCollection`` instance using the
 :java-sync-api:`MongoCollection.withCodecRegistry()
-<apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
+<com/mongodb/client/MongoCollection.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
 method.
 
 The following example creates a ``MongoCollection`` with a
