@@ -15,15 +15,15 @@ data between Extended JSON and Java objects. You can specify how the
 driver should perform serialization using **codecs**.
 
 Codecs implement translation between Extended JSON and Java objects
-using methods that encode and decode data.
-Each ``CodecRegistry`` contains a list of codecs. When you specify a 
-``CodecRegistry`` for a ``MongoClient``, ``MongoDatabase``, or
-``MongoCollection``, the ``CodecRegistry`` is used for all subsequent
-operations on that object. Whenever you send or receive data from a
-connected MongoDB instance, the driver selects the first codec that can
-translate each object in the ``CodecRegistry`` of the
-``MongoClient``, ``MongoDatabase``, or ``MongoCollection`` used to
-communicate with the MongoDB instance.
+using methods that encode and decode data. Codecs accomplish this
+translation by implementing the ``Codec`` interface.
+Each ``CodecRegistry`` contains a list of codecs. Once specified for a
+``MongoClient``, ``MongoDatabase``, or ``MongoCollection``, a
+``CodecRegistry`` is used for all subsequent operations on that object.
+Whenever you send or receive data from a connected MongoDB instance,
+the driver selects the first codec that can translate each object in the
+``CodecRegistry`` of the ``MongoClient``, ``MongoDatabase``, or
+``MongoCollection`` used to communicate with the MongoDB instance.
 
 .. ref:: default-codecs
 
@@ -72,7 +72,8 @@ serialization support in the default ``CodecRegistry``:
 Custom Codecs
 -------------
 
-If the default codecs do not support pbject serialization for a class you need,
+If the default codecs do not support object serialization for a class
+you need (or you need to change the behavior of serialization of a class),
 you can specify a **custom codec**. Custom codecs specify how the driver
 should serialize data into :ref:`non-default classes <default-codecs>`.
 To serialize an unsupported class, you can:
