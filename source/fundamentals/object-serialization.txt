@@ -7,12 +7,13 @@ Object Serialization
 Overview
 --------
 
-**Object serialization** is the process of translating data between two
-mediums. MongoDB stores data as :manual:`MongoDB Extended JSON
-<reference/mongodb-extended-json/>` containing fields that correspond
-with BSON data types. The driver uses object serializatio to translate
-data between Extended JSON and Java objects. You can specify how the
-driver should perform serialization using **codecs**.
+**Object serialization** is the process of translating an in-memory
+object into a format that can be stored persistently. The reverse process
+is called deserialization. MongoDB stores data as documents containing
+fields with BSON values. The driver uses object
+serialization to translate data between Extended JSON and Java objects.
+You can specify how the driver should perform serialization
+using **codecs**.
 
 Codecs implement translation between Extended JSON and Java objects
 using methods that encode and decode data. Codecs accomplish this
@@ -31,7 +32,9 @@ Default Codecs
 --------------
 
 By default, every ``MongoClient`` uses a ``CodecRegistry`` that contains
-codecs allowing the serialization of three classes:
+codecs allowing the serialization of three classes and all the types
+those classes can contain (including objects of type ``Integer``,
+``Long``, ``Date``, and more):
 
 .. list-table:: Default Serializable Classes
    :widths: 40 60
