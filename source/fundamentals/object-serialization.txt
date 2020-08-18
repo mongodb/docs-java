@@ -1,6 +1,6 @@
-====================
-Object Serialization
-====================
+========================================
+Object Serialization and Deserialization
+========================================
 
 .. default-domain:: mongodb
 
@@ -12,15 +12,15 @@ object into a format that can be stored persistently. The reverse process
 is called deserialization. MongoDB stores data as documents containing
 fields with BSON values. The driver uses object
 serialization to translate data between BSON documents and Java objects.
-You can specify how the driver should perform serialization
-using **codecs**.
+You can specify how the driver should perform serialization and
+deserialization by configuring or writing **codecs**.
 
-Codecs implement translation between Extended JSON and Java objects
+Codecs implement translation between BSON and Java types
 according to the ``Codec`` interface using methods that serialize and
-deserialize data. A ``CodecRegistry`` is a class that contains a list
-of codec instances. You can specify a ``CodecRegistry`` for a
-``MongoClient``, ``MongoDatabase``, or ``MongoCollection`` to be
-used for all subsequent operations on that object.
+deserialize data. Tje ``CodecRegistry`` provides the mechanism that maps
+Java object tpes to a specific codec instance. You can specify a
+``CodecRegistry`` for a ``MongoClient``, ``MongoDatabase``, or
+``MongoCollection`` to be used for all subsequent operations on that object.
 Whenever you send or receive data from a connected MongoDB instance,
 the driver selects the first codec that can translate each object in the
 ``CodecRegistry`` of the ``MongoClient``, ``MongoDatabase``, or
@@ -32,9 +32,8 @@ Default Codecs
 --------------
 
 By default, every ``MongoClient`` uses a ``CodecRegistry`` that contains
-codecs allowing the serialization of three classes and many standard
-Java types those classes can contain, including objects of type
-``Integer``, ``Long``, ``Date``, and more:
+codecs allowing the serialization of the main document classes and many
+standard Java types those classes can contain:
 
 .. list-table:: Default Serializable Classes
    :widths: 40 60
@@ -53,13 +52,24 @@ Java types those classes can contain, including objects of type
    * - :java-docs:`BsonDocument <apidocs/bson/org/bson/BsonDocument.html>`
      - :java-docs:`BsonDocumentCodec <apidocs/bson/org/bson/codecs/BsonDocumentCodec.html>`
 
+``Document`` is the general all-purpose class for representing MongoDB
+documents. ``BsonDocument`` provides a type-safe alternative where all
+values reflect a ``Bson`` type.
+
+.. note::
+
+   ``BasicDBObject`` and ``DBObject`` are legacy types. Prefer the
+   ``Document`` or ``BsonDocument`` classes for new development.
+
 Because the default ``CodecRegistry`` contains the codecs for these
 classes, you can use the ``Document``, ``BasicDBObject``, and
 ``BsonDocument`` classes to represent data in a ``MongoCollection``
 without explicitly specifying a codec. For instance, the following
-example creates three instances of the ``exampleCollection`` collection
-in the ``exampleDatabase`` database, one for each class with
-serialization support in the default ``CodecRegistry``:
+example creates an instance of the ``exampleCollection`` collection
+in the ``exampleDatabase`` database that represents documents using the
+the ``Document`` class. The following example also creates an instance
+of the same collection that represents documents using the
+``BsonDocument`` class:
 
 .. code-block:: java
 
@@ -67,8 +77,6 @@ serialization support in the default ``CodecRegistry``:
    MongoDatabase database = client.getDatabase("exampleDatabase");
    MongoCollection<Document> documentCollection =
        database.getCollection("exampleCollection", Document.class);
-   MongoCollection<BasicDBObject> basicDBObjectCollection =
-       database.getCollection("exampleCollection", BasicDBObject.class);
    MongoCollection<BsonDocument> BsonDocumentCollection =
        database.getCollection("exampleCollection", BsonDocument.class);
 
