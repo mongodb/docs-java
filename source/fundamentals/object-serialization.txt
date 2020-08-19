@@ -17,8 +17,8 @@ deserialization by configuring or writing **codecs**.
 
 Codecs implement translation between BSON and Java types
 according to the ``Codec`` interface using methods that serialize and
-deserialize data. Tje ``CodecRegistry`` provides the mechanism that maps
-Java object tpes to a specific codec instance. You can specify a
+deserialize data. The ``CodecRegistry`` provides the mechanism that maps
+Java object types to a specific codec instance. You can specify a
 ``CodecRegistry`` for a ``MongoClient``, ``MongoDatabase``, or
 ``MongoCollection`` to be used for all subsequent operations on that object.
 Whenever you send or receive data from a connected MongoDB instance,
