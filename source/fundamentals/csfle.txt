@@ -8,26 +8,26 @@ Client-Side Field Level Encryption (CSFLE) allows you to encrypt
 specific data fields within a document with your MongoDB client application before sending the data to the server.
 Starting in MongoDB 4.2 Enterprise, you can perform this client-side encryption automatically.
 
-With CSFLE, developers encrypt fields client-side without any server-side configuration or directives. CSFLE is useful
+With CSFLE, your client application encrypts fields client-side without requiring any server-side configuration or directives. CSFLE is useful
 for situations in which applications must guarantee that unauthorized parties, including server administrators, cannot
 read the encrypted data.
 
-The following is a quick introduction to CSFLE using the Java driver. For in-depth information on how CSFLE works, see
-the :manual:`CSFLE reference </core/security-client-side-encryption/>` documentation. For in-depth guidance and a good
-overview, see the `CSFLE Guide <https://docs.mongodb.com/drivers/security/client-side-field-level-encryption-guide>`_.
+This guide is a quick introduction to CSFLE using the Java driver. For in-depth information on how CSFLE works, see
+the :manual:`CSFLE reference </core/security-client-side-encryption/>` documentation. For a real-world scenario and implementation, see our `CSFLE Guide <https://docs.mongodb.com/drivers/security/client-side-field-level-encryption-guide>`_.
 
 Installation
 ------------
 
 To get started with CSFLE in your client application, you need
 - the MongoDB Java driver
-- ``libmongocrypt`` bindings
-- ``mongocryptd`` if using automatic encryption (Enterprise & Atlas) if using automatic encryption
+- ``libmongocrypt``
+- ``mongocryptd`` if using automatic encryption (Enterprise & Atlas)
 
 ``libmongocrypt``
 ~~~~~~~~~~~~~~~~~
 
-The ``libmongocrypt`` binding is available as a separate jar.
+The ``libmongocrypt`` binding is available as a separate JAR. Add it to your project using your desired dependency
+manager.
 
 .. tabs::
 
@@ -45,8 +45,8 @@ The ``libmongocrypt`` binding is available as a separate jar.
 ``mongocryptd``
 ~~~~~~~~~~~~~~~
 
-``mongocryptd`` is a daemon / process used for automatic encryption. ``libmongocrypt`` communicates with ``mongocryptd``
-to perform automatic encryption using information defined in user provided
+``mongocryptd`` is a binary run as a daemon / process that is used for automatic encryption. ``libmongocrypt`` communicates with ``mongocryptd``
+to automatically encrypt the information specified in a user-provided
 :manual:`JSON Schema </reference/security-client-side-automatic-json-schema/>`.
 
 For more detailed information on ``mongocryptd``, see
@@ -56,33 +56,58 @@ For more detailed information on ``mongocryptd``, see
 Examples
 --------
 
+The examples on this page use a local key, but you can also use integrated support for cloud-based key management
+services from AWS, Azure, and GCP. Each example program execution creates a new master key in memory drops the
+``test.coll`` collection.
+
 Automatic Encryption and Decryption
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following is a sample app that inserts a document containing a single encrypted field. It assumes you already
-created a data key and encrypted field schema  in MongoDB. The example uses a local key, but you can also use integrated
-support for cloud key management services from AWS, Azure, and GCP. The data in the ``encryptedField`` field is
-automatically encrypted before insertion and decrypted when calling ``find()`` on the client side.
+The following example shows how to configure the ``AutoEncryptionSettings`` instance to create a new key and set the
+JSON schema map.
 
-You can download the code containing this snippet from
-`ClientSideEncryptionSimpleTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/tour/ClientSideEncryptionSimpleTour.java>`_.
+The data in the ``encryptedField`` field is automatically encrypted before insertion, and decrypted when calling ``find()``
+on the client side. Querying this collection from a client that isn't configured for CSFLE will return the document in
+encrypted form.
 
+The full source is available at
+`ClientSideEncryptionAutoEncryptionSettingsTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/tour/ClientSideEncryptionAutoEncryptionSettingsTour.java>`_
+
+.. note::
+
+   Auto encryption requires MongoDB **Enterprise** or **Atlas**.
 
 .. code-block:: java
 
    import com.mongodb.AutoEncryptionSettings;
+   import com.mongodb.ClientEncryptionSettings;
+   import com.mongodb.ConnectionString;
    import com.mongodb.MongoClientSettings;
    import com.mongodb.client.MongoClient;
    import com.mongodb.client.MongoClients;
    import com.mongodb.client.MongoCollection;
+   import com.mongodb.client.model.vault.DataKeyOptions;
+   import com.mongodb.client.vault.ClientEncryption;
+   import com.mongodb.client.vault.ClientEncryptions;
+   import org.bson.BsonBinary;
+   import org.bson.BsonDocument;
    import org.bson.Document;
 
    import java.security.SecureRandom;
+   import java.util.Base64;
    import java.util.HashMap;
    import java.util.Map;
 
-   public class ClientSideEncryptionSimpleTour {
+   public class ClientSideEncryptionAutoEncryptionSettingsTour {
 
+       /**
+        * Run this main method to see the output of this quick example.
+        *
+        * Requires the mongodb-crypt library in the class path and mongocryptd on the system path.
+        * Assumes the schema has already been created in MongoDB.
+        *
+        * @param args ignored args
+        */
        public static void main(final String[] args) {
 
            // This would have to be the same master key as was used to create the encryption key
@@ -90,17 +115,50 @@ You can download the code containing this snippet from
            new SecureRandom().nextBytes(localMasterKey);
 
            Map<String, Map<String, Object>> kmsProviders = new HashMap<String, Map<String, Object>>() {{
-              put("local", new HashMap<String, Object>() {{
-                  put("key", localMasterKey);
-              }});
+               put("local", new HashMap<String, Object>() {{
+                   put("key", localMasterKey);
+               }});
            }};
 
            String keyVaultNamespace = "admin.datakeys";
-
-           AutoEncryptionSettings autoEncryptionSettings = AutoEncryptionSettings.builder()
+           ClientEncryptionSettings clientEncryptionSettings = ClientEncryptionSettings.builder()
+                   .keyVaultMongoClientSettings(MongoClientSettings.builder()
+                           .applyConnectionString(new ConnectionString("mongodb://localhost"))
+                           .build())
                    .keyVaultNamespace(keyVaultNamespace)
                    .kmsProviders(kmsProviders)
                    .build();
+
+           ClientEncryption clientEncryption = ClientEncryptions.create(clientEncryptionSettings);
+           BsonBinary dataKeyId = clientEncryption.createDataKey("local", new DataKeyOptions());
+           final String base64DataKeyId = Base64.getEncoder().encodeToString(dataKeyId.getData());
+
+           final String dbName = "test";
+           final String collName = "coll";
+           AutoEncryptionSettings autoEncryptionSettings = AutoEncryptionSettings.builder()
+                   .keyVaultNamespace(keyVaultNamespace)
+                   .kmsProviders(kmsProviders)
+                   .schemaMap(new HashMap<String, BsonDocument>() {{
+                       put(dbName + "." + collName,
+                               // Need a schema that references the new data key
+                               BsonDocument.parse("{"
+                                       + "  properties: {"
+                                       + "    encryptedField: {"
+                                       + "      encrypt: {"
+                                       + "        keyId: [{"
+                                       + "          \"$binary\": {"
+                                       + "            \"base64\": \"" + base64DataKeyId + "\","
+                                       + "            \"subType\": \"04\""
+                                       + "          }"
+                                       + "        }],"
+                                       + "        bsonType: \"string\","
+                                       + "        algorithm: \"AEAD_AES_256_CBC_HMAC_SHA_512-Deterministic\""
+                                       + "      }"
+                                       + "    }"
+                                       + "  },"
+                                       + "  \"bsonType\": \"object\""
+                                       + "}"));
+                   }}).build();
 
            MongoClientSettings clientSettings = MongoClientSettings.builder()
                    .autoEncryptionSettings(autoEncryptionSettings)
@@ -110,83 +168,25 @@ You can download the code containing this snippet from
            MongoCollection<Document> collection = mongoClient.getDatabase("test").getCollection("coll");
            collection.drop(); // Clear old data
 
-           collection.insertOne(new Document("encryptedField", "123456789"));
+           collection.insertOne(new Document("encryptedField", "9876564321"));
 
            System.out.println(collection.find().first().toJson());
+
+           // release resources
+           mongoClient.close();
        }
    }
-
-.. note::
-
-   Auto encryption is an **Enterprise** and **Atlas** only feature.
-
-AutoEncryptionSettings
-~~~~~~~~~~~~~~~~~~~~~~
-
-The following example shows how to configure the ``AutoEncryptionSettings`` instance to create a new key and set the
-JSON schema map. You can download the code containing this snippet from
-`ClientSideEncryptionAutoEncryptionSettingsTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/tour/ClientSideEncryptionAutoEncryptionSettingsTour.java>`_
-
-.. code-block:: java
-
-   import com.mongodb.ClientEncryptionSettings;
-   import com.mongodb.ConnectionString;
-   import com.mongodb.client.model.vault.DataKeyOptions;
-   import com.mongodb.client.vault.ClientEncryption;
-   import com.mongodb.client.vault.ClientEncryptions;
-   import org.bson.BsonBinary;
-   import org.bson.BsonDocument;
-
-   import java.util.Base64;
-
-   ...
-
-   String keyVaultNamespace = "admin.datakeys";
-   ClientEncryptionSettings clientEncryptionSettings = ClientEncryptionSettings.builder()
-           .keyVaultMongoClientSettings(MongoClientSettings.builder()
-                   .applyConnectionString(new ConnectionString("mongodb://localhost"))
-                   .build())
-           .keyVaultNamespace(keyVaultNamespace)
-           .kmsProviders(kmsProviders)
-           .build();
-
-   ClientEncryption clientEncryption = ClientEncryptions.create(clientEncryptionSettings);
-   BsonBinary dataKeyId = clientEncryption.createDataKey("local", new DataKeyOptions());
-   final String base64DataKeyId = Base64.getEncoder().encodeToString(dataKeyId.getData());
-
-   final String dbName = "test";
-   final String collName = "coll";
-   AutoEncryptionSettings autoEncryptionSettings = AutoEncryptionSettings.builder()
-           .keyVaultNamespace(keyVaultNamespace)
-           .kmsProviders(kmsProviders)
-           .schemaMap(new HashMap<String, BsonDocument>() {{
-               put(dbName + "." + collName,
-                       // Need a schema that references the new data key
-                       BsonDocument.parse("{"
-                               + "  properties: {"
-                               + "    encryptedField: {"
-                               + "      encrypt: {"
-                               + "        keyId: [{"
-                               + "          \"$binary\": {"
-                               + "            \"base64\": \"" + base64DataKeyId + "\","
-                               + "            \"subType\": \"04\""
-                               + "          }"
-                               + "        }],"
-                               + "        bsonType: \"string\","
-                               + "        algorithm: \"AEAD_AES_256_CBC_HMAC_SHA_512-Deterministic\""
-                               + "      }"
-                               + "    }"
-                               + "  },"
-                               + "  \"bsonType\": \"object\""
-                               + "}"));
-           }}).build();
 
 Explicit Encryption and Decryption
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The prior examples demonstrated the automatic CSFLE feature. If your version of MongoDB does not offer automatic CSFLE,
-you can perform CSFLE explicitly. This method does not use the ``mongocryptd`` daemon / process. The
-``ClientEncryption`` class provides the mechanisms to use explicit encryption.
+The prior example demonstrated the automatic CSFLE feature. If your version of MongoDB does not offer automatic CSFLE,
+you can perform manual client-side field level encryption, which we call *explicit* encryption. This method does not
+require or use ``mongocryptd``. The ``ClientEncryption`` class contains methods you can use to perform explicit
+encryption.
+
+This example prints out the document in encrypted form, and prints out the explicitly decrypted field value to demonstrate
+functionality.
 
 You can download the code containing this snippet from
 `ClientSideEncryptionExplicitEncryptionAndDecryptionTour.java <https://github.com/mongodb/mongo-java-driver/tree/master/driver-sync/src/examples/tour/ClientSideEncryptionExplicitEncryptionAndDecryptionTour.java>`_
@@ -251,12 +251,17 @@ You can download the code containing this snippet from
 Explicit Encryption and Auto Decryption
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Although automatic encryption requires MongoDB 4.2 Enterprise or MongoDB Atlas running 4.2+, automatic decryption is
-available in all MongoDB versions starting in 4.2.
+Although automatic encryption requires MongoDB Enterprise or MongoDB Atlas, automatic decryption is
+available in all MongoDB versions greater than or equal to 4.2.
 
 To configure automatic decryption, set ``bypassAutoEncryption(true)`` as shown in the example code below. You can
-download the full runnable class from
+download the full source from
 `ClientSideEncryptionExplicitEncryptionOnlyTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/tour/ClientSideEncryptionExplicitEncryptionOnlyTour.java>`_.
+
+The following example prints the inserted document out in unencrypted form. Automatic encryption is bypassed and
+explicit encryption is used on insert, and the document is automatically decrypted because ``autoEncryptionSettings``
+have been specified.
+
 
 .. code-block:: java
 
