@@ -8,12 +8,13 @@ Client-Side Field Level Encryption (CSFLE) allows you to encrypt
 specific data fields within a document with your MongoDB client application before sending the data to the server.
 Starting in MongoDB 4.2 Enterprise, you can perform this client-side encryption automatically.
 
-With CSFLE, your client application encrypts fields client-side without requiring any server-side configuration or directives. CSFLE is useful
-for situations in which applications must guarantee that unauthorized parties, including server administrators, cannot
-read the encrypted data.
+With CSFLE, your client application encrypts fields client-side without requiring any server-side configuration or
+directives. CSFLE is useful for situations in which applications must guarantee that unauthorized parties, including
+server administrators, cannot read the encrypted data.
 
 This guide is a quick introduction to CSFLE using the Java driver. For in-depth information on how CSFLE works, see
-the :manual:`CSFLE reference </core/security-client-side-encryption/>` documentation. For a real-world scenario and implementation, see our `CSFLE Guide <https://docs.mongodb.com/drivers/security/client-side-field-level-encryption-guide>`_.
+the :manual:`CSFLE reference </core/security-client-side-encryption/>` documentation. For a real-world scenario and
+implementation, see our `CSFLE Guide <https://docs.mongodb.com/drivers/security/client-side-field-level-encryption-guide>`_.
 
 Installation
 ------------
@@ -45,8 +46,8 @@ manager.
 ``mongocryptd``
 ~~~~~~~~~~~~~~~
 
-``mongocryptd`` is a binary run as a daemon / process that is used for automatic encryption. ``libmongocrypt`` communicates with ``mongocryptd``
-to automatically encrypt the information specified in a user-provided
+``mongocryptd`` is a binary run as a daemon / process that is used for automatic encryption.
+``libmongocrypt`` communicates with ``mongocryptd`` to automatically encrypt the information specified in a user-provided
 :manual:`JSON Schema </reference/security-client-side-automatic-json-schema/>`.
 
 For more detailed information on ``mongocryptd``, see
@@ -57,7 +58,7 @@ Examples
 --------
 
 The examples on this page use a local key, but you can also use integrated support for cloud-based key management
-services from AWS, Azure, and GCP. Each example program execution creates a new master key in memory drops the
+services from AWS, Azure, and GCP. Each example program execution creates a new master key in memory and drops the
 ``test.coll`` collection.
 
 Automatic Encryption and Decryption
@@ -188,7 +189,7 @@ encryption.
 This example prints out the document in encrypted form, and prints out the explicitly decrypted field value to demonstrate
 functionality.
 
-You can download the code containing this snippet from
+The full source is available from
 `ClientSideEncryptionExplicitEncryptionAndDecryptionTour.java <https://github.com/mongodb/mongo-java-driver/tree/master/driver-sync/src/examples/tour/ClientSideEncryptionExplicitEncryptionAndDecryptionTour.java>`_
 
 .. code-block:: java
@@ -254,19 +255,19 @@ Explicit Encryption and Auto Decryption
 Although automatic encryption requires MongoDB Enterprise or MongoDB Atlas, automatic decryption is
 available in all MongoDB versions greater than or equal to 4.2.
 
-To configure automatic decryption, set ``bypassAutoEncryption(true)`` as shown in the example code below. You can
-download the full source from
-`ClientSideEncryptionExplicitEncryptionOnlyTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/tour/ClientSideEncryptionExplicitEncryptionOnlyTour.java>`_.
+To configure automatic decryption, set ``bypassAutoEncryption(true)`` in the ``autoEncryptionSettings`` builder.
 
-The following example prints the inserted document out in unencrypted form. Automatic encryption is bypassed and
-explicit encryption is used on insert, and the document is automatically decrypted because ``autoEncryptionSettings``
-have been specified.
+The following example prints the inserted document out in unencrypted form. The document is automatically decrypted
+because ``autoEncryptionSettings`` have been configured.
+
+The full source is available at
+`ClientSideEncryptionExplicitEncryptionOnlyTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/tour/ClientSideEncryptionExplicitEncryptionOnlyTour.java>`_.
 
 
 .. code-block:: java
+   :emphasize-lines: 7
 
    ...
-
    MongoClientSettings clientSettings = MongoClientSettings.builder()
        .autoEncryptionSettings(AutoEncryptionSettings.builder()
                .keyVaultNamespace(keyVaultNamespace.getFullName())
@@ -275,7 +276,6 @@ have been specified.
                .build())
        .build();
    MongoClient mongoClient = MongoClients.create(clientSettings);
-
    ...
 
    // Explicitly encrypt a field
