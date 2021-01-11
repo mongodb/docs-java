@@ -62,11 +62,13 @@ The examples on this page use a local key, but you can also use integrated suppo
 services from AWS, Azure, and GCP. Each example program execution creates a new master key in memory and drops the
 ``test.coll`` collection.
 
-.. warning::
+.. tip::
 
-   In the examples, the in-memory master key is lost when the application finishes running. If you'd like to decrypt
-   document fields in successive runs you can save the local master key to a file for re-use and remove the logic to
-   drop the collection.
+   In the examples, the in-memory master key is lost when the application finishes running. If you'd like to retain
+   and decrypt documents from previous runs, you can save the local master key to a file for re-use and remove the logic
+   to drop the collection.
+
+.. warning::
 
    MongoDB recommends using local key management only for testing purposes, and using a remote key management service
    for production.
