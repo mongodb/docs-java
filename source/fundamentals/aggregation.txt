@@ -95,64 +95,31 @@ Useful Links
 Runnable Examples
 -----------------
 
-The following examples require a ``restaurants`` collection in the ``test`` database. To create and populate the collection,
-follow `these directions <https://github.com/mongodb/docs-assets/tree/drivers>`_ to download and load the dataset. If you
-prefer to load the data directly and have both ``mongoimport`` and ``curl`` in your path, you can run the following instead:
-
-.. tabs::
-
-   .. tab::
-      :tabid: Atlas
-
-      .. code-block:: console
-
-         curl -O https://raw.githubusercontent.com/mongodb/docs-assets/drivers/restaurants.json
-         mongoimport --uri mongodb+srv://<your-atlas-uri>/test --collection restaurants --drop --file restaurants.json
-
-
-
-   .. tab::
-      :tabid: localhost
-
-      .. code-block:: console
-
-         curl -O https://raw.githubusercontent.com/mongodb/docs-assets/drivers/restaurants.json
-         mongoimport -d test -c restaurants --drop --file restaurants.json
-
 Base Setup
 ~~~~~~~~~~
 
 Create a new Java file called ``AggTour.java`` and include the following import statements:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
+   :language: java
+   :dedent:
+   :start-after: begin imports
+   :end-before: end imports
 
-   import com.mongodb.client.MongoClient;
-   import com.mongodb.client.MongoClients;
-   import com.mongodb.client.MongoCollection;
-   import com.mongodb.client.MongoDatabase;
-   import com.mongodb.client.model.Accumulators;
-   import com.mongodb.client.model.Aggregates;
-   import com.mongodb.client.model.Filters;
-   import org.bson.Document;
-
-   import java.util.Arrays;
 
 Connect to a MongoDB Deployment
 +++++++++++++++++++++++++++++++
-
-Connect to a MongoDB deployment and declare and define ``MongoDatabase`` and ``MongoCollection`` instances.
-
-Include the following code to connect to a standalone MongoDB deployment running on localhost on port
-``27017`` and define ``database`` to refer to the ``test`` database and ``collection`` to refer to the ``restaurants``
-collection.
 
 .. code-block:: java
 
    public class AggTour {
 
        public static void main(String[] args) {
-           MongoClient mongoClient = MongoClients.create();
-           MongoDatabase database = mongoClient.getDatabase("test");
+           // Replace the uri string with your MongoDB deployment's connection string
+           String uri = "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
+
+           MongoClient mongoClient = MongoClients.create(uri);
+           MongoDatabase database = mongoClient.getDatabase("aggregation");
            MongoCollection<Document> collection = database.getCollection("restaurants");
 
            // aggregation here
@@ -162,6 +129,15 @@ collection.
 .. tip::
 
    For information on connecting to MongoDB, see the :ref:`Connection Guide <mongoclient>`
+
+Insert the Data
++++++++++++++++
+
+.. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
+   :language: java
+   :dedent:
+   :start-after: begin insert
+   :end-before: end insert
 
 Basic Aggregation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -187,14 +163,11 @@ In the following example, the aggregation pipeline:
 
    You can build the expressions used in this example using the :ref:`aggregation builders <aggregates-builders>`.
 
-.. code-block:: java
-
-   collection.aggregate(
-         Arrays.asList(
-                 Aggregates.match(Filters.eq("categories", "Bakery")),
-                 Aggregates.group("$stars", Accumulators.sum("count", 1))
-         )
-   ).forEach(doc -> System.out.println(doc.toJson()));
+.. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
+   :language: java
+   :dedent:
+   :start-after: begin aggregation one
+   :end-before: end aggregation one
 
 The above aggregation should produce the following results:
 
@@ -236,23 +209,12 @@ stage and various
 to return the ``name`` field and the calculated field ``firstCategory`` whose value is the first element in the
 ``categories`` field.
 
+.. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
+   :language: java
+   :dedent:
+   :start-after: begin aggregation two
+   :end-before: end aggregation two
 
-.. code-block:: java
-
-   collection.aggregate(
-         Arrays.asList(
-             Aggregates.project(
-                 Projections.fields(
-                       Projections.excludeId(),
-                       Projections.include("name"),
-                       Projections.computed(
-                               "firstCategory",
-                               new Document("$arrayElemAt", Arrays.asList("$categories", 0))
-                       )
-                 )
-             )
-         )
-   ).forEach(doc -> System.out.println(doc.toJson()));
 
 The above aggregation should produce the following results:
 

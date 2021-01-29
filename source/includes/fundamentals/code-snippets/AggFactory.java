@@ -22,7 +22,7 @@ public class AggFactory {
 
     public static void main(String[] args) {
         MongoClient mongoClient = MongoClients.create();
-        MongoDatabase database = mongoClient.getDatabase("shapes");
+        MongoDatabase database = mongoClient.getDatabase("aggregation");
         MongoCollection<Document> collection = database.getCollection("factory");
 
         // end connection
