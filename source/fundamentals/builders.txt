@@ -19,36 +19,46 @@ Builders
    :depth: 2
    :class: singlecol
 
+Overview
+--------
+
 The Java driver provides classes to make it easier to use the CRUD and Aggregation API. The shorthand utility methods
 allow you to build a query more succinctly.
 
-.. example::
+Imagine we have a collection of user data, and we need to find all **female** users **older than** 29 to send them
+a marketing email. We only need their email address, so we'll ensure our query doesn't return data we pay bandwidth
+costs for but don't need.
 
-   Imagine we have a collection of user data, and we need to find all **female** users **older than** 29 to send them
-   a marketing email. We only need their email address, so we'll ensure our query doesn't return data we pay bandwidth
-   costs for but don't need.
+Using JSON and the MongoDB shell, the query would look something like:
 
-   Using JSON and the MongoDB shell, the query would look something like:
+.. code-block:: js
 
-   .. code-block:: js
+   collection.find({ "gender": "female", "age" : { "$gt": 29 }}, { "_id": 0, "email": 1 })
 
-      collection.find({ "gender": "female", "age" : { "$gt": 29 }}, { "_id": 0, "email": 1 })
+Without builders, we construct the query in Java as:
 
-   Without builders, we construct the query in Java as:
+.. code-block:: java
 
-   .. code-block:: java
+   Bson filter = new Document().append("gender", "female").append("age", new Document().append("$gt", 28));
+   Bson projection = new Document().append("_id", 0).append("email", 1);
+   collection.find(filter).projection(projection);
 
-      Bson filter = new Document().append("gender", "female").append("age", new Document().append("$gt", 28));
-      Bson projection = new Document().append("_id", 0).append("email", 1);
-      collection.find(filter).projection(projection);
+With builders, the query becomes:
 
-   With builders, the query becomes:
+.. code-block:: java
 
-   .. code-block:: java
+   Bson filter = and(eq("gender", "female"), gt("age", 29));
+   Bson projection = fields(excludeId(), include("email"));)
+   collection.find(filter).projection(projection);
 
-      Bson filter = and(eq("gender", "female"), gt("age", 29));
-      Bson projection = fields(excludeId(), include("email"));)
-      collection.find(filter).projection(projection);
+Available Builders
+------------------
 
+- :ref:`Filters <filters-builders>` for building query filters.
+- :ref:`Projections <projections-builders>` for building projections.
+- :ref:`Sorts <sorts-builders>` for building sort criteria.
+- :ref:`Updates <updates-builders>` for building updates.
+- :ref:`Aggregates <aggregates-builders>` for building aggregation pipelines.
+- :ref:`Indexes <indexes-builders>` for creating index keys.
 
 
