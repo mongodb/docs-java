@@ -51,7 +51,7 @@ With builders, the query becomes:
    :copyable: false
 
    Bson filter = and(eq("gender", "female"), gt("age", 29));
-   Bson projection = fields(excludeId(), include("email"));)
+   Bson projection = fields(excludeId(), include("email"));
    collection.find(filter).projection(projection);
 
 Available Builders
