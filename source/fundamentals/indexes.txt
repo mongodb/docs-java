@@ -1,0 +1,253 @@
+=======
+Indexes
+=======
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+Indexes are data structures that support the efficient execution of queries in MongoDB. They contain copies of parts of
+the data in documents to make queries more efficient.
+
+Without indexes, MongoDB must scan *every* document in a collection to find the documents that match each query. These
+collection scans are slow and can negatively affect the performance of your application. By using an index to limit the
+number of documents MongoDB scans, queries can be more efficient and return faster.
+
+
+Query Coverage and Performance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you execute a query against MongoDB, your query can include three parts:
+
+- query criteria that specify field(s) and value(s) you are looking for
+- options that affect the query's execution (e.g. read concern)
+- projection criteria to specify the fields MongoDB should return (optional)
+
+When all the fields specified in the query criteria and projection of a query are indexed, MongoDB returns results
+directly from the index without scanning any documents in the collection or loading them into memory.
+
+For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
+articles on :manual:`query coverage </core/query-optimization/#read-operations-covered-query>`.
+
+Operational Considerations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To improve query performance, build indexes on fields that appear often in your application's queries and operations
+that return sorted results. Each index that you add consumes disk space and memory when active so you should track index
+memory and disk usage for capacity planning. In addition, when a write operation updates an indexed field, MongoDB also
+has to update the related index.
+
+For more information on designing your data model and choosing indexes appropriate for your application, see the MongoDB
+server documentation on :manual:`Indexing Strategies </applications/indexes>` and
+:manual:`Data Modeling and Indexes </core/data-model-operations/#data-model-indexes>`.
+
+Index Types
+-----------
+
+MongoDB supports a number of different index types to support querying your data. The following sections describe the
+most common index types and provide sample code for creating each index type.
+
+.. tip::
+
+   The MongoDB Java Driver provides the :java-core-api:`Indexes </com/mongodb/client/model/Indexes.html>` class that
+   includes static factory methods to create index specification documents for different MongoDB Index key types.
+
+Single Field and Compound Indexes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Single Field Indexes
+++++++++++++++++++++
+
+**Single field indexes** are indexes that improve performance for queries that specify ascending or descending sort
+order on a single field of a document.
+
+The following example uses the ``createIndex()`` method to create an ascending order index on the ``title`` field in the
+``movies`` collection in the ``sample_mflix`` database.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin single index
+   :end-before: end single index
+
+The following is an example of a query that would be covered by the index created above.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin covered single query
+   :end-before: end covered single query
+
+See the MongoDB server manual section on :manual:`single field indexes </core/index-single>` for more information.
+
+Compound Indexes
+++++++++++++++++
+
+**Compound indexes** are indexes that improve performance for queries that specify ascending or descending sort order
+for *multiple* fields of a document. You must specify the direction (ascending or descending) for each field in the
+index.
+
+The following example uses the ``createIndex()`` method to create a compound index on the ``type`` and ``rated`` fields
+in the ``movies`` collection in the ``sample_mflix`` database.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin compound index
+   :end-before: end compound index
+
+The following is an example of a query that would be covered by the index created above.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin covered compound query
+   :end-before: end covered compound query
+
+
+See the MongoDB server manual section on :manual:`Compound indexes </core/index-compound>` for more information.
+
+Multikey Indexes (Indexes on Array Fields)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Multikey indexes** are indexes that improve performance for queries that specify ascending or descending indexes on
+fields that contain an array value. You can define a multikey index using the same syntax as a single field or compound
+index.
+
+The following example use the ``createIndex()`` method to create a compound, multikey index on the ``rated``,
+``genres`` (an array of Strings), and ``title`` field in the ``movies`` collection in the ``sample_mflix`` database.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin multikey index
+   :end-before: end multikey index
+
+The following is an example of a query that would be covered by the index created above.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin covered multikey query
+   :end-before: end covered multikey query
+
+Multikey indexes behave differently from non-multikey indexes in terms of query coverage, index bound computation, and
+sort behavior. For a full explanation of multikey indexes, including a discussion of their behavior and limitations,
+refer to the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB manual.
+
+Text Indexes
+~~~~~~~~~~~~
+
+**Text indexes** support text search queries on string content. These indexes can include any field whose value is a
+string or an array of string elements. MongoDB supports text search for various languages. You can specify the default
+language as an option when creating the index.
+
+The following example uses the ``createIndex()`` method to create a ``text`` index on the ``fullplot`` field in the
+``movies`` collection in the ``sample_mflix`` database.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin text index
+   :end-before: end text index
+
+The following is an example of a query that would be covered by the index created above. Note that the ``sort`` is
+omitted because text indexes do not contain sort order.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin text query
+   :end-before: end text query
+
+For a full explanation of text search with MongoDB, refer to :manual:`Text Indexes </core/index-text>` in the MongoDB
+manual.
+
+Geospatial Indexes
+~~~~~~~~~~~~~~~~~~
+
+MongoDB supports queries of geospatial coordinate data using **2dsphere indexes**. With a 2dsphere index, you can query
+the geospatial data for inclusion, intersection, and proximity. For more information on querying geospatial data, see
+:manual:`Geospatial Queries </geospatial-queries/>`.
+
+To create a 2dsphere index, you must specify a field that contains only **GeoJSON objects**. For more details on this
+type, see the MongoDB server manual page on :manual:`GeoJSON objects </reference/geojson>`.
+
+The ``location.geo`` field in following sample document from the ``theaters`` collection in the ``sample_mflix``
+database is a GeoJSON Point object that describes the coordinates of the theater:
+
+.. code-block:: javascript
+
+   {
+      "_id" : ObjectId("59a47286cfa9a3a73e51e75c"),
+      "theaterId" : 104,
+      "location" : {
+         "address" : {
+            "street1" : "5000 W 147th St",
+            "city" : "Hawthorne",
+            "state" : "CA",
+            "zipcode" : "90250"
+         },
+         "geo" : {
+            "type" : "Point",
+            "coordinates" : [
+               -118.36559,
+               33.897167
+            ]
+         }
+      }
+   }
+
+The following example uses the ``createIndexes()`` method to create a ``2dsphere`` index on the ``location.geo`` field
+in the ``theaters`` collection in the ``sample_mflix`` database to enable geospatial searches.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin geospatial index
+   :end-before: end geospatial index
+
+The following is an example of a geospatial query using the "location.geo" index.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin geospatial query
+   :end-before: end geospatial query
+
+
+MongoDB also supports ``2d`` indexes for calculating distances on a Euclidean plane and for working with the "legacy
+coordinate pairs" syntax used in MongoDB 2.2 and earlier. See the :manual:`Geospatial Queries page </geospatial-queries>`
+in the MongoDB server manual for more further information.
+
+Unique Indexes
+~~~~~~~~~~~~~~
+
+Unique indexes ensure that the indexed fields do not store duplicate values. By default, MongoDB creates a unique index
+on the ``_id`` field during the creation of a collection. To create a unique index, specify the field or combination of
+fields that you want to prevent duplication on and set the ``unique`` option to ``true``.
+
+The following example uses the ``createIndex()`` method to create a unique, descending index on the ``theaterId`` field in the
+``theaters`` collection of the ``sample_mflix`` database.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin unique index
+   :end-before: end unique index
+
+If you attempt to perform a write operation that stores a duplicate value that violates the unique index, the MongoDB
+Java driver will raise a ``DuplicateKeyException``, and MongoDB will throw an error resembling the following:
+
+.. code-block:: none
+
+   E11000 duplicate key error index
+
+Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB server manual for more information.
