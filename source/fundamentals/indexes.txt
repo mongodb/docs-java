@@ -126,8 +126,8 @@ See the MongoDB server manual section on :manual:`Compound indexes </core/index-
 Multikey Indexes (Indexes on Array Fields)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Multikey indexes** are indexes that improve performance for queries that specify an index on a field that contains an
-array value. You can define a multikey index using the same syntax as a single field or compound index.
+**Multikey indexes** are indexes that improve performance for queries that specify a field with an index that contains
+an array value. You can define a multikey index using the same syntax as a single field or compound index.
 
 The following example creates a compound, multikey index on the ``rated``, ``genres`` (an array of Strings), and
 ``title`` fields:
@@ -218,7 +218,7 @@ database is a GeoJSON Point object that describes the coordinates of the theater
 
 The following example creates a ``2dsphere`` index on the ``location.geo`` field:
 
-.. note::
+.. warning::
 
    Attemping to create a geospatial index on a field that is covered by a geospatial index will result in an error.
 
