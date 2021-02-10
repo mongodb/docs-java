@@ -59,6 +59,17 @@ most common index types and provide sample code for creating each index type.
    The MongoDB Java Driver provides the :java-core-api:`Indexes </com/mongodb/client/model/Indexes.html>` class that
    includes static factory methods to create index specification documents for different MongoDB Index key types.
 
+The following examples use the
+:java-sync-api:`createIndex </com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson,com.mongodb.client.model.IndexOptions)>`
+to create various indexes, and the following setup:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
+   :language: java
+   :dedent:
+   :start-after: begin declaration
+   :end-before: end declaration
+
+
 Single Field and Compound Indexes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -68,8 +79,7 @@ Single Field Indexes
 **Single field indexes** are indexes that improve performance for queries that specify ascending or descending sort
 order on a single field of a document.
 
-The following example uses the ``createIndex()`` method to create an ascending order index on the ``title`` field in the
-``movies`` collection in the ``sample_mflix`` database.
+The following example creates an index in ascending order on the ``title`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -77,7 +87,7 @@ The following example uses the ``createIndex()`` method to create an ascending o
    :start-after: begin single index
    :end-before: end single index
 
-The following is an example of a query that would be covered by the index created above.
+The following is an example of a query that would be covered by the index created above:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -94,8 +104,7 @@ Compound Indexes
 for *multiple* fields of a document. You must specify the direction (ascending or descending) for each field in the
 index.
 
-The following example uses the ``createIndex()`` method to create a compound index on the ``type`` and ``rated`` fields
-in the ``movies`` collection in the ``sample_mflix`` database.
+The following example creates a compound index on the ``type`` and ``rated`` fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -103,7 +112,7 @@ in the ``movies`` collection in the ``sample_mflix`` database.
    :start-after: begin compound index
    :end-before: end compound index
 
-The following is an example of a query that would be covered by the index created above.
+The following is an example of a query that would be covered by the index created above:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -117,12 +126,11 @@ See the MongoDB server manual section on :manual:`Compound indexes </core/index-
 Multikey Indexes (Indexes on Array Fields)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Multikey indexes** are indexes that improve performance for queries that specify ascending or descending indexes on
-fields that contain an array value. You can define a multikey index using the same syntax as a single field or compound
-index.
+**Multikey indexes** are indexes that improve performance for queries that specify an index on a field that contains an
+array value. You can define a multikey index using the same syntax as a single field or compound index.
 
-The following example use the ``createIndex()`` method to create a compound, multikey index on the ``rated``,
-``genres`` (an array of Strings), and ``title`` field in the ``movies`` collection in the ``sample_mflix`` database.
+The following example creates a compound, multikey index on the ``rated``, ``genres`` (an array of Strings), and
+``title`` fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -130,7 +138,7 @@ The following example use the ``createIndex()`` method to create a compound, mul
    :start-after: begin multikey index
    :end-before: end multikey index
 
-The following is an example of a query that would be covered by the index created above.
+The following is an example of a query that would be covered by the index created above:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -149,8 +157,11 @@ Text Indexes
 string or an array of string elements. MongoDB supports text search for various languages. You can specify the default
 language as an option when creating the index.
 
-The following example uses the ``createIndex()`` method to create a ``text`` index on the ``fullplot`` field in the
-``movies`` collection in the ``sample_mflix`` database.
+.. warning::
+
+   Collections are limited to one text index. Keep in mind that a text index can cover multiple fields.
+
+The following example creates a text index on the ``plot`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -158,7 +169,7 @@ The following example uses the ``createIndex()`` method to create a ``text`` ind
    :start-after: begin text index
    :end-before: end text index
 
-The following is an example of a query that would be covered by the index created above. Note that the ``sort`` is
+The following is an example of a query that would use the index created above. Note that the ``sort`` is
 omitted because text indexes do not contain sort order.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
@@ -205,8 +216,11 @@ database is a GeoJSON Point object that describes the coordinates of the theater
       }
    }
 
-The following example uses the ``createIndexes()`` method to create a ``2dsphere`` index on the ``location.geo`` field
-in the ``theaters`` collection in the ``sample_mflix`` database to enable geospatial searches.
+The following example creates a ``2dsphere`` index on the ``location.geo`` field:
+
+.. note::
+
+   Attemping to create a geospatial index on a field that is covered by a geospatial index will result in an error.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -234,8 +248,7 @@ Unique indexes ensure that the indexed fields do not store duplicate values. By 
 on the ``_id`` field during the creation of a collection. To create a unique index, specify the field or combination of
 fields that you want to prevent duplication on and set the ``unique`` option to ``true``.
 
-The following example uses the ``createIndex()`` method to create a unique, descending index on the ``theaterId`` field in the
-``theaters`` collection of the ``sample_mflix`` database.
+The following example creates a unique, descending index on the ``theaterId`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -243,8 +256,10 @@ The following example uses the ``createIndex()`` method to create a unique, desc
    :start-after: begin unique index
    :end-before: end unique index
 
-If you attempt to perform a write operation that stores a duplicate value that violates the unique index, the MongoDB
-Java driver will raise a ``DuplicateKeyException``, and MongoDB will throw an error resembling the following:
+.. warning::
+
+   If you attempt to perform a write operation that stores a duplicate value that violates the unique index, the MongoDB
+   Java driver will raise a ``DuplicateKeyException``, and MongoDB will throw an error resembling the following:
 
 .. code-block:: none
 

@@ -22,11 +22,13 @@ public class IndexPage {
     private IndexPage() {
         BasicConfigurator.configure();
 
+        // begin declaration
         final String uri = "mongodb+srv://<atlas-uri>/<dbname>?retryWrites=true&w=majority";
 
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("sample_mflix");
         collection = database.getCollection("movies");
+        // end declaration
     }
 
     public static void main(String[] args) {
@@ -90,9 +92,6 @@ public class IndexPage {
     private void textIndex() {
         System.out.println("text index");
         // begin text index
-        // create a text index of the "fullplot" field in the "movies" collection
-        // if a text index already exists with a different configuration, this will
-        // error
         try {
             String resultCreateIndex = collection.createIndex(Indexes.text("plot"));
             System.out.println(String.format("Index created: %s", resultCreateIndex));
@@ -114,13 +113,12 @@ public class IndexPage {
         System.out.println("geospatial index");
         collection = database.getCollection("theaters");
         // begin geospatial index
-        // if an existing geo index exists, this will error
         try {
             String resultCreateIndex = collection.createIndex(Indexes.geo2dsphere("location.geo"));
             System.out.println(String.format("Index created: %s", resultCreateIndex));
         } catch (MongoCommandException e) {
             if (e.getErrorCodeName().equals("IndexOptionsConflict"))
-                System.out.println("there's an existing text index with different options");
+                System.out.println("there's an existing geo index with different options");
         }
         // end geospatial index
 
@@ -137,7 +135,6 @@ public class IndexPage {
         System.out.println("unique index");
         collection = database.getCollection("theaters");
         // begin unique index
-        // this will fail if any duplicate keys (values) exist
         try {
             IndexOptions indexOptions = new IndexOptions().unique(true);
             String resultCreateIndex = collection.createIndex(Indexes.descending("theaderId"), indexOptions);
