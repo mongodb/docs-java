@@ -60,6 +60,13 @@ Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
 tab below for instructions and sample code for specifying this authentication
 mechanism:
 
+.. note::
+   The Java driver will by default cache Kerberos Ticket-Granting Tickets (TGTs) per
+   ``MongoClient`` instance. TODO: NEED EXACT USE CASE WHERE PROCESS TGT CACHE IS HELPFUL.
+   If you would like to instead cache TGTs by process, specify the ``JAVA_SUBJECT_PROVIDER``
+   mechanism property in the ``MongoCredential`` class.
+
+
 .. tabs::
 
    .. tab::
