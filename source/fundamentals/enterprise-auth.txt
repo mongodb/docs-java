@@ -62,9 +62,9 @@ mechanism:
 
 .. note::
    The Java driver will by default cache 
-   `Kerberos Ticket <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__ per
-   ``MongoClient`` instance. TODO: NEED EXACT USE CASE WHERE PROCESS TGT CACHE IS HELPFUL.
-   If you would like to instead cache TGTs by process, specify the ``JAVA_SUBJECT_PROVIDER``
+   `Kerberos Tickets <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__
+   by ``MongoClient`` instance. TODO: NEED EXACT USE CASE WHERE PROCESS KERBEROS TICKET CACHE IS HELPFUL.
+   If you would like to instead cache Kerberos Tickets by process, specify the ``JAVA_SUBJECT_PROVIDER``
    mechanism property in the ``MongoCredential`` class.
 
 
