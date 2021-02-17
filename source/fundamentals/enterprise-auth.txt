@@ -65,8 +65,9 @@ mechanism:
    `Kerberos tickets <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__
    by ``MongoClient`` instance. If your deployment needs to frequently create and destroy
    ``MongoClient`` instances, you can change the default Kerberos ticket caching behavior
-   to cache by process. To cache Kerberos tickets by process, specify the ``JAVA_SUBJECT_PROVIDER``
-   mechanism property in the ``MongoCredential`` class.
+   to cache by process. To cache Kerberos tickets by process, you must specify the ``JAVA_SUBJECT_PROVIDER``
+   mechanism property in the ``MongoCredential`` and a 
+   ```KerberosSubjectProvider <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__``.
 
 
 .. tabs::
