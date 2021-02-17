@@ -10,28 +10,49 @@ Indexes
    :depth: 2
    :class: singlecol
 
+.. common-content-begin
+
 Overview
 --------
 
-Indexes are data structures that support the efficient execution of queries in MongoDB. They contain copies of parts of
-the data in documents to make queries more efficient.
-
-Without indexes, MongoDB must scan *every* document in a collection to find the documents that match each query. These
-collection scans are slow and can negatively affect the performance of your application. By using an index to limit the
-number of documents MongoDB scans, queries can be more efficient and return faster.
+Indexes support the efficient execution of queries in MongoDB. Without indexes, MongoDB must scan *every* document in a
+collection (a *collection scan*) to find the documents that match each query. These collection scans are slow and can
+negatively affect the performance of your application. If an appropriate index exists for a query, MongoDB can use the
+index to limit the number of documents it must inspect.
 
 
 Query Coverage and Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When you execute a query against MongoDB, your query can include three parts:
+When you execute a query against MongoDB, your command can include various elements:
 
 - query criteria that specify field(s) and value(s) you are looking for
 - options that affect the query's execution (e.g. read concern)
 - projection criteria to specify the fields MongoDB should return (optional)
+- sort criteria to specify the order documents will be returned from MongoDB (optional)
 
-When all the fields specified in the query criteria and projection of a query are indexed, MongoDB returns results
+When all the fields specified in the query, projection, and sort are indexed, MongoDB returns results
 directly from the index without scanning any documents in the collection or loading them into memory.
+
+.. important:: Sort Order
+
+   Set your sort criteria to match or invert the order that you specified the index.
+
+   .. example::
+
+      Consider an index on the fields "name" in ascending order (A-Z), "age" in descending order (9-0):
+
+      .. code-block:: json
+
+         name_1_age_-1
+
+      MongoDB would use this index when you sort your data by either:
+
+      - "name" ascending, "age" descending
+      - "name" descending, "age" ascending
+
+      Specifying a sort order of "name" and "age" ascending or "name" and "age" descending would require an in-memory
+      sort.
 
 For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
 articles on :manual:`query coverage </core/query-optimization/#read-operations-covered-query>`.
@@ -54,6 +75,10 @@ Index Types
 MongoDB supports a number of different index types to support querying your data. The following sections describe the
 most common index types and provide sample code for creating each index type.
 
+.. common-content-end
+
+.. driver-content-begin
+
 .. tip::
 
    The MongoDB Java Driver provides the :java-core-api:`Indexes </com/mongodb/client/model/Indexes.html>` class that
@@ -69,6 +94,9 @@ to create various indexes, and the following setup:
    :start-after: begin declaration
    :end-before: end declaration
 
+.. driver-content-end
+
+.. common-content-begin
 
 Single Field and Compound Indexes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,6 +108,8 @@ Single Field Indexes
 order on a single field of a document.
 
 The following example creates an index in ascending order on the ``title`` field:
+
+.. common-content-end
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
