@@ -61,13 +61,14 @@ tab below for instructions and sample code for specifying this authentication
 mechanism:
 
 .. note::
-   The Java driver will by default cache 
+   The Java Driver will by default cache 
    `Kerberos tickets <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__
    by ``MongoClient`` instance. If your deployment needs to frequently create and destroy
-   ``MongoClient`` instances, you can change the default Kerberos ticket caching behavior
+   ``MongoClient`` instances, you can change the default Kerberos ticket caching behavior of the Java Driver
    to cache by process. To cache Kerberos tickets by process, you must specify the ``JAVA_SUBJECT_PROVIDER``
-   mechanism property in the ``MongoCredential`` and a 
-   `KerberosSubjectProvider <https://mongodb.github.io/mongo-java-driver/4.2//apidocs/mongodb-driver-core/com/mongodb/KerberosSubjectProvider.html#%3Cinit%3E()>`__.
+   mechanism property and provide a 
+   `KerberosSubjectProvider <https://mongodb.github.io/mongo-java-driver/4.2//apidocs/mongodb-driver-core/com/mongodb/KerberosSubjectProvider.html#%3Cinit%3E()>`__
+   in your ``MongoCredential`` instance.
 
 
 .. tabs::
