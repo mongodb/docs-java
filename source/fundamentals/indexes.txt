@@ -16,7 +16,7 @@ Overview
 --------
 
 Indexes support the efficient execution of queries in MongoDB. Without indexes, MongoDB must scan *every* document in a
-collection (a *collection scan*) to find the documents that match each query. These collection scans are slow and can
+collection (a **collection scan**) to find the documents that match each query. These collection scans are slow and can
 negatively affect the performance of your application. If an appropriate index exists for a query, MongoDB can use the
 index to limit the number of documents it must inspect.
 
@@ -31,28 +31,26 @@ When you execute a query against MongoDB, your command can include various eleme
 - projection criteria to specify the fields MongoDB should return (optional)
 - sort criteria to specify the order documents will be returned from MongoDB (optional)
 
-When all the fields specified in the query, projection, and sort are indexed, MongoDB returns results
-directly from the index without scanning any documents in the collection or loading them into memory.
+When all the fields specified in the query, projection, and sort are indexed, MongoDB returns results directly from the
+index without scanning any documents in the collection or loading them into memory, also called a **covered query**.
 
 .. important:: Sort Order
 
-   Set your sort criteria to match or invert the order that you specified the index.
+   Sort criteria must match or invert the order of the index.
 
-   .. example::
+   Consider an index on the fields "name" in ascending order (A-Z), "age" in descending order (9-0):
 
-      Consider an index on the fields "name" in ascending order (A-Z), "age" in descending order (9-0):
+   .. code-block:: json
 
-      .. code-block:: json
+      name_1_age_-1
 
-         name_1_age_-1
+   MongoDB would use this index when you sort your data by either:
 
-      MongoDB would use this index when you sort your data by either:
+   - "name" ascending, "age" descending
+   - "name" descending, "age" ascending
 
-      - "name" ascending, "age" descending
-      - "name" descending, "age" ascending
-
-      Specifying a sort order of "name" and "age" ascending or "name" and "age" descending would require an in-memory
-      sort.
+   Specifying a sort order of "name" and "age" ascending or "name" and "age" descending would require an in-memory
+   sort.
 
 For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
 articles on :manual:`query coverage </core/query-optimization/#read-operations-covered-query>`.
@@ -111,19 +109,25 @@ The following example creates an index in ascending order on the ``title`` field
 
 .. common-content-end
 
+.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin single index
    :end-before: end single index
+.. driver-content-end
 
 The following is an example of a query that would be covered by the index created above:
 
+.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin covered single query
    :end-before: end covered single query
+.. driver-content-end
+
+.. common-content-begin
 
 See the MongoDB server manual section on :manual:`single field indexes </core/index-single>` for more information.
 
@@ -135,7 +139,9 @@ for *multiple* fields of a document. You must specify the direction (ascending o
 index.
 
 The following example creates a compound index on the ``type`` and ``rated`` fields:
+.. common-content-end
 
+.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
@@ -149,7 +155,9 @@ The following is an example of a query that would be covered by the index create
    :dedent:
    :start-after: begin covered compound query
    :end-before: end covered compound query
+.. driver-content-end
 
+.. common-content-begin
 
 See the MongoDB server manual section on :manual:`Compound indexes </core/index-compound>` for more information.
 
@@ -162,6 +170,8 @@ an array value. You can define a multikey index using the same syntax as a singl
 The following example creates a compound, multikey index on the ``rated``, ``genres`` (an array of Strings), and
 ``title`` fields:
 
+.. common-content-end
+.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
@@ -175,6 +185,9 @@ The following is an example of a query that would be covered by the index create
    :dedent:
    :start-after: begin covered multikey query
    :end-before: end covered multikey query
+.. driver-content-end
+
+.. common-content-begin
 
 Multikey indexes behave differently from non-multikey indexes in terms of query coverage, index bound computation, and
 sort behavior. For a full explanation of multikey indexes, including a discussion of their behavior and limitations,
@@ -190,6 +203,10 @@ language as an option when creating the index.
 .. warning::
 
    Collections are limited to one text index. Keep in mind that a text index can cover multiple fields.
+
+.. common-content-end
+
+.. driver-content-begin
 
 The following example creates a text index on the ``plot`` field:
 
@@ -207,6 +224,9 @@ omitted because text indexes do not contain sort order.
    :dedent:
    :start-after: begin text query
    :end-before: end text query
+
+.. driver-content-end
+.. common-content-begin
 
 For a full explanation of text search with MongoDB, refer to :manual:`Text Indexes </core/index-text>` in the MongoDB
 manual.
@@ -252,6 +272,9 @@ The following example creates a ``2dsphere`` index on the ``location.geo`` field
 
    Attemping to create a geospatial index on a field that is covered by a geospatial index will result in an error.
 
+.. common-content-end
+.. driver-content-begin
+
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
@@ -266,6 +289,8 @@ The following is an example of a geospatial query using the "location.geo" index
    :start-after: begin geospatial query
    :end-before: end geospatial query
 
+.. driver-content-end
+.. common-content-begin
 
 MongoDB also supports ``2d`` indexes for calculating distances on a Euclidean plane and for working with the "legacy
 coordinate pairs" syntax used in MongoDB 2.2 and earlier. See the :manual:`Geospatial Queries page </geospatial-queries>`
@@ -279,6 +304,9 @@ on the ``_id`` field during the creation of a collection. To create a unique ind
 fields that you want to prevent duplication on and set the ``unique`` option to ``true``.
 
 The following example creates a unique, descending index on the ``theaterId`` field:
+
+.. common-content-end
+.. driver-content-begin
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -296,3 +324,4 @@ The following example creates a unique, descending index on the ``theaterId`` fi
    E11000 duplicate key error index
 
 Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB server manual for more information.
+.. driver-content-end
