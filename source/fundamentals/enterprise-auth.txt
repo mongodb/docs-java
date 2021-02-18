@@ -183,7 +183,11 @@ to cache by process.
       To cache Kerberos tickets by process, you must specify the ``JAVA_SUBJECT_PROVIDER``
       mechanism property and provide a 
       `KerberosSubjectProvider <https://mongodb.github.io/mongo-java-driver/4.2//apidocs/mongodb-driver-core/com/mongodb/KerberosSubjectProvider.html#%3Cinit%3E()>`__
-      in your ``MongoCredential`` instance.
+      in your ``MongoCredential`` instance. The code to configure the Java driver to cache Kerberos tickets
+      by process should resemble the following:
+
+      .. include:: /includes/fundamentals/code-snippets/auth-credentials-gssapi-ticket-cache.rst
+
 
 .. note::
 
