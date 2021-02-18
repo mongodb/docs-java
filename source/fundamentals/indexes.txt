@@ -20,6 +20,11 @@ collection (a **collection scan**) to find the documents that match each query. 
 negatively affect the performance of your application. If an appropriate index exists for a query, MongoDB can use the
 index to limit the number of documents it must inspect.
 
+.. tip::
+
+   Indexes are also used by update operations when finding the document(s) to update, and by
+   :manual:`certain stages <core/aggregation-pipeline/#pipeline-operators-and-indexes>` in the aggregation framework.
+
 
 Query Coverage and Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,6 +110,11 @@ Single Field Indexes
 
 **Single field indexes** are indexes that improve performance for queries that specify ascending or descending sort
 order on a single field of a document.
+
+.. note::
+
+   The ``_id_`` index example of a single field index. This index is automatically created on the ``_id`` field when a
+   new collection is created.
 
 The following example creates an index in ascending order on the ``title`` field:
 
@@ -299,6 +309,8 @@ in the MongoDB server manual for more further information.
 
 Unique Indexes
 ~~~~~~~~~~~~~~
+
+.. _unique-indexes:
 
 Unique indexes ensure that the indexed fields do not store duplicate values. By default, MongoDB creates a unique index
 on the ``_id`` field during the creation of a collection. To create a unique index, specify the field or combination of
