@@ -119,83 +119,93 @@ corresponds to the format of the example you want to see:
 Read Extended JSON
 ------------------
 
-Using the Document Classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+The following examples show possible strategies for reading an Extended JSON string 
+into Java objects. Click the tab that corresponds to the format of the 
+example you want to see:
 
-You can read an Extended JSON string into Java document objects by calling
-the ``parse()`` static method from either the ``Document`` or ``BsonDocument``
-class, depending on which object type you need. This method parses the Extended
-JSON string in any of the formats and returns an instance of that class
-containing the data.
+.. tabs::
 
-The following example shows how you can use the ``Document`` class to read
-an example Extended JSON string into a ``Document`` object using the
-``parse()`` method:
+   .. tab:: Document Class
+      :tabid: document-class
 
-.. code-block:: java
-
-   String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                     "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-
-   Document doc = Document.parse(ejsonStr);
-   System.out.println(doc);
-
-The output of the code above resembles the following:
-
-.. code-block:: none
-   :copyable: False
-
-   Document{{_id=507f1f77bcf86cd799439011, myNumber=4794261}}
-
-For more information on the driver document classes, see our Fundamentals page
-on :doc:`Documents </fundamentals/data-formats/documents>`.
-
-Using the BSON Library
-~~~~~~~~~~~~~~~~~~~~~~
-
-You can also read an Extended JSON string into Java objects without using
-the MongoDB driver's document classes by using the
-:java-docs:`JsonReader </apidocs/bson/org/bson/json/JsonReader.html>` class.
-This class contains methods to sequentially parse the fields and values
-in any format of the Extended JSON string, and returns them as Java objects.
-MongoDB driver's document classes also use this class to parse Extended JSON.
-
-The following code example shows how you can use ``JsonReader`` to convert
-an Extended JSON string into Java objects:
-
-.. code-block:: java
-
-   String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                     "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-
-   JsonReader jsonReader = new JsonReader(ejsonStr);
-
-   jsonReader.readStartDocument();
-
-   jsonReader.readName("_id");
-   ObjectId id = jsonReader.readObjectId();
-   jsonReader.readName("myNumber");
-   Long myNumber = jsonReader.readInt64();
-
-   jsonReader.readEndDocument();
-
-   System.out.println(id + " is type: " + id.getClass().getName());
-   System.out.println(myNumber + " is type: " + myNumber.getClass().getName());
-
-   jsonReader.close();
-
-The output of this code example resembles the following:
-
-.. code-block:: none
-   :copyable: False
-
-   507f1f77bcf86cd799439011 is type: org.bson.types.ObjectId
-   4794261 is type: java.lang.Long
-
-
-For additional information on the classes and methods mentioned on this
-section, see the following API documentation:
       You can read an Extended JSON string into Java document objects by calling
+      the ``parse()`` static method from either the ``Document`` or ``BsonDocument``
+      class, depending on which object type you need. This method parses the Extended
+      JSON string in any of the formats and returns an instance of that class
+      containing the data.
+      
+      The following example shows how you can use the ``Document`` class to read
+      an example Extended JSON string into a ``Document`` object using the
+      ``parse()`` method:
+      
+      .. code-block:: java
+      
+         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
+                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
+      
+         Document doc = Document.parse(ejsonStr);
+         System.out.println(doc);
+      
+      The output of the code above resembles the following:
+      
+      .. code-block:: none
+         :copyable: False
+      
+         Document{{_id=507f1f77bcf86cd799439011, myNumber=4794261}}
+      
+      For more information on the driver document classes, see our Fundamentals page
+      on :doc:`Documents </fundamentals/data-formats/documents>`.
+
+   .. tab:: BSON Library
+      :tabid: bson-library
+
+      You can also read an Extended JSON string into Java objects without using
+      the MongoDB driver's document classes by using the
+      :java-docs:`JsonReader </apidocs/bson/org/bson/json/JsonReader.html>` class.
+      This class contains methods to sequentially parse the fields and values
+      in any format of the Extended JSON string, and returns them as Java objects.
+      MongoDB driver's document classes also use this class to parse Extended JSON.
+      
+      The following code example shows how you can use ``JsonReader`` to convert
+      an Extended JSON string into Java objects:
+      
+      .. code-block:: java
+      
+         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
+                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
+      
+         JsonReader jsonReader = new JsonReader(ejsonStr);
+      
+         jsonReader.readStartDocument();
+      
+         jsonReader.readName("_id");
+         ObjectId id = jsonReader.readObjectId();
+         jsonReader.readName("myNumber");
+         Long myNumber = jsonReader.readInt64();
+      
+         jsonReader.readEndDocument();
+      
+         System.out.println(id + " is type: " + id.getClass().getName());
+         System.out.println(myNumber + " is type: " + myNumber.getClass().getName());
+      
+         jsonReader.close();
+      
+      The output of this code example resembles the following:
+      
+      .. code-block:: none
+         :copyable: False
+      
+         507f1f77bcf86cd799439011 is type: org.bson.types.ObjectId
+         4794261 is type: java.lang.Long
+      
+      
+      For additional information on the classes and methods mentioned on this
+      section, see the following API documentation:
+      
+   .. tab:: JsonObject Class
+      :tabid: jsonobject-class
+
+      TODO: Write section
 
 Write Extended JSON
 -------------------
