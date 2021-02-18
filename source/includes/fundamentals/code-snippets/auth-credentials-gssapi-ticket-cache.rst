@@ -1,6 +1,6 @@
 .. code-block:: java
 
-   /* All MongoClient instances sharing this instance of KerberosSubjectProvider
+   /* all MongoClient instances sharing this instance of KerberosSubjectProvider
    will share a Kerberos ticket cache */
    String myLoginContext = "myContext";
    MongoCredential credential = MongoCredential.createGSSAPICredential(<username>);
