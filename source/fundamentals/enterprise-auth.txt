@@ -60,17 +60,6 @@ Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
 tab below for instructions and sample code for specifying this authentication
 mechanism:
 
-.. note::
-   The Java Driver will by default cache 
-   `Kerberos tickets <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__
-   by ``MongoClient`` instance. If your deployment needs to frequently create and destroy
-   ``MongoClient`` instances, you can change the default Kerberos ticket caching behavior of the Java Driver
-   to cache by process. To cache Kerberos tickets by process, you must specify the ``JAVA_SUBJECT_PROVIDER``
-   mechanism property and provide a 
-   `KerberosSubjectProvider <https://mongodb.github.io/mongo-java-driver/4.2//apidocs/mongodb-driver-core/com/mongodb/KerberosSubjectProvider.html#%3Cinit%3E()>`__
-   in your ``MongoCredential`` instance.
-
-
 .. tabs::
 
    .. tab::
@@ -169,6 +158,32 @@ You may need to specify one or more of the following additional
       properties might resemble the following:
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-gssapi-properties.rst
+
+
+The Java Driver will by default cache 
+`Kerberos tickets <https://docs.oracle.com/javase/7/docs/api/javax/security/auth/kerberos/KerberosTicket.html>`__
+by ``MongoClient`` instance. If your deployment needs to frequently create and destroy
+``MongoClient`` instances, you can change the default Kerberos ticket caching behavior of the Java Driver
+to cache by process.
+
+.. tabs::
+   :hidden:
+
+   .. tab::
+      :tabid: Connection String
+
+      To cache Kerberos tickets by process, you must use the ``MongoCredential`` authentication
+      mechanism, as the connection string authentication mechanism does not support the ``JAVA_SUBJECT_PROVIDER``
+      mechanism property. If you would like to cache Kerberos tickets by process, select the :guilabel:`MongoCredential`
+      tab to see how to accomplish this.
+
+   .. tab::
+      :tabid: MongoCredential
+
+      To cache Kerberos tickets by process, you must specify the ``JAVA_SUBJECT_PROVIDER``
+      mechanism property and provide a 
+      `KerberosSubjectProvider <https://mongodb.github.io/mongo-java-driver/4.2//apidocs/mongodb-driver-core/com/mongodb/KerberosSubjectProvider.html#%3Cinit%3E()>`__
+      in your ``MongoCredential`` instance.
 
 .. note::
 
