@@ -205,7 +205,16 @@ example you want to see:
    .. tab:: JsonObject Class
       :tabid: jsonobject-class
 
-      TODO: Write section
+      You can read an Extended JSON string into a Java ``JsonObject`` object through the ``JsonObject``
+      class constructor. The `JsonObject <apidocs/bson/org/bson/json/JsonObject.html>`
+      class acts as a wrapper for a JSON string.
+
+      .. code-block:: java
+      
+         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
+                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
+         JsonObject jsonObj = new JsonObject(ejsonStr);
+         System.out.println(jsonObj.getJson());
 
 Write Extended JSON
 -------------------
