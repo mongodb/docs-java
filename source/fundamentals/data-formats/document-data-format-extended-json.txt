@@ -333,21 +333,21 @@ format of the example you want to see:
       .. code-block:: java
          
          String uri = "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
-        MongoClient mongoClient = MongoClients.create(uri);
-        MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-        MongoCollection<JsonObject> collection = database.getCollection("movies", JsonObject.class);
-        JsonObject doc = collection.find(eq("title", "Back to the Future")).first();
-        System.out.println(doc.getJson());
-        String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-        JsonObject testObj = new JsonObject(ejsonStr);
-        //add JsonObject
-        InsertOneResult addResult = collection.insertOne(testObj);
-        System.out.println("was acknowledged: " + addResult.wasAcknowledged());
-        //delete JsonObject
-        JsonObject deleteOne = new JsonObject("{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}}");
-        DeleteResult delResult = collection.deleteOne(deleteOne);
-        System.out.println("num deleted: " + delResult.getDeletedCount());
+         MongoClient mongoClient = MongoClients.create(uri);
+         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
+         MongoCollection<JsonObject> collection = database.getCollection("movies", JsonObject.class);
+         JsonObject doc = collection.find(eq("title", "Back to the Future")).first();
+         System.out.println(doc.getJson());
+         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
+                 "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
+         JsonObject testObj = new JsonObject(ejsonStr);
+         //add JsonObject
+         InsertOneResult addResult = collection.insertOne(testObj);
+         System.out.println("was acknowledged: " + addResult.wasAcknowledged());
+         //delete JsonObject
+         JsonObject deleteOne = new JsonObject("{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}}");
+         DeleteResult delResult = collection.deleteOne(deleteOne);
+         System.out.println("num deleted: " + delResult.getDeletedCount());
          mongoClient.close();
 
       The output of this code example resembles the following:
