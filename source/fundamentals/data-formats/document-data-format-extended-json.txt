@@ -329,9 +329,9 @@ format of the example you want to see:
       may become clearer when looked at in the context of 
       :java-docs:`JsonObjectCodec <apidocs/bson/org/bson/codecs/JsonObjectCodec.html>`.
       The ``JsonObjectCodec`` allows you to use a ``JsonWriterSettings`` object to define
-      a codec between BSON and JSON strings in your ``MongoClientSettings`` object.
+      a codec between BSON and ``JsonObject`` instances.
       Below is a sample ``JsonObjectCodec`` configuration based off of the :doc:`quickstart </fundamentals/data-formats/codecs>`
-      example where we define a codec that lets read and write to a MongoDB instance using
+      where we define a codec that lets you read and write to a MongoDB instance using
       Relaxed JSON strings:
 
       .. code-block:: java
