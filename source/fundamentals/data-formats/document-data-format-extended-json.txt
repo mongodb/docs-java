@@ -322,10 +322,10 @@ format of the example you want to see:
       
          { "_id": { "$oid": "507f1f77bcf86cd799439011"},"myNumber": {"$numberLong": "4794261" }}}
 
-      The ``JsonObject`` class may not seem very useful to you at first glance, but its usefulness
-      may become clearer when looked at in the context of the
+      The ``JsonObject`` class may not seem very useful at first glance, but its usefulness
+      is easier to see when looked at in the context of the
       :java-docs:`default codec registry <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html?is-external=true#getDefaultCodecRegistry()>`
-      and :java-docs:`JsonObjectCodec <apidocs/bson/org/bson/codecs/JsonObjectCodec.html>`.
+      and the :java-docs:`JsonObjectCodec <apidocs/bson/org/bson/codecs/JsonObjectCodec.html>` class.
       Below is an example based off of the :doc:`quickstart </fundamentals/data-formats/codecs>`
       where we use the default codec registry and ``JsonObject`` to read and write to a MongoDB instance
       using Extended JSON:
