@@ -225,15 +225,11 @@ example you want to see:
       
          { "_id": { "$oid": "507f1f77bcf86cd799439011"},"myNumber": {"$numberLong": "4794261" }}}
 
-      The reason the ``JsonObject`` class could potentially be useful in your deployment is because the 
-      :java-docs:`default codec registry <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html?is-external=true#getDefaultCodecRegistry()>`
-      includes a ``JsonObject`` codec, allowing you to encode and decode BSON to ``JsonObject``
-      instances with minimal configuration. This is useful for deployments that want to work primarily
-      with raw JSON strings and avoid intermediate ``Document`` maps. This is discussed in more depth
+      If you want to work primarily with raw JSON strings and avoid intermediate ``Document`` maps in your deployment,
+      the ``JsonObject`` class is a more performant alternative than reading JSON to a ``Document`` instance and
+      calling the ``toJson()`` method on that ``Document`` instance. ``JsonObject`` is discussed in more depth below
       below in the :guilabel:`Write Extended JSON` section under the :guilabel:`JsonObject class` tab.
       
-      For more information on codecs, see our :doc:`Codecs guide </fundamentals/data-formats/codecs>`.
-
 Write Extended JSON
 -------------------
 
