@@ -326,8 +326,8 @@ strategy you would like to learn more about:
       is easier to see when looked at in the context of the
       :java-docs:`default codec registry <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html?is-external=true#getDefaultCodecRegistry()>`
       and the :java-docs:`JsonObjectCodec <apidocs/bson/org/bson/codecs/JsonObjectCodec.html>` class.
-      Below is an example based off of the :doc:`quickstart </fundamentals/data-formats/codecs>`
-      where we use the default codec registry and ``JsonObject`` to read and write to a MongoDB instance
+      Below is an example based on the :doc:`quickstart </fundamentals/data-formats/codecs>`.
+      We use the default codec registry and ``JsonObject`` to read and write to a MongoDB instance
       using Extended JSON strings:
 
       .. code-block:: java
@@ -361,8 +361,9 @@ strategy you would like to learn more about:
 
       The ``JsonObjectCodec`` allows you to use a ``JsonWriterSettings`` object to define
       a codec between BSON and ``JsonObject`` instances.
-      Below is a sample ``JsonObjectCodec`` configuration based off of the :doc:`quickstart </fundamentals/data-formats/codecs>`
-      where we define a codec that lets us read and write to a MongoDB instance using
+      Below is a sample ``JsonObjectCodec`` configuration based on the 
+      :doc:`quickstart </fundamentals/data-formats/codecs>`.
+      We define a codec that lets us read and write to a MongoDB instance using
       Relaxed JSON strings:
 
       .. code-block:: java
