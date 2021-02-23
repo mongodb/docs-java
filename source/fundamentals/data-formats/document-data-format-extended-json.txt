@@ -119,281 +119,146 @@ corresponds to the format of the example you want to see:
 Read Extended JSON
 ------------------
 
-The following examples show possible strategies for reading an Extended JSON string 
-into Java objects. Click the tab that corresponds to the strategy you would
-like to learn more about:
+Using the Document Classes
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tabs::
+You can read an Extended JSON string into Java document objects by calling
+the ``parse()`` static method from either the ``Document`` or ``BsonDocument``
+class, depending on which object type you need. This method parses the Extended
+JSON string in any of the formats and returns an instance of that class
+containing the data.
 
-   .. tab:: Document Class
-      :tabid: document-class-read
+The following example shows how you can use the ``Document`` class to read
+an example Extended JSON string into a ``Document`` object using the
+``parse()`` method:
 
-      You can read an Extended JSON string into Java document objects by calling
-      the ``parse()`` static method from either the ``Document`` or ``BsonDocument``
-      class, depending on which object type you need. This method parses the Extended
-      JSON string in any of the formats and returns an instance of that class
-      containing the data.
-      
-      The following example shows how you can use the ``Document`` class to read
-      an example Extended JSON string into a ``Document`` object using the
-      ``parse()`` method:
-      
-      .. code-block:: java
-      
-         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-      
-         Document doc = Document.parse(ejsonStr);
-         System.out.println(doc);
-      
-      The output of the code above should look something like this:
-      
-      .. code-block:: none
-         :copyable: False
-      
-         Document{{_id=507f1f77bcf86cd799439011, myNumber=4794261}}
-      
-      For more information on the driver document classes, see our Fundamentals page
-      on :doc:`Documents </fundamentals/data-formats/documents>`.
+.. code-block:: java
 
-   .. tab:: BSON Library
-      :tabid: bson-library-read
+   String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
+                     "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
 
-      You can read an Extended JSON string into Java objects without using
-      the MongoDB driver's document classes by using the
-      :java-docs:`JsonReader </apidocs/bson/org/bson/json/JsonReader.html>` class.
-      This class contains methods to sequentially parse the fields and values
-      in any format of the Extended JSON string, and returns them as Java objects.
-      MongoDB driver's document classes also use this class to parse Extended JSON.
-      
-      The following code example shows how you can use ``JsonReader`` to convert
-      an Extended JSON string into Java objects:
-      
-      .. code-block:: java
-      
-         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-      
-         JsonReader jsonReader = new JsonReader(ejsonStr);
-      
-         jsonReader.readStartDocument();
-      
-         jsonReader.readName("_id");
-         ObjectId id = jsonReader.readObjectId();
-         jsonReader.readName("myNumber");
-         Long myNumber = jsonReader.readInt64();
-      
-         jsonReader.readEndDocument();
-      
-         System.out.println(id + " is type: " + id.getClass().getName());
-         System.out.println(myNumber + " is type: " + myNumber.getClass().getName());
-      
-         jsonReader.close();
-      
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: False
-      
-         507f1f77bcf86cd799439011 is type: org.bson.types.ObjectId
-         4794261 is type: java.lang.Long
-      
-      
-      For additional information on the classes and methods mentioned on this
-      section, see the following API documentation:
-      
-   .. tab:: JsonObject Class
-      :tabid: jsonobject-class-read
+   Document doc = Document.parse(ejsonStr);
+   System.out.println(doc);
 
-      You can read an Extended JSON string into a Java
-      :java-docs:`JsonObject <apidocs/bson/org/bson/json/JsonObject.html>`
-      object through the ``JsonObject`` class constructor. The ``JsonObject``
-      class acts as a wrapper for a JSON string. 
-      
-      The following example shows how to instantiate a ``JsonObject`` with an Extended JSON string:
+The output of the code above resembles the following:
 
-      .. code-block:: java
-      
-         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-         JsonObject jsonObj = new JsonObject(ejsonStr);
-         System.out.println(jsonObj.getJson());
+.. code-block:: none
+   :copyable: False
 
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: False
-      
-         { "_id": { "$oid": "507f1f77bcf86cd799439011"},"myNumber": {"$numberLong": "4794261" }}}
+   Document{{_id=507f1f77bcf86cd799439011, myNumber=4794261}}
 
-      If you want to work primarily with raw JSON strings and avoid intermediate ``Document`` maps in your deployment,
-      use the ``JsonObject`` class. ``JsonObject`` is discussed in more depth
-      below in the :guilabel:`Write Extended JSON` section under the :guilabel:`JsonObject class` tab.
-      
+For more information on the driver document classes, see our Fundamentals page
+on :doc:`Documents </fundamentals/data-formats/documents>`.
+
+Using the BSON Library
+~~~~~~~~~~~~~~~~~~~~~~
+
+You can also read an Extended JSON string into Java objects without using
+the MongoDB driver's document classes by using the
+:java-docs:`JsonReader </apidocs/bson/org/bson/json/JsonReader.html>` class.
+This class contains methods to sequentially parse the fields and values
+in any format of the Extended JSON string, and returns them as Java objects.
+MongoDB driver's document classes also use this class to parse Extended JSON.
+
+The following code example shows how you can use ``JsonReader`` to convert
+an Extended JSON string into Java objects:
+
+.. code-block:: java
+
+   String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
+                     "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
+
+   JsonReader jsonReader = new JsonReader(ejsonStr);
+
+   jsonReader.readStartDocument();
+
+   jsonReader.readName("_id");
+   ObjectId id = jsonReader.readObjectId();
+   jsonReader.readName("myNumber");
+   Long myNumber = jsonReader.readInt64();
+
+   jsonReader.readEndDocument();
+
+   System.out.println(id + " is type: " + id.getClass().getName());
+   System.out.println(myNumber + " is type: " + myNumber.getClass().getName());
+
+   jsonReader.close();
+
+The output of this code example resembles the following:
+
+.. code-block:: none
+   :copyable: False
+
+   507f1f77bcf86cd799439011 is type: org.bson.types.ObjectId
+   4794261 is type: java.lang.Long
+
+
+For additional information on the classes and methods mentioned on this
+section, see the following API documentation:
+
 Write Extended JSON
 -------------------
 
-The following examples show possible strategies for writing an Extended
-JSON string from Java objects. Click the tab that corresponds to the
-strategy you would like to learn more about:
+Using the Document Classes
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tabs::
+You can write an Extended JSON string from an instance of ``Document`` or
+``BsonDocument`` by calling the ``toJson()`` method, optionally passing it an
+instance of ``JsonWriterSettings`` to specify the Extended JSON format.
 
-   .. tab:: Document Class
-      :tabid: document-class-write
+In this example, we output the Extended JSON in the "Relaxed" format.
 
-      You can write an Extended JSON string from an instance of ``Document`` or
-      ``BsonDocument`` by calling the ``toJson()`` method. You can pass it an
-      instance of ``JsonWriterSettings`` to specify the Extended JSON format.
-      
-      In this example, we output the Extended JSON in the "Relaxed" format.
-      
-      .. code-block:: java
-      
-         Document myDoc = new Document();
-         myDoc.append("_id", new ObjectId("507f1f77bcf86cd799439012")).append("myNumber", 11223344);
-      
-         JsonWriterSettings settings = JsonWriterSettings.builder().outputMode(JsonMode.RELAXED).build();
-         System.out.println(doc.toJson(settings));
-      
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: false
-      
-         {"_id": {"$oid": "507f1f77bcf86cd799439012"}, "myNumber": 11223344}
+.. code-block:: java
 
-   .. tab:: BSON Library
-      :tabid: bson-library-write
+   Document myDoc = new Document();
+   myDoc.append("_id", new ObjectId("507f1f77bcf86cd799439012")).append("myNumber", 11223344);
 
-      You can also output an Extended JSON string from data in Java objects using
-      the BSON library with the :java-docs:`JsonWriter </apidocs/bson/org/bson/json/JsonWriter.html>`
-      class. To construct an instance of ``JsonWriter``, pass a subclass of a Java
-      ``Writer`` to specify how you want to output the Extended JSON. You can
-      optionally pass a :java-docs:`JsonWriterSettings </apidocs/bson/org/bson/json/JsonWriterSettings.html>`
-      instance to specify options such as the Extended JSON format. By default, the
-      ``JsonWriter`` uses the "Relaxed" Extended JSON format. MongoDB driver's
-      document classes also use this class to convert BSON to Extended JSON.
-      
-      The following code example shows how you can use ``JsonWriter`` to create an
-      Extended JSON string and output it to ``System.out``. We specify the format
-      by passing the :java-docs:`outputMode() </apidocs/bson/org/bson/json/JsonWriterSettings.Builder.html#outputMode(org.bson.json.JsonMode)>`
-      builder method the ``JsonMode.EXTENDED`` constant:
-      
-      .. code-block:: java
-      
-         JsonWriterSettings settings = JsonWriterSettings.builder().outputMode(JsonMode.EXTENDED).build();
-      
-         try (JsonWriter jsonWriter = new JsonWriter(new BufferedWriter(new OutputStreamWriter(System.out)), settings)) {
-             jsonWriter.writeStartDocument();
-             jsonWriter.writeObjectId("_id", new ObjectId("507f1f77bcf86cd799439012"));
-             jsonWriter.writeInt64("myNumber", 11223344);
-             jsonWriter.writeEndDocument();
-             jsonWriter.flush();
-         }
-      
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: false
-      
-         {"_id": {"$oid": "507f1f77bcf86cd799439012"}, "myNumber": {"$numberLong": "11223344"}}
+   JsonWriterSettings settings = JsonWriterSettings.builder().outputMode(JsonMode.RELAXED).build();
+   System.out.println(doc.toJson(settings));
 
-   .. tab:: JsonObject Class
-      :tabid: jsonobject-class-write
+The output of this code example resembles the following:
 
-      The ``JsonObject`` class is a wrapper for JSON strings. You can access the
-      string contained in a ``JsonObject`` instance using the ``toJson()`` method.
+.. code-block:: none
+   :copyable: false
 
-      The following code snippet shows how to read an extended JSON string from a ``JsonObject``
-      using the ``toJson()`` method:
+   {"_id": {"$oid": "507f1f77bcf86cd799439012"}, "myNumber": 11223344}
 
-      .. code-block:: java
-      
-         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                           "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-         JsonObject jsonObj = new JsonObject(ejsonStr);
-         System.out.println(jsonObj.getJson());
+Using the BSON Library
+~~~~~~~~~~~~~~~~~~~~~~
 
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: False
-      
-         { "_id": { "$oid": "507f1f77bcf86cd799439011"},"myNumber": {"$numberLong": "4794261" }}}
+You can also output an Extended JSON string from data in Java objects using
+the BSON library with the :java-docs:`JsonWriter </apidocs/bson/org/bson/json/JsonWriter.html>`
+class. To construct an instance of ``JsonWriter``, pass a subclass of a Java
+``Writer`` to specify how you want to output the Extended JSON. You can
+optionally pass a :java-docs:`JsonWriterSettings </apidocs/bson/org/bson/json/JsonWriterSettings.html>`
+instance to specify options such as the Extended JSON format. By default, the
+``JsonWriter`` uses the "Relaxed" Extended JSON format. MongoDB driver's
+document classes also use this class to convert BSON to Extended JSON.
 
-      The ``JsonObject`` class may not seem very useful at first glance, but its usefulness
-      is easier to see when looked at in the context of the
-      :java-docs:`default codec registry <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html?is-external=true#getDefaultCodecRegistry()>`
-      and the :java-docs:`JsonObjectCodec <apidocs/bson/org/bson/codecs/JsonObjectCodec.html>` class.
-      Below is an example based on the :doc:`quickstart </fundamentals/data-formats/codecs>`.
-      We use the default codec registry and ``JsonObject`` to read and write to a MongoDB instance
-      using Extended JSON strings:
+The following code example shows how you can use ``JsonWriter`` to create an
+Extended JSON string and output it to ``System.out``. We specify the format
+by passing the :java-docs:`outputMode() </apidocs/bson/org/bson/json/JsonWriterSettings.Builder.html#outputMode(org.bson.json.JsonMode)>`
+builder method the ``JsonMode.EXTENDED`` constant:
 
-      .. code-block:: java
-         
-         String uri = "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
-         MongoClient mongoClient = MongoClients.create(uri);
-         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-         MongoCollection<JsonObject> collection = database.getCollection("movies", JsonObject.class);
-         JsonObject doc = collection.find(eq("title", "Back to the Future")).first();
-         System.out.println(doc.getJson());
-         String ejsonStr = "{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}," +
-                 "\"myNumber\": {\"$numberLong\": \"4794261\" }}}";
-         JsonObject testObj = new JsonObject(ejsonStr);
-         //add JsonObject
-         InsertOneResult addResult = collection.insertOne(testObj);
-         System.out.println("was acknowledged: " + addResult.wasAcknowledged());
-         //delete JsonObject
-         JsonObject deleteOne = new JsonObject("{ \"_id\": { \"$oid\": \"507f1f77bcf86cd799439011\"}}");
-         DeleteResult delResult = collection.deleteOne(deleteOne);
-         System.out.println("num deleted: " + delResult.getDeletedCount());
-         mongoClient.close();
+.. code-block:: java
 
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: false
-      
-         {"_id": {"$oid": "573a1398f29313caabce9682"}, "plot": "A young man is accidentally sent 30 years into the past in a time-traveling DeLorean invented by his friend, Dr. Emmett Brown, and must make sure his high-school-age parents unite in order to save his own existence.", "genres": ["Adventure", "Comedy", "Sci-Fi"], "runtime": 116, "metacritic": 86, "rated": "PG", "cast": ["Michael J. Fox", "Christopher Lloyd", "Lea Thompson", "Crispin Glover"], "poster": "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_SX677_AL_.jpg", "title": "Back to the Future", "fullplot": "Marty McFly, a typical American teenager of the Eighties, is accidentally sent back to 1955 in a plutonium-powered DeLorean \"time machine\" invented by slightly mad scientist. During his often hysterical, always amazing trip back in time, Marty must make certain his teenage parents-to-be meet and fall in love - so he can get back to the future.", "languages": ["English"], "released": {"$date": "1985-07-03T00:00:00Z"}, "directors": ["Robert Zemeckis"], "writers": ["Robert Zemeckis", "Bob Gale"], "awards": {"wins": 19, "nominations": 24, "text": "Won 1 Oscar. Another 18 wins & 24 nominations."}, "lastupdated": {"$date": "2015-09-22T11:42:56Z"}, "year": 1985, "imdb": {"rating": 8.5, "votes": 636511, "id": 88763}, "countries": ["USA"], "type": "movie"}
-         was acknowledged: true
-         num deleted: 1
+   JsonWriterSettings settings = JsonWriterSettings.builder().outputMode(JsonMode.EXTENDED).build();
 
-      The ``JsonObjectCodec`` allows you to use a ``JsonWriterSettings`` object to define
-      a codec between BSON and ``JsonObject`` instances.
-      Below is a sample ``JsonObjectCodec`` configuration based on the 
-      :doc:`quickstart </fundamentals/data-formats/codecs>`.
-      We define a codec that lets us read and write to a MongoDB instance using
-      Relaxed JSON strings:
+   try (JsonWriter jsonWriter = new JsonWriter(new BufferedWriter(new OutputStreamWriter(System.out)), settings)) {
+       jsonWriter.writeStartDocument();
+       jsonWriter.writeObjectId("_id", new ObjectId("507f1f77bcf86cd799439012"));
+       jsonWriter.writeInt64("myNumber", 11223344);
+       jsonWriter.writeEndDocument();
+       jsonWriter.flush();
+   }
 
-      .. code-block:: java
-      
-         String uri = "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
-         CodecRegistry jsonCodec = fromRegistries(
-                         fromCodecs(
-                                 new JsonObjectCodec(JsonWriterSettings
-                                         .builder()
-                                         .outputMode(JsonMode.RELAXED)
-                                         .objectIdConverter((objectId, strictJsonWriter) -> {
-                                             strictJsonWriter.writeString(objectId.toHexString());
-                                         })
-                                         .build())),
-                         getDefaultCodecRegistry());
-         MongoClient mongoClient = MongoClients.create(uri);
-         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-         MongoCollection<JsonObject> collection = database.getCollection("movies", JsonObject.class).withCodecRegistry(jsonCodec);
-         JsonObject doc = collection.find(eq("title", "Back to the Future")).first();
-         System.out.println(doc.getJson());
-         mongoClient.close();
-      
-      The output of this code example should look something like this:
-      
-      .. code-block:: none
-         :copyable: false
-      
-         {"_id": "573a1398f29313caabce9682", "plot": "A young man is accidentally sent 30 years into the past in a time-traveling DeLorean invented by his friend, Dr. Emmett Brown, and must make sure his high-school-age parents unite in order to save his own existence.", "genres": ["Adventure", "Comedy", "Sci-Fi"], "runtime": 116, "metacritic": 86, "rated": "PG", "cast": ["Michael J. Fox", "Christopher Lloyd", "Lea Thompson", "Crispin Glover"], "poster": "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_SX677_AL_.jpg", "title": "Back to the Future", "fullplot": "Marty McFly, a typical American teenager of the Eighties, is accidentally sent back to 1955 in a plutonium-powered DeLorean \"time machine\" invented by slightly mad scientist. During his often hysterical, always amazing trip back in time, Marty must make certain his teenage parents-to-be meet and fall in love - so he can get back to the future.", "languages": ["English"], "released": {"$date": "1985-07-03T00:00:00Z"}, "directors": ["Robert Zemeckis"], "writers": ["Robert Zemeckis", "Bob Gale"], "awards": {"wins": 19, "nominations": 24, "text": "Won 1 Oscar. Another 18 wins & 24 nominations."}, "lastupdated": {"$date": "2015-09-22T11:42:56Z"}, "year": 1985, "imdb": {"rating": 8.5, "votes": 636511, "id": 88763}, "countries": ["USA"], "type": "movie"}
+The output of this code example resembles the following:
 
-      For more information on codecs, see our :doc:`Codecs guide </fundamentals/data-formats/codecs>`.
+.. code-block:: none
+   :copyable: false
+
+   {"_id": {"$oid": "507f1f77bcf86cd799439012"}, "myNumber": {"$numberLong": "11223344"}}
+
 
 Custom BSON Type Conversion
 ---------------------------
@@ -432,7 +297,8 @@ The output of this code should resemble the following:
 
    {"_id": "507f1f77bcf86cd799439012", "createdAt": "2020-09-30T21:00:09Z", "myNumber": 4794261}
 
-Without specifying the converters, the "Relaxed" JSON output should look something like this:
+Without specifying the converters, the "Relaxed" JSON output resembles the
+following:
 
 .. code-block:: json
 
