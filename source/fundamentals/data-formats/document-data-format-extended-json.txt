@@ -36,7 +36,7 @@ MongoDB Extended JSON features different string formats to represent BSON data.
 Each of the different formats conform to the `JSON RFC <https://tools.ietf.org/html/rfc7159>`__
 and meet specific use cases. The **extended** format, also known as the
 **canonical** format, features specific representations for every BSON type
-for bidirectional conversion without loss of information. The **relaxed**
+for bidirectional conversion without loss of information. The **relaxed mode**
 format is more concise and closer to ordinary JSON, but does not represent
 all the type information such as specific byte size of number fields.
 
@@ -56,7 +56,7 @@ See the table below to see a description of each format:
        |
        | For more information on this format, see the server manual page on :manual:`MongoDB Extended JSON </reference/mongodb-extended-json/>`.
 
-   * - **Relaxed**
+   * - **Relaxed Mode**
      - | JSON representation that describes BSON documents with some type information loss.
        | This format prioritizes human-readability and interoperability at the loss of certain type information.
        |
@@ -93,8 +93,8 @@ corresponds to the format of the example you want to see:
            "numViews": { "$numberLong": "36520312" }
          }
 
-   .. tab:: Relaxed
-      :tabid: relaxed-format
+   .. tab:: Relaxed Mode
+      :tabid: relaxed-mode-format
 
       .. code-block:: json
 
@@ -206,7 +206,7 @@ You can write an Extended JSON string from an instance of ``Document`` or
 ``BsonDocument`` by calling the ``toJson()`` method, optionally passing it an
 instance of ``JsonWriterSettings`` to specify the Extended JSON format.
 
-In this example, we output the Extended JSON in the "Relaxed" format.
+In this example, we output the Extended JSON in the Relaxed mode format.
 
 .. code-block:: java
 
@@ -232,7 +232,7 @@ class. To construct an instance of ``JsonWriter``, pass a subclass of a Java
 ``Writer`` to specify how you want to output the Extended JSON. You can
 optionally pass a :java-docs:`JsonWriterSettings </apidocs/bson/org/bson/json/JsonWriterSettings.html>`
 instance to specify options such as the Extended JSON format. By default, the
-``JsonWriter`` uses the "Relaxed" Extended JSON format. MongoDB driver's
+``JsonWriter`` uses the Relaxed mode format. MongoDB driver's
 document classes also use this class to convert BSON to Extended JSON.
 
 The following code example shows how you can use ``JsonWriter`` to create an
