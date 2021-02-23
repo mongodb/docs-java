@@ -312,7 +312,7 @@ instance wrapping an Extended JSON string containing different types of key valu
 
 .. code-block:: java
 
-   String author =  "{"
+   String ejsonStr =  "{"
                    +" \"_id\": {"
                    +"  \"$oid\": \"6035210f35bd203721c3eab8\""
                    +" },"
@@ -335,6 +335,7 @@ instance wrapping an Extended JSON string containing different types of key valu
                    +"  }"
                    +" ]"
                    +"}";
+   JsonObject author = new JsonObject(ejsonStr);
 
 To insert this document into a collection, instantiate a collection using
 :java-docs:`getCollection()</apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
