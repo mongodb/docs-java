@@ -45,6 +45,11 @@ access and manipulate the BSON data in documents:
      - Yes, implements ``Map<String, BsonValue>``
      - When you need a type-safe API.
 
+   * - ``JsonObject``
+     - ``org.bson.json``
+     - No
+     - When you need to work with JSON strings.
+
    * - ``BasicDBObject``
      - ``com.mongodb``
      - No
@@ -283,6 +288,48 @@ For more information on retrieving and manipulating MongoDB data, see our
 
 For more information on this class, see the
 :java-docs:`BsonDocument API documentation </apidocs/bson/org/bson/BsonDocument.html>`.
+
+JsonObject
+-------------
+
+The ``JsonObject`` class acts as a wrapper for JSON strings.
+If you want to work primarily with JSON strings in your application, 
+use the ``JsonObject`` class. For applications that work with JSON
+strings, ``JsonObject`` is a more performant alternative to both ``Document``
+and ``BsonDocument`` as ``JsonObject`` does not create an intermediate
+``Map`` object.
+
+You can customize the format of JSON in ``JsonObject`` by specyfying a ``JsonObjectCodec``
+and passing it a ``JsonWriterSettings`` object.
+
+In the following code snippet, we show how to instantiate and build a sample ``JsonObject`` 
+instance representing a document containing several different field types:
+
+.. code-block:: java
+
+   String author =  "{"
+                   +" \"_id\": {"
+                   +"  \"$oid\": \"6035210f35bd203721c3eab8\""
+                   +" },"
+                   +" \"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\","
+                   +" \"dateOfDeath\": {"
+                   +"  \"$date\": \"2014-04-17T04:00:00Z\""
+                   +" },"
+                   +" \"novels\": ["
+                   +"  {"
+                   +"   \"title\": \"One Hundred Years of Solitude\","
+                   +"   \"yearPublished\": 1967"
+                   +"  },"
+                   +"  {"
+                   +"   \"title\": \"Chronicle of a Death Foretold\","
+                   +"   \"yearPublished\": 1981"
+                   +"  },"
+                   +"  {"
+                   +"   \"title\": \"Love in the Time of Cholera\","
+                   +"   \"yearPublished\": 1985"
+                   +"  }"
+                   +" ]"
+                   +"}";
 
 BasicDBObject
 -------------
