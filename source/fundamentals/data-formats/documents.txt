@@ -299,11 +299,16 @@ strings, ``JsonObject`` is a more performant alternative to both ``Document``
 and ``BsonDocument`` as ``JsonObject`` does not create an intermediate
 ``Map`` object.
 
-You can customize the format of JSON in ``JsonObject`` by specyfying a ``JsonObjectCodec``
-and passing it a ``JsonWriterSettings`` object.
+By default, ``JsonObject`` stores :manual:`Extended JSON </reference/mongodb-extended-json/>`.
+You can customize the format of JSON in ``JsonObject`` by specyfying a
+:java-docs:`JsonObjectCodec</apidocs/bson/org/bson/codecs/JsonObjectCodec.html>`.
+and passing it a
+:java-docs:`JsonWriterSettings</apidocs/bson/org/bson/json/JsonWriterSettings.html>`.
+object. For more information on JSON formats, see
+our :doc:`Extended JSON guide </fundamentals/data-formats/document-data-format-extended-json/>`.
 
-In the following code snippet, we show how to instantiate and build a sample ``JsonObject`` 
-instance representing a document containing several different field types:
+In the following code snippet, we show how to instantiate a sample ``JsonObject`` 
+instance representing an Extended JSON string containing different key value types:
 
 .. code-block:: java
 
@@ -330,6 +335,46 @@ instance representing a document containing several different field types:
                    +"  }"
                    +" ]"
                    +"}";
+
+To insert this document into a collection, instantiate a collection using
+:java-docs:`getCollection()</apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
+specifying the ``JsonObject`` class. Then, call the
+:doc:`insertOne </usage-examples/insertOne>` operation as follows:
+
+.. code-block:: java
+
+   // MongoClient mongoClient = <code to instantiate your client>;
+
+   MongoDatabase database = mongoClient.getDatabase("fundamentals_data");
+   MongoCollection<JsonObject> collection = database.getCollection("authors", JsonObject.class);
+
+   InsertOneResult result = collection.insertOne(author);
+
+Once you perform a successful insert, you can retrieve the sample JSON data from the 
+collection using the following code:
+
+.. code-block:: java
+
+   // MongoClient mongoClient = <code to instantiate your client>;
+
+   JsonObject query = new JsonObject("{\"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\"}");
+   JsonObject json = collection.find(query).first();
+   if (json != null) {
+       //this is equivalent to System.out.println("raw extended json string: " + json);
+       System.out.println("raw extended json string: " + json.getJson());
+   }
+
+The output should look something like this:
+
+.. code-block:: java
+
+   raw extended json string: {"_id": {"$oid": "6035210f35bd203721c3eab8"}, "name": "Gabriel García Márquez", "dateOfDeath": {"$date": "2014-04-17T04:00:00Z"}, "novels": [{"title": "One Hundred Years of Solitude", "yearPublished": 1967}, {"title": "Chronicle of a Death Foretold", "yearPublished": 1981}, {"title": "Love in the Time of Cholera", "yearPublished": 1985}]}
+
+For more information on retrieving and manipulating MongoDB data, see our
+:doc:`CRUD guide </fundamentals/crud>`.
+
+For more information on this class, see the
+:java-docs:`JsonObject API documentation <apidocs/bson/org/bson/json/JsonObject.html>`.
 
 BasicDBObject
 -------------
