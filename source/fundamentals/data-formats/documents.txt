@@ -293,10 +293,8 @@ JsonObject
 -------------
 
 The ``JsonObject`` class acts as a wrapper for JSON strings.
-If you want to work primarily with JSON strings in your application, 
-use the ``JsonObject`` class. For applications that work with JSON
-strings, ``JsonObject`` is a more performant alternative to both ``Document``
-and ``BsonDocument`` as ``JsonObject`` does not create an intermediate
+``JsonObject`` is a more performant alternative to both ``Document``
+and ``BsonDocument`` when working with JSON strings because it does not create an intermediate
 ``Map`` object.
 
 By default, ``JsonObject`` stores :manual:`Extended JSON </reference/mongodb-extended-json/>`.
@@ -481,4 +479,3 @@ work with BSON data:
 - Provided usage examples for each class on building documents containing
   multiple types, inserting them into a collection, and
   retrieving/accessing their typed fields.
-
