@@ -345,8 +345,7 @@ collection using the following code:
    JsonObject query = new JsonObject("{\"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\"}");
    JsonObject json = collection.find(query).first();
    if (json != null) {
-       //this is equivalent to System.out.println("raw extended json string: " + json);
-       System.out.println("raw extended json string: " + json.getJson());
+       System.out.println("extended json string: " + json.getJson());
    }
 
 The output should look something like this:
