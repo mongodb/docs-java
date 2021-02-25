@@ -230,7 +230,7 @@ different field types:
 
 To insert this document into a collection, instantiate a collection using
 :java-docs:`getCollection()</apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
-specifying the ``BsonDocument`` class. Then, call the
+specifying the ``BsonDocument`` class as the ``documentClass`` parameter. Then, call the
 :doc:`insertOne </usage-examples/insertOne>` operation as follows:
 
 .. code-block:: java
@@ -323,7 +323,7 @@ instance wrapping an Extended JSON string containing different types of key valu
 
 To insert this document into a collection, instantiate a collection using
 :java-docs:`getCollection()</apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
-specifying the ``JsonObject`` class. Then, call the
+specifying the ``JsonObject`` class as the ``documentClass`` parameter. Then, call the
 :doc:`insertOne </usage-examples/insertOne>` operation as follows:
 
 .. code-block:: java
@@ -393,7 +393,7 @@ different field types:
 
 To insert this document into a collection, instantiate a collection using
 :java-docs:`getCollection()</apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
-specifying the ``BasicDBObject`` class. Then, call the
+specifying the ``BasicDBObject`` class as the ``documentClass`` parameter. Then, call the
 :doc:`insertOne </usage-examples/insertOne>` operation as follows:
 
 .. code-block:: java
