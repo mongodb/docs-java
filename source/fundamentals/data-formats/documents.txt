@@ -343,7 +343,7 @@ collection using the following code:
    // MongoClient mongoClient = <code to instantiate your client>;
 
    JsonObject query = new JsonObject("{\"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\"}");
-   JsonObject json = collection.find(query).first();
+   JsonObject jsonResult = collection.find(query).first();
    if (json != null) {
        System.out.println("extended json string: " + json.getJson());
    }
