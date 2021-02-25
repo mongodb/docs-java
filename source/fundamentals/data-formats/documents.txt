@@ -322,7 +322,7 @@ instance wrapping an Extended JSON string containing different types of key valu
    JsonObject author = new JsonObject(ejsonStr);
 
 To insert this document into a collection, instantiate a collection using
-:java-docs:`getCollection()</apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
+:java-docs:`getCollection() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String,java.lang.Class)>`,
 specifying the ``JsonObject`` class as the ``documentClass`` parameter. Then, call the
 :doc:`insertOne </usage-examples/insertOne>` operation as follows:
 
