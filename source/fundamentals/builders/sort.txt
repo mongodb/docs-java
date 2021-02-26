@@ -40,12 +40,12 @@ follows:
    // MongoDatabase database = <code to instantiate your database>;
    
    MongoCollection<Document> collection = database.getCollection("sort_example");
-   Document doc1 = new Document("number", 1).append("letter", "c");
-   Document doc2 = new Document("number", 3).append("letter", "a");
-   Document doc3 = new Document("number", 4).append("letter", "b");
-   Document doc4 = new Document("number", 5).append("letter", "a");
-   Document doc5 = new Document("number", 2).append("letter", "a");
-   Document doc6 = new Document("number", 6).append("letter", "c");
+   Document doc1 = new Document("number", 1).append("letter", "c").append("food", "coffee with milk");
+   Document doc2 = new Document("number", 3).append("letter", "a").append("food", "maple syrup");
+   Document doc3 = new Document("number", 4).append("letter", "b").append("food", "coffee with sugar");
+   Document doc4 = new Document("number", 5).append("letter", "a").append("food", "milk and cookies");
+   Document doc5 = new Document("number", 2).append("letter", "a").append("food", "donuts and coffee");
+   Document doc6 = new Document("number", 6).append("letter", "c").append("food", "maple donut");
 
    List<Document> documents = Arrays.asList(new Document[]{doc1, doc2, doc3, doc4, doc5});
    collection.insertMany(documents);
@@ -54,12 +54,12 @@ The above snippet populates the ``sort_example`` collection with five documents:
 
 .. code-block:: none
 
-   {"number": 1, "letter": "c"}
-   {"number": 3, "letter": "a"}
-   {"number": 4, "letter": "b"}
-   {"number": 5, "letter": "a"}
-   {"number": 2, "letter": "a"}
-   {"number": 6, "letter": "c"}
+   {"number": 1, "letter": "c", "food": "coffee with milk"}
+   {"number": 3, "letter": "a", "food": "maple syrup"}
+   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"number": 5, "letter": "a", "food": "milk and cookies"}
+   {"number": 2, "letter": "a", "food": "donuts and coffee"}
+   {"number": 6, "letter": "c", "food": "maple donut"}
 
 
 Ascending
@@ -91,13 +91,12 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
-   {"number": 1, "letter": "c"}
-   {"number": 2, "letter": "a"}
-   {"number": 3, "letter": "a"}
-   {"number": 4, "letter": "b"}
-   {"number": 5, "letter": "a"}
-   {"number": 6, "letter": "c"}
-
+   {"number": 1, "letter": "c", "food": "coffee with milk"}
+   {"number": 2, "letter": "a", "food": "donuts and coffee"}
+   {"number": 3, "letter": "a", "food": "maple syrup"}
+   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"number": 5, "letter": "a", "food": "milk and cookies"}
+   {"number": 6, "letter": "c", "food": "maple donut"}
 
 An important thing for you to keep in mind is that MongoDB does
 not guarentee sort order for fields with identical values.
@@ -137,12 +136,13 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
-   {"number": 2, "letter": "a"}
-   {"number": 3, "letter": "a"}
-   {"number": 5, "letter": "a"}
-   {"number": 4, "letter": "b"}
-   {"number": 1, "letter": "c"}
-   {"number": 6, "letter": "c"}
+   {"number": 2, "letter": "a", "food": "donuts and coffee"}
+   {"number": 3, "letter": "a", "food": "maple syrup"}
+   {"number": 5, "letter": "a", "food": "milk and cookies"}
+   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"number": 1, "letter": "c", "food": "coffee with milk"}
+   {"number": 6, "letter": "c", "food": "maple donut"}
+
 
 Descending
 ----------
@@ -173,15 +173,15 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
-   {"number": 6, "letter": "c"}
-   {"number": 5, "letter": "a"}
-   {"number": 4, "letter": "b"}
-   {"number": 3, "letter": "a"}
-   {"number": 2, "letter": "a"}
-   {"number": 1, "letter": "c"}
+   {"number": 6, "letter": "c", "food": "maple donut"}
+   {"number": 5, "letter": "a", "food": "milk and cookies"}
+   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"number": 3, "letter": "a", "food": "maple syrup"}
+   {"number": 2, "letter": "a", "food": "donuts and coffee"}
+   {"number": 1, "letter": "c", "food": "coffee with milk"}
 
 It is important for you to keep in mind that ``descending``
-does not provide guarentees on sort order in the even of identical values.
+does not provide guarentees on sort order in the event of identical values.
 This means that ``descending("letter")`` could return either of these two
 documents in the first position:
 
@@ -217,10 +217,9 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
-   {"number": 6, "letter": "c"}
-   {"number": 1, "letter": "c"}
-   {"number": 4, "letter": "b"}
-   {"number": 5, "letter": "a"}
-   {"number": 3, "letter": "a"}
-   {"number": 2, "letter": "a"}
-
+   {"number": 6, "letter": "c", "food": "maple donut"}
+   {"number": 1, "letter": "c", "food": "coffee with milk"}
+   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"number": 5, "letter": "a", "food": "milk and cookies"}
+   {"number": 3, "letter": "a", "food": "maple syrup"}
+   {"number": 2, "letter": "a", "food": "donuts and coffee"}
