@@ -340,8 +340,8 @@ collection using the following code:
 
    JsonObject query = new JsonObject("{\"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\"}");
    JsonObject jsonResult = collection.find(query).first();
-   if (json != null) {
-       System.out.println("extended json string: " + json.getJson());
+   if (jsonResult != null) {
+       System.out.println("extended json string: " + jsonResult.getJson());
    }
 
 The output should look something like this:
