@@ -173,8 +173,54 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
+   {"number": 6, "letter": "c"}
    {"number": 5, "letter": "a"}
    {"number": 4, "letter": "b"}
    {"number": 3, "letter": "a"}
    {"number": 2, "letter": "a"}
    {"number": 1, "letter": "c"}
+
+It is important for you to keep in mind that ``descending``
+does not provide guarentees on sort order in the even of identical values.
+This means that ``descending("letter")`` could return either of these two
+documents in the first position:
+
+.. code-block:: none
+
+   {"number": 1, "letter": "c"}
+   {"number": 6, "letter": "c"}
+
+If you would like to have a guarenteed sort order for fields
+with identical values, you can specify additional fields to sort
+on in the event of a tie. 
+
+In the following code snippet, we use ``descending`` to
+sort the ``sort_example`` collection on ``letter`` followed
+by ``number``:
+
+.. code-block:: java
+
+   import static com.mongodb.client.model.Sorts.descending;
+
+   // <MongoCollection setup code here>
+   
+   Bson letter_number_sort = descending("letter", "number");
+   List<Document> results = new ArrayList<>();
+   collection.find().sort(letter_number_sort)
+           .projection(new Document("_id", 0))
+           .into(results);
+   for (Document result : results) {
+       System.out.println(result.toJson());
+   }
+
+The output of the above code snippet looks something like this: 
+
+.. code-block:: none
+
+   {"number": 6, "letter": "c"}
+   {"number": 1, "letter": "c"}
+   {"number": 4, "letter": "b"}
+   {"number": 5, "letter": "a"}
+   {"number": 3, "letter": "a"}
+   {"number": 2, "letter": "a"}
+
