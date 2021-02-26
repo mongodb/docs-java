@@ -30,28 +30,78 @@ an instance of the
 :java-docs:`Bson <apidocs/bson/org/bson/conversions/Bson.html?>`
 type. 
 
-The following examples show how to use some of the static factory
-methods from the sorts class. The examples use a sample collection
-``sort_example`` constructed as follows.
+The following examples will show you how to use the static factory
+methods from the ``Sorts`` class to sort your queries.
+The examples use a sample collection ``sort_example`` constructed as 
+follows:
 
 .. code-block:: java
    
    // MongoDatabase database = <code to instantiate your database>;
    
    MongoCollection<Document> collection = database.getCollection("sort_example");
-   Document doc1 = new Document("number",1).append("letter", "a");
-   Document doc2 = new Document("number",2).append("letter", "a");
-   Document doc3 = new Document("number",3).append("letter", "a");
-   Document doc4 = new Document("number",4).append("letter", "b");
-   Document doc5 = new Document("number",5).append("letter", "c");
-   List<Document> documents = Arrays.asList(new Document[]{doc1,doc2,doc3,doc4,doc5});
+   Document doc1 = new Document("number", 1).append("letter", "a");
+   Document doc2 = new Document("number", 3).append("letter", "a");
+   Document doc3 = new Document("number", 4).append("letter", "b");
+   Document doc4 = new Document("number", 5).append("letter", "c");
+   Document doc5 = new Document("number", 2).append("letter", "a");
+   List<Document> documents = Arrays.asList(new Document[]{doc1, doc2, doc3, doc4, doc5});
    collection.insertMany(documents);
+
+The above snippet populates the ``sort_example`` collection with five documents:
+
+.. code-block:: none
+
+   { "number": 1, "letter": "a"}
+   { "number": 3, "letter": "a"}
+   { "number": 4, "letter": "b"}
+   { "number": 5, "letter": "c"}
+   { "number": 2, "letter": "a"}
 
 
 Ascending
 ---------
 
-To specify an ascending, use on of the ``Sorts.ascending()``
-static factory methods.
+To specify an ascending sort, use the ``Sorts.ascending()``
+static factory method. This will sort your results
+from smallest to largest on the field name specified.
 
+In the following code snippet, we use the sort field to
+sort the ``sort_example`` collection. 
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Sorts.ascending;
+
+   // <MongoCollection setup code here>
+   
+   Bson number_sort = ascending("number");
+   List<Document> results = new ArrayList<>();
+   collection.find().sort(number_sort)
+           .projection(new Document("_id", 0))
+           .into(results);
+   for (Document result : results) {
+       System.out.println(result.toJson());
+   }
+
+The output of the above code snippet looks something like this: 
+
+.. code-block:: none
+
+   {"number": 1, "letter": "a"}
+   {"number": 2, "letter": "a"}
+   {"number": 3, "letter": "a"}
+   {"number": 4, "letter": "b"}
+   {"number": 5, "letter": "c"}
+
+An important thing for you to keep in mind is that MongoDB does
+not provide guarentees on sorts for fields with identical values.
+This means that ``asending("letter")`` could have any of the three
+documents in any of the first three positions: 
+
+.. code-block:: none
+
+   {"number": 3 "letter": "a"}
+   {"number": 1, "letter": "a"}
+   {"number": 2, "letter": "a"}
 
