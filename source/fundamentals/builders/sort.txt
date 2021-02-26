@@ -40,10 +40,10 @@ follows:
    // MongoDatabase database = <code to instantiate your database>;
    
    MongoCollection<Document> collection = database.getCollection("sort_example");
-   Document doc1 = new Document("number", 1).append("letter", "a");
+   Document doc1 = new Document("number", 1).append("letter", "c");
    Document doc2 = new Document("number", 3).append("letter", "a");
    Document doc3 = new Document("number", 4).append("letter", "b");
-   Document doc4 = new Document("number", 5).append("letter", "c");
+   Document doc4 = new Document("number", 5).append("letter", "a");
    Document doc5 = new Document("number", 2).append("letter", "a");
    List<Document> documents = Arrays.asList(new Document[]{doc1, doc2, doc3, doc4, doc5});
    collection.insertMany(documents);
@@ -52,10 +52,10 @@ The above snippet populates the ``sort_example`` collection with five documents:
 
 .. code-block:: none
 
-   { "number": 1, "letter": "a"}
+   { "number": 1, "letter": "c"}
    { "number": 3, "letter": "a"}
    { "number": 4, "letter": "b"}
-   { "number": 5, "letter": "c"}
+   { "number": 5, "letter": "a"}
    { "number": 2, "letter": "a"}
 
 
@@ -88,11 +88,11 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
-   {"number": 1, "letter": "a"}
+   {"number": 1, "letter": "c"}
    {"number": 2, "letter": "a"}
    {"number": 3, "letter": "a"}
    {"number": 4, "letter": "b"}
-   {"number": 5, "letter": "c"}
+   {"number": 5, "letter": "a"}
 
 An important thing for you to keep in mind is that MongoDB does
 not provide guarentees on sort order for fields with identical values.
@@ -102,7 +102,7 @@ documents in any of the first three positions:
 .. code-block:: none
 
    {"number": 3, "letter": "a"}
-   {"number": 1, "letter": "a"}
+   {"number": 5, "letter": "a"}
    {"number": 2, "letter": "a"}
 
 If you would like to have a guarenteed sort order for fields
