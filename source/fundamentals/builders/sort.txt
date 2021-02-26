@@ -137,3 +137,38 @@ The output of the above code snippet looks something like this:
    {"number": 5, "letter": "a"}
    {"number": 4, "letter": "b"}
    {"number": 1, "letter": "c"}
+
+Descending
+----------
+
+To specify a descending sort, use the ``Sorts.descending()``
+static factory method. A descending sort will return results
+from largest to smallest.
+
+In the following code snippet, we use ``descending`` to
+sort the ``sort_example`` collection by ``number``: 
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Sorts.descending;
+
+   // <MongoCollection setup code here>
+   
+   Bson number_sort = descending("number");
+   List<Document> results = new ArrayList<>();
+   collection.find().sort(number_sort)
+           .projection(new Document("_id", 0))
+           .into(results);
+   for (Document result : results) {
+       System.out.println(result.toJson());
+   }
+
+The output of the above code snippet looks something like this: 
+
+.. code-block:: none
+
+   {"number": 5, "letter": "a"}
+   {"number": 4, "letter": "b"}
+   {"number": 3, "letter": "a"}
+   {"number": 2, "letter": "a"}
+   {"number": 1, "letter": "c"}
