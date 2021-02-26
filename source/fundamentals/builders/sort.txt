@@ -230,7 +230,7 @@ metaTextScore
 To perform a sort on the 
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
 ``"textScore"`` associeated with a 
-:manual:`$text </reference/operator/query/text/` search, use the
+:manual:`$text </reference/operator/query/text/>` search, use the
 ``Sorts.metaTextScore()`` static factory method. The ``$text`` command
 performs a text search on the content indexed by the 
 :manual:`text index </core/index-text/>` on your collection. 
@@ -238,26 +238,36 @@ performs a text search on the content indexed by the
 To add a text index to the ``sort_example`` collection on the ``"food"`` field,
 go into the ``mongo`` shell and run the following command:
 
-.. code-block:: bash
+.. code-block:: js
 
-   $db.test.createIndex( { "food": "text"} )
+   db.sort_example.createIndex({
+     "food": "text"
+   })
 
-Your output should look something like this:
+To see that the index was created successfully, run the following code:
+
+.. code-block:: js
+
+    db.test.getIndexes().filter(index => index.name === "food_text")[0]
+
+Your output should look something like this: 
 
 .. code-block:: none
 
    {
-   	"createdCollectionAutomatically" : false,
-   	"numIndexesBefore" : 1,
-   	"numIndexesAfter" : 2,
-   	"commitQuorum" : "votingMembers",
-   	"ok" : 1,
-   	"$clusterTime" : {
-   		"clusterTime" : <your-time>,
-   		"signature" : {
-   			"hash" : <your-hash>,
-   			"keyId" : <your-keyId>
-   		}
-   	
-   	"operationTime" : <your-operation-time>
+   	"v" : 2,
+   	"key" : {
+   		"_fts" : "text",
+   		"_ftsx" : 1
+   	},
+   	"name" : "food_text",
+   	"weights" : {
+   		"food" : 1
+   	},
+   	"default_language" : "english",
+   	"language_override" : "language",
+   	"textIndexVersion" : 3
    }
+
+Once your index on the ``"food"`` field id created, we can search on the ``"food"``
+field and sort the results like this:
