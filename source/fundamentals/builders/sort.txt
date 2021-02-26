@@ -100,7 +100,7 @@ The output of the above code snippet looks something like this:
 
 
 An important thing for you to keep in mind is that MongoDB does
-not provide guarentees on sort order for fields with identical values.
+not guarentee sort order for fields with identical values.
 This means that ``asending("letter")`` could have any of these three
 documents in any of the first three positions: 
 
@@ -114,7 +114,7 @@ If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
-In the following code snippet, we use the sort field to
+In the following code snippet, we use ``ascending`` to
 sort the ``sort_example`` collection on ``letter`` followed
 by ``number``:
 
