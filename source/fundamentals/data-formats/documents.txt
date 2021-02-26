@@ -332,7 +332,8 @@ specifying the ``JsonObject`` class as the ``documentClass`` parameter. Then, ca
    InsertOneResult result = collection.insertOne(author);
 
 Once you perform a successful insert, you can retrieve the sample JSON data from the 
-collection using the following code:
+collection. While you can use any class that extends ``Bson`` to specify your query,
+here is how to query your data using a ``JsonObject``:
 
 .. code-block:: java
 
