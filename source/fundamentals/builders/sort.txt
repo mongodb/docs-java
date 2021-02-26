@@ -233,7 +233,8 @@ To perform a sort on the
 :manual:`$text </reference/operator/query/text/>` search, use the
 ``Sorts.metaTextScore()`` static factory method. The ``$text`` command
 performs a text search on the content indexed by the 
-:manual:`text index </core/index-text/>` on your collection. 
+:manual:`text index </core/index-text/>` on your collection. The ``textScore``
+represents how well each document matched the given search term on the text index.
 
 To add a text index to the ``sort_example`` collection on the ``"food"`` field,
 go into the ``mongo`` shell and run the following command:
