@@ -270,5 +270,39 @@ Your output should look something like this:
    	"textIndexVersion" : 3
    }
 
-Once your index on the ``"food"`` field id created, we can search on the ``"food"``
-field and sort the results like this:
+Once your index on the ``"food"`` field is created, we can use the
+following code snippet to search on the ``"food"`` field for the term 
+"donut" and sort the results:
+
+.. code-block:: java
+
+
+   import static com.mongodb.client.model.Sorts.metaTextScore;
+   import static com.mongodb.client.model.Sorts.ascending;
+   import static com.mongodb.client.model.Projections.excludeId;
+   import static com.mongodb.client.model.Projections.fields;
+
+   // <MongoCollection setup code here>
+   
+   String projectedSortField = "textScore";
+   Bson metaTextScore = metaTextScore(projectedSortField);
+   // build projection using the Projections builders
+   Bson metaTextProjection = fields(excludeId(), metaTextScore);
+   String searchTerm = "maple donut";
+   Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
+   collection.find(searchQuery)
+           .projection(metaTextProjection)
+           .sort(ascending(projectedSortField))
+           .into(results);
+   System.out.println("Meta Text Score");
+   for (Document result : results) {
+       System.out.println(result.toJson());
+   }
+
+The output of the above code snippet looks something like this: 
+
+.. code-block:: none
+
+   {"number": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
+   {"number": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
+   {"number": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
