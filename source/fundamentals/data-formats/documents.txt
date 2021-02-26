@@ -342,14 +342,14 @@ here is how to query your data using a ``JsonObject``:
    JsonObject query = new JsonObject("{\"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\"}");
    JsonObject jsonResult = collection.find(query).first();
    if (jsonResult != null) {
-       System.out.println("extended json string: " + jsonResult.getJson());
+       System.out.println("query result in extended json format: " + jsonResult.getJson());
    }
 
 The output should look something like this:
 
 .. code-block:: none
 
-   extended json string: {"_id": {"$oid": "6035210f35bd203721c3eab8"}, "name": "Gabriel García Márquez", "dateOfDeath": {"$date": "2014-04-17T04:00:00Z"}, "novels": [{"title": "One Hundred Years of Solitude", "yearPublished": 1967}, {"title": "Chronicle of a Death Foretold", "yearPublished": 1981}, {"title": "Love in the Time of Cholera", "yearPublished": 1985}]}
+   query result in extended json format: {"_id": {"$oid": "6035210f35bd203721c3eab8"}, "name": "Gabriel García Márquez", "dateOfDeath": {"$date": "2014-04-17T04:00:00Z"}, "novels": [{"title": "One Hundred Years of Solitude", "yearPublished": 1967}, {"title": "Chronicle of a Death Foretold", "yearPublished": 1981}, {"title": "Love in the Time of Cholera", "yearPublished": 1985}]}
 
 For more information on this class, see the
 :java-docs:`JsonObject API documentation <apidocs/bson/org/bson/json/JsonObject.html>`.
