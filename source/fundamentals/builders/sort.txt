@@ -49,7 +49,7 @@ type.
 The following examples will show you how to use the static factory
 methods from the ``Sorts`` class to sort your queries.
 The examples use a sample collection ``sort_example`` containing
-the following documents
+the following documents:
 
 .. code-block:: none
 
@@ -93,10 +93,8 @@ The output of the above code snippet should look something like this:
    {"number": 1, "letter": "c", "food": "coffee with milk"}
    {"number": 2, "letter": "a", "food": "donuts and coffee"}
    {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 4, "letter": "b", "food": "coffee with sugar"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
-   {"number": 6, "letter": "c", "food": "maple donut"}
-
+   ...
+   
 An important thing for you to keep in mind is that MongoDB does
 not guarentee sort order for fields with identical values.
 This means that ``asending("letter")`` could have any of these three
