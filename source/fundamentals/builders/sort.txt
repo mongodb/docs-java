@@ -98,14 +98,14 @@ sort the ``sort_example`` collection by ``number``:
           System.out.println(result.toJson());
       }
 
-The output of the above code snippet should look something like this: 
-
-.. code-block:: none
-
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
-   {"number": 2, "letter": "a", "food": "donuts and coffee"}
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   ...
+   The output of the above code snippet should look something like this: 
+   
+   .. code-block:: none
+   
+      {"number": 1, "letter": "c", "food": "coffee with milk"}
+      {"number": 2, "letter": "a", "food": "donuts and coffee"}
+      {"number": 3, "letter": "a", "food": "maple syrup"}
+      ...
    
 An important thing for you to keep in mind is that MongoDB does
 not guarentee sort order for fields with identical values.
@@ -122,7 +122,7 @@ If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
-We can specify an ``ascending`` on ``letter`` followed
+We can specify an ``ascending`` sort on ``letter`` followed
 by ``number`` as follows:
 
 .. code-block:: java
@@ -152,8 +152,8 @@ To specify a descending sort, use the ``Sorts.descending()``
 static factory method. A descending sort will return results
 from largest to smallest.
 
-In the following code snippet, we use ``descending`` to
-sort the ``sort_example`` collection by ``number``: 
+The following code snippet shows how to specify a ``descending``
+sort on the ``"number"`` field: 
 
 .. code-block:: java
    
@@ -161,30 +161,24 @@ sort the ``sort_example`` collection by ``number``:
 
    // <MongoCollection setup code here>
    
-   Bson number_sort = descending("number");
-   List<Document> results = new ArrayList<>();
-   collection.find().sort(number_sort)
-           .projection(new Document("_id", 0))
-           .into(results);
-   for (Document result : results) {
-       System.out.println(result.toJson());
-   }
+   collection.find().sort(descending("number"))
 
-The output of the above code snippet should look something like this: 
+
+The above sort criteria would return the documents
+in the ``sort_example`` collection
+in the following order: 
 
 .. code-block:: none
 
    {"number": 6, "letter": "c", "food": "maple donut"}
    {"number": 5, "letter": "a", "food": "milk and cookies"}
    {"number": 4, "letter": "b", "food": "coffee with sugar"}
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 2, "letter": "a", "food": "donuts and coffee"}
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
+   ...
 
 It is important for you to keep in mind that ``descending``
 does not provide guarentees on sort order in the event of identical values.
 This means that ``descending("letter")`` could return either of these two
-documents in the first position:
+documents in the first position from the ``sort_example`` collection:
 
 .. code-block:: none
 
@@ -195,9 +189,8 @@ If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
-In the following code snippet, we use ``descending`` to
-sort the ``sort_example`` collection on ``letter`` followed
-by ``number``:
+The following code snippet shows how to specify a ``descending``
+sort on the ``"letter"`` field followed by the ``"number"`` field: 
 
 .. code-block:: java
 
@@ -205,16 +198,12 @@ by ``number``:
 
    // <MongoCollection setup code here>
    
-   Bson letter_number_sort = descending("letter", "number");
-   List<Document> results = new ArrayList<>();
-   collection.find().sort(letter_number_sort)
-           .projection(new Document("_id", 0))
-           .into(results);
-   for (Document result : results) {
-       System.out.println(result.toJson());
-   }
+   collection.find().sort(descending("letter", "number"))
 
-The output of the above code snippet should look something like this: 
+
+The above sort criteria would return the documents
+in the ``sort_example`` collection
+in the following order: 
 
 .. code-block:: none
 
