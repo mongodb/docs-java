@@ -18,7 +18,7 @@ Overview
 In this guide, we show you how to use **builders** to specify
 **sort criteria** for your queries.
 
-Sort criteria are the rules by which data is sorted. Some examples of sort criteria are:
+Sort criteria are the rules MongoDB uses to sort your data. Some examples of sort criteria are:
 
 * Smallest number to largest number
 * Earliest to latest time of day
@@ -48,17 +48,17 @@ type.
 
 The following examples will show you how to use the static factory
 methods from the ``Sorts`` class to sort your queries.
-The examples use a sample collection ``sort_example`` containing
+The examples use a sample collection ``sort_example`` that contains
 the following documents:
 
 .. code-block:: none
 
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 4, "letter": "b", "food": "coffee with sugar"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
-   {"number": 2, "letter": "a", "food": "donuts and coffee"}
-   {"number": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
 
 
 Ascending
@@ -78,10 +78,10 @@ The ``ascending`` method can be used as follows:
 
    collection.find().sort(Sorts.ascending("<fieldname>"))
 
-In the following code snippet, we use ``ascending`` to
-sort the ``sort_example`` collection by ``number``:
-
 .. example::
+
+   In this example, we use ``ascending`` to
+   sort the ``sort_example`` collection by ``"_id"``:
 
    .. code-block:: java
    
