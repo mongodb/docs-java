@@ -20,11 +20,18 @@ collection (a **collection scan**) to find the documents that match each query. 
 negatively affect the performance of your application. If an appropriate index exists for a query, MongoDB can use the
 index to limit the number of documents it must inspect.
 
+Indexes also:
+
+- allow efficient sorting
+- enable special capabilities like :ref:`geospatial <geo-indexes>` search
+- adding constraints to ensure a field value is :ref:`unique <unique-indexes>`
+- and :manual:`more <indexes/>`
+
 .. tip::
 
-   Indexes are also used by update operations when finding the document(s) to update, and by
-   :manual:`certain stages <core/aggregation-pipeline/#pipeline-operators-and-indexes>` in the aggregation framework.
-
+   Indexes are also used by update operations when finding the document(s) to update, delete operations when finding the
+   document(s) to delete, and by :manual:`certain stages <core/aggregation-pipeline/#pipeline-operators-and-indexes>` in
+   the aggregation framework.
 
 Query Coverage and Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,7 +44,7 @@ When you execute a query against MongoDB, your command can include various eleme
 - sort criteria to specify the order documents will be returned from MongoDB (optional)
 
 When all the fields specified in the query, projection, and sort are indexed, MongoDB returns results directly from the
-index without scanning any documents in the collection or loading them into memory, also called a **covered query**.
+index, also called a **covered query**.
 
 .. important:: Sort Order
 
@@ -69,6 +76,10 @@ that return sorted results. Each index that you add consumes disk space and memo
 memory and disk usage for capacity planning. In addition, when a write operation updates an indexed field, MongoDB also
 has to update the related index.
 
+Since MongoDB supports dynamic schemas, applications can query against fields whose names cannot be known in advance or
+are arbitrary. MongoDB 4.2 introduced :manual:`wildcard indexes </core/index-wildcard/>` to help support these queries.
+Wildcard indexes are not designed to replace workload-based index planning.
+
 For more information on designing your data model and choosing indexes appropriate for your application, see the MongoDB
 server documentation on :manual:`Indexing Strategies </applications/indexes>` and
 :manual:`Data Modeling and Indexes </core/data-model-operations/#data-model-indexes>`.
@@ -77,7 +88,8 @@ Index Types
 -----------
 
 MongoDB supports a number of different index types to support querying your data. The following sections describe the
-most common index types and provide sample code for creating each index type.
+most common index types and provide sample code for creating each index type. For a full list of index types, see
+:manual:`Indexes </indexes/>`.
 
 .. common-content-end
 
@@ -108,8 +120,10 @@ Single Field and Compound Indexes
 Single Field Indexes
 ++++++++++++++++++++
 
-**Single field indexes** are indexes that improve performance for queries that specify ascending or descending sort
-order on a single field of a document.
+:manual:`Single field indexes <core/index-single/>` are indexes with a reference to a single field within a collection's
+documents. They improve single field query and sort performance, and support :manual:`TTL Indexes <core/index-ttl>` that
+automatically remove documents from a collection after a certain amount of time or at a specific clock time.
+
 
 .. note::
 
@@ -145,9 +159,12 @@ See the MongoDB server manual section on :manual:`single field indexes </core/in
 Compound Indexes
 ++++++++++++++++
 
-**Compound indexes** are indexes that improve performance for queries that specify ascending or descending sort order
-for *multiple* fields of a document. You must specify the direction (ascending or descending) for each field in the
-index.
+:manual:`Compound <core/index-compound/>` indexes hold references to multiple fields within a collection's documents,
+improving query and sort performance.
+
+.. tip::
+
+   Read more about compound indexes, **index prefixes**, and sort order :manual:`here <index-compound/#prefixes>`.
 
 The following example creates a compound index on the ``type`` and ``rated`` fields:
 .. common-content-end
@@ -211,6 +228,11 @@ Text Indexes
 string or an array of string elements. MongoDB supports text search for various languages. You can specify the default
 language as an option when creating the index.
 
+.. tip::
+
+   Text indexes differ from the more powerful :atlas:`Atlas full text search indexes </atlas-search/>` Atlas users
+   should use Atlas search.
+
 .. warning::
 
    Collections are limited to one text index. Keep in mind that a text index can cover multiple fields.
@@ -244,6 +266,8 @@ manual.
 
 Geospatial Indexes
 ~~~~~~~~~~~~~~~~~~
+
+.. _geo-indexes:
 
 MongoDB supports queries of geospatial coordinate data using **2dsphere indexes**. With a 2dsphere index, you can query
 the geospatial data for inclusion, intersection, and proximity. For more information on querying geospatial data, see
