@@ -25,12 +25,12 @@ Indexes also:
 - allow efficient sorting
 - enable special capabilities like :ref:`geospatial <geo-indexes>` search
 - adding constraints to ensure a field value is :ref:`unique <unique-indexes>`
-- and :manual:`more <indexes/>`
+- and :manual:`more </indexes/>`
 
 .. tip::
 
    Indexes are also used by update operations when finding the document(s) to update, delete operations when finding the
-   document(s) to delete, and by :manual:`certain stages <core/aggregation-pipeline/#pipeline-operators-and-indexes>` in
+   document(s) to delete, and by :manual:`certain stages </core/aggregation-pipeline/#pipeline-operators-and-indexes>` in
    the aggregation framework.
 
 Query Coverage and Performance
@@ -120,8 +120,8 @@ Single Field and Compound Indexes
 Single Field Indexes
 ++++++++++++++++++++
 
-:manual:`Single field indexes <core/index-single/>` are indexes with a reference to a single field within a collection's
-documents. They improve single field query and sort performance, and support :manual:`TTL Indexes <core/index-ttl>` that
+:manual:`Single field indexes </core/index-single/>` are indexes with a reference to a single field within a collection's
+documents. They improve single field query and sort performance, and support :manual:`TTL Indexes </core/index-ttl>` that
 automatically remove documents from a collection after a certain amount of time or at a specific clock time.
 
 
@@ -159,12 +159,12 @@ See the MongoDB server manual section on :manual:`single field indexes </core/in
 Compound Indexes
 ++++++++++++++++
 
-:manual:`Compound <core/index-compound/>` indexes hold references to multiple fields within a collection's documents,
+:manual:`Compound </core/index-compound/>` indexes hold references to multiple fields within a collection's documents,
 improving query and sort performance.
 
 .. tip::
 
-   Read more about compound indexes, **index prefixes**, and sort order :manual:`here <index-compound/#prefixes>`.
+   Read more about compound indexes, **index prefixes**, and sort order :manual:`here </core/index-compound/#prefixes>`.
 
 The following example creates a compound index on the ``type`` and ``rated`` fields:
 .. common-content-end
