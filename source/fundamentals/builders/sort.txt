@@ -142,7 +142,7 @@ by ``"_id"`` as follows:
    
    collection.find().sort(ascending("letter", "_id"))
 
-The above sort criteria returns the documents in the
+The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
 
 .. code-block:: none
@@ -174,9 +174,8 @@ sort on the ``"_id"`` field:
    collection.find().sort(descending("_id"))
 
 
-The above sort criteria returns the documents
-in the ``sort_example`` collection
-in the following order: 
+The above code snippet returns the documents in the
+``sort_example`` collection in the following order: 
 
 .. code-block:: none
 
@@ -212,9 +211,8 @@ sort on the ``"letter"`` field followed by the ``"_id"`` field:
    collection.find().sort(descending("letter", "_id"))
 
 
-The above sort criteria would return the documents
-in the ``sort_example`` collection
-in the following order: 
+The above code snippet returns the documents in the
+``sort_example`` collection in the following order: 
 
 .. code-block:: none
 
@@ -313,7 +311,8 @@ In the following code snippet, we use ``orderBy`` to combine a
        System.out.println(result.toJson());
    }
 
-The output of the above code snippet should look something like this: 
+The above code snippet returns the documents in the
+``sort_example`` collection in the following order: 
 
 .. code-block:: none
 
