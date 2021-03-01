@@ -302,7 +302,7 @@ following code snippet to search on the ``"food"`` field for the term
        System.out.println(result.toJson());
    }
 
-The output of the above code snippet looks something like this: 
+The output of the above code snippet should look something like this: 
 
 .. code-block:: none
 
@@ -310,3 +310,35 @@ The output of the above code snippet looks something like this:
    {"number": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
    {"number": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
 
+Combining Sort Criteria
+-----------------------
+
+To combine sort criteria, use the ``Sorts.orderBy()``
+static factory method. The ``orderBy()`` method applies additional
+sort criteria from left to right in the event of ties. 
+
+In the following code snippet, we use ``orderBy`` to combine a
+``descending`` on ``letter`` with an ``ascending`` sort on number.
+
+.. code-block:: java
+
+   Bson orderBySort = orderBy(descending("letter"),
+           ascending("number"));
+   collection.find()
+           .sort(orderBySort)
+           .projection(new Document("_id", 0))
+           .into(results);
+   for (Document result : results) {
+       System.out.println(result.toJson());
+   }
+
+The output of the above code snippet should look something like this: 
+
+.. code-block:: none
+
+   {"number": 1, "letter": "c", "food": "coffee with milk"}
+   {"number": 6, "letter": "c", "food": "maple donut"}
+   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"number": 2, "letter": "a", "food": "donuts and coffee"}
+   {"number": 3, "letter": "a", "food": "maple syrup"}
+   {"number": 5, "letter": "a", "food": "milk and cookies"}
