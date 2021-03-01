@@ -229,7 +229,7 @@ Text Score
 ----------
 
 If you are using :manual:`$text </reference/operator/query/text/>`
-queries to search your database, you can sort the results of those
+queries to search your data, you can sort the results of those
 queries by text score (how well the search matched the result).
 To create a sortable field on the 
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
@@ -250,7 +250,7 @@ go into the ``mongo`` shell and run the following command:
      "food": "text"
    })
 
-To see that the index was created successfully, run the following code in the ``mongo`` shell:
+To see that the index was created successfully, run the following command in the ``mongo`` shell:
 
 .. code-block:: js
 
@@ -277,7 +277,7 @@ Your output should look something like this:
 
 Once you create your text index on the ``"food"`` field, you can use the
 following code snippet to search on the ``"food"`` field for the term 
-"maple donut" and sort the results:
+``"maple donut"`` and sort the results:
 
 .. code-block:: java
 
@@ -306,7 +306,7 @@ The output of the above code snippet looks something like this:
 
 .. code-block:: none
 
-   {"number": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
    {"number": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
    {"number": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
+   {"number": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
 
