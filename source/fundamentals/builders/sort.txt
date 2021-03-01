@@ -68,23 +68,35 @@ To specify an ascending sort, use the ``Sorts.ascending()``
 static factory method. This will sort your results
 from smallest to largest on the field name specified.
 
+The ``ascending`` method can be used as follows:
+
+.. code-block:: java
+
+   import static com.mongodb.client.model.Sorts
+
+   // <MongoCollection setup code here>
+
+   collection.find().sort(Sorts.ascending("<fieldname>"))
+
 In the following code snippet, we use ``ascending`` to
 sort the ``sort_example`` collection by ``number``:
 
-.. code-block:: java
-   
-   import static com.mongodb.client.model.Sorts.ascending;
+.. example::
 
-   // <MongoCollection setup code here>
+   .. code-block:: java
    
-   Bson number_sort = ascending("number");
-   List<Document> results = new ArrayList<>();
-   collection.find().sort(number_sort)
-           .projection(new Document("_id", 0))
-           .into(results);
-   for (Document result : results) {
-       System.out.println(result.toJson());
-   }
+      import static com.mongodb.client.model.Sorts.ascending;
+   
+      // <MongoCollection setup code here>
+      
+      Bson number_sort = ascending("number");
+      List<Document> results = new ArrayList<>();
+      collection.find().sort(number_sort)
+              .projection(new Document("_id", 0))
+              .into(results);
+      for (Document result : results) {
+          System.out.println(result.toJson());
+      }
 
 The output of the above code snippet should look something like this: 
 
@@ -110,9 +122,8 @@ If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
-In the following code snippet, we use ``ascending`` to
-sort the ``sort_example`` collection on ``letter`` followed
-by ``number``:
+We can specify an ``ascending`` on ``letter`` followed
+by ``number`` as follows:
 
 .. code-block:: java
 
@@ -120,16 +131,9 @@ by ``number``:
 
    // <MongoCollection setup code here>
    
-   Bson letter_number_sort = ascending("letter", "number");
-   List<Document> results = new ArrayList<>();
-   collection.find().sort(letter_number_sort)
-           .projection(new Document("_id", 0))
-           .into(results);
-   for (Document result : results) {
-       System.out.println(result.toJson());
-   }
+   collection.find().sort(ascending("letter", "number"))
 
-The output of the above code snippet should look something like this: 
+The above sort specification will return our documents in the following order: 
 
 .. code-block:: none
 
