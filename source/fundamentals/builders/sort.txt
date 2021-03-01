@@ -61,8 +61,17 @@ the following documents:
    {"_id": 6, "letter": "c", "food": "maple donut"}
 
 
+Sorting Data
+------------
+
+The ``Sorts`` class provides two methods for specyfying the sort order of data
+that does not contain any duplicate values. Data can be sorted from smallest to largest 
+with ``Sorts.ascending()``, and data can be sorted from largest to smalled with
+``Sorts.descending()``. The following two subsections provide provide examples
+on how to use these two methods. 
+
 Ascending
----------
+~~~~~~~~~
 
 To specify an ascending sort, use the ``Sorts.ascending()``
 static factory method. An ascending sort returns 
@@ -145,7 +154,7 @@ The above sort criteria returns the documents in the
 
 
 Descending
-----------
+~~~~~~~~~~
 
 To specify a descending sort, use the ``Sorts.descending()``
 static factory method. A descending sort returns your documents
