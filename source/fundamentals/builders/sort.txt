@@ -295,7 +295,7 @@ static factory method. The ``orderBy()`` method applies additional
 sort criteria from left to right in the event of ties. 
 
 In the following code snippet, we use ``orderBy`` to combine a
-``descending`` on ``"letter"`` with an ``ascending`` sort on ``"_id"``.
+``descending`` sort on ``"letter"`` with an ``ascending`` sort on ``"_id"``.
 
 .. code-block:: java
 
@@ -303,13 +303,8 @@ In the following code snippet, we use ``orderBy`` to combine a
 
    // <MongoCollection setup code here>
 
-   Bson orderBySort = orderBy(descending("letter"),
-           ascending("_id"));
-   collection.find()
-           .sort(orderBySort).into(results);
-   for (Document result : results) {
-       System.out.println(result.toJson());
-   }
+   Bson orderBySort = orderBy(descending("letter"), ascending("_id"));
+   collection.find().sort(orderBySort)
 
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
