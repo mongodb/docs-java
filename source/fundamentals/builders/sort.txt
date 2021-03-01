@@ -233,67 +233,49 @@ The ``$text`` command performs a text search on the content indexed by the
 To add a text index to the ``sort_example`` collection on the ``"food"`` field,
 go into the ``mongo`` shell and run the following command:
 
-.. code-block:: js
+.. example::
 
-   db.sort_example.createIndex({
-     "food": "text"
-   })
+   In the following code example, we show how to use the
+   ``metaTextScore()`` method to sort the results of a ``$text``
+   query. The following code snippet
+   works as follows:
 
-To see that the index was created successfully, run the following command in the ``mongo`` shell:
+   #. Create a text index on the ``"food"`` field
+   #. Run a ``$text`` search for the phrase ``"maple donut"`` 
+   #. Project the ``metaTextScore`` builder return value into document results as ``"textScore"`` field
+   #. Run ``ascending`` sort on ``"textScore"`` field
 
-.. code-block:: js
-
-    db.test.getIndexes().filter(index => index.name === "food_text")[0]
-
-Your output should look something like this: 
-
-.. code-block:: none
-
-   {
-   	"v" : 2,
-   	"key" : {
-   		"_fts" : "text",
-   		"_ftsx" : 1
-   	},
-   	"name" : "food_text",
-   	"weights" : {
-   		"food" : 1
-   	},
-   	"default_language" : "english",
-   	"language_override" : "language",
-   	"textIndexVersion" : 3
-   }
-
-Once you create your text index on the ``"food"`` field, you can use the
-following code snippet to search on the ``"food"`` field for the term 
-``"maple donut"`` and sort the results:
-
-.. code-block:: java
-
-   import static com.mongodb.client.model.Sorts.metaTextScore;
-   import static com.mongodb.client.model.Sorts.ascending;
-
-   // <MongoCollection setup code here>
+   .. code-block:: java
    
-   String projectedSortField = "textScore";
-   Bson metaTextScore = metaTextScore(projectedSortField);
-   String searchTerm = "maple donut";
-   Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
-   collection.find(searchQuery)
-           .projection(metaTextScore)
-           .sort(ascending(projectedSortField))
-           .into(results);
-   for (Document result : results) {
-       System.out.println(result.toJson());
-   }
-
-The output of the above code snippet should look something like this: 
-
-.. code-block:: none
-
-   {"_id": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
-   {"_id": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
-   {"_id": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
+      import static com.mongodb.client.model.Sorts.metaTextScore;
+      import static com.mongodb.client.model.Sorts.ascending;
+   
+      // <MongoCollection setup code here>
+      
+      // create a text index on the food field
+      collection.createIndex(Indexes.text("food"));
+      String projectedSortField = "textScore";
+      Bson metaTextScore = metaTextScore(projectedSortField);
+      String searchTerm = "maple donut";
+      // build $text search query
+      Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
+      collection.find(searchQuery)
+              // project the text score into documents on the "textScore" field
+              .projection(metaTextScore)
+              // sort the documents on the "textScore" field
+              .sort(ascending(projectedSortField))
+              .into(results);
+      for (Document result : results) {
+          System.out.println(result.toJson());
+      }
+   
+   The output of the above code snippet should look something like this: 
+   
+   .. code-block:: none
+   
+      {"_id": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
+      {"_id": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
+      {"_id": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
 
 Combining Sort Criteria
 -----------------------
