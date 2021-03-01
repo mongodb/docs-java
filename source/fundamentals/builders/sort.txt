@@ -35,7 +35,8 @@ to specify sort criteria for your queries.
 The Sorts Class
 ---------------
 
-The ``Sorts`` class provides static factory methods for all
+The :java-docs:`Sorts <apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`
+class provides static factory methods for all
 sort criteria operators supported by MongoDB. Each method returns
 an instance of the
 :java-docs:`Bson <apidocs/bson/org/bson/conversions/Bson.html?>`
@@ -43,25 +44,8 @@ type.
 
 The following examples will show you how to use the static factory
 methods from the ``Sorts`` class to sort your queries.
-The examples use a sample collection ``sort_example`` constructed as 
-follows:
-
-.. code-block:: java
-   
-   // MongoDatabase database = <code to instantiate your database>;
-   
-   MongoCollection<Document> collection = database.getCollection("sort_example");
-   Document doc1 = new Document("number", 1).append("letter", "c").append("food", "coffee with milk");
-   Document doc2 = new Document("number", 3).append("letter", "a").append("food", "maple syrup");
-   Document doc3 = new Document("number", 4).append("letter", "b").append("food", "coffee with sugar");
-   Document doc4 = new Document("number", 5).append("letter", "a").append("food", "milk and cookies");
-   Document doc5 = new Document("number", 2).append("letter", "a").append("food", "donuts and coffee");
-   Document doc6 = new Document("number", 6).append("letter", "c").append("food", "maple donut");
-
-   List<Document> documents = Arrays.asList(new Document[]{doc1, doc2, doc3, doc4, doc5, doc6});
-   collection.insertMany(documents);
-
-The above snippet adds the following documents to the ``sort_example`` collection:
+The examples use a sample collection ``sort_example`` containing
+the following documents
 
 .. code-block:: none
 
