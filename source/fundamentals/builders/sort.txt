@@ -89,10 +89,9 @@ The ``ascending`` method can be used as follows:
    
       // <MongoCollection setup code here>
       
-      Bson number_sort = ascending("number");
+      Bson id_sort = ascending("_id");
       List<Document> results = new ArrayList<>();
-      collection.find().sort(number_sort)
-              .projection(new Document("_id", 0))
+      collection.find().sort(id_sort)
               .into(results);
       for (Document result : results) {
           System.out.println(result.toJson());
@@ -102,9 +101,9 @@ The ``ascending`` method can be used as follows:
    
    .. code-block:: none
    
-      {"number": 1, "letter": "c", "food": "coffee with milk"}
-      {"number": 2, "letter": "a", "food": "donuts and coffee"}
-      {"number": 3, "letter": "a", "food": "maple syrup"}
+      {"_id": 1, "letter": "c", "food": "coffee with milk"}
+      {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+      {"_id": 3, "letter": "a", "food": "maple syrup"}
       ...
    
 An important thing for you to keep in mind is that MongoDB does
@@ -114,16 +113,16 @@ documents in any of the first three positions:
 
 .. code-block:: none
 
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
-   {"number": 2, "letter": "a", "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 2, "letter": "a", "donuts and coffee"}
 
 If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
 We can specify an ``ascending`` sort on ``letter`` followed
-by ``number`` as follows:
+by ``"_id"`` as follows:
 
 .. code-block:: java
 
@@ -131,18 +130,18 @@ by ``number`` as follows:
 
    // <MongoCollection setup code here>
    
-   collection.find().sort(ascending("letter", "number"))
+   collection.find().sort(ascending("letter", "_id"))
 
 The above sort specification will return our documents in the following order: 
 
 .. code-block:: none
 
-   {"number": 2, "letter": "a", "food": "donuts and coffee"}
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
-   {"number": 4, "letter": "b", "food": "coffee with sugar"}
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
-   {"number": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
 
 
 Descending
@@ -153,7 +152,7 @@ static factory method. A descending sort will return results
 from largest to smallest.
 
 The following code snippet shows how to specify a ``descending``
-sort on the ``"number"`` field: 
+sort on the ``"_id"`` field: 
 
 .. code-block:: java
    
@@ -161,7 +160,7 @@ sort on the ``"number"`` field:
 
    // <MongoCollection setup code here>
    
-   collection.find().sort(descending("number"))
+   collection.find().sort(descending("_id"))
 
 
 The above sort criteria would return the documents
@@ -170,9 +169,9 @@ in the following order:
 
 .. code-block:: none
 
-   {"number": 6, "letter": "c", "food": "maple donut"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
-   {"number": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
    ...
 
 It is important for you to keep in mind that ``descending``
@@ -182,15 +181,15 @@ documents in the first position from the ``sort_example`` collection:
 
 .. code-block:: none
 
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
-   {"number": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
 
 If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
 The following code snippet shows how to specify a ``descending``
-sort on the ``"letter"`` field followed by the ``"number"`` field: 
+sort on the ``"letter"`` field followed by the ``"_id"`` field: 
 
 .. code-block:: java
 
@@ -198,7 +197,7 @@ sort on the ``"letter"`` field followed by the ``"number"`` field:
 
    // <MongoCollection setup code here>
    
-   collection.find().sort(descending("letter", "number"))
+   collection.find().sort(descending("letter", "_id"))
 
 
 The above sort criteria would return the documents
@@ -207,12 +206,12 @@ in the following order:
 
 .. code-block:: none
 
-   {"number": 6, "letter": "c", "food": "maple donut"}
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
-   {"number": 4, "letter": "b", "food": "coffee with sugar"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
 
 
 Text Score
@@ -223,7 +222,7 @@ queries to search your data, you can sort the results of those
 queries by text score (how well the search matched the returned document).
 To create a sortable field on the 
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
-``"textScore"`` associated with a ``$text`` search, use the
+``"textScore"`` associated with a ``$text`` query, use the
 ``Sorts.metaTextScore(<fieldname used in projection>)`` static factory method to retrieve
 a ``Bson`` document that can be added to your query results using
 :java-docs:`projection <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#projection(org.bson.conversions.Bson)>`. 
@@ -273,19 +272,15 @@ following code snippet to search on the ``"food"`` field for the term
 
    import static com.mongodb.client.model.Sorts.metaTextScore;
    import static com.mongodb.client.model.Sorts.ascending;
-   import static com.mongodb.client.model.Projections.excludeId;
-   import static com.mongodb.client.model.Projections.fields;
 
    // <MongoCollection setup code here>
    
    String projectedSortField = "textScore";
    Bson metaTextScore = metaTextScore(projectedSortField);
-   // build projection using the Projections builders
-   Bson metaTextProjection = fields(excludeId(), metaTextScore);
    String searchTerm = "maple donut";
    Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
    collection.find(searchQuery)
-           .projection(metaTextProjection)
+           .projection(metaTextScore)
            .sort(ascending(projectedSortField))
            .into(results);
    for (Document result : results) {
@@ -296,9 +291,9 @@ The output of the above code snippet should look something like this:
 
 .. code-block:: none
 
-   {"number": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
-   {"number": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
-   {"number": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
+   {"_id": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
+   {"_id": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
 
 Combining Sort Criteria
 -----------------------
@@ -308,7 +303,7 @@ static factory method. The ``orderBy()`` method applies additional
 sort criteria from left to right in the event of ties. 
 
 In the following code snippet, we use ``orderBy`` to combine a
-``descending`` on ``letter`` with an ``ascending`` sort on number.
+``descending`` on ``letter`` with an ``ascending`` sort on ``"_id"``.
 
 .. code-block:: java
 
@@ -317,10 +312,9 @@ In the following code snippet, we use ``orderBy`` to combine a
    // <MongoCollection setup code here>
 
    Bson orderBySort = orderBy(descending("letter"),
-           ascending("number"));
+           ascending("_id"));
    collection.find()
            .sort(orderBySort)
-           .projection(new Document("_id", 0))
            .into(results);
    for (Document result : results) {
        System.out.println(result.toJson());
@@ -330,9 +324,9 @@ The output of the above code snippet should look something like this:
 
 .. code-block:: none
 
-   {"number": 1, "letter": "c", "food": "coffee with milk"}
-   {"number": 6, "letter": "c", "food": "maple donut"}
-   {"number": 4, "letter": "b", "food": "coffee with sugar"}
-   {"number": 2, "letter": "a", "food": "donuts and coffee"}
-   {"number": 3, "letter": "a", "food": "maple syrup"}
-   {"number": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
