@@ -46,7 +46,7 @@ an instance of the
 :java-docs:`Bson <apidocs/bson/org/bson/conversions/Bson.html?>`
 type. 
 
-The following examples will show you how to use the static factory
+The following examples show you how to use the static factory
 methods from the ``Sorts`` class to sort your queries.
 The examples use a sample collection ``sort_example`` that contains
 the following documents:
@@ -65,8 +65,8 @@ Ascending
 ---------
 
 To specify an ascending sort, use the ``Sorts.ascending()``
-static factory method. This will sort your results
-from smallest to largest on the field name specified.
+static factory method. An ascending sort returns 
+your documents from smallest to largest on the field name specified.
 
 The ``ascending`` method can be used as follows:
 
@@ -91,8 +91,7 @@ The ``ascending`` method can be used as follows:
       
       Bson id_sort = ascending("_id");
       List<Document> results = new ArrayList<>();
-      collection.find().sort(id_sort)
-              .into(results);
+      collection.find().sort(id_sort).into(results);
       for (Document result : results) {
           System.out.println(result.toJson());
       }
@@ -121,7 +120,7 @@ If you would like to have a guarenteed sort order for fields
 with identical values, you can specify additional fields to sort
 on in the event of a tie. 
 
-We can specify an ``ascending`` sort on ``letter`` followed
+We can specify an ``ascending`` sort on ``"letter"`` followed
 by ``"_id"`` as follows:
 
 .. code-block:: java
@@ -132,7 +131,8 @@ by ``"_id"`` as follows:
    
    collection.find().sort(ascending("letter", "_id"))
 
-The above sort specification will return our documents in the following order: 
+The above sort criteria returns the documents in the
+``sort_example`` collection in the following order: 
 
 .. code-block:: none
 
@@ -148,8 +148,8 @@ Descending
 ----------
 
 To specify a descending sort, use the ``Sorts.descending()``
-static factory method. A descending sort will return results
-from largest to smallest.
+static factory method. A descending sort returns your documents
+from largest to smallest on the field name specified.
 
 The following code snippet shows how to specify a ``descending``
 sort on the ``"_id"`` field: 
@@ -163,7 +163,7 @@ sort on the ``"_id"`` field:
    collection.find().sort(descending("_id"))
 
 
-The above sort criteria would return the documents
+The above sort criteria returns the documents
 in the ``sort_example`` collection
 in the following order: 
 
@@ -285,7 +285,7 @@ static factory method. The ``orderBy()`` method applies additional
 sort criteria from left to right in the event of ties. 
 
 In the following code snippet, we use ``orderBy`` to combine a
-``descending`` on ``letter`` with an ``ascending`` sort on ``"_id"``.
+``descending`` on ``"letter"`` with an ``ascending`` sort on ``"_id"``.
 
 .. code-block:: java
 
@@ -296,8 +296,7 @@ In the following code snippet, we use ``orderBy`` to combine a
    Bson orderBySort = orderBy(descending("letter"),
            ascending("_id"));
    collection.find()
-           .sort(orderBySort)
-           .into(results);
+           .sort(orderBySort).into(results);
    for (Document result : results) {
        System.out.println(result.toJson());
    }
