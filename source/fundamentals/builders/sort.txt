@@ -239,21 +239,21 @@ a ``Bson`` document that can be added to your query results using
 You can then use the ``Sorts`` class to sort on ``"<fieldname used in projection>"``.
 
 The ``$text`` command performs a text search on the content indexed by the 
-:manual:`text index </core/index-text/>` on your collection.
-To add a text index to the ``sort_example`` collection on the ``"food"`` field,
-go into the ``mongo`` shell and run the following command:
+:manual:`text index </core/index-text/>` of your collection. You must create
+a text index on your collection before you can run a ``$text`` query and use
+``Sorts.metaTextScore()``.
 
 .. example::
 
    In the following code example, we show how to use the
    ``metaTextScore()`` method to sort the results of a ``$text``
-   query. The following code snippet
+   query on ``sort_example``. The following code snippet
    works as follows:
 
-   #. Create a text index on the ``"food"`` field
+   #. Create a text index for ``sort_example`` on the ``"food"`` field
    #. Run a ``$text`` search for the phrase ``"maple donut"`` 
-   #. Project the ``metaTextScore`` builder return value into document results as ``"textScore"`` field
-   #. Run ``ascending`` sort on ``"textScore"`` field
+   #. Project ``metaTextScore(projectedSortField)`` into your query results as the ``"textScore"`` field
+   #. Run an ``ascending`` sort on the ``"textScore"`` field
 
    .. code-block:: java
    
