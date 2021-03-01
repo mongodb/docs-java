@@ -33,7 +33,7 @@ You should read this guide if you would like to use the builder pattern
 to specify sort criteria for your queries. If you are new to sorting in the
 MongoDB Java driver, consider reading our
 :doc:`CRUD Sort Guide </fundamentals/crud/read-operations/sort/>`
-for a general sort introduction.
+for a general introduction to sorting with the MongoDB Java driver.
 
 The Sorts Class
 ---------------
@@ -47,7 +47,7 @@ an instance of the
 type. 
 
 The following examples show you how to use the static factory
-methods from the ``Sorts`` class to sort your queries.
+methods provided by the ``Sorts`` class to sort your queries.
 The examples use a sample collection ``sort_example`` that contains
 the following documents:
 
@@ -185,8 +185,8 @@ in the following order:
 
 It is important for you to keep in mind that ``descending``
 does not provide guarentees on sort order in the event of identical values.
-This means that ``descending("letter")`` could return either of these two
-documents in the first position from the ``sort_example`` collection:
+This means that ``descending("letter")`` could return either of these
+documents from the ``sort_example`` collection in the first position:
 
 .. code-block:: none
 
