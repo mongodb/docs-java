@@ -27,8 +27,8 @@ Sort criteria are the rules MongoDB uses to sort your data. Some examples of sor
 Builders are classes provided by the MongoDB Java driver that allow you to use
 the builder pattern to interact with your MongoDB instance.
 The builder pattern is an Object Oriented design technique for creating complex
-immutable objects seperately from their representation. The builders provided
-by the MongoDB Java driver can improve the readibility of your code.
+immutable objects separately from their representation. The builders provided
+by the MongoDB Java driver can improve the readability of your code.
 
 You should read this guide if you would like to use the builder pattern
 to specify sort criteria for your queries. If you are new to sorting in the
@@ -86,12 +86,12 @@ The ``ascending`` method can be used as follows:
 
    // <MongoCollection setup code here>
 
-   collection.find().sort(Sorts.ascending("<fieldname>"))
+   collection.find().sort(Sorts.ascending("<field name>"))
 
 This will return a 
 :java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`
 object containing the documents in your collection sorted 
-from smallest to largest on the specified fieldname. 
+from smallest to largest on the specified field name. 
 
 .. example::
 
@@ -121,8 +121,8 @@ from smallest to largest on the specified fieldname.
       ...
    
 An important thing for you to keep in mind is that MongoDB does
-not guarentee sort order for documents that have fields with identical values.
-This means that ``asending("letter")`` could have any of these
+not guarantee sort order for documents that have fields with identical values.
+This means that ``ascending("letter")`` could have any of these
 documents in the first position: 
 
 .. code-block:: none
@@ -131,7 +131,7 @@ documents in the first position:
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
    {"_id": 2, "letter": "a", "donuts and coffee"}
 
-If you would like to have a guarenteed sort order 
+If you would like to have a guaranteed sort order 
 for documents that have fields with identical values
 you can specify additional fields to sort
 on in the event of a tie. 
@@ -190,7 +190,7 @@ The above code snippet returns the documents in the
    ...
 
 An important thing for you to keep in mind is that MongoDB does
-not guarentee sort order for documents that have fields with identical values.
+not guarantee sort order for documents that have fields with identical values.
 This means that ``descending("letter")`` could have any of these
 documents in the first position: 
 
@@ -199,7 +199,7 @@ documents in the first position:
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
 
-If you would like to have a guarenteed sort order 
+If you would like to have a guaranteed sort order 
 for documents that have fields with identical values
 you can specify additional fields to sort
 on in the event of a tie. 
