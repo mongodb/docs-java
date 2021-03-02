@@ -65,7 +65,7 @@ the following documents:
 Sorting Data
 ------------
 
-The ``Sorts`` class provides two methods for specyfying the sort order of data
+The ``Sorts`` class provides two methods for specifying the sort order of data
 that does not contain any duplicate values. Data can be sorted from smallest to largest 
 with ``Sorts.ascending()``, and data can be sorted from largest to smallest with
 ``Sorts.descending()``. The following two subsections provide examples
@@ -88,9 +88,14 @@ The ``ascending`` method can be used as follows:
 
    collection.find().sort(Sorts.ascending("<fieldname>"))
 
+This will return a 
+:java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`
+object containing the documents in your collection sorted 
+from smallest to largest on the specified fieldname. 
+
 .. example::
 
-   In this example, we use ``ascending`` to
+   In this code example, we use ``ascending`` to
    sort the ``sort_example`` collection by ``"_id"``:
 
    .. code-block:: java
@@ -229,14 +234,15 @@ Text Score
 
 If you are using :manual:`$text </reference/operator/query/text/>`
 queries to search your data, you can sort the results of those
-queries by text score (how well the search matched the returned document).
+queries by text score (how well your search matched the returned document).
 To create a sortable field on the 
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
 ``"textScore"`` associated with a ``$text`` query, use the
-``Sorts.metaTextScore(<fieldname used in projection>)`` static factory method to retrieve
-a ``Bson`` document that can be added to your query results using
+``Sorts.metaTextScore()`` static factory method to retrieve
+a ``Bson`` object that can be added to your query results using
 :java-docs:`projection <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#projection(org.bson.conversions.Bson)>`. 
-You can then use the ``Sorts`` class to sort on ``"<fieldname used in projection>"``.
+You can then use the ``Sorts`` class to sort on the newly added
+field.
 
 The ``$text`` command performs a text search on the content indexed by the 
 :manual:`text index </core/index-text/>` of your collection. You must create
