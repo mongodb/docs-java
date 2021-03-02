@@ -276,16 +276,16 @@ a text index on your collection before you can run a ``$text`` query and use
       
       // create a text index on the food field
       collection.createIndex(Indexes.text("food"));
-      String projectedSortField = "textScore";
-      Bson metaTextScore = metaTextScore(projectedSortField);
+      // create text score sort specification
+      Bson metaTextScore = metaTextScore("score");
       String searchTerm = "maple donut";
       // build $text search query
       Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
       collection.find(searchQuery)
-              // project the text score into documents on the "textScore" field
+              // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
               .projection(metaTextScore)
               // sort the documents on the "textScore" field
-              .sort(ascending(projectedSortField))
+              .sort(metaTextScore)
               .into(results);
       for (Document result : results) {
           System.out.println(result.toJson());
@@ -294,10 +294,10 @@ a text index on your collection before you can run a ``$text`` query and use
    The output of the above code snippet should look something like this: 
    
    .. code-block:: none
-   
-      {"_id": 2, "letter": "a", "food": "donuts and coffee", "textScore": 0.75}
-      {"_id": 3, "letter": "a", "food": "maple syrup", "textScore": 0.75}
-      {"_id": 6, "letter": "c", "food": "maple donut", "textScore": 1.5}
+
+      {"_id": 6, "letter": "c", "food": "maple donut", "score": 1.5}
+      {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
+      {"_id": 3, "letter": "a", "food": "maple syrup", "score": 0.75}
 
 Combining Sort Criteria
 -----------------------
