@@ -351,6 +351,55 @@ The output should look something like this:
 
    query result in extended json format: {"_id": {"$oid": "6035210f35bd203721c3eab8"}, "name": "Gabriel García Márquez", "dateOfDeath": {"$date": "2014-04-17T04:00:00Z"}, "novels": [{"title": "One Hundred Years of Solitude", "yearPublished": 1967}, {"title": "Chronicle of a Death Foretold", "yearPublished": 1981}, {"title": "Love in the Time of Cholera", "yearPublished": 1985}]}
 
+.. example::
+   
+   If you would like to work with other formats of JSON strings
+   in your application, you can use the ``JsonObjectCodec`` class
+   along with ``JsonWriterSettings`` to specify your desired JSON
+   format.
+   
+   Below is a code example where where we read and write
+   to our MongoDB instance using 
+   :manual:`Relaxed mode JSON </reference/mongodb-extended-json/>`
+   strings:
+
+   .. code-block:: java
+  
+      import static org.bson.codecs.configuration.CodecRegistries.fromCodecs;
+ 
+      // MongoClient mongoClient = <code to instantiate your client>;
+      
+      MongoClient mongoClient = MongoClients.create(uri);
+      MongoDatabase database = mongoClient.getDatabase("fundamentals_data");
+      MongoCollection<JsonObject> collection = database.getCollection("authors", JsonObject.class)
+              .withCodecRegistry(
+                      fromCodecs(
+                              // define a JsonObjectCodec with a JsonWriterSettings in Relaxed mode
+                              new JsonObjectCodec(JsonWriterSettings
+                                      .builder()
+                                      .outputMode(JsonMode.RELAXED)
+                                      .objectIdConverter((objectId, strictJsonWriter) -> {
+                                          strictJsonWriter.writeString(objectId.toHexString());
+                                      })
+                                      .build())));
+      JsonObject author = new JsonObject("{\"_id\": \"6035210f35bd203721c3eab8\", "
+              + "\"name\": \"Gabriel García Márquez\", "
+              + "\"dateOfDeath\": {\"$date\": \"2014-04-17T04:00:00Z\"}, "
+              + "\"novels\": [{\"title\": \"One Hundred Years of Solitude\", \"yearPublished\": 1967}, {\"title\": \"Chronicle of a Death Foretold\", \"yearPublished\": 1981}, "
+              + "{\"title\": \"Love in the Time of Cholera\", \"yearPublished\": 1985}]}\n");
+      collection.insertOne(author);
+      JsonObject query = new JsonObject("{\"name\": \"Gabriel Garc\\u00eda M\\u00e1rquez\"}");
+      JsonObject jsonResult = collection.find(query).first();
+      if (jsonResult != null) {
+          System.out.println("query result in relaxed json format: " + jsonResult.getJson());
+      }
+ 
+   The output of this code should look something like this:
+ 
+   .. code-block:: none
+
+      query result in relaxed json format: {"_id": "6035210f35bd203721c3eab8", "name": "Gabriel García Márquez", "dateOfDeath": {"$date": "2014-04-17T04:00:00Z"}, "novels": [{"title": "One Hundred Years of Solitude", "yearPublished": 1967}, {"title": "Chronicle of a Death Foretold", "yearPublished": 1981}, {"title": "Love in the Time of Cholera", "yearPublished": 1985}]}
+
 For more information on this class, see the
 :java-docs:`JsonObject API documentation <apidocs/bson/org/bson/json/JsonObject.html>`.
 
