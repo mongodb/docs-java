@@ -263,9 +263,9 @@ a text index on your collection before you can run a ``$text`` query and use
 
    #. Create a text index for ``sort_example`` on the ``"food"`` field.
    #. Run a ``$text`` search for the phrase ``"maple donut"``.
-   #. Project ``metaTextScore(projectedSortField)`` into your query results as the ``"score"`` field.
+   #. Project ``metaTextScore("score")`` into your query results.
       This step is optional if your MongoDB instance is running MongoDB 4.4 or later. 
-   #. Sort using the ``metaTextScore`` sort specification.
+   #. Sort using ``metaTextScore("score")`` as a sort specification.
 
    .. code-block:: java
    
