@@ -1,7 +1,9 @@
 package docs.indexes;
 
+import com.mongodb.DuplicateKeyException;
 import com.mongodb.MongoCommandException;
 import com.mongodb.client.*;
+import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.geojson.Point;
@@ -12,6 +14,8 @@ import org.bson.conversions.Bson;
 
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
+
+import java.util.Arrays;
 
 public class IndexPage {
 
@@ -28,16 +32,17 @@ public class IndexPage {
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("sample_mflix");
         collection = database.getCollection("movies");
-        // end declaration
     }
 
     public static void main(String[] args) {
         IndexPage page = new IndexPage();
         page.singleIndex();
         page.compoundIndex();
+        page.wildCardIndex();
         page.multiKeyIndex();
         page.textIndex();
         page.geoSpatialIndex();
+        page.uniqueIndex();
     }
 
     private void singleIndex() {
@@ -92,6 +97,9 @@ public class IndexPage {
     private void textIndex() {
         System.out.println("text index");
         // begin text index
+        // create a text index of the "fullplot" field in the "movies" collection
+        // if a text index already exists with a different configuration, this will
+        // error
         try {
             String resultCreateIndex = collection.createIndex(Indexes.text("plot"));
             System.out.println(String.format("Index created: %s", resultCreateIndex));
@@ -113,12 +121,13 @@ public class IndexPage {
         System.out.println("geospatial index");
         collection = database.getCollection("theaters");
         // begin geospatial index
+        // if an existing geo index exists, this will error
         try {
             String resultCreateIndex = collection.createIndex(Indexes.geo2dsphere("location.geo"));
             System.out.println(String.format("Index created: %s", resultCreateIndex));
         } catch (MongoCommandException e) {
             if (e.getErrorCodeName().equals("IndexOptionsConflict"))
-                System.out.println("there's an existing geo index with different options");
+                System.out.println("there's an existing text index with different options");
         }
         // end geospatial index
 
@@ -134,13 +143,15 @@ public class IndexPage {
     private void uniqueIndex() {
         System.out.println("unique index");
         collection = database.getCollection("theaters");
+
         // begin unique index
+        // this will fail if any duplicate values exist on the field you are indexing
         try {
             IndexOptions indexOptions = new IndexOptions().unique(true);
-            String resultCreateIndex = collection.createIndex(Indexes.descending("theaderId"), indexOptions);
+            String resultCreateIndex = collection.createIndex(Indexes.descending("theaterId"), indexOptions);
             System.out.println(String.format("Index created: %s", resultCreateIndex));
         } catch (DuplicateKeyException e) {
-            System.out.println("duplicate key, couldn't create index");
+            System.out.printf("duplicate field values encountered, couldn't create index: \t%s\n", e);
         }
         // end unique index
     }

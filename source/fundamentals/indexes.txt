@@ -43,8 +43,8 @@ When you execute a query against MongoDB, your command can include various eleme
 - projection criteria to specify the fields MongoDB should return (optional)
 - sort criteria to specify the order documents will be returned from MongoDB (optional)
 
-When all the fields specified in the query, projection, and sort are indexed, MongoDB returns results directly from the
-index, also called a **covered query**.
+When all the fields specified in the query, projection, and sort are in the same index, MongoDB returns results directly
+from the index, also called a **covered query**.
 
 .. important:: Sort Order
 
