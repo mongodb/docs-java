@@ -235,16 +235,19 @@ Text Score
 If you are using :manual:`$text </reference/operator/query/text/>`
 queries to search your data you can sort the results of those
 queries by text score (how well your search matched the returned document).
-To create a sortable field on the 
+To sort your results by the
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
 ``"textScore"`` associated with a ``$text`` query, use the
-``Sorts.metaTextScore()`` static factory method to a retrieve a sort
-specification for a descending sort by score (best match first) and
-the ``Projections.metaTextScore()`` static factory method to retrieve
-a document to add the text score through a
-:java-docs:`projection <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#projection(org.bson.conversions.Bson)>`. 
-You can then use the ``Sorts`` class to sort on the newly added
-field.
+``Sorts.metaTextScore()`` static factory method to a retrieve a sort specification
+for a descending sort by score (best match first).
+
+.. note: 
+
+  If your MongoDB instance is running MongoDB 4.2 and earlier,
+  to use a ``Sorts.metaTextScore()``
+  expression with ``FindIterable.sort()``, you must also
+  include the same expression in a projection. This is demonstrated
+  in the code example below.
 
 The ``$text`` command performs a text search on the content indexed by the 
 :manual:`text index </core/index-text/>` of your collection. You must create
@@ -258,10 +261,11 @@ a text index on your collection before you can run a ``$text`` query and use
    query on ``sort_example``. The following code snippet
    works as follows:
 
-   #. Create a text index for ``sort_example`` on the ``"food"`` field
-   #. Run a ``$text`` search for the phrase ``"maple donut"`` 
-   #. Project ``metaTextScore(projectedSortField)`` into your query results as the ``"textScore"`` field
-   #. Run an ``ascending`` sort on the ``"textScore"`` field
+   #. Create a text index for ``sort_example`` on the ``"food"`` field.
+   #. Run a ``$text`` search for the phrase ``"maple donut"``.
+   #. Project ``metaTextScore(projectedSortField)`` into your query results as the ``"score"`` field.
+      This step is optional if your MongoDB instance is running MongoDB 4.4 or later. 
+   #. Sort using the ``metaTextScore`` sort specification.
 
    .. code-block:: java
    
