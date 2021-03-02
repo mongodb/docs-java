@@ -233,13 +233,15 @@ Text Score
 ----------
 
 If you are using :manual:`$text </reference/operator/query/text/>`
-queries to search your data, you can sort the results of those
+queries to search your data you can sort the results of those
 queries by text score (how well your search matched the returned document).
 To create a sortable field on the 
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
 ``"textScore"`` associated with a ``$text`` query, use the
-``Sorts.metaTextScore()`` static factory method to retrieve
-a ``Bson`` object that can be added to your query results using
+``Sorts.metaTextScore()`` static factory method to a retrieve a sort
+specification for a descending sort by score (best match first) and
+the ``Projections.metaTextScore()`` static factory method to retrieve
+a document to add the text score through a
 :java-docs:`projection <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#projection(org.bson.conversions.Bson)>`. 
 You can then use the ``Sorts`` class to sort on the newly added
 field.
