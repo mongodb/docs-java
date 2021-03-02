@@ -369,7 +369,6 @@ The output should look something like this:
  
       // MongoClient mongoClient = <code to instantiate your client>;
       
-      MongoClient mongoClient = MongoClients.create(uri);
       MongoDatabase database = mongoClient.getDatabase("fundamentals_data");
       MongoCollection<JsonObject> collection = database.getCollection("authors", JsonObject.class)
               .withCodecRegistry(
