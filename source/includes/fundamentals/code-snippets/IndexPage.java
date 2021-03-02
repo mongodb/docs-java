@@ -1,5 +1,6 @@
 package docs.indexes;
 
+// begin imports
 import com.mongodb.DuplicateKeyException;
 import com.mongodb.MongoCommandException;
 import com.mongodb.client.*;
@@ -14,8 +15,7 @@ import org.bson.conversions.Bson;
 
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
-
-import java.util.Arrays;
+// end imports
 
 public class IndexPage {
 
@@ -32,6 +32,7 @@ public class IndexPage {
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("sample_mflix");
         collection = database.getCollection("movies");
+        // end declaration
     }
 
     public static void main(String[] args) {
