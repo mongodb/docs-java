@@ -205,8 +205,23 @@ and diacritic-sensitive searches.
    text("café", TextSearchOptions().diacriticSensitive(true))
 
 Bitwise
-~~~~~~~
+-------
+Use ``bitwise`` operators to filter fields on a bit-level.
 
+The bitwise query operators include:
+
+- ``bitsAllSet``: Selects documents where the all the specified bits of a field are set (i.e. 1).
+- ``bitsAllClear``: Selects documents where the all the specified bits of a field are clear (i.e. 0).
+- ``bitsAnySet``: Selects documents where at least one of the specified bits of a field are set (i.e. 1).
+- ``bitsAnyClear``: Selects documents where at least one of the specified bits of a field are clear (i.e. 0).
+
+The following example selects documents that have a ``bitField`` field
+with bits set at positions of the corresponding bitmask ``50`` (i.e.
+``00110010``):
+
+.. code-block:: java
+
+   bitsAllSet("bitField", 50)
 
 Geospatial
 ~~~~~~~~~~
