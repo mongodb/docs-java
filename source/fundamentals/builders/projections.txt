@@ -18,12 +18,11 @@ Overview
 MongoDB supports **field projection**, specifying which fields to include and exclude when returning results from a
 query. Projection in MongoDB follows some basic rules:
 
-- the :guilabel:`_id` field is **always** included and must explicitly be excluded
-- specifying a field for inclusion implicitly excludes all other fields **except** the :guilabel:`_id` field
-- specifying a field for exclusion removes only that field in a query result
+- The :guilabel:`_id` field is **always** included and must explicitly be excluded
+- Specifying a field for inclusion implicitly excludes all other fields **except** the :guilabel:`_id` field
+- Specifying a field for exclusion removes only that field in a query result
 
-Find more information :manual:`here </tutorial/project-fields-from-query-results/>`.
-
+Find more information about projection mechanics :manual:`here </tutorial/project-fields-from-query-results/>`.
 
 The :java-core-api:`Projections <com/mongodb/client/model/Projections.html>` class provides static factory methods for
 all the MongoDB projection operators.  Each method returns an instance of the :ref:`Bson <bson>` type which you can pass
@@ -94,9 +93,9 @@ Use the ``excludeId`` method to specify the exclusion of the :guilabel:`_id` fie
 Project an Array Element Match
 ------------------------------
 
-Use the ``elemMatch`` methods to specify an array projection.
+Use the ``elemMatch`` methods to specify a positional array projection.
 
-The ``elemMatch(String, Bson)`` method variant is used to specify an array projection that will include the first
+Use the ``elemMatch(String, Bson)`` method variant to specify an array projection that will include the first
 element of an array that matches a supplied query filter.
 
 .. note::
@@ -111,11 +110,9 @@ greater that ``3``:
 
    elemMatch("orders", Filters.gt("quantity", 3))
 
-
-
-Use the ``elemMatch(String)`` method variant to specify a
-:manual:`positional projection </reference/operator/projection/positional/#projection/>` to include the first element of an array
-that matches the filter supplied as part of the query.
+When you've specified matching criteria in the **query** portion of your operation, use the ``elemMatch(String)`` method
+variant to specify a :manual:`positional projection </reference/operator/projection/positional/#projection/>` to include
+the first element of an array.
 
 .. warning::
 
