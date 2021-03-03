@@ -127,10 +127,9 @@ from smallest to largest on the specified field name.
       {"_id": 3, "letter": "a", "food": "maple syrup"}
       ...
    
-An important thing for you to keep in mind is that MongoDB does
-not guarantee sort order for documents that have fields with identical values.
-This means that ``ascending("letter")`` could have any of these
-documents in the first position: 
+Note that MongoDB does not guarantee sort order for documents that have
+fields with identical values. This means that ``ascending("letter")``
+could have any of these documents in the first position: 
 
 .. code-block:: none
 
@@ -196,10 +195,9 @@ The above code snippet returns the documents in the
    {"_id": 4, "letter": "b", "food": "coffee with sugar"}
    ...
 
-An important thing for you to keep in mind is that MongoDB does
-not guarantee sort order for documents that have fields with identical values.
-This means that ``descending("letter")`` could have any of these
-documents in the first position: 
+Note that MongoDB does not guarantee sort order for documents that have
+fields with identical values. This means that ``descending("letter")``
+could have any of these documents in the first position: 
 
 .. code-block:: none
 
