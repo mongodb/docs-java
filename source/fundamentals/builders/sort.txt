@@ -228,6 +228,36 @@ The above code snippet returns the documents in the
    {"_id": 3, "letter": "a", "food": "maple syrup"}
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
 
+Combining Sort Criteria
+-----------------------
+
+To combine sort criteria, use the ``Sorts.orderBy()``
+static factory method. The ``orderBy()`` method applies additional
+sort criteria from left to right in the event of ties. 
+
+In the following code snippet, we use ``orderBy`` to combine a
+``descending`` sort on ``"letter"`` with an ``ascending`` sort on ``"_id"``.
+
+.. code-block:: java
+
+   import static com.mongodb.client.model.Sorts.orderBy;
+
+   // <MongoCollection setup code here>
+
+   Bson orderBySort = orderBy(descending("letter"), ascending("_id"));
+   collection.find().sort(orderBySort)
+
+The above code snippet returns the documents in the
+``sort_example`` collection in the following order: 
+
+.. code-block:: none
+
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
 
 Text Score
 ----------
@@ -298,34 +328,3 @@ a text index on your collection before you can run a ``$text`` query and use
       {"_id": 6, "letter": "c", "food": "maple donut", "score": 1.5}
       {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
       {"_id": 3, "letter": "a", "food": "maple syrup", "score": 0.75}
-
-Combining Sort Criteria
------------------------
-
-To combine sort criteria, use the ``Sorts.orderBy()``
-static factory method. The ``orderBy()`` method applies additional
-sort criteria from left to right in the event of ties. 
-
-In the following code snippet, we use ``orderBy`` to combine a
-``descending`` sort on ``"letter"`` with an ``ascending`` sort on ``"_id"``.
-
-.. code-block:: java
-
-   import static com.mongodb.client.model.Sorts.orderBy;
-
-   // <MongoCollection setup code here>
-
-   Bson orderBySort = orderBy(descending("letter"), ascending("_id"));
-   collection.find().sort(orderBySort)
-
-The above code snippet returns the documents in the
-``sort_example`` collection in the following order: 
-
-.. code-block:: none
-
-   {"_id": 1, "letter": "c", "food": "coffee with milk"}
-   {"_id": 6, "letter": "c", "food": "maple donut"}
-   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
-   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
-   {"_id": 3, "letter": "a", "food": "maple syrup"}
-   {"_id": 5, "letter": "a", "food": "milk and cookies"}
