@@ -25,7 +25,6 @@ can in turn be passed to any method that expects a query filter.
    For brevity, you may choose to import the methods of the ``Filters`` class statically:
 
    .. code-block:: java
-
       import static com.mongodb.client.model.Filters.*;
 
    The examples below assume this static import.
@@ -35,6 +34,7 @@ Comparison
 Use the ``comparison`` method when you want to match values.
 
 The comparison operator methods include:
+
 - ``eq``: Matches values that are equal to a specified value. 
 - ``gt``: Matches values that are greater than a specified value.
 - ``gte``: Matches values that are greater than or equal to a specified value.
@@ -46,8 +46,7 @@ The comparison operator methods include:
 - ``empty``: Matches all the documents.
 
 .. note::
-   ``eq`` is aliased to ``equal`` 
-   ``ne`` is aliased to ``notEqual``
+   ``eq`` is aliased to ``equal`` and ``ne`` is aliased to ``notEqual``
 
 The following example creates a filter that selects all documents where
 the value of the :guilabel:`qty` field equals :guilabel:`20`:
