@@ -25,6 +25,7 @@ can in turn be passed to any method that expects a query filter.
    For brevity, you may choose to import the methods of the ``Filters`` class statically:
 
    .. code-block:: java
+
       import static com.mongodb.client.model.Filters.*;
 
    The examples below assume this static import.
@@ -46,12 +47,14 @@ The comparison operator methods include:
 - ``empty``: Matches all the documents.
 
 .. note::
+
    ``eq`` is aliased to ``equal`` and ``ne`` is aliased to ``notEqual``
 
 The following example creates a filter that selects all documents where
 the value of the :guilabel:`qty` field equals :guilabel:`20`:
 
 .. code-block:: java
+
    `eq`("qty", 20)
    equal("qty", 20)
 
@@ -60,12 +63,14 @@ the value of the :guilabel:`qty` field is either :guilabel:`5` or
 :guilabel:`15`:
 
 .. code-block:: java
+
    in("qty", 5, 15)
 
 The following example creates a filter that selects all documents
 because the predicate is empty:
 
 .. code-block:: java
+
    empty()
 
 Logical
