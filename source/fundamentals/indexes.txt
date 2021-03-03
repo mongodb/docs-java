@@ -59,10 +59,10 @@ from the index, also called a **covered query**.
 
    MongoDB would use this index when you sort your data by either:
 
-   - ``name` ascending, :guilabel:`age`` descending
-   - ``name` descending, :guilabel:`age`` ascending
+   - ``name`` ascending, ``age`` descending
+   - ``name`` descending, ``age`` ascending
 
-   Specifying a sort order of ``name` and :guilabel:`age` ascending or :guilabel:`name` and :guilabel:`age``
+   Specifying a sort order of ``name`` and :guilabel:`age` ascending or :guilabel:`name` and ``age``
    descending would require an in-memory sort.
 
 For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
@@ -173,7 +173,7 @@ improving query and sort performance.
 
    Read more about compound indexes, **index prefixes**, and sort order :manual:`here </core/index-compound/#prefixes>`.
 
-The following example creates a compound index on the ``type` and :guilabel:`rated`` fields:
+The following example creates a compound index on the ``type`` and ``rated`` fields:
 
 .. common-content-end
 
@@ -204,7 +204,7 @@ Multikey Indexes (Indexes on Array Fields)
 **Multikey indexes** are indexes that improve performance for queries that specify a field with an index that contains
 an array value. You can define a multikey index using the same syntax as a single field or compound index.
 
-The following example creates a compound, multikey index on the ``rated`, :guilabel:`genres`` (an array of
+The following example creates a compound, multikey index on the ``rated`, ``genres`` (an array of
 Strings), and ``title`` fields:
 
 .. common-content-end
