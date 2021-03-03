@@ -59,7 +59,7 @@ methods provided by the ``Sorts`` class to sort your queries.
 The examples use a sample collection ``sort_example`` that contains
 the following documents:
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
    {"_id": 3, "letter": "a", "food": "maple syrup"}
@@ -120,7 +120,7 @@ from smallest to largest on the specified field name.
 
    The output of the above code snippet should look something like this: 
    
-   .. code-block:: none
+   .. code-block:: json
    
       {"_id": 1, "letter": "c", "food": "coffee with milk"}
       {"_id": 2, "letter": "a", "food": "donuts and coffee"}
@@ -132,7 +132,7 @@ fields with identical values. This means that if you pass "letter" to
 the ``ascending()`` method, the first document returned could be any
 of the following documents:
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 3, "letter": "a", "food": "maple syrup"}
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
@@ -157,7 +157,7 @@ by ``_id`` as follows:
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
    {"_id": 3, "letter": "a", "food": "maple syrup"}
@@ -189,7 +189,7 @@ sort on the ``_id`` field:
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 6, "letter": "c", "food": "maple donut"}
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
@@ -201,7 +201,7 @@ fields with identical values. This means that if you pass "letter" to
 the ``descending()`` method, the first document returned could be any of
 the following documents:
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
@@ -226,7 +226,7 @@ sort on the ``letter`` field followed by the ``_id`` field:
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 6, "letter": "c", "food": "maple donut"}
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
@@ -257,7 +257,7 @@ descending sort on ``letter`` with an ascending sort on ``_id``.
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
 
-.. code-block:: none
+.. code-block:: json
 
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
@@ -331,7 +331,7 @@ a text index on your collection before you can run a ``$text`` query and use
    
    The output of the above code snippet should look something like this: 
    
-   .. code-block:: none
+   .. code-block:: json
 
       {"_id": 6, "letter": "c", "food": "maple donut", "score": 1.5}
       {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
