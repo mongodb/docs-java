@@ -312,15 +312,15 @@ a text index on your collection before you can run a ``$text`` query and use
       // create a text index on the food field
       collection.createIndex(Indexes.text("food"));
       // create text score sort specification
-      Bson metaTextScore = metaTextScore("score");
+      Bson metaTextScoreSort = metaTextScore("score");
       String searchTerm = "maple donut";
       // build $text search query
       Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
       collection.find(searchQuery)
               // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
-              .projection(metaTextScore)
+              .projection(metaTextScoreSort)
               // sort the documents on the "textScore" field
-              .sort(metaTextScore)
+              .sort(metaTextScoreSort)
               .into(results);
       for (Document result : results) {
           System.out.println(result.toJson());
