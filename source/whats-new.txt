@@ -47,7 +47,7 @@ New features of the 4.1 Java driver release include:
 - Significant reduction in client-perceived failover times during planned maintenance events
 - The `update() <https://mongodb.github.io/mongo-java-driver/4.1/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html#hint(org.bson.conversions.Bson)>`_ and `delete() <https://mongodb.github.io/mongo-java-driver/4.1/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html#hint(org.bson.conversions.Bson)>`_ method support index hinting
 - The ``find()`` method supports `allowDiskUse() <https://mongodb.github.io/mongo-java-driver/4.1/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#allowDiskUse(java.lang.Boolean)>`_ for sorts that require too much memory to execute in RAM
-- Authentication supports the MONGODB-AWS mechanism using Amazon Web Services (AWS) Identity and Access Management (IAM) credentials
+- Added support for the MONGODB-AWS authentication mechanism using Amazon Web Services (AWS) Identity and Access Management (IAM) credentials
 - Authentication requires fewer round trips to the server, resulting in faster connection setup
 
 .. _version-4.0:
