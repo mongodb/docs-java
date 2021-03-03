@@ -14,8 +14,8 @@ Filters Builders
 
 Overview 
 --------
-In this guide, we will show you how to use **builders** to specify
-**filters** for your queries.
+In this guide, we show you how to use **builders** to specify
+**filters** for your queries. 
 
 Filters are the operations MongoDB uses to limit your results to what
 you want to see. Some examples of filters are:
@@ -64,7 +64,7 @@ the value of the ``qty`` field equals ``20``:
    `eq`("qty", 20)
    equal("qty", 20)
 
-which will render as:
+which renders as:
 
 .. code-block:: none
    :copyable: false
@@ -92,7 +92,7 @@ because the predicate is empty:
 
    empty()
 
-which will render as:
+which renders as:
 
 .. code-block:: none
    :copyable: false
@@ -118,7 +118,7 @@ value of the ``qty`` field is greater than ``20`` and the value of the
 
    and(gt("qty", 20), equal("user", "jdoe"))
 
-which will render as:
+which renders as:
 
 .. code-block:: none
    :copyable: false
@@ -138,7 +138,7 @@ field value is equal to ``true`` or the ``qty`` field value is less than
    and(or(equal("price", 0.99), equal("price", 1.99) or(equal("sale", true), lt("qty", 20)))
 
 
-which will render as:
+which renders as:
 
 .. code-block:: none
    :copyable: false
