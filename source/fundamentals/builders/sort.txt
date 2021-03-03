@@ -128,8 +128,9 @@ from smallest to largest on the specified field name.
       ...
    
 Note that MongoDB does not guarantee sort order for documents that have
-fields with identical values. This means that ``ascending("letter")``
-could have any of these documents in the first position: 
+fields with identical values. This means that if you pass "letter" to
+the ``ascending()`` method, the first document returned could be any
+of the following documents:
 
 .. code-block:: none
 
@@ -196,8 +197,9 @@ The above code snippet returns the documents in the
    ...
 
 Note that MongoDB does not guarantee sort order for documents that have
-fields with identical values. This means that ``descending("letter")``
-could have any of these documents in the first position: 
+fields with identical values. This means that if you pass "letter" to
+the ``descending()`` method, the first document returned could be any of
+the following documents:
 
 .. code-block:: none
 
@@ -298,9 +300,10 @@ a text index on your collection before you can run a ``$text`` query and use
 
    #. Create a text index for ``sort_example`` on the ``"food"`` field.
    #. Run a ``$text`` search for the phrase ``"maple donut"``.
-   #. Project ``metaTextScore("score")`` into your query results.
-      This step is optional if your MongoDB instance is running MongoDB 4.4 or later. 
-   #. Sort using ``metaTextScore("score")`` as a sort specification.
+   #. Project ``metaTextScore()`` into your query results as the
+      ``score`` field. This step is optional if your MongoDB instance is
+      running MongoDB 4.4 or later. 
+   #. Sort using ``metaTextScore()`` as a sort specification.
 
    .. code-block:: java
    
