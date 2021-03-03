@@ -41,7 +41,7 @@ The comparison operator methods include:
 - ``gte``: Matches values that are greater than or equal to a specified value.
 - ``lt``: Matches values that are less than a specified value.
 - ``lte``: Matches values that are less than or equal to a specified value.
-- ``ne``: Matches all values that are not equal to a specified value. 
+- ``ne``: Matches values that are not equal to a specified value. 
 - ``in``: Matches any of the values specified in an array.
 - ``nin``: Matches none of the values specified in an array.
 - ``empty``: Matches all the documents.
@@ -57,6 +57,7 @@ the value of the ``qty`` field equals ``20``:
 which will render as:
 
 .. code-block:: none
+   :copyable: false
    
    { 
     "qty" : 20 
@@ -84,6 +85,7 @@ because the predicate is empty:
 which will render as:
 
 .. code-block:: none
+   :copyable: false
    
    {}
 
@@ -93,14 +95,14 @@ Use ``logical`` operators to perform join or invert filters.
 
 The logical operator methods include:
 
-- ``and``: Joins filters with a logical AND and selects all documents that match the conditions of both filters.
-- ``or``: Joins filters with a logical OR and selects all documents that match the conditions of either filters.
+- ``and``: Joins filters with a logical AND and selects documents that match the conditions of both filters.
+- ``or``: Joins filters with a logical OR and selects documents that match the conditions of either filters.
 - ``not``: Inverts the effect of a query expression and selects documents that do not match the filter.
-- ``nor``: Joins filters with a logical NOR and selects all documents that fail to match both filters.
+- ``nor``: Joins filters with a logical NOR and selects documents that fail to match both filters.
 
-The following example creates a filter that selects all documents where
-the value of the ``qty`` field is greater than ``20`` and the value of
-the ``user`` field equals ``"jdoe"``:
+The following example creates a filter that selects documents where the
+value of the ``qty`` field is greater than ``20`` and the value of the
+``user`` field equals ``"jdoe"``:
 
 .. code-block:: java
 
@@ -109,14 +111,15 @@ the ``user`` field equals ``"jdoe"``:
 which will render as:
 
 .. code-block:: none
+   :copyable: false
    
    { 
     "qty" : { "$gt" : 20 }, 
     "user" : "jdoe" 
    }
 
-The following example creates a filter that selects all documents where
-the  ``price`` field value equals ``0.99`` or ``1.99``; and the ``sale``
+The following example creates a filter that selects documents where the
+``price`` field value equals ``0.99`` or ``1.99``; and the ``sale``
 field value is equal to ``true`` or the ``qty`` field value is less than
 ``20``:
 
@@ -128,6 +131,7 @@ field value is equal to ``true`` or the ``qty`` field value is less than
 which will render as:
 
 .. code-block:: none
+   :copyable: false
    
    { 
    "$and" : 
@@ -202,7 +206,7 @@ and diacritic-sensitive searches.
 
 .. code-block:: java
 
-   text("café", TextSearchOptions().diacriticSensitive(true))
+   text("coffee", TextSearchOptions().diacriticSensitive(true))
 
 Bitwise
 -------
@@ -210,8 +214,8 @@ Use ``bitwise`` operators to filter fields on a bit-level.
 
 The bitwise query operators include:
 
-- ``bitsAllSet``: Selects documents where the all the specified bits of a field are set (i.e. 1).
-- ``bitsAllClear``: Selects documents where the all the specified bits of a field are clear (i.e. 0).
+- ``bitsAllSet``: Selects documents where the specified bits of a field are set (i.e. 1).
+- ``bitsAllClear``: Selects documents where the specified bits of a field are clear (i.e. 0).
 - ``bitsAnySet``: Selects documents where at least one of the specified bits of a field are set (i.e. 1).
 - ``bitsAnyClear``: Selects documents where at least one of the specified bits of a field are clear (i.e. 0).
 
@@ -224,5 +228,35 @@ with bits set at positions of the corresponding bitmask ``50`` (i.e.
    bitsAllSet("bitField", 50)
 
 Geospatial
-~~~~~~~~~~
+----------
+Use ``geospatial`` operators to 
 
+The geospatial operator methods include:
+
+- ``geoWithin``: Selects documents containing a GeoJSON geometry field that falls within within a bounding GeoJSON geometry.
+- ``geoWithinBox``: Selects documents containing a grid coordinates field that exist within the specified box.
+- ``geoWithinPolygon``: Selects documents containing a grid coordinates field that exist within the specified polygon.
+- ``geoWithinCenter``: Selects documents containing a grid coordinates field that exist within the specified circle.
+- ``geoWithinCenterSphere``: Selects geometries containing a geospatial data field (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
+- ``geoIntersects``: Selects geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.
+- ``near``: Returns geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.
+- ``nearSphere``: Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
+
+The following example creates a filter that selects documents where the
+``geo`` field contains a GeoJSON Geometry object that falls within the
+given polygon:
+
+.. code-block:: java
+
+   val polygon: Polygon = Polygon(Seq(Position(0, 0), Position(4, 0),
+                                       Position(4, 4), Position(0, 4),
+                                       Position(0, 0)))
+   geoWithin("geo", polygon)
+
+The following example creates a filter that selects documents where the
+``geo`` field contains a GeoJSON Geometry object that intersects the
+given Point:
+
+.. code-block:: java
+
+   geoIntersects("geo", Point(Position(4, 0)))
