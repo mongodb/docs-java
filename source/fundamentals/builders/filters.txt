@@ -156,7 +156,7 @@ both ``"ssl"`` and ``"security"``:
 
 Elements
 --------
-Use ``elements`` operators to select documents.
+Use ``elements`` operators to filter on a field.
 
 The elements operator methods include:
 
@@ -175,8 +175,34 @@ its value does not equal ``5`` or ``15``:
    and(exists("qty"), nin("qty", 5, 15))
 
 Evaluation
-~~~~~~~~~~
+----------
+Use ``evaluation`` to match documemts with an expression.
 
+The evaluation operator methods include:
+
+- ``mod``: Performs a modulo operation on the value of a field and selects documents with a specified result.
+- ``regex``: Selects documents where values match a specified regular expression.
+- ``text``: Selects documemts matching a full-text search expression.
+- ``where``: Matches documents that satisfy a JavaScript expression.
+
+The following example assumes a collection that has a text index in the
+field ``abstract``. It selects documents that have a ``abstract`` field
+containing the term ``coffee``:
+
+.. code-block:: java
+
+   text("coffee")
+
+Available with MongoDB 3.2, a version 3 text index allows case-sensitive
+and diacritic-sensitive searches.
+
+.. code-block:: java
+
+   text("coffee", TextSearchOptions().caseSensitive(true))
+
+.. code-block:: java
+
+   text("café", TextSearchOptions().diacriticSensitive(true))
 
 Bitwise
 ~~~~~~~
