@@ -103,7 +103,7 @@ from smallest to largest on the specified field name.
 .. example::
 
    In this code example, we use ``ascending`` to
-   sort the ``sort_example`` collection by ``"_id"``:
+   sort the ``sort_example`` collection by ``_id``:
 
    .. code-block:: java
    
@@ -128,8 +128,9 @@ from smallest to largest on the specified field name.
       ...
    
 Note that MongoDB does not guarantee sort order for documents that have
-fields with identical values. This means that ``ascending("letter")``
-could have any of these documents in the first position: 
+fields with identical values. This means that if you pass "letter" to
+the ``ascending()`` method, the first document returned could be any
+of the following documents:
 
 .. code-block:: none
 
@@ -142,8 +143,8 @@ for documents that have fields with identical values
 you can specify additional fields to sort
 on in the event of a tie. 
 
-We can specify an ``ascending`` sort on ``"letter"`` followed
-by ``"_id"`` as follows:
+We can specify an ascending sort on ``letter`` followed
+by ``_id`` as follows:
 
 .. code-block:: java
 
@@ -173,8 +174,8 @@ To specify a descending sort, use the ``Sorts.descending()``
 static factory method. A descending sort returns your documents
 from largest to smallest on the field name specified.
 
-The following code snippet shows how to specify a ``descending``
-sort on the ``"_id"`` field: 
+The following code snippet shows how to specify a descending
+sort on the ``_id`` field: 
 
 .. code-block:: java
    
@@ -196,8 +197,9 @@ The above code snippet returns the documents in the
    ...
 
 Note that MongoDB does not guarantee sort order for documents that have
-fields with identical values. This means that ``descending("letter")``
-could have any of these documents in the first position: 
+fields with identical values. This means that if you pass "letter" to
+the ``descending()`` method, the first document returned could be any of
+the following documents:
 
 .. code-block:: none
 
@@ -209,8 +211,8 @@ for documents that have fields with identical values
 you can specify additional fields to sort
 on in the event of a tie. 
 
-The following code snippet shows how to specify a ``descending``
-sort on the ``"letter"`` field followed by the ``"_id"`` field: 
+The following code snippet shows how to specify a descending
+sort on the ``letter`` field followed by the ``_id`` field: 
 
 .. code-block:: java
 
@@ -240,8 +242,8 @@ To combine sort criteria, use the ``Sorts.orderBy()``
 static factory method. The ``orderBy()`` method applies additional
 sort criteria from left to right in the event of ties. 
 
-In the following code snippet, we use ``orderBy`` to combine a
-``descending`` sort on ``"letter"`` with an ``ascending`` sort on ``"_id"``.
+In the following code snippet, we use the ``orderBy()`` method to combine a
+descending sort on ``letter`` with an ascending sort on ``_id``.
 
 .. code-block:: java
 
@@ -272,7 +274,7 @@ queries to search your data you can sort the results of those
 queries by text score (how well your search matched the returned document).
 To sort your results by the
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
-``"textScore"`` associated with a ``$text`` query, use the
+``textScore`` associated with a ``$text`` query, use the
 ``Sorts.metaTextScore()`` static factory method to retrieve a sort specification
 for a descending sort by score (best match first).
 
@@ -296,11 +298,12 @@ a text index on your collection before you can run a ``$text`` query and use
    query on ``sort_example``. The following code snippet
    works as follows:
 
-   #. Create a text index for ``sort_example`` on the ``"food"`` field.
-   #. Run a ``$text`` search for the phrase ``"maple donut"``.
-   #. Project ``metaTextScore("score")`` into your query results.
-      This step is optional if your MongoDB instance is running MongoDB 4.4 or later. 
-   #. Sort using ``metaTextScore("score")`` as a sort specification.
+   #. Create a text index for ``sort_example`` on the ``food`` field.
+   #. Run a ``$text`` search for the phrase "maple donut".
+   #. Project ``metaTextScore()`` into your query results as the
+      ``score`` field. This step is optional if your MongoDB instance is
+      running MongoDB 4.4 or later. 
+   #. Sort using ``metaTextScore()`` as a sort specification.
 
    .. code-block:: java
    
