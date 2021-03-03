@@ -93,7 +93,7 @@ The ``ascending`` method can be used as follows:
 
    // <MongoCollection setup code here>
 
-   collection.find().sort(Sorts.ascending("<field name>"))
+   collection.find().sort(ascending("<field name>"));
 
 This will return a 
 :java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`
@@ -152,7 +152,7 @@ by ``"_id"`` as follows:
 
    // <MongoCollection setup code here>
    
-   collection.find().sort(ascending("letter", "_id"))
+   collection.find().sort(ascending("letter", "_id"));
 
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
@@ -183,7 +183,7 @@ sort on the ``"_id"`` field:
 
    // <MongoCollection setup code here>
    
-   collection.find().sort(descending("_id"))
+   collection.find().sort(descending("_id"));
 
 
 The above code snippet returns the documents in the
@@ -220,7 +220,7 @@ sort on the ``"letter"`` field followed by the ``"_id"`` field:
 
    // <MongoCollection setup code here>
    
-   collection.find().sort(descending("letter", "_id"))
+   collection.find().sort(descending("letter", "_id"));
 
 
 The above code snippet returns the documents in the
@@ -252,7 +252,7 @@ In the following code snippet, we use ``orderBy`` to combine a
    // <MongoCollection setup code here>
 
    Bson orderBySort = orderBy(descending("letter"), ascending("_id"));
-   collection.find().sort(orderBySort)
+   collection.find().sort(orderBySort);
 
 The above code snippet returns the documents in the
 ``sort_example`` collection in the following order: 
