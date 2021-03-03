@@ -47,7 +47,7 @@ The comparison operator methods include:
 - ``empty``: Matches all the documents.
 
 The following example creates a filter that selects all documents where
-the value of the :guilabel:`qty` field equals :guilabel:`20`:
+the value of the ``qty`` field equals ``20``:
 
 .. code-block:: java
 
@@ -68,8 +68,7 @@ which will render as:
    ``equal`` and ``ne`` is aliased to ``notEqual``
 
 The following example creates a filter that selects all documents where
-the value of the :guilabel:`qty` field is either :guilabel:`5` or
-:guilabel:`15`:
+the value of the ``qty`` field is either ``5`` or ``15``:
 
 .. code-block:: java
 
@@ -100,8 +99,8 @@ The logical operator methods include:
 - ``nor``: Joins filters with a logical NOR and selects all documents that fail to match both filters.
 
 The following example creates a filter that selects all documents where
-the value of the :guilabel:`qty` field is greater than :guilabel:`20`
-and the value of the :guilabel:`user` field equals :guilabel:`"jdoe"`:
+the value of the ``qty`` field is greater than ``20`` and the value of
+the ``user`` field equals ``"jdoe"``:
 
 .. code-block:: java
 
@@ -117,10 +116,9 @@ which will render as:
    }
 
 The following example creates a filter that selects all documents where
-the :guilabel:`price` field value equals :guilabel:`0.99` or
-:guilabel:`1.99`; and the :guilabel:`sale` field value is equal to
-:guilabel:`true` or the :guilabel:`qty` field value is less than
-:guilabel:`20`:
+the  ``price`` field value equals ``0.99`` or ``1.99``; and the ``sale``
+field value is equal to ``true`` or the ``qty`` field value is less than
+``20``:
 
 .. code-block:: java
    
@@ -149,16 +147,32 @@ The array operator methods include:
 - ``elemMatch``: Selects documents if element in the array field matches all the specified $elemMatch conditions.
 - ``size``: Selects documents if the array field is a specified size.
 
-The following example selects documents with a :guilabel:`tags` array
-containing both :guilabel:`"ssl"` and :guilabel:`"security"`:
+The following example selects documents with a ``tags`` array containing
+both ``"ssl"`` and ``"security"``:
 
 .. code-block:: java
 
    all("tags", "ssl", "security")
 
 Elements
-~~~~~~~~
+--------
+Use ``elements`` operators to select documents.
 
+The elements operator methods include:
+
+- ``exists``: Selects documents that have the specified field.
+- ``type``: Selects documents if a field is of the specified type.
+
+.. note::
+
+   ``type`` is a reserved word.  ``type`` is aliased to ``bsonType``.
+
+The following example selects documents that have a ``qty`` field and
+its value does not equal ``5`` or ``15``:
+
+.. code-block:: java
+
+   and(exists("qty"), nin("qty", 5, 15))
 
 Evaluation
 ~~~~~~~~~~
