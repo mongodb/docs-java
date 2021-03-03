@@ -111,9 +111,9 @@ from smallest to largest on the specified field name.
    
       // <MongoCollection setup code here>
       
-      Bson id_sort = ascending("_id");
+      Bson idSort = ascending("_id");
       List<Document> results = new ArrayList<>();
-      collection.find().sort(id_sort).into(results);
+      collection.find().sort(idSort).into(results);
       for (Document result : results) {
           System.out.println(result.toJson());
       }
