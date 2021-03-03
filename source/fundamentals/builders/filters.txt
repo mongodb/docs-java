@@ -11,3 +11,84 @@ Filters Builders
    :class: singlecol
 
 .. _filters-builders:
+
+Overview 
+--------
+
+The :java-core-api:`Filters <com/mongodb/client/model/Filters.html>`
+class providesstatic factory methods for all the MongoDB query
+operators. Each method returns an instance of the Bson type, which
+can in turn be passed to any method that expects a query filter.
+
+.. tip::
+
+   For brevity, you may choose to import the methods of the ``Filters`` class statically:
+
+   .. code-block:: java
+
+      import static com.mongodb.client.model.Filters.*;
+
+   The examples below assume this static import.
+
+Comparison 
+~~~~~~~~~~
+Use the ``comparison`` method when you want to match values.
+
+The comparison operator methods include:
+- ``eq``: Matches values that are equal to a specified value. 
+- ``gt``: Matches values that are greater than a specified value.
+- ``gte``: Matches values that are greater than or equal to a specified value.
+- ``lt``: Matches values that are less than a specified value.
+- ``lte``: Matches values that are less than or equal to a specified value.
+- ``ne``: Matches all values that are not equal to a specified value. 
+- ``in``: Matches any of the values specified in an array.
+- ``nin``: Matches none of the values specified in an array.
+- ``empty``: Matches all the documents.
+
+.. note::
+   ``eq`` is aliased to ``equal`` 
+   ``ne`` is aliased to ``notEqual``
+
+The following example creates a filter that selects all documents where
+the value of the :guilabel:`qty` field equals :guilabel:`20`:
+
+.. code-block:: java
+   `eq`("qty", 20)
+   equal("qty", 20)
+
+The following example creates a filter that selects all documents where
+the value of the :guilabel:`qty` field is either :guilabel:`5` or
+:guilabel:`15`:
+
+.. code-block:: java
+   in("qty", 5, 15)
+
+The following example creates a filter that selects all documents
+because the predicate is empty:
+
+.. code-block:: java
+   empty()
+
+Logical
+~~~~~~~
+
+
+Arrays
+~~~~~~
+
+
+Elements
+~~~~~~~~
+
+
+Evaluation
+~~~~~~~~~~
+
+
+Bitwise
+~~~~~~~
+
+
+Geospatial
+~~~~~~~~~~
+
