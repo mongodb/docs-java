@@ -31,8 +31,8 @@ can in turn be passed to any method that expects a query filter.
    The examples below assume this static import.
 
 Comparison 
-~~~~~~~~~~
-Use the ``comparison`` method when you want to match values.
+----------
+Use the ``comparison`` method to match values.
 
 The comparison operator methods include:
 
@@ -46,10 +46,6 @@ The comparison operator methods include:
 - ``nin``: Matches none of the values specified in an array.
 - ``empty``: Matches all the documents.
 
-.. note::
-
-   ``eq`` is aliased to ``equal`` and ``ne`` is aliased to ``notEqual``
-
 The following example creates a filter that selects all documents where
 the value of the :guilabel:`qty` field equals :guilabel:`20`:
 
@@ -57,6 +53,18 @@ the value of the :guilabel:`qty` field equals :guilabel:`20`:
 
    `eq`("qty", 20)
    equal("qty", 20)
+
+which will render as:
+
+..code-block:: none
+   { 
+    "qty" : 20 
+    }
+
+.. note::
+
+   ``eq`` and ``neq`` are reserved words.  ``eq`` is aliased to
+   ``equal`` and ``ne`` is aliased to ``notEqual``
 
 The following example creates a filter that selects all documents where
 the value of the :guilabel:`qty` field is either :guilabel:`5` or
@@ -73,8 +81,58 @@ because the predicate is empty:
 
    empty()
 
+which will render as:
+
+.. code-block:: none
+   {}
+
 Logical
-~~~~~~~
+-------
+Use ``logical`` operators to perform join or invert filters.
+
+The logical operator methods include:
+
+- ``and``: Joins filters with a logical AND and selects all documents that match the conditions of both filters.
+- ``or``: Joins filters with a logical OR and selects all documents that match the conditions of either filters.
+- ``not``: Inverts the effect of a query expression and selects documents that do not match the filter.
+- ``nor``: Joins filters with a logical NOR and selects all documents that fail to match both filters.
+
+The following example creates a filter that selects all documents where
+the value of the :guilabel:`qty` field is greater than :guilabel:`20`
+and the value of the :guilabel:`user` field equals :guilabel:`"jdoe"`:
+
+.. code-block:: java
+
+   and(gt("qty", 20), equal("user", "jdoe"))
+
+which will render as:
+
+.. code-block:: none
+   { 
+    "qty" : { "$gt" : 20 }, 
+    "user" : "jdoe" 
+   }
+
+The following example creates a filter that selects all documents where
+the :guilabel:`price` field value equals :guilabel:`0.99` or
+:guilabel:`1.99`; and the :guilabel:`sale` field value is equal to
+:guilabel:`true` or the :guilabel:`qty` field value is less than
+:guilabel:`20`:
+
+.. code-block:: java
+   and(or(equal("price", 0.99), equal("price", 1.99) or(equal("sale", true), lt("qty", 20)))
+
+
+which will render as:
+
+.. code-block:: none
+   { 
+   "$and" : 
+    [
+      { "$or" : [ { "price" : 0.99 }, { "price" : 1.99 } ] },
+      { "$or" : [ { "sale" : true }, { "qty" : { "$lt" : 20 } } ] }
+    ]
+   }
 
 
 Arrays
