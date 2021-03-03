@@ -18,8 +18,8 @@ Overview
 MongoDB supports **field projection**, specifying which fields to include and exclude when returning results from a
 query. Projection in MongoDB follows some basic rules:
 
-- The :guilabel:`_id` field is **always** included and must explicitly be excluded
-- Specifying a field for inclusion implicitly excludes all other fields **except** the :guilabel:`_id` field
+- The ``_id`` field is **always** included and must explicitly be excluded
+- Specifying a field for inclusion implicitly excludes all other fields **except** the ``_id`` field
 - Specifying a field for exclusion removes only that field in a query result
 
 Find more information about projection mechanics :manual:`here </tutorial/project-fields-from-query-results/>`.
@@ -43,14 +43,14 @@ Inclusion
 
 Use the ``include`` method to specify the inclusion of one or more fields.
 
-The following example includes the :guilabel:`quantity` field and (implicitly) the :guilabel:`_id` field:
+The following example includes the ``quantity` field and (implicitly) the :guilabel:`_id`` field:
 
 .. code-block:: java
 
    include("quantity")
 
-The following example includes the :guilabel:`quantity` and :guilabel:`totalAmount` fields and (implicitly) the
-:guilabel:`_id` field:
+The following example includes the ``quantity` and :guilabel:`totalAmount`` fields and (implicitly) the
+``_id`` field:
 
 .. code-block:: java
 
@@ -61,22 +61,22 @@ Exclusion
 
 Use the ``exclude`` method to specify the exclusion of one or more fields.
 
-The following example excludes the :guilabel:`quantity` field:
+The following example excludes the ``quantity`` field:
 
 .. code-block:: java
 
    exclude("quantity")
 
-The following example excludes the :guilabel:`quantity` and :guilabel:`totalAmount` fields:
+The following example excludes the ``quantity` and :guilabel:`totalAmount`` fields:
 
 .. code-block:: java
 
    exclude("quantity", "totalAmount")
 
-Exclusion of :guilabel:`_id`
+Exclusion of ``_id``
 ----------------------------
 
-Use the ``excludeId`` method to specify the exclusion of the :guilabel:`_id` field:
+Use the ``excludeId`` method to specify the exclusion of the ``_id`` field:
 
 .. code-block:: java
 
@@ -103,7 +103,7 @@ element of an array that matches a supplied query filter.
    Only the first element that matches the specified query filter will be included, regardless of how many matches there
    may be.
 
-The following example projects the first element of the :guilabel:`orders` array where the :guilabel:`quantity` field is
+The following example projects the first element of the ``orders` array where the :guilabel:`quantity`` field is
 greater that ``3``:
 
 .. code-block:: java
@@ -120,7 +120,7 @@ the first element of an array.
    you can use a positional project on an array field that does not appear in the query document.
 
 
-The following example projects the first element of the :guilabel:`orders` array:
+The following example projects the first element of the ``orders`` array:
 
 .. code-block:: java
 
@@ -138,13 +138,13 @@ Slice
 
 Use the ``slice`` methods to project a :manual:`slice </reference/operator/projection/slice/>` of an array.
 
-The following example projects the first **7** elements of the :guilabel:`tags` array:
+The following example projects the first **7** elements of the ``tags`` array:
 
 .. code-block:: java
 
   slice("tags", 7)
 
-The following example skips the first **2** elements of the :guilabel:`tags` array and projects the next **5**:
+The following example skips the first **2** elements of the ``tags`` array and projects the next **5**:
 
 .. code-block:: java
 
@@ -156,7 +156,7 @@ Text Score
 Use the ``metaTextScore`` method to specify a projection of
 :manual:`score of a text query </reference/operator/query/text/#return-the-text-search-score/>`
 
-The following example projects the text score as the value of the :guilabel:`score` field:
+The following example projects the text score as the value of the ``score`` field:
 
 .. code-block:: java
 
@@ -167,8 +167,8 @@ Combining Projections
 
 Use the ``fields`` method to combine multiple projections.
 
-The following example includes the :guilabel:`quantity` and :guilabel:`totalAmount` fields and excludes the
-:guilabel:`_id` field:
+The following example includes the ``quantity` and :guilabel:`totalAmount`` fields and excludes the
+``_id`` field:
 
 .. code-block:: java
 
