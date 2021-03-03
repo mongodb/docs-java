@@ -43,13 +43,13 @@ Inclusion
 
 Use the ``include`` method to specify the inclusion of one or more fields.
 
-The following example includes the ``quantity` field and (implicitly) the :guilabel:`_id`` field:
+The following example includes the ``quantity`` field and (implicitly) the ``_id`` field:
 
 .. code-block:: java
 
    include("quantity")
 
-The following example includes the ``quantity` and :guilabel:`totalAmount`` fields and (implicitly) the
+The following example includes the ``quantity`` and ``totalAmount`` fields and (implicitly) the
 ``_id`` field:
 
 .. code-block:: java
@@ -67,7 +67,7 @@ The following example excludes the ``quantity`` field:
 
    exclude("quantity")
 
-The following example excludes the ``quantity` and :guilabel:`totalAmount`` fields:
+The following example excludes the ``quantity`` and ``totalAmount`` fields:
 
 .. code-block:: java
 
@@ -103,7 +103,7 @@ element of an array that matches a supplied query filter.
    Only the first element that matches the specified query filter will be included, regardless of how many matches there
    may be.
 
-The following example projects the first element of the ``orders` array where the :guilabel:`quantity`` field is
+The following example projects the first element of the ``orders`` array where the ``quantity`` field is
 greater that ``3``:
 
 .. code-block:: java
@@ -167,7 +167,7 @@ Combining Projections
 
 Use the ``fields`` method to combine multiple projections.
 
-The following example includes the ``quantity` and :guilabel:`totalAmount`` fields and excludes the
+The following example includes the ``quantity`` and ``totalAmount`` fields and excludes the
 ``_id`` field:
 
 .. code-block:: java
