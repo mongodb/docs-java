@@ -57,6 +57,7 @@ the value of the :guilabel:`qty` field equals :guilabel:`20`:
 which will render as:
 
 .. code-block:: none
+   
    { 
     "qty" : 20 
    }
@@ -84,6 +85,7 @@ because the predicate is empty:
 which will render as:
 
 .. code-block:: none
+   
    {}
 
 Logical
@@ -108,6 +110,7 @@ and the value of the :guilabel:`user` field equals :guilabel:`"jdoe"`:
 which will render as:
 
 .. code-block:: none
+   
    { 
     "qty" : { "$gt" : 20 }, 
     "user" : "jdoe" 
@@ -120,12 +123,14 @@ the :guilabel:`price` field value equals :guilabel:`0.99` or
 :guilabel:`20`:
 
 .. code-block:: java
+   
    and(or(equal("price", 0.99), equal("price", 1.99) or(equal("sale", true), lt("qty", 20)))
 
 
 which will render as:
 
 .. code-block:: none
+   
    { 
    "$and" : 
     [
@@ -134,10 +139,22 @@ which will render as:
     ]
    }
 
-
 Arrays
-~~~~~~
+------
+Use ``array`` operators to filter on an array field.
 
+The array operator methods include:
+
+- ``all``: Matches arrays that contain all elements specified in the query.
+- ``elemMatch``: Selects documents if element in the array field matches all the specified $elemMatch conditions.
+- ``size``: Selects documents if the array field is a specified size.
+
+The following example selects documents with a :guilabel:`tags` array
+containing both :guilabel:`"ssl"` and :guilabel:`"security"`:
+
+.. code-block:: java
+
+   all("tags", "ssl", "security")
 
 Elements
 ~~~~~~~~
