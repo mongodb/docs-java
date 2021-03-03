@@ -50,7 +50,7 @@ from the index, also called a **covered query**.
 
    Sort criteria must match or invert the order of the index.
 
-   Consider an index on the fields :guilabel`name` in ascending order (A-Z), :guilabel:`age` in descending order (9-0):
+   Consider an index on the field ``name`` in ascending order (A-Z), ``age`` in descending order (9-0):
 
    .. code-block:: none
       :copyable: false
@@ -59,10 +59,10 @@ from the index, also called a **covered query**.
 
    MongoDB would use this index when you sort your data by either:
 
-   - :guilabel:`name` ascending, :guilabel:`age` descending
-   - :guilabel:`name` descending, :guilabel:`age` ascending
+   - ``name` ascending, :guilabel:`age`` descending
+   - ``name` descending, :guilabel:`age`` ascending
 
-   Specifying a sort order of :guilabel:`name` and :guilabel:`age` ascending or :guilabel:`name` and :guilabel:`age`
+   Specifying a sort order of ``name` and :guilabel:`age` ascending or :guilabel:`name` and :guilabel:`age``
    descending would require an in-memory sort.
 
 For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
@@ -134,10 +134,10 @@ automatically remove documents from a collection after a certain amount of time 
 
 .. note::
 
-   The ``_id_`` index is an example of a single field index. This index is automatically created on the :guilabel:`_id` field
+   The ``_id_`` index is an example of a single field index. This index is automatically created on the ``_id`` field
    when a new collection is created.
 
-The following example creates an index in ascending order on the :guilabel:`title` field:
+The following example creates an index in ascending order on the ``title`` field:
 
 .. common-content-end
 
@@ -173,7 +173,7 @@ improving query and sort performance.
 
    Read more about compound indexes, **index prefixes**, and sort order :manual:`here </core/index-compound/#prefixes>`.
 
-The following example creates a compound index on the :guilabel:`type` and :guilabel:`rated` fields:
+The following example creates a compound index on the ``type` and :guilabel:`rated`` fields:
 
 .. common-content-end
 
@@ -204,8 +204,8 @@ Multikey Indexes (Indexes on Array Fields)
 **Multikey indexes** are indexes that improve performance for queries that specify a field with an index that contains
 an array value. You can define a multikey index using the same syntax as a single field or compound index.
 
-The following example creates a compound, multikey index on the :guilabel:`rated`, :guilabel:`genres` (an array of
-Strings), and :guilabel:`title` fields:
+The following example creates a compound, multikey index on the ``rated`, :guilabel:`genres`` (an array of
+Strings), and ``title`` fields:
 
 .. common-content-end
 .. driver-content-begin
@@ -250,7 +250,7 @@ language as an option when creating the index.
 
 .. driver-content-begin
 
-The following example creates a text index on the :guilabel:`plot` field:
+The following example creates a text index on the ``plot`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -285,7 +285,7 @@ the geospatial data for inclusion, intersection, and proximity. For more informa
 To create a 2dsphere index, you must specify a field that contains only **GeoJSON objects**. For more details on this
 type, see the MongoDB server manual page on :manual:`GeoJSON objects </reference/geojson>`.
 
-The :guilabel:`location.geo` field in following sample document from the ``theaters`` collection in the ``sample_mflix``
+The ``location.geo` field in following sample document from the ``theaters`` collection in the ``sample_mflix```
 database is a GeoJSON Point object that describes the coordinates of the theater:
 
 .. code-block:: javascript
@@ -310,7 +310,7 @@ database is a GeoJSON Point object that describes the coordinates of the theater
       }
    }
 
-The following example creates a ``2dsphere`` index on the :guilabel:`location.geo` field:
+The following example creates a ``2dsphere`` index on the ``location.geo`` field:
 
 .. warning::
 
@@ -346,10 +346,10 @@ Unique Indexes
 .. _unique-indexes:
 
 Unique indexes ensure that the indexed fields do not store duplicate values. By default, MongoDB creates a unique index
-on the :guilabel:`_id` field during the creation of a collection. To create a unique index, specify the field or combination of
+on the ``_id`` field during the creation of a collection. To create a unique index, specify the field or combination of
 fields that you want to prevent duplication on and set the ``unique`` option to ``true``.
 
-The following example creates a unique, descending index on the :guilabel:`theaterId` field:
+The following example creates a unique, descending index on the ``theaterId`` field:
 
 .. common-content-end
 .. driver-content-begin
