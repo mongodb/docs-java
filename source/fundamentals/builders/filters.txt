@@ -14,6 +14,15 @@ Filters Builders
 
 Overview 
 --------
+In this guide, we show you how to use **builders** to specify
+**filters** for your queries.
+
+Filters are the operations MongoDB uses to limit your results to what
+you want to see. Some examples of filters are:
+
+- Items that cost $0 to $25
+- A hotel has ammenities you want
+- A yelp review mentions "spicy" 
 
 The :java-core-api:`Filters <com/mongodb/client/model/Filters.html>`
 class providesstatic factory methods for all the MongoDB query
@@ -32,7 +41,7 @@ can in turn be passed to any method that expects a query filter.
 
 Comparison 
 ----------
-Use the ``comparison`` method to match values.
+Use the ``comparison`` method to compare values.
 
 The comparison operator methods include:
 
