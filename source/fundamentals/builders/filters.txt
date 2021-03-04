@@ -78,26 +78,35 @@ The comparison operator methods include:
    :stub-columns: 1
 
    * - Comparison Operator
-     - ``eq()``
-     - ``gt()``
-     - ``gte()``
-     - ``lt()``
-     - ``lte()``
-     - ``ne()``
-     - ``in()``
-     - ``nin()``
-     - ``empty()``
-
-   * - Matches
+     - Matches
+      
+   * - ``eq()``
      - values that are equal to a specified value
+
+   * - ``gt()``
      - values that are greater than a specified value
+      
+   * - ``gte()``
      - values that are greater than or equal to a specified value
-     - values that are less than a specified value
+
+   * - ``lt()``
+     - values that are less than a specified value 
+
+   * - ``lte()``
      - values that are less than or equal to a specified value
+
+   * - ``ne()``
      - values that are not equal to a specified value
+
+   * - ``in()``
      - any of the values specified in an array
+
+   * - ``nin()``
      - none of the values specified in an array
+
+   * - ``empty()``
      - all the documents
+
 
 The following code snippet shows how to use a comparison filter:
 
@@ -169,6 +178,7 @@ The following code snippet shows how to use a comparison filter:
    
    .. code-block:: json
       :copyable: false
+      
       {"_id": 1, "color": "red", "qty": 5}
       {"_id": 2, "color": "purple", "qty": 10}
       {"_id": 3, "color": "blue", "qty": 8}
