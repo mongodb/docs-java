@@ -333,7 +333,7 @@ a text index on your collection before you can run a ``$text`` query and use
       collection.find(searchQuery)
               // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
               .projection(metaTextScoreSort)
-              // sort the documents on the "textScore" field
+              // sort the documents on the "score" field
               .sort(metaTextScoreSort)
               .into(results);
       for (Document result : results) {
