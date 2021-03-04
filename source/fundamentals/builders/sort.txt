@@ -59,7 +59,7 @@ methods provided by the ``Sorts`` class to sort your queries.
 The examples use a sample collection ``sort_example`` that contains
 the following documents:
 
-.. _docs_java_fundamentals_builders_sort_sort_exaple:
+.. _docs_java_fundamentals_builders_sort_sort_example:
 
 .. code-block:: json
 
@@ -106,7 +106,7 @@ from smallest to largest on the specified field name.
 
    In this code example, we use ``ascending`` to
    sort the
-   :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`  
+   :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
    collection by ``_id``:
 
    .. code-block:: java
@@ -159,7 +159,7 @@ by ``_id`` as follows:
    collection.find().sort(ascending("letter", "_id"));
 
 The above code snippet returns the documents in the
-:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`  
+:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
 collection in the following order: 
 
 .. code-block:: json
@@ -192,7 +192,7 @@ sort on the ``_id`` field:
 
 
 The above code snippet returns the documents in the
-:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`  
+:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
 collection in the following order: 
 
 .. code-block:: json
@@ -230,7 +230,7 @@ sort on the ``letter`` field followed by the ``_id`` field:
 
 
 The above code snippet returns the documents in the
-:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`  
+:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
 collection in the following order: 
 
 .. code-block:: json
@@ -262,7 +262,7 @@ descending sort on ``letter`` with an ascending sort on ``_id``.
    collection.find().sort(orderBySort);
 
 The above code snippet returns the documents in the
-:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`
+:ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`
 collection in the following order: 
 
 .. code-block:: json
@@ -304,11 +304,11 @@ a text index on your collection before you can run a ``$text`` query and use
    In the following code example, we show how to use the
    ``metaTextScore()`` method to sort the results of a ``$text``
    query on
-   :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`.
+   :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`.
    The following code snippet works as follows:
 
    #. Create a text index for
-      :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_exaple>`
+      :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`
       on the ``food`` field.
    #. Run a ``$text`` search for the phrase "maple donut".
    #. Project ``metaTextScore()`` into your query results as the
