@@ -11,3 +11,201 @@ Updates Builders
    :class: singlecol
 
 .. _updates-builders:
+
+Overview 
+--------
+
+The :java-core-api:`Updates <com/mongodb/client/model/Updates.html>`
+class provides static factory methods for all the MongoDB query
+operators. Each method returns an instance of the :ref:`Bson <bson>`
+type, which can in turn be passed to any method that expects a query
+filter.
+
+.. tip::
+
+   For brevity, you may choose to import the methods of the ``Filters`` class statically:
+
+   .. code-block:: java
+
+      import static com.mongodb.client.model.Updates.*;
+
+   The examples below assume this static import.
+
+Field Updates
+-------------
+The following section describes update operators that apply to the value of an entire field.
+
+Set
+~~~
+The ``$set`` operator sets the value of a field to to the specified
+value. 
+
+The following example sets the value of the ``quantity`` field to
+``11``: 
+
+.. code-block:: java
+
+   set("quantity", 11)
+
+Unset
+~~~~~
+The ``$unset`` operator deletes the field with the given name.
+
+The following example deletes the ``quantity`` field:
+
+.. code-block:: java
+
+   unset("quantity")
+
+Set On Insert
+~~~~~~~~~~~~~
+The ``$setOnInsert`` operator sets the value of a field to the given
+value if the update is an upsert that results in an insert of a
+document. 
+
+The following example sets the value of the ``defaultQuantity`` field to
+``10`` if an upsert resulted in the insert of a document: 
+
+.. code-block:: java
+
+   setOnInsert("defaultQuantity", 10)
+
+Increment
+~~~~~~~~~
+The ``$inc`` operator increments the value of a numeric field by a
+specified value. 
+
+The following example increments the value of the ``quantity`` field by
+``5``: 
+
+.. code-block:: java
+
+   inc("quantity", 5)
+
+Multiply
+~~~~~~~~
+The ``$mul`` operator multiplies the value of a numeric field by a
+specified value. 
+
+The following example multiplies the value of the ``price`` field by
+``1.2``: 
+
+.. code-block:: java
+
+   mul("price", 1.2)
+
+Rename
+~~~~~~
+The ``$rename`` operator renames a field.
+
+The following example renames the ``qty`` field to ``quantity``:
+
+.. code-block:: java
+
+   rename("qty", "quantity")
+
+Min
+~~~
+The ``$min`` operator updates the value of the field to a specified
+value if the specified value is less than the current value of the
+field. 
+
+The following example sets the value of the ``lowScore`` field to the
+minimum of its current value and ``150``: 
+
+.. code-block:: java
+
+   min("lowScore", 150)
+
+Max
+~~~
+The ``$max`` operator updates the value of the field to a specified
+value if the specified value is greater than the current value of the
+field. 
+
+The following example sets the value of the ``highScore`` field to the
+maximum of its current value and ``900``: 
+
+.. code-block:: java
+
+   max("highScore", 900)
+
+Current Date
+~~~~~~~~~~~~
+The ``$currentDate`` operator sets the value of the field with the
+specified name to the current date as a BSON `date
+<http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-date>`_
+or as a BSON `timestamp
+<http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-timestamp>`_.
+
+
+The following example sets the value of the ``lastModified`` field to the current date as a BSON date type:
+
+.. code-block:: java
+
+   currentDate("lastModified")
+
+The following example sets the value of the ``lastModified`` field to the current date as a BSON timestamp type:
+
+.. code-block:: java
+
+   currentTimestamp("lastModified")
+
+Bit
+~~~
+The ``$bit`` operator performs a bitwise update of the integral value of a field.
+
+The following example performs a bitwise AND between the number ``10`` and the integral value of the ``mask`` field:
+
+.. code-block:: java
+
+   bitwiseAnd("mask", 10)
+
+The following example performs a bitwise OR between the number ``10`` and the integral value of the ``mask`` field:
+
+.. code-block:: java
+
+   bitwiseOr("mask", 10)
+
+The following example performs a bitwise XOR between the number ``10`` and the integral value of the ``mask`` field:
+
+.. code-block:: java
+   
+   bitwiseXor("mask", 10)
+
+Array Updates
+-------------
+The following section describes update operators that apply to the contents of the array value of a field.
+
+Add to Set
+~~~~~~~~~~
+The ``$addToSet`` operator adds a value to an array if the value is not already present.
+
+The following example adds the value ``"a"`` to the array value of the ``letters`` field:
+
+addToSet("letters", "a")
+
+The following example adds each of the values ``"a"``, ``"b"``, and
+``"c"`` to the array value of the ``letters`` field:
+
+addEachToSet("letters", Arrays.asList("a", "b", "c"))
+
+Pop
+~~~
+
+
+Pull All
+~~~~~~~~
+
+
+Pull
+~~~~
+
+
+Push
+~~~~
+
+
+Combining Multiple Update Operators
+-----------------------------------
+
