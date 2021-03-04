@@ -17,18 +17,26 @@ Overview
 In this guide, we show you how to use **builders** to specify
 **filters** for your queries. 
 
+Filtrs are used in the following ways:
+* :ref:`Comparison <comparison>`
+* :ref:`Logical <logical>`
+* :ref:`Arrays <arrays>`
+* :ref:`Elements <elements>`
+* :ref:`Evaluation <evaluation>`
+* :ref:`Bitwise <bitwise>`
+* :ref:`Geospatial <geospatial>`
+
 Filters are the operations MongoDB uses to limit your results to what
-you want to see. Some examples of filters are:
+you want to see. Some examples of data passed through filters are: 
 
 - Items that cost $0 to $25
-- A hotel has ammenities you want
+- A hotel with ammenities you want
 - A food critic review that mentions "spicy" 
 
 The :java-core-api:`Filters <com/mongodb/client/model/Filters.html>`
 class provides static factory methods for all the MongoDB query
 operators. Each method returns an instance of the :ref:`Bson <bson>`
-type, which can in turn be passed to any method that expects a query
-filter.
+type, which you can pass to any method that expects a query filter. 
 
 .. tip::
 
@@ -40,68 +48,141 @@ filter.
 
    The examples below assume this static import.
 
+The following examples show you how to use the static factory methods
+provided by the ``Filteres`` class to sort your queries. The examples
+use a sample collection ``filter_example`` that contains the following
+documents: 
+
+.. code-block:: json
+
+   {"_id": 1, "color": "red", "qty": 5}
+   {"_id": 2, "color": "purple", "qty": 10}
+   {"_id": 3, "color": "blue", "qty": 8}
+   {"_id": 4, "color": "white", "qty": 6}
+   {"_id": 5, "color": "yellow", "qty": 11}
+   {"_id": 6, "color": "pink", "qty": 5}
+   {"_id": 7, "color": "green", "qty": 8}
+   {"_id": 8, "color": "orange", "qty": 7}
+   
+.. _comparison:
+
 Comparison 
 ----------
-Use the ``comparison`` method to compare values.
+A comparison filter returns documents matching your specified
+comparison. 
 
 The comparison operator methods include:
 
-- ``eq``: Matches values that are equal to a specified value. 
-- ``gt``: Matches values that are greater than a specified value.
-- ``gte``: Matches values that are greater than or equal to a specified value.
-- ``lt``: Matches values that are less than a specified value.
-- ``lte``: Matches values that are less than or equal to a specified value.
-- ``ne``: Matches values that are not equal to a specified value. 
-- ``in``: Matches any of the values specified in an array.
-- ``nin``: Matches none of the values specified in an array.
-- ``empty``: Matches all the documents.
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
 
-The following example creates a filter that selects all documents where
-the value of the ``qty`` field equals ``20``:
+   * - Comparison Operator
+     - ``eq()``
+     - ``gt()``
+     - ``gte()``
+     - ``lt()``
+     - ``lte()``
+     - ``ne()``
+     - ``in()``
+     - ``nin()``
+     - ``empty()``
+
+   * - Matches
+     - values that are equal to a specified value
+     - values that are greater than a specified value
+     - values that are greater than or equal to a specified value
+     - values that are less than a specified value
+     - values that are less than or equal to a specified value
+     - values that are not equal to a specified value
+     - any of the values specified in an array
+     - none of the values specified in an array
+     - all the documents
+
+The following code snippet shows how to use a comparison filter:
 
 .. code-block:: java
-
-   `eq`("qty", 20)
-   equal("qty", 20)
-
-which renders as:
-
-.. code-block:: none
-   :copyable: false
    
-   { 
-    "qty" : 20 
-   }
+   import static com.mongodb.client.model.Filters.
 
-.. note::
+   // <MongoCollection setup code here>
 
-   ``eq`` is aliased to ``equal`` and ``ne`` is aliased to ``notEqual``
-   because ``eq`` and ``neq`` are reserved words.
+   collection.find(<comparison filter>);
 
-The following example creates a filter that selects documents where the
-value of the ``qty`` field is either ``5`` or ``15``:
+.. example::
 
-.. code-block:: java
+   The following example creates a filter that selects all documents where
+   the value of the ``qty`` field equals ``5``:
 
-   in("qty", 5, 15)
+   .. code-block:: java
+      
+      import static com.mongodb.client.model.Filters.
 
-The following example creates a filter that selects all documents
-because the predicate is empty:
+      // <MongoCollection setup code here>
 
-.. code-block:: java
-
-   empty()
-
-which renders as:
-
-.. code-block:: none
-   :copyable: false
+      Bson equalComparison = Filters.eq("qty", 5);
+      List<Document> results = new ArrayList<>();
+      collection.find(equalComparison).into(results);
+      for (Document result : results) {
+         System.out.println(result.toJson());
+      }
    
-   {}
+   The Bson renders as:
+
+   .. code-block:: none
+      :copyable: false
+   
+      {
+         "qty": 20
+      }
+
+   The output of the above code snippet should look something like this:
+
+   .. code-block:: json
+      :copyable: false
+   
+      {"_id": 1, "color": "red", "qty": 5}
+      {"_id": 6, "color": "pink", "qty": 5}
+
+.. example::
+
+   The following example creates a filter that selects all documents
+   because the predicate is empty: 
+
+   .. code-block:: java
+      
+      import static com.mongodb.client.model.Filters.
+
+      // <MongoCollection setup code here>
+
+      Bson emptyComparison = Filters.empty();
+      collection.find(emptyComparison);
+   
+   The Bson renders as:
+
+   .. code-block:: none
+      :copyable: false
+   
+      { }
+
+   The output of the above code snippet should look something like this:
+   
+   .. code-block:: json
+      :copyable: false
+      {"_id": 1, "color": "red", "qty": 5}
+      {"_id": 2, "color": "purple", "qty": 10}
+      {"_id": 3, "color": "blue", "qty": 8}
+      {"_id": 4, "color": "white", "qty": 6}
+      {"_id": 5, "color": "yellow", "qty": 11}
+      {"_id": 6, "color": "pink", "qty": 5}
+      {"_id": 7, "color": "green", "qty": 8}
+      {"_id": 8, "color": "orange", "qty": 7}
+
+.. _logical:
 
 Logical
 -------
-Use ``logical`` operators to perform join or invert filters.
+A ``logical`` operator performs join or invert filters.
 
 The logical operator methods include:
 
@@ -151,6 +232,8 @@ which renders as:
     ]
    }
 
+.. _arrays:
+
 Arrays
 ------
 Use ``array`` operators to filter on an array field.
@@ -167,6 +250,8 @@ both ``"ssl"`` and ``"security"``:
 .. code-block:: java
 
    all("tags", "ssl", "security")
+
+.. _elements:
 
 Elements
 --------
@@ -187,6 +272,8 @@ its value does not equal ``5`` or ``15``:
 .. code-block:: java
 
    and(exists("qty"), nin("qty", 5, 15))
+
+.. _evaluation:
 
 Evaluation
 ----------
@@ -218,6 +305,8 @@ and diacritic-sensitive searches.
 
    text("coffee", TextSearchOptions().diacriticSensitive(true))
 
+.. _bitwise:
+
 Bitwise
 -------
 Use ``bitwise`` operators to filter fields on a bit-level.
@@ -236,6 +325,8 @@ with bits set at positions of the corresponding bitmask ``50`` (i.e.
 .. code-block:: java
 
    bitsAllSet("bitField", 50)
+
+.. _geospatial:
 
 Geospatial
 ----------
