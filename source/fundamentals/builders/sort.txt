@@ -83,9 +83,10 @@ subsections provide examples on how to use these two methods.
 Ascending
 ~~~~~~~~~
 
-To specify an ascending sort, use the ``Sorts.ascending()`` static
-factory method. An ascending sort returns your documents from smallest
-to largest on the field name specified.
+An ascending sort returns your documents from smallest to largest based
+on the value of a specified field. To specify an ascending sort, use the
+``Sorts.ascending()`` static factory method. Pass ``Sorts.ascending()``
+the name of the field you need to sort on.
 
 The ``ascending()`` method can be used as follows:
 
@@ -174,9 +175,10 @@ collection in the following order:
 Descending
 ~~~~~~~~~~
 
-To specify a descending sort, use the ``Sorts.descending()`` static
-factory method. A descending sort returns your documents from largest to
-smallest on the field name specified.
+A descending sort returns your documents from largest to smallest based
+on the value of a specified field. To specify a descending sort, use the
+``Sorts.descending()`` static factory method. Pass
+``Sorts.descending()`` the name of the field you need to sort on.
 
 The following code snippet shows how to specify a descending sort on the
 ``_id`` field: 
