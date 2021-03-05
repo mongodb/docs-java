@@ -320,17 +320,19 @@ a text index on your collection before you can run a ``$text`` query and use
    
       import static com.mongodb.client.model.Sorts.metaTextScore;
       import static com.mongodb.client.model.Sorts.ascending;
-      import static com.mongodb.client.model.Filters.text;
-   
+      import com.mongodb.client.model.Filters;
+      import com.mongodb.client.model.Indexes;
+
+
       // <MongoCollection setup code here>
       
-      // create a text index on the food field
+      // create a text index on the food field using Indexes.text() builder
       collection.createIndex(Indexes.text("food"));
       // create text score sort specification
       Bson metaTextScoreSort = metaTextScore("score");
       String searchTerm = "maple donut";
       // build $text search query using Filters.text() builder
-      Bson searchQuery = text(searchTerm);
+      Bson searchQuery = Filters.text(searchTerm);
       collection.find(searchQuery)
               // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
               .projection(metaTextScoreSort)
