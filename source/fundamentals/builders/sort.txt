@@ -107,8 +107,8 @@ to largest on the specified field name.
 
    In this code example, we use ``ascending`` to
    sort the
-   :ref:`sort_example <sorts-builders-sort-example>`  
-   collection by ``_id``:
+   :ref:`sort_example collection <sorts-builders-sort-example>`  
+   by ``_id``:
 
    .. code-block:: java
    
@@ -159,8 +159,8 @@ by ``_id`` as follows:
    collection.find().sort(ascending("letter", "_id"));
 
 The code snippet above returns the documents in the
-:ref:`sort_example <sorts-builders-sort-example>`  
-collection in the following order: 
+:ref:`sort_example collection <sorts-builders-sort-example>`  
+in the following order: 
 
 .. code-block:: json
 
@@ -193,8 +193,8 @@ The following code snippet shows how to specify a descending sort on the
 
 
 The code snippet above returns the documents in the
-:ref:`sort_example <sorts-builders-sort-example>`  
-collection in the following order: 
+:ref:`sort_example collection <sorts-builders-sort-example>`  
+in the following order: 
 
 .. code-block:: json
 
@@ -230,8 +230,8 @@ sort on the ``letter`` field followed by the ``_id`` field:
 
 
 The code snippet above returns the documents in the
-:ref:`sort_example <sorts-builders-sort-example>`  
-collection in the following order: 
+:ref:`sort_example collection <sorts-builders-sort-example>`  
+in the following order: 
 
 .. code-block:: json
 
@@ -265,8 +265,8 @@ descending sort on ``letter`` with an ascending sort on ``_id``.
    collection.find().sort(orderBySort);
 
 The code snippet above returns the documents in the
-:ref:`sort_example <sorts-builders-sort-example>`
-collection in the following order: 
+:ref:`sort_example collection <sorts-builders-sort-example>`
+in the following order: 
 
 .. code-block:: json
 
@@ -304,12 +304,12 @@ a text index on your collection before you can run a ``$text`` query and use
 .. example::
 
    In the following code example, we show how to use the
-   ``metaTextScore()`` method to sort the results of a ``$text`` query on
-   :ref:`sort_example <sorts-builders-sort-example>`.
+   ``metaTextScore()`` method to sort the results of a ``$text`` query
+   on the :ref:`sort_example collection <sorts-builders-sort-example>`.
    The following code snippet works as follows:
 
-   #. Create a text index for
-      :ref:`sort_example <sorts-builders-sort-example>`
+   #. Create a text index for the
+      :ref:`sort_example collection <sorts-builders-sort-example>`
       on the ``food`` field.
    #. Run a ``$text`` search for the phrase "maple donut".
    #. Project ``metaTextScore()`` into your query results as the
