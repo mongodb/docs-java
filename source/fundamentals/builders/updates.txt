@@ -24,8 +24,7 @@ In this guide, we show you how to use **builders** to specify
 The :java-core-api:`Updates <com/mongodb/client/model/Updates.html>`
 class provides static factory methods for all the MongoDB query
 operators. Each method returns an instance of the :ref:`Bson <bson>`
-type, which can in turn be passed to any method that expects a query
-filter.
+type, which you can pass to any method that expects a query filter.
 
 .. tip::
 
@@ -141,7 +140,7 @@ The previous example produces output similar to the following:
 
 Set On Insert
 ~~~~~~~~~~~~~
-The ``$setOnInsert`` operator sets the value of a field to the given
+The ``setOnInsert()`` method sets the value of a field to the given
 value if the update is an upsert that results in an insert of a
 document. 
 
@@ -181,7 +180,7 @@ The previous example produces output similar to the following:
 
 Increment
 ~~~~~~~~~
-The ``$inc`` operator increments the value of a numeric field by a
+The ``inc()`` method increments the value of a numeric field by a
 specified value. 
 
 The following example increments the value of the ``qty`` field by
@@ -220,7 +219,7 @@ The previous example produces output similar to the following:
 
 Multiply
 ~~~~~~~~
-The ``$mul`` operator multiplies the value of a numeric field by a
+The ``mul()`` method multiplies the value of a numeric field by a
 specified value. 
 
 The following example multiplies the value of the ``qty`` field by
@@ -259,7 +258,7 @@ The previous example produces output similar to the following:
 
 Rename
 ~~~~~~
-The ``$rename`` operator renames a field.
+The ``rename()`` method renames a field.
 
 The following example renames the ``qty`` field to ``quantity``:
 
@@ -296,7 +295,7 @@ The previous example produces output similar to the following:
 
 Min
 ~~~
-The ``$min`` operator updates the value of the field to a specified
+The ``min()`` method updates the value of the field to a specified
 value if the specified value is less than the current value of the
 field. 
 
@@ -333,7 +332,7 @@ The previous example produces output similar to the following:
 
 Max
 ~~~
-The ``$max`` operator updates the value of the field to a specified
+The ``max()`` method updates the value of the field to a specified
 value if the specified value is greater than the current value of the
 field. 
 
@@ -374,7 +373,7 @@ The previous example produces output similar to the following:
 
 Current Date
 ~~~~~~~~~~~~
-The ``$currentDate`` operator sets the value of the field with the
+The ``currentDate()`` method sets the value of the field with the
 specified name to the current date as a BSON `date
 <http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-date>`_
 or as a BSON `timestamp
@@ -417,7 +416,7 @@ The previous example produces output similar to the following:
 
 Bit
 ~~~
-The ``$bit`` operator performs a bitwise update of the integral value of a field.
+The ``bit()`` method performs a bitwise update of the integral value of a field.
 
 The following example performs a bitwise AND between the number
 ``10`` and the integral value of the ``qty`` field: 
@@ -471,7 +470,7 @@ The following section describes update operators that apply to the contents of t
 
 Add to Set
 ~~~~~~~~~~
-The ``$addToSet`` operator adds a value to an array if the value is not already present.
+The ``addToSet()`` method adds a value to an array if the value is not already present.
 
 The following example adds the value ``"C"`` to the array value of
 the ``vendor`` field: 
@@ -510,7 +509,7 @@ The previous example produces output similar to the following:
 
 Pop
 ~~~
-The ``$pop`` update operator removes the first or last element of an array.
+The ``pop()`` method removes the first or last element of an array.
 
 The following example pops the first element off of the array value
 of the ``vendor`` field:  
@@ -555,7 +554,7 @@ The previous example produces output similar to the following:
 
 Pull All
 ~~~~~~~~
-The ``$pullAll`` update operator removes all instances of the specified values from an existing array.
+The ``pullAll()`` method removes all instances of the specified values from an existing array.
 
 The following example removes vendor ``"A"`` and ``"M"`` from the
 vendor array: 
@@ -593,7 +592,7 @@ The previous example produces output similar to the following:
 
 Pull
 ~~~~
-The ``$pull`` update operator removes from an existing array all instances of a value or values that match a specified query.
+The ``pull()`` method removes from an existing array all instances of a value or values that match a specified query.
 
 The following example removes the value ``"D"`` from the ``vendor``
 array: 
@@ -631,7 +630,7 @@ The previous example produces output similar to the following:
 
 Push
 ~~~~
-The ``$push`` update operator appends a specified value to an array.
+The ``push()`` method appends a specified value to an array.
 
 The following examples pushes ``"C"`` to the ``vendor`` array:
 
