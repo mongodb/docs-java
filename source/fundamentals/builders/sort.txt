@@ -291,10 +291,11 @@ for a descending sort by score (best match first).
 
 .. note::
 
-  If your MongoDB instance is running MongoDB 4.2 and earlier, to use a
-  ``Sorts.metaTextScore()`` expression with ``FindIterable.sort()``, you
-  must also include the same expression in a projection. This is demonstrated
-  in the code example below.
+  If your MongoDB instance is running MongoDB 4.2 and earlier, in order
+  to use ``Sorts.metaTextScore()`` as sort criteria in the ``sort()``
+  method of a ``FindIterable`` instance, you must also include
+  ``Sorts.metaTextScore()`` in in the ``projection()`` method of that
+  ``FindIterable`` instance. This is demonstrated in the code example below.
 
 The ``$text`` command performs a text search on the content indexed by the 
 :manual:`text index </core/index-text/>` of your collection. You must create
