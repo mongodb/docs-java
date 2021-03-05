@@ -35,8 +35,7 @@ You should read this guide if you would like to:
 
 * Use the builder pattern to specify sort criteria for your queries.
 * Learn how to perform ascending sorts, descending sorts, and combining sorts.
-* Sort on the text score of :manual:`$text </reference/operator/query/text/>` 
-  queries.
+* Sort on the text score of a text search.
 
 If you want to learn the fundamentals of sorting in the MongoDB Java
 driver, consider reading our
@@ -280,14 +279,18 @@ in the following order:
 Text Score
 ----------
 
-If you are using :manual:`$text </reference/operator/query/text/>`
-queries to search your data you can sort the results of those queries by
-text score (how well your search matched the returned document). To sort
-your results by the
-:manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
-``textScore`` associated with a ``$text`` query, use the
-``Sorts.metaTextScore()`` static factory method to retrieve sort criteria
-for a descending sort by score (best match first).
+If you are using the :manual:`$text </reference/operator/query/text/>`
+query operator to perform text searches on your collections of data you
+can sort the results of those text searches by
+:manual:`text score </reference/operator/aggregation/meta/#exp._S_meta>`
+(how well your search matched each returned document). To sort your
+results by the text score associated with a text search, use the
+``Sorts.metaTextScore()`` static factory method to retrieve sort
+criteria for a descending sort by score (best match first). Note that
+the ``$text`` query operator performs a text search on the content
+indexed by the :manual:`text index </core/index-text/>` of your
+collection. You must create a text index on your collection before you
+can run a text search and use ``Sorts.metaTextScore()``.
 
 .. note::
 
@@ -296,11 +299,6 @@ for a descending sort by score (best match first).
   method of a ``FindIterable`` instance, you must also include
   ``Sorts.metaTextScore()`` in in the ``projection()`` method of that
   ``FindIterable`` instance. This is demonstrated in the code example below.
-
-The ``$text`` command performs a text search on the content indexed by the 
-:manual:`text index </core/index-text/>` of your collection. You must create
-a text index on your collection before you can run a ``$text`` query and use
-``Sorts.metaTextScore()``.
 
 .. example::
 
@@ -312,7 +310,7 @@ a text index on your collection before you can run a ``$text`` query and use
    #. Create a text index for the
       :ref:`sort_example collection <sorts-builders-sort-example>`
       on the ``food`` field.
-   #. Run a ``$text`` search for the phrase "maple donut".
+   #. Run a text search for the phrase "maple donut".
    #. Project ``metaTextScore()`` into your query results as the
       ``score`` field. This step is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
@@ -333,7 +331,7 @@ a text index on your collection before you can run a ``$text`` query and use
       // create text score sort criteria
       Bson metaTextScoreSort = metaTextScore("score");
       String searchTerm = "maple donut";
-      // build $text search query using Filters.text() builder
+      // build $text query operator using the Filters.text() builder
       Bson searchQuery = Filters.text(searchTerm);
       collection.find(searchQuery)
               // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
