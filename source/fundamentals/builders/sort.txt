@@ -283,13 +283,13 @@ If you are using the :manual:`$text </reference/operator/query/text/>`
 query operator to perform text searches on your collections of data you
 can sort the results of those text searches by
 :manual:`text score </reference/operator/aggregation/meta/#exp._S_meta>`
-(how well your search matched each returned document). To sort your
-results by the text score associated with a text search (best match
-first), use the ``Sorts.metaTextScore()`` static factory method. Note
+(how well your search matched each returned document). To sort your search
+results by the text score associated with your text search so the best match
+is returned first, use the ``Sorts.metaTextScore()`` static factory method. Note
 that the ``$text`` query operator performs a text search on the content indexed
 by the :manual:`text index </core/index-text/>` of your collection. You must
 create a text index on your collection before you can run a text search
-and use``Sorts.metaTextScore()``.
+and use ``Sorts.metaTextScore()``.
 
 .. note::
 
@@ -310,10 +310,10 @@ and use``Sorts.metaTextScore()``.
       :ref:`sort_example collection <sorts-builders-sort-example>`
       on the ``food`` field.
    #. Run a text search for the phrase "maple donut".
-   #. Project ``metaTextScore()`` into your query results as the
+   #. Project ``Sorts.metaTextScore()`` into your query results as the
       ``score`` field. This step is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
-   #. Sort using ``Sorts.metaTextScore()`` as sort criteria.
+   #. Sort using ``Sorts.metaTextScore()`` as your sort criteria.
 
    .. code-block:: java
    
@@ -324,17 +324,17 @@ and use``Sorts.metaTextScore()``.
 
       // <MongoCollection setup code here>
       
-      // create a text index on the food field using Indexes.text() builder
+      // create a text index on the food field using the Indexes.text() builder
       collection.createIndex(Indexes.text("food"));
-      // create text score sort criteria
+      // create the text score sort criteria
       Bson metaTextScoreSort = metaTextScore("score");
       String searchTerm = "maple donut";
-      // build $text query operator using the Filters.text() builder
+      // build a $text query operator using the Filters.text() builder
       Bson searchQuery = Filters.text(searchTerm);
       collection.find(searchQuery)
-              // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
+              // project the text score into your results on the "score" field (optional in MongoDB 4.4 or later)
               .projection(metaTextScoreSort)
-              // sort the documents on the "score" field
+              // sort the results on the "score" field
               .sort(metaTextScoreSort)
               .into(results);
       for (Document result : results) {
