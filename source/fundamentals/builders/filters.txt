@@ -18,6 +18,7 @@ In this guide, we show you how to use **builders** to specify
 **filters** for your queries. 
 
 Filtrs are used in the following ways:
+
 * :ref:`Comparison <comparison>`
 * :ref:`Logical <logical>`
 * :ref:`Arrays <arrays>`
@@ -100,38 +101,38 @@ The comparison operator methods include:
      - Matches
       
    * - ``eq()``
-     - values that are equal to a specified value
+     - values that are equal to a specified value.
 
    * - ``gt()``
-     - values that are greater than a specified value
+     - values that are greater than a specified value.
       
    * - ``gte()``
-     - values that are greater than or equal to a specified value
+     - values that are greater than or equal to a specified value.
 
    * - ``lt()``
-     - values that are less than a specified value 
+     - values that are less than a specified value.
 
    * - ``lte()``
-     - values that are less than or equal to a specified value
+     - values that are less than or equal to a specified value.
 
    * - ``ne()``
-     - values that are not equal to a specified value
+     - values that are not equal to a specified value.
 
    * - ``in()``
-     - any of the values specified in an array
+     - any of the values specified in an array.
 
    * - ``nin()``
-     - none of the values specified in an array
+     - none of the values specified in an array.
 
    * - ``empty()``
-     - all the documents
+     - all the documents.
 
 
 The following code snippet shows how to use a comparison filter:
 
 .. code-block:: java
    
-   import static com.mongodb.client.model.Filters.
+   import static com.mongodb.client.model.Filters.*;
 
    // <MongoCollection setup code here>
 
@@ -144,7 +145,7 @@ The following code snippet shows how to use a comparison filter:
 
    .. code-block:: java
       
-      import static com.mongodb.client.model.Filters.eq
+      import static com.mongodb.client.model.Filters.eq;
 
       // <MongoCollection setup code here>
 
@@ -174,8 +175,8 @@ The following code snippet shows how to use a comparison filter:
 
 .. example::
 
-   The following example creates a filter that selects all documents
-   because the predicate is empty in the paint_purchaces collection: 
+   The following example creates a filter that selects all documents in
+   the paint_purchaces collection because the predicate is empty: 
 
    .. code-block:: java
       
@@ -236,6 +237,16 @@ The logical operator methods include:
    * - ``nor()``
      - Joins filters with a logical NOR and selects documents that fail to match both filters.
 
+The following code snippet shows how to use a logical filter:
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Filters.*;
+
+   // <MongoCollection setup code here>
+
+   collection.find(<logical filter>);
+
 .. example::
 
    The following example creates a filter that selects documents where
@@ -244,9 +255,9 @@ The logical operator methods include:
 
    .. code-block:: java
       
-      import static com.mongodb.client.model.Filters.or
-      import static com.mongodb.client.model.Filters.eq
-      import static com.mongodb.client.model.Filters.gt
+      import static com.mongodb.client.model.Filters.or;
+      import static com.mongodb.client.model.Filters.eq;
+      import static com.mongodb.client.model.Filters.gt;
 
       // <MongoCollection setup code here>
 
@@ -305,6 +316,16 @@ The array operator methods include:
    * - ``size()``
      - Selects documents if the array field is a specified size.
 
+The following code snippet shows how to use an array filter:
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Filters.*;
+
+   // <MongoCollection setup code here>
+
+   collection.find(<array filter>);
+
 .. example::
 
    The following example selects documents with a ``vendors`` array
@@ -312,7 +333,7 @@ The array operator methods include:
 
    .. code-block:: java
       
-      import static com.mongodb.client.model.Filters.all
+      import static com.mongodb.client.model.Filters.all;
 
       // <MongoCollection setup code here>
 
@@ -344,8 +365,6 @@ The array operator methods include:
       
       {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
 
-
-
 .. _elements:
 
 Elements
@@ -366,19 +385,29 @@ The elements operator methods include:
    * - ``type()``
      - Sdocuments if a field is of the specified type.
 
+The following code snippet shows how to use an elements filter:
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Filters.*;
+
+   // <MongoCollection setup code here>
+
+   collection.find(<elements filter>);
+
 .. example::
 
    The following example selects documents that have a ``qty`` field and
-   its value does not equal ``5`` or ``8``in the paint_purchaces collection:
+   its value does not equal ``5`` or ``8`` in the paint_purchaces collection:
 
    .. code-block:: java
       
-      import static com.mongodb.client.model.Filters.exists
-      import static com.mongodb.client.model.Filters.nin
-      import static com.mongodb.client.model.Filters.and
+      import static com.mongodb.client.model.Filters.exists;
+      import static com.mongodb.client.model.Filters.nin;
+      import static com.mongodb.client.model.Filters.and;
       // <MongoCollection setup code here>
 
-      Bson existsComparison = and(exists("qty"), nin("qty", 5, 15));
+      Bson existsComparison = and(exists("qty"), nin("qty", 5, 8));
       List<Document> results = new ArrayList<>();
       collection.find(existsComparison).into(results);
       for (Document result : results) {
@@ -394,7 +423,7 @@ The elements operator methods include:
          "qty" :
          [
             { "$exists" : true,
-            { "$nin" : [5, 15] }
+            { "$nin" : [5, 8] }
          ]
       }
 
@@ -414,6 +443,7 @@ The elements operator methods include:
 
 Evaluation
 ----------
+
 An ``evaluation`` filter to match documemts with an expression.
 
 The evaluation operator methods include:
@@ -422,7 +452,7 @@ The evaluation operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Logical Operator
+   * - Evaluation Operator
      - 
       
    * - ``mod()``
@@ -437,6 +467,16 @@ The evaluation operator methods include:
    * - ``where()``
      - Matches documents that satisfy a JavaScript expression.
 
+The following code snippet shows how to use an evaluation filter:
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Filters.*;
+
+   // <MongoCollection setup code here>
+
+   collection.find(<evaluation filter>);
+
 .. example::
 
    The following example assumes a collection that has a text index in the
@@ -445,7 +485,7 @@ The evaluation operator methods include:
 
    .. code-block:: java
       
-      import static com.mongodb.client.model.Filters.text
+      import static com.mongodb.client.model.Filters.text;
 
       // <MongoCollection setup code here>
 
@@ -508,6 +548,16 @@ The bitwise query operators include:
      
    * - ``bitsAnyClear()``
      - at least one of the specified bits of a field are clear (i.e. 0).
+
+The following code snippet shows how to use a bitwise filter:
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Filters.*;
+
+   // <MongoCollection setup code here>
+
+   collection.find(<bitwise filter>);
 
 .. example::
 
@@ -586,6 +636,16 @@ The geospatial operator methods include:
    * - ``nearSphere()``
      - Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
 
+The following code snippet shows how to use a geospatial filter:
+
+.. code-block:: java
+   
+   import static com.mongodb.client.model.Filters.*;
+
+   // <MongoCollection setup code here>
+
+   collection.find(<geospatial filter>);
+
 .. example::
 
    TThe following example creates a filter that selects documents where the
@@ -594,7 +654,7 @@ The geospatial operator methods include:
 
    .. code-block:: java
       
-      import static com.mongodb.client.model.Filters.geoWithin
+      import static com.mongodb.client.model.Filters.geoWithin;
 
       // <MongoCollection setup code here>
 
