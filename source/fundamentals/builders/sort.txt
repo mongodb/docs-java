@@ -320,6 +320,7 @@ a text index on your collection before you can run a ``$text`` query and use
    
       import static com.mongodb.client.model.Sorts.metaTextScore;
       import static com.mongodb.client.model.Sorts.ascending;
+      import static com.mongodb.client.model.Filters.text;
    
       // <MongoCollection setup code here>
       
@@ -328,8 +329,8 @@ a text index on your collection before you can run a ``$text`` query and use
       // create text score sort specification
       Bson metaTextScoreSort = metaTextScore("score");
       String searchTerm = "maple donut";
-      // build $text search query
-      Bson searchQuery = new Document("$text", new Document("$search", searchTerm));
+      // build $text search query using Filters.text() builder
+      Bson searchQuery = text(searchTerm);
       collection.find(searchQuery)
               // project the text score into documents on the "score" field (optional in MongoDB 4.4 or later)
               .projection(metaTextScoreSort)
