@@ -281,7 +281,7 @@ text score (how well your search matched the returned document). To sort
 your results by the
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
 ``textScore`` associated with a ``$text`` query, use the
-``Sorts.metaTextScore()`` static factory method to retrieve a sort specification
+``Sorts.metaTextScore()`` static factory method to retrieve sort criteria
 for a descending sort by score (best match first).
 
 .. note::
@@ -310,7 +310,7 @@ a text index on your collection before you can run a ``$text`` query and use
    #. Project ``metaTextScore()`` into your query results as the
       ``score`` field. This step is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
-   #. Sort using ``metaTextScore()`` as a sort specification.
+   #. Sort using ``metaTextScore()`` as sort criteria.
 
    .. code-block:: java
    
@@ -324,7 +324,7 @@ a text index on your collection before you can run a ``$text`` query and use
       
       // create a text index on the food field using Indexes.text() builder
       collection.createIndex(Indexes.text("food"));
-      // create text score sort specification
+      // create text score sort criteria
       Bson metaTextScoreSort = metaTextScore("score");
       String searchTerm = "maple donut";
       // build $text search query using Filters.text() builder
