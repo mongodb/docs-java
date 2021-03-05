@@ -106,8 +106,7 @@ to largest on the specified field name.
 
 .. example::
 
-   In this code example, we use ``ascending`` to
-   sort the
+   In this code example, we use the ``ascending()`` method to sort the
    :ref:`sort_example collection <sorts-builders-sort-example>`  
    by ``_id``:
 
@@ -259,7 +258,6 @@ descending sort on ``letter`` with an ascending sort on ``_id``.
    import static com.mongodb.client.model.Sorts.ascending;
    import static com.mongodb.client.model.Sorts.descending;
 
-
    // <MongoCollection setup code here>
 
    Bson orderBySort = orderBy(descending("letter"), ascending("_id"));
@@ -286,13 +284,12 @@ query operator to perform text searches on your collections of data you
 can sort the results of those text searches by
 :manual:`text score </reference/operator/aggregation/meta/#exp._S_meta>`
 (how well your search matched each returned document). To sort your
-results by the text score associated with a text search, use the
-``Sorts.metaTextScore()`` static factory method to retrieve sort
-criteria for a descending sort by score (best match first). Note that
-the ``$text`` query operator performs a text search on the content
-indexed by the :manual:`text index </core/index-text/>` of your
-collection. You must create a text index on your collection before you
-can run a text search and use ``Sorts.metaTextScore()``.
+results by the text score associated with a text search (best match
+first), use the ``Sorts.metaTextScore()`` static factory method. Note
+that the ``$text`` query operator performs a text search on the content indexed
+by the :manual:`text index </core/index-text/>` of your collection. You must
+create a text index on your collection before you can run a text search
+and use``Sorts.metaTextScore()``.
 
 .. note::
 
@@ -305,8 +302,8 @@ can run a text search and use ``Sorts.metaTextScore()``.
 .. example::
 
    In the following code example, we show how to use the
-   ``metaTextScore()`` method to sort the results of a ``$text`` query
-   on the :ref:`sort_example collection <sorts-builders-sort-example>`.
+   ``Sorts.metaTextScore()`` static factory method to sort the results of a text
+   search on the :ref:`sort_example collection <sorts-builders-sort-example>`.
    The following code snippet works as follows:
 
    #. Create a text index for the
@@ -316,7 +313,7 @@ can run a text search and use ``Sorts.metaTextScore()``.
    #. Project ``metaTextScore()`` into your query results as the
       ``score`` field. This step is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
-   #. Sort using ``metaTextScore()`` as sort criteria.
+   #. Sort using ``Sorts.metaTextScore()`` as sort criteria.
 
    .. code-block:: java
    
@@ -324,7 +321,6 @@ can run a text search and use ``Sorts.metaTextScore()``.
       import static com.mongodb.client.model.Sorts.ascending;
       import com.mongodb.client.model.Filters;
       import com.mongodb.client.model.Indexes;
-
 
       // <MongoCollection setup code here>
       
