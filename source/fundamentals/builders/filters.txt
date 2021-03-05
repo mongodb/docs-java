@@ -15,17 +15,15 @@ Filters Builders
 Overview 
 --------
 In this guide, we show you how to use **builders** to specify
-**filters** for your queries. 
+**filters** for your queries:
 
-Filtrs are used in the following ways:
-
-* :ref:`Comparison <comparison>`
-* :ref:`Logical <logical>`
-* :ref:`Arrays <arrays>`
-* :ref:`Elements <elements>`
-* :ref:`Evaluation <evaluation>`
-* :ref:`Bitwise <bitwise>`
-* :ref:`Geospatial <geospatial>`
+- :ref:`Comparison <comparison>`
+- :ref:`Logical <logical>`
+- :ref:`Arrays <arrays>`
+- :ref:`Elements <elements>`
+- :ref:`Evaluation <evaluation>`
+- :ref:`Bitwise <bitwise>`
+- :ref:`Geospatial <geospatial>`
 
 Filters are the operations MongoDB uses to limit your results to what
 you want to see. Some examples of results from filters are: 
@@ -77,7 +75,7 @@ documents:
    { _id: 11, a: 68, binaryValue: "1000100" }
    { _id: 12, a: 102, binaryValue: "01100110" }
 
-``geo_point``
+``geo_points``
 
 .. code-block:: json
 
@@ -479,8 +477,7 @@ The following code snippet shows how to use an evaluation filter:
 
 .. example::
 
-   The following example assumes a collection that has a text index in the
-   field ``abstract``. It selects documents that have a ``color`` field
+   The following example selects documents that have a ``color`` field
    containing the term ``green`` in the paint_purchaces collection:
 
    .. code-block:: java
@@ -650,7 +647,7 @@ The following code snippet shows how to use a geospatial filter:
 
    TThe following example creates a filter that selects documents where the
    ``point`` field contains a GeoJSON Geometry object that falls within the
-   given polygon:
+   given polygon in the geo_points collection:
 
    .. code-block:: java
       
