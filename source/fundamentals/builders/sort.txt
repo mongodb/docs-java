@@ -18,17 +18,17 @@ Overview
 In this guide, we show you how to specify **sort criteria** for your
 queries using **builders**.
 
-Sort criteria are the rules MongoDB uses to sort your data. Some examples of sort criteria are:
+Sort criteria are the rules MongoDB uses to sort your data. Some
+examples of sort criteria are:
 
 * Smallest number to largest number
 * Earliest time of day to latest time of day
 * Alphabetical order by first name 
 
 Builders are classes provided by the MongoDB Java driver that allow you to use
-the builder pattern to interact with your MongoDB instance.
-The builder pattern allows you to create complex
-immutable objects separately from their representation. The
-:doc:`builders </fundamentals/builders/>`
+the builder pattern to interact with your MongoDB instance. The builder
+pattern allows you to create complex immutable objects separately from
+their representation. The :doc:`builders </fundamentals/builders/>`
 provided by the MongoDB Java driver can improve the readability of your code.
 
 You should read this guide if you would like to:
@@ -38,8 +38,7 @@ You should read this guide if you would like to:
 * Sort on the text score of :manual:`$text </reference/operator/query/text/>` 
   queries.
 
-If you are new to sorting in the
-MongoDB Java driver, consider reading our
+If you are new to sorting in the MongoDB Java driver, consider reading our
 :doc:`guide on sorting </fundamentals/crud/read-operations/sort/>`
 for a general introduction to sorting with the MongoDB Java driver.
 
@@ -48,18 +47,16 @@ The Sorts Class
 
 The :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`
 class is the sort criteria builder provided by the MongoDB Java Driver.
-``Sorts`` provides static factory methods for all
-sort criteria operators supported by MongoDB. Each method returns
-an instance of the
+``Sorts`` provides static factory methods for all sort criteria
+operators supported by MongoDB. Each method returns an instance of the
 :java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
 type. 
 
 .. _docs_java_fundamentals_builders_sort_sort_example:
 
-The following examples show you how to use the static factory
-methods provided by the ``Sorts`` class to sort your queries.
-The examples use a sample collection ``sort_example`` that contains
-the following documents:
+The following examples show you how to use the static factory methods
+provided by the ``Sorts`` class to sort your queries. The examples use a
+sample collection ``sort_example`` that contains the following documents:
 
 .. code-block:: json
 
@@ -75,17 +72,17 @@ Sorting Direction
 -----------------
 
 The ``Sorts`` class provides two methods for specifying the sort order of data
-that does not contain any duplicate values. Data can be sorted from smallest to largest 
-with ``Sorts.ascending()``, and data can be sorted from largest to smallest with
-``Sorts.descending()``. The following two subsections provide examples
-on how to use these two methods. 
+that does not contain any duplicate values. Data can be sorted from
+smallest to largest with ``Sorts.ascending()``, and data can be sorted
+from largest to smallest with ``Sorts.descending()``. The following two
+subsections provide examples on how to use these two methods. 
 
 Ascending
 ~~~~~~~~~
 
-To specify an ascending sort, use the ``Sorts.ascending()``
-static factory method. An ascending sort returns 
-your documents from smallest to largest on the field name specified.
+To specify an ascending sort, use the ``Sorts.ascending()`` static
+factory method. An ascending sort returns your documents from smallest
+to largest on the field name specified.
 
 The ``ascending`` method can be used as follows:
 
@@ -99,8 +96,8 @@ The ``ascending`` method can be used as follows:
 
 This returns a 
 :java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`
-object containing the documents in your collection, sorted 
-from smallest to largest on the specified field name. 
+object containing the documents in your collection, sorted from smallest
+to largest on the specified field name. 
 
 .. example::
 
@@ -142,10 +139,9 @@ of the following documents:
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
 
-If you would like to have a guaranteed sort order 
-for documents that have fields with identical values
-you can specify additional fields to sort
-on in the event of a tie. 
+If you would like to have a guaranteed sort order for documents that
+have fields with identical values you can specify additional fields to sort
+on in the event of a tie.
 
 We can specify an ascending sort on ``letter`` followed
 by ``_id`` as follows:
@@ -175,12 +171,12 @@ collection in the following order:
 Descending
 ~~~~~~~~~~
 
-To specify a descending sort, use the ``Sorts.descending()``
-static factory method. A descending sort returns your documents
-from largest to smallest on the field name specified.
+To specify a descending sort, use the ``Sorts.descending()`` static
+factory method. A descending sort returns your documents from largest to
+smallest on the field name specified.
 
-The following code snippet shows how to specify a descending
-sort on the ``_id`` field: 
+The following code snippet shows how to specify a descending sort on the
+``_id`` field: 
 
 .. code-block:: java
    
@@ -212,9 +208,8 @@ the following documents:
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
 
-If you would like to have a guaranteed sort order 
-for documents that have fields with identical values
-you can specify additional fields to sort
+If you would like to have a guaranteed sort order for documents that
+have fields with identical values you can specify additional fields to sort
 on in the event of a tie. 
 
 The following code snippet shows how to specify a descending
@@ -245,9 +240,9 @@ collection in the following order:
 Combining Sort Criteria
 -----------------------
 
-To combine sort criteria, use the ``Sorts.orderBy()``
-static factory method. The ``orderBy()`` method applies additional
-sort criteria from left to right in the event of ties. 
+To combine sort criteria, use the ``Sorts.orderBy()`` static factory
+method. The ``orderBy()`` method applies additional sort criteria from
+left to right in the event of ties. 
 
 In the following code snippet, we use the ``orderBy()`` method to combine a
 descending sort on ``letter`` with an ascending sort on ``_id``.
@@ -278,9 +273,9 @@ Text Score
 ----------
 
 If you are using :manual:`$text </reference/operator/query/text/>`
-queries to search your data you can sort the results of those
-queries by text score (how well your search matched the returned document).
-To sort your results by the
+queries to search your data you can sort the results of those queries by
+text score (how well your search matched the returned document). To sort
+your results by the
 :manual:`$meta </reference/operator/aggregation/meta/#exp._S_meta>`
 ``textScore`` associated with a ``$text`` query, use the
 ``Sorts.metaTextScore()`` static factory method to retrieve a sort specification
@@ -288,10 +283,9 @@ for a descending sort by score (best match first).
 
 .. note::
 
-  If your MongoDB instance is running MongoDB 4.2 and earlier,
-  to use a ``Sorts.metaTextScore()``
-  expression with ``FindIterable.sort()``, you must also
-  include the same expression in a projection. This is demonstrated
+  If your MongoDB instance is running MongoDB 4.2 and earlier, to use a
+  ``Sorts.metaTextScore()`` expression with ``FindIterable.sort()``, you
+  must also include the same expression in a projection. This is demonstrated
   in the code example below.
 
 The ``$text`` command performs a text search on the content indexed by the 
@@ -302,8 +296,7 @@ a text index on your collection before you can run a ``$text`` query and use
 .. example::
 
    In the following code example, we show how to use the
-   ``metaTextScore()`` method to sort the results of a ``$text``
-   query on
+   ``metaTextScore()`` method to sort the results of a ``$text`` query on
    :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`.
    The following code snippet works as follows:
 
@@ -354,6 +347,6 @@ a text index on your collection before you can run a ``$text`` query and use
 For additional information on the ``Sorts`` class, see the 
 :java-docs:`Sorts class API documentation </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`.
 For additional information on the ``$text`` query operator and the
-``$meta`` aggregation pipeline operator, see the server manual documentation for
-:manual:`$text </reference/operator/query/text/>` and
+``$meta`` aggregation pipeline operator, see the server manual
+documentation for :manual:`$text </reference/operator/query/text/>` and
 :manual:`$meta </reference/operator/aggregation/meta/>`.
