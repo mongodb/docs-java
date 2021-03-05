@@ -29,7 +29,7 @@ filter.
 
 .. tip::
 
-   For brevity, you may choose to import the methods of the ``Filters`` class statically:
+   For brevity, you may choose to import the methods of the ``Updates`` class statically:
 
    .. code-block:: java
 
@@ -38,23 +38,26 @@ filter.
    The examples below assume this static import.
 
 The following examples show you how to use the static factory methods
-provided by the ``Updates`` class to sort your queries. 
+provided by the ``Updates`` class to sort your queries and the following
+setup:
 
-Each section uses the update filter in this way:
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin imports
+   :end-before: end imports
 
-.. code-block:: java
-
-   import static com.mongodb.client.model.Updates.*;
-
-   // <MongoCollection setup code here>
-
-   collection.find(<update filter>);
-
-The examples the following document: 
+The examples on this page use the following document: 
 
 .. code-block:: json
 
-   {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+       "_id": 1, 
+       "color": "red", 
+       "qty": 5, 
+       "vendor": ["A", "D", "M"], 
+       "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 .. _field_updates:
 
@@ -64,76 +67,77 @@ The following section describes update operators that apply to the value of an e
 
 Set
 ~~~
-The ``$set`` operator sets the value of a field to to the specified
-value. 
+The ``set()`` method sets the value of a field to the specified value. 
 
-.. example::
+The following example sets the value of the ``qty`` field to ``11``: 
 
-   The following example sets the value of the ``qty`` field to ``11``: 
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin setUpdate
+   :end-before: end setUpdate
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.set;
+The Bson renders as:
 
-      // <MongoCollection setup code here>
+.. code-block:: none
+   :copyable: false
 
-      Bson setUpdate = set("qty", 11);
-      collection.find(setUpdate);
-   
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-         "$set": 
-         {
-            "qty" : 11
-         }
+   { 
+      "$set": 
+      {
+         "qty" : 11
       }
+   }
 
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
-      
-      {"_id": 1, "color": "red", "qty": 11, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+The previous example produces output similar to the following:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 11, 
+      "vendor": ["A", "D", "M"], 
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Unset
 ~~~~~
-The ``$unset`` operator deletes the field with the given name.
+The ``unset()`` method deletes the field with the given name.
 
-.. example::
 
-   The following example deletes the ``qty`` field:
+The following example deletes the ``qty`` field:
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.unset;
-
-      // <MongoCollection setup code here>
-
-      Bson unsetUpdate = unset("qty");
-      collection.find(unsetUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin unsetUpdate
+   :end-before: end unsetUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$unset": 
-         {
-            "qty" : true
-         }
+   { 
+      "$unset": 
+      {
+         "qty" : true
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "vendor": ["A", "D", "M"], 
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Set On Insert
 ~~~~~~~~~~~~~
@@ -141,150 +145,154 @@ The ``$setOnInsert`` operator sets the value of a field to the given
 value if the update is an upsert that results in an insert of a
 document. 
 
-.. example::
+The following example sets the value of the ``qty`` field to ``5``
+if an upsert resulted in the insert of a document: 
 
-   TThe following example sets the value of the ``qty`` field to ``5``
-   if an upsert resulted in the insert of a document: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.setOnInsert;
-
-      // <MongoCollection setup code here>
-
-      Bson setOnInsertUpdate = setOnInsert("qty", 5);
-      collection.find(setOnInsertUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin setOnInsertUpdate
+   :end-before: end setOnInsertUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$setOnInsert": 
-         {
-            "qty" : 5
-         }
+   { 
+      "$setOnInsert": 
+      {
+         "qty" : 5
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["A", "D", "M"], 
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Increment
 ~~~~~~~~~
 The ``$inc`` operator increments the value of a numeric field by a
 specified value. 
 
-.. example::
+The following example increments the value of the ``qty`` field by
+``3``: 
 
-   The following example increments the value of the ``qty`` field by
-   ``3``: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.inc;
-
-      // <MongoCollection setup code here>
-
-      Bson incUpdate = inc("qty", 3);
-      collection.find(incUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin incUpdate
+   :end-before: end incUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$inc": 
-         {
-            "qty" : 3
-         }
+   { 
+      "$inc": 
+      {
+         "qty" : 3         
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 8, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 8, 
+      "vendor": ["A", "D", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Multiply
 ~~~~~~~~
 The ``$mul`` operator multiplies the value of a numeric field by a
 specified value. 
 
-.. example::
-
-   The following example multiplies the value of the ``qty`` field by
+The following example multiplies the value of the ``qty`` field by
    ``2``: 
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.mul;
-
-      // <MongoCollection setup code here>
-
-      Bson mulUpdate = mul("qty", 2);
-      collection.find(mulUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin mulUpdate
+   :end-before: end mulUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$mul": 
-         {
-            "qty" : 2
-         }
+   { 
+      "$mul": 
+      {
+         "qty" : 2
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 10, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 10, 
+      "vendor": ["A", "D", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021 
+   }
 
 Rename
 ~~~~~~
 The ``$rename`` operator renames a field.
 
-.. example::
+The following example renames the ``qty`` field to ``quantity``:
 
-   The following example renames the ``qty`` field to ``quantity``:
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.rename;
-
-      // <MongoCollection setup code here>
-
-      Bson renameUpdate = rename("qty", "quantity");
-      collection.find(renameUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin renameUpdate
+   :end-before: end renameUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$rename": 
-         {
-            "qty" : "quantity"
-         }
+   { 
+      "$rename": 
+      {
+         "qty" : "quantity"
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "quantity": 5, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1,
+      "color": "red", "
+      vendor": ["A", "D", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021, 
+      "quantity": 5
+   }
 
 Min
 ~~~
@@ -292,38 +300,36 @@ The ``$min`` operator updates the value of the field to a specified
 value if the specified value is less than the current value of the
 field. 
 
-.. example::
-
-   The following example sets the value of the ``qty`` field to the
-   minimum of its current value and ``8``: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.min;
-
-      // <MongoCollection setup code here>
-
-      Bson minUpdate = min("qty", 8);
-      collection.find(minUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin minUpdate
+   :end-before: end minUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$min": 
-         {
-            "qty" : 8
-         }
+   { 
+      "$min": 
+      {
+         "qty" : 2
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      qty": 2, 
+      "vendor": ["A", "D", "M"], 
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Max
 ~~~
@@ -331,38 +337,40 @@ The ``$max`` operator updates the value of the field to a specified
 value if the specified value is greater than the current value of the
 field. 
 
-.. example::
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin maxUpdate
+   :end-before: end maxUpdate
 
-   The following example sets the value of the ``qty`` field to the
-   maximum of its current value and ``8``: 
+The following example sets the value of the ``qty`` field to the
+maximum of its current value and ``8``: 
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.max;
-
-      // <MongoCollection setup code here>
-
-      Bson maxUpdate = max("qty", 8);
-      collection.find(maxUpdate);
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+  :copyable: false
    
-      { 
-         "$max": 
-         {
-            "qty" : 8
-         }
+   { 
+      "$max": 
+      {
+         "qty" : 8
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+  :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 8, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 8, 
+      "vendor": ["A", "D", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Current Date
 ~~~~~~~~~~~~
@@ -372,86 +380,88 @@ specified name to the current date as a BSON `date
 or as a BSON `timestamp
 <http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-timestamp>`_.
 
-.. example::
+The following example sets the value of the ``lastModified`` field to
+the current date as a BSON date type:
 
-   The following example sets the value of the ``lastModified`` field to
-   the current date as a BSON date type:
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin currentDateUpdate
+   :end-before: end currentDateUpdate
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.currentDate;
+The Bson renders as:
 
-      // <MongoCollection setup code here>
+.. code-block:: none
+   :copyable: false
 
-      Bson currentDateUpdate = currentDate("lastModified");
-      collection.find(currentDateUpdate);
-   
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-
-      { 
-         "$currentDate": 
-         {
-            "lastModified" : "$$NOW"
-         }
+   { 
+      "$currentDate": 
+      {
+         "lastModified" : "$$NOW"
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+  :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-05-03T10:57:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["A", "D", "M"],
+      "lastModified" = Fri Mar 05 15:33:54 EST 2021
+   }
    
 
 Bit
 ~~~
 The ``$bit`` operator performs a bitwise update of the integral value of a field.
 
-.. example::
+The following example performs a bitwise AND between the number
+``10`` and the integral value of the ``qty`` field: 
 
-   The following example performs a bitwise AND between the number
-   ``10`` and the integral value of the ``qty`` field: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.bitwiseOr;
-
-      // <MongoCollection setup code here>
-
-      Bson bitwiseOrUpdate = bitwiseOr("qty", 10);
-      collection.find(bitwiseOrUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin bitwiseOrUpdate
+   :end-before: end bitwiseOrUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$bitwiseOr": 
-         {
-            "$qty" : 10
-         }
+   { 
+      "$bitwiseOr": 
+      {
+         "$qty" : 10
       }
+   }
    
-   The bitwise operation results in 15:
+The bitwise operation results in 15:
 
-   .. code-block:: none
-      :copyable: false
-      
-      0101
-      1010
-      ----
-      1111
-
-   The output of the above code snippet should look something like this:
+.. code-block:: none
+   :copyable: false
    
-   .. code-block:: json
-      :copyable: false
+   0101
+   1010
+   ----
+   1111
+
+The previous example produces output similar to the following:
+
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 15, "vendor": ["A", "D", "M"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 15,
+      "vendor": ["A", "D", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 .. _array_updates:
 
@@ -463,77 +473,78 @@ Add to Set
 ~~~~~~~~~~
 The ``$addToSet`` operator adds a value to an array if the value is not already present.
 
-.. example::
+The following example adds the value ``"C"`` to the array value of
+the ``vendor`` field: 
 
-   The following example adds the value ``"C"`` to the array value of
-   the ``vendor`` field: 
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin addToSetUpdate
+   :end-before: end addToSetUpdate
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.addToSet;
+The Bson renders as:
 
-      // <MongoCollection setup code here>
-
-      Bson addToSetUpdate = addToSet("vendor", "C");
-      collection.find(addToSetUpdate);
+.. code-block:: none
+   :copyable: false
    
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-         "$addToSet": 
-         {
-            "vendor" : "C"
-         }
+   { 
+      "$addToSet": 
+      {
+         "vendor" : "C"
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "D", "M", "C"], lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["A", "D", "M", "C"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
       
 
 Pop
 ~~~
 The ``$pop`` update operator removes the first or last element of an array.
 
-.. example::
+The following example pops the first element off of the array value
+of the ``vendor`` field:  
 
-   The following example pops the first element off of the array value
-   of the ``vendor`` field:  
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin popFirstUpdate
+   :end-before: end popFirstUpdate
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.popFirst;
+The Bson renders as:
 
-      // <MongoCollection setup code here>
-
-      Bson popFirstUpdate = popFirst("vendor");
-      collection.find(popFirstUpdate);
+.. code-block:: none
+  :copyable: false
    
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-         "$pop": 
-         {
-            "vendor" : -1
-         }
+   { 
+      "$pop": 
+      {
+         "vendor" : -1
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["D", "M"],
-      lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["D", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
       
    .. note:
 
@@ -546,114 +557,114 @@ Pull All
 ~~~~~~~~
 The ``$pullAll`` update operator removes all instances of the specified values from an existing array.
 
-.. example::
+The following example removes vendor ``"A"`` and ``"M"`` from the
+vendor array: 
 
-   The following example removes vendor ``"A"`` and ``"M"`` from the
-   vendor array: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.pullAll;
-
-      // <MongoCollection setup code here>
-
-      Bson pullAllUpdate = pullAll("vendor", Arrays.asList("A", "M"));
-      collection.find(pullAllUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin pullAllUpdate
+   :end-before: end pullAllUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$pullAll": 
-         {
-            "vendor" : ["A", "M"]
-         }
+   { 
+      "$pullAll": 
+      {
+         "vendor" : ["A", "M"]
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+  :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["D"],
-      lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["D"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Pull
 ~~~~
 The ``$pull`` update operator removes from an existing array all instances of a value or values that match a specified query.
 
-.. example::
+The following example removes the value ``"D"`` from the ``vendor``
+array: 
 
-   The following example removes the value ``"D"`` from the ``vendor``
-   array: 
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin pullUpdate
+   :end-before: end pullUpdate
 
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.pull;
+The Bson renders as:
 
-      // <MongoCollection setup code here>
-
-      Bson pullUpdate = pull("vendor", "D");
-      collection.find(pullUpdate);
+.. code-block:: none
+  :copyable: false
    
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-         "$pull": 
-         {
-            "vendor" : "D"
-         }
+   { 
+      "$pull": 
+      {
+         "vendor" : "D"
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The previous example produces output similar to the following:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+  :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "M"],
-      lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["A", "M"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 Push
 ~~~~
 The ``$push`` update operator appends a specified value to an array.
 
-.. example::
+The following examples pushes ``"C"`` to the ``vendor`` array:
 
-   The following examples pushes ``"C"`` to the ``vendor`` array:
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Updates.push;
-
-      // <MongoCollection setup code here>
-
-      Bson pushUpdate = push("vendor", "C");
-      collection.find(pushUpdate);
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin pushUpdate
+   :end-before: end pushUpdate
    
-   The Bson renders as:
+The Bson renders as:
 
-   .. code-block:: none
-      :copyable: false
+.. code-block:: none
+   :copyable: false
    
-      { 
-         "$push": 
-         {
-            "vendor" : "C"
-         }
+   { 
+     "$push": 
+      {
+         "vendor" : "C"
       }
+   }
 
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
+The previous example produces output similar to the following:
+
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A", "D", "M", "C"],
-      lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "red", 
+      "qty": 5, 
+      "vendor": ["A", "D", "M", "C"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
 
 .. _multiple_updates:
 
@@ -663,39 +674,36 @@ An application can atomically update multiple fields of a single
 document by combining two or more of the update operators described
 above. 
 
-.. example::
+This example increments the value of the ``qty`` field by ``6``, sets
+the value of the ``color`` field to ``purple``, and pushes ``"R"`` to
+the ``vendor`` field:
 
-   This example increments the value of the ``qty`` field by ``6``, sets
-   the value of the ``color`` field to ``purple``, and pushes ``"R"`` to
-   the ``vendor`` field:
+.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+   :language: java
+   :dedent:
+   :start-after: begin combineUpdate
+   :end-before: end combineUpdate
+   
+The Bson renders as:
 
-   .. code-block:: java
+.. code-block:: none
+   :copyable: false
+   
+   { 
+     "$set": { "color" : "purple" }, 
+     "$inc": { "qty" : "6" }, 
+     "$push": { "vendor" : "R" }
+   }
+
+The previous example produces output similar to the following:
+   
+.. code-block:: json
+   :copyable: false
       
-      import static com.mongodb.client.model.Updates.combine;
-      import static com.mongodb.client.model.Updates.set;
-      import static com.mongodb.client.model.Updates.inc;
-      import static com.mongodb.client.model.Updates.push;
-
-      // <MongoCollection setup code here>
-
-      Bson combineUpdate = combine(set("color", "purple"), inc("qty", 6), push("vendor", "R");
-      collection.find(combineUpdate);
-   
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-        "$set": { "color" : "purple" }, 
-        "$inc": { "qty" : "6" }, 
-        "$push": { "vendor" : "R" }
-      }
-
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
-      
-      {"_id": 1, "color": "purple", "qty": 11, "vendor": ["A", "D", "M", "R"],
-      lastModified: ISODate("2021-04-03T01:11:18.965Z")}
+   {
+      "_id": 1, 
+      "color": "purple", 
+      "qty": 11, 
+      "vendor": ["A", "D", "M", "R"],
+      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+   }
