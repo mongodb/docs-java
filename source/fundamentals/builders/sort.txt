@@ -119,7 +119,7 @@ to largest on the specified field name.
           System.out.println(result.toJson());
       }
 
-   The output of the above code snippet should look something like this: 
+   The output of the code snippet above should look something like this: 
    
    .. code-block:: json
    
@@ -154,7 +154,7 @@ by ``_id`` as follows:
    
    collection.find().sort(ascending("letter", "_id"));
 
-The above code snippet returns the documents in the
+The code snippet above returns the documents in the
 :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
 collection in the following order: 
 
@@ -187,7 +187,7 @@ The following code snippet shows how to specify a descending sort on the
    collection.find().sort(descending("_id"));
 
 
-The above code snippet returns the documents in the
+The code snippet above returns the documents in the
 :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
 collection in the following order: 
 
@@ -224,7 +224,7 @@ sort on the ``letter`` field followed by the ``_id`` field:
    collection.find().sort(descending("letter", "_id"));
 
 
-The above code snippet returns the documents in the
+The code snippet above returns the documents in the
 :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`  
 collection in the following order: 
 
@@ -256,7 +256,7 @@ descending sort on ``letter`` with an ascending sort on ``_id``.
    Bson orderBySort = orderBy(descending("letter"), ascending("_id"));
    collection.find().sort(orderBySort);
 
-The above code snippet returns the documents in the
+The code snippet above returns the documents in the
 :ref:`sort_example <docs_java_fundamentals_builders_sort_sort_example>`
 collection in the following order: 
 
@@ -336,7 +336,7 @@ a text index on your collection before you can run a ``$text`` query and use
           System.out.println(result.toJson());
       }
    
-   The output of the above code snippet should look something like this: 
+   The output of the code snippet above should look something like this: 
    
    .. code-block:: json
 
