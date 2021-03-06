@@ -36,7 +36,6 @@ to any method that expects a projection.
       :start-after: begin static import
       :end-before: end static import
       :language: java
-      :copyable: true
       :dedent:
 
    The examples below assume this static import.
@@ -47,21 +46,18 @@ The examples also use the following setup in addition to the ``Projections`` sta
    :start-after: begin imports
    :end-before: end imports
    :language: java
-   :copyable: true
    :dedent:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
    :start-after: begin declarations
    :end-before: end declarations
    :language: java
-   :copyable: true
    :dedent:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
    :start-after: begin collection setup
    :end-before: end collection setup
    :language: java
-   :copyable: true
    :dedent:
 
 Inclusion
@@ -75,7 +71,6 @@ The following example includes the ``year`` field and (implicitly) the ``_id`` f
    :start-after: begin include single field
    :end-before: end include single field
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -93,7 +88,6 @@ The following example includes the ``year`` and ``type`` fields and (implicitly)
    :start-after: begin include multiple fields
    :end-before: end include multiple fields
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -115,7 +109,6 @@ The following example excludes the ``temperatures`` field:
    :start-after: begin exclude one field
    :end-before: end exclude one field
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -132,7 +125,6 @@ The following example excludes the ``type`` and ``temperatures`` fields:
    :start-after: begin exclude multiple fields
    :end-before: end exclude multiple fields
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -156,7 +148,6 @@ The following example includes the ``year`` and ``type`` fields and excludes the
    :start-after: begin show fields
    :end-before: end show fields
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -176,7 +167,6 @@ Use the ``excludeId()`` convenience method to specify the exclusion of the ``_id
    :start-after: begin exclude id
    :end-before: end exclude id
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -207,7 +197,6 @@ greater that ``10.1``:
    :start-after: begin elemMatch no filter
    :end-before: end elemMatch no filter
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -236,7 +225,6 @@ The following example projects the first element of the ``temperatures`` array:
    :start-after: begin elemMatch with filter
    :end-before: end elemMatch with filter
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -257,7 +245,6 @@ The following example projects the first **6** elements of the ``temperatures`` 
    :start-after: begin slice no skip
    :end-before: end slice no skip
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -292,7 +279,6 @@ The following example skips the first **6** elements of the ``temperatures`` arr
    :start-after: begin slice with skip
    :end-before: end slice with skip
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
@@ -333,7 +319,6 @@ The following example projects the text score as the value of the ``score`` fiel
    :start-after: begin meta text score
    :end-before: end meta text score
    :language: java
-   :copyable: true
    :dedent:
 
 The output should resemble:
