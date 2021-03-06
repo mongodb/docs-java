@@ -25,94 +25,204 @@ query. Projection in MongoDB follows some basic rules:
 Find more information about projection mechanics :manual:`here </tutorial/project-fields-from-query-results/>`.
 
 The :java-core-api:`Projections <com/mongodb/client/model/Projections.html>` class provides static factory methods for
-all the MongoDB projection operators.  Each method returns an instance of the :ref:`Bson <bson>` type which you can pass
+all the MongoDB projection operators. Each method returns an instance of the :ref:`Bson <bson>` type which you can pass
 to any method that expects a projection.
 
 .. tip::
 
    For brevity, you may choose to import the methods of the ``Projections`` class statically:
 
-   .. code-block:: java
-
-      import static com.mongodb.client.model.Projections.*;
+   .. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+      :start-after: begin static import
+      :end-before: end static import
+      :language: java
+      :copyable: true
+      :dedent:
 
    The examples below assume this static import.
+
+The examples also use the following setup in addition to the ``Projections`` static import:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin imports
+   :end-before: end imports
+   :language: java
+   :copyable: true
+   :dedent:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin declarations
+   :end-before: end declarations
+   :language: java
+   :copyable: true
+   :dedent:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin collection setup
+   :end-before: end collection setup
+   :language: java
+   :copyable: true
+   :dedent:
 
 Inclusion
 ---------
 
-Use the ``include`` method to specify the inclusion of one or more fields.
+Use the ``include()`` method to specify the inclusion of one or more fields.
 
-The following example includes the ``quantity`` field and (implicitly) the ``_id`` field:
+The following example includes the ``year`` field and (implicitly) the ``_id`` field:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin include single field
+   :end-before: end include single field
+   :language: java
+   :copyable: true
+   :dedent:
 
-   include("quantity")
+The output should resemble:
 
-The following example includes the ``quantity`` and ``totalAmount`` fields and (implicitly) the
-``_id`` field:
+.. code-block:: json
+   :copyable: false
 
-.. code-block:: java
+   {"_id": {"$oid": "6042edc9f2b56342164e0790"}, "year": 2018}
+   {"_id": {"$oid": "6042edc9f2b56342164e0791"}, "year": 2019}
 
-   include("quantity", "totalAmount")
+
+The following example includes the ``year`` and ``type`` fields and (implicitly) the ``_id`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin include multiple fields
+   :end-before: end include multiple fields
+   :language: java
+   :copyable: true
+   :dedent:
+
+The output should resemble:
+
+.. code-block:: json
+   :copyable: false
+
+   {"_id": {"$oid": "6042edc9f2b56342164e0790"}, "year": 2018, "type": "even number but not a leap year"}
+   {"_id": {"$oid": "6042edc9f2b56342164e0791"}, "year": 2019, "type": "odd number, can't be a leap year"}
 
 Exclusion
 ---------
 
-Use the ``exclude`` method to specify the exclusion of one or more fields.
+Use the ``exclude()`` method to specify the exclusion of one or more fields.
 
-The following example excludes the ``quantity`` field:
+The following example excludes the ``temperatures`` field:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin exclude one field
+   :end-before: end exclude one field
+   :language: java
+   :copyable: true
+   :dedent:
 
-   exclude("quantity")
+The output should resemble:
 
-The following example excludes the ``quantity`` and ``totalAmount`` fields:
+.. code-block:: json
+   :copyable: false
 
-.. code-block:: java
+   {"_id": {"$oid": "6042edc9f2b56342164e0790"}, "year": 2018, "type": "even number but not a leap year"}
+   {"_id": {"$oid": "6042edc9f2b56342164e0791"}, "year": 2019, "type": "odd number, can't be a leap year"}
 
-   exclude("quantity", "totalAmount")
+The following example excludes the ``type`` and ``temperatures`` fields:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin exclude multiple fields
+   :end-before: end exclude multiple fields
+   :language: java
+   :copyable: true
+   :dedent:
+
+The output should resemble:
+
+.. code-block:: json
+   :copyable: false
+
+   {"_id": {"$oid": "6042edc9f2b56342164e0790"}, "year": 2018}
+   {"_id": {"$oid": "6042edc9f2b56342164e0791"}, "year": 2019}
+
+
+Combining Projections
+---------------------
+
+Use the ``fields`` method to combine multiple projections.
+
+The following example includes the ``year`` and ``type`` fields and excludes the
+``_id`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin show fields
+   :end-before: end show fields
+   :language: java
+   :copyable: true
+   :dedent:
+
+The output should resemble:
+
+.. code-block:: json
+   :copyable: false
+
+   {"year": 2018, "type": "even number but not a leap year"}
+   {"year": 2019, "type": "odd number, can't be a leap year"}
 
 Exclusion of ``_id``
-----------------------------
+--------------------
 
-Use the ``excludeId`` method to specify the exclusion of the ``_id`` field:
+Use the ``excludeId()`` convenience method to specify the exclusion of the ``_id`` field:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin exclude id
+   :end-before: end exclude id
+   :language: java
+   :copyable: true
+   :dedent:
 
-   excludeId()
+The output should resemble:
 
-.. note::
+.. code-block:: json
+   :copyable: false
 
-   ``excludeId`` is a convenience method and is shorthand for:
+   {"year": 2018, "type": "even number but not a leap year"}
+   {"year": 2019, "type": "odd number, can't be a leap year"}
 
-   .. code-block:: java
-
-      exclude("_id")
 
 Project an Array Element Match
 ------------------------------
 
-Use the ``elemMatch`` methods to specify a positional array projection.
-
 Use the ``elemMatch(String, Bson)`` method variant to specify an array projection that will include the first
-element of an array that matches a supplied query filter.
+element of an array that matches a supplied query filter. This filtering occurs **after** all documents matching the
+query filter (if supplied) are retrieved.
 
 .. note::
 
    Only the first element that matches the specified query filter will be included, regardless of how many matches there
    may be.
 
-The following example projects the first element of the ``orders`` array where the ``quantity`` field is
-greater that ``3``:
+The following example projects the first element of the ``temperatures`` array where the ``avg`` field is
+greater that ``10.1``:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin elemMatch no filter
+   :end-before: end elemMatch no filter
+   :language: java
+   :copyable: true
+   :dedent:
 
-   elemMatch("orders", Filters.gt("quantity", 3))
+The output should resemble:
+
+.. code-block:: json
+   :copyable: false
+
+   {"_id": {"$oid": "6042edc9f2b56342164e0790"}, "year": 2018}
+   {"_id": {"$oid": "6042edc9f2b56342164e0791"}, "year": 2019, "temperatures": [{"month": "March", "avg": 10.43}]}
+
+
 
 When you've specified matching criteria in the **query** portion of your operation, use the ``elemMatch(String)`` method
 variant to specify a :manual:`positional projection </reference/operator/projection/positional/#projection/>` to include
-the first element of an array.
+the first element of an array. Only documents that match the query filter will be retrieved.
 
 .. warning::
 
@@ -120,35 +230,96 @@ the first element of an array.
    you can use a positional project on an array field that does not appear in the query document.
 
 
-The following example projects the first element of the ``orders`` array:
+The following example projects the first element of the ``temperatures`` array:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin elemMatch with filter
+   :end-before: end elemMatch with filter
+   :language: java
+   :copyable: true
+   :dedent:
 
-   elemMatch("orders")
+The output should resemble:
 
-.. tip::
+.. code-block:: json
+   :copyable: false
 
-   Specifying ``elemMatch(String fieldName, Bson filter)`` in the projection causes MongoDB to use the
-   :manual:`projection $elemMatch operator </reference/operator/projection/elemMatch/>`. To use the
-   :manual:`$elemMatch query operator </reference/operator/query/elemMatch/>` as part of your search criteria, see the
-   :ref:`Filters builders page <filters-builders>`.
+   {"_id": {"$oid": "6042edc9f2b56342164e0791"}, "year": 2019, "temperatures": [{"month": "March", "avg": 10.43}]}
 
 Slice
 -----
 
-Use the ``slice`` methods to project a :manual:`slice </reference/operator/projection/slice/>` of an array.
+Use the ``slice()`` method to project a :manual:`slice </reference/operator/projection/slice/>` of an array.
 
-The following example projects the first **7** elements of the ``tags`` array:
+The following example projects the first **6** elements of the ``temperatures`` array:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin slice no skip
+   :end-before: end slice no skip
+   :language: java
+   :copyable: true
+   :dedent:
 
-  slice("tags", 7)
+The output should resemble:
 
-The following example skips the first **2** elements of the ``tags`` array and projects the next **5**:
+.. code-block:: json
+   :copyable: false
 
-.. code-block:: java
+   {
+     "_id": {
+       "$oid": "6042f1bc8ee6fa2a84d2be69"
+     },
+     "year": 2018,
+     "type": "even number but not a leap year",
+     "temperatures": [
+         ... <January-June temperature subdocuments>
+     ]
+   }
+   {
+     "_id": {
+       "$oid": "6042f1bc8ee6fa2a84d2be6a"
+     },
+     "year": 2019,
+     "type": "odd number, can't be a leap year",
+     "temperatures": [
+         ... <January-June temperature subdocuments>
+     ]
+   }
 
-   slice("tags", 2, 5)
+The following example skips the first **6** elements of the ``temperatures`` array and projects the next **6**:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin slice with skip
+   :end-before: end slice with skip
+   :language: java
+   :copyable: true
+   :dedent:
+
+The output should resemble:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+     "_id": {
+       "$oid": "6042f1bc8ee6fa2a84d2be69"
+     },
+     "year": 2018,
+     "type": "even number but not a leap year",
+     "temperatures": [
+         ... <July-December temperature subdocuments>
+     ]
+   }
+   {
+     "_id": {
+       "$oid": "6042f1bc8ee6fa2a84d2be6a"
+     },
+     "year": 2019,
+     "type": "odd number, can't be a leap year",
+     "temperatures": [
+         ... <July-December temperature subdocuments>
+     ]
+   }
 
 Text Score
 ----------
@@ -158,19 +329,17 @@ Use the ``metaTextScore`` method to specify a projection of
 
 The following example projects the text score as the value of the ``score`` field:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
+   :start-after: begin meta text score
+   :end-before: end meta text score
+   :language: java
+   :copyable: true
+   :dedent:
 
-   metaTextScore("score")
+The output should resemble:
 
-Combining Projections
----------------------
+.. code-block:: json
+   :copyable: false
 
-Use the ``fields`` method to combine multiple projections.
-
-The following example includes the ``quantity`` and ``totalAmount`` fields and excludes the
-``_id`` field:
-
-.. code-block:: java
-
-   fields(include("quantity", "totalAmount"), excludeId())
-
+   {"_id": {"$oid": "6042f1bc8ee6fa2a84d2be69"}, "year": 2018, "score": 1.25}
+   {"_id": {"$oid": "6042f1bc8ee6fa2a84d2be6a"}, "year": 2019, "score": 0.625}
