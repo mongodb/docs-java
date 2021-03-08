@@ -139,7 +139,7 @@ The output should resemble:
 Combining Projections
 ---------------------
 
-Use the ``fields`` method to combine multiple projections.
+Use the ``fields()`` method to combine multiple projections.
 
 The following example includes the ``year`` and ``type`` fields and excludes the
 ``_id`` field:
@@ -310,7 +310,7 @@ The output should resemble:
 Text Score
 ----------
 
-Use the ``metaTextScore`` method to specify a projection of
+Use the ``metaTextScore()`` method to specify a projection of
 :manual:`score of a text query </reference/operator/query/text/#return-the-text-search-score/>`
 
 The following example projects the text score as the value of the ``score`` field:
