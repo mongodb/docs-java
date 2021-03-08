@@ -18,9 +18,9 @@ Overview
 MongoDB supports **field projection**, specifying which fields to include and exclude when returning results from a
 query. Projection in MongoDB follows some basic rules:
 
-- The ``_id`` field is **always** included and must explicitly be excluded
+- The ``_id`` field is **always** included unless explicitly
 - Specifying a field for inclusion implicitly excludes all other fields **except** the ``_id`` field
-- Specifying a field for exclusion removes only that field in a query result
+- Specifying a field for exclusion removes **only** that field in a query result
 
 Find more information about projection mechanics :manual:`here </tutorial/project-fields-from-query-results/>`.
 
@@ -54,6 +54,8 @@ The examples also use the following setup in addition to the ``Projections`` sta
    :language: java
    :dedent:
 
+The collection is set up with the following documents:
+
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
    :start-after: begin collection setup
    :end-before: end collection setup
@@ -73,7 +75,7 @@ The following example includes the ``year`` field and (implicitly) the ``_id`` f
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -90,7 +92,7 @@ The following example includes the ``year`` and ``type`` fields and (implicitly)
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -111,7 +113,7 @@ The following example excludes the ``temperatures`` field:
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -127,7 +129,7 @@ The following example excludes the ``type`` and ``temperatures`` fields:
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -150,7 +152,7 @@ The following example includes the ``year`` and ``type`` fields and excludes the
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -169,7 +171,7 @@ Use the ``excludeId()`` convenience method to specify the exclusion of the ``_id
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -199,7 +201,7 @@ greater that ``10.1``:
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -227,7 +229,7 @@ The following example projects the first element of the ``temperatures`` array:
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -247,7 +249,7 @@ The following example projects the first **6** elements of the ``temperatures`` 
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -281,7 +283,7 @@ The following example skips the first **6** elements of the ``temperatures`` arr
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
@@ -321,7 +323,7 @@ The following example projects the text score as the value of the ``score`` fiel
    :language: java
    :dedent:
 
-The output should resemble:
+The following code shows the output from this projection:
 
 .. code-block:: json
    :copyable: false
