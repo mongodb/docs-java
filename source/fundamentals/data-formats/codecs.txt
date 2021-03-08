@@ -14,68 +14,34 @@ Codecs
 Overview
 --------
 
-In this guide, you can learn about the Java classes that manage the
-serialization and deserialization of BSON data in MongoDB. The ``Codec``
-interface and its implementations allow you to customize and perform the
-data serialization.
+In this guide, you can learn about Codecs and the supporting classes that
+handle the encoding and decoding of Java objects to BSON data in MongoDB.
+The Codec abstraction allows you to map types and fields directly to
+your domain objects rather than to an intermediate map-based object such
+as ``Document``.
 
-We describe and
-show how to use the following:
+We describe the following interfaces and classes as well as an example of
+how you can specify custom encoding and decoding using them:
 
-Codec
-CodecRegistry
-CodecProvider
+- :ref:`Codec <codecs-codec>`
+- :ref:`CodecRegistry <codecs-codecregistry>`
+- :ref:`CodecProvider <codecs-codecprovider>`
+- :ref:`Custom Codec Example <codecs-custom-example>`
 
+If you are customizing encoding and decoding of Java POJOs, read our guide on
+:doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
 
-
-
-
-
-
-You can see an example of how you can create your own custom conversion.
-
-For information on customizing serialization and deserialization for Java
-POJOs, read our guide on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
-
-and
-
-A **Codec** is an interface that contains abstract methods for serializing
-data
-between different formats.
-
-that serializes and deserializes data between formats.
-A collection of codecs is included in a codecregistry
-
-Implementations of the ``Codec`` interface define the logic to perform the
-conversion.
-
-A *CodecRegistry* is
-
-
-
-
-A *CodecProvider* is
-a factory that creates Codec instances
-
-You can read more about the following terms in the sections below:
-
-Codec
-
-For more information
-
+.. _codecs-codec:
 
 Codec
 -----
 
-The ``Codec`` interface inherits abstract methods that you must implement
-in your custom class to define your encoding and decoding logic for a
-specific object type. You can add an instance of your custom class to the
-``CodecRegistry`` which contains a mapping between your ``Codec`` and the
-Java object type to which it applies.
+A **Codec** is an interface that contains abstract methods for serializing
+and deserializing Java objects to BSON data. You can implement this interface
+to define the conversion between BSON and your Java object.
 
-To implement a ``Codec``, override the ``encode()`` and ``decode()``
-abstract methods inherited from the ``Encoder`` and ``Decoder`` interfaces,
-respectively.
+To implement the ``Codec`` interface, override the ``encode()``, ``decode()``,
+and ``getEncoderClass()`` abstract methods.
 
 The ``encode()`` method contains the following parameters:
 
@@ -86,19 +52,19 @@ The ``encode()`` method contains the following parameters:
    * - Parameter Type
      - Description
 
-   * - ``BsonWriter``
-     - Interface type that exposes methods for writing a BSON document.
-       The ``BsonBinaryWriter`` which writes to a binary stream of data is
-       the most commonly-used implementation.
+   * - ``writer``
+     - An instance of a class that implements ``BsonWriter``, an interface type
+       that exposes methods for writing a BSON document. For example, the
+       ``BsonBinaryWriter`` implementation writes to a binary stream of data.
 
+   * - ``value``
+     - The data that your implementation encodes. The type must match the type
+       variable assigned to your implementation.
 
-   * - ``T`` (type variable)
-     -
-
-   * - ``EncoderContext``
-     -  Contains information about the data being encoded to BSON including
-        whether the current value is a document that should be stored in
-        a MongoDB collection.
+   * - ``encoderContext``
+     -  Contains meta information about the Java object data that it encodes
+        to BSON including whether to store the current value in a
+        MongoDB collection.
 
 The ``decode()`` method contains the following parameters:
 
@@ -109,35 +75,56 @@ The ``decode()`` method contains the following parameters:
    * - Parameter Type
      - Description
 
-   * - ``BsonReader``
-     - Interface type that exposes methods for reading a BSON document. The
-       ``BsonBinaryReader`` which reads from a binary stream of data is the
-       most commonly-used implementation.
+   * - ``bsonReader``
+     - An instance of a class that implements ``BsonReader``, an interface type
+       that exposese methods for reading a BSON document. For example, the
+       ``BsonBinaryReader`` implementation reads from a binary stream of data.
 
    * - ``DecoderContext``
-     - Contains information about the data being decoded from BSON including
-       whether the discriminator for the enclosing document has been checked.
+     - Contains information about the BSON data that it decodes to a Java
+       object.
+
+The ``getEncoderClass()`` method returns an instance of the class that your
+Codec encodes.
+
+See the following ``AnswerCodec`` class that implements ``Codec`` to convert
+the Java string values "correct" and "incorrect" to BSON boolean values.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/AnswerCodec.java
+   :language: java
+   :dedent:
+
+
+TODO: clarify explanation here
+You can add an instance of your custom class to the ``CodecRegistry`` which
+contains a mapping between your ``Codec`` and the Java object type to which
+it applies.
 
 For more information about the classes and interfaces in this section, see the
 following API documentation:
 
-- Codec <apidocs/bson/org/bson/codecs/Codec.html>
-- Decoder apidocs/bson/org/bson/codecs/Decoder.html
-- Encoder apidocs/bson/org/bson/codecs/Encoder.html
+- :java-docs:`Codec <apidocs/bson/org/bson/codecs/Codec.html>`
+- :java-docs:`Decoder <apidocs/bson/org/bson/codecs/Decoder.html>`
+- :java-docs:`Encoder <apidocs/bson/org/bson/codecs/Encoder.html>`
 - :java-docs:`BsonWriter <apidocs/bson/org/bson/BsonWriter.html>`
-- BsonBinaryWriter apidocs/bson/org/bson/BsonBinaryWriter.html
-- EncoderContext apidocs/bson/org/bson/codecs/EncoderContext.html
-- BsonReader apidocs/bson/org/bson/BsonReader.html
-- DecoderContext apidocs/bson/org/bson/codecs/DecoderContext.html
-- BsonBinaryReader apidocs/bson/org/bson/BsonBinaryReader.html
-
-
+- :java-docs:`BsonBinaryWriter <apidocs/bson/org/bson/BsonBinaryWriter.html>`
+- :java-docs:`EncoderContext <apidocs/bson/org/bson/codecs/EncoderContext.html>`
+- :java-docs:`BsonReader <apidocs/bson/org/bson/BsonReader.html>`
+- :java-docs:`DecoderContext <apidocs/bson/org/bson/codecs/DecoderContext.html>`
+- :java-docs:`BsonBinaryReader <apidocs/bson/org/bson/BsonBinaryReader.html>`
 
 - Description
   - Relationship between Codec, CodecRegistry, and CodecProvider
 
+.. _codecs-codecregistry:
+
 CodecRegistry
 -------------
+
+A *CodecRegistry* designates which Codec instances to use to encode and decode
+specific Java classes.
+
+You can read more about the following terms in the sections below:
 
 The ``CodecRegistry`` contains Codecs and their mapping to classes
 
@@ -145,8 +132,20 @@ The ``CodecRegistry`` contains Codecs and their mapping to classes
 - Example of setting Codec list
 - Example of getting a Codec
 
+.. _codecs-codecprovider:
+
 CodecProvider
 -------------
+
+A *CodecProvider* is a factory that creates Codec instances and assigns them
+a ``CodecRegistry``. The ``CodecRegistry`` specifies which Codec instances
+to use for that class.
+
+``PojoCodecProvider`` which contains classes that
+specify which classes and types to support
+instructions on how to convert data for one or more POJO classes
+and their properties
+
 
 - Description
 - Example of get method implementation
@@ -156,7 +155,7 @@ BsonTypeClassMap
 
 The ``BsonTypeClassMap`` class contains a recommended mapping from BSON types
 to Java classes. For example, the ``ARRAY`` BSON type maps to the Java class
-type ``java.util.List.class``. You can override these mappings in your instance
+type ``java.util.List``. You can override these mappings in your instance
 by specifying them in the ``replacementsForDefaults`` field of your instance.
 
 Add your You can specify an instance of this class to a CodecProvider
@@ -170,7 +169,6 @@ For a complete list of the default mappings, refer to the
 :java-docs:`BsonTypeClassMap API documentation <apidocs/bson/org/bson/codecs/BsonTypeClassMap.html>`.
 
 
-should be decoded
 
 What uses it?
 You can add an instance of the BsonTypeClassMap to your CodecProvider
@@ -182,8 +180,14 @@ an enumeration maps values from the ``BsonType`` enumeration to a Java class.
 - Description
 - Example of how to use to specify Bson mapping
 
+.. _codecs-custom-example:
+
 Custom Codec Example
 --------------------
+
+
+In this example, we show how to create a custom class that defines implements
+Codec implementation
 
 - Methods to override
 - Encode: Describe parameters: BsonWriter, EncoderContext
