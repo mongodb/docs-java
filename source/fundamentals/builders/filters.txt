@@ -15,7 +15,21 @@ Filters Builders
 Overview 
 --------
 In this guide, we show you how to use **builders** to specify
-**filters** for your queries:
+**filters** for your queries.
+
+Builders are classes provided by the MongoDB Java driver that allow you
+to use the builder pattern to interact with your MongoDB instance. The
+:doc:`builders </fundamentals/builders/>` provided by the MongoDB Java
+driver can improve the readability of your code. 
+
+Filters are the operations MongoDB uses to limit your results to what
+you want to see. Some examples of results from filters are: 
+
+- Items that cost $0 to $25
+- A hotel with amenities that include an indoor swimming pool and free parking
+- A food critic review that mentions "spicy" 
+
+This guide shows you how to use builders with examples of the operators: 
 
 - :ref:`Comparison <comparison>`
 - :ref:`Logical <logical>`
@@ -25,13 +39,6 @@ In this guide, we show you how to use **builders** to specify
 - :ref:`Bitwise <bitwise>`
 - :ref:`Geospatial <geospatial>`
 
-Filters are the operations MongoDB uses to limit your results to what
-you want to see. Some examples of results from filters are: 
-
-- Items that cost $0 to $25
-- A hotel with ammenities you want
-- A food critic review that mentions "spicy" 
-
 The :java-core-api:`Filters <com/mongodb/client/model/Filters.html>`
 class provides static factory methods for all the MongoDB query
 operators. Each method returns an instance of the :ref:`Bson <bson>`
@@ -39,7 +46,9 @@ type, which you can pass to any method that expects a query filter.
 
 .. tip::
 
-   For brevity, you may choose to import the methods of the ``Filters`` class statically:
+   For brevity, you may choose to import all methods of the
+   :java-core-api:`Filters <com/mongodb/client/model/Filters.html>`
+   class statically: 
 
    .. code-block:: java
 
@@ -47,13 +56,18 @@ type, which you can pass to any method that expects a query filter.
 
    The examples below assume this static import.
 
-The following examples show you how to use the static factory methods
-provided by the ``Filters`` class to sort your queries. 
+The following sections show you how to use the ``Filters`` class to sort
+your queries using the following setup:
 
-The examples use these sample collections that contains the following
-documents: 
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin imports
+   :end-before: end imports 
 
-``paint_purchaces``
+The Filter examples in this guide use the following sample collections:
+
+``paint_purchases``
 
 .. code-block:: json
 
@@ -79,10 +93,10 @@ documents:
 
 .. code-block:: json
 
-   { _id: 13, type: "Point", coordinates: [ 2,2 ] }
-   { _id: 14, type: "Point", coordinates: [ 5,6 ] }
-   { _id: 15, type: "Point", coordinates: [ 1,3 ] }
-   { _id: 16, type: "Point", coordinates: [ 4,7 ] }
+   { _id: 13, "coordinates": { type: "Point", coordinates: [ 2.0, 2.0 ] } }
+   { _id: 14, "coordinates": { type: "Point", coordinates: [ 5.0, 6.0 ] } }
+   { _id: 15, "coordinates": { type: "Point", coordinates: [ 1.0, 3.0 ] } }
+   { _id: 16, "coordinates": { type: "Point", coordinates: [ 4.0, 7.0 ] } }
 
 .. _comparison:
 
@@ -95,7 +109,7 @@ The comparison operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Comparison Operator
+   * - Comparison Method
      - Matches
       
    * - ``eq()``
@@ -125,89 +139,86 @@ The comparison operator methods include:
    * - ``empty()``
      - all the documents.
 
+The following example creates a filter that matches all documents where
+the value of the ``qty`` field equals "5" in the ``paint_purchases`` collection:
 
-The following code snippet shows how to use a comparison filter:
-
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin equalComparison
+   :end-before: end equalComparison
    
-   import static com.mongodb.client.model.Filters.*;
+The BSON renders as:
 
-   // <MongoCollection setup code here>
+.. code-block:: json
+   :copyable: false
+   
+   { "$eq": { "qty": 5 } }
 
-   collection.find(<comparison filter>);
+The output of the above code snippet should look something like this:
 
-.. example::
+.. code-block:: json
+   :copyable: false
+   
+   {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
+   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
 
-   The following example creates a filter that selects all documents where
-   the value of the ``qty`` field equals ``5`` in the paint_purchaces collection:
+The following example creates a filter that matches all documents where
+the value of the ``qty`` field is greater than or qual to "8" in the
+``paint_purchases`` collection: 
 
-   .. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin gteComparison
+   :end-before: end gteComparison
+   
+The BSON renders as:
+
+.. code-block:: json
+   :copyable: false
+   
+   { "$gte": { "qty": 8 } }
+
+The output of the above code snippet should look something like this:
+
+.. code-block:: json
+   :copyable: false
+   
+   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
+   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]}
+   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
+   {"_id": 7, "color": "green", "qty": 8, "vendor": ["B", "C"]}
+
+The following example creates a filter that matches all documents in
+the ``paint_purchases`` collection because the predicate is empty: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin emptyComparison
+   :end-before: end emptyComparison
+
+The BSON renders as:
+
+.. code-block:: json
+   :copyable: false
+   
+   { }
+
+The output of the above code snippet should look something like this:
+   
+.. code-block:: json
+   :copyable: false
       
-      import static com.mongodb.client.model.Filters.eq;
-
-      // <MongoCollection setup code here>
-
-      Bson equalComparison = eq("qty", 5);
-      List<Document> results = new ArrayList<>();
-      collection.find(equalComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-   
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      {
-         "qty": 20
-      }
-
-   The output of the above code snippet should look something like this:
-
-   .. code-block:: json
-      :copyable: false
-   
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
-      {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
-
-.. example::
-
-   The following example creates a filter that selects all documents in
-   the paint_purchaces collection because the predicate is empty: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Filters.empty
-
-      // <MongoCollection setup code here>
-
-      Bson emptyComparison = empty();
-      List<Document> results = new ArrayList<>();
-      collection.find(emptyComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { }
-
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
-      
-      {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
-      {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-      {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]}
-      {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
-      {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-      {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
-      {"_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"]}
-      {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
+   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
+   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]}
+   {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
+   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
+   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
+   {"_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"]}
+   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
 
 .. _logical:
 
@@ -220,75 +231,53 @@ The logical operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Logical Operator
-     - 
+   * - Logical Method
+     - Matches
       
    * - ``and()``
-     - Joins filters with a logical AND and selects documents that match the conditions of both filters.
+     - documents with the conditions of both filters and joins filters with a logical ``AND``.
 
    * - ``or()``
-     - Joins filters with a logical OR and selects documents that match the conditions of either filters.
+     - documents with the conditions of either filter and joins filters with a logical ``OR``.
       
    * - ``not()``
-     - Inverts the effect of a query expression and selects documents that do not match the filter.
+     - documents that do not match the filter.
      
    * - ``nor()``
-     - Joins filters with a logical NOR and selects documents that fail to match both filters.
+     - documents that fail to match both filters and joins filters with a logical ``NOR``.
 
-The following code snippet shows how to use a logical filter:
+The following example creates a filter that matches documents where
+the value of the ``qty`` field is greater than "8" or the value
+of the ``color`` field equals "pink" in the ``paint_purchases`` collection: 
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin orComparison
+   :end-before: end orComparison
    
-   import static com.mongodb.client.model.Filters.*;
+The BSON renders as:
 
-   // <MongoCollection setup code here>
+.. code-block:: json
+   :copyable: false
+   
+   { 
+      "$or" :
+      [
+         "qty" : { "$gt" : 8 }, 
+         "color" : "pink"
+      ]       
+   }
 
-   collection.find(<logical filter>);
 
-.. example::
-
-   The following example creates a filter that selects documents where
-   the value of the ``qty`` field is greater than ``8`` or the value
-   of the ``color`` field equals ``"pink"`` in the paint_purchaces collection: 
-
-   .. code-block:: java
+The output of the above code snippet should look something like this:
+   
+.. code-block:: json
+   :copyable: false
       
-      import static com.mongodb.client.model.Filters.or;
-      import static com.mongodb.client.model.Filters.eq;
-      import static com.mongodb.client.model.Filters.gt;
-
-      // <MongoCollection setup code here>
-
-      Bson orComparison = or(gt("qty", 8), equal("color", "pink"));
-      List<Document> results = new ArrayList<>();
-      collection.find(orComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-   
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-         "$or" :
-         [
-            "qty" : { "$gt" : 8 }, 
-            "color" : "pink"
-         ]
-          
-      }
-
-
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
-      
-      {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-      {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-      {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
+   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
+   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
+   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
 
 
 .. _arrays:
@@ -302,66 +291,47 @@ The array operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Array Operator
-     - 
+   * - Array Method
+     - Matches
       
    * - ``all()``
-     - Matches arrays that contain all elements specified in the query.
+     - arrays that contain all elements specified in the query.
 
    * - ``elemMatch()``
-     - Selects documents if element in the array field matches all the specified $elemMatch conditions.
+     - documents if element in the array field matches all the specified $elemMatch conditions.
       
    * - ``size()``
-     - Selects documents if the array field is a specified size.
+     - documents if the array field is a specified size.
 
-The following code snippet shows how to use an array filter:
+The following example matches documents with a ``vendors`` array
+containing both "A" and "D" in the ``paint_purchases`` collection: 
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin allComparison
+   :end-before: end allComparison
    
-   import static com.mongodb.client.model.Filters.*;
+The BSON renders as:
 
-   // <MongoCollection setup code here>
-
-   collection.find(<array filter>);
-
-.. example::
-
-   The following example selects documents with a ``vendors`` array
-   containing both ``"A"`` and ``"D"`` in the paint_purchaces collection: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Filters.all;
-
-      // <MongoCollection setup code here>
-
-      Bson allComparison = all("vendors", "A", "D");
-      List<Document> results = new ArrayList<>();
-      collection.find(allComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
+.. code-block:: json
+   :copyable: false
+   
+   { 
+     "vendor" : { 
+         "$all" :
+            { 
+               ["A", "D"] 
+            }
       }
-   
-   The Bson renders as:
+   }
 
-   .. code-block:: none
-      :copyable: false
+The output of the above code snippet should look something like this:
    
-      { 
-         "vendor" : { 
-            "$all" :
-               { 
-                  ["A", "D"] 
-               }
-         }
-      }
-
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
 
 .. _elements:
 
@@ -374,66 +344,46 @@ The elements operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Elements Operator
-     - Selects
+   * - Elements Method
+     - Matches
       
    * - ``exists()``
      - documents that have the specified field.
 
    * - ``type()``
-     - Sdocuments if a field is of the specified type.
+     - documents if a field is of the specified type.
 
-The following code snippet shows how to use an elements filter:
+The following example matches documents that have a ``qty`` field and
+its value does not equal "5" or "8" in the ``paint_purchases`` collection:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin existsComparison
+   :end-before: end existsComparison
+
+The BSON renders as:
+
+.. code-block:: json
+   :copyable: false
    
-   import static com.mongodb.client.model.Filters.*;
+   {
+      "qty" :
+      [
+         { "$exists" : true,
+         { "$nin" : [5, 8] }
+      ]
+   }
 
-   // <MongoCollection setup code here>
-
-   collection.find(<elements filter>);
-
-.. example::
-
-   The following example selects documents that have a ``qty`` field and
-   its value does not equal ``5`` or ``8`` in the paint_purchaces collection:
-
-   .. code-block:: java
+The output of the above code snippet should look something like this:
+   
+.. code-block:: json
+   :copyable: false
       
-      import static com.mongodb.client.model.Filters.exists;
-      import static com.mongodb.client.model.Filters.nin;
-      import static com.mongodb.client.model.Filters.and;
-      // <MongoCollection setup code here>
-
-      Bson existsComparison = and(exists("qty"), nin("qty", 5, 8));
-      List<Document> results = new ArrayList<>();
-      collection.find(existsComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      {
-         "qty" :
-         [
-            { "$exists" : true,
-            { "$nin" : [5, 8] }
-         ]
-      }
-
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
-      
-      {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-      {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
-      {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-      {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
+   {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
+   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
+   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
 
 
 
@@ -450,150 +400,101 @@ The evaluation operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Evaluation Operator
-     - 
+   * - Evaluation Method
+     - Matches
       
    * - ``mod()``
-     - Performs a modulo operation on the value of a field and selects documents with a specified result.
+     - documents where a modulo operation on the value of a field contain a specified result.
 
    * - ``regex()``
-     - Selects documents where values match a specified regular expression.
+     - documents where values contain a specified regular expression.
       
    * - ``text()``
-     - Selects documemts matching a full-text search expression.
+     - documents which contain a specified full-text search expression.
      
    * - ``where()``
-     - Matches documents that satisfy a JavaScript expression.
+     - documents which contain a specified JavaScript expression.
 
-The following code snippet shows how to use an evaluation filter:
+The following example matches documents that have a ``color`` field
+containing the letter "p" in the ``paint_purchases`` collection:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin regexComparison
+   :end-before: end regexComparison
+
+The BSON renders as:
+
+.. code-block:: json
+   :copyable: false
    
-   import static com.mongodb.client.model.Filters.*;
+   { "$regex" : "p" }
 
-   // <MongoCollection setup code here>
-
-   collection.find(<evaluation filter>);
-
-.. example::
-
-   The following example selects documents that have a ``color`` field
-   containing the term ``green`` in the paint_purchaces collection:
-
-   .. code-block:: java
+The output of the above code snippet should look something like this:
+   
+.. code-block:: json
+   :copyable: false
       
-      import static com.mongodb.client.model.Filters.text;
+   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
+   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
 
-      // <MongoCollection setup code here>
-
-      Bson textComparison = text("green");
-      List<Document> results = new ArrayList<>();
-      collection.find(textComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-
-   The Bson renders as:
-
-   .. code-block:: none
-      :copyable: false
-   
-      { 
-         "text" : "green"
-      }
-
-   The output of the above code snippet should look something like this:
-   
-   .. code-block:: json
-      :copyable: false
-      
-      {"_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"]}
-
-   Available with MongoDB 3.2, a version 3 text index allows case-sensitive
-   and diacritic-sensitive searches.
-
-   .. code-block:: java
-
-      text("green", TextSearchOptions().caseSensitive(true))
-
-   .. code-block:: java
-
-      text("green", TextSearchOptions().diacriticSensitive(true))
 
 .. _bitwise:
 
 Bitwise
 -------
 
-The bitwise query operators include:
+The bitwise operator methods include:
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
 
-   * - Logical Operator
-     - Selects documents where
+   * - Bitwise Method
+     - Matches
       
    * - ``bitsAllSet()``
-     - the specified bits of a field are set (i.e. 1).
+     - documents when the specified bits of a field are set (i.e. 1).
 
    * - ``bitsAllClear()``
-     - the specified bits of a field are clear (i.e. 0).
+     - documents when the specified bits of a field are clear (i.e. 0).
       
    * - ``bitsAnySet()``
-     - at least one of the specified bits of a field are set (i.e. 1).
+     - documents when at least one of the specified bits of a field are set (i.e. 1).
      
    * - ``bitsAnyClear()``
-     - at least one of the specified bits of a field are clear (i.e. 0).
+     - documents when at least one of the specified bits of a field are clear (i.e. 0).
 
-The following code snippet shows how to use a bitwise filter:
+The following example matches documents that have a bitField field
+with bits set at positions of the corresponding bitmask 50 (i.e.
+00110010) in the ``binary_numbers`` collection: 
 
-.. code-block:: java
-   
-   import static com.mongodb.client.model.Filters.*;
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin bitsComparison
+   :end-before: end bitsComparison
 
-   // <MongoCollection setup code here>
+The BSON renders as:
 
-   collection.find(<bitwise filter>);
-
-.. example::
-
-   The following example selects documents that have a bitField field
-   with bits set at positions of the corresponding bitmask 50 (i.e.
-   00110010) in the binary_numbers collection: 
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Filters.bitsAllSet;
-
-      // <MongoCollection setup code here>
-
-      Bson bitsComparison = bitsAllSet(1, 5);
-      List<Document> results = new ArrayList<>();
-      collection.find(bitsComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-
-   The Bson renders as:
-
-   .. code-block:: none
+.. code-block:: json
       :copyable: false
    
-      { 
-         "a": 
-            { 
-               "$bitsAllSet": [ 1, 5 ] 
-            } 
-      }
+   { 
+      "a": 
+         { 
+            "$bitsAllSet": [ 1, 5 ] 
+         } 
+   }
 
-   The output of the above code snippet should look something like this:
+The output of the above code snippet should look something like this:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
       
-      { _id: 9, a: 54, binaryValue: "00110110" }
-      { _id: 12, a: 102, binaryValue: "01100110" }
+   { _id: 9, a: 54, binaryValue: "00110110" }
+   { _id: 12, a: 102, binaryValue: "01100110" }
 
 .. _geospatial:
 
@@ -606,89 +507,64 @@ The geospatial operator methods include:
    :header-rows: 1
    :stub-columns: 1
 
-   * - Comparison Operator
+   * - Geospatial Method 
      - Matches
       
    * - ``geoWithin()``
-     - Selects documents containing a GeoJSON geometry field that falls within within a bounding GeoJSON geometry.
+     - documents containing a GeoJSON geometry field that falls within within a bounding GeoJSON geometry.
 
    * - ``geoWithinBox()``
-     - Selects documents containing a grid coordinates field that exist within the specified box.
+     - documents containing a grid coordinates field that exist within the specified box.
       
    * - ``geoWithinPolygon()``
-     - Selects documents containing a grid coordinates field that exist within the specified polygon.
+     - documents containing a grid coordinates field that exist within the specified polygon.
 
    * - ``geoWithinCenter()``
-     - Selects documents containing a grid coordinates field that exist within the specified circle.
+     - documents containing a grid coordinates field that exist within the specified circle.
 
    * - ``geoWithinCenterSphere()``
-     - Selects geometries containing a geospatial data field (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
+     - geometries containing a geospatial data field (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
 
    * - ``geoIntersects()``
-     - Selects geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.
+     - geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.
 
    * - ``near()``
-     - Returns geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.
+     - geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.
 
    * - ``nearSphere()``
-     - Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
+     - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
 
-The following code snippet shows how to use a geospatial filter:
 
-.. code-block:: java
-   
-   import static com.mongodb.client.model.Filters.*;
+The following example creates a filter that matches documents in which
+the ``point`` field contains a GeoJSON Geometry object that falls within
+the given polygon in the ``geo_points`` collection:
 
-   // <MongoCollection setup code here>
+.. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
+   :language: java
+   :dedent:
+   :start-after: begin geoWithinComparison
+   :end-before: end geoWithinComparison
 
-   collection.find(<geospatial filter>);
+The BSON renders as:
 
-.. example::
-
-   TThe following example creates a filter that selects documents where the
-   ``point`` field contains a GeoJSON Geometry object that falls within the
-   given polygon in the geo_points collection:
-
-   .. code-block:: java
-      
-      import static com.mongodb.client.model.Filters.geoWithin;
-
-      // <MongoCollection setup code here>
-
-      Polygon square = new Polygon(Arrays.asList(new Position(0, 0), 
-                                            new Position(4, 0), 
-                                            new Position(4, 4), 
-                                            new Position(0, 4),
-                                            new Position(0, 0)));
-   
-      Bson geoWithinComparison = geoWithin("point", square));
-      collection.find(geoWithinComparison);
-      List<Document> results = new ArrayList<>();
-      collection.find(bitsComparison).into(results);
-      for (Document result : results) {
-         System.out.println(result.toJson());
-      }
-
-   The Bson renders as:
-
-   .. code-block:: none
+.. code-block:: json
       :copyable: false
    
-      {
-         "point": {
-            $geoWithin: {
-               $geometry: {
-                  type: "Polygon",
-                  coordinates: [ [ [ 0, 0 ], [ 4 , 0 ], [ 4, 4 ], [ 0, 4 ], [0 , 0] ] ]
-               }
+   {
+      "point": {
+         $geoWithin: {
+            $geometry: {
+               type: "Polygon",
+               coordinates: [ [ [ 0, 0 ], [ 4 , 0 ], [ 4, 4 ], [ 0, 4 ], [0 , 0] ] ]
             }
          }
       }
+   }
 
-   The output of the above code snippet should look something like this:
+The output of the above code snippet should look something like this:
    
-   .. code-block:: json
-      :copyable: false
+.. code-block:: json
+   :copyable: false
 
-      { _id: 13, type: "Point", coordinates: [ 2,2 ] }
-      { _id: 15, type: "Point", coordinates: [ 1,3 ] }
+   { _id: 13, type: "Point", coordinates: [ 2.0, 2.0 ] }
+   { _id: 15, type: "Point", coordinates: [ 1.0, 3.0 ] }
