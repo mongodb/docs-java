@@ -296,7 +296,7 @@ and use ``Sorts.metaTextScore()``.
   If your MongoDB instance is running MongoDB 4.2 and earlier, in order
   to use ``Sorts.metaTextScore()`` as sort criteria in the ``sort()``
   method of a ``FindIterable`` instance, you must also include
-  ``Sorts.metaTextScore()`` in in the ``projection()`` method of that
+  ``Projections.metaTextScore()`` in the ``projection()`` method of that
   ``FindIterable`` instance. This is demonstrated in the code example below.
 
 .. example::
@@ -310,15 +310,15 @@ and use ``Sorts.metaTextScore()``.
       :ref:`sort_example collection <sorts-builders-sort-example>`
       on the ``food`` field.
    #. Run a text search for the phrase "maple donut".
-   #. Project ``Sorts.metaTextScore()`` into your query results as the
+   #. Project ``Projections.metaTextScore()`` into your query results as the
       ``score`` field. This step is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
    #. Sort using ``Sorts.metaTextScore()`` as your sort criteria.
 
    .. code-block:: java
    
-      import static com.mongodb.client.model.Sorts.metaTextScore;
-      import static com.mongodb.client.model.Sorts.ascending;
+      import static com.mongodb.client.model.Sorts;
+      import static com.mongodb.client.model.Projections;
       import com.mongodb.client.model.Filters;
       import com.mongodb.client.model.Indexes;
 
@@ -327,13 +327,14 @@ and use ``Sorts.metaTextScore()``.
       // create a text index on the food field using the Indexes.text() builder
       collection.createIndex(Indexes.text("food"));
       // create the text score sort criteria
-      Bson metaTextScoreSort = metaTextScore("score");
+      Bson metaTextScoreSort = Sorts.metaTextScore("score");
+      Bson metaTextScoreProj = Projections.metaTextScore("score");
       String searchTerm = "maple donut";
       // build a $text query operator using the Filters.text() builder
       Bson searchQuery = Filters.text(searchTerm);
       collection.find(searchQuery)
               // project the text score into your results on the "score" field (optional in MongoDB 4.4 or later)
-              .projection(metaTextScoreSort)
+              .projection(metaTextScoreProj)
               // sort the results on the "score" field
               .sort(metaTextScoreSort)
               .into(results);
