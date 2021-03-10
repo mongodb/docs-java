@@ -324,18 +324,16 @@ and use ``Sorts.metaTextScore()``.
 
       // <MongoCollection setup code here>
       
-      // create a text index on the food field using the Indexes.text() builder
+      // create your text index on the food field
       collection.createIndex(Indexes.text("food"));
-      // create the text score sort criteria
       Bson metaTextScoreSort = Sorts.metaTextScore("score");
       Bson metaTextScoreProj = Projections.metaTextScore("score");
       String searchTerm = "maple donut";
-      // build a $text query operator using the Filters.text() builder
+      // build your $text query operator
       Bson searchQuery = Filters.text(searchTerm);
+      // projection optional in MongoDB 4.4 or later
       collection.find(searchQuery)
-              // project the text score into your results on the "score" field (optional in MongoDB 4.4 or later)
               .projection(metaTextScoreProj)
-              // sort the results on the "score" field
               .sort(metaTextScoreSort)
               .into(results);
       for (Document result : results) {
