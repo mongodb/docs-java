@@ -135,8 +135,10 @@ to largest on the specified field name.
    
 Note that MongoDB does not guarantee sort order for documents that have
 fields with identical values. This means that if you pass "letter" to
-the ``ascending()`` method, the first document returned could be any
-of the following documents:
+the ``ascending()`` method and use the returned sort criteria to sort
+the documents in the
+:ref:`sort_example collection <sorts-builders-sort-example>`, the first
+document returned could be any of the following documents:
 
 .. code-block:: json
 
