@@ -359,9 +359,11 @@ search, use the ``Sorts.metaTextScore()`` static factory method.
   aggregation operation used in a sort is disregarded by the query system. 
   In MongoDB 4.2 and earlier however, the field name of a ``$meta`` text score
   used in a sort must match the field name of a ``$meta`` text score used
-  in the proceeding projection. This means that the String field name
-  argument passed to ``Sorts.metaTextScore()`` is ignored in MongoDB 4.4
-  and later, but must match the String field name argument passed to
+  in the proceeding projection
+  (:ref:`see the above note on projections and text score <_sorts-builders-mongo-server-note>`). 
+  This means that the String field name argument passed to
+  ``Sorts.metaTextScore()`` is ignored in MongoDB 4.4 and later, but
+  must match the String field name argument passed to
   ``Projections.metaTextScore()``in MongoDB 4.2 and earlier.
 
 For more information, see the
