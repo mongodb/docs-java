@@ -301,19 +301,19 @@ and use ``Sorts.metaTextScore()``.
 
 .. example::
 
-   In the following code example, we show how to use the
+   In the following code example, we show how you can use the
    ``Sorts.metaTextScore()`` method to sort the results of a text
    search on the :ref:`sort_example collection <sorts-builders-sort-example>`.
-   The following code snippet works as follows:
+   The code example performs the following actions:
 
-   #. Create a text index for the
+   #. Creates a text index for your
       :ref:`sort_example collection <sorts-builders-sort-example>`
       on the ``food`` field.
-   #. Run a text search for the phrase "maple donut".
-   #. Project ``Projections.metaTextScore()`` into the query results as the
-      ``score`` field. This step is optional if your MongoDB instance is
+   #. Runs your text search for the phrase "maple donut".
+   #. Projects ``Projections.metaTextScore()`` into your query results as the
+      ``score`` field. This projection is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
-   #. Sort using ``Sorts.metaTextScore()`` as the sort criteria.
+   #. Sorts using ``Sorts.metaTextScore()`` as your sort criteria.
 
    .. code-block:: java
    
