@@ -247,8 +247,8 @@ Combining Sort Criteria
 -----------------------
 
 To combine sort criteria, use the ``Sorts.orderBy()`` static factory
-method. The ``orderBy()`` method applies additional sort criteria from
-left to right in the event of ties. 
+method. The ``orderBy()`` method builds sort criteria that apply passed 
+in sort criteria from left to right in the event of ties. 
 
 In the following code snippet, we use the ``orderBy()`` method to combine a
 descending sort on ``letter`` with an ascending sort on ``_id``.
