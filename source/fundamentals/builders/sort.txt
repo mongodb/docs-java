@@ -285,11 +285,14 @@ If you perform a text search on your collection with the
 can sort your results by how well they match your ``$search`` string using
 :manual:`text score </reference/operator/aggregation/meta/#exp._S_meta>`. 
 To sort your search results by the text scores associated with your text
-search, use the ``Sorts.metaTextScore()`` static factory method. Note
-that the ``$text`` query operator performs a text search on the content indexed 
-by the :manual:`text index </core/index-text/>`of your collection. You must
-create a text index on your collection before you can run a text search
-and use ``Sorts.metaTextScore()``.
+search, use the ``Sorts.metaTextScore()`` static factory method. 
+
+.. .. warning:: Make Sure to Create a Text Index
+
+   The ``$text`` query operator performs a text search on the content indexed 
+   by the :manual:`text index </core/index-text/>` of your collection.
+   Therefore, you must create a text index on your collection before you
+   can run a text search and use ``Sorts.metaTextScore()``.
 
 .. _sorts-builders-mongo-server-note:
 
