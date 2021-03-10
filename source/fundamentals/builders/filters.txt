@@ -19,17 +19,21 @@ In this guide, we show you how to use **builders** to specify
 
 Builders are classes provided by the MongoDB Java driver that allow you
 to use the builder pattern to interact with your MongoDB instance. The
-:doc:`builders </fundamentals/builders/>` provided by the MongoDB Java
-driver can improve the readability of your code. 
+builders provided by the MongoDB Java driver can improve the readability
+of your code.  See the :doc:`Builders overview page
+</fundamentals/builders/>` for a list of Builders available in the Java
+driver. 
+
 
 Filters are the operations MongoDB uses to limit your results to what
-you want to see. Some examples of results from filters are: 
+you want to see. Some examples of results from queries with filters are: 
 
 - Items that cost $0 to $25
 - A hotel with amenities that include an indoor swimming pool and free parking
 - A food critic review that mentions "spicy" 
 
-This guide shows you how to use builders with examples of the operators: 
+This guide shows you how to use builders with examples of the following
+types of operators: 
 
 - :ref:`Comparison <comparison>`
 - :ref:`Logical <logical>`
@@ -67,7 +71,7 @@ your queries using the following setup:
 
 The Filter examples in this guide use the following sample collections:
 
-``paint_purchases``
+Collection: ``paint_purchases``
 
 .. code-block:: json
 
@@ -80,7 +84,7 @@ The Filter examples in this guide use the following sample collections:
    {"_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"]}
    {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
 
-``binary_numbers``
+Collection: ``binary_numbers``
 
 .. code-block:: json
 
@@ -89,19 +93,21 @@ The Filter examples in this guide use the following sample collections:
    { _id: 11, a: 68, binaryValue: "1000100" }
    { _id: 12, a: 102, binaryValue: "01100110" }
 
-``geo_points``
+Collection: ``geo_points``
 
 .. code-block:: json
 
-   { _id: 13, "coordinates": { type: "Point", coordinates: [ 2.0, 2.0 ] } }
-   { _id: 14, "coordinates": { type: "Point", coordinates: [ 5.0, 6.0 ] } }
-   { _id: 15, "coordinates": { type: "Point", coordinates: [ 1.0, 3.0 ] } }
-   { _id: 16, "coordinates": { type: "Point", coordinates: [ 4.0, 7.0 ] } }
+   { _id: 13, "coordinates": { type: "Point", coordinates: [2.0, 2.0] } }
+   { _id: 14, "coordinates": { type: "Point", coordinates: [5.0, 6.0] } }
+   { _id: 15, "coordinates": { type: "Point", coordinates: [1.0, 3.0] } }
+   { _id: 16, "coordinates": { type: "Point", coordinates: [4.0, 7.0] } }
 
 .. _comparison:
 
 Comparison 
 ----------
+
+The comparison operator compares the value in a document to a specified value.
 
 The comparison operator methods include:
 
@@ -112,31 +118,31 @@ The comparison operator methods include:
    * - Comparison Method
      - Matches
       
-   * - ``eq()``
-     - values that are equal to a specified value.
+   * - :java-core-api:`eq() <com/mongodb/client/model/Filters.html#eq(java.lang.String,TItem)>`
+     - values equal to a specified value.
 
-   * - ``gt()``
-     - values that are greater than a specified value.
+   * - :java-core-api:`gt() <com/mongodb/client/model/Filters.html#gt(java.lang.String,TItem)>`
+     - values greater than a specified value.
       
-   * - ``gte()``
-     - values that are greater than or equal to a specified value.
+   * - :java-core-api:`gte() <com/mongodb/client/model/Filters.html#gte(java.lang.String,TItem)>`
+     - values greater than or equal to a specified value.
 
-   * - ``lt()``
-     - values that are less than a specified value.
+   * - :java-core-api:`lt() <com/mongodb/client/model/Filters.html#lt(java.lang.String,TItem)>`
+     - values less than a specified value.
 
-   * - ``lte()``
-     - values that are less than or equal to a specified value.
+   * - :java-core-api:`lte() <com/mongodb/client/model/Filters.html#lte(java.lang.String,TItem)>`
+     - values less than or equal to a specified value.
 
-   * - ``ne()``
-     - values that are not equal to a specified value.
+   * - :java-core-api:`ne() <com/mongodb/client/model/Filters.html#ne(java.lang.String,TItem)>`
+     - values not equal to a specified value.
 
-   * - ``in()``
+   * - :java-core-api:`in() <com/mongodb/client/model/Filters.html#in(java.lang.String,java.lang.Iterable)>`
      - any of the values specified in an array.
 
-   * - ``nin()``
+   * - :java-core-api:`nin() <com/mongodb/client/model/Filters.html#nin(java.lang.String,java.lang.Iterable)>`
      - none of the values specified in an array.
 
-   * - ``empty()``
+   * - :java-core-api:`empty() <com/mongodb/client/model/Filters.html#empty()>`
      - all the documents.
 
 The following example creates a filter that matches all documents where
@@ -148,7 +154,7 @@ the value of the ``qty`` field equals "5" in the ``paint_purchases`` collection:
    :start-after: begin equalComparison
    :end-before: end equalComparison
    
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
@@ -164,7 +170,7 @@ The output of the above code snippet should look something like this:
    {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
 
 The following example creates a filter that matches all documents where
-the value of the ``qty`` field is greater than or qual to "8" in the
+the value of the ``qty`` field is greater than or equal to "8" in the
 ``paint_purchases`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
@@ -173,7 +179,7 @@ the value of the ``qty`` field is greater than or qual to "8" in the
    :start-after: begin gteComparison
    :end-before: end gteComparison
    
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
@@ -199,7 +205,7 @@ the ``paint_purchases`` collection because the predicate is empty:
    :start-after: begin emptyComparison
    :end-before: end emptyComparison
 
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
@@ -224,6 +230,7 @@ The output of the above code snippet should look something like this:
 
 Logical
 -------
+The logical operator looks at the conditions of the specified filters.
 
 The logical operator methods include:
 
@@ -234,17 +241,17 @@ The logical operator methods include:
    * - Logical Method
      - Matches
       
-   * - ``and()``
-     - documents with the conditions of both filters and joins filters with a logical ``AND``.
+   * - :java-core-api:`and() <com/mongodb/client/model/Filters.html#and(java.lang.Iterable)>`
+     - documents with the conditions of all the filters. This operator joins filters with a logical ``AND``.
 
-   * - ``or()``
-     - documents with the conditions of either filter and joins filters with a logical ``OR``.
+   * - :java-core-api:`or() <com/mongodb/client/model/Filters.html#or(org.bson.conversions.Bson...)>`
+     - documents with the conditions of either filter. This operator joins filters with a logical ``OR``.
       
-   * - ``not()``
+   * - :java-core-api:`not() <com/mongodb/client/model/Filters.html#not(org.bson.conversions.Bson)>`
      - documents that do not match the filter.
      
-   * - ``nor()``
-     - documents that fail to match both filters and joins filters with a logical ``NOR``.
+   * - :java-core-api:`nor() <com/mongodb/client/model/Filters.html#nor(org.bson.conversions.Bson...)>`
+     - documents that fail to match both filters. This operator joins filters with a logical ``NOR``.
 
 The following example creates a filter that matches documents where
 the value of the ``qty`` field is greater than "8" or the value
@@ -256,7 +263,7 @@ of the ``color`` field equals "pink" in the ``paint_purchases`` collection:
    :start-after: begin orComparison
    :end-before: end orComparison
    
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
@@ -285,6 +292,8 @@ The output of the above code snippet should look something like this:
 Arrays
 ------
 
+The array operator evaluates the array field in a document.
+
 The array operator methods include:
 
 .. list-table::
@@ -294,14 +303,14 @@ The array operator methods include:
    * - Array Method
      - Matches
       
-   * - ``all()``
-     - arrays that contain all elements specified in the query.
+   * - :java-core-api:`all() <com/mongodb/client/model/Filters.html#all(java.lang.String,java.lang.Iterable)>`
+     - documents if the array field contains every element specified in the query.
 
-   * - ``elemMatch()``
-     - documents if element in the array field matches all the specified $elemMatch conditions.
+   * - :java-core-api:`elemMatch() <com/mongodb/client/model/Filters.html#elemMatch(java.lang.String,org.bson.conversions.Bson)>`
+     - documents if an element in the array field matches all the specified conditions.
       
-   * - ``size()``
-     - documents if the array field is a specified size.
+   * - :java-core-api:`size() <com/mongodb/client/model/Filters.html#size(java.lang.String,int)>`
+     - documents if the array field is a specified number of elements.
 
 The following example matches documents with a ``vendors`` array
 containing both "A" and "D" in the ``paint_purchases`` collection: 
@@ -312,7 +321,7 @@ containing both "A" and "D" in the ``paint_purchases`` collection:
    :start-after: begin allComparison
    :end-before: end allComparison
    
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
@@ -338,6 +347,8 @@ The output of the above code snippet should look something like this:
 Elements
 --------
 
+The elements operator evaluates a specified field.
+
 The elements operator methods include:
 
 .. list-table::
@@ -347,10 +358,10 @@ The elements operator methods include:
    * - Elements Method
      - Matches
       
-   * - ``exists()``
+   * - :java-core-api:`exists() <com/mongodb/client/model/Filters.html#exists(java.lang.String)>`
      - documents that have the specified field.
 
-   * - ``type()``
+   * - :java-core-api:`type() <com/mongodb/client/model/Filters.html#type(java.lang.String,java.lang.String)>`
      - documents if a field is of the specified type.
 
 The following example matches documents that have a ``qty`` field and
@@ -362,7 +373,7 @@ its value does not equal "5" or "8" in the ``paint_purchases`` collection:
    :start-after: begin existsComparison
    :end-before: end existsComparison
 
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
@@ -392,7 +403,7 @@ The output of the above code snippet should look something like this:
 Evaluation
 ----------
 
-An ``evaluation`` filter to match documemts with an expression.
+An evaluation operator evaluates the value of any field in a document.
 
 The evaluation operator methods include:
 
@@ -403,20 +414,20 @@ The evaluation operator methods include:
    * - Evaluation Method
      - Matches
       
-   * - ``mod()``
+   * - :java-core-api:`mod() <com/mongodb/client/model/Filters.html#mod(java.lang.String,long,long)>`
      - documents where a modulo operation on the value of a field contain a specified result.
 
-   * - ``regex()``
+   * - :java-core-api:`regex() <com/mongodb/client/model/Filters.html#regex(java.lang.String,java.lang.String)>`
      - documents where values contain a specified regular expression.
       
-   * - ``text()``
+   * - :java-core-api:`text() <com/mongodb/client/model/Filters.html#text(java.lang.String)>`
      - documents which contain a specified full-text search expression.
      
-   * - ``where()``
+   * - :java-core-api:`where() <com/mongodb/client/model/Filters.html#where(java.lang.String)>`
      - documents which contain a specified JavaScript expression.
 
 The following example matches documents that have a ``color`` field
-containing the letter "p" in the ``paint_purchases`` collection:
+starting with the letter "p" in the ``paint_purchases`` collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
    :language: java
@@ -424,12 +435,12 @@ containing the letter "p" in the ``paint_purchases`` collection:
    :start-after: begin regexComparison
    :end-before: end regexComparison
 
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
    :copyable: false
    
-   { "$regex" : "p" }
+   { "$regex" : "^p" }
 
 The output of the above code snippet should look something like this:
    
@@ -445,6 +456,9 @@ The output of the above code snippet should look something like this:
 Bitwise
 -------
 
+THe bitwise operator converts a number into it's binary value to
+evaluate its bits.
+
 The bitwise operator methods include:
 
 .. list-table::
@@ -454,21 +468,21 @@ The bitwise operator methods include:
    * - Bitwise Method
      - Matches
       
-   * - ``bitsAllSet()``
-     - documents when the specified bits of a field are set (i.e. 1).
+   * - :java-core-api:`bitsAllSet() <com/mongodb/client/model/Filters.html#bitsAllSet(java.lang.String,long)>`
+     - documents when the specified bits of a field are set (i.e. "1").
 
-   * - ``bitsAllClear()``
-     - documents when the specified bits of a field are clear (i.e. 0).
+   * - :java-core-api:`bitsAllClear() <com/mongodb/client/model/Filters.html#bitsAllClear(java.lang.String,long)>`
+     - documents when the specified bits of a field are clear (i.e. "0").
       
-   * - ``bitsAnySet()``
-     - documents when at least one of the specified bits of a field are set (i.e. 1).
+   * - :java-core-api:`bitsAnySet() <com/mongodb/client/model/Filters.html#bitsAnySet(java.lang.String,long)>`
+     - documents when at least one of the specified bits of a field are set (i.e. "1").
      
-   * - ``bitsAnyClear()``
-     - documents when at least one of the specified bits of a field are clear (i.e. 0).
+   * - :java-core-api:`bitsAnyClear() <com/mongodb/client/model/Filters.html#bitsAnyClear(java.lang.String,long)>`
+     - documents when at least one of the specified bits of a field are clear (i.e. "0").
 
-The following example matches documents that have a bitField field
-with bits set at positions of the corresponding bitmask 50 (i.e.
-00110010) in the ``binary_numbers`` collection: 
+The following example matches documents that have a ``bitField ``field
+with bits set at positions of the corresponding bitmask "34" (i.e.
+00100010) in the ``binary_numbers`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
    :language: java
@@ -476,7 +490,7 @@ with bits set at positions of the corresponding bitmask 50 (i.e.
    :start-after: begin bitsComparison
    :end-before: end bitsComparison
 
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
       :copyable: false
@@ -484,7 +498,7 @@ The BSON renders as:
    { 
       "a": 
          { 
-            "$bitsAllSet": [ 1, 5 ] 
+            "$bitsAllSet": [1,5] 
          } 
    }
 
@@ -501,6 +515,8 @@ The output of the above code snippet should look something like this:
 Geospatial
 ----------
 
+A geospatial operator evaluates a specified coordinate to a shape or location.
+
 The geospatial operator methods include:
 
 .. list-table::
@@ -510,33 +526,33 @@ The geospatial operator methods include:
    * - Geospatial Method 
      - Matches
       
-   * - ``geoWithin()``
-     - documents containing a GeoJSON geometry field that falls within within a bounding GeoJSON geometry.
+   * - :java-core-api:`geoWithin() <com/mongodb/client/model/Filters.html#geoWithin(java.lang.String,org.bson.conversions.Bson)>`
+     - documents containing a GeoJSON geometry value that falls within a bounding GeoJSON geometry.
 
-   * - ``geoWithinBox()``
-     - documents containing a grid coordinates field that exist within the specified box.
+   * - :java-core-api:`geoWithinBox() <com/mongodb/client/model/Filters.html#geoWithinBox(java.lang.String,double,double,double,double)>`
+     - documents containing a coordinates value that exist within the specified box.
       
-   * - ``geoWithinPolygon()``
-     - documents containing a grid coordinates field that exist within the specified polygon.
+   * - :java-core-api:`geoWithinPolygon() <com/mongodb/client/model/Filters.html#geoWithinPolygon(java.lang.String,java.util.List)>`
+     - documents containing a coordinates value that exist within the specified polygon.
 
-   * - ``geoWithinCenter()``
-     - documents containing a grid coordinates field that exist within the specified circle.
+   * - :java-core-api:`geoWithinCenter() <com/mongodb/client/model/Filters.html#geoWithinCenter(java.lang.String,double,double,double)>`
+     - documents containing a coordinates value that exist within the specified circle.
 
-   * - ``geoWithinCenterSphere()``
-     - geometries containing a geospatial data field (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
+   * - :java-core-api:`geoWithinCenterSphere() <com/mongodb/client/model/Filters.html#geoWithinCenterSphere(java.lang.String,double,double,double)>`
+     - geometries containing a geospatial data value (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
 
-   * - ``geoIntersects()``
+   * - :java-core-api:`geoIntersects() <com/mongodb/client/model/Filters.html#geoIntersects(java.lang.String,org.bson.conversions.Bson)>`
      - geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.
 
-   * - ``near()``
+   * - :java-core-api:`near() <com/mongodb/client/model/Filters.html#near(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
      - geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.
 
-   * - ``nearSphere()``
+   * - :java-core-api:`nearSphere() <com/mongodb/client/model/Filters.html#nearSphere(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
      - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
 
 
 The following example creates a filter that matches documents in which
-the ``point`` field contains a GeoJSON Geometry object that falls within
+the ``point`` field contains a GeoJSON geometry that falls within
 the given polygon in the ``geo_points`` collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
@@ -545,7 +561,7 @@ the given polygon in the ``geo_points`` collection:
    :start-after: begin geoWithinComparison
    :end-before: end geoWithinComparison
 
-The BSON renders as:
+The JSON output renders as the following:
 
 .. code-block:: json
       :copyable: false
@@ -555,7 +571,7 @@ The BSON renders as:
          $geoWithin: {
             $geometry: {
                type: "Polygon",
-               coordinates: [ [ [ 0, 0 ], [ 4 , 0 ], [ 4, 4 ], [ 0, 4 ], [0 , 0] ] ]
+               coordinates: [ [[ 0, 0], [4 , 0], [4, 4], [0, 4], [0 , 0] ] ]
             }
          }
       }
@@ -566,5 +582,5 @@ The output of the above code snippet should look something like this:
 .. code-block:: json
    :copyable: false
 
-   { _id: 13, type: "Point", coordinates: [ 2.0, 2.0 ] }
-   { _id: 15, type: "Point", coordinates: [ 1.0, 3.0 ] }
+   { _id: 13, type: "Point", coordinates: [2.0, 2.0] }
+   { _id: 15, type: "Point", coordinates: [1.0, 3.0] }

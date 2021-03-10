@@ -110,7 +110,7 @@ public class Filters {
 
     private void regexComparison() {
         // begin regexComparison
-        Bson regexComparison = regex("color", "p");
+        Bson regexComparison = regex("color", "^p");
         collection.find(regexComparison).forEach(doc -> System.out.println(doc.toJson()));
         // end regexComparison
     }
