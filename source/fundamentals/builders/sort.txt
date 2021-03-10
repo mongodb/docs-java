@@ -310,10 +310,10 @@ and use ``Sorts.metaTextScore()``.
       :ref:`sort_example collection <sorts-builders-sort-example>`
       on the ``food`` field.
    #. Run a text search for the phrase "maple donut".
-   #. Project ``Projections.metaTextScore()`` into your query results as the
+   #. Project ``Projections.metaTextScore()`` into the query results as the
       ``score`` field. This step is optional if your MongoDB instance is
       running MongoDB 4.4 or later. 
-   #. Sort using ``Sorts.metaTextScore()`` as your sort criteria.
+   #. Sort using ``Sorts.metaTextScore()`` as the sort criteria.
 
    .. code-block:: java
    
