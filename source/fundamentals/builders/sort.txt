@@ -109,7 +109,7 @@ to largest on the specified field name.
 
    In this code example, we use the ``ascending()`` method to sort the
    :ref:`sort_example collection <sorts-builders-sort-example>`  
-   by ``_id``:
+   by the ``_id`` field:
 
    .. code-block:: java
    
@@ -148,8 +148,8 @@ If you need guaranteed sort order for documents that
 have fields with identical values you can specify additional fields to sort
 on in the event of a tie.
 
-We can specify an ascending sort on ``letter`` followed
-by ``_id`` as follows:
+We can specify an ascending sort on the ``letter`` field followed by the
+``_id`` field as follows:
 
 .. code-block:: java
 
@@ -251,7 +251,8 @@ method. The ``orderBy()`` method builds sort criteria that apply passed
 in sort criteria from left to right in the event of ties. 
 
 In the following code snippet, we use the ``orderBy()`` method to combine a
-descending sort on ``letter`` with an ascending sort on ``_id``.
+descending sort on the ``letter`` field with an ascending sort on the
+``_id`` field.
 
 .. code-block:: java
 
