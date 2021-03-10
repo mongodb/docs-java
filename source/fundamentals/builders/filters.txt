@@ -20,9 +20,9 @@ In this guide, we show you how to use **builders** to specify
 Builders are classes provided by the MongoDB Java driver that allow you
 to use the builder pattern to interact with your MongoDB instance. The
 builders provided by the MongoDB Java driver can improve the readability
-of your code.  See the :doc:`Builders overview page
-</fundamentals/builders/>` for a list of Builders available in the Java
-driver. 
+of your code.  See the :doc:`Builders
+</fundamentals/builders/>` page for a list of Builders available in the
+Java driver. 
 
 
 Filters are the operations MongoDB uses to limit your results to what
@@ -107,7 +107,8 @@ Collection: ``geo_points``
 Comparison 
 ----------
 
-The comparison operator compares the value in a document to a specified value.
+The comparison filters include all operators that compare the value in a
+document to a specified value. 
 
 The comparison operator methods include:
 
@@ -161,7 +162,7 @@ The JSON output renders as the following:
    
    { "$eq": { "qty": 5 } }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
 
 .. code-block:: json
    :copyable: false
@@ -186,7 +187,7 @@ The JSON output renders as the following:
    
    { "$gte": { "qty": 8 } }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
 
 .. code-block:: json
    :copyable: false
@@ -212,25 +213,22 @@ The JSON output renders as the following:
    
    { }
 
-The output of the above code snippet should look something like this:
-   
+The output of the query using the operator specified above consists of
+all the documents in the collection.
+
 .. code-block:: json
    :copyable: false
       
    {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
    {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]}
-   {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
-   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
-   {"_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"]}
-   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]} 
+   ...
 
 .. _logical:
 
 Logical
 -------
-The logical operator looks at the conditions of the specified filters.
+The logical operators perform logical operations based on the conditions of the specified method.
 
 The logical operator methods include:
 
@@ -268,16 +266,13 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   { 
-      "$or" :
-      [
+   { "$or" : [
          "qty" : { "$gt" : 8 }, 
          "color" : "pink"
-      ]       
-   }
+   ] }
 
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
@@ -292,7 +287,7 @@ The output of the above code snippet should look something like this:
 Arrays
 ------
 
-The array operator evaluates the array field in a document.
+The array operators evaluate the array field in a document.
 
 The array operator methods include:
 
@@ -326,16 +321,12 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   { 
-     "vendor" : { 
-         "$all" :
-            { 
+   { "vendor" : { 
+         "$all" : { 
                ["A", "D"] 
-            }
-      }
-   }
+   } } }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
@@ -347,7 +338,7 @@ The output of the above code snippet should look something like this:
 Elements
 --------
 
-The elements operator evaluates a specified field.
+The elements operators evaluate a specified field.
 
 The elements operator methods include:
 
@@ -378,15 +369,12 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   {
-      "qty" :
-      [
-         { "$exists" : true,
-         { "$nin" : [5, 8] }
-      ]
-   }
+   { "qty" : [ { 
+      "$exists" : true,
+      "$nin" : [5, 8] 
+   } ] }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
@@ -396,14 +384,12 @@ The output of the above code snippet should look something like this:
    {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
    {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
 
-
-
 .. _evaluation:
 
 Evaluation
 ----------
 
-An evaluation operator evaluates the value of any field in a document.
+The evaluation operators evaluate the value of any field in a document.
 
 The evaluation operator methods include:
 
@@ -442,7 +428,7 @@ The JSON output renders as the following:
    
    { "$regex" : "^p" }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
@@ -456,7 +442,7 @@ The output of the above code snippet should look something like this:
 Bitwise
 -------
 
-THe bitwise operator converts a number into it's binary value to
+The bitwise operators convert a number into it's binary value to
 evaluate its bits.
 
 The bitwise operator methods include:
@@ -480,9 +466,9 @@ The bitwise operator methods include:
    * - :java-core-api:`bitsAnyClear() <com/mongodb/client/model/Filters.html#bitsAnyClear(java.lang.String,long)>`
      - documents when at least one of the specified bits of a field are clear (i.e. "0").
 
-The following example matches documents that have a ``bitField ``field
+The following example matches documents that have a ``bitField`` field
 with bits set at positions of the corresponding bitmask "34" (i.e.
-00100010) in the ``binary_numbers`` collection: 
+"00100010") in the ``binary_numbers`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
    :language: java
@@ -497,7 +483,7 @@ The JSON output renders as the following:
    
    {  "a": { "$bitsAllSet": [1,5] } }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
@@ -510,7 +496,8 @@ The output of the above code snippet should look something like this:
 Geospatial
 ----------
 
-A geospatial operator evaluates a specified coordinate to a shape or location.
+The geospatial operators evaluate a specified coordinate and its
+relation to a shape or location. 
 
 The geospatial operator methods include:
 
@@ -572,7 +559,7 @@ The JSON output renders as the following:
       }
    }
 
-The output of the above code snippet should look something like this:
+The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
