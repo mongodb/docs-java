@@ -15,7 +15,17 @@ Updates Builders
 Overview 
 --------
 In this guide, we show you how to use **builders** to specify
-**updates** for your queries:
+**updates** for your queries.
+
+Builders are classes provided by the MongoDB Java driver that allow you
+to use the builder pattern to interact with your MongoDB instance. The
+builders provided by the MongoDB Java driver can improve the readability
+of your code.  See the :doc:`Builders overview page
+</fundamentals/builders/>` for a list of Builders available in the Java
+driver. 
+
+This guide shows you how to use builders with examples of the following
+types of updates: 
 
 - :ref:`Field Updates <field_updates>`
 - :ref:`Array Updates <array_updates>`
@@ -36,9 +46,8 @@ type, which you can pass to any method that expects a query filter.
 
    The examples below assume this static import.
 
-The following examples show you how to use the static factory methods
-provided by the ``Updates`` class to sort your queries and the following
-setup:
+The following sections show you how to use the ``Updates`` class to sort
+your queries using the following setup:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -46,7 +55,7 @@ setup:
    :start-after: begin imports
    :end-before: end imports
 
-The examples on this page use the following document: 
+The Update examples in this guide use the following document: 
 
 .. code-block:: json
 
@@ -66,9 +75,11 @@ The following section describes update operators that apply to the value of an e
 
 Set
 ~~~
-The ``set()`` method sets the value of a field to the specified value. 
+The :java-core-api:`set()
+<com/mongodb/client/model/Updates.html#set(java.lang.String,TItem)>`
+method sets the value of a field to the specified value.
 
-The following example sets the value of the ``qty`` field to ``11``: 
+The following example sets the value of the ``qty`` field to "11": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -76,7 +87,7 @@ The following example sets the value of the ``qty`` field to ``11``:
    :start-after: begin setUpdate
    :end-before: end setUpdate
 
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -88,7 +99,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
 
 .. code-block:: json
    :copyable: false
@@ -103,7 +114,9 @@ The previous example produces output similar to the following:
 
 Unset
 ~~~~~
-The ``unset()`` method deletes the field with the given name.
+The :java-core-api:`unset()
+<com/mongodb/client/model/Updates.html#unset(java.lang.String)>` method
+deletes the field with the given name. 
 
 
 The following example deletes the ``qty`` field:
@@ -114,7 +127,7 @@ The following example deletes the ``qty`` field:
    :start-after: begin unsetUpdate
    :end-before: end unsetUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -126,7 +139,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -140,11 +153,12 @@ The previous example produces output similar to the following:
 
 Set On Insert
 ~~~~~~~~~~~~~
-The ``setOnInsert()`` method sets the value of a field to the given
-value if the update is an upsert that results in an insert of a
-document. 
+The :java-core-api:`setOnInsert()
+<com/mongodb/client/model/Updates.html#setOnInsert(java.lang.String,TItem)>`
+method sets the value of a field to the given value if the update is an
+upsert that results in an insert of a document. 
 
-The following example sets the value of the ``qty`` field to ``5``
+The following example sets the value of the ``qty`` field to "5"
 if an upsert resulted in the insert of a document: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
@@ -153,7 +167,7 @@ if an upsert resulted in the insert of a document:
    :start-after: begin setOnInsertUpdate
    :end-before: end setOnInsertUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -165,7 +179,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -180,11 +194,12 @@ The previous example produces output similar to the following:
 
 Increment
 ~~~~~~~~~
-The ``inc()`` method increments the value of a numeric field by a
-specified value. 
+The :java-core-api:`inc()
+<com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>`
+method increments the value of a numeric field by a specified value.
 
 The following example increments the value of the ``qty`` field by
-``3``: 
+"3": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -192,7 +207,7 @@ The following example increments the value of the ``qty`` field by
    :start-after: begin incUpdate
    :end-before: end incUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -204,7 +219,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -219,11 +234,12 @@ The previous example produces output similar to the following:
 
 Multiply
 ~~~~~~~~
-The ``mul()`` method multiplies the value of a numeric field by a
-specified value. 
+The :java-core-api:`mul()
+<com/mongodb/client/model/Updates.html#mul(java.lang.String,java.lang.Number)>`
+method multiplies the value of a numeric field by a specified value. 
 
 The following example multiplies the value of the ``qty`` field by
-   ``2``: 
+"2": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -231,7 +247,7 @@ The following example multiplies the value of the ``qty`` field by
    :start-after: begin mulUpdate
    :end-before: end mulUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -243,7 +259,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -258,9 +274,11 @@ The previous example produces output similar to the following:
 
 Rename
 ~~~~~~
-The ``rename()`` method renames a field.
+The :java-core-api:`rename()
+<com/mongodb/client/model/Updates.html#rename(java.lang.String,java.lang.String)>`
+method renames a field. 
 
-The following example renames the ``qty`` field to ``quantity``:
+The following example renames the ``qty`` field to "quantity":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -268,7 +286,7 @@ The following example renames the ``qty`` field to ``quantity``:
    :start-after: begin renameUpdate
    :end-before: end renameUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -280,7 +298,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -295,9 +313,10 @@ The previous example produces output similar to the following:
 
 Min
 ~~~
-The ``min()`` method updates the value of the field to a specified
-value if the specified value is less than the current value of the
-field. 
+The :java-core-api:`min()
+<com/mongodb/client/model/Updates.html#min(java.lang.String,TItem)>`
+method updates the value of the field to a specified value if the
+specified value is less than the current value of the field. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -305,7 +324,7 @@ field.
    :start-after: begin minUpdate
    :end-before: end minUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -317,7 +336,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -332,9 +351,10 @@ The previous example produces output similar to the following:
 
 Max
 ~~~
-The ``max()`` method updates the value of the field to a specified
-value if the specified value is greater than the current value of the
-field. 
+The :java-core-api:`max()
+<com/mongodb/client/model/Updates.html#max(java.lang.String,TItem)>`
+method updates the value of the field to a specified value if the
+specified value is greater than the current value of the field. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -343,10 +363,10 @@ field.
    :end-before: end maxUpdate
 
 The following example sets the value of the ``qty`` field to the
-maximum of its current value and ``8``: 
+maximum of its current value and "8": 
 
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
   :copyable: false
@@ -358,7 +378,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
   :copyable: false
@@ -373,8 +393,10 @@ The previous example produces output similar to the following:
 
 Current Date
 ~~~~~~~~~~~~
-The ``currentDate()`` method sets the value of the field with the
-specified name to the current date as a BSON `date
+The :java-core-api:`currentDate()
+<com/mongodb/client/model/Updates.html#currentDate(java.lang.String)>`
+method sets the value of the field with the specified name to the
+current date as a BSON `date
 <http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-date>`_
 or as a BSON `timestamp
 <http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-timestamp>`_.
@@ -388,7 +410,7 @@ the current date as a BSON date type:
    :start-after: begin currentDateUpdate
    :end-before: end currentDateUpdate
 
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -400,7 +422,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
   :copyable: false
@@ -416,10 +438,16 @@ The previous example produces output similar to the following:
 
 Bit
 ~~~
-The ``bit()`` method performs a bitwise update of the integral value of a field.
+The :java-core-api:`bitwiseOr()
+<com/mongodb/client/model/Updates.html#bitwiseOr(java.lang.String,int)>`,
+:java-core-api:`bitwiseAnd()
+<com/mongodb/client/model/Updates.html#bitwiseAnd(java.lang.String,int)>`,
+and :java-core-api:`bitwiseXor()
+<com/mongodb/client/model/Updates.html#bitwiseXor(java.lang.String,int)>`
+methods perform a bitwise update of the integral value of a field. 
 
 The following example performs a bitwise AND between the number
-``10`` and the integral value of the ``qty`` field: 
+"10" and the integral value of the ``qty`` field: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -427,7 +455,7 @@ The following example performs a bitwise AND between the number
    :start-after: begin bitwiseOrUpdate
    :end-before: end bitwiseOrUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -449,7 +477,7 @@ The bitwise operation results in 15:
    ----
    1111
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
 
 .. code-block:: json
    :copyable: false
@@ -470,9 +498,11 @@ The following section describes update operators that apply to the contents of t
 
 Add to Set
 ~~~~~~~~~~
-The ``addToSet()`` method adds a value to an array if the value is not already present.
+The :java-core-api:`addToSet()
+<com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`
+method adds a value to an array if the value is not already present. 
 
-The following example adds the value ``"C"`` to the array value of
+The following example adds the value "C" to the array value of
 the ``vendor`` field: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
@@ -481,7 +511,7 @@ the ``vendor`` field:
    :start-after: begin addToSetUpdate
    :end-before: end addToSetUpdate
 
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -493,7 +523,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -509,7 +539,12 @@ The previous example produces output similar to the following:
 
 Pop
 ~~~
-The ``pop()`` method removes the first or last element of an array.
+The :java-core-api:`popFirst()
+<com/mongodb/client/model/Updates.html#popFirst(java.lang.String)>`
+method removes the first element of an array and the
+:java-core-api:`popLast()
+<com/mongodb/client/model/Updates.html#popLast(java.lang.String)>`
+method removes the last element of an array.
 
 The following example pops the first element off of the array value
 of the ``vendor`` field:  
@@ -520,7 +555,7 @@ of the ``vendor`` field:
    :start-after: begin popFirstUpdate
    :end-before: end popFirstUpdate
 
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
   :copyable: false
@@ -532,7 +567,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
@@ -544,20 +579,16 @@ The previous example produces output similar to the following:
       "vendor": ["D", "M"],
       "lastModified" = Fri Mar 05 00:00:00 EST 2021
    }
-      
-   .. note:
 
-   You can also pop the last element off using :
-      .. code-block:: java
-      
-         popLast("vendor")
 
 Pull All
 ~~~~~~~~
-The ``pullAll()`` method removes all instances of the specified values from an existing array.
+The :java-core-api:`pullAll()
+<com/mongodb/client/model/Updates.html#pullAll(java.lang.String,java.util.List)>`
+method removes all instances of the specified values from an existing
+array. 
 
-The following example removes vendor ``"A"`` and ``"M"`` from the
-vendor array: 
+The following example removes vendor "A" and "M" from the vendor array: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -565,7 +596,7 @@ vendor array:
    :start-after: begin pullAllUpdate
    :end-before: end pullAllUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -577,7 +608,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
   :copyable: false
@@ -592,9 +623,12 @@ The previous example produces output similar to the following:
 
 Pull
 ~~~~
-The ``pull()`` method removes from an existing array all instances of a value or values that match a specified query.
+The :java-core-api:`pull()
+<com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>`
+method removes from an existing array all instances of a value or values
+that match a specified query. 
 
-The following example removes the value ``"D"`` from the ``vendor``
+The following example removes the value "D" from the ``vendor``
 array: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
@@ -603,7 +637,7 @@ array:
    :start-after: begin pullUpdate
    :end-before: end pullUpdate
 
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
   :copyable: false
@@ -615,7 +649,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
   :copyable: false
@@ -630,9 +664,11 @@ The previous example produces output similar to the following:
 
 Push
 ~~~~
-The ``push()`` method appends a specified value to an array.
+The :java-core-api:`push()
+<com/mongodb/client/model/Updates.html#push(java.lang.String,TItem)>`
+method appends a specified value to an array. 
 
-The following examples pushes ``"C"`` to the ``vendor`` array:
+The following examples pushes "C" to the ``vendor`` array:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -640,7 +676,7 @@ The following examples pushes ``"C"`` to the ``vendor`` array:
    :start-after: begin pushUpdate
    :end-before: end pushUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -652,7 +688,7 @@ The Bson renders as:
       }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
 
 .. code-block:: json
    :copyable: false
@@ -673,8 +709,8 @@ An application can atomically update multiple fields of a single
 document by combining two or more of the update operators described
 above. 
 
-The following example increments the value of the ``qty`` field by ``6``, sets
-the value of the ``color`` field to ``purple``, and pushes ``"R"`` to
+The following example increments the value of the ``qty`` field by "6", sets
+the value of the ``color`` field to "purple", and pushes "R" to
 the ``vendor`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
@@ -683,7 +719,7 @@ the ``vendor`` field:
    :start-after: begin combineUpdate
    :end-before: end combineUpdate
    
-The Bson renders as:
+The JSON output renders as the following:
 
 .. code-block:: none
    :copyable: false
@@ -694,7 +730,7 @@ The Bson renders as:
      "$push": { "vendor" : "R" }
    }
 
-The previous example produces output similar to the following:
+The output of the above code snippet should look something like this:
    
 .. code-block:: json
    :copyable: false
