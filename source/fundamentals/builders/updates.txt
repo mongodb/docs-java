@@ -14,27 +14,19 @@ Updates Builders
 
 Overview 
 --------
-In this guide, we show you how to use **builders** to specify
-**updates** for your queries.
 
-Builders are classes provided by the MongoDB Java driver that allow you
-to use the builder pattern to interact with your MongoDB instance. The
-builders provided by the MongoDB Java driver can improve the readability
-of your code.  See the :doc:`Builders overview page
-</fundamentals/builders/>` for a list of Builders available in the Java
-driver. 
-
-This guide shows you how to use builders with examples of the following
-types of updates: 
+This guide shows you how to specify **updates** using the Java Driver
+:doc:`builders </fundamentals/builders/>`. Update builders provide
+convenient methods for diffent types of updates:
 
 - :ref:`Field Updates <field_updates>`
 - :ref:`Array Updates <array_updates>`
 - :ref:`Combining Multiple Update Operators <multiple_updates>`
 
 The :java-core-api:`Updates <com/mongodb/client/model/Updates.html>`
-class provides static factory methods for all the MongoDB query
+class provides static factory methods for all the MongoDB update
 operators. Each method returns an instance of the :ref:`Bson <bson>`
-type, which you can pass to any method that expects a query filter.
+type, which you can pass to any method that expects an update argument.
 
 .. tip::
 
@@ -46,16 +38,7 @@ type, which you can pass to any method that expects a query filter.
 
    The examples below assume this static import.
 
-The following sections show you how to use the ``Updates`` class to sort
-your queries using the following setup:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
-   :language: java
-   :dedent:
-   :start-after: begin imports
-   :end-before: end imports
-
-The Update examples in this guide use the following document: 
+The examples in this guide use the following document: 
 
 .. code-block:: json
 
@@ -71,13 +54,12 @@ The Update examples in this guide use the following document:
 
 Field Updates
 -------------
-The following section describes update operators that apply to the value of an entire field.
 
 Set
 ~~~
-The :java-core-api:`set()
-<com/mongodb/client/model/Updates.html#set(java.lang.String,TItem)>`
-method sets the value of a field to the specified value.
+
+Use the :java-core-api:`set() <com/mongodb/client/model/Updates.html#set(java.lang.String,TItem)>`
+method to assign the value of a field in an update operation.
 
 The following example sets the value of the ``qty`` field to "11": 
 
@@ -87,19 +69,7 @@ The following example sets the value of the ``qty`` field to "11":
    :start-after: begin setUpdate
    :end-before: end setUpdate
 
-The JSON output renders as the following:
-
-.. code-block:: none
-   :copyable: false
-
-   { 
-      "$set": 
-      {
-         "qty" : 11
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
 
 .. code-block:: json
    :copyable: false
@@ -114,10 +84,8 @@ The output of the above code snippet should look something like this:
 
 Unset
 ~~~~~
-The :java-core-api:`unset()
-<com/mongodb/client/model/Updates.html#unset(java.lang.String)>` method
-deletes the field with the given name. 
-
+Use the :java-core-api:`unset() <com/mongodb/client/model/Updates.html#unset(java.lang.String)>` method
+to delete the value of a field in an update operation.
 
 The following example deletes the ``qty`` field:
 
@@ -126,20 +94,8 @@ The following example deletes the ``qty`` field:
    :dedent:
    :start-after: begin unsetUpdate
    :end-before: end unsetUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$unset": 
-      {
-         "qty" : true
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -153,10 +109,9 @@ The output of the above code snippet should look something like this:
 
 Set On Insert
 ~~~~~~~~~~~~~
-The :java-core-api:`setOnInsert()
-<com/mongodb/client/model/Updates.html#setOnInsert(java.lang.String,TItem)>`
-method sets the value of a field to the given value if the update is an
-upsert that results in an insert of a document. 
+Use the :java-core-api:`setOnInsert() <com/mongodb/client/model/Updates.html#setOnInsert(java.lang.String,TItem)>`
+method to assign the value of a field in an update operation on an
+insert of a document.
 
 The following example sets the value of the ``qty`` field to "5"
 if an upsert resulted in the insert of a document: 
@@ -166,20 +121,8 @@ if an upsert resulted in the insert of a document:
    :dedent:
    :start-after: begin setOnInsertUpdate
    :end-before: end setOnInsertUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$setOnInsert": 
-      {
-         "qty" : 5
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -194,9 +137,8 @@ The output of the above code snippet should look something like this:
 
 Increment
 ~~~~~~~~~
-The :java-core-api:`inc()
-<com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>`
-method increments the value of a numeric field by a specified value.
+Use the :java-core-api:`inc() <com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>`
+method to increment the value of a numeric field in an update operation.
 
 The following example increments the value of the ``qty`` field by
 "3": 
@@ -206,20 +148,8 @@ The following example increments the value of the ``qty`` field by
    :dedent:
    :start-after: begin incUpdate
    :end-before: end incUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$inc": 
-      {
-         "qty" : 3         
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -234,9 +164,8 @@ The output of the above code snippet should look something like this:
 
 Multiply
 ~~~~~~~~
-The :java-core-api:`mul()
-<com/mongodb/client/model/Updates.html#mul(java.lang.String,java.lang.Number)>`
-method multiplies the value of a numeric field by a specified value. 
+Use the :java-core-api:`mul() <com/mongodb/client/model/Updates.html#mul(java.lang.String,java.lang.Number)>`
+method to multiply the value of a numeric field in an update operation.
 
 The following example multiplies the value of the ``qty`` field by
 "2": 
@@ -246,20 +175,8 @@ The following example multiplies the value of the ``qty`` field by
    :dedent:
    :start-after: begin mulUpdate
    :end-before: end mulUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$mul": 
-      {
-         "qty" : 2
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -274,9 +191,8 @@ The output of the above code snippet should look something like this:
 
 Rename
 ~~~~~~
-The :java-core-api:`rename()
-<com/mongodb/client/model/Updates.html#rename(java.lang.String,java.lang.String)>`
-method renames a field. 
+Use the :java-core-api:`rename() <com/mongodb/client/model/Updates.html#rename(java.lang.String,java.lang.String)>`
+method to rename the value of a field in an update operation.
 
 The following example renames the ``qty`` field to "quantity":
 
@@ -286,19 +202,7 @@ The following example renames the ``qty`` field to "quantity":
    :start-after: begin renameUpdate
    :end-before: end renameUpdate
    
-The JSON output renders as the following:
-
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$rename": 
-      {
-         "qty" : "quantity"
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -313,30 +217,17 @@ The output of the above code snippet should look something like this:
 
 Min
 ~~~
-The :java-core-api:`min()
-<com/mongodb/client/model/Updates.html#min(java.lang.String,TItem)>`
-method updates the value of the field to a specified value if the
-specified value is less than the current value of the field. 
+Use the :java-core-api:`min() <com/mongodb/client/model/Updates.html#min(java.lang.String,TItem)>`
+method to update the value of a field with the smaller number of the two
+specified in an update operation.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
    :dedent:
    :start-after: begin minUpdate
    :end-before: end minUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$min": 
-      {
-         "qty" : 2
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -351,10 +242,12 @@ The output of the above code snippet should look something like this:
 
 Max
 ~~~
-The :java-core-api:`max()
-<com/mongodb/client/model/Updates.html#max(java.lang.String,TItem)>`
-method updates the value of the field to a specified value if the
-specified value is greater than the current value of the field. 
+Use the :java-core-api:`max() <com/mongodb/client/model/Updates.html#max(java.lang.String,TItem)>`
+method to update the value of a field with the larger number of the two
+specified in an update operation.
+
+The following example sets the value of the ``qty`` field to the
+maximum of its current value and "8": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
@@ -362,23 +255,7 @@ specified value is greater than the current value of the field.
    :start-after: begin maxUpdate
    :end-before: end maxUpdate
 
-The following example sets the value of the ``qty`` field to the
-maximum of its current value and "8": 
-
-   
-The JSON output renders as the following:
-
-.. code-block:: none
-  :copyable: false
-   
-   { 
-      "$max": 
-      {
-         "qty" : 8
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
   :copyable: false
@@ -393,13 +270,10 @@ The output of the above code snippet should look something like this:
 
 Current Date
 ~~~~~~~~~~~~
-The :java-core-api:`currentDate()
-<com/mongodb/client/model/Updates.html#currentDate(java.lang.String)>`
-method sets the value of the field with the specified name to the
-current date as a BSON `date
-<http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-date>`_
-or as a BSON `timestamp
-<http://docs.mongodb.org/manual/reference/bson-types/#document-bson-type-timestamp>`_.
+Use the :java-core-api:`currentDate() <com/mongodb/client/model/Updates.html#currentDate(java.lang.String)>`
+method to assign the value of a field in an update operation to the
+current date as a :manual:`date </reference/bson-types/#document-bson-type-date>`
+or :manual:`timestamp <reference/bson-types/#document-bson-type-timestamp>`.
 
 The following example sets the value of the ``lastModified`` field to
 the current date as a BSON date type:
@@ -410,19 +284,7 @@ the current date as a BSON date type:
    :start-after: begin currentDateUpdate
    :end-before: end currentDateUpdate
 
-The JSON output renders as the following:
-
-.. code-block:: none
-   :copyable: false
-
-   { 
-      "$currentDate": 
-      {
-         "lastModified" : "$$NOW"
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
   :copyable: false
@@ -438,13 +300,11 @@ The output of the above code snippet should look something like this:
 
 Bit
 ~~~
-The :java-core-api:`bitwiseOr()
-<com/mongodb/client/model/Updates.html#bitwiseOr(java.lang.String,int)>`,
-:java-core-api:`bitwiseAnd()
-<com/mongodb/client/model/Updates.html#bitwiseAnd(java.lang.String,int)>`,
-and :java-core-api:`bitwiseXor()
-<com/mongodb/client/model/Updates.html#bitwiseXor(java.lang.String,int)>`
-methods perform a bitwise update of the integral value of a field. 
+Use the :java-core-api:`bitwiseOr() <com/mongodb/client/model/Updates.html#bitwiseOr(java.lang.String,int)>`,
+:java-core-api:`bitwiseAnd() <com/mongodb/client/model/Updates.html#bitwiseAnd(java.lang.String,int)>`,
+and :java-core-api:`bitwiseXor() <com/mongodb/client/model/Updates.html#bitwiseXor(java.lang.String,int)>`
+methods to perform a bitwise update of the integral value of a field in
+an update operation. 
 
 The following example performs a bitwise AND between the number
 "10" and the integral value of the ``qty`` field: 
@@ -454,18 +314,6 @@ The following example performs a bitwise AND between the number
    :dedent:
    :start-after: begin bitwiseOrUpdate
    :end-before: end bitwiseOrUpdate
-   
-The JSON output renders as the following:
-
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$bitwiseOr": 
-      {
-         "$qty" : 10
-      }
-   }
    
 The bitwise operation results in 15:
 
@@ -477,7 +325,7 @@ The bitwise operation results in 15:
    ----
    1111
 
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
 
 .. code-block:: json
    :copyable: false
@@ -494,13 +342,12 @@ The output of the above code snippet should look something like this:
 
 Array Updates
 -------------
-The following section describes update operators that apply to the contents of the array value of a field.
 
 Add to Set
 ~~~~~~~~~~
-The :java-core-api:`addToSet()
-<com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`
-method adds a value to an array if the value is not already present. 
+Use the :java-core-api:`addToSet() <com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`
+method to append a value to an array if the value is not already present
+in an update operation. 
 
 The following example adds the value "C" to the array value of
 the ``vendor`` field: 
@@ -511,19 +358,7 @@ the ``vendor`` field:
    :start-after: begin addToSetUpdate
    :end-before: end addToSetUpdate
 
-The JSON output renders as the following:
-
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$addToSet": 
-      {
-         "vendor" : "C"
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -535,16 +370,13 @@ The output of the above code snippet should look something like this:
       "vendor": ["A", "D", "M", "C"],
       "lastModified" = Fri Mar 05 00:00:00 EST 2021
    }
-      
 
 Pop
 ~~~
-The :java-core-api:`popFirst()
-<com/mongodb/client/model/Updates.html#popFirst(java.lang.String)>`
-method removes the first element of an array and the
-:java-core-api:`popLast()
-<com/mongodb/client/model/Updates.html#popLast(java.lang.String)>`
-method removes the last element of an array.
+Use the :java-core-api:`popFirst() <com/mongodb/client/model/Updates.html#popFirst(java.lang.String)>`
+method to remove the first element of an array and the
+:java-core-api:`popLast() <com/mongodb/client/model/Updates.html#popLast(java.lang.String)>`
+method to remove the last element of an array in an update operation. 
 
 The following example pops the first element off of the array value
 of the ``vendor`` field:  
@@ -555,19 +387,7 @@ of the ``vendor`` field:
    :start-after: begin popFirstUpdate
    :end-before: end popFirstUpdate
 
-The JSON output renders as the following:
-
-.. code-block:: none
-  :copyable: false
-   
-   { 
-      "$pop": 
-      {
-         "vendor" : -1
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false
@@ -580,35 +400,21 @@ The output of the above code snippet should look something like this:
       "lastModified" = Fri Mar 05 00:00:00 EST 2021
    }
 
-
 Pull All
 ~~~~~~~~
-The :java-core-api:`pullAll()
-<com/mongodb/client/model/Updates.html#pullAll(java.lang.String,java.util.List)>`
-method removes all instances of the specified values from an existing
-array. 
+Use the :java-core-api:`pullAll() <com/mongodb/client/model/Updates.html#pullAll(java.lang.String,java.util.List)>`
+method to remove all instances of a value from an existing array in
+an update operation. 
 
-The following example removes vendor "A" and "M" from the vendor array: 
+The following example removes vendor "A" and "M" from the ``vendor`` array: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
    :language: java
    :dedent:
    :start-after: begin pullAllUpdate
    :end-before: end pullAllUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-      "$pullAll": 
-      {
-         "vendor" : ["A", "M"]
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
   :copyable: false
@@ -623,10 +429,9 @@ The output of the above code snippet should look something like this:
 
 Pull
 ~~~~
-The :java-core-api:`pull()
-<com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>`
-method removes from an existing array all instances of a value or values
-that match a specified query. 
+Use the :java-core-api:`pull() <com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>`
+method to remove all instances of a value from an existing array in
+an update operation. 
 
 The following example removes the value "D" from the ``vendor``
 array: 
@@ -637,19 +442,7 @@ array:
    :start-after: begin pullUpdate
    :end-before: end pullUpdate
 
-The JSON output renders as the following:
-
-.. code-block:: none
-  :copyable: false
-   
-   { 
-      "$pull": 
-      {
-         "vendor" : "D"
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
   :copyable: false
@@ -664,9 +457,8 @@ The output of the above code snippet should look something like this:
 
 Push
 ~~~~
-The :java-core-api:`push()
-<com/mongodb/client/model/Updates.html#push(java.lang.String,TItem)>`
-method appends a specified value to an array. 
+Use the :java-core-api:`push() <com/mongodb/client/model/Updates.html#push(java.lang.String,TItem)>`
+method to append a value to an array in an update operation.
 
 The following examples pushes "C" to the ``vendor`` array:
 
@@ -675,20 +467,8 @@ The following examples pushes "C" to the ``vendor`` array:
    :dedent:
    :start-after: begin pushUpdate
    :end-before: end pushUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-     "$push": 
-      {
-         "vendor" : "C"
-      }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
 
 .. code-block:: json
    :copyable: false
@@ -705,9 +485,8 @@ The output of the above code snippet should look something like this:
 
 Combining Multiple Update Operators
 -----------------------------------
-An application can atomically update multiple fields of a single
-document by combining two or more of the update operators described
-above. 
+An application can update multiple fields of a single document by
+combining two or more of the update operators described above. 
 
 The following example increments the value of the ``qty`` field by "6", sets
 the value of the ``color`` field to "purple", and pushes "R" to
@@ -718,19 +497,8 @@ the ``vendor`` field:
    :dedent:
    :start-after: begin combineUpdate
    :end-before: end combineUpdate
-   
-The JSON output renders as the following:
 
-.. code-block:: none
-   :copyable: false
-   
-   { 
-     "$set": { "color" : "purple" }, 
-     "$inc": { "qty" : "6" }, 
-     "$push": { "vendor" : "R" }
-   }
-
-The output of the above code snippet should look something like this:
+The example above updates the document to the following state:
    
 .. code-block:: json
    :copyable: false

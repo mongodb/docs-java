@@ -1,6 +1,5 @@
-// package docs.builders;
+package docs.builders;
 
-// begin imports
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -16,8 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static com.mongodb.client.model.Updates.*;
-// end imports
-
 public class Updates {
 
     private final MongoCollection<Document> collection;
@@ -91,127 +88,127 @@ public class Updates {
     private void setUpdate() {
         // begin setUpdate
         Bson filter = new Document();
-        Bson setUpdate = set("qty", 11);
-        collection.updateOne(filter, setUpdate);
+        Bson update = set("qty", 11);
+        collection.updateOne(filter, update);
         // end setUpdate
     }
     private void unsetUpdate() {
         // begin unsetUpdate
         Bson filter = new Document();
-        Bson unsetUpdate = unset("qty");
-        collection.updateOne(filter, unsetUpdate);
+        Bson update = unset("qty");
+        collection.updateOne(filter, update);
         // end unsetUpdate
     }
 
     private void setOnInsertUpdate() {
         // begin setOnInsertUpdate
         Bson filter = new Document();
-        Bson setOnInsertUpdate = setOnInsert("qty", 7);
-        collection.updateOne(filter, setOnInsertUpdate);
+        Bson update = setOnInsert("qty", 7);
+        collection.updateOne(filter, update);
         // end setOnInsertUpdate
     }
 
     private void incUpdate() {
         // begin incUpdate
         Bson filter = new Document();
-        Bson incUpdate = inc("qty", 3);
-        collection.updateOne(filter, incUpdate);
+        Bson update = inc("qty", 3);
+        collection.updateOne(filter, update);
         // end incUpdate
     }
 
     private void mulUpdate() {
         // begin mulUpdate
         Bson filter = new Document();
-        Bson mulUpdate = mul("qty", 2);
-        collection.updateOne(filter, mulUpdate);
+        Bson update = mul("qty", 2);
+        collection.updateOne(filter, update);
         // end mulUpdate
     }
 
     private void renameUpdate() {
         // begin renameUpdate
         Bson filter = new Document();
-        Bson renameUpdate = rename("qty", "quantity");
-        collection.updateOne(filter, renameUpdate);
+        Bson update = rename("qty", "quantity");
+        collection.updateOne(filter, update);
         // end renameUpdate
     }
 
     private void minUpdate() {
         // begin minUpdate
         Bson filter = new Document();
-        Bson minUpdate = min("qty", 2);
-        collection.updateOne(filter, minUpdate);
+        Bson update = min("qty", 2);
+        collection.updateOne(filter, update);
         // end minUpdate
     }
 
     private void maxUpdate() {
         // begin maxUpdate
         Bson filter = new Document();
-        Bson maxUpdate = max("qty", 8);
-        collection.updateOne(filter, maxUpdate);
+        Bson update = max("qty", 8);
+        collection.updateOne(filter, update);
         // end maxUpdate
     }
 
     private void currentDateUpdate() {
         // begin currentDateUpdate
         Bson filter = new Document();
-        Bson currentDateUpdate = currentDate("lastModified");
-        collection.updateOne(filter, currentDateUpdate);
+        Bson update = currentDate("lastModified");
+        collection.updateOne(filter, update);
         // end currentDateUpdate
     }
 
     private void bitwiseOrUpdate() {
         // begin bitwiseOrUpdate
         Bson filter = new Document();
-        Bson bitwiseOrUpdate = bitwiseOr("qty", 10);
-        collection.updateOne(filter, bitwiseOrUpdate);
+        Bson update = bitwiseOr("qty", 10);
+        collection.updateOne(filter, update);
         // end bitwiseOrUpdate
     }
 
     private void addToSetUpdate() {
             // begin addToSetUpdate
             Bson filter = new Document();
-            Bson addToSetUpdate = addToSet("vendor", "C");
-            collection.updateOne(filter, addToSetUpdate);
+            Bson update = addToSet("vendor", "C");
+            collection.updateOne(filter, update);
             // end addToSetUpdate
     }
 
     private void popFirstUpdate() {
         // begin popFirstUpdate
         Bson filter = new Document();
-        Bson popFirstUpdate = popFirst("vendor");
-        collection.updateOne(filter, popFirstUpdate);
+        Bson update = popFirst("vendor");
+        collection.updateOne(filter, update);
         // end popFirstUpdate
     }
 
     private void pullAllUpdate() {
         // begin pullAllUpdate
         Bson filter = new Document();
-        Bson pullAllUpdate = pullAll("vendor", Arrays.asList("A", "M"));
-        collection.updateOne(filter, pullAllUpdate);
+        Bson update = pullAll("vendor", Arrays.asList("A", "M"));
+        collection.updateOne(filter, update);
         // end pullAllUpdate
     }
 
     private void pullUpdate() {
         // begin pullUpdate
         Bson filter = new Document();
-        Bson pullUpdate = pull("vendor", "D");
-        collection.updateOne(filter, pullUpdate);
+        Bson update = pull("vendor", "D");
+        collection.updateOne(filter, update);
         // end pullUpdate
     }
 
     private void pushUpdate() {
         // begin pushUpdate
         Bson filter = new Document();
-        Bson pushUpdate = push("vendor", "C");
-        collection.updateOne(filter, pushUpdate);
+        Bson update = push("vendor", "C");
+        collection.updateOne(filter, update);
         // end pushUpdate
     }
 
     private void combineUpdate() {
         // begin combineUpdate
         Bson filter = new Document();
-        Bson combineUpdate = combine(set("color", "purple"), inc("qty", 6), push("vendor", "R"));
-        collection.updateOne(filter, combineUpdate);
+        Bson update = combine(set("color", "purple"), inc("qty", 6), push("vendor", "R"));
+        collection.updateOne(filter, update);
         // end combineUpdate
     }
 
