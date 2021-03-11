@@ -75,18 +75,31 @@ sample collection, ``sort_example``, that contains the following documents:
 Sorting Direction
 -----------------
 
-The ``Sorts`` class provides two methods for specifying sort direction.
-You can sort your data from smallest to largest with
-``Sorts.ascending()``, and you can sort your data from
-largest to smallest with ``Sorts.descending()``. The following two
-subsections provide examples on how to use these two methods. 
+The ``Sorts`` class provides two methods for specify sort direction.
+You can sort your data in **ascending** order, from smallest to largest, with
+``Sorts.ascending()``. Here are some examples of data sorted in ascending
+order:
+
+* Numbers: 1, 2, 3, 43, 43, 55, 120
+* Dates: 1990-03-10, 1995-01-01, 2005-10-30, 2005-12-21 
+* Words (Alphabetical): carrot, cheese, cucumber, hummus
+
+You can sort your data in **descending** order, from largest to smallest, with
+``Sorts.descending()``. Here are some examples of data sorted in descending
+order:
+
+* Numbers: 100, 30, 12, 12, 9, 3, 1
+* Dates: 2020-01-01, 1998-12-11, 1998-12-10, 1900-07-22 
+* Words (Alphabetical): pear, mango, grapes, apple
+
+The following two subsections provide examples showing how to perform these
+sorts.
 
 Ascending
 ~~~~~~~~~
 
-An ascending sort returns your documents from smallest to largest based
-on the value of a specified field. To specify an ascending sort, use the
-``Sorts.ascending()`` static factory method. Pass ``Sorts.ascending()``
+To specify an ascending sort, use the ``Sorts.ascending()`` static
+factory method. Pass ``Sorts.ascending()``
 the name of the field you need to sort on.
 
 The ``ascending()`` method can be used as follows:
@@ -135,10 +148,8 @@ to largest on the specified field name.
 Descending
 ~~~~~~~~~~
 
-A descending sort returns your documents from largest to smallest based
-on the value of a specified field. To specify a descending sort, use the
-``Sorts.descending()`` static factory method. Pass
-``Sorts.descending()`` the name of the field you need to sort on.
+To specify a descending sort, use the ``Sorts.descending()`` static factory
+method. Pass ``Sorts.descending()`` the name of the field you need to sort on.
 
 The following code snippet shows how to specify a descending sort on the
 ``_id`` field: 
