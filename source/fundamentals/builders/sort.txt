@@ -297,18 +297,6 @@ search, use the ``Sorts.metaTextScore()`` static factory method.
    Therefore, you must create a text index on your collection before you
    can run a text search and use ``Sorts.metaTextScore()``.
 
-.. _sorts-builders-mongo-server-note:
-
-.. note::
-
-  If your MongoDB instance is running MongoDB 4.2 and earlier, in order
-  to use ``Sorts.metaTextScore()`` as sort criteria in the ``sort()``
-  method of a ``FindIterable`` instance, you must also include
-  ``Projections.metaTextScore()`` in the ``projection()`` method of that
-  ``FindIterable`` instance. In addition, the String field names passed to 
-  ``Projections.metaTextScore()`` and ``Sorts.metaTextScore()`` must be
-  identical. This is demonstrated in the code example below.
-
 .. example::
 
    In the following code example, we show how you can use the
@@ -358,11 +346,13 @@ search, use the ``Sorts.metaTextScore()`` static factory method.
       {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
       {"_id": 3, "letter": "a", "food": "maple syrup", "score": 0.75}
 
-.. note::
+.. note:: MongoDB 4.4 ``$meta`` Behavior
 
-  As of MongoDB 4.4, the field name of a ``$meta`` text score
-  aggregation operation used in a sort is disregarded by the query system.
-  This means that the String field name argument passed to
+  As of MongoDB 4.4, projecting ``Projections.metaTextScore()`` into
+  your ``FindIterable`` instance is not necessary to sort on
+  ``Sorts.metaTextScore()``. In addition, the field name of a ``$meta``
+  text score aggregation operation used in a sort is disregarded by the
+  query system. This means that the String field name argument passed to
   ``Sorts.metaTextScore()`` is ignored in MongoDB 4.4 and later.
 
 For more information, see the
