@@ -11,3 +11,81 @@ Indexes Builders
    :class: singlecol
 
 .. _indexes-builders:
+
+Overview 
+--------
+In this guide, we show you how to use **builders** to specify
+**indexes** for your queries.
+
+Builders are classes provided by the MongoDB Java driver that allow you
+to use the builder pattern to interact with your MongoDB instance. The
+builders provided by the MongoDB Java driver can improve the readability
+of your code.  See the :doc:`Builders
+</fundamentals/builders/>` page for a list of Builders available in the
+Java driver. 
+
+Indexes support the efficient execution of queries in MongoDB. Instead
+of checking every document, indexes help limit the search to groups of
+data where your query should be. See the
+:doc:`Indexes </fundamentals/indexes>` page to see examples of queries
+on indexes.  
+
+This guide shows you how to use builders with examples of the following
+types of indexes: 
+
+- :ref:`Ascending <ascending>`
+- :ref:`Descending <descending>`
+- :ref:`Compound Indexes <compound-indexes>`
+- :ref:`Text Indexex <text-indexes>`
+- :ref:`Hashed Indexes <hashed-indexes>`
+- :ref:`Geospatial Indexes <geospatial-indexes>`
+
+The :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
+class provides static factory methods for all the MongoDB Index key
+types. Each method returns an instance of the :ref:`Bson <bson>`
+type, which you can pass to ``createIndex()``. 
+
+.. tip::
+
+   For brevity, you may choose to import all methods of the
+   :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
+   class statically: 
+
+   .. code-block:: java
+
+      import static com.mongodb.client.model.Indexes.*;
+
+   The examples below assume this static import.
+
+The Index examples in this guide use the following sample collections:
+
+
+.. _ascending:
+
+Ascending
+---------
+
+.. _descending:
+
+Descending
+----------
+
+.. _compound-indexes:
+
+Compound Indexes
+----------------
+
+.. _text-indexes:
+
+Text Indexes
+------------
+
+.. _hashed-indexes:
+
+Hashed Indexes
+--------------
+
+.. _geospatial-indexes:
+
+Geospatial Indexes
+------------------
