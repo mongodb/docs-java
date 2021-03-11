@@ -20,9 +20,8 @@ In this guide, we show you how to use **builders** to specify
 Builders are classes provided by the MongoDB Java driver that allow you
 to use the builder pattern to interact with your MongoDB instance. The
 builders provided by the MongoDB Java driver can improve the readability
-of your code.  See the :doc:`Builders
-</fundamentals/builders/>` page for a list of Builders available in the
-Java driver. 
+of your code.  See the :doc:`Builders </fundamentals/builders/>` page
+for a list of Builders available in the Java driver. 
 
 
 Filters are the operations MongoDB uses to limit your results to what
@@ -66,32 +65,32 @@ Collection: ``paint_purchases``
 
 .. code-block:: json
 
-   {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
-   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]}
-   {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
-   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
-   {"_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"]}
-   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   { "_id": 1, "color": "red", "qty": 5, "vendor": ["A"] }
+   { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
+   { "_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"] }
+   { "_id": 4, "color": "white", "qty": 6, "vendor": ["D"] }
+   { "_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"] }
+   { "_id": 6, "color": "pink", "qty": 5, "vendor": ["C"] }
+   { "_id": 7, "color": "green", "qty": 8,"vendor": ["B", "C"] }
+   { "_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"] }
 
 Collection: ``binary_numbers``
 
 .. code-block:: json
 
-   { _id: 9, a: 54, binaryValue: "00110110" }
-   { _id: 10, a: 20, binaryValue: "00010100" }
-   { _id: 11, a: 68, binaryValue: "1000100" }
-   { _id: 12, a: 102, binaryValue: "01100110" }
+   { "_id": 9, "a": 54, "binaryValue": "00110110" }
+   { "_id": 10, "a": 20, "binaryValue": "00010100" }
+   { "_id": 11, "a": 68, "binaryValue": "1000100" }
+   { "_id": 12, "a": 102, "binaryValue": "01100110" }
 
 Collection: ``geo_points``
 
 .. code-block:: json
 
-   { _id: 13, "coordinates": { type: "Point", coordinates: [2.0, 2.0] } }
-   { _id: 14, "coordinates": { type: "Point", coordinates: [5.0, 6.0] } }
-   { _id: 15, "coordinates": { type: "Point", coordinates: [1.0, 3.0] } }
-   { _id: 16, "coordinates": { type: "Point", coordinates: [4.0, 7.0] } }
+   { "_id": 13, "coordinates": { "type": "Point", "coordinates": [2.0, 2.0] } }
+   { "_id": 14, "coordinates": { "type": "Point", "coordinates": [5.0, 6.0] } }
+   { "_id": 15, "coordinates": { "type": "Point", "coordinates": [1.0, 3.0] } }
+   { "_id": 16, "coordinates": { "type": "Point", "coordinates": [4.0, 7.0] } }
 
 .. _comparison:
 
@@ -158,11 +157,11 @@ The following shows the output of the query using the operator specified above:
 .. code-block:: json
    :copyable: false
    
-   {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
-   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
+   { "_id": 1, "color": "red", "qty": 5, "vendor": ["A"] }
+   { "_id": 6, "color": "pink", "qty": 5, "vendor": ["C"] }
 
 The following example creates a filter that matches all documents where
-the value of the ``qty`` field is greater than or equal to "8" in the
+the value of the ``qty`` field is greater than or equal to "10" in the
 ``paint_purchases`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
@@ -176,17 +175,15 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   { "$gte": { "qty": 8 } }
+   { "$gte": { "qty": 10 } }
 
 The following shows the output of the query using the operator specified above:
 
 .. code-block:: json
    :copyable: false
    
-   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]}
-   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-   {"_id": 7, "color": "green", "qty": 8, "vendor": ["B", "C"]}
+   { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
+   { "_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"] }
 
 The following example creates a filter that matches all documents in
 the ``paint_purchases`` collection because the predicate is empty: 
@@ -210,9 +207,9 @@ all the documents in the collection.
 .. code-block:: json
    :copyable: false
       
-   {"_id": 1, "color": "red", "qty": 5, "vendor": ["A"]}
-   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"]} 
+   { "_id": 1, "color": "red", "qty": 5, "vendor": ["A"] }
+   { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
+   { "_id": 3, "color": "blue", "qty": 8, "vendor": ["B", "A"] } 
    ...
 
 .. _logical:
@@ -260,7 +257,7 @@ The JSON output renders as the following:
    { "$or" : [
          "qty" : { "$gt" : 8 }, 
          "color" : "pink"
-   ] }
+         ] }
 
 
 The following shows the output of the query using the operator specified above:
@@ -268,9 +265,9 @@ The following shows the output of the query using the operator specified above:
 .. code-block:: json
    :copyable: false
       
-   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
+   { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
+   { "_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"] }
+   { "_id": 6, "color": "pink", "qty": 5, "vendor": ["C"] }
 
 
 .. _arrays:
@@ -313,23 +310,23 @@ The JSON output renders as the following:
    :copyable: false
    
    { "vendor" : { 
-         "$all" : { 
-               ["A", "D"] 
-   } } }
+      "$all" : { 
+         ["A", "D"] 
+         } } }
 
 The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
       
-   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   { "_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"] }
 
 .. _elements:
 
 Elements
 --------
 
-The elements operators evaluate a specified field.
+The elements operators evaluate the nature of a specified field.
 
 The elements operator methods include:
 
@@ -363,17 +360,17 @@ The JSON output renders as the following:
    { "qty" : [ { 
       "$exists" : true,
       "$nin" : [5, 8] 
-   } ] }
+      } ] }
 
 The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
       
-   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
-   {"_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"]}
-   {"_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"]}
+   { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
+   { "_id": 4, "color": "white", "qty": 6, "vendor": ["D"]}
+   { "_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"] }
+   { "_id": 8, "color": "orange", "qty": 7, "vendor": ["A", "D"] }
 
 .. _evaluation:
 
@@ -424,8 +421,8 @@ The following shows the output of the query using the operator specified above:
 .. code-block:: json
    :copyable: false
       
-   {"_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"]}
-   {"_id": 6, "color": "pink", "qty": 5, "vendor": ["C"]}
+   { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
+   { "_id": 6, "color": "pink", "qty": 5, "vendor": ["C"] }
 
 
 .. _bitwise:
@@ -433,7 +430,7 @@ The following shows the output of the query using the operator specified above:
 Bitwise
 -------
 
-The bitwise operators convert a number into it's binary value to
+The bitwise operators convert a number into its binary value to
 evaluate its bits.
 
 The bitwise operator methods include:
@@ -479,8 +476,8 @@ The following shows the output of the query using the operator specified above:
 .. code-block:: json
    :copyable: false
       
-   { _id: 9, a: 54, binaryValue: "00110110" }
-   { _id: 12, a: 102, binaryValue: "01100110" }
+   { "_id": 9, "a": 54, "binaryValue": "00110110" }
+   { "_id": 12, "a": 102, "binaryValue": "01100110" }
 
 .. _geospatial:
 
@@ -515,13 +512,13 @@ The geospatial operator methods include:
      - geometries containing a geospatial data value (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
 
    * - :java-core-api:`geoIntersects() <com/mongodb/client/model/Filters.html#geoIntersects(java.lang.String,org.bson.conversions.Bson)>`
-     - geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.
+     - geometries that intersect with a GeoJSON geometry. The 2dsphere index supports ``$geoIntersects``.
 
    * - :java-core-api:`near() <com/mongodb/client/model/Filters.html#near(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
-     - geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.
+     - geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support ``$near``.
 
    * - :java-core-api:`nearSphere() <com/mongodb/client/model/Filters.html#nearSphere(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
-     - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
+     - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support ``$nearSphere``.
 
 
 The following example creates a filter that matches documents in which
@@ -539,21 +536,17 @@ The JSON output renders as the following:
 .. code-block:: json
       :copyable: false
    
-   {
-      "point": {
+   { "point": {
          $geoWithin: {
             $geometry: {
                type: "Polygon",
                coordinates: [ [[ 0, 0], [4 , 0], [4, 4], [0, 4], [0 , 0] ] ]
-            }
-         }
-      }
-   }
+            } } } }
 
 The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
    :copyable: false
 
-   { _id: 13, type: "Point", coordinates: [2.0, 2.0] }
-   { _id: 15, type: "Point", coordinates: [1.0, 3.0] }
+   { "_id": 13, "coordinates": {"type": "Point", "coordinates": [2.0, 2.0]} }
+   { "_id": 15, "coordinates": {"type": "Point", "coordinates": [1.0, 3.0]} }

@@ -73,7 +73,7 @@ public class Filters {
 
     private void gteComparison() {
         // begin gteComparison
-        Bson gteComparison = gte("qty", 8);
+        Bson gteComparison = gte("qty", 10);
         collection.find(gteComparison).forEach(doc -> System.out.println(doc.toJson()));
         // end gteComparison
     }
