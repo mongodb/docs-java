@@ -131,8 +131,42 @@ to largest on the specified field name.
       {"_id": 2, "letter": "a", "food": "donuts and coffee"}
       {"_id": 3, "letter": "a", "food": "maple syrup"}
       ...
+
+Descending
+~~~~~~~~~~
+
+A descending sort returns your documents from largest to smallest based
+on the value of a specified field. To specify a descending sort, use the
+``Sorts.descending()`` static factory method. Pass
+``Sorts.descending()`` the name of the field you need to sort on.
+
+The following code snippet shows how to specify a descending sort on the
+``_id`` field: 
+
+.. code-block:: java
    
-Note that MongoDB does not guarantee sort order for documents that have
+   import static com.mongodb.client.model.Sorts.descending;
+
+   // <MongoCollection setup code here>
+   
+   collection.find().sort(descending("_id"));
+
+
+The code snippet above returns the documents in the
+:ref:`sort_example collection <sorts-builders-sort-example>`  
+in the following order: 
+
+.. code-block:: json
+
+   {"_id": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   ...
+
+Handling Ties
+~~~~~~~~~~~~~
+
+MongoDB does not guarantee sort order for documents that have
 fields with identical values. This means that if you pass "letter" to
 the ``ascending()`` method and use the returned sort criteria to sort
 the documents in the
@@ -172,77 +206,6 @@ in the following order:
    {"_id": 4, "letter": "b", "food": "coffee with sugar"}
    {"_id": 1, "letter": "c", "food": "coffee with milk"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
-
-
-Descending
-~~~~~~~~~~
-
-A descending sort returns your documents from largest to smallest based
-on the value of a specified field. To specify a descending sort, use the
-``Sorts.descending()`` static factory method. Pass
-``Sorts.descending()`` the name of the field you need to sort on.
-
-The following code snippet shows how to specify a descending sort on the
-``_id`` field: 
-
-.. code-block:: java
-   
-   import static com.mongodb.client.model.Sorts.descending;
-
-   // <MongoCollection setup code here>
-   
-   collection.find().sort(descending("_id"));
-
-
-The code snippet above returns the documents in the
-:ref:`sort_example collection <sorts-builders-sort-example>`  
-in the following order: 
-
-.. code-block:: json
-
-   {"_id": 6, "letter": "c", "food": "maple donut"}
-   {"_id": 5, "letter": "a", "food": "milk and cookies"}
-   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
-   ...
-
-Note that MongoDB does not guarantee sort order for documents that have
-fields with identical values. This means that if you pass "letter" to
-the ``descending()`` method, the first document returned could be any of
-the following documents:
-
-.. code-block:: json
-
-   {"_id": 1, "letter": "c", "food": "coffee with milk"}
-   {"_id": 6, "letter": "c", "food": "maple donut"}
-
-If you need guaranteed sort order for documents that
-have fields with identical values you can specify additional fields to sort
-on in the event of a tie. 
-
-The following code snippet shows how to specify a descending
-sort on the ``letter`` field followed by the ``_id`` field: 
-
-.. code-block:: java
-
-   import static com.mongodb.client.model.Sorts.descending;
-
-   // <MongoCollection setup code here>
-   
-   collection.find().sort(descending("letter", "_id"));
-
-
-The code snippet above returns the documents in the
-:ref:`sort_example collection <sorts-builders-sort-example>`  
-in the following order: 
-
-.. code-block:: json
-
-   {"_id": 6, "letter": "c", "food": "maple donut"}
-   {"_id": 1, "letter": "c", "food": "coffee with milk"}
-   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
-   {"_id": 5, "letter": "a", "food": "milk and cookies"}
-   {"_id": 3, "letter": "a", "food": "maple syrup"}
-   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
 
 Combining Sort Criteria
 -----------------------
