@@ -75,25 +75,25 @@ sample collection, ``sort_example``, that contains the following documents:
 Sorting Direction
 -----------------
 
-The ``Sorts`` class provides two methods for specify sort direction.
-You can sort your data in **ascending** order, from smallest to largest, with
-``Sorts.ascending()``. Here are some examples of data sorted in ascending
-order:
+The ``Sorts`` class provides methods for specifying the direction of your sort.
+The direction of your sort can either be **ascending**, or **descending**.
+An ascending sort orders your data from smallest to largest. A
+descending sort orders your data from largest to smallest.
+
+Here are some examples of data sorted in ascending order:
 
 * Numbers: 1, 2, 3, 43, 43, 55, 120
 * Dates: 1990-03-10, 1995-01-01, 2005-10-30, 2005-12-21 
 * Words (Alphabetical): carrot, cheese, cucumber, hummus
 
-You can sort your data in **descending** order, from largest to smallest, with
-``Sorts.descending()``. Here are some examples of data sorted in descending
-order:
+Here are some examples of data sorted in descending order:
 
 * Numbers: 100, 30, 12, 12, 9, 3, 1
 * Dates: 2020-01-01, 1998-12-11, 1998-12-10, 1900-07-22 
 * Words (Alphabetical): pear, mango, grapes, apple
 
-The following subsections provide examples showing how to specify these
-sorts.
+The following subsections show how to specify these sorts using
+the ``Sorts`` class.
 
 Ascending
 ~~~~~~~~~
