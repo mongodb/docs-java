@@ -23,7 +23,6 @@ builders provided by the MongoDB Java driver can improve the readability
 of your code.  See the :doc:`Builders </fundamentals/builders/>` page
 for a list of Builders available in the Java driver. 
 
-
 Filters are the operations MongoDB uses to limit your results to what
 you want to see. Some examples of results from queries with filters are: 
 
@@ -150,7 +149,7 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   { "$eq": { "qty": 5 } }
+   { "$eq": { "qty": 5 }}
 
 The following shows the output of the query using the operator specified above:
 
@@ -175,7 +174,7 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   { "$gte": { "qty": 10 } }
+   { "$gte": { "qty": 10 }}
 
 The following shows the output of the query using the operator specified above:
 
@@ -257,8 +256,7 @@ The JSON output renders as the following:
    { "$or" : [
          "qty" : { "$gt" : 8 }, 
          "color" : "pink"
-         ] }
-
+         ]}
 
 The following shows the output of the query using the operator specified above:
    
@@ -268,7 +266,6 @@ The following shows the output of the query using the operator specified above:
    { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
    { "_id": 5, "color": "yellow", "qty": 11, "vendor": ["A", "B"] }
    { "_id": 6, "color": "pink", "qty": 5, "vendor": ["C"] }
-
 
 .. _arrays:
 
@@ -309,10 +306,7 @@ The JSON output renders as the following:
 .. code-block:: json
    :copyable: false
    
-   { "vendor" : { 
-      "$all" : { 
-         ["A", "D"] 
-         } } }
+   { "vendor" : { "$all" : { ["A", "D"] }}}
 
 The following shows the output of the query using the operator specified above:
    
@@ -360,7 +354,7 @@ The JSON output renders as the following:
    { "qty" : [ { 
       "$exists" : true,
       "$nin" : [5, 8] 
-      } ] }
+      }]}
 
 The following shows the output of the query using the operator specified above:
    
@@ -424,7 +418,6 @@ The following shows the output of the query using the operator specified above:
    { "_id": 2, "color": "purple", "qty": 10, "vendor": ["C", "D"] }
    { "_id": 6, "color": "pink", "qty": 5, "vendor": ["C"] }
 
-
 .. _bitwise:
 
 Bitwise
@@ -469,7 +462,7 @@ The JSON output renders as the following:
 .. code-block:: json
       :copyable: false
    
-   {  "a": { "$bitsAllSet": [1,5] } }
+   {  "a": { "$bitsAllSet": [1,5] }}
 
 The following shows the output of the query using the operator specified above:
    
@@ -520,7 +513,6 @@ The geospatial operator methods include:
    * - :java-core-api:`nearSphere() <com/mongodb/client/model/Filters.html#nearSphere(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
      - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support ``$nearSphere``.
 
-
 The following example creates a filter that matches documents in which
 the ``point`` field contains a GeoJSON geometry that falls within
 the given polygon in the ``geo_points`` collection:
@@ -540,8 +532,8 @@ The JSON output renders as the following:
          $geoWithin: {
             $geometry: {
                type: "Polygon",
-               coordinates: [ [[ 0, 0], [4 , 0], [4, 4], [0, 4], [0 , 0] ] ]
-            } } } }
+               coordinates: [ [ [ 0, 0], [4 , 0], [4, 4], [0, 4], [0 , 0] ] ]
+            }}}}
 
 The following shows the output of the query using the operator specified above:
    

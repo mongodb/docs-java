@@ -92,11 +92,10 @@ public class Filters {
         // end emptyComparison
     }
 
-    //DOESNT WORK...
     private void allComparison() {
         // begin allComparison
-        String [] search = {"A"};
-        Bson allComparison = all("vendors", search);
+        List<String> search = Arrays.asList("A", "D");
+        Bson allComparison = all("vendor", search);
         collection.find(allComparison).forEach(doc -> System.out.println(doc.toJson()));
         // end allComparison
     }
