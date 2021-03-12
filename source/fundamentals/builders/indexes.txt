@@ -14,24 +14,10 @@ Indexes Builders
 
 Overview 
 --------
-In this guide, we show you how to use **builders** to specify
-**indexes** for your queries.
 
-Builders are classes provided by the MongoDB Java driver that allow you
-to use the builder pattern to interact with your MongoDB instance. The
-builders provided by the MongoDB Java driver can improve the readability
-of your code.  See the :doc:`Builders
-</fundamentals/builders/>` page for a list of Builders available in the
-Java driver. 
-
-Indexes support the efficient execution of queries in MongoDB. Instead
-of checking every document, indexes help limit the search to groups of
-data where your query should be. See the
-:doc:`Indexes </fundamentals/indexes>` page to see examples of queries
-on indexes.  
-
-This guide shows you how to use builders with examples of the following
-types of indexes: 
+This guide shows you how to specify **indexes** using the Java Driver
+:doc:`builders </fundamentals/builders/>`. Index builders provide
+convenient methods for diffent types of indexes:
 
 - :ref:`Ascending <ascending>`
 - :ref:`Descending <descending>`
@@ -39,6 +25,12 @@ types of indexes:
 - :ref:`Text Indexex <text-indexes>`
 - :ref:`Hashed Indexes <hashed-indexes>`
 - :ref:`Geospatial Indexes <geospatial-indexes>`
+
+Indexes support the efficient execution of queries in MongoDB. Instead
+of checking every document, indexes help limit the search to check
+the groups of data where your query should be. See the
+:doc:`Indexes </fundamentals/indexes>` page to see examples of queries
+on indexes.  
 
 The :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
 class provides static factory methods for all the MongoDB Index key
@@ -57,35 +49,105 @@ type, which you can pass to ``createIndex()``.
 
    The examples below assume this static import.
 
-The Index examples in this guide use the following sample collections:
-
+The examples in this guide use the ``movies`` and ``theaters`` collections in
+the ``sample_mflix`` database.
 
 .. _ascending:
 
 Ascending
 ---------
 
+Use the :java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
+method to specify an ascending index key. 
+
+The following example specifies an ascending index key for the ``title`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+   :language: java
+   :dedent:
+   :start-after: begin ascendingIndex
+   :end-before: end ascendingIndex
+
 .. _descending:
 
 Descending
 ----------
+
+Use the :java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
+method to specify a descending index key. 
+
+The following example specifies a compound index key composed of
+descending index keys for the ``imdb.rating`` and ``imdb.votes`` field: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+   :language: java
+   :dedent:
+   :start-after: begin descendingIndex
+   :end-before: end descendingIndex
 
 .. _compound-indexes:
 
 Compound Indexes
 ----------------
 
+Use the :java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#compoundIndex(org.bson.conversions.Bson...)>`
+method to specify a compund index. 
+
+The following example specifies a compound index key composed of
+descending index keys for the ``runtime`` and ``year`` field, followed
+by an ascending index key for the ``title`` field: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+   :language: java
+   :dedent:
+   :start-after: begin compoundIndexExample
+   :end-before: end compoundIndexExample
+
 .. _text-indexes:
 
 Text Indexes
 ------------
+
+Use the :java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
+method to specify an text index key. 
+
+The following example specifies a text index key for the ``plot`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+   :language: java
+   :dedent:
+   :start-after: begin textIndex
+   :end-before: end textIndex
 
 .. _hashed-indexes:
 
 Hashed Indexes
 --------------
 
+Use the :java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
+method to specify an hashed index key. 
+
+The following example specifies a hashed index key for the ``released``
+field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+   :language: java
+   :dedent:
+   :start-after: begin hashedIndex
+   :end-before: end hashedIndex
+
 .. _geospatial-indexes:
 
 Geospatial Indexes
 ------------------
+
+Use the :java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
+method to specify an geo2dsphere index key. 
+
+The following example specifies a 2dsphere index on the ``location.geo`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+   :language: java
+   :dedent:
+   :start-after: begin geo2dsphereIndex
+   :end-before: end geo2dsphereIndex
