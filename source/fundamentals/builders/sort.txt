@@ -265,10 +265,10 @@ search, use the ``Sorts.metaTextScore()`` static factory method.
 
 .. warning:: Make Sure to Create a Text Index
 
-   The ``$text`` query operator performs a text search on the content indexed 
-   by the :manual:`text index </core/index-text/>` of your collection.
-   Therefore, you must create a text index on your collection before you
-   can run a text search and use ``Sorts.metaTextScore()``.
+   Text searches require a :manual:`text index </core/index-text/>` to locate
+   and score your results. See the server manual documentation for more
+   information on how to
+   :manual:`create a text index </core/index-text/#create-text-index>`.
 
 .. example::
 
