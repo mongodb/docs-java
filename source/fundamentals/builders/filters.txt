@@ -143,13 +143,6 @@ the value of the ``qty`` field equals "5" in the ``paint_purchases`` collection:
    :dedent:
    :start-after: begin equalComparison
    :end-before: end equalComparison
-   
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { "$eq": { "qty": 5 }}
 
 The following shows the output of the query using the operator specified above:
 
@@ -168,13 +161,6 @@ the value of the ``qty`` field is greater than or equal to "10" in the
    :dedent:
    :start-after: begin gteComparison
    :end-before: end gteComparison
-   
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { "$gte": { "qty": 10 }}
 
 The following shows the output of the query using the operator specified above:
 
@@ -192,13 +178,6 @@ the ``paint_purchases`` collection because the predicate is empty:
    :dedent:
    :start-after: begin emptyComparison
    :end-before: end emptyComparison
-
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { }
 
 The output of the query using the operator specified above consists of
 all the documents in the collection.
@@ -247,16 +226,6 @@ of the ``color`` field equals "pink" in the ``paint_purchases`` collection:
    :dedent:
    :start-after: begin orComparison
    :end-before: end orComparison
-   
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { "$or" : [
-         "qty" : { "$gt" : 8 }, 
-         "color" : "pink"
-         ]}
 
 The following shows the output of the query using the operator specified above:
    
@@ -300,13 +269,6 @@ containing both "A" and "D" in the ``paint_purchases`` collection:
    :dedent:
    :start-after: begin allComparison
    :end-before: end allComparison
-   
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { "vendor" : { "$all" : { ["A", "D"] }}}
 
 The following shows the output of the query using the operator specified above:
    
@@ -345,16 +307,6 @@ its value does not equal "5" or "8" in the ``paint_purchases`` collection:
    :dedent:
    :start-after: begin existsComparison
    :end-before: end existsComparison
-
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { "qty" : [ { 
-      "$exists" : true,
-      "$nin" : [5, 8] 
-      }]}
 
 The following shows the output of the query using the operator specified above:
    
@@ -403,13 +355,6 @@ starting with the letter "p" in the ``paint_purchases`` collection:
    :start-after: begin regexComparison
    :end-before: end regexComparison
 
-The JSON output renders as the following:
-
-.. code-block:: json
-   :copyable: false
-   
-   { "$regex" : "^p" }
-
 The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
@@ -457,13 +402,6 @@ with bits set at positions of the corresponding bitmask "34" (i.e.
    :start-after: begin bitsComparison
    :end-before: end bitsComparison
 
-The JSON output renders as the following:
-
-.. code-block:: json
-      :copyable: false
-   
-   {  "a": { "$bitsAllSet": [1,5] }}
-
 The following shows the output of the query using the operator specified above:
    
 .. code-block:: json
@@ -483,6 +421,7 @@ relation to a shape or location.
 The geospatial operator methods include:
 
 .. list-table::
+   :widths: 30, 70
    :header-rows: 1
    :stub-columns: 1
 
@@ -515,25 +454,14 @@ The geospatial operator methods include:
 
 The following example creates a filter that matches documents in which
 the ``point`` field contains a GeoJSON geometry that falls within
-the given polygon in the ``geo_points`` collection:
+the given :manual:`Polygon </reference/geojson/index.html#polygon>` 
+in the ``geo_points`` collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Filters.java
    :language: java
    :dedent:
    :start-after: begin geoWithinComparison
    :end-before: end geoWithinComparison
-
-The JSON output renders as the following:
-
-.. code-block:: json
-      :copyable: false
-   
-   { "point": {
-         $geoWithin: {
-            $geometry: {
-               type: "Polygon",
-               coordinates: [ [ [ 0, 0], [4 , 0], [4, 4], [0, 4], [0 , 0] ] ]
-            }}}}
 
 The following shows the output of the query using the operator specified above:
    
