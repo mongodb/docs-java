@@ -17,10 +17,10 @@ Overview
 In this guide, you can learn about Codecs and the supporting classes that
 handle the encoding and decoding of Java objects to BSON data in MongoDB.
 The Codec abstraction allows you to map types and fields directly to
-your domain objects rather than to an intermediate map-based object such
-as ``Document``.
+your domain objects rather than to an intermediate map-based one such
+as ``Document`` or ``BsonDocument``.
 
-We describe the following interfaces and classes as well as an example of
+We describe the following interfaces and classes and provide examples of
 how you can specify custom encoding and decoding using them:
 
 - :ref:`Codec <codecs-codec>`
@@ -36,14 +36,14 @@ If you are customizing encoding and decoding of Java POJOs, read our guide on
 Codec
 -----
 
-A **Codec** is an interface that contains abstract methods for serializing
-and deserializing Java objects to BSON data. You can implement this interface
-to define the conversion between BSON and your Java object.
+The ``Codec`` interface contains abstract methods for serializing and
+deserializing Java objects to BSON data. You can define your conversion logic
+between BSON and your Java object in your implementation of this interface.
 
 To implement the ``Codec`` interface, override the ``encode()``, ``decode()``,
 and ``getEncoderClass()`` abstract methods.
 
-The ``encode()`` method contains the following parameters:
+The ``encode()`` method requires the following parameters:
 
 .. list-table::
    :header-rows: 1
@@ -56,6 +56,8 @@ The ``encode()`` method contains the following parameters:
      - An instance of a class that implements ``BsonWriter``, an interface type
        that exposes methods for writing a BSON document. For example, the
        ``BsonBinaryWriter`` implementation writes to a binary stream of data.
+       Use this instance to write your BSON value using the appropriate
+       write method.
 
    * - ``value``
      - The data that your implementation encodes. The type must match the type
@@ -66,7 +68,8 @@ The ``encode()`` method contains the following parameters:
         to BSON including whether to store the current value in a
         MongoDB collection.
 
-The ``decode()`` method contains the following parameters:
+The ``decode()`` method returns your Java object instance populated with the
+value from the BSON data. This method requires the following parameters:
 
 .. list-table::
    :header-rows: 1
@@ -77,28 +80,32 @@ The ``decode()`` method contains the following parameters:
 
    * - ``bsonReader``
      - An instance of a class that implements ``BsonReader``, an interface type
-       that exposese methods for reading a BSON document. For example, the
+       that exposes methods for reading a BSON document. For example, the
        ``BsonBinaryReader`` implementation reads from a binary stream of data.
 
-   * - ``DecoderContext``
+   * - ``decoderContext``
      - Contains information about the BSON data that it decodes to a Java
        object.
 
-The ``getEncoderClass()`` method returns an instance of the class that your
-Codec encodes.
+The ``getEncoderClass()`` method returns a class instance of the Java class
+since Java cannot infer the type due to due to type erasure.
 
-See the following ``AnswerCodec`` class that implements ``Codec`` to convert
-the Java string values "correct" and "incorrect" to BSON boolean values.
+.. _codecs-powerstatus-codec:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/AnswersCodec.java
+See the following ``PowerStatusCodec`` class that implements ``Codec`` in
+order to convert the Java ``String`` values "on" and "off" to
+corresponding BSON boolean values.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/PowerStatusCodec.java
+   :start-after: start PowerStatusCodec class
+   :end-before: end PowerStatusCodec class
    :language: java
    :dedent:
 
-
-TODO: clarify explanation here
-You can add an instance of your custom class to the ``CodecRegistry`` which
+You can add an instance of your custom Codec to the ``CodecRegistry`` which
 contains a mapping between your ``Codec`` and the Java object type to which
-it applies.
+it applies. Continue to the :ref:`CodecRegistry <codecs-codecregistry>`
+section of this page to see how you can include your Codec.
 
 For more information about the classes and interfaces in this section, see the
 following API documentation:
@@ -121,44 +128,99 @@ following API documentation:
 CodecRegistry
 -------------
 
-A *CodecRegistry* designates which Codec instances to use to encode and decode
-specific Java classes.
+A ``CodecRegistry`` is an immutable collection of ``Codec`` instances that
+encode and decode the Java classes they specify. You can use any of the
+following ``CodecRegistries`` class static factory methods to construct a
+``CodecRegistry`` from the ``Codec`` instances contained in the associated
+types:
 
-You can read more about the following terms in the sections below:
+- ``fromCodecs()``
+- ``fromProviders()``
+- ``fromRegistries()``
 
-The ``CodecRegistry`` contains Codecs and their mapping to classes
+The following code snippet shows how to construct a ``CodecRegistry`` using
+the ``fromCodecs()`` method:
 
-- Description
-- Example of setting Codec list
-- Example of getting a Codec
+.. code-block:: java
+   :copyable: true
+
+   CodecRegistry codecRegistry = CodecRegistries.fromCodecs(new IntegerCodec(), new PowerStatusCodec());
+
+In the example above, we assign the ``CodecRegistry`` the following ``Codec``
+implementations:
+
+- :java-docs:`IntegerCodec </apidocs/bson/org/bson/codecs/IntegerCodec.html>`,
+  a ``Codec`` that converts Integers and is part of the BSON package.
+- :ref:`PowerStatusCodec <codecs-powerstatus-codec>`, our sample ``Codec``
+  that converts certain Java strings to BSON booleans.
+
+You can retrieve the Codecs from the ``CodecRegistry`` instance from the
+prior example using the following code:
+
+.. code-block:: java
+   :copyable: true
+
+   Codec<String> powerStatus = codecRegistry.get(String.class);
+   Codec<Integer> integerCodec = codecRegistry.get(Integer.class);
+
+If you attempt to retrieve a ``Codec`` instance for a class that is not
+registered, the ``get()`` method throws a ``CodecConfigurationException``
+exception.
+
+For more information about the classes and interfaces in this section, see the
+following API documentation:
+
+- :java-docs:`CodecRegistries </apidocs/bson/org/bson/codecs/configuration/CodecRegistries.html>`
+- :java-docs:`IntegerCodec </apidocs/bson/org/bson/codecs/IntegerCodec.html>`
 
 .. _codecs-codecprovider:
 
 CodecProvider
 -------------
 
-A *CodecProvider* is a factory that creates Codec instances and assigns them
-a ``CodecRegistry``. The ``CodecRegistry`` specifies which Codec instances
-to use for that class.
+A ``CodecProvider`` is an interface that contains abstract methods that create
+``Codec`` instances and assign them to a ``CodecRegistry`` instance. Similar
+to the ``CodecRegistry``, the BSON library uses the Codecs retrieved by
+the ``get()`` method to convert between Java and BSON data types.
 
-``PojoCodecProvider`` which contains classes that
-specify which classes and types to support
-instructions on how to convert data for one or more POJO classes
-and their properties
+However, in cases in which you add a class that contains fields that require
+corresponding ``Codec`` instances, you need to ensure you construct the Codecs
+for the class' fields prior to the ``Codec`` for the class. You can use the
+``CodecProvider`` to add the Codecs to the registry before the one for which
+they are required.
 
+The following code example shows how you can implement ``CodecProvider`` to
+instantiate the Codecs on which the ``Monolight`` depends including the
+``PowerStatusCodec`` from our prior example:
 
-- Description
-- Example of get method implementation
+.. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecProvider.java
+   :start-after: start PowerStatusCodec class
+   :end-before: end PowerStatusCodec class
+   :language: java
+   :dedent:
+
+To see a runnable example that demonstrates read and write operations using
+these Codecs, see the :ref:`Custom Codec Example <codecs-custom-example>`
+section of this guide.
+
+When working with Java POJOs, consider using the  ``PojoCodecProvider`` to
+minimize duplicate code to convert commonly-used data types and customize
+the behavior. See our
+:doc:`POJO Customization guide </fundamentals/data-formats/pojo-customization>`
+for more information.
+
+For more information about the classes and interfaces in this section, see the
+:java-docs:`CodecProvider API documentation <apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`.
 
 BsonTypeClassMap
 ~~~~~~~~~~~~~~~~
 
-The ``BsonTypeClassMap`` class contains a recommended mapping from BSON types
-to Java classes. For example, the ``ARRAY`` BSON type maps to the Java class
-type ``java.util.List``. You can override these mappings in your instance
+The ``BsonTypeClassMap`` class contains a recommended mapping between BSON
+types and Java classes. For example, the ``ARRAY`` BSON type maps to the Java
+class type ``java.util.List``. You can override these mappings in your instance
 by specifying them in the ``replacementsForDefaults`` field of your instance.
 
-Add your You can specify an instance of this class to a CodecProvider
+You can specify an instance of this class to a CodecProvider
 
 Suppose we wanted to add a custom Codec as well as a CodecProvider
 
@@ -168,14 +230,10 @@ Suppose we wanted to add a custom Codec as well as a CodecProvider
 For a complete list of the default mappings, refer to the
 :java-docs:`BsonTypeClassMap API documentation <apidocs/bson/org/bson/codecs/BsonTypeClassMap.html>`.
 
-
-
-What uses it?
+How is it used?
 You can add an instance of the BsonTypeClassMap to your CodecProvider
 and provide it to your Codec
-
-
-an enumeration maps values from the ``BsonType`` enumeration to a Java class.
+An enumeration maps values from the ``BsonType`` enumeration to a Java class.
 
 - Description
 - Example of how to use to specify Bson mapping
@@ -185,9 +243,7 @@ an enumeration maps values from the ``BsonType`` enumeration to a Java class.
 Custom Codec Example
 --------------------
 
-
-In this example, we show how to create a custom class that defines implements
-Codec implementation
+In this example, we show how to create a custom class that...
 
 - Methods to override
 - Encode: Describe parameters: BsonWriter, EncoderContext
