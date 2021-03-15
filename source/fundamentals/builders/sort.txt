@@ -321,8 +321,8 @@ search, use the ``Sorts.metaTextScore()`` static factory method.
 
 .. note:: MongoDB 4.4 ``$meta`` Behavior
 
-  As of MongoDB 4.4, projecting ``Projections.metaTextScore()`` into
-  your ``FindIterable`` instance is not necessary to sort on
+  When using MongoDB 4.4 or later, projecting ``Projections.metaTextScore()`` 
+  into your ``FindIterable`` instance is not necessary to sort on
   ``Sorts.metaTextScore()``. In addition, the field name of a ``$meta``
   text score aggregation operation used in a sort is disregarded by the
   query system. This means that the String field name argument passed to
