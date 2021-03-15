@@ -49,8 +49,21 @@ type, which you can pass to ``createIndex()``.
 
    The examples below assume this static import.
 
-The examples in this guide use the ``movies`` and ``theaters`` collections in
-the ``sample_mflix`` database.
+The examples in this guide use the following documents:
+
+.. code-block:: json
+
+   { "_id": 1, "name": "4K Theaters", "logo": "red" ,"capacity": 1076, "year": 2021, "location": { "type": "Point", "coordinates": [-76.512016, 38.29697] } };
+   { "_id": 2, "name": "Just Like Home", "logo": "blue", "capacity": 942), "year": 1981, "location": { "type": "Point", "coordinates": [-121.96328, 38.367649] } };
+   { "_id": 3, "name": "ABC Movies", "logo": "blue", "capacity": 1135, "year": 2003, "location": { "type": "Point", "coordinates": [-86.642662, 33.605438] } };
+   { "_id": 4, "name": "Classy Views", "logo": "red", "capacity": 847, "year": 1998, "location": { "type": "Point", "coordinates": [-119.7412, 39.579536] } };
+   { "_id": 5, "name": "Fortune Theaters", "logo": "red", "capacity": 1368, "year": 2007, "location": { "type": "Point", "coordinates": [-100.81213, 46.829876] } };
+   { "_id": 6, "name": "8K Screening", "logo": "blue", "capacity": 619, "year": 2019, "location": { "type": "Point", "coordinates": [-118.11414, -118.114143] } };
+   { "_id": 7, "name": "Date Night", "logo": "red", "capacity": 715, "year": 2012, "location": { "type": "Point", "coordinates": [-100.50107, 31.435648] } };
+   { "_id": 8, "name": "City's Best Theaters", "logo": "red", "capacity": 888, "year": 2016, "location": { "type": "Point", "coordinates": [-78.382912, 40.490524] } };
+   { "_id": 9, "name": "Pets Movies", "logo": "blue", "capacity": 1092, "year": 2010, "location": { "type": "Point", "coordinates": [-117.674814, 33.590599] } };
+   { "_id": 10, "name": "Fancy Theaters", "logo": "red", "capacity": 673, "year": 2006, "location": { "type": "Point", "coordinates": [-72.583824, 41.998211] } };
+
 
 .. _ascending:
 
@@ -60,7 +73,7 @@ Ascending
 Use the :java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
 method to specify an ascending index key. 
 
-The following example specifies an ascending index key for the ``title`` field:
+The following example specifies an ascending index key for the ``name`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -77,7 +90,7 @@ Use the :java-core-api:`descending() <com/mongodb/client/model/Indexes.html#desc
 method to specify a descending index key. 
 
 The following example specifies a compound index key composed of
-descending index keys for the ``imdb.rating`` and ``imdb.votes`` field: 
+descending index keys for the ``name`` and ``capacity`` field: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -94,8 +107,8 @@ Use the :java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#c
 method to specify a compund index. 
 
 The following example specifies a compound index key composed of
-descending index keys for the ``runtime`` and ``year`` field, followed
-by an ascending index key for the ``title`` field: 
+descending index keys for the ``capacity`` and ``year`` field, followed
+by an ascending index key for the ``name`` field: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -111,7 +124,7 @@ Text Indexes
 Use the :java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
 method to specify an text index key. 
 
-The following example specifies a text index key for the ``plot`` field:
+The following example specifies a text index key for ``Theaters``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -127,7 +140,7 @@ Hashed Indexes
 Use the :java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
 method to specify an hashed index key. 
 
-The following example specifies a hashed index key for the ``released``
+The following example specifies a hashed index key for the ``capacity``
 field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
@@ -144,7 +157,7 @@ Geospatial Indexes
 Use the :java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
 method to specify an geo2dsphere index key. 
 
-The following example specifies a 2dsphere index on the ``location.geo`` field:
+The following example specifies a 2dsphere index on the ``location`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
