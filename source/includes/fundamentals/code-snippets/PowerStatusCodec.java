@@ -1,4 +1,4 @@
-package fundamentals;
+package fundamentals.monolightcodec;
 
 import org.bson.BsonReader;
 import org.bson.BsonWriter;
@@ -29,12 +29,12 @@ public class PowerStatusCodec implements Codec<String> {
     @Override
     public String decode(BsonReader reader, DecoderContext decoderContext) {
         Boolean value = reader.readBoolean();
-
+        
         if (value) {
             return "on";
         } else if (!value) {
             return "off";
-        }
+        } 
         return null;
     }
 }
