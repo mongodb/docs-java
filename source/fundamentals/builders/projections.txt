@@ -18,7 +18,7 @@ Overview
 MongoDB supports **field projection**, specifying which fields to include and exclude when returning results from a
 query. Projection in MongoDB follows some basic rules:
 
-- The ``_id`` field is **always** included unless explicitly
+- The ``_id`` field is **always** included unless explicitly excluded
 - Specifying a field for inclusion implicitly excludes all other fields **except** the ``_id`` field
 - Specifying a field for exclusion removes **only** that field in a query result
 
