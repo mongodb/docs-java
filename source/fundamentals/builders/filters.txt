@@ -24,7 +24,14 @@ of your code.  See the :doc:`Builders </fundamentals/builders/>` page
 for a list of Builders available in the Java driver. 
 
 Filters are the operations MongoDB uses to limit your results to what
-you want to see. Some examples of results from queries with filters are: 
+you want to see. Some places we use filters are:
+
+- find
+- match stage of aggregation
+- deleteOne/deleteMany
+- updateOne/updateMany
+
+Some examples of results from queries with filters are: 
 
 - Items that cost $0 to $25
 - A hotel with amenities that include an indoor swimming pool and free parking
