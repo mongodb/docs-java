@@ -177,11 +177,21 @@ in the following order:
 Handling Ties
 ~~~~~~~~~~~~~
 
-MongoDB does not guarantee sort order for documents that have
-fields with identical values. This means that if you pass "letter" to
-the ``ascending()`` method and use the returned sort criteria to sort
-the documents in the
-:ref:`sort_example collection <sorts-builders-sort-example>`, the first
+A tie occurs when two or more documents have a field with identical values.
+MongoDB does not guarantee sort order in the event of ties. For example, suppose
+we encounter a tie when applying a sort to the
+:ref:`sort_example collection <sorts-builders-sort-example>` using the following
+code:
+
+.. code-block:: java
+
+   import static com.mongodb.client.model.Sorts.ascending;
+
+   // <MongoCollection setup code here>
+   
+   collection.find().sort(ascending("letter"));
+
+Since multiple documents contain "a" on the field we are sorting on, the first
 document returned could be any of the following documents:
 
 .. code-block:: json
