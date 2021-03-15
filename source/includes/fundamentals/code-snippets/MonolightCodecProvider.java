@@ -6,7 +6,7 @@ import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 
 
-// start MonolightCodec class
+// start MonolightCodecProvider class
 public class MonolightCodecProvider implements CodecProvider {
     private MonolightCodec monolightCodec;
     private IntegerCodec integerCodec;
@@ -33,4 +33,4 @@ public class MonolightCodecProvider implements CodecProvider {
     }
 
 }
-// end MonolightCodec class
+// end MonolightCodecProvider class
