@@ -333,11 +333,11 @@ criteria to sort by the text score.
 .. note:: MongoDB 4.4 ``$meta`` Behavior
 
   When using MongoDB 4.4 or later, projecting ``Projections.metaTextScore()`` 
-  into your ``FindIterable`` instance is not necessary to sort on
-  ``Sorts.metaTextScore()``. In addition, the field name you specify in a
-  ``$meta`` text score aggregation operation used in a sort is disregarded by
-  the query system. This means that the field name argument you pass to
-  ``Sorts.metaTextScore()`` is ignored in MongoDB 4.4 and later.
+  into your ``FindIterable`` instance is not necessary to sort on the text
+  score. In addition, the field name you specify in a ``$meta`` text score
+  aggregation operation used in a sort is disregarded by the query system. This
+  means that the field name argument you pass to ``Sorts.metaTextScore()`` is
+  ignored in MongoDB 4.4 and later.
 
 For more information, see the
 :java-docs:`Sorts class API documentation </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`.
