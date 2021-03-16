@@ -45,49 +45,64 @@ public class Indexes {
     private void ascendingIndex(){
         // begin ascendingIndex
         Bson ascendingIndex = ascending("name");
-        String resultCreateIndex = collection.createIndex(ascendingIndex);
-        System.out.println(String.format("Index created: %s", resultCreateIndex));
+        collection.createIndex(ascendingIndex);
         // end ascendingIndex
+        
+        // String resultCreateIndex = collection.createIndex(ascendingIndex);
+        // System.out.println(String.format("Index created: %s", resultCreateIndex));
+        
     }
 
     private void descendingIndex(){
         // begin descendingIndex
-        Bson descendingIndex = descending("name", "capacity");
-        String resultCreateIndex = collection.createIndex(descendingIndex);
-        System.out.println(String.format("Index created: %s", resultCreateIndex));
+        Bson descendingIndex = descending("capacity");
+        collection.createIndex(descendingIndex);
         // end descendingIndex
+
+        // String resultCreateIndex = collection.createIndex(descendingIndex);
+        // System.out.println(String.format("Index created: %s", resultCreateIndex));
     }
 
     private void compoundIndexExample(){
         // begin compoundIndexExample
         Bson compoundIndexExample = compoundIndex(descending("capacity", "year"), ascending("name"));
-        String resultCreateIndex = collection.createIndex(compoundIndexExample);
-        System.out.println(String.format("Index created: %s", resultCreateIndex));
+        collection.createIndex(compoundIndexExample);
         // end compoundIndexExample
+
+        // String resultCreateIndex = collection.createIndex(compoundIndexExample);
+        // System.out.println(String.format("Index created: %s", resultCreateIndex));
     }
 
     private void textIndex(){
         // begin textIndex
         Bson textIndex = text("Theaters");
-        String resultCreateIndex = collection.createIndex(textIndex);
-        System.out.println(String.format("Index created: %s", resultCreateIndex));
+        collection.createIndex(textIndex);
         // end textIndex
+
+        // String resultCreateIndex = collection.createIndex(textIndex);
+        // System.out.println(String.format("Index created: %s", resultCreateIndex));
+        
     }
 
     private void hashedIndex(){
         // begin hashedIndex
         Bson hashedIndex = hashed("capacity");
-        String resultCreateIndex = collection.createIndex(hashedIndex);
-        System.out.println(String.format("Index created: %s", resultCreateIndex));
+        collection.createIndex(hashedIndex);
         // end hashedIndex
+
+        // String resultCreateIndex = collection.createIndex(hashedIndex);
+        // System.out.println(String.format("Index created: %s", resultCreateIndex));
     }
 
     private void geo2dsphereIndex(){
         // begin geo2dsphereIndex
         Bson geo2dsphereIndex = geo2dsphere("location");
-        String resultCreateIndex = collection.createIndex(geo2dsphereIndex);
-        System.out.println(String.format("Index created: %s", resultCreateIndex));
+        collection.createIndex(geo2dsphereIndex);
         // end geo2dsphereIndex
+
+        // String resultCreateIndex = collection.createIndex(geo2dsphereIndex);
+        // System.out.println(String.format("Index created: %s", resultCreateIndex));
+        
     }
 
     private void preview(){

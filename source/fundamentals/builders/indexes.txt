@@ -17,25 +17,24 @@ Overview
 
 This guide shows you how to specify **indexes** using the Java Driver
 :doc:`builders </fundamentals/builders/>`. Index builders provide
-convenient methods for diffent types of indexes:
+convenient methods for different types of indexes:
 
-- :ref:`Ascending <ascending>`
-- :ref:`Descending <descending>`
-- :ref:`Compound Indexes <compound-indexes>`
-- :ref:`Text Indexex <text-indexes>`
-- :ref:`Hashed Indexes <hashed-indexes>`
+- :ref:`Ascending <index-ascending>`
+- :ref:`Descending <index-descending>`
+- :ref:`Compound Indexes <index-compound-indexes>`
+- :ref:`Text Indexes <index-text-indexes>`
+- :ref:`Hashed Indexes <index-hashed-indexes>`
 - :ref:`Geospatial Indexes <geospatial-indexes>`
 
-Indexes support the efficient execution of queries in MongoDB. Instead
-of checking every document, indexes help limit the search to check
-the groups of data where your query should be. See the
-:doc:`Indexes </fundamentals/indexes>` page to see examples of queries
-on indexes.  
+Like an index in a textbook, an index in MongoDB groups data based
+on the field you provide and by an index builder mentioned above. See
+the :doc:`Indexes </fundamentals/indexes>` page to see examples of
+queries on indexes. 
 
 The :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
 class provides static factory methods for all the MongoDB Index key
-types. Each method returns an instance of the :ref:`Bson <bson>`
-type, which you can pass to ``createIndex()``. 
+types. Each method returns a :ref:`Bson <bson>` instance, which you can
+pass to `createIndex() <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#createIndex(com.mongodb.client.ClientSession,org.bson.conversions.Bson)>`_. 
 
 .. tip::
 
@@ -49,29 +48,15 @@ type, which you can pass to ``createIndex()``.
 
    The examples below assume this static import.
 
-The examples in this guide use the following documents:
-
-.. code-block:: json
-
-   { "_id": 1, "name": "4K Theaters", "logo": "red" ,"capacity": 1076, "year": 2021, "location": { "type": "Point", "coordinates": [-76.512016, 38.29697] } };
-   { "_id": 2, "name": "Just Like Home", "logo": "blue", "capacity": 942), "year": 1981, "location": { "type": "Point", "coordinates": [-121.96328, 38.367649] } };
-   { "_id": 3, "name": "ABC Movies", "logo": "blue", "capacity": 1135, "year": 2003, "location": { "type": "Point", "coordinates": [-86.642662, 33.605438] } };
-   { "_id": 4, "name": "Classy Views", "logo": "red", "capacity": 847, "year": 1998, "location": { "type": "Point", "coordinates": [-119.7412, 39.579536] } };
-   { "_id": 5, "name": "Fortune Theaters", "logo": "red", "capacity": 1368, "year": 2007, "location": { "type": "Point", "coordinates": [-100.81213, 46.829876] } };
-   { "_id": 6, "name": "8K Screening", "logo": "blue", "capacity": 619, "year": 2019, "location": { "type": "Point", "coordinates": [-118.11414, -118.114143] } };
-   { "_id": 7, "name": "Date Night", "logo": "red", "capacity": 715, "year": 2012, "location": { "type": "Point", "coordinates": [-100.50107, 31.435648] } };
-   { "_id": 8, "name": "City's Best Theaters", "logo": "red", "capacity": 888, "year": 2016, "location": { "type": "Point", "coordinates": [-78.382912, 40.490524] } };
-   { "_id": 9, "name": "Pets Movies", "logo": "blue", "capacity": 1092, "year": 2010, "location": { "type": "Point", "coordinates": [-117.674814, 33.590599] } };
-   { "_id": 10, "name": "Fancy Theaters", "logo": "red", "capacity": 673, "year": 2006, "location": { "type": "Point", "coordinates": [-72.583824, 41.998211] } };
-
-
-.. _ascending:
+.. _index-ascending:
 
 Ascending
 ---------
 
-Use the :java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
-method to specify an ascending index key. 
+Pass the field name you want to index to the 
+:java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
+method to create an ascending index. An ascending index will sort the
+index key from smallest to largest.
 
 The following example specifies an ascending index key for the ``name`` field:
 
@@ -81,16 +66,18 @@ The following example specifies an ascending index key for the ``name`` field:
    :start-after: begin ascendingIndex
    :end-before: end ascendingIndex
 
-.. _descending:
+.. _index-descending:
 
 Descending
 ----------
 
-Use the :java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
-method to specify a descending index key. 
+Pass the field name you want to index to the 
+:java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
+method to create a descending index. A descending index will sort the
+index key from largest to smallest.
 
 The following example specifies a compound index key composed of
-descending index keys for the ``name`` and ``capacity`` field: 
+descending index keys for the ``capacity`` field: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -98,13 +85,14 @@ descending index keys for the ``name`` and ``capacity`` field:
    :start-after: begin descendingIndex
    :end-before: end descendingIndex
 
-.. _compound-indexes:
+.. _index-compound-indexes:
 
 Compound Indexes
 ----------------
 
-Use the :java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#compoundIndex(org.bson.conversions.Bson...)>`
-method to specify a compund index. 
+Pass the field name you want to index to the 
+:java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#compoundIndex(org.bson.conversions.Bson...)>`
+method to create a compound index. 
 
 The following example specifies a compound index key composed of
 descending index keys for the ``capacity`` and ``year`` field, followed
@@ -116,15 +104,17 @@ by an ascending index key for the ``name`` field:
    :start-after: begin compoundIndexExample
    :end-before: end compoundIndexExample
 
-.. _text-indexes:
+.. _index-text-indexes:
 
 Text Indexes
 ------------
 
-Use the :java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
-method to specify an text index key. 
+Pass the field name you want to index to the 
+:java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
+method to create a text index key. A text index will group the index key
+by the word you specify.
 
-The following example specifies a text index key for ``Theaters``:
+The following example specifies a text index key for "Theaters":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -132,13 +122,15 @@ The following example specifies a text index key for ``Theaters``:
    :start-after: begin textIndex
    :end-before: end textIndex
 
-.. _hashed-indexes:
+.. _index-hashed-indexes:
 
 Hashed Indexes
 --------------
 
-Use the :java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
-method to specify an hashed index key. 
+Pass the field name you want to index to the 
+:java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
+method to create a hashed index key. A hashed index will group the index
+key by its hash value.
 
 The following example specifies a hashed index key for the ``capacity``
 field:
@@ -149,15 +141,17 @@ field:
    :start-after: begin hashedIndex
    :end-before: end hashedIndex
 
-.. _geospatial-indexes:
+.. _index-geospatial-indexes:
 
 Geospatial Indexes
 ------------------
 
-Use the :java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
-method to specify an geo2dsphere index key. 
+Pass the field name you want to index to the 
+:java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
+method to create a geo2dsphere index key. A geo2dsphere index will
+group the index key by their coordinates.
 
-The following example specifies a 2dsphere index on the ``location`` field:
+The following example specifies a geo2dsphere index on the ``location`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
