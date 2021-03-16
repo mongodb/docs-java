@@ -117,32 +117,30 @@ The above ``sort()`` method returns a
 object containing the documents in your collection, sorted from smallest
 to largest on the specified field name. 
 
-.. example::
+In this code example, we use the ``ascending()`` method to sort the
+:ref:`sort_example collection <sorts-builders-sort-example>`  
+by the ``_id`` field:
 
-   In this code example, we use the ``ascending()`` method to sort the
-   :ref:`sort_example collection <sorts-builders-sort-example>`  
-   by the ``_id`` field:
+.. code-block:: java
 
-   .. code-block:: java
-   
-      import static com.mongodb.client.model.Sorts.ascending;
-   
-      // <MongoCollection setup code here>
-      
-      Bson idSort = ascending("_id");
-      List<Document> results = new ArrayList<>();
-      collection.find().sort(idSort).into(results);
-      for (Document result : results) {
-          System.out.println(result.toJson());
-      }
+   import static com.mongodb.client.model.Sorts.ascending;
 
-   The output of the code snippet above should look something like this: 
+   // <MongoCollection setup code here>
    
-   .. code-block:: json
-   
-      {"_id": 1, "letter": "c", "food": "coffee with milk"}
-      {"_id": 2, "letter": "a", "food": "donuts and coffee"}
-      {"_id": 3, "letter": "a", "food": "maple syrup"}
+   Bson idSort = ascending("_id");
+   List<Document> results = new ArrayList<>();
+   collection.find().sort(idSort).into(results);
+   for (Document result : results) {
+         System.out.println(result.toJson());
+   }
+
+The output of the code snippet above should look something like this: 
+
+.. code-block:: json
+
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
       ...
 
 Descending
@@ -280,54 +278,52 @@ criteria to sort by the text score.
    information on how to
    :manual:`create a text index </core/index-text/#create-text-index>`.
 
-.. example::
+In the following code example, we show how you can use the
+``Sorts.metaTextScore()`` method to sort the results of a text
+search on the :ref:`sort_example collection <sorts-builders-sort-example>`.
+The code example uses the :doc:`Filters </fundamentals/builders/filters>`,
+:doc:`Indexes </fundamentals/builders/indexes>`, and
+:doc:`Projections </fundamentals/builders/projections>` builders.
+The code example performs the following actions:
 
-   In the following code example, we show how you can use the
-   ``Sorts.metaTextScore()`` method to sort the results of a text
-   search on the :ref:`sort_example collection <sorts-builders-sort-example>`.
-   The code example uses the :doc:`Filters </fundamentals/builders/filters>`,
-   :doc:`Indexes </fundamentals/builders/indexes>`, and
-   :doc:`Projections </fundamentals/builders/projections>` builders.
-   The code example performs the following actions:
+#. Creates a text index for your
+   :ref:`sort_example collection <sorts-builders-sort-example>`
+   on the ``food`` field.
+#. Runs your text search for the phrase "maple donut".
+#. Projects text scores into your query results as the
+   ``score`` field. This projection is optional if your MongoDB instance is
+   running MongoDB 4.4 or later. 
+#. Sorts your results by text score (best match first).
 
-   #. Creates a text index for your
-      :ref:`sort_example collection <sorts-builders-sort-example>`
-      on the ``food`` field.
-   #. Runs your text search for the phrase "maple donut".
-   #. Projects text scores into your query results as the
-      ``score`` field. This projection is optional if your MongoDB instance is
-      running MongoDB 4.4 or later. 
-   #. Sorts your results by text score (best match first).
+.. code-block:: java
 
-   .. code-block:: java
+   import com.mongodb.client.model.Sorts;
+   import com.mongodb.client.model.Projections;
+   import com.mongodb.client.model.Filters;
+   import com.mongodb.client.model.Indexes;
+
+   // <MongoCollection setup code here>
    
-      import com.mongodb.client.model.Sorts;
-      import com.mongodb.client.model.Projections;
-      import com.mongodb.client.model.Filters;
-      import com.mongodb.client.model.Indexes;
+   collection.createIndex(Indexes.text("food"));
+   Bson metaTextScoreSort = Sorts.metaTextScore("score");
+   Bson metaTextScoreProj = Projections.metaTextScore("score");
+   String searchTerm = "maple donut";
+   Bson searchQuery = Filters.text(searchTerm);
+   collection.find(searchQuery)
+            .projection(metaTextScoreProj)
+            .sort(metaTextScoreSort)
+            .into(results);
+   for (Document result : results) {
+         System.out.println(result.toJson());
+   }
 
-      // <MongoCollection setup code here>
-      
-      collection.createIndex(Indexes.text("food"));
-      Bson metaTextScoreSort = Sorts.metaTextScore("score");
-      Bson metaTextScoreProj = Projections.metaTextScore("score");
-      String searchTerm = "maple donut";
-      Bson searchQuery = Filters.text(searchTerm);
-      collection.find(searchQuery)
-              .projection(metaTextScoreProj)
-              .sort(metaTextScoreSort)
-              .into(results);
-      for (Document result : results) {
-          System.out.println(result.toJson());
-      }
-   
-   The output of the code snippet above should look something like this: 
-   
-   .. code-block:: json
+The output of the code snippet above should look something like this: 
 
-      {"_id": 6, "letter": "c", "food": "maple donut", "score": 1.5}
-      {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
-      {"_id": 3, "letter": "a", "food": "maple syrup", "score": 0.75}
+.. code-block:: json
+
+   {"_id": 6, "letter": "c", "food": "maple donut", "score": 1.5}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
+   {"_id": 3, "letter": "a", "food": "maple syrup", "score": 0.75}
 
 .. note:: MongoDB 4.4 or later ``$meta`` Behavior
 
