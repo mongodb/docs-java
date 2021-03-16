@@ -26,15 +26,16 @@ convenient methods for different types of indexes:
 - :ref:`Hashed Indexes <index-hashed-indexes>`
 - :ref:`Geospatial Indexes <geospatial-indexes>`
 
-Like an index in a textbook, an index in MongoDB groups data based
-on the field you provide and by an index builder mentioned above. See
-the :doc:`Indexes </fundamentals/indexes>` page to see examples of
-queries on indexes. 
+In a textbook, the index provides the user a way to view pages a
+keyword they're looking for is. Likewise, an index in MongoDB groups
+data based on the field you provide and by an index builder mentioned
+above. See the :doc:`Indexes </fundamentals/indexes>` page to see
+examples of queries on indexes. 
 
 The :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
-class provides static factory methods for all the MongoDB Index key
+class provides static factory methods for all the MongoDB index key
 types. Each method returns a :ref:`Bson <bson>` instance, which you can
-pass to `createIndex() <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#createIndex(com.mongodb.client.ClientSession,org.bson.conversions.Bson)>`_. 
+pass to :java-sync-api:`createIndex() <com/mongodb/client/MongoCollection.html#createIndex(com.mongodb.client.ClientSession,org.bson.conversions.Bson)>`.
 
 .. tip::
 
@@ -55,7 +56,7 @@ Ascending
 
 Pass the field name you want to index to the 
 :java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
-method to create an ascending index. An ascending index will sort the
+method to create an ascending index. An ascending index sorts the
 index key from smallest to largest.
 
 The following example specifies an ascending index key for the ``name`` field:
@@ -73,7 +74,7 @@ Descending
 
 Pass the field name you want to index to the 
 :java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
-method to create a descending index. A descending index will sort the
+method to create a descending index. A descending index sorts the
 index key from largest to smallest.
 
 The following example specifies a compound index key composed of
@@ -111,10 +112,10 @@ Text Indexes
 
 Pass the field name you want to index to the 
 :java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
-method to create a text index key. A text index will group the index key
+method to create a text index key. A text index groups the index key
 by the word you specify.
 
-The following example specifies a text index key for "Theaters":
+The following example specifies a text index key for "theaters":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
    :language: java
@@ -129,7 +130,7 @@ Hashed Indexes
 
 Pass the field name you want to index to the 
 :java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
-method to create a hashed index key. A hashed index will group the index
+method to create a hashed index key. A hashed index groups the index
 key by its hash value.
 
 The following example specifies a hashed index key for the ``capacity``
@@ -148,8 +149,8 @@ Geospatial Indexes
 
 Pass the field name you want to index to the 
 :java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
-method to create a geo2dsphere index key. A geo2dsphere index will
-group the index key by their coordinates.
+method to create a geo2dsphere index key. A geo2dsphere index
+groups the index key by their coordinates.
 
 The following example specifies a geo2dsphere index on the ``location`` field:
 

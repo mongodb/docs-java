@@ -75,7 +75,7 @@ public class Indexes {
 
     private void textIndex(){
         // begin textIndex
-        Bson textIndex = text("Theaters");
+        Bson textIndex = text("theaters");
         collection.createIndex(textIndex);
         // end textIndex
 
