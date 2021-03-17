@@ -26,16 +26,15 @@ convenient methods for different types of indexes:
 - :ref:`Hashed Indexes <index-hashed-indexes>`
 - :ref:`Geospatial Indexes <geospatial-indexes>`
 
-In a textbook, the index provides the user a way to view pages a
-keyword they're looking for is. Likewise, an index in MongoDB groups
-data based on the field you provide and by an index builder mentioned
-above. See the :doc:`Indexes </fundamentals/indexes>` page to see
-examples of queries on indexes. 
+Indexes store small portions of the collection’s data set. The index
+stores the value of a specific field or set of fields, ordered by the
+value of the field. See the :doc:`Indexes </fundamentals/indexes>` page
+to see examples of queries on indexes. 
 
 The :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
-class provides static factory methods for all the MongoDB index key
-types. Each method returns a :ref:`Bson <bson>` instance, which you can
-pass to :java-sync-api:`createIndex() <com/mongodb/client/MongoCollection.html#createIndex(com.mongodb.client.ClientSession,org.bson.conversions.Bson)>`.
+class provides static factory methods for all the MongoDB index types.
+Each method returns a :ref:`Bson <bson>` instance, which you can pass to
+:java-sync-api:`createIndex() <com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson)>`.
 
 .. tip::
 
@@ -54,14 +53,21 @@ pass to :java-sync-api:`createIndex() <com/mongodb/client/MongoCollection.html#c
 Ascending
 ---------
 
-Pass the field name you want to index to the 
-:java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
-method to create an ascending index. An ascending index sorts the
-index key from smallest to largest.
+Create a BSON instance by passing the field name or names you want to
+index to the :java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
+method. Then, pass the BSON instance into the createIndex() method to
+create an ascending index. 
 
-The following example specifies an ascending index key for the ``name`` field:
+An ascending index sorts the index key from smallest to largest.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+.. note:: 
+
+If an ascending or a descending index is on a single field, the sort
+operation on the field can be in either direction. 
+
+The following example specifies an ascending index on the ``name`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Indexes.java
    :language: java
    :dedent:
    :start-after: begin ascendingIndex
@@ -72,15 +78,16 @@ The following example specifies an ascending index key for the ``name`` field:
 Descending
 ----------
 
-Pass the field name you want to index to the 
-:java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
-method to create a descending index. A descending index sorts the
-index key from largest to smallest.
+Create a BSON instance by passing the field name or names you want to
+index to the :java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
+method. Then, pass the BSON instance into the createIndex() method to
+create a descending index. 
 
-The following example specifies a compound index key composed of
-descending index keys for the ``capacity`` field: 
+A descending index sorts the index key from largest to smallest.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+The following example specifies a descending index on the ``capacity`` field: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Indexes.java
    :language: java
    :dedent:
    :start-after: begin descendingIndex
@@ -91,15 +98,16 @@ descending index keys for the ``capacity`` field:
 Compound Indexes
 ----------------
 
-Pass the field name you want to index to the 
-:java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#compoundIndex(org.bson.conversions.Bson...)>`
-method to create a compound index. 
+Create a BSON instance by passing the field names you want to index to
+the :java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#compoundIndex(org.bson.conversions.Bson...)>`
+method. Then, pass the BSON instance into the createIndex() method to
+create a compound index. 
 
-The following example specifies a compound index key composed of
-descending index keys for the ``capacity`` and ``year`` field, followed
-by an ascending index key for the ``name`` field: 
+The following example specifies a compound index composed of
+descending index on the ``capacity`` and ``year`` field, followed
+by an ascending index on the ``name`` field: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Indexes.java
    :language: java
    :dedent:
    :start-after: begin compoundIndexExample
@@ -110,14 +118,16 @@ by an ascending index key for the ``name`` field:
 Text Indexes
 ------------
 
-Pass the field name you want to index to the 
-:java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
-method to create a text index key. A text index groups the index key
-by the word you specify.
+Create a BSON instance by passing the field name you want to index to
+the :java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
+method. Then, pass the BSON instance into the createIndex() method to
+create a text index key. 
 
-The following example specifies a text index key for "theaters":
+A text index groups the index key by the word you specify.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+The following example specifies a text index key on the "theaters" field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Indexes.java
    :language: java
    :dedent:
    :start-after: begin textIndex
@@ -128,15 +138,17 @@ The following example specifies a text index key for "theaters":
 Hashed Indexes
 --------------
 
-Pass the field name you want to index to the 
-:java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
-method to create a hashed index key. A hashed index groups the index
-key by its hash value.
+Create a BSON instance by passing the field name you want to index to
+the :java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
+method. Then, pass the BSON instance into the createIndex() method to
+create a hashed index key. 
 
-The following example specifies a hashed index key for the ``capacity``
+A hashed index groups the index key by its hash value.
+
+The following example specifies a hashed index on the ``capacity``
 field:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Indexes.java
    :language: java
    :dedent:
    :start-after: begin hashedIndex
@@ -147,14 +159,16 @@ field:
 Geospatial Indexes
 ------------------
 
-Pass the field name you want to index to the 
-:java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
-method to create a geo2dsphere index key. A geo2dsphere index
-groups the index key by their coordinates.
+Create a BSON instance by passing the field name or names you want to
+index to the :java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
+method . Then, pass the BSON instance into the createIndex() method to
+create a geo2dsphere index key. 
+
+A geo2dsphere index groups the index key by their coordinates.
 
 The following example specifies a geo2dsphere index on the ``location`` field:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Indexes.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Indexes.java
    :language: java
    :dedent:
    :start-after: begin geo2dsphereIndex
