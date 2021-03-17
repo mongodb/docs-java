@@ -216,34 +216,62 @@ BsonTypeClassMap
 ~~~~~~~~~~~~~~~~
 
 The ``BsonTypeClassMap`` class contains a recommended mapping between BSON
-types and Java classes. For example, the ``ARRAY`` BSON type maps to the Java
-class type ``java.util.List``. You can override these mappings in your instance
-by specifying them in the ``replacementsForDefaults`` field of your instance.
+types and Java classes. You can use this class to determine which Java type
+to decode a BSON type to or to determine what Codecs you need for your custom
+``Codec`` or ``CodecProvider``.
 
-You can specify an instance of this class to a CodecProvider
+The following code snippet shows how you can retrieve the Java class type
+that corresponds to the BSON type in the default ``BsonTypeClassMap``
+instance:
 
-Suppose we wanted to add a custom Codec as well as a CodecProvider
+.. code-block:: java
+   :copyable: true
 
+   BsonTypeClassMap bsonTypeClassMap = new BsonTypeClassMap();
+   Class<?> clazz = bsonTypeClassMap.get(BsonType.ARRAY);
+   System.out.println("Java type: " + clazz.getName());
 
+This code outputs the following:
 
+.. code-block:: none
+   :copyable: false
+
+   Java type: java.util.List
+
+You can override these mappings in your instance by specifying them in the
+``BsonTypeClassMap`` constructor. The following code snippet shows how
+you can replace the mapping for ``ARRAY`` in your ``BsonTypeClassMap``
+instance with the ``Set`` class:
+
+.. code-block:: java
+   :copyable: true
+
+   Map<BsonType, Class<?>> replacements = new HashMap<BsonType, Class<?>>();
+   replacements.put(BsonType.ARRAY, Set.class);
+   BsonTypeClassMap bsonTypeClassMap = new BsonTypeClassMap(replacements);
+
+   Class<?> clazz = bsonTypeClassMap.get(BsonType.ARRAY);
+   System.out.println("Java type: " + clazz.getName());
+
+This code outputs the following:
+
+.. code-block:: none
+   :copyable: false
+
+   Java type: java.util.Set
 
 For a complete list of the default mappings, refer to the
 :java-docs:`BsonTypeClassMap API documentation <apidocs/bson/org/bson/codecs/BsonTypeClassMap.html>`.
-
-How is it used?
-You can add an instance of the BsonTypeClassMap to your CodecProvider
-and provide it to your Codec
-An enumeration maps values from the ``BsonType`` enumeration to a Java class.
-
-- Description
-- Example of how to use to specify Bson mapping
 
 .. _codecs-custom-example:
 
 Custom Codec Example
 --------------------
 
-In this example, we show how to create a custom class that...
+In this example, we show an example Java class, ``Monolight``
+and how we can use a CodecProvider to ensure the
+is constructed prior to the Codec for
+
 
 - Methods to override
 - Encode: Describe parameters: BsonWriter, EncoderContext
