@@ -61,7 +61,7 @@ In order to create an ascending index, first call the
 :java-core-api:`ascending() <com/mongodb/client/model/Indexes.html#ascending(java.lang.String...)>`
 builder method to create a ``Bson`` instance that represents the index
 document, passing the name or names of the fields you want to index.
-Then, call the ``createIndex()`` method on the collection, passing the``Bson``
+Then, call the ``createIndex()`` method on the collection, passing the ``Bson``
 instance that contains the index document.
 
 .. note:: 
@@ -89,7 +89,7 @@ In order to create a descending index, first call the
 :java-core-api:`descending() <com/mongodb/client/model/Indexes.html#descending(java.lang.String...)>`
 builder method to create a ``Bson`` instance that represents the index
 document, passing the name or names of the fields you want to index.
-Then, call the ``createIndex()`` method on the collection, passing the``Bson``
+Then, call the ``createIndex()`` method on the collection, passing the ``Bson``
 instance that contains the index document.
 
 The following example specifies a descending index on the ``capacity`` field: 
@@ -109,7 +109,7 @@ In order to create a compound index, first call the
 :java-core-api:`compoundIndex() <com/mongodb/client/model/Indexes.html#compoundIndex(org.bson.conversions.Bson...)>`
 builder method to create a ``Bson`` instance that represents the index
 document, passing the names of the fields you want to index. Then, call
-the ``createIndex()`` method on the collection, passing the``Bson``
+the ``createIndex()`` method on the collection, passing the ``Bson``
 instance that contains the index document. 
 
 The following example specifies a compound index composed of
@@ -133,7 +133,7 @@ In order to create a text index, first call the
 :java-core-api:`text() <com/mongodb/client/model/Indexes.html#text(java.lang.String)>`
 builder method to create a ``Bson`` instance that represents the index
 document, passing the name of the fields you want to index. Then, call
-the ``createIndex()`` method on the collection, passing the``Bson``
+the ``createIndex()`` method on the collection, passing the ``Bson``
 instance that contains the index document. 
 
 The following example specifies a text index key on the "theaters" field:
@@ -155,7 +155,7 @@ In order to create a hashed index, first call the
 :java-core-api:`hashed() <com/mongodb/client/model/Indexes.html#hashed(java.lang.String)>`
 builder method to create a ``Bson`` instance that represents the index
 document, passing the name of the fields you want to index. Then, call
-the ``createIndex()`` method on the collection, passing the``Bson``
+the ``createIndex()`` method on the collection, passing the ``Bson``
 instance that contains the index document. 
 
 
@@ -179,7 +179,7 @@ In order to create a geo2dsphere index, first call the
 :java-core-api:`geo2dsphere() <com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
 builder method to create a ``Bson`` instance that represents the index
 document, passing the name or names of the fields you want to index.
-Then, call the ``createIndex()`` method on the collection, passing the``Bson``
+Then, call the ``createIndex()`` method on the collection, passing the ``Bson``
 instance that contains the index document.
 
 The following example specifies a geo2dsphere index on the ``location`` field:
