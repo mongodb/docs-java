@@ -19,8 +19,8 @@ This guide shows you how to specify **indexes** using the Java Driver
 :doc:`builders </fundamentals/builders/>`. Index builders provide
 helper methods for the following types of indexes:
 
-- :ref:`Ascending <index-ascending>`
-- :ref:`Descending <index-descending>`
+- :ref:`Ascending Indexes <ascending-indexes>`
+- :ref:`Descending Indexes <descending-indexes>`
 - :ref:`Compound Indexes <index-compound-indexes>`
 - :ref:`Text Indexes <index-text-indexes>`
 - :ref:`Hashed Indexes <index-hashed-indexes>`
@@ -28,12 +28,12 @@ helper methods for the following types of indexes:
 
 Indexes store a subset of the collection’s data set. The index stores
 the value of a specific field or set of fields, ordered by the value of
-the field. See our guide on :doc:`Indexes </fundamentals/indexes>` to
-see examples of queries covered by indexes. 
+the field. See our guide on :doc:`Indexes </fundamentals/indexes>` for
+examples of queries covered by indexes. 
 
 The :java-core-api:`Indexes <com/mongodb/client/model/Indexes.html>`
 class provides static factory methods for all the MongoDB index types.
-Each method returns a :java-docs:`Bson <apidocs/bson/org/bson/conversions/Bson.html?is-external=true>` 
+Each method returns a :java-docs:`Bson <apidocs/bson/org/bson/conversions/Bson.html>` 
 instance, which you can pass to
 :java-sync-api:`createIndex() <com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson)>`.
 
@@ -49,10 +49,10 @@ instance, which you can pass to
 
    The examples below assume this static import.
 
-.. _index-ascending:
+.. _ascending-indexes:
 
-Ascending
----------
+Ascending Indexes
+-----------------
 
 An ascending index enables you to sort query results by the value of the
 indexed field(s) from smallest to largest.
@@ -66,8 +66,8 @@ instance that contains the index document.
 
 .. note:: 
 
-   If an ascending or a descending index is on a single field, the sort
-   operation on the field can be in either direction. 
+   If you have an ascending or a descending index on a single field, MongoDB
+   can sort using the index in either direction. 
 
 The following example specifies an ascending index on the ``name`` field:
 
@@ -77,10 +77,10 @@ The following example specifies an ascending index on the ``name`` field:
    :start-after: begin ascendingIndex
    :end-before: end ascendingIndex
 
-.. _index-descending:
+.. _descending-indexes:
 
-Descending
-----------
+Descending Indexes
+------------------
 
 A descending index enables you to sort query results by the value of the
 indexed field(s) from largest to smallest.
