@@ -17,11 +17,17 @@ Overview
 
 This guide shows you how to specify **updates** using the Java Driver
 :doc:`builders </fundamentals/builders/>`. Update builders provide
-convenient methods for diffent types of updates:
+helper methods for the following types of updates:
 
 - :ref:`Field Updates <field_updates>`
 - :ref:`Array Updates <array_updates>`
 - :ref:`Combining Multiple Update Operators <multiple_updates>`
+
+Some methods that expect updates are:
+
+- updateOne
+- updateMany
+- bulkWrite
 
 The :java-core-api:`Updates <com/mongodb/client/model/Updates.html>`
 class provides static factory methods for all the MongoDB update
@@ -47,7 +53,7 @@ The examples in this guide use the following document:
        "color": "red", 
        "qty": 5, 
        "vendor": [ "A", "D", "M" ], 
-       "lastModified" = Fri Mar 05 00:00:00 EST 2021
+       "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 .. _field_updates:
@@ -63,7 +69,7 @@ method to assign the value of a field in an update operation.
 
 The following example sets the value of the ``qty`` field to "11": 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin setUpdate
@@ -79,7 +85,7 @@ The example above updates the original document to the following state:
       "color": "red", 
       "qty": 11, 
       "vendor": [ "A", "D", "M" ], 
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Unset
@@ -89,7 +95,7 @@ to delete the value of a field in an update operation.
 
 The following example deletes the ``qty`` field:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin unsetUpdate
@@ -104,7 +110,7 @@ The example above updates the original document to the following state:
       "_id": 1, 
       "color": "red", 
       "vendor": [ "A", "D", "M" ], 
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Set On Insert
@@ -116,7 +122,7 @@ insert of a document.
 The following example sets the value of the ``qty`` field to "5"
 if an upsert resulted in the insert of a document: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin setOnInsertUpdate
@@ -132,7 +138,7 @@ The example above updates the original document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "A", "D", "M" ], 
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 .. note::
@@ -147,7 +153,7 @@ method to increment the value of a numeric field in an update operation.
 The following example increments the value of the ``qty`` field by
 "3": 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin incUpdate
@@ -163,7 +169,7 @@ The example above updates the original document to the following state:
       "color": "red", 
       "qty": 8, 
       "vendor": [ "A", "D", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Multiply
@@ -174,7 +180,7 @@ method to multiply the value of a numeric field in an update operation.
 The following example multiplies the value of the ``qty`` field by
 "2": 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin mulUpdate
@@ -190,7 +196,7 @@ The example above updates the original document to the following state:
       "color": "red", 
       "qty": 10, 
       "vendor": [ "A", "D", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021 
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Rename
@@ -200,7 +206,7 @@ method to rename the value of a field in an update operation.
 
 The following example renames the ``qty`` field to "quantity":
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin renameUpdate
@@ -215,7 +221,7 @@ The example above updates the document to the following state:
       "_id": 1,
       "color": "red", "
       vendor": [ "A", "D", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021, 
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z"), 
       "quantity": 5
    }
 
@@ -225,7 +231,7 @@ Use the :java-core-api:`min() <com/mongodb/client/model/Updates.html#min(java.la
 method to update the value of a field with the smaller number of the two
 specified in an update operation.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin minUpdate
@@ -241,7 +247,7 @@ The example above updates the document to the following state:
       "color": "red", 
       qty": 2, 
       "vendor": [ "A", "D", "M" ], 
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Max
@@ -253,7 +259,7 @@ specified in an update operation.
 The following example sets the value of the ``qty`` field to the
 maximum of its current value and "8": 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin maxUpdate
@@ -269,7 +275,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 8, 
       "vendor": [ "A", "D", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Current Date
@@ -282,7 +288,7 @@ or :manual:`timestamp <reference/bson-types/#document-bson-type-timestamp>`.
 The following example sets the value of the ``lastModified`` field to
 the current date as a BSON date type:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin currentDateUpdate
@@ -298,7 +304,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "A", "D", "M" ],
-      "lastModified" = Fri Mar 05 15:33:54 EST 2021
+      "lastModified" = ISODate("2021-03-05T15:33:54.136Z")
    }
 
 Bit
@@ -312,7 +318,7 @@ an update operation.
 The following example performs a bitwise AND between the number
 "10" and the integral value of the ``qty`` field: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin bitwiseOrUpdate
@@ -338,7 +344,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 15,
       "vendor": [ "A", "D", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 .. _array_updates:
@@ -355,7 +361,7 @@ in an update operation.
 The following example adds the value "C" to the array value of
 the ``vendor`` field: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin addToSetUpdate
@@ -371,7 +377,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "A", "D", "M", "C" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Pop
@@ -384,7 +390,7 @@ method to remove the last element of an array in an update operation.
 The following example pops the first element off of the array value
 of the ``vendor`` field:  
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin popFirstUpdate
@@ -400,18 +406,18 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "D", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Pull All
 ~~~~~~~~
 Use the :java-core-api:`pullAll() <com/mongodb/client/model/Updates.html#pullAll(java.lang.String,java.util.List)>`
-method to remove all instances of a value from an existing array in
+method to remove all instances of values from an existing array in
 an update operation. 
 
 The following example removes vendor "A" and "M" from the ``vendor`` array: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin pullAllUpdate
@@ -427,7 +433,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "D" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Pull
@@ -439,7 +445,7 @@ an update operation.
 The following example removes the value "D" from the ``vendor``
 array: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin pullUpdate
@@ -455,7 +461,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "A", "M" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
 
 Push
@@ -465,7 +471,7 @@ method to append a value to an array in an update operation.
 
 The following examples pushes "C" to the ``vendor`` array:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin pushUpdate
@@ -481,7 +487,7 @@ The example above updates the document to the following state:
       "color": "red", 
       "qty": 5, 
       "vendor": [ "A", "D", "M", "C" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = 2ISODate("2021-03-05T00:00:00.000Z")
    }
 
 .. _multiple_updates:
@@ -495,7 +501,7 @@ The following example increments the value of the ``qty`` field by "6", sets
 the value of the ``color`` field to "purple", and pushes "R" to
 the ``vendor`` field:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Updates.java
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/Updates.java
    :language: java
    :dedent:
    :start-after: begin combineUpdate
@@ -511,5 +517,5 @@ The example above updates the document to the following state:
       "color": "purple", 
       "qty": 11, 
       "vendor": [ "A", "D", "M", "R" ],
-      "lastModified" = Fri Mar 05 00:00:00 EST 2021
+      "lastModified" = ISODate("2021-03-05T00:00:00.000Z")
    }
