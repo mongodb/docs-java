@@ -1,6 +1,6 @@
 package fundamentals.monolightcodec;
 
-// begin class
+// start class
 public class Monolight {
     private String powerStatus;
     private Integer colorTemperature;
@@ -8,7 +8,7 @@ public class Monolight {
     public Monolight() {}
 
     // ...
-// end  class
+// end class
 
     public String getPowerStatus() {
         return powerStatus;
