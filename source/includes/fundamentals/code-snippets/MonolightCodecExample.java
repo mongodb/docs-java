@@ -37,6 +37,5 @@ public class MonolightCodecExample {
             System.out.println(lights);
         }
     }
-
 }
 // end class

@@ -31,5 +31,4 @@ public class Monolight {
     public String toString() {
         return "Monolight [powerStatus=" + powerStatus + ", colorTemperature=" + colorTemperature + "]";
     }
-
 }

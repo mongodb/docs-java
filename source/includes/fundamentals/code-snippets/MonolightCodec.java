@@ -53,6 +53,5 @@ public class MonolightCodec implements Codec<Monolight>{
     public Class<Monolight> getEncoderClass() {
         return Monolight.class;
     }
-
 }
 // end class

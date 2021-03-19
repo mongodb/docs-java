@@ -31,6 +31,5 @@ public class MonolightCodecProvider implements CodecProvider {
         // return null when not a provider for the requested class
         return null;
     }
-
 }
 // end class
