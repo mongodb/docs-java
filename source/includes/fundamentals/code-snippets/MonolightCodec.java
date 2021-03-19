@@ -8,19 +8,17 @@ import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
 import org.bson.codecs.configuration.CodecRegistry;
 
+// start MonolightCodec class
 public class MonolightCodec implements Codec<Monolight>{
 
-    private CodecRegistry registry;
-    private Codec<String> powerStatusCodec; 
+    private Codec<String> powerStatusCodec;
     private Codec<Integer> integerCodec;
-    
+
     public MonolightCodec(CodecRegistry registry) {
-        this.registry = registry;
         this.integerCodec = registry.get(Integer.class);
         this.powerStatusCodec = registry.get(String.class);
-        
     }
-    
+
     @Override
     public void encode(BsonWriter writer, Monolight value, EncoderContext encoderContext) {
         writer.writeStartDocument();
@@ -34,7 +32,7 @@ public class MonolightCodec implements Codec<Monolight>{
     @Override
     public Monolight decode(BsonReader reader, DecoderContext decoderContext) {
         Monolight monolight = new Monolight();
-        
+
         reader.readStartDocument();
         while (reader.readBsonType() != BsonType.END_OF_DOCUMENT) {
             String fieldName = reader.readName();
@@ -43,16 +41,18 @@ public class MonolightCodec implements Codec<Monolight>{
             } else if (fieldName.equals("colorTemperature")) {
                 monolight.setColorTemperature(reader.readInt32());
             } else if (fieldName.equals("_id")){
-                reader.readObjectId(); 
+                reader.readObjectId();
             }
         }
         reader.readEndDocument();
-        
+
         return monolight;
     }
+
     @Override
     public Class<Monolight> getEncoderClass() {
         return Monolight.class;
     }
-    
+
 }
+// end MonolightCodec class

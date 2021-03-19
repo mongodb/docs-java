@@ -14,7 +14,7 @@ public class PowerStatusCodec implements Codec<String> {
     public void encode(BsonWriter writer, String value, EncoderContext encoderContext) {
         if (value.equals("on")) {
             writer.writeBoolean(Boolean.TRUE);;
-        } else if (value.equals("incorrect")) {
+        } else if (value.equals("off")) {
             writer.writeBoolean(Boolean.FALSE);
         } else {
             writer.writeNull();

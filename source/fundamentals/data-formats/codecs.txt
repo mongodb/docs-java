@@ -11,25 +11,28 @@ Codecs
    :class: singlecol
 
 
+.. _data-formats-codecs:
+
 Overview
 --------
 
-In this guide, you can learn about Codecs and the supporting classes that
+In this guide, you can learn about **Codecs** and the supporting classes that
 handle the encoding and decoding of Java objects to BSON data in MongoDB.
-The Codec abstraction allows you to map types and fields directly to
+The ``Codec`` abstraction allows you to map types and fields directly to
 your domain objects rather than to an intermediate map-based one such
 as ``Document`` or ``BsonDocument``.
 
 We describe the following interfaces and classes and provide examples of
-how you can specify custom encoding and decoding using them:
+how you can specify custom encoding and decoding logic using them in the
+following sections:
 
 - :ref:`Codec <codecs-codec>`
 - :ref:`CodecRegistry <codecs-codecregistry>`
 - :ref:`CodecProvider <codecs-codecprovider>`
 - :ref:`Custom Codec Example <codecs-custom-example>`
 
-If you are customizing encoding and decoding of Java POJOs, read our guide on
-:doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
+If you are customizing encoding and decoding logic for Plain old Java objects
+(POJOs), read our guide on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
 
 .. _codecs-codec:
 
@@ -185,7 +188,7 @@ the ``get()`` method to convert between Java and BSON data types.
 
 However, in cases in which you add a class that contains fields that require
 corresponding ``Codec`` instances, you need to ensure you construct the Codecs
-for the class' fields prior to the ``Codec`` for the class. You can use the
+for the class' fields before the ``Codec`` for the class. You can use the
 ``CodecProvider`` to add the Codecs to the registry before the one for which
 they are required.
 
@@ -216,9 +219,10 @@ BsonTypeClassMap
 ~~~~~~~~~~~~~~~~
 
 The ``BsonTypeClassMap`` class contains a recommended mapping between BSON
-types and Java classes. You can use this class to determine which Java type
-to decode a BSON type to or to determine what Codecs you need for your custom
-``Codec`` or ``CodecProvider``.
+and Java types. You can use this class to help you manage which Java types
+to decode your BSON types to in your custom ``Codec`` or ``CodecProvider``.
+You can add or modify the mapping by passing a ``Map`` containing new or
+replacement or entries. The ``Document`` class uses the recommended mapping.
 
 The following code snippet shows how you can retrieve the Java class type
 that corresponds to the BSON type in the default ``BsonTypeClassMap``
@@ -238,7 +242,7 @@ This code outputs the following:
 
    Java type: java.util.List
 
-You can override these mappings in your instance by specifying them in the
+You can modify these mappings in your instance by specifying them in the
 ``BsonTypeClassMap`` constructor. The following code snippet shows how
 you can replace the mapping for ``ARRAY`` in your ``BsonTypeClassMap``
 instance with the ``Set`` class:
@@ -263,20 +267,87 @@ This code outputs the following:
 For a complete list of the default mappings, refer to the
 :java-docs:`BsonTypeClassMap API documentation <apidocs/bson/org/bson/codecs/BsonTypeClassMap.html>`.
 
+For an example of how the ``Document`` class uses ``BsonTypeClassMap``, see
+the driver source code for the following classes:
+
+- :github:`DocumentCodecProvider <mongodb/mongo-java-driver/blob/master/bson/src/main/org/bson/codecs/DocumentCodecProvider.java>`
+- :github:`DocumentCodec <mongodb/mongo-java-driver/blob/master/bson/src/main/org/bson/codecs/DocumentCodec.java>`
+
 .. _codecs-custom-example:
 
 Custom Codec Example
 --------------------
 
-In this example, we show an example Java class, ``Monolight``
-and how we can use a CodecProvider to ensure the
-is constructed prior to the Codec for
+In this section, we show how you can implement ``Codec`` and ``CodecProvider``
+to define the encoding and decoding logic for a custom Java class. We also show
+how you can specify and use your custom implementations to perform insert
+and retrieve operations.
 
+The following code snippet shows our example custom class called ``Monolight``
+and its fields that we want to store and retrieve from a MongoDB collection:
 
-- Methods to override
-- Encode: Describe parameters: BsonWriter, EncoderContext
-- Decode: Describe parameters: BsonReader, DecoderContext
-- Example class, demonstrating implementing encode/decode. Perhaps something like this https://stackoverflow.com/questions/45083885/decode-document-to-a-java-class-using-custom-mongo-codec
-- Sample query to demonstrate decode results (of a field in a POJO) using custom codec
-- Sample insert and resulting fields of the document to demonstrate encode
-- Example showing how to read/encode a document with unknown fields
+.. literalinclude:: /includes/fundamentals/code-snippets/Monolight.java
+   :start-after: start Monolight class
+   :end-before: end Monolight class
+   :language: java
+   :dedent:
+
+This class contains the following fields, each of which we need to assign a
+``Codec``:
+
+- ``colorTemperature`` describes the color of the light and contains an
+  ``Integer`` value for which we use the ``IntegerCodec`` included in the
+  BSON library.
+- ``powerStatus`` describes whether the light is "on" or "off" for which we use
+  the :ref:`PowerStatusCodec <codecs-powerstatus-codec>` that converts specific
+  string values to BSON booleans.
+
+The following code example shows how we can implement a ``Codec`` for the
+``Monolight`` class:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodec.java
+   :start-after: start MonolightCodec class
+   :end-before: end MonolightCodec class
+   :language: java
+   :dedent
+
+To ensure we construct the ``Codec`` instances for the fields before the
+one required for ``Monolight``, we implement a custom ``CodecProvider`` shown
+in the following code example:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecProvider.java
+   :start-after: start MonolightCodecProvider class
+   :end-before: end MonolightCodecProvider class
+   :language: java
+   :dedent
+
+After defining the conversion logic, we can perform the following:
+
+- Store data from instances of ``Monolight`` into MongoDB
+- Retrieve data from MongoDB into instances of ``Monolight``
+
+The following example class contains code that assigns the
+``MonolightCodecProvider`` to the ``MongoCollection`` instance by passing it
+to the ``withCodecRegistry()`` method. The example class also inserts and
+retrieves data using the ``Monolight`` class and associated ``Codecs``:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecExample.java
+   :start-after: start MonolightCodecExample class
+   :end-before: end MonolightCodecExample class
+   :language: java
+   :dedent
+
+If you run the example above, you should see the following output:
+
+.. code-block:: none
+   :copyable: false
+
+   [Monolight [powerStatus=on, colorTemperature=5200]]
+
+For more information about the methods and classes mentioned in this section,
+see the following API documentation:
+
+- :java-docs:`withCodecRegistry() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
+- :java-docs:`Codec <apidocs/bson/org/bson/codecs/Codec.html>`
+- :java-docs:`CodecProvider <apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`
+-
