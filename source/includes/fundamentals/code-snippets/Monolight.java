@@ -6,7 +6,6 @@ public class Monolight {
     private Integer colorTemperature;
 
     public Monolight() {}
-
     // ...
 // end class
 
