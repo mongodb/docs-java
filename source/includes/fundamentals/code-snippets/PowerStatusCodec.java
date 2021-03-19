@@ -7,7 +7,7 @@ import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
 
 
-// start PowerStatusCodec class
+// start class
 public class PowerStatusCodec implements Codec<String> {
 
     @Override
@@ -29,13 +29,13 @@ public class PowerStatusCodec implements Codec<String> {
     @Override
     public String decode(BsonReader reader, DecoderContext decoderContext) {
         Boolean value = reader.readBoolean();
-        
+
         if (value) {
             return "on";
         } else if (!value) {
             return "off";
-        } 
+        }
         return null;
     }
 }
-// end PowerStatusCodec class
+// end class

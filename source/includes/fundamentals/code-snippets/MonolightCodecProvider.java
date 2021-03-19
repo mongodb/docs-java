@@ -6,17 +6,17 @@ import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 
 
-// start MonolightCodecProvider class
+// start class
 public class MonolightCodecProvider implements CodecProvider {
     private MonolightCodec monolightCodec;
     private IntegerCodec integerCodec;
     private PowerStatusCodec powerStatusCodec;
-    
+
     public MonolightCodecProvider() {
         integerCodec = new IntegerCodec();
         powerStatusCodec = new PowerStatusCodec();
     }
-    
+
     @Override
     @SuppressWarnings("unchecked")
     public <T> Codec<T> get(Class<T> clazz, CodecRegistry registry) {
@@ -27,10 +27,10 @@ public class MonolightCodecProvider implements CodecProvider {
         } else if (clazz == String.class) {
             return (Codec<T>) powerStatusCodec;
         }
-        
-        // return null when not a provider for the requested class 
+
+        // return null when not a provider for the requested class
         return null;
     }
 
 }
-// end MonolightCodecProvider class
+// end class

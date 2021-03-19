@@ -8,7 +8,7 @@ import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
 import org.bson.codecs.configuration.CodecRegistry;
 
-// start MonolightCodec class
+// start class
 public class MonolightCodec implements Codec<Monolight>{
 
     private Codec<String> powerStatusCodec;
@@ -55,4 +55,4 @@ public class MonolightCodec implements Codec<Monolight>{
     }
 
 }
-// end MonolightCodec class
+// end class

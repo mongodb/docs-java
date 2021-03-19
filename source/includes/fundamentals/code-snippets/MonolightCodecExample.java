@@ -11,7 +11,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-// start MonlightCodecExample class
+// start class
 public class MonolightCodecExample {
 
     public static void main(String[] args) {
@@ -39,4 +39,4 @@ public class MonolightCodecExample {
     }
 
 }
-// end MonlightCodecExample class
+// end class
