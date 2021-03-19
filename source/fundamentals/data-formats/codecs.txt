@@ -114,8 +114,6 @@ For more information about the classes and interfaces in this section, see the
 following API documentation:
 
 - :java-docs:`Codec <apidocs/bson/org/bson/codecs/Codec.html>`
-- :java-docs:`Decoder <apidocs/bson/org/bson/codecs/Decoder.html>`
-- :java-docs:`Encoder <apidocs/bson/org/bson/codecs/Encoder.html>`
 - :java-docs:`BsonWriter <apidocs/bson/org/bson/BsonWriter.html>`
 - :java-docs:`BsonBinaryWriter <apidocs/bson/org/bson/BsonBinaryWriter.html>`
 - :java-docs:`EncoderContext <apidocs/bson/org/bson/codecs/EncoderContext.html>`
@@ -203,7 +201,7 @@ To see a runnable example that demonstrates read and write operations using
 these Codecs, see the :ref:`Custom Codec Example <codecs-custom-example>`
 section of this guide.
 
-When working with Java POJOs, consider using the  ``PojoCodecProvider`` to
+When working with POJOs, consider using the  ``PojoCodecProvider`` to
 minimize duplicate code to convert commonly-used data types and customize
 the behavior. See our
 :doc:`POJO Customization guide </fundamentals/data-formats/pojo-customization>`
