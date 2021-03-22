@@ -182,10 +182,10 @@ to the ``CodecRegistry``, the BSON library uses the Codecs retrieved by
 the ``get()`` method to convert between Java and BSON data types.
 
 However, in cases in which you add a class that contains fields that require
-corresponding ``Codec`` instances, you need to ensure you construct the Codecs
-for the class' fields before the ``Codec`` for the class. You can use the
-``CodecProvider`` to add the Codecs to the registry before the one for which
-they are required.
+corresponding ``Codec`` objects, you need to ensure that you instantiate the
+``Codec`` objects for the class' fields before you instantiate the
+``Codec`` for the class. You can use the ``CodecProvider`` specify the
+order in which you add ``Codec`` objects to the registry.
 
 The following code example shows how you can implement ``CodecProvider`` to
 instantiate the Codecs on which the ``Monolight`` depends including the
@@ -290,12 +290,12 @@ and its fields that we want to store and retrieve from a MongoDB collection:
 This class contains the following fields, each of which we need to assign a
 ``Codec``:
 
-- ``colorTemperature`` describes the color of the light and contains an
-  ``Integer`` value for which we use the ``IntegerCodec`` included in the
-  BSON library.
 - ``powerStatus`` describes whether the light is "on" or "off" for which we use
   the :ref:`PowerStatusCodec <codecs-powerstatus-codec>` that converts specific
   string values to BSON booleans.
+- ``colorTemperature`` describes the color of the light and contains an
+  ``Integer`` value for which we use the ``IntegerCodec`` included in the
+  BSON library.
 
 The following code example shows how we can implement a ``Codec`` for the
 ``Monolight`` class:
