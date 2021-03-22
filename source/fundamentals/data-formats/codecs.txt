@@ -91,7 +91,7 @@ value from the BSON data. This method requires the following parameters:
        object.
 
 The ``getEncoderClass()`` method returns a class instance of the Java class
-since Java cannot infer the type due to due to type erasure.
+since Java cannot infer the type due to type erasure.
 
 .. _codecs-powerstatus-codec:
 
@@ -217,7 +217,7 @@ The ``BsonTypeClassMap`` class contains a recommended mapping between BSON
 and Java types. You can use this class to help you manage which Java types
 to decode your BSON types to in your custom ``Codec`` or ``CodecProvider``.
 You can add or modify the mapping by passing a ``Map`` containing new or
-replacement or entries. The ``Document`` class uses the recommended mapping.
+replacement entries. The ``Document`` class uses the recommended mapping.
 
 The following code snippet shows how you can retrieve the Java class type
 that corresponds to the BSON type in the default ``BsonTypeClassMap``
@@ -237,7 +237,7 @@ This code outputs the following:
 
    Java type: java.util.List
 
-You can modify these mappings in your instance by specifying them in the
+You can modify these mappings in your instance by specifying replacements in the
 ``BsonTypeClassMap`` constructor. The following code snippet shows how
 you can replace the mapping for ``ARRAY`` in your ``BsonTypeClassMap``
 instance with the ``Set`` class:
