@@ -105,10 +105,10 @@ corresponding BSON boolean values.
    :language: java
    :dedent:
 
-You can add an instance of your custom Codec to the ``CodecRegistry`` which
+You can add an instance of your custom ``Codec`` to the ``CodecRegistry`` which
 contains a mapping between your ``Codec`` and the Java object type to which
 it applies. Continue to the :ref:`CodecRegistry <codecs-codecregistry>`
-section of this page to see how you can include your Codec.
+section of this page to see how you can include your ``Codec``.
 
 For more information about the classes and interfaces in this section, see the
 following API documentation:
@@ -152,8 +152,8 @@ implementations:
 - :ref:`PowerStatusCodec <codecs-powerstatus-codec>`, our sample ``Codec``
   that converts certain Java strings to BSON booleans.
 
-You can retrieve the Codecs from the ``CodecRegistry`` instance from the
-prior example using the following code:
+You can retrieve the ``Codec`` instances from the ``CodecRegistry`` instance
+from the prior example using the following code:
 
 .. code-block:: java
    :copyable: true
@@ -178,8 +178,8 @@ CodecProvider
 
 A ``CodecProvider`` is an interface that contains abstract methods that create
 ``Codec`` instances and assign them to a ``CodecRegistry`` instance. Similar
-to the ``CodecRegistry``, the BSON library uses the Codecs retrieved by
-the ``get()`` method to convert between Java and BSON data types.
+to the ``CodecRegistry``, the BSON library uses the ``Codec`` instances
+retrieved by the ``get()`` method to convert between Java and BSON data types.
 
 However, in cases in which you add a class that contains fields that require
 corresponding ``Codec`` objects, you need to ensure that you instantiate the
@@ -188,8 +188,8 @@ corresponding ``Codec`` objects, you need to ensure that you instantiate the
 order in which you add ``Codec`` objects to the registry.
 
 The following code example shows how you can implement ``CodecProvider`` to
-instantiate the Codecs on which the ``Monolight`` depends including the
-``PowerStatusCodec`` from our prior example:
+instantiate the ``Codec`` objects on which the ``Monolight`` depends
+including the ``PowerStatusCodec`` from our prior example:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecProvider.java
    :start-after: start class
@@ -198,7 +198,7 @@ instantiate the Codecs on which the ``Monolight`` depends including the
    :dedent:
 
 To see a runnable example that demonstrates read and write operations using
-these Codecs, see the :ref:`Custom Codec Example <codecs-custom-example>`
+these ``Codec`` classes, see the :ref:`Custom Codec Example <codecs-custom-example>`
 section of this guide.
 
 When working with POJOs, consider using the  ``PojoCodecProvider`` to
