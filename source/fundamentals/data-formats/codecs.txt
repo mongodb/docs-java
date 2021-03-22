@@ -71,6 +71,9 @@ The ``encode()`` method requires the following parameters:
         to BSON including whether to store the current value in a
         MongoDB collection.
 
+This method uses the ``BsonWriter`` instance to send the encoded value to
+MongoDB and does not return a value.
+
 The ``decode()`` method returns your Java object instance populated with the
 value from the BSON data. This method requires the following parameters:
 
