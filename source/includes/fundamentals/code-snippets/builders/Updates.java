@@ -9,7 +9,6 @@ import com.mongodb.client.model.UpdateOptions;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.text.ParsePosition;
@@ -74,6 +73,10 @@ public class Updates {
 
         System.out.println("currentDateUpdate:");
         updates.currentDateUpdate();
+        updates.resetCollection(updates);
+
+        System.out.println("currentTimestampUpdate:");
+        updates.currentTimestampUpdate();
         updates.resetCollection(updates);
 
         System.out.println("bitwiseOrUpdate:");
@@ -177,6 +180,14 @@ public class Updates {
         // end currentDateUpdate
     }
 
+    private void currentTimestampUpdate() {
+        // begin currentTimestampUpdate
+        Bson filter = eq("_id", 1);
+        Bson update = currentTimestamp("lastModified");
+        collection.updateOne(filter, update);
+        // end currentTimestampUpdate
+    }
+
     private void bitwiseOrUpdate() {
         // begin bitwiseOrUpdate
         Bson filter = eq("_id", 1);
@@ -235,8 +246,7 @@ public class Updates {
 
     private void preview(){
         Bson filter = new Document();
-        List<Document> res = new ArrayList();
-        System.out.println(collection.find(filter).into(res));
+        collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
     }
 
     public void resetCollection(Updates updates){
