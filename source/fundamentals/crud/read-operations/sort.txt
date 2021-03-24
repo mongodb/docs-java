@@ -38,6 +38,51 @@ contains the following documents:
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
 
+Methods For Sorting
+-------------------
+
+You can sort your results using the 
+:java-docs:`sort() </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#sort(org.bson.conversions.Bson)>`
+method of a ``FindIterable`` instance or by using the 
+:java-docs:`Aggregates.sort() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#sort(org.bson.conversions.Bson)>`.
+static factory method in an aggregation pipeline. Both of these methods take
+``Bson`` documents specifying sort criteria as arguments.
+
+You can use the ``sort()`` method of a ``FindIterable`` instance as follows:
+
+.. code-block:: java
+
+   // <MongoCollection setup code here>
+   
+   collection.find().sort(new Document("_id", 1)));
+ 
+You can use the ``Aggregates.sort()`` method as follows:
+   
+.. code-block:: java
+
+   import com.mongodb.client.model.Aggregates;
+
+   // <MongoCollection setup code here>
+   
+   collection.aggregate(Arrays.asList(Aggregates.sort(new Document("_id", 1))))
+
+The code snippets above both sort the documents in the
+:ref:`sort_example collection <sorts-crud-sort-example>`  
+in the following order: 
+
+.. code-block:: json
+
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   ...
+
+In the above code snippets, we specify our sort criteria by instantiating a
+``Document`` object. While this will run without errors, we recommend that you
+instead specify sort criteria through the ``Sorts`` builder class. For more 
+information on the benefits of using builders, see our
+:doc:`guide on builders </fundamentals/builders/>`.   
+
 
 .. code-block:: java
 
