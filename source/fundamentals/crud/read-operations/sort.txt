@@ -4,41 +4,43 @@ Sort Results
 
 .. default-domain:: mongodb
 
-Use ``sort()`` to change the order in which read operations return
-documents. The ``sort()`` instance method tells MongoDB to order returned documents by the
-values of one or more fields in a certain direction. To sort returned
-documents by a field in ascending (lowest first) order, use the static method ``Sorts.ascending()``, 
-specifying the field on which to sort. To sort in descending (greatest first) order instead, 
-use the static method ``Sorts.descending()``, specifying the field on which to sort. For example,
-you can sort on ``id`` or ``name`` fields. If you do not specify a sort, MongoDB does not 
-guarantee the order of query results.
+Overview
+--------
 
-Follow the instructions in the examples below to insert data into
-a collection and perform a sort on the results of a query.
-Consider a collection containing documents that describe books. To
-insert this data into a collection, run the following operation:
+In this guide, we show you how to **sort** your queries.
+
+Sorting orders the documents returned from your query by your specified 
+**sort criteria**. Sort criteria are the rules you give MongoDB that describe
+how you would like your data ordered. Some examples of sort criteria are:
+
+* Smallest number to largest number
+* Earliest time of day to latest time of day
+* Alphabetical order by first name 
+
+You should read this guide if you would like to:
+
+* Perform ascending sorts and descending sorts.
+* Combine sort criteria.
+* Sort on the text score of a
+  :manual:`text search </core/text-search-operators/>`.
+
+.. _sorts-crud-sort-example:
+
+The examples in this guide use a sample collection, ``sort_example``, that
+contains the following documents:
+  
+.. code-block:: json
+  
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 6, "letter": "c", "food": "maple donut"}
+
 
 .. code-block:: java
 
-    collection.insertMany(Arrays.asList(
-        new Document().append("_id", 1)
-            .append("title", "The Brothers Karamazov").append("length", 824)
-            .append("author", "Dostoyevsky"),
-        new Document().append("_id", 2)
-            .append("title", "Les Misérables").append("length", 1462).append("author", "Hugo"),
-        new Document().append("_id", 3)
-            .append("title", "Atlas Shrugged").append("length", 1088).append("author", "Rand"),
-        new Document().append("_id", 4)
-            .append("title", "Infinite Jest").append("length", 1104).append("author", "Wallace"),
-        new Document().append("_id", 5)
-            .append("title", "Cryptonomicon").append("length", 918).append("author", "Stephenson"),
-        new Document().append("_id", 6)
-            .append("title", "A Dance with Dragons").append("length", 1104)
-            .append("author", "Martin")
-    ));
-
-Call the ``sort()`` function and specify the order with ``ascending()`` to ensure that the
-operation returns books in alphabetical order by title:
 
 .. code-block:: java
   :emphasize-lines: 5
