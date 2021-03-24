@@ -54,6 +54,8 @@ method of a ``FindIterable`` instance or by using the
 static factory method in an aggregation pipeline. Both of these methods take
 ``Bson`` documents specifying sort criteria as arguments.
 
+.. _sorts-crud-find-iterable-example:
+
 You can use the ``sort()`` method of a ``FindIterable`` instance as follows:
 
 .. code-block:: java
@@ -83,7 +85,7 @@ in the following order:
    {"_id": 3, "letter": "a", "food": "maple syrup"}
    ...
 
-In the above code snippets, we specify our sort criteria by instantiating a
+In the above code snippets, we specify our sort criteria by passing a
 ``Document`` object. While this will run without errors, we recommend that you
 instead specify sort criteria through the ``Sorts`` builder class. For more 
 information on the benefits of using builders, see our
@@ -99,6 +101,18 @@ operators supported by MongoDB. These methods return a
 :java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
 object that you can pass to a sorting method as sort criteria.
 
+The following code snippet is equivalent to the
+:ref:`FindIterable example above <sorts-crud-find-iterable-example>`. 
+
+.. code-block:: java
+   import static com.mongodb.client.model.Sorts.ascending;
+
+   // <MongoCollection setup code here>
+   
+   collection.find().sort(ascending("_id"));
+
+For more information on the benefits of using builders, see our
+:doc:`guide on builders </fundamentals/builders/>`. 
 The remainder of this guide will specify sort criteria using the ``Sorts`` class.
 
 
