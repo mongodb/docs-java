@@ -86,9 +86,9 @@ in the following order:
    ...
 
 In the above code snippets, we specify our sort criteria by passing a
-``Document`` object. While this will run without errors, we recommend that you
-instead specify sort criteria through the ``Sorts`` builder class. For more 
-information on the benefits of using builders, see our
+``Document`` object to our sort method. While this will run without errors, we
+recommend that you instead specify sort criteria through the ``Sorts`` builder
+class. For more  information on the benefits of using builders, see our
 :doc:`guide on builders </fundamentals/builders/>`.   
 
 The Sorts Class
@@ -99,12 +99,13 @@ The :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sor
 class is a builder that provides static factory methods for all sort criteria
 operators supported by MongoDB. These methods return a
 :java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
-object that you can pass to a sorting method as sort criteria.
+object that you can pass to a sort method as sort criteria.
 
 The following code snippet is equivalent to the
 :ref:`FindIterable example above <sorts-crud-find-iterable-example>`. 
 
 .. code-block:: java
+
    import static com.mongodb.client.model.Sorts.ascending;
 
    // <MongoCollection setup code here>
@@ -119,7 +120,6 @@ The remainder of this guide will specify sort criteria using the ``Sorts`` class
 Sorting Direction
 -----------------
 
-The ``Sorts`` class provides methods for specifying the direction of your sort.
 The direction of your sort can either be **ascending** or **descending**.
 An ascending sort orders your results from smallest to largest. A
 descending sort orders your results from largest to smallest.
@@ -136,8 +136,7 @@ Here are some examples of data sorted in descending order:
 * Dates: 2020-01-01, 1998-12-11, 1998-12-10, 1975-07-22 
 * Words (reverse ASCII): pear, grapes, apple, Cheese
 
-The following subsections show how to specify these sorts using
-the ``Sorts`` class.
+The following subsections show how to specify these sort criteria.
 
 Ascending
 ~~~~~~~~~
