@@ -106,7 +106,7 @@ The remainder of this guide will specify sort criteria using the ``Sorts`` class
 For more information on the benefits of using builders, see our
 :doc:`guide on builders </fundamentals/builders/>`. For more information on the
 ``Sorts`` builder class, see our
-:doc:`guide on the Sorts builder </fundamentals/builders/>`.    
+:doc:`guide on the Sorts builder </fundamentals/builders/sort/>`.    
 
 For more information about the classes and interfaces in this section, see the
 following API documentation:
@@ -268,7 +268,7 @@ in the following order:
    {"_id": 6, "letter": "c", "food": "maple donut"}
 
 Combining Sort Criteria
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 To combine sort criteria, use the ``Sorts.orderBy()`` static factory
 method. The ``orderBy()`` method builds sort criteria that apply passed 
@@ -315,7 +315,8 @@ criteria to sort by the text score.
 
 .. warning:: Make Sure to Create a Text Index
 
-   You need a :manual:`text index </core/index-text/>` on your collection to perform a text search. See the server manual documentation for more
+   You need a :manual:`text index </core/index-text/>` on your collection to
+   perform a text search. See the server manual documentation for more
    information on how to
    :manual:`create a text index </core/index-text/#create-text-index>`.
 
@@ -374,7 +375,14 @@ The output of the code example above should look something like this:
   in a ``$meta`` text score aggregation operation used in a sort. This means
   that the field name argument you pass to ``Sorts.metaTextScore()`` is ignored
   in MongoDB 4.4 or later.
-  
+
+For more information about the classes in this section, see the
+following API documentation:
+
+- :java-docs:`Filters </apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`
+- :java-docs:`Indexes </apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html>`
+- :java-docs:`Projections </apidocs/mongodb-driver-core/com/mongodb/client/model/Projections.html>`
+
 For more information, see the
 :java-docs:`Sorts class API documentation </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`.
 See the server manual documentation for more information on the :manual:`$text </reference/operator/query/text/>`
