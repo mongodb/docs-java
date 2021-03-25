@@ -40,24 +40,18 @@ driver, consider reading our
 .. warning::
 
    MongoDB does not provide guaranteed sort order in the event of ties, or
-   documents with identical values on the field being sorted. For a detailed
+   documents with identical values in the field used for sorting. For a detailed
    discussion of ties see the
    :ref:`handling ties section of our guide on sorting <sorts-crud-handling-ties>`
 
 The Sorts Class
 ---------------
 
-The :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`
-class is a builder that provides static factory methods for all sort criteria
-operators supported by MongoDB. These methods return a
-:java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
-object that you can pass to the 
-:java-docs:`sort() </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#sort(org.bson.conversions.Bson)>`
-method of a ``FindIterable`` instance or to 
-:java-docs:`Aggregates.sort() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#sort(org.bson.conversions.Bson)>`.
-If you want to learn more about ``Aggregates``, see our 
+``Sorts`` class is a builder that provides static factory methods for all sort
+criteria operators supported by MongoDB. These methods return a ``Bson`` object
+that you can pass to the  ``sort()`` method of a ``FindIterable`` instance or to 
+``Aggregates.sort()``. If you want to learn more about ``Aggregates``, see our 
 :doc:`guide on the Aggregates builder </fundamentals/builders/aggregates>`.
-
 
 .. _sorts-builders-sort-example:
 
@@ -73,6 +67,15 @@ sample collection, ``sort_example``, that contains the following documents:
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
+
+For more information about the classes and interfaces in this section, see the
+following API documentation:
+   
+- :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>` 
+- :java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
+- :java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`
+- :java-docs:`Aggregates </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html>`.
+
 
 Ascending
 ---------
