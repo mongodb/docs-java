@@ -47,12 +47,12 @@ contains the following documents:
 Methods For Sorting
 -------------------
 
-You can sort your results using the 
-:java-docs:`sort() </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#sort(org.bson.conversions.Bson)>`
-method of a ``FindIterable`` instance or by using the 
-:java-docs:`Aggregates.sort() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#sort(org.bson.conversions.Bson)>`.
-static factory method in an aggregation pipeline. Both of these methods take
-``Bson`` documents specifying sort criteria as arguments.
+You can sort your results using the  ``sort()`` method of a ``FindIterable``
+instance or by using the  ``Aggregates.sort()`` static factory method in an
+aggregation pipeline. Both of these methods take objects that implement the
+``Bson`` interface and specify sort criteria as arguments. For information
+on the ``Bson`` interface, see our 
+:doc:`guide on Bson </fundamentals/data-formats/document-data-format-bson/>`.   
 
 .. _sorts-crud-find-iterable-example:
 
@@ -88,18 +88,7 @@ in the following order:
 In the above code snippets, we specify our sort criteria by passing a
 ``Document`` object to our sort method. While this will run without errors, we
 recommend that you instead specify sort criteria through the ``Sorts`` builder
-class. For more information on the benefits of using builders, see our
-:doc:`guide on builders </fundamentals/builders/>`.   
-
-The Sorts Class
----------------
-
-We recommend that you specify sort criteria using the ``Sorts`` class.
-The :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`
-class is a builder that provides static factory methods for all sort criteria
-operators supported by MongoDB. These methods return a
-:java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
-object that you can pass to a sort method as sort criteria.
+class. 
 
 The following code snippet is equivalent to the
 :ref:`FindIterable example above <sorts-crud-find-iterable-example>`. 
@@ -112,10 +101,20 @@ The following code snippet is equivalent to the
    
    collection.find().sort(ascending("_id"));
 
-For more information on the benefits of using builders, see our
-:doc:`guide on builders </fundamentals/builders/>`. 
 The remainder of this guide will specify sort criteria using the ``Sorts`` class.
 
+For more information on the benefits of using builders, see our
+:doc:`guide on builders </fundamentals/builders/>`. For more information on the
+``Sorts`` builder class, see our
+:doc:`guide on the Sorts builder </fundamentals/builders/>`.    
+
+For more information about the classes and interfaces in this section, see the
+following API documentation:
+
+- :java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>` 
+- :java-docs:`Aggregates </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html>`
+- :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`
+- :java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
 
 Sorting Direction
 -----------------
@@ -155,10 +154,9 @@ The ``ascending()`` method can be used as follows:
 
    collection.find().sort(ascending("<field name>"));
 
-The above ``sort()`` method returns a 
-:java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`
-object containing the documents in your collection, sorted from smallest
-to largest on the specified field name. 
+The above ``sort()`` method returns a ``FindIterable`` object containing the
+documents in your collection, sorted from smallest to largest on the specified
+field name. 
 
 In the following code example, we use the ``ascending()`` method to sort the
 :ref:`sort_example collection <sorts-crud-sort-example>`  
@@ -376,7 +374,7 @@ The output of the code example above should look something like this:
   in a ``$meta`` text score aggregation operation used in a sort. This means
   that the field name argument you pass to ``Sorts.metaTextScore()`` is ignored
   in MongoDB 4.4 or later.
-
+  
 For more information, see the
 :java-docs:`Sorts class API documentation </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`.
 See the server manual documentation for more information on the :manual:`$text </reference/operator/query/text/>`
