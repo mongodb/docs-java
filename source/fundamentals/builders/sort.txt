@@ -37,6 +37,13 @@ If you want to learn the fundamentals of sorting in the MongoDB Java
 driver, consider reading our
 :doc:`guide on sorting </fundamentals/crud/read-operations/sort/>`.
 
+.. warning::
+
+   MongoDB does not provide guaranteed sort order in the event of ties, or
+   documents with identical values on the field being sorted. For a detailed
+   discussion of ties see the
+   :ref:`handling ties section of our guide on sorting <sorts-crud-handling-ties>`
+
 The Sorts Class
 ---------------
 
@@ -130,7 +137,7 @@ Combining Criteria
 
 To combine sort criteria, use the ``Sorts.orderBy()`` static factory
 method. The ``orderBy()`` method builds sort criteria that apply passed 
-in sort criteria from left to right in the event of ties. 
+in sort criteria from left to right in the event of ties.
 
 In the following code snippet, we use the ``orderBy()`` method to combine a
 descending sort on the ``letter`` field with an ascending sort on the
@@ -165,8 +172,8 @@ Meta Text Score
 
 To specify a sort by the text score of a text search, use the
 ``Sorts.metaTextScore()`` static factory method. For a detailed example of
-specifying a sort using ``Sorts.metaTextScore()``, see our 
-:doc:`sorting fundamentals guide </fundamentals/crud/read-operations/sort/#text-search>`.
+specifying a sort using ``Sorts.metaTextScore()``, see 
+:ref:`the text search section of our sorting fundamentals guide <sorts-crud-text-search>`
 
 For more information, see the
 :java-docs:`Sorts class API documentation </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`.
