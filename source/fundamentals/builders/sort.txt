@@ -44,20 +44,10 @@ driver, consider reading our
    field being used for a sort. For a detailed discussion of ties see the
    :ref:`handling ties section of our guide on sorting <sorts-crud-handling-ties>`
 
-The Sorts Class
----------------
-
-The ``Sorts`` class is a builder that provides static factory methods for all sort
-criteria operators supported by MongoDB. These methods return a ``Bson`` object
-that you can pass to the  ``sort()`` method of a ``FindIterable`` instance or to 
-``Aggregates.sort()``. If you want to learn more about ``Aggregates``, see our 
-:doc:`guide on the Aggregates builder </fundamentals/builders/aggregates>`.
-
 .. _sorts-builders-sort-example:
 
-The following examples show you how to use the methods
-provided by the ``Sorts`` class to sort your queries. The examples use a
-sample collection, ``sort_example``, that contains the following documents:
+The examples on this page use a sample collection, ``sort_example``, that
+contains the following documents:
 
 .. code-block:: json
 
@@ -67,6 +57,15 @@ sample collection, ``sort_example``, that contains the following documents:
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
    {"_id": 6, "letter": "c", "food": "maple donut"}
+
+The Sorts Class
+---------------
+
+The ``Sorts`` class is a builder that provides static factory methods for all sort
+criteria operators supported by MongoDB. These methods return a ``Bson`` object
+that you can pass to the  ``sort()`` method of a ``FindIterable`` instance or to 
+``Aggregates.sort()``. If you want to learn more about ``Aggregates``, see our 
+:doc:`guide on the Aggregates builder </fundamentals/builders/aggregates>`.
 
 For more information about the classes and interfaces in this section, see the
 following API documentation:
