@@ -40,9 +40,9 @@ public class Skip {
     private void skipExample(){
         // begin skipExample
         Bson filter = empty();
-        collection.find(filter)             //returns all documents
-            .sort(descending("qty"))        //documents should appear highest to lowest based on the ``qty`` field
-            .skip(5)                        //the first 5 documents should not appear from the query
+        collection.find(filter)             
+            .sort(descending("qty"))        
+            .skip(5)                       
             .forEach(doc -> System.out.println(doc.toJson()));
         // end skipExample
     }

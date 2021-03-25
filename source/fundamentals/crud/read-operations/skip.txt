@@ -38,6 +38,11 @@ results.
    :start-after: begin skipExample
    :end-before: end skipExample
 
+The find() method returns all documents.  The sort() method specifies
+documents should appear highest to lowest based on the ``qty`` field.
+The skip() method specifies that the first 5 documents should not appear
+from the query. 
+
 The following shows the output of the query specified above:
 
 .. code-block:: json
@@ -50,8 +55,6 @@ The following shows the output of the query specified above:
 To answer the customer, the 3 best selling colors are: pink, red, and
 white.
 
-.. _note: 
+.. note::
     If the value of skip exceeds the number of matched documents for a
     query, that query returns no documents.
-    
-
