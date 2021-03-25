@@ -47,7 +47,7 @@ driver, consider reading our
 The Sorts Class
 ---------------
 
-``Sorts`` class is a builder that provides static factory methods for all sort
+The ``Sorts`` class is a builder that provides static factory methods for all sort
 criteria operators supported by MongoDB. These methods return a ``Bson`` object
 that you can pass to the  ``sort()`` method of a ``FindIterable`` instance or to 
 ``Aggregates.sort()``. If you want to learn more about ``Aggregates``, see our 
@@ -170,7 +170,7 @@ Text Score
 
 To specify a sort by the text score of a text search, use the
 ``Sorts.metaTextScore()`` static factory method. For a detailed usage example
-showing how to specify a sort using ``Sorts.metaTextScore()``, see 
+showing how to specify sort criteria using ``Sorts.metaTextScore()``, see 
 :ref:`the text search section of our sorting fundamentals guide <sorts-crud-text-search>`.
 
 For more information, see the

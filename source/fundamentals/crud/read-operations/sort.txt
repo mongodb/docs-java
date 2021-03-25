@@ -86,9 +86,9 @@ in the following order:
    ...
 
 In the above code snippets, we specify our sort criteria by passing a
-``Document`` object to our sort method. While this will run without errors, we
-recommend that you instead specify sort criteria through the ``Sorts`` builder
-class. 
+``Document`` object (which implements the ``Bson`` interface) to our sort
+method. While this will run without errors, we recommend that you instead
+specify sort criteria through the ``Sorts`` builder class. 
 
 The following code snippet is equivalent to the
 :ref:`FindIterable example above <sorts-crud-find-iterable-example>`. 
@@ -115,6 +115,7 @@ following API documentation:
 - :java-docs:`Aggregates </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html>`
 - :java-docs:`Sorts </apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html>`
 - :java-docs:`Bson </apidocs/bson/org/bson/conversions/Bson.html>`
+- :java-docs:`Document </apidocs/bson/org/bson/Document.html>`
 
 Sorting Direction
 -----------------
