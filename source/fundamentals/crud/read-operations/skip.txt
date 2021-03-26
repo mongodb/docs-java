@@ -4,17 +4,40 @@ Skip Returned Results
 
 .. default-domain:: mongodb
 
-Use ``skip()`` to specify how many documents to omit from the beginning
-of the list of returned documents for a read operation. You can combine
-``skip()`` with ``sort()`` to omit the top (for descending order) or
-bottom (for ascending order) results for a given query. Since the order
-of documents returned is not guaranteed in the absence of a sort, using
-``skip()`` without using ``sort()`` omits arbitrary documents. 
+In this guide, we show you how to skip returned results.
 
-The example in this guide is about a paint store where the best colors
-sell quicker than the other colors. One day, a customer comes in and
-asks what the 3 best selling colors are.  The following documents are in
-the ``paint`` collection: 
+You can skip results using the ``skip()`` method of a 
+:java-docs:`/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#skip(int)>`
+instance or by using the :java-docs:`Aggregates.skip() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#sort(org.bson.conversions.Bson)>` 
+static factory method in an aggregation pipeline. 
+
+The ``skip()`` method takes an integer that specifies how many documents
+to omit from the beginning of the list of documents returned by your
+query. 
+
+You can use the skip() method of a FindIterable instance as follows:
+
+.. code-block:: java
+
+   collection.find().skip(2); 
+
+The ``Aggregates.skip()`` method implements the Bson interface to
+specify skip criteria as arguments.  
+
+You can use the Aggregates.sort() method as follows:
+
+.. code-block:: java
+
+   import com.mongodb.client.model.Aggregates;
+
+   collection.aggregate(Arrays.asList(Aggregates.skip(2)));
+   
+
+The example in this guide is about a paint store that sells eight
+different colors of paint.  The best colors sell quicker than the other
+colors. One day, a customer comes in and asks what the three
+best-selling colors are.  The following documents are in the
+``paint_inventory`` collection: 
 
 .. code-block:: json
 
@@ -28,8 +51,8 @@ the ``paint`` collection:
    { "_id": 8, "color": "orange", "qty": 7 }
 
 
-To address the scenario, we query the ``paint`` collection with an empty
-filter, sort the documents by ``qty`` field and omit the first 5
+To address the scenario, you query the ``paint_inventory`` collection
+with an empty filter, sort the documents by ``qty`` field and omit the first 5
 results.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Skip.java
@@ -38,10 +61,9 @@ results.
    :start-after: begin skipExample
    :end-before: end skipExample
 
-The find() method returns all documents.  The sort() method specifies
-documents should appear highest to lowest based on the ``qty`` field.
-The skip() method specifies that the first 5 documents should not appear
-from the query. 
+- The ``find()`` method returns all documents.  
+- The ``sort()`` method specifies documents to display from highest to lowest based on the ``qty`` field.
+- The ``skip()`` method specifies to omit the first 5 documents. 
 
 The following shows the output of the query specified above:
 
@@ -52,9 +74,9 @@ The following shows the output of the query specified above:
    { "_id": 1, "color": "red", "qty": 5 }
    { "_id": 6, "color": "pink", "qty": 3 }
 
-To answer the customer, the 3 best selling colors are: pink, red, and
-white.
+After we run the query, we found the three best-selling colors are pink,
+red, and white. 
 
 .. note::
-    If the value of skip exceeds the number of matched documents for a
-    query, that query returns no documents.
+   If the value of skip exceeds the number of matched documents for a
+   query, that query returns no documents.

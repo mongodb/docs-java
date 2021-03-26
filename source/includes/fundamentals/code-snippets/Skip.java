@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Sorts.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 
 public class Skip {
     
@@ -22,7 +22,6 @@ public class Skip {
     private final MongoDatabase database;
 
     private Skip() {
-        // begin declaration
         final String uri = System.getenv("DRIVER_REF_URI");
 
         mongoClient = MongoClients.create(uri);
@@ -39,9 +38,14 @@ public class Skip {
 
     private void skipExample(){
         // begin skipExample
-        Bson filter = empty();
+        import com.mongodb.client.model.Filters;
+        import com.mongodb.client.model.Sorts;
+
+        // <MongoCollection setup code here>
+
+        Bson filter = Filters.empty();
         collection.find(filter)             
-            .sort(descending("qty"))        
+            .sort(Sorts.descending("qty"))        
             .skip(5)                       
             .forEach(doc -> System.out.println(doc.toJson()));
         // end skipExample
