@@ -7,7 +7,7 @@ Skip Returned Results
 In this guide, we show you how to skip returned results.
 
 You can skip results using the ``skip()`` method of a 
-:java-docs:`/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#skip(int)>`
+:java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#skip(int)>`
 instance or by using the :java-docs:`Aggregates.skip() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#sort(org.bson.conversions.Bson)>` 
 static factory method in an aggregation pipeline. 
 
@@ -15,16 +15,16 @@ The ``skip()`` method takes an integer that specifies how many documents
 to omit from the beginning of the list of documents returned by your
 query. 
 
-You can use the skip() method of a FindIterable instance as follows:
+You can use the ``skip()`` method of a ``FindIterable`` instance as follows:
 
 .. code-block:: java
 
    collection.find().skip(2); 
 
-The ``Aggregates.skip()`` method implements the Bson interface to
-specify skip criteria as arguments.  
+The ``Aggregates.skip()`` method implements the ``Bson`` interface to
+specify skip criteria as an argument.  
 
-You can use the Aggregates.sort() method as follows:
+You can use the ``Aggregates.sort()`` method as follows:
 
 .. code-block:: java
 
