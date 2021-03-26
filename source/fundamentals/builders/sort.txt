@@ -67,6 +67,36 @@ that you can pass to the  ``sort()`` method of a ``FindIterable`` instance or to
 ``Aggregates.sort()``. If you want to learn more about ``Aggregates``, see our 
 :doc:`guide on the Aggregates builder </fundamentals/builders/aggregates>`.
 
+The following two code snippets are equivalent, however we recommend you use the
+``Sorts`` builder to specify your sort criteria:
+
+.. code-block:: java
+
+   import static com.mongodb.client.model.Sorts.ascending;
+
+   // <MongoCollection setup code here>
+   
+   //Recommended
+   collection.find().sort(ascending("_id"));
+
+.. code-block:: java
+
+   // <MongoCollection setup code here>
+   
+   //Not Recommended
+   collection.find().sort(new Document("_id", 1)));
+
+The code snippets above both sort the documents in the
+:ref:`sort_example collection <sorts-crud-sort-example>`  
+in the following order: 
+   
+.. code-block:: json
+
+   {"_id": 1, "letter": "c", "food": "coffee with milk"}
+   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
+   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   ...
+
 For more information about the classes and interfaces in this section, see the
 following API documentation:
    
