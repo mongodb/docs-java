@@ -221,8 +221,8 @@ code:
    
    collection.find().sort(ascending("letter"));
 
-Since multiple documents contain "a" on the field we are sorting on, the first
-document returned could be any of the following documents:
+Since multiple documents contain the value "a" for the field on which we perform the sort,
+the following documents could be returned in any order:
 
 .. code-block:: json
 
