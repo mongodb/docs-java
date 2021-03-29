@@ -48,11 +48,12 @@ contains the following documents:
 Methods For Sorting
 -------------------
 
-You can sort your results using the ``sort()`` method of a ``FindIterable``
-instance or by using the  ``Aggregates.sort()`` static factory method in an
-aggregation pipeline. Both of these methods receive objects that implement the
-``Bson`` interface as arguments. For information on the ``Bson`` interface, 
-see our 
+You can sort results retrieved by a query and you can sort results 
+within an aggregation pipeline. To sort your query results, use the
+``sort()`` method of a ``FindIterable`` instance. To sort your results within an 
+aggregation pipeline, use the ``Aggregates.sort()`` static factory method. Both
+of these methods receive objects that implement the ``Bson`` interface as
+arguments. For information on the ``Bson`` interface, see our 
 :doc:`guide on BSON </fundamentals/data-formats/document-data-format-bson/>`.   
 
 You can use the ``sort()`` method of a ``FindIterable`` instance as follows:
@@ -65,7 +66,8 @@ You can use the ``sort()`` method of a ``FindIterable`` instance as follows:
    
    collection.find().sort(ascending("_id"));
  
-You can use the ``Aggregates.sort()`` method as follows:
+You can use the ``Aggregates.sort()`` method within an aggregation pipeline
+as follows:
    
 .. code-block:: java
 
