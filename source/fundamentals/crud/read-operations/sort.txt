@@ -158,9 +158,8 @@ by the ``_id`` field:
 
    // <MongoCollection setup code here>
    
-   Bson idSort = ascending("_id");
    List<Document> results = new ArrayList<>();
-   collection.find().sort(idSort).into(results);
+   collection.find().sort(ascending("_id")).into(results);
    for (Document result : results) {
          System.out.println(result.toJson());
    }
