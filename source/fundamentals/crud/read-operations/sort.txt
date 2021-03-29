@@ -324,9 +324,9 @@ The code example performs the following actions:
 
 #. Creates a text index for your
    :ref:`sort_example collection <sorts-crud-sort-example>`
-   on the ``food`` field. In a production application you would not
-   want to call the ``createIndex()`` method every search, but it is alright for
-   the purpose of this example.
+   on the ``food`` field. If the index specified in your call to the
+   ``createIndex()`` method already exists, calling it will not create a new
+   index.
 #. Runs your text search for the phrase "maple donut".
 #. Projects text scores into your query results as the
    ``score`` field. This projection is optional if your MongoDB instance is
