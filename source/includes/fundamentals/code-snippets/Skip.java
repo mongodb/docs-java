@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.Aggregates;
 
 public class Skip {
     
@@ -60,6 +61,23 @@ public class Skip {
             .skip(9)                       
             .forEach(doc -> System.out.println(doc.toJson()));
         // end noResultsExample
+    }
+
+    private void skipAggregateExample(){
+        // begin skipAggregateExample
+        import com.mongodb.client.model.Filters;
+        import com.mongodb.client.model.Sorts;
+        import com.mongodb.client.model.Aggregates;
+
+        // <MongoCollection setup code here>
+
+        Bson filter = Filters.empty();
+        collection.aggregate(Arrays.asList(
+            Aggregates.match(filter), 
+            Aggregates.sort(Sorts.descending("qty")), 
+            Aggregates.skip(5)))
+            .forEach(doc -> System.out.println(doc.toJson())); 
+        // end skipAggregateExample
     }
 
     private void setupPaintCollection() {
