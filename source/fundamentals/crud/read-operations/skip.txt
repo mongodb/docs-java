@@ -4,40 +4,40 @@ Skip Returned Results
 
 .. default-domain:: mongodb
 
-In this guide, we show you how to skip returned results.
+In this guide, we show you how to skip a specified number of returned results.
 
-You can skip results using the ``skip()`` method of a 
-:java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#skip(int)>`
-instance or by using the :java-docs:`Aggregates.skip() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#sort(org.bson.conversions.Bson)>` 
-static factory method in an aggregation pipeline. 
+You can skip results using the ``skip()`` method on a result of a query or
+in an aggregation pipeline. 
 
-The ``skip()`` method takes an integer that specifies how many documents
-to omit from the beginning of the list of documents returned by your
-query. 
+The ``skip()`` method takes an integer that specifies the number of documents
+to omit from the beginning of the list of documents returned by the
+:java-docs:`FindIterable </apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#skip(int)>`. 
 
-You can use the ``skip()`` method of a ``FindIterable`` instance as follows:
+You can use the ``skip()`` method to skip the first two documents as follows:
 
 .. code-block:: java
 
    collection.find().skip(2); 
 
-The ``Aggregates.skip()`` method implements the ``Bson`` interface to
-specify skip criteria as an argument.  
+The :java-docs:`Aggregates.skip() </apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#skip(int)>`
+is a stage in the aggregation pipeline where you can specify a skip criteria as an argument.  
 
-You can use the ``Aggregates.sort()`` method as follows:
+You can use the ``Aggregates.skip()`` method to skip the first two documents as follows:
 
 .. code-block:: java
 
    import com.mongodb.client.model.Aggregates;
 
-   collection.aggregate(Arrays.asList(Aggregates.skip(2)));
-   
+   collection.aggregate(Arrays.asList(Aggregates.skip(2))); 
 
-The example in this guide is about a paint store that sells eight
-different colors of paint.  The best colors sell quicker than the other
-colors. One day, a customer comes in and asks what the three
-best-selling colors are.  The following documents are in the
-``paint_inventory`` collection: 
+Using ``skip()``
+~~~~~~~~~~~~~~~~
+
+The following example is about a paint store that sells eight different
+colors of paint.  The best colors sell quicker than the other colors.
+One day, a customer asks what the three best-selling (lowest inventory)
+colors are. The paint store keeps track of inventory in the ``qty``
+field in their ``paint_inventory`` collection: 
 
 .. code-block:: json
 
@@ -52,7 +52,7 @@ best-selling colors are.  The following documents are in the
 
 
 To address the scenario, you query the ``paint_inventory`` collection
-with an empty filter, sort the documents by ``qty`` field and omit the first 5
+with an empty filter, sort the documents by ``qty`` field and omit the first five
 results.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Skip.java
@@ -74,9 +74,19 @@ The following shows the output of the query specified above:
    { "_id": 1, "color": "red", "qty": 5 }
    { "_id": 6, "color": "pink", "qty": 3 }
 
-After we run the query, we found the three best-selling colors are pink,
+After we run the query, we find the three best-selling colors are pink,
 red, and white. 
 
 .. note::
    If the value of skip exceeds the number of matched documents for a
    query, that query returns no documents.
+
+   If the ``skip()`` method from the example above skips the first nine
+   documents, no results would return since there are only eight
+   documents. 
+
+   .. literalinclude:: /includes/fundamentals/code-snippets/Skip.java
+      :language: java
+      :dedent:
+      :start-after: begin noResultsExample
+      :end-before: end noResultsExample

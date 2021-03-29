@@ -34,6 +34,7 @@ public class Skip {
         Skip skip = new Skip();
         // skip.setupPaintCollection();
         skip.skipExample();
+        skip.noResultsExample();
     }
 
     private void skipExample(){
@@ -49,6 +50,16 @@ public class Skip {
             .skip(5)                       
             .forEach(doc -> System.out.println(doc.toJson()));
         // end skipExample
+    }
+
+    private void noResultsExample(){
+        // begin noResultsExample
+        Bson filter = Filters.empty();
+        collection.find(filter)             
+            .sort(Sorts.descending("qty"))        
+            .skip(9)                       
+            .forEach(doc -> System.out.println(doc.toJson()));
+        // end noResultsExample
     }
 
     private void setupPaintCollection() {
