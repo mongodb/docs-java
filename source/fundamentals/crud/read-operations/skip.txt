@@ -30,7 +30,7 @@ You can use the ``Aggregates.skip()`` method to skip the first two documents as 
 
    import com.mongodb.client.model.Aggregates;
 
-   collection.aggregate(Arrays.asList(Aggregates.skip(2))); 
+   collection.aggregate(Arrays.asList(Aggregates.match(), Aggregates.skip(2))); 
 
 Using ``skip()``
 ~~~~~~~~~~~~~~~~
@@ -69,7 +69,7 @@ Using the ``skip()`` method:
 - The ``sort()`` method specifies documents to display from highest to lowest based on the ``qty`` field.
 - The ``skip()`` method specifies to omit the first 5 documents. 
 
-Using ``Aggregates.skip()`` :
+Using ``Aggregates.skip()``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Skip.java
    :language: java
