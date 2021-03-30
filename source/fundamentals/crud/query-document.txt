@@ -1,0 +1,214 @@
+===============
+Specify a Query
+===============
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview 
+--------
+
+In this guide, we show you how to specify a query using operators with
+the ``db.collection.find()`` method. 
+
+One of the parameters in the :manual:`db.collection.find() </reference/method/db.collection.find/>` 
+method is a query. The method returns documents from a collection
+matching operators specified in your query. 
+
+If you pass omit or pass an empty query, it returns all the documents in a
+collection.
+
+Empty Query:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin emptyFilter
+   :end-before: end emptyFilter
+
+Omitting Query:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin omitFilter
+   :end-before: end omitFilter
+
+This guide shows you how to use the ``db.collection.find()`` method with
+examples of the following types of operators: 
+
+- :ref:`Comparison Operators <query-comparison>`
+- :ref:`Logical Operators <query-logical>`
+- :ref:`Array Operators <query-arrays>`
+- :ref:`Element Operators <query-elements>`
+- :ref:`Evaluation Operators <query-evaluation>`
+
+
+The examples in this guide use the following documents in the
+``paint_purchases`` collection: 
+
+.. code-block:: json
+    { "_id": 1, "color": "red", "qty": 9, "vendor": ["A", "E"] }
+    { "_id": 2, "color": "purple", "qty": 8, "vendor": ["B", "D", "F"], "rating": 5 } 
+    { "_id": 3, "color": "blue", "qty": 5, "vendor": ["A", "E"] }
+    { "_id": 4, "color": "white", "qty": 6, "vendor": ["D"], "rating": 9 }
+    { "_id": 5, "color": "yellow", "qty": 4, "vendor": ["A", "B"] }
+    { "_id": 6, "color": "pink", "qty": 3, "vendor": ["C"] }
+    { "_id": 7, "color": "green", "qty": 8, "vendor": ["C", "E"], "rating": 7 }
+    { "_id": 8, "color": "black", "qty": 7, "vendor": ["A", "C", "D"] }
+       
+.. _query-comparison:
+
+Comparison Operators
+--------------------
+
+Comparison operators query data based on comparisons with values in a
+collection. Common comparison operators include ``gt()`` for "greater
+than" comparisons, ``lte()`` for "less than or equal to" comparisons,
+and ``ne()`` for "not equal to " comparisons. 
+
+The following example uses a comparison operator to match all
+documents where the value of the ``qty`` field is greater than "7" in the
+``paint_purchases`` collection:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin comparisonFilter
+   :end-before: end comparisonFilter
+
+The following shows the output of the query using the operator specified
+above:
+
+.. code-block:: json
+   :copyable: false
+
+    { "_id": 1, "color": "red", "qty": 9, "vendor": ["A", "E"] }
+    { "_id": 2, "color": "purple", "qty": 8, "vendor": ["B", "D", "F"], "rating": 5 }
+    { "_id": 7, "color": "green", "qty": 8, "vendor": ["C", "E"], "rating": 7 }
+
+See 
+
+.. _query-logical:
+
+Logical Operators
+-----------------
+
+Logical operators query data using logic applied to the results of
+field-level operators. Common logical operators include ``and()`` where
+all operators must be true, and ``or()`` where at least one of the
+operators must be true.
+
+The following example uses a logical operator to match documents where
+the value of the ``qty`` field is less than or equal to "5" and the
+value of the ``color`` field is not "pink" in the ``paint_purchases``
+collection: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin logicalFilter
+   :end-before: end logicalFilter
+
+The following shows the output of the query using the operator specified
+above:
+
+.. code-block:: json
+   :copyable: false
+
+    { "_id": 3, "color": "blue", "qty": 5, "vendor": ["A", "E"] }
+    { "_id": 5, "color": "yellow", "qty": 4, "vendor": ["A", "B"] }
+
+.. _query-arrays:
+
+Array Operators
+---------------
+
+Array operators query based on the elements in a field or the size of a field.
+
+The following example uses an array operator to match documents where
+the size of the ``vendor`` field is "3" in the ``paint_purchases``
+collection: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin arrayFilter
+   :end-before: end arrayFilter
+
+The following shows the output of the query using the operator specified
+above:
+
+.. code-block:: json
+   :copyable: false
+
+    { "_id": 2, "color": "purple", "qty": 8, "vendor": ["B", "D", "F"], "rating": 5 }
+    { "_id": 8, "color": "black", "qty": 7, "vendor": ["A", "C", "D"] }
+
+.. _query-elements:
+
+Element Operators
+-----------------
+
+Element operators query based on the presence, absence, or type of a
+field.  
+
+The following example uses an element operator to match documents that
+have a ``rating`` field in the ``paint_purchases`` collection: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin elementFilter
+   :end-before: end elementFilter
+
+The following shows the output of the query using the operator specified
+above:
+
+.. code-block:: json
+   :copyable: false
+
+    { "_id": 2, "color": "purple", "qty": 8, "vendor": ["B", "D", "F"], "rating": 5 }
+    { "_id": 4, "color": "white", "qty": 6, "vendor": ["D"], "rating": 9 }
+    { "_id": 7, "color": "green", "qty": 8, "vendor": ["C", "E"], "rating": 7 }
+
+
+.. _query-evaluation:
+
+Evaluation Operators
+--------------------
+
+Evaluation operators query data on a higher level logic, like regex
+and text searches. Common evaluation operators include ``regex()`` and
+``text()``. 
+
+The following example uses an evaluation operator to match documents that
+have a ``color`` field ending with the letter "k" in the
+``paint_purchases`` collection:  
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
+   :language: java
+   :dedent:
+   :start-after: begin evaluationFilter
+   :end-before: end evaluationFilter
+
+The following shows the output of the query using the operator specified
+above:
+
+.. code-block:: json
+   :copyable: false
+
+    { "_id": 6, "color": "pink", "qty": 3, "vendor": ["C"] }
+    { "_id": 8, "color": "black", "qty": 7, "vendor": ["A", "C", "D"] }
+
+See the following documentation for more information about the operators
+in this guide:
+
+- :manual:`Comparison Operators </reference/operator/query-comparison/>`
+- :manual:`Logical Operators </reference/operator/query-logical/>`
+- :manual:`Array Operators </reference/operator/query-array/>`
+- :manual:`Element Operators </reference/operator/query-element/>`
+- :manual:`Evaluation Operators </reference/operator/query-evaluation/>`
