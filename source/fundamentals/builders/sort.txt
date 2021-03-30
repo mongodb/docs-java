@@ -128,8 +128,9 @@ Combining Sort Criteria
 -----------------------
 
 To combine sort criteria, use the ``Sorts.orderBy()`` static factory
-method. The ``orderBy()`` method builds sort criteria that apply passed 
-in sort criteria from left to right in the event of ties.
+method. This method constructs an object containing an ordered list of sort
+criteria. When performing the sort, if the leftmost sort criteria results in a
+tie, the sort uses the next sort criteria in the list to determine the order.
 
 The following example sorts the documents in the 
 :ref:`sample collection <sorts-builders-sort-sample>` in descending order
