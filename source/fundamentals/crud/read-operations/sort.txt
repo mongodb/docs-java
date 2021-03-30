@@ -364,13 +364,12 @@ The output of the code example above should look something like this:
 
 .. note:: ``$meta`` Behavior in MongoDB 4.4 or Later
 
-  When using MongoDB 4.4 or later, projecting ``Projections.metaTextScore()`` 
-  into your ``FindIterable`` instance is not necessary to sort on the text
-  score. 
-  
-  In addition, MongoDB 4.4 or later disregards the field name you specify
-  in a ``$meta`` text score aggregation operation used in a sort. This means
-  that the field name argument you pass to ``Sorts.metaTextScore()`` is ignored.
+  If you are using MongoDB 4.4 or later, projecting
+  ``Projections.metaTextScore()`` into your ``FindIterable`` instance is not
+  necessary to sort on the text score. In addition, MongoDB 4.4 or later
+  disregards the field name you specify in a ``$meta`` text score aggregation
+  operation used in a sort. This means that the field name argument you pass to
+  ``Sorts.metaTextScore()`` is ignored.
 
 For more information about the classes in this section, see the
 following API documentation:
