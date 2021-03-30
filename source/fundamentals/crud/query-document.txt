@@ -7,7 +7,7 @@ Specify a Query
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 2
+   :depth: 1
    :class: singlecol
 
 Overview 
@@ -24,6 +24,7 @@ If you pass omit or pass an empty query, it returns all the documents in a
 collection.
 
 Empty Query:
+````````````
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
    :language: java
@@ -32,6 +33,7 @@ Empty Query:
    :end-before: end emptyFilter
 
 Omitting Query:
+```````````````
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
    :language: java
@@ -53,6 +55,7 @@ The examples in this guide use the following documents in the
 ``paint_purchases`` collection: 
 
 .. code-block:: json
+
     { "_id": 1, "color": "red", "qty": 9, "vendor": ["A", "E"] }
     { "_id": 2, "color": "purple", "qty": 8, "vendor": ["B", "D", "F"], "rating": 5 } 
     { "_id": 3, "color": "blue", "qty": 5, "vendor": ["A", "E"] }
@@ -92,8 +95,6 @@ above:
     { "_id": 2, "color": "purple", "qty": 8, "vendor": ["B", "D", "F"], "rating": 5 }
     { "_id": 7, "color": "green", "qty": 8, "vendor": ["C", "E"], "rating": 7 }
 
-See 
-
 .. _query-logical:
 
 Logical Operators
@@ -129,7 +130,8 @@ above:
 Array Operators
 ---------------
 
-Array operators query based on the elements in a field or the size of a field.
+Array operators query data based on the value or quantity of elements in
+an array field. 
 
 The following example uses an array operator to match documents where
 the size of the ``vendor`` field is "3" in the ``paint_purchases``
@@ -155,8 +157,7 @@ above:
 Element Operators
 -----------------
 
-Element operators query based on the presence, absence, or type of a
-field.  
+Element operators query data based on the presence or type of a field.  
 
 The following example uses an element operator to match documents that
 have a ``rating`` field in the ``paint_purchases`` collection: 
@@ -184,8 +185,7 @@ Evaluation Operators
 --------------------
 
 Evaluation operators query data on a higher level logic, like regex
-and text searches. Common evaluation operators include ``regex()`` and
-``text()``. 
+and text searches. 
 
 The following example uses an evaluation operator to match documents that
 have a ``color`` field ending with the letter "k" in the
