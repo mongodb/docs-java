@@ -323,13 +323,11 @@ The code example performs the following actions:
 
 #. Creates a text index for your
    :ref:`sort_example collection <sorts-crud-sort-example>`
-   on the ``food`` field. If the index specified in your call to the
-   ``createIndex()`` method already exists, calling it will not create a new
-   index.
+   on the ``food`` field. If you call ``createIndex()`` specifying an index that
+   already exists on the collection, the operation does not create a new index.
 #. Runs your text search for the phrase "maple donut".
 #. Projects text scores into your query results as the
-   ``score`` field. This projection is optional if your MongoDB instance is
-   running MongoDB 4.4 or later. 
+   ``score`` field.
 #. Sorts your results by text score (best match first).
 
 .. code-block:: java
