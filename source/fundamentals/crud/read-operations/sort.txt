@@ -362,14 +362,14 @@ The output of the code example above should look something like this:
    {"_id": 2, "letter": "a", "food": "donuts and coffee", "score": 0.75}
    {"_id": 3, "letter": "a", "food": "maple syrup", "score": 0.75}
 
-.. note:: ``$meta`` Behavior in MongoDB 4.4 or Later
+.. note:: Text Search Behavior in MongoDB 4.4 or Later
 
-  If you are using MongoDB 4.4 or later, projecting
-  ``Projections.metaTextScore()`` into your ``FindIterable`` instance is not
-  necessary to sort on the text score. In addition, MongoDB 4.4 or later
-  disregards the field name you specify in a ``$meta`` text score aggregation
-  operation used in a sort. This means that the field name argument you pass to
-  ``Sorts.metaTextScore()`` is ignored.
+   The structure of text search has changed for MongoDB 4.4 or later. You no
+   longer need to project ``Projections.metaTextScore()`` into your
+   ``FindIterable`` instance in order to sort on the text score. In addition,
+   the field name you specify in a ``$meta`` text score aggregation operation
+   used in a sort is ignored. This means that the field name argument you pass
+   to ``Sorts.metaTextScore()`` is disregarded.
 
 For more information about the classes in this section, see the
 following API documentation:
