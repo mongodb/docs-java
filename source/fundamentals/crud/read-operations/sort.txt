@@ -31,10 +31,10 @@ You should read this guide if you would like to:
 * Sort on the text score of a
   :manual:`text search </core/text-search-operators/>`.
 
-.. _sorts-crud-sort-example:
+.. _sorts-crud-sort-sample:
 
-The examples in this guide use a sample collection, ``sort_example``, that
-contains the following documents:
+The examples in this guide use a sample collection that contains the following
+documents:
   
 .. code-block:: json
   
@@ -79,7 +79,7 @@ as follows:
    collection.aggregate(Arrays.asList(Aggregates.sort(ascending("_id"))));
 
 The code snippets above both sort the documents in the
-:ref:`sort_example collection <sorts-crud-sort-example>` from smallest to
+:ref:`sample collection <sorts-crud-sort-sample>` from smallest to
 largest value of the ``_id`` field: 
 
 .. code-block:: json
@@ -148,7 +148,7 @@ documents in your collection, sorted from smallest to largest on the specified
 field name. 
 
 In the following code example, we use the ``ascending()`` method to sort the
-:ref:`sort_example collection <sorts-crud-sort-example>`  
+:ref:`sample collection <sorts-crud-sort-sample>`  
 by the ``_id`` field:
 
 .. code-block:: java
@@ -191,7 +191,7 @@ The following code snippet shows how to specify a descending sort on the
 
 
 The code snippet above returns the documents in the
-:ref:`sort_example collection <sorts-crud-sort-example>`  
+:ref:`sample collection <sorts-crud-sort-sample>`  
 in descending order: 
 
 .. code-block:: json
@@ -209,7 +209,7 @@ Handling Ties
 A tie occurs when two or more documents have a field with identical values.
 MongoDB does not guarantee sort order in the event of ties. For example, suppose
 we encounter a tie when applying a sort to the
-:ref:`sort_example collection <sorts-crud-sort-example>` using the following
+:ref:`sample collection <sorts-crud-sort-sample>` using the following
 code:
 
 .. code-block:: java
@@ -245,7 +245,7 @@ We can specify an ascending sort on the ``letter`` field followed by the
    collection.find().sort(ascending("letter", "_id"));
 
 The code snippet above returns the documents in the
-:ref:`sort_example collection <sorts-crud-sort-example>`  
+:ref:`sample collection <sorts-crud-sort-sample>`  
 in the following order: 
 
 .. code-block:: json
@@ -281,7 +281,7 @@ descending sort on the ``letter`` field with an ascending sort on the
    collection.find().sort(orderBySort);
 
 The code snippet above returns the documents in the
-:ref:`sort_example collection <sorts-crud-sort-example>`
+:ref:`sample collection <sorts-crud-sort-sample>`
 in the following order: 
 
 .. code-block:: json
@@ -315,14 +315,14 @@ criteria to sort by the text score.
 
 In the following code example, we show how you can use the
 ``Sorts.metaTextScore()`` method to sort the results of a text
-search on the :ref:`sort_example collection <sorts-crud-sort-example>`.
+search on the :ref:`sample collection <sorts-crud-sort-sample>`.
 The code example uses the :doc:`Filters </fundamentals/builders/filters>`,
 :doc:`Indexes </fundamentals/builders/indexes>`, and
 :doc:`Projections </fundamentals/builders/projections>` builders.
 The code example performs the following actions:
 
 #. Creates a text index for your
-   :ref:`sort_example collection <sorts-crud-sort-example>`
+   :ref:`sample collection <sorts-crud-sort-sample>`
    on the ``food`` field. If you call ``createIndex()`` specifying an index that
    already exists on the collection, the operation does not create a new index.
 #. Runs your text search for the phrase "maple donut".

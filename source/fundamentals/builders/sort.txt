@@ -36,9 +36,9 @@ If you want to learn the fundamentals of sorting in the MongoDB Java
 driver, consider reading our
 :doc:`guide on sorting </fundamentals/crud/read-operations/sort/>`.
 
-.. _sorts-builders-sort-example:
+.. _sorts-builders-sort-sample:
 
-The examples on this page use a sample collection, ``sort_example``, that
+The examples on this page use a sample collection that
 contains the following documents:
 
 .. code-block:: json
@@ -77,7 +77,7 @@ factory method. Pass ``Sorts.ascending()``
 the name of the field you need to sort on.
 
 The following example sorts the documents in the 
-:ref:`sort_example collection <sorts-builders-sort-example>` by ascending order
+:ref:`sample collection <sorts-builders-sort-sample>` by ascending order
 on the ``_id`` field:
 
 .. code-block:: java
@@ -104,7 +104,7 @@ To specify a descending sort, use the ``Sorts.descending()`` static factory
 method. Pass ``Sorts.descending()`` the name of the field you need to sort on.
 
 The following example sorts the documents in the 
-:ref:`sort_example collection <sorts-builders-sort-example>` in descending order
+:ref:`sample collection <sorts-builders-sort-sample>` in descending order
 on the ``_id`` field:
 
 .. code-block:: java
@@ -132,7 +132,7 @@ method. The ``orderBy()`` method builds sort criteria that apply passed
 in sort criteria from left to right in the event of ties.
 
 The following example sorts the documents in the 
-:ref:`sort_example collection <sorts-builders-sort-example>` in descending order
+:ref:`sample collection <sorts-builders-sort-sample>` in descending order
 on the ``letter`` field, and in the event of a tie, ascending order on the
 ``_id`` field:
 
