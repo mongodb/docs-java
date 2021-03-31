@@ -44,8 +44,8 @@ owner would like to change the site to show colors in stock (``qty`` is
 not ``0``).  
 
 To remove the colors out of stock, query the ``paint_inventory``
-collection where the ``qty`` is ``0`` and pass it to the ``deleteMany()``
-method.
+collection where the ``qty`` is ``0`` and pass the query to the
+``deleteMany()`` method.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
@@ -66,12 +66,13 @@ collection:
 Using ``deleteOne()``:
 ``````````````````````
 
-The store wants to donate the remaining quantity of their purple paint.
+The store is donating the remaining quantity of their purple paint.
 This means that the ``qty`` for purple is now ``0`` and we need to
 remove purple from the collection. 
 
 To remove purple, query the ``paint_inventory`` collection where the
-``color`` is ``"purple"`` and pass it to the ``deleteOne()`` method.
+``color`` is ``"purple"`` and pass the query to the ``deleteOne()``
+method. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
