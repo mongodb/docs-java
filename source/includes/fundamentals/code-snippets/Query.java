@@ -33,12 +33,6 @@ public class Query {
         // query.preview();
         // query.setupPaintCollection();
 
-        System.out.println("Empty Filter:");
-        query.emptyFilter();
-        
-        System.out.println("Omit Filter:");
-        query.omitFilter();
-
         System.out.println("Comparison Filter:");
         query.comparisonFilter();
 
@@ -53,19 +47,6 @@ public class Query {
 
         System.out.println("Array Filter:");
         query.arrayFilter();
-    }
-
-    private void emptyFilter(){
-        // begin emptyFilter
-        Bson filter = Filters.empty();
-        collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
-        // end emptyFilter
-    }
-
-    private void omitFilter(){
-        // begin omitFilter
-        collection.find().forEach(doc -> System.out.println(doc.toJson()));
-        // end omitFilter
     }
 
     private void comparisonFilter(){
@@ -131,7 +112,6 @@ public class Query {
         querydata.add(p7);
         querydata.add(p8);
         
-
         collection.insertMany(querydata);
     }
 

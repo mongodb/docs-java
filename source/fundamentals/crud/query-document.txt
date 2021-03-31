@@ -13,43 +13,19 @@ Specify a Query
 Overview 
 --------
 
-In this guide, we show you how to specify a query using operators with
-the ``db.collection.find()`` method. 
+Most CRUD operations allow you to narrow the set of matched documents by
+specifying matching criteria in a **query document**. Query documents
+contain one or more query operators that apply to specific fields which
+determine which documents to include in the result set. 
 
-One of the parameters in the :manual:`db.collection.find() </reference/method/db.collection.find/>` 
-method is a query. The method returns documents from a collection
-matching operators specified in your query. 
-
-If you pass omit or pass an empty query, it returns all the documents in a
-collection.
-
-Empty Query:
-````````````
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
-   :language: java
-   :dedent:
-   :start-after: begin emptyFilter
-   :end-before: end emptyFilter
-
-Omitting Query:
-```````````````
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Query.java
-   :language: java
-   :dedent:
-   :start-after: begin omitFilter
-   :end-before: end omitFilter
-
-This guide shows you how to use the ``db.collection.find()`` method with
-examples of the following types of operators: 
+In this page, we cover the following query operators with
+examples on how to use them: 
 
 - :ref:`Comparison Operators <query-comparison>`
 - :ref:`Logical Operators <query-logical>`
 - :ref:`Array Operators <query-arrays>`
 - :ref:`Element Operators <query-elements>`
 - :ref:`Evaluation Operators <query-evaluation>`
-
 
 The examples in this guide use the following documents in the
 ``paint_purchases`` collection: 
@@ -75,8 +51,8 @@ collection. Common comparison operators include ``gt()`` for "greater
 than" comparisons, ``lte()`` for "less than or equal to" comparisons,
 and ``ne()`` for "not equal to " comparisons. 
 
-The following example uses a comparison operator to match all
-documents where the value of the ``qty`` field is greater than "7" in the
+The following example uses the greater than operator to match all
+documents where the value of the ``qty`` is greater than ``7`` in the
 ``paint_purchases`` collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
@@ -105,9 +81,9 @@ field-level operators. Common logical operators include ``and()`` where
 all operators must be true, and ``or()`` where at least one of the
 operators must be true.
 
-The following example uses a logical operator to match documents where
-the value of the ``qty`` field is less than or equal to "5" and the
-value of the ``color`` field is not "pink" in the ``paint_purchases``
+The following example uses the and-operator to match documents where
+the value of the ``qty`` is less than or equal to ``5`` and the
+value of the ``color`` is not ``"pink"`` in the ``paint_purchases``
 collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
@@ -133,8 +109,8 @@ Array Operators
 Array operators query data based on the value or quantity of elements in
 an array field. 
 
-The following example uses an array operator to match documents where
-the size of the ``vendor`` field is three in the ``paint_purchases``
+The following example uses the size operator to match documents where
+the size of the ``vendor`` list is ``3`` in the ``paint_purchases``
 collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
@@ -159,8 +135,8 @@ Element Operators
 
 Element operators query data based on the presence or type of a field.  
 
-The following example uses an element operator to match documents that
-have a ``rating`` field in the ``paint_purchases`` collection: 
+The following example uses the exists operator to match documents that
+have a ``rating`` in the ``paint_purchases`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
    :language: java
@@ -178,17 +154,16 @@ above:
     { "_id": 4, "color": "white", "qty": 6, "vendor": ["D"], "rating": 9 }
     { "_id": 7, "color": "green", "qty": 8, "vendor": ["C", "E"], "rating": 7 }
 
-
 .. _query-evaluation:
 
 Evaluation Operators
 --------------------
 
-Evaluation operators query data on a higher level logic, like regex
+Evaluation operators query data on higher level logic, like regex
 and text searches. 
 
-The following example uses an evaluation operator to match documents that
-have a ``color`` field ending with the letter "k" in the
+The following example uses the regex operator to match documents that
+have a ``color`` ending with the letter ``"k"`` in the
 ``paint_purchases`` collection:  
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Query.java
@@ -209,6 +184,7 @@ above:
 See the following documentation for more information about the operators
 in this guide:
 
+- :manual:`Query Operators </reference/operator/query/>`
 - :manual:`Comparison Operators </reference/operator/query-comparison/>`
 - :manual:`Logical Operators </reference/operator/query-logical/>`
 - :manual:`Array Operators </reference/operator/query-array/>`
