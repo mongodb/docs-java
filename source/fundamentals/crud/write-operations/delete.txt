@@ -8,8 +8,9 @@ Overview
 --------
 
 You can remove documents by passing a query filter in the
-:java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>` 
-or :java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` methods.
+:java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`, 
+:java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` 
+or :java-docs:`findOneAndDelete() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>` methods.
 
 The ``deleteOne()`` method deletes a single document. If the query
 filter matches more than one document, the method will remove the first
@@ -83,6 +84,19 @@ method.
    :start-after: begin deleteOneExample
    :end-before: end deleteOneExample
 
+.. note::
+
+    In this scenario, you can also query all the documents in the
+    ``paint_inventory`` collection and pass the query to the
+    ``findOneAndDelete()`` method.  This works because red is the first
+    occurrence that matches the query filter. 
+
+    .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
+        :language: java
+        :dedent:
+        :start-after: begin findOneAndDeleteExample
+        :end-before: end findOneAndDeleteExample
+
 The following shows the documents remaining in the ``paint_inventory``
 collection:
 
@@ -91,17 +105,6 @@ collection:
     { "_id": 2, "color": "purple", "qty": 8 }
     { "_id": 5, "color": "yellow", "qty": 6 }
     { "_id": 8, "color": "black", "qty": 8 }
-
-In this scenario, you can also query all the documents in the
-``paint_inventory`` collection and pass the query to the
-``findOneAndDelete()`` method.  This works because red is the first
-occurrence that matches the query filter. 
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
-   :language: java
-   :dedent:
-   :start-after: begin findOneAndDeleteExample
-   :end-before: end findOneAndDeleteExample
 
 
 See the following documentation for more information about the deleting
