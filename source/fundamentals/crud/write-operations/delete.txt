@@ -7,7 +7,7 @@ Delete a Document
 Overview
 --------
 
-You can remove documents by passing a query filter into the
+You can remove documents by passing a query filter in the
 :java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>` 
 or :java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` methods.
 
@@ -17,6 +17,9 @@ occurrence of a match in the collection.
 
 The ``deleteMany()`` method deletes all documents that match the query
 filter.
+
+The ``findOneAndDelete()`` method deletes the first occurrence of a
+match in the collection. 
 
 Examples
 --------
@@ -36,14 +39,14 @@ following documents in their ``paint_inventory`` collection:
     { "_id": 7, "color": "green", "qty": 0 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-Using ``deleteMany()``:
-```````````````````````
+``deleteMany()``:
+`````````````````
 
-All the paint colors in the collection are visible on their site. The
-owner would like to change the site to show colors in stock (``qty`` is
-not ``0``).  
+The paint store website displays all documents in the
+``paint_inventory`` collection. To reduce customer confusion, the store
+wants to remove the colors that are out of stock (``qty`` is ``0``).
 
-To remove the colors out of stock, query the ``paint_inventory``
+To remove the out of stock colors, query the ``paint_inventory``
 collection where the ``qty`` is ``0`` and pass the query to the
 ``deleteMany()`` method.
 
@@ -63,15 +66,15 @@ collection:
     { "_id": 5, "color": "yellow", "qty": 6 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-Using ``deleteOne()``:
-``````````````````````
+``deleteOne()``:
+````````````````
 
-The store is donating the remaining quantity of their purple paint.
-This means that the ``qty`` for purple is now ``0`` and we need to
-remove purple from the collection. 
+The store is donating the remaining quantity of their red paint.
+This means that the ``red`` for red is now ``0`` and we need to
+remove red from the collection. 
 
-To remove purple, query the ``paint_inventory`` collection where the
-``color`` is ``"purple"`` and pass the query to the ``deleteOne()``
+To remove red, query the ``paint_inventory`` collection where the
+``color`` is ``"red"`` and pass the query to the ``deleteOne()``
 method. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
@@ -80,27 +83,30 @@ method.
    :start-after: begin deleteOneExample
    :end-before: end deleteOneExample
 
-In this scenario, you can also query the ``paint_inventory`` collection
-where the ``qty`` is ``8``.  This works because purple is the first
-occurrence that matches the query filter. 
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
-   :language: java
-   :dedent:
-   :start-after: begin deleteOneEqExample
-   :end-before: end deleteOneEqExample
-
 The following shows the documents remaining in the ``paint_inventory``
 collection:
 
 .. code-block:: json   
 
-    { "_id": 1, "color": "red", "qty": 5 }
+    { "_id": 2, "color": "purple", "qty": 8 }
     { "_id": 5, "color": "yellow", "qty": 6 }
     { "_id": 8, "color": "black", "qty": 8 }
+
+In this scenario, you can also query all the documents in the
+``paint_inventory`` collection and pass the query to the
+``findOneAndDelete()`` method.  This works because red is the first
+occurrence that matches the query filter. 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
+   :language: java
+   :dedent:
+   :start-after: begin findOneAndDeleteExample
+   :end-before: end findOneAndDeleteExample
+
 
 See the following documentation for more information about the deleting
 a document:
 
 - :manual:`db.collection.deleteOne() </reference/method/db.collection.deleteMany/>`
 - :manual:`db.collection.deleteMany() </reference/method/db.collection.deleteOne/>`
+- :manual:`db.collection.findOneAndDelete() </reference/method/db.collection.findOneAndDelete/>`

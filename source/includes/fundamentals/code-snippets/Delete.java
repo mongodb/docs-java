@@ -29,8 +29,8 @@ public class Delete {
 
     public static void main(String [] args){
         Delete delete = new Delete();
+        delete.preview(true);
         delete.setupPaintCollection();
-        delete.preview(false);
 
         System.out.println("Delete Many:");
         delete.deleteManyExample();
@@ -41,9 +41,11 @@ public class Delete {
         delete.preview(true);
 
         delete.setupPaintCollection();
-        System.out.println("Delete One with equal:");
         delete.deleteManyExample();
-        delete.deleteOneEqExample();
+        System.out.println("Find One and Delete Before:");
+        delete.preview(false);
+        delete.findOneAndDeleteExample();
+        System.out.println("Find One and Delete After:");
         delete.preview(true);
     }
 
@@ -54,20 +56,19 @@ public class Delete {
         // end deleteManyExample
     }
 
+    private void findOneAndDeleteExample(){
+        // begin findOneAndDeleteExample
+        Bson filter = Filters.empty();
+        collection.findOneAndDelete(filter);
+        // end findOneAndDeleteExample
+    }
+
     private void deleteOneExample(){
         // begin deleteOneExample
-        Bson filter = Filters.eq("color", "purple");
+        Bson filter = Filters.eq("color", "red");
         collection.deleteOne(filter);
         // end deleteOneExample
     }
-
-    private void deleteOneEqExample(){
-        // begin deleteOneEqExample
-        Bson filter = Filters.eq("qty", 8);
-        collection.deleteOne(filter);
-        // end deleteOneEqExample
-    }
-
     private void preview(boolean drop){
         Bson filter = Filters.empty();
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
