@@ -206,10 +206,10 @@ in descending order:
 Handling Ties
 ~~~~~~~~~~~~~
 
-A tie occurs when two or more documents have a field with identical values.
-MongoDB does not guarantee sort order in the event of ties. For example, suppose
-we encounter a tie when applying a sort to the
-:ref:`sample collection <sorts-crud-sort-sample>` using the following
+A tie occurs when two or more documents have identical values in the field
+you are using to order your results. MongoDB does not guarantee sort order in
+the event of ties. For example, suppose we encounter a tie when applying a sort
+to the :ref:`sample collection <sorts-crud-sort-sample>` using the following
 code:
 
 .. code-block:: java
