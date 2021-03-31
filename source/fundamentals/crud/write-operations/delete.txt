@@ -1,0 +1,108 @@
+=================
+Delete a Document
+=================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, we show you how to remove documents in your collection.
+
+You can remove documents by using passing a query filter into the
+:java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>` 
+or :java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` methods.
+
+The ``deleteOne()`` method deletes a single document. If the query
+filter matches more than one document, the method will remove the first
+occurrence of the match in the collection. 
+
+The ``deleteMany()`` method deletes all documents that match the query
+filter.
+
+Examples
+--------
+
+The following example is about a paint store that sells eight different
+colors of paint. The store had their annual online sale resulting in the
+following in their ``paint_inventory`` collection: 
+
+.. code-block:: json
+
+    { "_id": 1, "color": "red", "qty": 5 }
+    { "_id": 2, "color": "purple", "qty": 8 }
+    { "_id": 3, "color": "blue", "qty": 0 }
+    { "_id": 4, "color": "white", "qty": 0 }
+    { "_id": 5, "color": "yellow", "qty": 6 }
+    { "_id": 6, "color": "pink", "qty": 0 }
+    { "_id": 7, "color": "green", "qty": 0 }
+    { "_id": 8, "color": "black", "qty": 8 }
+
+Using ``deleteMany()``:
+```````````````````````
+
+All the paint colors are visible on their site. The owners find it
+misleading to show colors out of stock ("qty" field is "0") and would
+like to change it to show colors in stock .
+
+To address this, the paint store needs to query the ``paint_inventory``
+collection where the ``qty`` field is "0" and pass it to the
+``deleteMany()`` method.  
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
+   :language: java
+   :dedent:
+   :start-after: begin deleteManyExample
+   :end-before: end deleteManyExample
+
+The following shows the documents remaining in the ``paint_inventory``
+collection: 
+
+.. code-block:: json    
+
+    { "_id": 1, "color": "red", "qty": 5 }
+    { "_id": 2, "color": "purple", "qty": 8 }
+    { "_id": 5, "color": "yellow", "qty": 6 }
+    { "_id": 8, "color": "black", "qty": 8 }
+
+Using ``deleteOne()``:
+``````````````````````
+
+The store owners saw a last minute online order come in for the rest of
+their purple paint. This means that the ``qty`` field for purple is now
+"0" and the owners want it removed from the collection.
+
+To address this, the paint store needs to query the ``paint_inventory``
+collection where the ``color`` field is "purple" and pass it to the
+``deleteOne()`` method.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
+   :language: java
+   :dedent:
+   :start-after: begin deleteOneExample
+   :end-before: end deleteOneExample
+
+In this scenario, the owners can also query the ``paint_inventory``
+collection where the ``qty`` field is "8".  This works because the
+``deleteOne()`` method deletes the first occurrence of the match. 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
+   :language: java
+   :dedent:
+   :start-after: begin deleteOneEqExample
+   :end-before: end deleteOneEqExample
+
+The following shows the documents remaining in the ``paint_inventory``
+collection:
+
+.. code-block:: json   
+
+    { "_id": 1, "color": "red", "qty": 5 }
+    { "_id": 5, "color": "yellow", "qty": 6 }
+    { "_id": 8, "color": "black", "qty": 8 }
