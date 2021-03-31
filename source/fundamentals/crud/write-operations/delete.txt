@@ -7,15 +7,13 @@ Delete a Document
 Overview
 --------
 
-In this guide, we show you how to remove documents in your collection.
-
-You can remove documents by using passing a query filter into the
+You can remove documents by passing a query filter into the
 :java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>` 
 or :java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` methods.
 
 The ``deleteOne()`` method deletes a single document. If the query
 filter matches more than one document, the method will remove the first
-occurrence of the match in the collection. 
+occurrence of a match in the collection. 
 
 The ``deleteMany()`` method deletes all documents that match the query
 filter.
@@ -23,7 +21,7 @@ filter.
 Examples
 --------
 
-The following example is about a paint store that sells eight different
+The following examples are about a paint store that sells eight different
 colors of paint. The store had their annual online sale resulting in the
 following documents in their ``paint_inventory`` collection: 
 
@@ -42,12 +40,12 @@ Using ``deleteMany()``:
 ```````````````````````
 
 All the paint colors in the collection are visible on their site. The
-owner finds it misleading to show colors out of stock (``qty`` field is
-"0") and would like to change it to show colors in stock. 
+owner would like to change the site to show colors in stock (``qty`` is
+not ``0``).  
 
-To remove the colors out of stock, the owner needs to query the
-``paint_inventory`` collection where the ``qty`` field is "0" and pass
-it to the ``deleteMany()`` method.  
+To remove the colors out of stock, query the ``paint_inventory``
+collection where the ``qty`` is ``0`` and pass it to the ``deleteMany()``
+method.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
@@ -68,13 +66,12 @@ collection:
 Using ``deleteOne()``:
 ``````````````````````
 
-The store got a last minute online order for the rest of their
-purple paint. This means that the ``qty`` field for purple is now "0"
-and the owner wants it removed from the collection. 
+The store wants to donate the remaining quantity of their purple paint.
+This means that the ``qty`` for purple is now ``0`` and we need to
+remove purple from the collection. 
 
-To remove purple, the owner needs to query the ``paint_inventory``
-collection where the ``color`` field is "purple" and pass it to the
-``deleteOne()`` method.
+To remove purple, query the ``paint_inventory`` collection where the
+``color`` is ``"purple"`` and pass it to the ``deleteOne()`` method.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
@@ -82,9 +79,9 @@ collection where the ``color`` field is "purple" and pass it to the
    :start-after: begin deleteOneExample
    :end-before: end deleteOneExample
 
-In this scenario, the owner can also query the ``paint_inventory``
-collection where the ``qty`` field is "8".  This works because purple is
-the first occurrence that matches the query filter.
+In this scenario, you can also query the ``paint_inventory`` collection
+where the ``qty`` is ``8``.  This works because purple is the first
+occurrence that matches the query filter. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
