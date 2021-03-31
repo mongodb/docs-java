@@ -42,10 +42,10 @@ Using ``deleteMany()``:
 ```````````````````````
 
 All the paint colors in the collection are visible on their site. The
-owners find it misleading to show colors out of stock ("qty" field is
+owner finds it misleading to show colors out of stock (``qty`` field is
 "0") and would like to change it to show colors in stock. 
 
-To remove the colors out of stock, the paint store needs to query the
+To remove the colors out of stock, the owner needs to query the
 ``paint_inventory`` collection where the ``qty`` field is "0" and pass
 it to the ``deleteMany()`` method.  
 
@@ -68,11 +68,11 @@ collection:
 Using ``deleteOne()``:
 ``````````````````````
 
-The store owners got a last minute online order for the rest of their
+The store got a last minute online order for the rest of their
 purple paint. This means that the ``qty`` field for purple is now "0"
-and the owners want it removed from the collection. 
+and the owner wants it removed from the collection. 
 
-To remove purple, the paint store needs to query the ``paint_inventory``
+To remove purple, the owner needs to query the ``paint_inventory``
 collection where the ``color`` field is "purple" and pass it to the
 ``deleteOne()`` method.
 
@@ -82,7 +82,7 @@ collection where the ``color`` field is "purple" and pass it to the
    :start-after: begin deleteOneExample
    :end-before: end deleteOneExample
 
-In this scenario, the owners can also query the ``paint_inventory``
+In this scenario, the owner can also query the ``paint_inventory``
 collection where the ``qty`` field is "8".  This works because purple is
 the first occurrence that matches the query filter.
 
