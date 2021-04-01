@@ -19,9 +19,8 @@ occurrence of a match in the collection.
 The ``deleteMany()`` method deletes all documents that match the query
 filter.
 
-Like ``deleteOne()``, the ``findOneAndDelete()`` method deletes the first
-occurrence of a match in the collection. However, the find and delete
-operations are atomic.  
+The ``findOneAndDelete()`` method atomically finds and deletes the first
+occurrence of a match in the collection.
 
 Examples
 --------
@@ -50,7 +49,7 @@ wants to remove the colors that are out of stock.
 
 To remove the out of stock colors, query the ``paint_inventory``
 collection where the ``qty`` is ``0`` and pass the query to the
-``deleteMany()`` method.
+``deleteMany()`` method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
@@ -72,12 +71,12 @@ collection:
 ```````````````
 
 The store is donating the remaining quantity of their yellow paint. This
-means that the ``qty`` for yellow is now ``0`` and we need to remove red
+means that the ``qty`` for yellow is now ``0`` and we need to remove yellow
 from the collection. 
 
-To remove red, query the ``paint_inventory`` collection where the
+To remove yellow, query the ``paint_inventory`` collection where the
 ``color`` is ``"yellow"`` and pass the query to the ``deleteOne()``
-method. 
+method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
    :language: java
@@ -97,11 +96,13 @@ collection:
 ``findOneAndDelete()``
 ``````````````````````
 
-The store would like to raffle a color of paint they have the eight of. 
+The store would like to raffle the remaining quantity of a color of
+paint they have the eight of. This means that the ``qty`` of this color
+will be ``0`` and we need to remove this color from the collection.
 
 To pick a color, query the ``paint_inventory`` collection where the
 ``qty`` is ``8`` and pass the query to the ``findOneAndDelete()``
-method.  
+method:  
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
     :language: java
@@ -115,12 +116,12 @@ The method returns the document deleted:
 
     { "_id": 2, "color": "purple", "qty": 8 }
 
-This means the store is putting all their purple paint in the raffle.
+This means the store is putting all their purple paint into the raffle.
 
 .. note::
 
-    If there are no matches your query filter, no document gets deleted and
-    the method returns null. 
+    If there are no matches to your query filter, no document gets
+    deleted and the method returns null. 
 
 The following shows the documents remaining in the ``paint_inventory``
 collection:
