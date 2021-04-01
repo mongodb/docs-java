@@ -7,7 +7,7 @@ Delete a Document
 Overview
 --------
 
-You can remove documents by passing a query filter in the
+You can remove documents by passing a query filter to the
 :java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`, 
 :java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` 
 or :java-docs:`findOneAndDelete() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>` methods.
@@ -19,8 +19,9 @@ occurrence of a match in the collection.
 The ``deleteMany()`` method deletes all documents that match the query
 filter.
 
-The ``findOneAndDelete()`` method deletes the first occurrence of a
-match in the collection. 
+Like ``deleteOne()``, the ``findOneAndDelete()`` method deletes the first
+occurrence of a match in the collection. However, the find and delete
+operations are atomic.  
 
 Examples
 --------
@@ -45,7 +46,7 @@ following documents in their ``paint_inventory`` collection:
 
 The paint store website displays all documents in the
 ``paint_inventory`` collection. To reduce customer confusion, the store
-wants to remove the colors that are out of stock (``qty`` is ``0``).
+wants to remove the colors that are out of stock.
 
 To remove the out of stock colors, query the ``paint_inventory``
 collection where the ``qty`` is ``0`` and pass the query to the
@@ -71,7 +72,7 @@ collection:
 ````````````````
 
 The store is donating the remaining quantity of their red paint.
-This means that the ``red`` for red is now ``0`` and we need to
+This means that the ``qty`` for red is now ``0`` and we need to
 remove red from the collection. 
 
 To remove red, query the ``paint_inventory`` collection where the
