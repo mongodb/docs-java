@@ -96,12 +96,11 @@ collection:
 ``findOneAndDelete()``
 ``````````````````````
 
-The store would like to raffle the remaining quantity of a color of
-paint they have the eight of. This means that the ``qty`` of this color
-will be ``0`` and we need to remove this color from the collection.
+The store would like to raffle the remaining quantity of purple paint
+and remove purple from the ``paint_inventory`` collection. 
 
 To pick a color, query the ``paint_inventory`` collection where the
-``qty`` is ``8`` and pass the query to the ``findOneAndDelete()``
+``color`` is ``"purple"`` and pass the query to the ``findOneAndDelete()``
 method:  
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
@@ -110,13 +109,12 @@ method:
     :start-after: begin findOneAndDeleteExample
     :end-before: end findOneAndDeleteExample
 
-The method returns the document deleted:
+Unlike the other delete methods, ``findOneAndDelete()`` returns the
+deleted document: 
 
 .. code-block:: json   
 
     { "_id": 2, "color": "purple", "qty": 8 }
-
-This means the store is putting all their purple paint into the raffle.
 
 .. note::
 
