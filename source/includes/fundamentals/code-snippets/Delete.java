@@ -38,14 +38,16 @@ public class Delete {
 
         System.out.println("Delete One:");
         delete.deleteOneExample();
-        delete.preview(true);
-
-        delete.setupPaintCollection();
-        delete.deleteManyExample();
-        System.out.println("Find One and Delete Before:");
         delete.preview(false);
+
+        // System.out.println("Deleted:");
+        // delete.findOneAndDeleteNullExample();
+        // System.out.println("Find One and Delete:");
+        // delete.preview(true);
+
+        System.out.println("Deleted:");
         delete.findOneAndDeleteExample();
-        System.out.println("Find One and Delete After:");
+        System.out.println("Find One and Delete:");
         delete.preview(true);
     }
 
@@ -58,14 +60,21 @@ public class Delete {
 
     private void findOneAndDeleteExample(){
         // begin findOneAndDeleteExample
-        Bson filter = Filters.empty();
-        collection.findOneAndDelete(filter);
+        Bson filter = Filters.eq("qty", 8);
+        System.out.println(collection.findOneAndDelete(filter).toJson());
         // end findOneAndDeleteExample
+    }
+
+    private void findOneAndDeleteNullExample(){
+        // begin findOneAndDeleteNullExample
+        Bson filter = Filters.eq("qty", 1);
+        System.out.println(collection.findOneAndDelete(filter));
+        // end findOneAndDeleteNullExample
     }
 
     private void deleteOneExample(){
         // begin deleteOneExample
-        Bson filter = Filters.eq("color", "red");
+        Bson filter = Filters.eq("color", "yellow");
         collection.deleteOne(filter);
         // end deleteOneExample
     }

@@ -41,8 +41,8 @@ following documents in their ``paint_inventory`` collection:
     { "_id": 7, "color": "green", "qty": 0 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-``deleteMany()``:
-`````````````````
+``deleteMany()``
+````````````````
 
 The paint store website displays all documents in the
 ``paint_inventory`` collection. To reduce customer confusion, the store
@@ -68,15 +68,15 @@ collection:
     { "_id": 5, "color": "yellow", "qty": 6 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-``deleteOne()``:
-````````````````
+``deleteOne()``
+```````````````
 
-The store is donating the remaining quantity of their red paint.
-This means that the ``qty`` for red is now ``0`` and we need to
-remove red from the collection. 
+The store is donating the remaining quantity of their yellow paint. This
+means that the ``qty`` for yellow is now ``0`` and we need to remove red
+from the collection. 
 
 To remove red, query the ``paint_inventory`` collection where the
-``color`` is ``"red"`` and pass the query to the ``deleteOne()``
+``color`` is ``"yellow"`` and pass the query to the ``deleteOne()``
 method. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
@@ -85,28 +85,50 @@ method.
    :start-after: begin deleteOneExample
    :end-before: end deleteOneExample
 
+The following shows the documents remaining in the ``paint_inventory``
+collection:
+
+.. code-block:: json   
+
+    { "_id": 1, "color": "red", "qty": 5 }
+    { "_id": 2, "color": "purple", "qty": 8 }
+    { "_id": 8, "color": "black", "qty": 8 }
+
+``findOneAndDelete()``
+``````````````````````
+
+The store would like to raffle a color of paint they have the eight of. 
+
+To pick a color, query the ``paint_inventory`` collection where the
+``qty`` is ``8`` and pass the query to the ``findOneAndDelete()``
+method.  
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
+    :language: java
+    :dedent:
+    :start-after: begin findOneAndDeleteExample
+    :end-before: end findOneAndDeleteExample
+
+The method returns the document deleted:
+
+.. code-block:: json   
+
+    { "_id": 2, "color": "purple", "qty": 8 }
+
+This means the store is putting all their purple paint in the raffle.
+
 .. note::
 
-    In this scenario, you can also query all the documents in the
-    ``paint_inventory`` collection and pass the query to the
-    ``findOneAndDelete()`` method.  This works because red is the first
-    occurrence that matches the query filter. 
-
-    .. literalinclude:: /includes/fundamentals/code-snippets/Delete.java
-        :language: java
-        :dedent:
-        :start-after: begin findOneAndDeleteExample
-        :end-before: end findOneAndDeleteExample
+    If there are no matches your query filter, no document gets deleted and
+    the method returns null. 
 
 The following shows the documents remaining in the ``paint_inventory``
 collection:
 
 .. code-block:: json   
 
-    { "_id": 2, "color": "purple", "qty": 8 }
-    { "_id": 5, "color": "yellow", "qty": 6 }
+    { "_id": 1, "color": "red", "qty": 5 }
     { "_id": 8, "color": "black", "qty": 8 }
-
 
 See the following documentation for more information about the deleting
 a document:
