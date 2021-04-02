@@ -30,7 +30,7 @@ as a second parameter to the ``updateOne()`` and ``updateMany()``
 methods.
 
 Use :java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`
-as a second parameter to the ``replaceOne()``.
+as a second parameter to the ``replaceOne()`` method.
 
 The following examples are about a paint store that sells eight different
 colors of paint. The store had their annual online sale resulting in the
@@ -57,7 +57,7 @@ document, the method will update the first occurrence of a match in the
 collection. 
 
 Example
-````````
+~~~~~~~
 
 The store is restocking their items.  The first shipment that arrived
 are ten cans of orange paint and we need to update this in the collection.
@@ -116,7 +116,7 @@ The updateMany() method updates the specified fields in all documents
 that match the query filter. 
 
 Example
-```````
+~~~~~~~
 
 Hours later, a shipment arrives with 20 cans for all colors.
 
@@ -158,7 +158,8 @@ filter. If the query filter matches more than one document, the method
 will replace the first occurrence of a match in the collection.
 
 Example
-```````
+~~~~~~~
+
 From the previous example, we noticed orange got incremented by
 accident and we need to replace the orange document to have ten cans of
 paint. 
