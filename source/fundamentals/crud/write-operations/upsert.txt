@@ -19,15 +19,18 @@ Each method returns an ``AcknowledgedUpdateResult`` that tells us:
 - the id of the document that got upserted 
 
 An upsert is an update to a document or insert of a document.  An update
-occurs when at least one match to your query filter.  An insert occurs
-when there is no match to your query filter.
+occurs when there is at least one match to your query filter.  An insert
+occurs when there is no match to your query filter.
+
+To set an upsert:
+~~~~~~~~~~~~~~~~~
 
 Use :java-docs:`UpdateOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`
 as a second parameter to the ``updateOne()`` and ``updateMany()``
-methods to set the upsert.
+methods.
 
 Use :java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`
-as a second parameter to the ``replaceOne()`` method to set the upsert.
+as a second parameter to the ``replaceOne()``.
 
 The following examples are about a paint store that sells eight different
 colors of paint. The store had their annual online sale resulting in the
@@ -48,9 +51,10 @@ following documents in their ``paint_inventory`` collection:
 ``updateOne()``
 ---------------
 
-The updateOne() method updates specified fields in a single document. If
-the query filter matches more than one document, the method will update
-the first occurrence of a match in the collection. 
+The updateOne() method updates the specified fields in a single document
+that matches the query filter. If the query filter matches more than one
+document, the method will update the first occurrence of a match in the
+collection. 
 
 Example
 ````````
@@ -59,8 +63,8 @@ The store is restocking their items.  The first shipment that arrived
 are ten cans of orange paint and we need to update this in the collection.
 
 To update orange, query the ``paint_inventory`` collection where the
-``color`` is ``"orange"``, update to set ``qty`` to ``10``, set
-``UpdateOptions.upsert`` to ``true`` and pass the query to the
+``color`` is ``"orange"``, set the update for ``qty`` to ``10``, set
+``UpdateOptions.upsert()`` to ``true`` and pass the query to the
 ``updateOne()`` method: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/InsertUpdate.java
@@ -108,16 +112,16 @@ The following shows the documents in the ``paint_inventory`` collection:
 ``updateMany()``
 ----------------
 
-The updateMany() method updates specified fields in all documents that
-match the query filter. 
+The updateMany() method updates the specified fields in all documents
+that match the query filter. 
 
 Example
 ```````
 
-Hours later, a shipment arrives for ``20`` cans of all the colors.
+Hours later, a shipment arrives with 20 cans for all colors.
 
-To update the out of stock colors, query all the documents in the
-``paint_inventory`` collection, update to increase ``qty`` by ``20`` and
+To update all colors, query all the documents in the ``paint_inventory``
+collection, set the update to increase ``qty`` by ``20`` and 
 pass the query to the ``updateMany()`` method: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/InsertUpdate.java
@@ -150,17 +154,18 @@ The following shows the documents in the ``paint_inventory`` collection:
 ----------------
 
 The replaceOne() method replaces a document that matches the query
-filter.  
+filter. If the query filter matches more than one document, the method
+will replace the first occurrence of a match in the collection.
 
 Example
 ```````
 From the previous example, we noticed orange got incremented by
-accident and we need to replace the orange document to what we had in
-before.
+accident and we need to replace the orange document to have ten cans of
+paint. 
 
 To replace the orange document, query the ``paint_inventory`` collection
 where the ``color`` is ``"orange"``, create a document where the
-``color`` is ``orange and the ``qty`` is ``10`` and pass the query to the
+``color`` is ``orange`` and the ``qty`` is ``10`` and pass the query to the
 ``replaceOne()`` method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/InsertUpdate.java
