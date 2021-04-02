@@ -22,12 +22,14 @@ filter.
 The ``findOneAndDelete()`` method atomically finds and deletes the first
 occurrence of a match in the collection.
 
-If you need to specify a collation or index options to use, you can use
+To specify a collation or a hint index, use
 :java-docs:`DeleteOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html>`
-as a second parameter in ``deleteOne()`` and ``deleteMany()``. For
-``findOneAndDelete()``, you can also specify a projection, sort, and the
-amount of time the method should run using 
-:java-docs:`FindOneAndDeleteOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`.
+as a second parameter to the ``deleteOne()`` and ``deleteMany()`` methods. 
+
+To specify a collation, hint an index, specify sort order, or specify a
+projection on the returned document, use
+:java-docs:`FindOneAndDeleteOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`
+as the second parameter to the ``findOneAndDelete()`` method.
 
 Examples
 --------
