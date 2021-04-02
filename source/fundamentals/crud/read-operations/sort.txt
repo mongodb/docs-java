@@ -144,9 +144,9 @@ method to specify an ascending sort on a field as follows:
 
    collection.find().sort(ascending("<field name>"));
 
-The above ``sort()`` method returns a ``FindIterable`` object containing the
-documents in your collection, sorted from smallest to largest on the specified
-field name. 
+The above ``sort()`` method returns a ``FindIterable`` object that can iterate
+over the documents in your collection, sorted from smallest to largest on the
+specified field name. 
 
 In the following code example, we use the ``ascending()`` method to sort the
 :ref:`sample collection <sorts-crud-sort-sample>`  
