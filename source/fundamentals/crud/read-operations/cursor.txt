@@ -5,4 +5,89 @@ Access Data From a Cursor
 .. default-domain:: mongodb
 
 Read operations that return multiple documents do not immediately return
-all values matching the query.
+all values matching the query. Because a query can potentially match
+large sets of documents, these operations rely upon an object called
+:java-docs:`MongoCursor </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html>`. 
+
+A MongoCursor fetches documents in batches to reduce both memory
+consumption and network bandwidth usage. 
+
+The following functions use cursors internally, and return the results of the operations:
+
+- ``collection.find()``
+- ``collection.aggregate()``
+- ``collection.listIndexes()``
+- ``db.listCollectionNames()``
+
+Append ``.cursor()`` to use these functions as cursors:
+
+.. code-block:: java
+   :copyable: true
+   
+   collection.find().cursor();
+
+Cursor Paradigms
+----------------
+
+You can work with cursors using **cursor paradigms**.
+Most cursor paradigms allow you to access query results one document at
+a time, abstracting away network and caching logic. 
+
+.. warning::
+
+   Do not combine different cursor paradigms on a single cursor.
+   Operations such as ``hasNext()`` and ``forEachRemaining()``
+   each predictably modify the original cursor. If you mix these calls
+   on a single cursor, you may receive unexpected results.
+
+.. note::
+
+   When you reach the last result through iteration, the cursor is
+   exhausted which means it ceases to respond to methods 
+   that access the results.
+
+For Each Functional Iteration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can pass a function to the 
+`forEachRemaining() <https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Iterator.html?is-external=true#forEachRemaining(java.util.function.Consumer)>`_ 
+method of any cursor to iterate through results in a functional style:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
+   :language: java
+   :dedent:
+   :start-after: begin forEachRemainingIteration
+   :end-before: end forEachRemainingIteration
+
+Manual Iteration
+~~~~~~~~~~~~~~~~
+
+You can use the :java-docs:`hasNext() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html#hasNext()>`
+method to check if there are any documents available in the cursor, and then use the
+:java-docs:`next() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html#next()>`
+method to retrieve the next available document from the cursor:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
+   :language: java
+   :dedent:
+   :start-after: begin manualIteration
+   :end-before: end manualIteration
+
+Cursor Utility Methods
+----------------------
+
+Close
+~~~~~
+
+MongoCursors consume memory and network resources both in the client
+application and in the connected instance of MongoDB. Use
+:java-docs:`close() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html#close()>`
+to free up a cursor's resources in both the client application
+and the MongoDB server:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
+   :language: java
+   :dedent:
+   :start-after: begin close
+   :end-before: end close
+   
