@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 
@@ -42,15 +41,6 @@ public class InsertUpdate {
         System.out.println("Update One:");
         insertUpdate.updateOneExample();
         insertUpdate.preview(false);
-
-        System.out.println("Update Many:");
-        insertUpdate.updateManyExample();
-        insertUpdate.preview(false);
-
-        System.out.println("Replace One:");
-        insertUpdate.replaceOneExample();
-        insertUpdate.preview(false);
-
     }
 
     private void updateOneAttemptExample(){
@@ -70,22 +60,6 @@ public class InsertUpdate {
         // end updateOneExample
     }
 
-    private void updateManyExample(){
-        // begin updateManyExample
-        Bson filter = Filters.empty();
-        Bson update = Updates.inc("qty", 20);
-        System.out.println(collection.updateMany(filter, update));
-        // end updateManyExample
-    }
-
-    private void replaceOneExample(){
-        // begin replaceOneExample
-        Bson filter = Filters.eq("color", "orange");
-        Document document = new Document("color", "orange").append("qty", 10);
-        System.out.println(collection.replaceOne(filter, document));
-        // end replaceOneExample
-    }
-
     private void preview(boolean drop){
         Bson filter = Filters.empty();
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
@@ -98,14 +72,14 @@ public class InsertUpdate {
 
         List<Document> deletedata = new ArrayList<>();
 
-        Document p1 = new Document("_id", 1).append("color", "red").append("qty", 5);
-        Document p2 = new Document("_id", 2).append("color", "purple").append("qty", 8);
-        Document p3 = new Document("_id", 3).append("color", "blue").append("qty", 0);
-        Document p4 = new Document("_id", 4).append("color", "white").append("qty", 0);
-        Document p5 = new Document("_id", 5).append("color", "yellow").append("qty", 6);
-        Document p6 = new Document("_id", 6).append("color", "pink").append("qty", 0);
-        Document p7 = new Document("_id", 7).append("color", "green").append("qty", 0);
-        Document p8 = new Document("_id", 8).append("color", "black").append("qty", 8);
+        Document p1 = new Document("color", "red").append("qty", 5);
+        Document p2 = new Document("color", "purple").append("qty", 8);
+        Document p3 = new Document("color", "blue").append("qty", 0);
+        Document p4 = new Document("color", "white").append("qty", 0);
+        Document p5 = new Document("color", "yellow").append("qty", 6);
+        Document p6 = new Document("color", "pink").append("qty", 0);
+        Document p7 = new Document("color", "green").append("qty", 0);
+        Document p8 = new Document("color", "black").append("qty", 8);
         
         deletedata.add(p1);
         deletedata.add(p2);

@@ -7,23 +7,27 @@ Insert or Update in a Single Operation
 Overview
 --------
 
-You can update documents by passing a query filter to the 
+You can insert or update documents by passing a query filter to the 
 :java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List)>`, 
 :java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List)>`
 or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` methods
 
 Each method returns an ``AcknowledgedUpdateResult`` that tells us:
 
-- the number of documents that matched the query filter
-- the number of documents that got modified 
-- the id of the document that got upserted 
+- The number of documents that matched the query filter
+- The number of documents that got modified 
+- The ``_id`` of the document that got upserted 
 
-An upsert is an update to a document or insert of a document.  An update
-occurs when there is at least one match to your query filter.  An insert
-occurs when there is no match to your query filter.
+These methods update documents that match your query filter, but
+inserts a document if the there are no matches when you set the upsert
+to true.  
 
-To set an upsert:
-~~~~~~~~~~~~~~~~~
+In the case there are multiple matches in your query filter for
+``updateOne()`` or ``replaceOne()``, the method will update the first
+occurrence of a match in the collection.
+
+Set an upsert:
+~~~~~~~~~~~~~~
 
 Use :java-docs:`UpdateOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`
 as a second parameter to the ``updateOne()`` and ``updateMany()``
@@ -32,32 +36,23 @@ methods.
 Use :java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`
 as a second parameter to the ``replaceOne()`` method.
 
-The following examples are about a paint store that sells eight different
-colors of paint. The store had their annual online sale resulting in the
+Example
+~~~~~~~
+
+The following example is about a paint store that sells eight different
+colors of paint. The store had their annual onuline sale resulting in the
 following documents in their ``paint_inventory`` collection: 
 
 .. code-block:: json
 
-    { "_id": 1, "color": "red", "qty": 5 }
-    { "_id": 2, "color": "purple", "qty": 8 }
-    { "_id": 3, "color": "blue", "qty": 0 }
-    { "_id": 4, "color": "white", "qty": 0 }
-    { "_id": 5, "color": "yellow", "qty": 6 }
-    { "_id": 6, "color": "pink", "qty": 0 }
-    { "_id": 7, "color": "green", "qty": 0 }
-    { "_id": 8, "color": "black", "qty": 8 }
-
-
-``updateOne()``
----------------
-
-The updateOne() method updates the specified fields in a single document
-that matches the query filter. If the query filter matches more than one
-document, the method will update the first occurrence of a match in the
-collection. 
-
-Example
-~~~~~~~
+    { "_id": { "$oid": "606b4cfbcd83be7518b958da" }, "color": "red", "qty": 5 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958db" }, "color": "purple", "qty": 8 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958dc" }, "color": "blue", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958dd" }, "color": "white", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958de" }, "color": "yellow", "qty": 6 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958df" }, "color": "pink", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958e0" }, "color": "green", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958e1" }, "color": "black", "qty": 8 }
 
 The store is restocking their items.  The first shipment that arrived
 are ten cans of orange paint and we need to update this in the collection.
@@ -77,21 +72,21 @@ The method returns:
 
 .. code-block:: json   
 
-    AcknowledgedUpdateResult{ matchedCount=0, modifiedCount=0, upsertedId=BsonObjectId{ value=606782721601f9443bc1c7a7 }} 
+    AcknowledgedUpdateResult{ matchedCount=0, modifiedCount=0, upsertedId=BsonObjectId{ value=606b4cfc1601f9443b5d6978 }} 
 
 The following shows the documents in the ``paint_inventory`` collection:
 
 .. code-block:: json   
 
-    { "_id": 1, "color": "red", "qty": 5 }
-    { "_id": 2, "color": "purple", "qty": 8 }
-    { "_id": 3, "color": "blue", "qty": 0 }
-    { "_id": 4, "color": "white", "qty": 0 }
-    { "_id": 5, "color": "yellow", "qty": 6 }
-    { "_id": 6, "color": "pink", "qty": 0 }
-    { "_id": 7, "color": "green", "qty": 0 }
-    { "_id": 8, "color": "black", "qty": 8 }
-    { "_id": { "$oid": "606782721601f9443bc1c7a7" }, "color": "orange", "qty": 10 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958da" }, "color": "red", "qty": 5 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958db" }, "color": "purple", "qty": 8 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958dc" }, "color": "blue", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958dd" }, "color": "white", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958de" }, "color": "yellow", "qty": 6 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958df" }, "color": "pink", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958e0" }, "color": "green", "qty": 0 }
+    { "_id": { "$oid": "606b4cfbcd83be7518b958e1" }, "color": "black", "qty": 8 }
+    { "_id": { "$oid": "606b4cfc1601f9443b5d6978" }, "color": "orange", "qty": 10 }
 
 .. note::
 
@@ -108,96 +103,3 @@ The following shows the documents in the ``paint_inventory`` collection:
     .. code-block:: json  
     
         AcknowledgedUpdateResult{ matchedCount=0, modifiedCount=0, upsertedId=null }
-
-``updateMany()``
-----------------
-
-The updateMany() method updates the specified fields in all documents
-that match the query filter. 
-
-Example
-~~~~~~~
-
-Hours later, a shipment arrives with 20 cans for all colors.
-
-To update all colors, query all the documents in the ``paint_inventory``
-collection, set the update to increase ``qty`` by ``20`` and 
-pass the query to the ``updateMany()`` method: 
-
-.. literalinclude:: /includes/fundamentals/code-snippets/InsertUpdate.java
-   :language: java
-   :dedent:
-   :start-after: begin updateManyExample
-   :end-before: end updateManyExample
-
-The method returns:
-
-.. code-block:: json   
-
-    AcknowledgedUpdateResult{ matchedCount=9, modifiedCount=9, upsertedId=null } 
-
-The following shows the documents in the ``paint_inventory`` collection:
-
-.. code-block:: json   
-
-    { "_id": 1, "color": "red", "qty": 25 }
-    { "_id": 2, "color": "purple", "qty": 28 }
-    { "_id": 3, "color": "blue", "qty": 20 }
-    { "_id": 4, "color": "white", "qty": 20 }
-    { "_id": 5, "color": "yellow", "qty": 26 }
-    { "_id": 6, "color": "pink", "qty": 20 }
-    { "_id": 7, "color": "green", "qty": 20 }
-    { "_id": 8, "color": "black", "qty": 28 }
-    { "_id": { "$oid": "606787841601f9443bc291ce" }, "color": "orange", "qty": 30 }
-
-``replaceOne()``
-----------------
-
-The replaceOne() method replaces a document that matches the query
-filter. If the query filter matches more than one document, the method
-will replace the first occurrence of a match in the collection.
-
-Example
-~~~~~~~
-
-From the previous example, we noticed orange got incremented by
-accident and we need to replace the orange document to have ten cans of
-paint. 
-
-To replace the orange document, query the ``paint_inventory`` collection
-where the ``color`` is ``"orange"``, create a document where the
-``color`` is ``orange`` and the ``qty`` is ``10`` and pass the query to the
-``replaceOne()`` method:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/InsertUpdate.java
-   :language: java
-   :dedent:
-   :start-after: begin updateManyExample
-   :end-before: end updateManyExample
-
-The method returns:
-
-.. code-block:: json   
-
-    AcknowledgedUpdateResult{ matchedCount=1, modifiedCount=1, upsertedId=null } 
-
-The following shows the documents in the ``paint_inventory`` collection:
-
-.. code-block:: json   
-
-    { "_id": 1, "color": "red", "qty": 25 }
-    { "_id": 2, "color": "purple", "qty": 28 }
-    { "_id": 3, "color": "blue", "qty": 20 }
-    { "_id": 4, "color": "white", "qty": 20 }
-    { "_id": 5, "color": "yellow", "qty": 26 }
-    { "_id": 6, "color": "pink", "qty": 20 }
-    { "_id": 7, "color": "green", "qty": 20 }
-    { "_id": 8, "color": "black", "qty": 28 }
-    { "_id": { "$oid": "60678b161601f9443bc31df6" }, "color": "orange", "qty": 10 }
-    
-See the following documentation for more information about the updating
-a document:
-
-- :manual:`db.collection.updateOne() </reference/method/db.collection.updateOne/>`
-- :manual:`db.collection.updateMany() </reference/method/db.collection.updateMany/>`
-- :manual:`db.collection.replaceOne() </reference/method/db.collection.replaceOne/>`
