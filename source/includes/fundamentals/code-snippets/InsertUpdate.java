@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 
@@ -46,7 +47,7 @@ public class InsertUpdate {
     private void updateOneAttemptExample(){
         // begin updateOneAttemptExample
         Bson filter = Filters.eq("color", "orange");
-        Bson update = Updates.set("qty", 10);
+        Bson update = Updates.inc("qty", 10);
         System.out.println(collection.updateOne(filter, update));
         // end updateOneAttemptExample
     }
@@ -54,7 +55,7 @@ public class InsertUpdate {
     private void updateOneExample(){
         // begin updateOneExample
         Bson filter = Filters.eq("color", "orange");
-        Bson update = Updates.set("qty", 10);
+        Bson update = Updates.inc("qty", 10);
         UpdateOptions options = new UpdateOptions().upsert(true);
         System.out.println(collection.updateOne(filter, update, options));
         // end updateOneExample
