@@ -13,9 +13,7 @@ Insert or update documents by passing a query filter to the
 or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.ReplaceOptions)>`
 methods. These methods update documents that match your query filter,
 but inserts a document if the there are no matches when you set the
-upsert to true.  
-
-When multiple documents match the query filter supplied to
+upsert to true. When multiple documents match the query filter supplied to
 ``updateOne()`` or ``replaceOne()``, the first document that matches
 gets updated.
 
@@ -30,7 +28,7 @@ Use :java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/
 as the third parameter to the ``replaceOne()`` method.
 
 Example
-~~~~~~~
+-------
 
 The following example is about a paint store that sells eight different
 colors of paint. The store had their annual online sale resulting in the
@@ -67,6 +65,12 @@ The method returns:
 
     AcknowledgedUpdateResult{ matchedCount=0, modifiedCount=0, upsertedId=BsonObjectId{ value=606b4cfc1601f9443b5d6978 }} 
 
+This ``AcknowledgedUpdateResult`` tells us:
+
+- Zero documents matched our query filter
+- Zero documents in our collection got modified 
+- A document with an ``_id`` of  ``606b4cfc1601f9443b5d6978`` got upserted
+
 The following shows the documents in the ``paint_inventory`` collection:
 
 .. code-block:: json   
@@ -79,7 +83,7 @@ The following shows the documents in the ``paint_inventory`` collection:
     { "_id": { "$oid": "606b4cfbcd83be7518b958df" }, "color": "pink", "qty": 0 }
     { "_id": { "$oid": "606b4cfbcd83be7518b958e0" }, "color": "green", "qty": 0 }
     { "_id": { "$oid": "606b4cfbcd83be7518b958e1" }, "color": "black", "qty": 8 }
-    { "_id": { "$oid": "606b4cfc1601f9443b5d6978" }, "color": "orange", "qty": 10 }
+    { "_id": { "$oid": "606b4cfc1601f9443b5d6978" }, "color": "orange", "qty": 10 }]
 
 .. note::
 
