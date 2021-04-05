@@ -10,11 +10,10 @@ Overview
 Insert or update documents by passing a query filter to the 
 :java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson,com.mongodb.client.model.UpdateOptions)>`, 
 :java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson,com.mongodb.client.model.UpdateOptions)>`
-or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.ReplaceOptions)>` methods
-
-These methods update documents that match your query filter, but
-inserts a document if the there are no matches when you set the upsert
-to true.  
+or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.ReplaceOptions)>`
+methods. These methods update documents that match your query filter,
+but inserts a document if the there are no matches when you set the
+upsert to true.  
 
 When multiple documents match the query filter supplied to
 ``updateOne()`` or ``replaceOne()``, the first document that matches
@@ -49,13 +48,12 @@ following documents in their ``paint_inventory`` collection:
     { "_id": { "$oid": "606b4cfbcd83be7518b958e1" }, "color": "black", "qty": 8 }
 
 The store received a fresh shipment and needs to update their inventory.
-By using an upsert, existing documents get updated and new documents
-get created in a single operation.
+The first item in the shipment is ten cans of orange paint.
 
-The first item in the shipment is ten cans of orange paint. To update or
-insert the inventory, query the ``paint_inventory`` collection where the
-color is ``"orange"``, specify an update to ``increment`` the ``qty`` field
-by ``10``, and specify ``true`` to ``UpdateOptions.upsert()``:
+To update or insert orange, query the ``paint_inventory`` collection
+where the color is ``"orange"``, specify an update to ``increment`` the
+``qty`` field by ``10``, and specify ``true`` to
+``UpdateOptions.upsert()``: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/InsertUpdate.java
    :language: java
