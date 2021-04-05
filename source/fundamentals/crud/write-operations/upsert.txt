@@ -8,9 +8,9 @@ Overview
 --------
 
 You can insert or update documents by passing a query filter to the 
-:java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List)>`, 
-:java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List)>`
-or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` methods
+:java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson,com.mongodb.client.model.UpdateOptions)>`, 
+:java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson,com.mongodb.client.model.UpdateOptions)>`
+or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.ReplaceOptions)>` methods
 
 Each method returns an ``AcknowledgedUpdateResult`` that tells us:
 
@@ -40,7 +40,7 @@ Example
 ~~~~~~~
 
 The following example is about a paint store that sells eight different
-colors of paint. The store had their annual onuline sale resulting in the
+colors of paint. The store had their annual online sale resulting in the
 following documents in their ``paint_inventory`` collection: 
 
 .. code-block:: json
