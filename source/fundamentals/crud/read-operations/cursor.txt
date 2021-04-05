@@ -31,25 +31,12 @@ The following shows ``collection.find()`` as a cursor:
 Cursor Paradigms
 ----------------
 
-You work with cursors using **cursor paradigms**. Most cursor paradigms
+Work with cursors using **cursor paradigms**. Cursor paradigms
 allow you to access query results one document at a time, abstracting
 away network and caching logic. 
 
-.. warning::
-
-   Do not combine different cursor paradigms on a single cursor.
-   Operations such as ``next()`` and ``forEachRemaining()``
-   each predictably modify the original cursor. If you mix these calls
-   on a single cursor, you may receive unexpected results.
-
-.. note::
-
-   When you reach the last result through iteration, the cursor is
-   exhausted which means it ceases to respond to methods 
-   that access the results.
-
-For Each Functional Iteration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Functional Iteration
+~~~~~~~~~~~~~~~~~~~~~
 
 Pass a function to the 
 `forEachRemaining() <https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Iterator.html?is-external=true#forEachRemaining(java.util.function.Consumer)>`_ 
@@ -75,8 +62,8 @@ method to retrieve the next available document from the cursor:
    :start-after: begin manualIteration
    :end-before: end manualIteration
 
-Cursor Utility Methods
-----------------------
+Cursor Utility Method
+---------------------
 
 Close
 ~~~~~
