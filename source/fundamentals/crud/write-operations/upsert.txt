@@ -2,18 +2,17 @@
 Insert or Update in a Single Operation
 ======================================
 
-Applications insert and update data regularly. Often times, such as
-inventory management, you need to update or insert a document depending
-on whether the document exists. MongoDB simplifies this operation by
-providing an ``upsert`` behavior. 
+Applications use insert and update operations to store and modify data.
+Sometimes, you need to choose between an insert and update depending on
+whether the document exists. MongoDB simplifies this decision for us
+with an ``upsert`` option.  
 
-In a normal update or replace, you specify a query filter to find the
-document to update. Using an ``upsert`` behavior, if no document matches
-the query filter, a new document gets created with the values specified in
-the update or replace document. 
+An ``upsert``:
+- updates documents that match your query filter 
+- inserts a document if the there are no matches to your query filter
 
 Specify an Upsert:
-``````````````````
+------------------
 
 To specify an upsert with the ``updateOne()`` or ``updateMany()``
 methods, pass ``true`` to :java-docs:`UpdateOptions.upsert()
