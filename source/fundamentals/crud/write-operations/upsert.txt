@@ -2,25 +2,23 @@
 Insert or Update in a Single Operation
 ======================================
 
-Application data changes over time. You can use update operations to
-modify existing data. Update operations assume the data that you want to
-change exists. This creates a wrinkle when having to update nonexistent data.
-Normally, you would first write logic to check for the data, then
-insert the data if it doesn't exist. MongoDB offers an easier option
-called **Upsert**. 
-
-An upsert updates documents that match your query filter, but inserts a
-document if the there are no matches when you set the upsert to true.
+Applications use update operations to modify data in MongoDB. Update
+operations assume the data that you want to change exists. However,
+sometimes the data does not exist and instead, you need to insert it.
+MongoDB simplifies this decision for us with an **upsert** option.  An
+upsert updates documents that match your query filter or inserts a
+document if the there are no matches when you set the upsert to true. 
 
 Specify an Upsert:
 ``````````````````
 
-Add the following third parameter to the ``updateOne()`` or
-``updateMany()`` methods: 
-:java-docs:`UpdateOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`
+To specify an upsert with the ``updateOne()`` or ``updateMany()``
+methods, pass ``true`` to :java-docs:`UpdateOptions.upsert()
+</apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html#upsert(boolean)>`.
 
-Add the following third parameter to the ``replaceOne()`` method: 
-:java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`
+To specify an upsert with the ``replaceOne()``method, pass ``true`` to
+:java-docs:`ReplaceOptions.upsert()
+</apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html#upsert(boolean)>`.
 
 In the following example, a paint store sells eight different
 colors of paint. The store had their annual online sale. Their
