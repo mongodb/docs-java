@@ -2,43 +2,28 @@
 Insert or Update in a Single Operation
 ======================================
 
-.. default-domain:: mongodb
+Application data changes over time. You can use Update operations to
+modify existing data. Update operations assume the data that you want to
+change exists. This creates a wrinkle when having to update nonexistent data.
+Normally, you would first write logic to check for the data, then
+insert. MongoDB offers an easier option called **Upsert**. 
 
-Overview
---------
+An upsert updates documents that match your query filter, but inserts a
+document if the there are no matches when you set the upsert to true.
 
-You often use insert and update operations for applications that store
-and modify data. Sometimes, you need to choose between an insert or
-update depending on whether the document exists. 
+Specify an Upsert:
+``````````````````
 
-To insert or update documents, pass a query filter to the 
-:java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson,com.mongodb.client.model.UpdateOptions)>`, 
-:java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson,com.mongodb.client.model.UpdateOptions)>`
-or :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.ReplaceOptions)>`
-methods. 
+Add the following third parameter to the ``updateOne()`` or
+``updateMany()`` methods: 
+:java-docs:`UpdateOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`
 
-These methods update documents that match your query filter,
-but inserts a document if the there are no matches when you set the
-upsert to true. When multiple documents match the query filter supplied to
-``updateOne()`` or ``replaceOne()``, the first document that matches
-gets updated.
+Add the following third parameter to the ``replaceOne()`` method: 
+:java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`
 
-Specify an upsert:
-~~~~~~~~~~~~~~~~~~
-
-Use :java-docs:`UpdateOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`
-as the third parameter to the ``updateOne()`` and ``updateMany()``
-methods.
-
-Use :java-docs:`ReplaceOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`
-as the third parameter to the ``replaceOne()`` method.
-
-Example
--------
-
-The following example is about a paint store that sells eight different
-colors of paint. The store had their annual online sale resulting in the
-following documents in their ``paint_inventory`` collection: 
+In the following example, a paint store sells eight different
+colors of paint. The store had their annual online sale. Their
+``paint_inventory`` collection now shows the following documents: 
 
 .. code-block:: json
 
