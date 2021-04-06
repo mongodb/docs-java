@@ -2,11 +2,12 @@
 Insert or Update in a Single Operation
 ======================================
 
-Application data changes over time. You can use Update operations to
+Application data changes over time. You can use update operations to
 modify existing data. Update operations assume the data that you want to
 change exists. This creates a wrinkle when having to update nonexistent data.
 Normally, you would first write logic to check for the data, then
-insert. MongoDB offers an easier option called **Upsert**. 
+insert the data if it doesn't exist. MongoDB offers an easier option
+called **Upsert**. 
 
 An upsert updates documents that match your query filter, but inserts a
 document if the there are no matches when you set the upsert to true.
