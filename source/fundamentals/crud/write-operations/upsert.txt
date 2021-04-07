@@ -10,7 +10,7 @@ with an ``upsert`` option.
 An ``upsert``:
 
 - Updates documents that match your query filter 
-- Inserts a document if the there are no matches to your query filter
+- Inserts a document if there are no matches to your query filter
 
 Specify an Upsert:
 ------------------
@@ -19,7 +19,7 @@ To specify an upsert with the ``updateOne()`` or ``updateMany()``
 methods, pass ``true`` to :java-docs:`UpdateOptions.upsert()
 </apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html#upsert(boolean)>`.
 
-To specify an upsert with the ``replaceOne()``method, pass ``true`` to
+To specify an upsert with the ``replaceOne()`` method, pass ``true`` to
 :java-docs:`ReplaceOptions.upsert()
 </apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html#upsert(boolean)>`.
 
