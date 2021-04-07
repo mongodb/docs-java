@@ -51,7 +51,7 @@ public class Update {
     private void replaceOneExample(){
         // begin replaceOneExample
         Bson filter = Filters.eq("color", "pink");
-        Document document = new Document("color", "orange").append("qty", 22);
+        Document document = new Document("color", "orange").append("qty", 25);
         System.out.println(collection.replaceOne(filter, document));
         // end replaceOneExample
     }

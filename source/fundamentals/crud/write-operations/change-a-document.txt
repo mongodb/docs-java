@@ -5,12 +5,13 @@ Change a Document
 .. default-domain:: mongodb
 
 You can change documents in a MongoDB collection using two distinct
-operation types: **update** and **replace**. Update operations change
-specified fields in one or more documents using the
+operation types: :ref:`update <update-operation>` and :ref:`replace
+<replace-operation>`. Update operations change specified fields in one
+or more documents using the
 :java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 or :java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 method. A replace operation substitutes one document with a new
-specified document using the 
+specified document using the
 :java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
 method.
     
@@ -28,7 +29,10 @@ colors of paint. The store had their annual online sale. Their
     { "_id": { "$oid": "606dfe52d506b97c576b22c1" }, "color": "pink", "qty": 0 }
     { "_id": { "$oid": "606dfe52d506b97c576b22c2" }, "color": "green", "qty": 0 }
     { "_id": { "$oid": "606dfe52d506b97c576b22c3" }, "color": "black", "qty": 8 }
-    
+
+
+.. _update-operation:
+
 Update
 ------
 
@@ -36,20 +40,20 @@ To update one or more documents, create a ``Bson`` that specifies
 the update operator (the type of update to perform) with the fields and
 values that describe the change. 
 
-The Bson uses the following format:
+The ``Bson`` for ``Updates`` uses the following format:
 
 .. code-block:: java
 
     Bson update = Updates.<update operator>("<field>", "<value>");
 
 
-An update Bson contains one of the following update operators: 
+``Updates`` contains one of the following update operators:
 
 - ``.set()`` - replaces the value of a field with a specified one
-- ``.inc()`` - increments a field value by a specified number
+- ``.inc()`` - increments a field value 
 - ``.rename()`` - renames a field 
 - ``.unset()`` - deletes a field
-- ``.mul()`` - multiplies a field value by a specified number
+- ``.mul()`` - multiplies a field value 
 
 See the MongoDB server manual for a :manual:`complete list of update
 operators and their usage </reference/operator/update-field/>`.
@@ -58,10 +62,10 @@ Example
 ~~~~~~~
 
 The store received a fresh shipment and needs to update their inventory.
-The shipment contains 20 cans of each color paint.
+The shipment contains 20 cans of each paint color.
 
 To update the inventory, query all the colors in the ``paint_inventory``
-collection, specify the update to ``increment`` the ``qty`` field by
+collection and specify the update to ``increment`` the ``qty`` field by
 ``20``: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
@@ -95,15 +99,14 @@ no change to the collection. You can configure an
 attempt an update a document or insert a document if there are no
 matches to your query filter. 
 
-If there are multiple documents matched for the ``updateOne()`` method,
-the method will update the first occurrence of a match in the collection.
-
 .. note::
 
     You cannot modify the ``_id`` field of a document nor change a field
     to a value that violates a unique index constraint. See the MongoDB
     server manual for more information on :manual:`unique indexes
     </core/index-unique/>`.
+
+.. _replace-operation:
 
 Replace
 -------
@@ -112,7 +115,7 @@ To replace a document, create a ``Document`` with the fields and
 values that you would like to insert in your collection. This
 document substitutes the document matched in your query filter. 
 
-Replacement documents use the following format: 
+A new ``Document`` uses the following format: 
 
 .. code-block:: java
 
