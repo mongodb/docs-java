@@ -1,0 +1,149 @@
+=================
+Change a Document
+=================
+
+.. default-domain:: mongodb
+
+You can change documents in a MongoDB collection using two distinct
+operation types: **update** and **replace**. Update operations change
+specified fields in one or more documents using the
+:java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
+or :java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
+methods. A replace operation substitutes one document with a new
+specified document using the 
+:java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
+method.
+
+For both update and replace operations, if there are zero matched
+documents, there is no change to the collection. You can configure
+:doc:`upsert </fundamentals/crud/write-operations/upsert>` to
+attempt an update a document or insert a document if there are no
+matches to your query filter. 
+
+In the case there are multiple matched documents for ``updateOne()`` or
+``replaceOne()``, the method will update the first occurrence of a match
+in the collection. 
+
+.. note::
+
+    You cannot modify the ``_id`` field of a document nor change a field
+    to a value that violates a unique index constraint. See the MongoDB
+    server manual for more information on :manual:`unique indexes
+    </core/index-unique/>`.
+    
+In the following examples, a paint store sells eight different
+colors of paint. The store had their annual online sale. Their
+``paint_inventory`` collection now shows the following documents: 
+
+.. code-block:: json
+
+    { "_id": { "$oid": "606dfe52d506b97c576b22bc" }, "color": "red", "qty": 5 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22bd" }, "color": "purple", "qty": 8 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22be" }, "color": "blue", "qty": 0 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22bf" }, "color": "white", "qty": 0 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22c0" }, "color": "yellow", "qty": 6 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22c1" }, "color": "pink", "qty": 0 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22c2" }, "color": "green", "qty": 0 }
+    { "_id": { "$oid": "606dfe52d506b97c576b22c3" }, "color": "black", "qty": 8 }
+    
+Update
+------
+
+To update one or more documents, create an update ``Bson`` that specifies
+the update operator (the type of update to perform) with the fields and
+values that describe the change. 
+
+The Bson uses the following format:
+
+.. code-block:: java
+
+    Bson update = Updates.<update operator>("<field>", "<value>");
+
+
+An update Bson contains one of the following update operators: 
+
+- ``.set()`` - replaces the value of a field with a specified one
+- ``.inc()`` - increments a field value by a specified number
+- ``.rename()`` - renames a field 
+- ``.unset()`` - deletes a field
+- ``.mul()`` - multiplies a field value by a specified number
+
+See the MongoDB server manual for a :manual:`complete list of update
+operators and their usage </reference/operator/update-field/>`.
+
+Example
+~~~~~~~
+
+The store received a fresh shipment and needs to update their inventory.
+The shipment contains 20 cans of each color paint.
+
+To update the inventory, query all the colors in the ``paint_inventory``
+collection, specify the update to ``increment`` the ``qty`` field by
+``20``: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Update.java
+   :language: java
+   :dedent:
+   :start-after: begin updateManyExample
+   :end-before: end updateManyExample
+
+The method returns:
+
+.. code-block:: json   
+
+    AcknowledgedUpdateResult{ matchedCount=8, modifiedCount=8, upsertedId=null } 
+
+The following shows the documents in the ``paint_inventory`` collection:
+
+.. code-block:: json 
+
+    { "_id": {"$oid": "606dfe52d506b97c576b22bc"}, "color": "red", "qty": 25 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22bd"}, "color": "purple", "qty": 28 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22be"}, "color": "blue", "qty": 20 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22bf"}, "color": "white", "qty": 20 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22c0"}, "color": "yellow", "qty": 26 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22c1"}, "color": "pink", "qty": 20 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22c2"}, "color": "green", "qty": 20 }
+    { "_id": {"$oid": "606dfe52d506b97c576b22c3"}, "color": "black", "qty": 28 }
+
+Replace
+-------
+
+To replace a document, create a replacement ``Document`` with the fields and
+values that you would like to insert in your collection. This
+replacement document substitutes the document matched in your query
+filter. 
+
+Replacement documents use the following format: 
+
+.. code-block:: java
+
+    Document document = new Document("<field>", "<value>");
+
+Example
+~~~~~~~
+
+The store realizes they need to update their inventory again.  What they
+thought was 20 cans of pink paint is actually 25 cans of orange paint. 
+
+To update the inventory, query the ``paint_inventory`` collection where
+the ``color`` is ``"pink"``, create a new document where the ``color``
+is ``"orange"`` and ``qty`` is ``25``:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Update.java
+   :language: java
+   :dedent:
+   :start-after: begin replaceOneExample
+   :end-before: end replaceOneExample
+
+The method returns:
+
+.. code-block:: json   
+
+    AcknowledgedUpdateResult{ matchedCount=1, modifiedCount=1, upsertedId=null }
+
+The following shows the updated document:
+
+.. code-block:: json
+
+    { "_id": { "$oid": "606dfe52d506b97c576b22c1" }, "color": "orange", "qty": 25 }
