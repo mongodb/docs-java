@@ -30,15 +30,13 @@ colors of paint. The store had their annual online sale. Their
     { "_id": { "$oid": "606dfe52d506b97c576b22c2" }, "color": "green", "qty": 0 }
     { "_id": { "$oid": "606dfe52d506b97c576b22c3" }, "color": "black", "qty": 8 }
 
-
 .. _update-operation:
 
 Update
 ------
 
 To update one or more documents, create a ``Bson`` that specifies
-the update operator (the type of update to perform) with the fields and
-values that describe the change. 
+``Updates`` with a field and value that describe the change. 
 
 The ``Bson`` for ``Updates`` uses the following format:
 
@@ -46,14 +44,11 @@ The ``Bson`` for ``Updates`` uses the following format:
 
     Bson update = Updates.<update operator>("<field>", "<value>");
 
-
-``Updates`` contains one of the following update operators:
+``Updates`` may contain one of the following update operators:
 
 - ``.set()`` - replaces the value of a field with a specified one
 - ``.inc()`` - increments a field value 
 - ``.rename()`` - renames a field 
-- ``.unset()`` - deletes a field
-- ``.mul()`` - multiplies a field value 
 
 See the MongoDB server manual for a :manual:`complete list of update
 operators and their usage </reference/operator/update-field/>`.
@@ -93,11 +88,10 @@ The following shows the documents in the ``paint_inventory`` collection:
     { "_id": {"$oid": "606dfe52d506b97c576b22c2"}, "color": "green", "qty": 20 }
     { "_id": {"$oid": "606dfe52d506b97c576b22c3"}, "color": "black", "qty": 28 }
 
-If there are zero documents matched from the update operation, there is
-no change to the collection. You can configure an 
-:doc:`upsert </fundamentals/crud/write-operations/upsert>` to
-attempt an update a document or insert a document if there are no
-matches to your query filter. 
+If zero documents matched from the update operation, there is no change
+to the collection. You can configure an
+:doc:`upsert </fundamentals/crud/write-operations/upsert>` to attempt an
+update to a document or to insert a document if there are no matches. 
 
 .. note::
 
@@ -111,8 +105,8 @@ matches to your query filter.
 Replace
 -------
 
-To replace a document, create a ``Document`` with the fields and
-values that you would like to insert in your collection. This
+To replace a document, create a new ``Document`` with the fields and
+values that you would like to insert in your collection. This new
 document substitutes the document matched in your query filter. 
 
 A new ``Document`` uses the following format: 
@@ -128,7 +122,7 @@ The store realizes they need to update their inventory again.  What they
 thought was 20 cans of pink paint is actually 25 cans of orange paint. 
 
 To update the inventory, query the ``paint_inventory`` collection where
-the ``color`` is ``"pink"``, create a new document where the ``color``
+the ``color`` is ``"pink"``, create a new ``Document`` where the ``color``
 is ``"orange"`` and ``qty`` is ``25``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
@@ -149,11 +143,10 @@ The following shows the updated document:
 
     { "_id": { "$oid": "606dfe52d506b97c576b22c1" }, "color": "orange", "qty": 25 }
 
-If there are zero documents matched from the replace operation, there is
+If zero documents matched from the replace operation, there is
 no change to the collection. You can configure an 
-:doc:`upsert </fundamentals/crud/write-operations/upsert>` to
-attempt an update a document or insert a document if there are no
-matches to your query filter. 
+:doc:`upsert </fundamentals/crud/write-operations/upsert>` to attempt an
+update to a document or to insert a document if there are no matches. 
 
 If there are multiple documents matched for the ``replaceOne()`` method,
 the method will update the first occurrence of a match in the collection.
