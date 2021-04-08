@@ -7,10 +7,10 @@ Change a Document
 In this page, you can learn change documents in a MongoDB collection
 using two distinct operation types: 
 
-- :ref:`update <update-operation>` 
-- :ref:`replace <replace-operation>`
+- :ref:`Update <update-operation>`
+- :ref:`Replace <replace-operation>`
 
-Update operations change the value of the specified fields in one or
+Update operations change the value of the specified field in one or
 more documents using the 
 :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
@@ -25,7 +25,7 @@ Each method returns an ``AcknowledgedUpdateResult`` that tells us:
 - The number of documents that got modified
 - The ``_id`` of the document that got upserted
 
-In the following examples, a paint store sells eight different
+In the following examples, a paint store sells five different
 colors of paint. The``paint_inventory`` collection represents their
 current inventory: 
 
@@ -42,24 +42,30 @@ current inventory:
 Update
 ------
 
-Update operations specify an update object with the field and value to
+Update operations specify an update document with the field and value to
 change in one or more documents that match your query filer using the 
 :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
-method.
+method. The query filter specifies the document you want to update in
+your collection. The update document uses an :doc:`Updates builder
+</fundamentals/builders/updates>` to specify the update to perform. 
 
-The query filter specifies the document you want to update in your
-collection. The update object that uses an :doc:`update
-builder </fundamentals/builders/updates>` to specify the update to perform.
-
-The update object uses the following format:
+The update document uses the following format:
 
 .. code-block:: java
 
     Bson update = Updates.<update operator>("<field>", "<value>");
 
 See the MongoDB API documentation for a :java-core-api:`complete list of
-Updates and their usage <com/mongodb/client/model/Updates.html>`.
+update operators and their usage <com/mongodb/client/model/Updates.html>`.
+
+The ``updateOne()`` and ``updateMany()`` method uses the following format: 
+
+.. code-block:: java
+
+    collection.updateOne(<query filter>, <update document>);
+
+    collection.updateMany(<query filter>, <update document>);
 
 Example
 ~~~~~~~
@@ -72,7 +78,7 @@ following:
 
 - A query filter that matches all the colors in the ``paint_inventory``
 collection
-- An update object that specifies to increment the ``qty`` field by "20"
+- An update document that specifies to increment the ``qty`` field by "20"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
    :language: java
@@ -99,10 +105,7 @@ The following shows the updated documents in the ``paint_inventory`` collection:
 If zero documents matched the query filter in the update operation,
 there are no changes to the collection. See our :doc:`upsert
 page</fundamentals/crud/write-operations/upsert>` to learn how you can
-change the collection with zero matches. 
-
-If zero documents matched the query filter in the update operation,
-there are no changes to the collection. You can configure an 
+change the collection with zero documents matched. 
 
 .. note::
 
@@ -141,7 +144,7 @@ To update the inventory, call the ``replaceOne()`` method specifying the
 following:
 
 - A query filter that matches the ``color`` is "pink" in the
-``paint_inventory``collection 
+``paint_inventory``collection
 - A replacement document that contains: ``color`` is "orange" and
 ``qty`` is "25" 
 
@@ -166,7 +169,7 @@ The following shows the updated document:
 If zero documents matched the query filter in the replace operation,
 there are no changes to the collection. See our :doc:`upsert
 page</fundamentals/crud/write-operations/upsert>` to learn how you can
-change the collection with zero matches. 
+change the collection with zero documents matched. 
 
 If multiple documents match the ``replaceOne()`` method, the method
 replaces the first matched document matched by the query. 
