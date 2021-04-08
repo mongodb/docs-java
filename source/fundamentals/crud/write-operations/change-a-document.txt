@@ -4,7 +4,7 @@ Change a Document
 
 .. default-domain:: mongodb
 
-In this page, you can learn change documents in a MongoDB collection
+In this page, you can learn how to change documents in a MongoDB collection
 using two distinct operation types: 
 
 - :ref:`Update <update-operation>`
@@ -26,7 +26,7 @@ Each method returns an ``AcknowledgedUpdateResult`` that tells us:
 - The ``_id`` of the document that got upserted
 
 In the following examples, a paint store sells five different
-colors of paint. The``paint_inventory`` collection represents their
+colors of paint. The ``paint_inventory`` collection represents their
 current inventory: 
 
 .. code-block:: json
@@ -46,7 +46,9 @@ Update operations specify an update document with the field and value to
 change in one or more documents that match your query filer using the 
 :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
-method. The query filter specifies the document you want to update in
+method. 
+
+The query filter specifies the document you want to update in
 your collection. The update document uses an :doc:`Updates builder
 </fundamentals/builders/updates>` to specify the update to perform. 
 
@@ -73,11 +75,12 @@ Example
 The paint store received a fresh shipment and needs to update their inventory.
 The shipment contains 20 cans of each paint color.
 
-To update the inventory, call the ``reaplceMany()`` method specifying the
+To update the inventory, call the ``updateMany()`` method specifying the
 following:
 
 - A query filter that matches all the colors in the ``paint_inventory``
 collection
+
 - An update document that specifies to increment the ``qty`` field by "20"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
@@ -125,8 +128,8 @@ method.
 
 The query filter specifies the document you want to replace in your
 collection. The replacement document is a new ``Document`` with the
-fields and values that you would like to insert in place of the document
-that matches your query filter.
+fields and values to replace in the document that matches your query
+filter. 
 
 The ``repalceOne()`` method uses the following format: 
 
@@ -143,8 +146,9 @@ thought was 20 cans of pink paint is actually 25 cans of orange paint.
 To update the inventory, call the ``replaceOne()`` method specifying the
 following:
 
-- A query filter that matches the ``color`` is "pink" in the
+- A query filter that matches the ``color`` is "pink" in the 
 ``paint_inventory``collection
+
 - A replacement document that contains: ``color`` is "orange" and
 ``qty`` is "25" 
 
