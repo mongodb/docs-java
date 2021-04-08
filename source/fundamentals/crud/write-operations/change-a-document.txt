@@ -42,15 +42,16 @@ current inventory:
 Update
 ------
 
-Update operations specify an update document with the field and value to
-change in one or more documents that match your query filer using the 
+Update operations specify an update document to change in one or more
+documents that match your query filer using the 
 :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 method. 
 
 The query filter specifies the document you want to update in
 your collection. The update document uses an :doc:`Updates builder
-</fundamentals/builders/updates>` to specify the update to perform. 
+</fundamentals/builders/updates>` to specify the field and value to
+change in the matched document. 
 
 The update document uses the following format:
 
@@ -78,9 +79,7 @@ The shipment contains 20 cans of each paint color.
 To update the inventory, call the ``updateMany()`` method specifying the
 following:
 
-- A query filter that matches all the colors in the ``paint_inventory``
-collection
-
+- A query filter that matches all the colors in the ``paint_inventory`` collection
 - An update document that specifies to increment the ``qty`` field by "20"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
@@ -128,8 +127,7 @@ method.
 
 The query filter specifies the document you want to replace in your
 collection. The replacement document is a new ``Document`` with the
-fields and values to replace in the document that matches your query
-filter. 
+fields and values to replace in the document matched.
 
 The ``repalceOne()`` method uses the following format: 
 
@@ -146,11 +144,8 @@ thought was 20 cans of pink paint is actually 25 cans of orange paint.
 To update the inventory, call the ``replaceOne()`` method specifying the
 following:
 
-- A query filter that matches the ``color`` is "pink" in the 
-``paint_inventory``collection
-
-- A replacement document that contains: ``color`` is "orange" and
-``qty`` is "25" 
+- A query filter that matches the ``color`` is "pink" in the ``paint_inventory``collection
+- A replacement document that contains: ``color`` is "orange" and ``qty`` is "25"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
    :language: java
