@@ -48,10 +48,11 @@ documents that match your query filer using the
 or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 method. 
 
-The query filter specifies the document you want to update in
-your collection. The update document uses an :doc:`Updates builder
-</fundamentals/builders/updates>` to specify the field and value to
-change in the matched document. 
+Update Operation Parameters:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Query filter: specifies the document you want to update in your collection
+- Update document: an :doc:`Updates builder </fundamentals/builders/updates>` that specifies the field and value to change in the document matched
 
 The update document uses the following format:
 
@@ -125,9 +126,11 @@ filter with a replacement document using the
 :java-docs:`replaceOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
 method.
 
-The query filter specifies the document you want to replace in your
-collection. The replacement document is a new ``Document`` with the
-fields and values to replace in the document matched.
+Replace Operation Parameters:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Query filter: specifies the document you want to replace in your collection
+- Replacement document: a new ``Document`` with the fields and values to replace in the document matched
 
 The ``repalceOne()`` method uses the following format: 
 
@@ -144,7 +147,7 @@ thought was 20 cans of pink paint is actually 25 cans of orange paint.
 To update the inventory, call the ``replaceOne()`` method specifying the
 following:
 
-- A query filter that matches the ``color`` is "pink" in the ``paint_inventory``collection
+- A query filter that matches the ``color`` is "pink" in the ``paint_inventory`` collection
 - A replacement document that contains: ``color`` is "orange" and ``qty`` is "25"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
