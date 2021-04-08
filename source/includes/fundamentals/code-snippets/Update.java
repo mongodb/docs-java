@@ -67,14 +67,11 @@ public class Update {
     private void setupPaintCollection() {
 
         collection.insertMany(Arrays.asList(
-            new Document("color", "red").append("qty", 5), 
-            new Document("color", "purple").append("qty", 8), 
-            new Document("color", "blue").append("qty", 0), 
-            new Document("color", "white").append("qty", 0),
-            new Document("color", "yellow").append("qty", 6),
-            new Document("color", "pink").append("qty", 0),
-            new Document("color", "green").append("qty", 0),
-            new Document("color", "black").append("qty", 8)
+            new Document("_id", 1).append("color", "red").append("qty", 5), 
+            new Document("_id", 2).append("color", "purple").append("qty", 8), 
+            new Document("_id", 3).append("color", "yellow").append("qty", 0), 
+            new Document("_id", 4).append("color", "green").append("qty", 6),
+            new Document("_id", 5).append("color", "pink").append("qty", 0)
         ));
     }
 

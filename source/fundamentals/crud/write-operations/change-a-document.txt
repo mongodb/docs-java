@@ -4,64 +4,75 @@ Change a Document
 
 .. default-domain:: mongodb
 
-You can change documents in a MongoDB collection using two distinct
-operation types: :ref:`update <update-operation>` and :ref:`replace
-<replace-operation>`. Update operations change specified fields in one
-or more documents using the
-:java-docs:`updateOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
-or :java-docs:`updateMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
+In this page, you can learn change documents in a MongoDB collection
+using two distinct operation types: 
+
+- :ref:`update <update-operation>` 
+- :ref:`replace <replace-operation>`
+
+Update operations change the value of the specified fields in one or
+more documents using the 
+:java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
+or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
 method. A replace operation substitutes one document with a new
 specified document using the
-:java-docs:`replaceOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
+:java-docs:`replaceOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
 method.
     
+Each method returns an ``AcknowledgedUpdateResult`` that tells us:
+
+- The number of documents that matched the query filter
+- The number of documents that got modified
+- The ``_id`` of the document that got upserted
+
 In the following examples, a paint store sells eight different
-colors of paint. The store had their annual online sale. Their
-``paint_inventory`` collection now shows the following documents: 
+colors of paint. The``paint_inventory`` collection represents their
+current inventory: 
 
 .. code-block:: json
 
-    { "_id": { "$oid": "606dfe52d506b97c576b22bc" }, "color": "red", "qty": 5 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22bd" }, "color": "purple", "qty": 8 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22be" }, "color": "blue", "qty": 0 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22bf" }, "color": "white", "qty": 0 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22c0" }, "color": "yellow", "qty": 6 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22c1" }, "color": "pink", "qty": 0 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22c2" }, "color": "green", "qty": 0 }
-    { "_id": { "$oid": "606dfe52d506b97c576b22c3" }, "color": "black", "qty": 8 }
+    { "_id": 1, "color": "red", "qty": 5 }
+    { "_id": 2, "color": "purple", "qty": 8 }
+    { "_id": 3, "color": "yellow", "qty": 0 }
+    { "_id": 4, "color": "green", "qty": 6 }
+    { "_id": 5, "color": "pink", "qty": 0 }
 
 .. _update-operation:
 
 Update
 ------
 
-To update one or more documents, create a ``Bson`` that specifies
-``Updates`` with a field and value that describe the change. 
+Update operations specify an update object with the field and value to
+change in one or more documents that match your query filer using the 
+:java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
+or :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
+method.
 
-The ``Bson`` for ``Updates`` uses the following format:
+The query filter specifies the document you want to update in your
+collection. The update object that uses an :doc:`update
+builder </fundamentals/builders/updates>` to specify the update to perform.
+
+The update object uses the following format:
 
 .. code-block:: java
 
     Bson update = Updates.<update operator>("<field>", "<value>");
 
-``Updates`` may contain one of the following update operators:
-
-- ``.set()`` - replaces the value of a field with a specified one
-- ``.inc()`` - increments a field value 
-- ``.rename()`` - renames a field 
-
-See the MongoDB server manual for a :manual:`complete list of update
-operators and their usage </reference/operator/update-field/>`.
+See the MongoDB API documentation for a :java-core-api:`complete list of
+Updates and their usage <com/mongodb/client/model/Updates.html>`.
 
 Example
 ~~~~~~~
 
-The store received a fresh shipment and needs to update their inventory.
+The paint store received a fresh shipment and needs to update their inventory.
 The shipment contains 20 cans of each paint color.
 
-To update the inventory, query all the colors in the ``paint_inventory``
-collection and specify the update to ``increment`` the ``qty`` field by
-``20``: 
+To update the inventory, call the ``reaplceMany()`` method specifying the
+following:
+
+- A query filter that matches all the colors in the ``paint_inventory``
+collection
+- An update object that specifies to increment the ``qty`` field by "20"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
    :language: java
@@ -73,30 +84,29 @@ The method returns:
 
 .. code-block:: json   
 
-    AcknowledgedUpdateResult{ matchedCount=8, modifiedCount=8, upsertedId=null } 
+    AcknowledgedUpdateResult{ matchedCount=5, modifiedCount=5, upsertedId=null } 
 
-The following shows the documents in the ``paint_inventory`` collection:
+The following shows the updated documents in the ``paint_inventory`` collection:
 
 .. code-block:: json 
 
-    { "_id": {"$oid": "606dfe52d506b97c576b22bc"}, "color": "red", "qty": 25 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22bd"}, "color": "purple", "qty": 28 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22be"}, "color": "blue", "qty": 20 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22bf"}, "color": "white", "qty": 20 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22c0"}, "color": "yellow", "qty": 26 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22c1"}, "color": "pink", "qty": 20 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22c2"}, "color": "green", "qty": 20 }
-    { "_id": {"$oid": "606dfe52d506b97c576b22c3"}, "color": "black", "qty": 28 }
+    { "_id": 1, "color": "red", "qty": 25 }
+    { "_id": 2, "color": "purple", "qty": 28 }
+    { "_id": 3, "color": "yellow", "qty": 20 }
+    { "_id": 4, "color": "green", "qty": 26 }
+    { "_id": 5, "color": "pink", "qty": 20 }
 
-If zero documents matched from the update operation, there is no change
-to the collection. You can configure an
-:doc:`upsert </fundamentals/crud/write-operations/upsert>` to attempt an
-update to a document or to insert a document if there are no matches. 
+If zero documents matched the query filter in the update operation,
+there are no changes to the collection. See our :doc:`upsert
+page</fundamentals/crud/write-operations/upsert>` to learn how you can
+change the collection with zero matches. 
+
+If zero documents matched the query filter in the update operation,
+there are no changes to the collection. You can configure an 
 
 .. note::
 
-    You cannot modify the ``_id`` field of a document nor change a field
-    to a value that violates a unique index constraint. See the MongoDB
+    You cannot modify the unique index of a document. See the MongoDB
     server manual for more information on :manual:`unique indexes
     </core/index-unique/>`.
 
@@ -105,25 +115,35 @@ update to a document or to insert a document if there are no matches.
 Replace
 -------
 
-To replace a document, create a new ``Document`` with the fields and
-values that you would like to insert in your collection. This new
-document substitutes the document matched in your query filter. 
+A replace operation substitutes one document that matches your query
+filter with a replacement document using the
+:java-docs:`replaceOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
+method.
 
-A new ``Document`` uses the following format: 
+The query filter specifies the document you want to replace in your
+collection. The replacement document is a new ``Document`` with the
+fields and values that you would like to insert in place of the document
+that matches your query filter.
+
+The ``repalceOne()`` method uses the following format: 
 
 .. code-block:: java
 
-    Document document = new Document("<field>", "<value>");
+    collection.replaceOne(<query filter>, <new Document>);
 
 Example
 ~~~~~~~
 
-The store realizes they need to update their inventory again.  What they
+The paint store realizes they need to update their inventory again.  What they
 thought was 20 cans of pink paint is actually 25 cans of orange paint. 
 
-To update the inventory, query the ``paint_inventory`` collection where
-the ``color`` is ``"pink"``, create a new ``Document`` where the ``color``
-is ``"orange"`` and ``qty`` is ``25``:
+To update the inventory, call the ``replaceOne()`` method specifying the
+following:
+
+- A query filter that matches the ``color`` is "pink" in the
+``paint_inventory``collection 
+- A replacement document that contains: ``color`` is "orange" and
+``qty`` is "25" 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
    :language: java
@@ -141,19 +161,18 @@ The following shows the updated document:
 
 .. code-block:: json
 
-    { "_id": { "$oid": "606dfe52d506b97c576b22c1" }, "color": "orange", "qty": 25 }
+    { "_id": 5, "color": "orange", "qty": 25 }
 
-If zero documents matched from the replace operation, there is
-no change to the collection. You can configure an 
-:doc:`upsert </fundamentals/crud/write-operations/upsert>` to attempt an
-update to a document or to insert a document if there are no matches. 
+If zero documents matched the query filter in the replace operation,
+there are no changes to the collection. See our :doc:`upsert
+page</fundamentals/crud/write-operations/upsert>` to learn how you can
+change the collection with zero matches. 
 
-If there are multiple documents matched for the ``replaceOne()`` method,
-the method will update the first occurrence of a match in the collection.
+If multiple documents match the ``replaceOne()`` method, the method
+replaces the first matched document matched by the query. 
 
 .. note::
 
-    You cannot modify the ``_id`` field of a document nor change a field
-    to a value that violates a unique index constraint. See the MongoDB
+    You cannot modify the unique index of a document. See the MongoDB
     server manual for more information on :manual:`unique indexes
     </core/index-unique/>`.
