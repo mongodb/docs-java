@@ -10,17 +10,9 @@ using two distinct operation types:
 - :ref:`Update <update-operation>`
 - :ref:`Replace <replace-operation>`
 
-Update operations use an update document to specify the value of the
-specified field to change in one or more documents. 
-
-A replace operation uses a replacement document to specify the fields an
-values to replace a single document from your collection.
-    
-Each method returns an ``AcknowledgedUpdateResult`` that tells us:
-
-- The number of documents that matched the query filter
-- The number of documents that got modified
-- The ``_id`` of the document that got upserted
+Update operations specify the value of the specified field to change in
+one or more documents. A replace operation specify the fields an values
+to replace a single document from your collection. 
 
 In the following examples, a paint store sells five different
 colors of paint. The ``paint_inventory`` collection represents their
@@ -61,7 +53,7 @@ You can call the ``updateOne()`` and ``updateMany()`` methods on a
 Update Operation Parameters:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- ``query`` is a query filter that specifies the document you want to update in your collection
+- ``query`` specifies the document you want to update in your collection
 - ``updateDocument`` specifies the field and value to change in the matching document or documents. For this example, we use the :doc:`Updates builder </fundamentals/builders/updates>` to create the update document.
 
 You can create the ``updateDocument`` using an ``Updates`` builder as
@@ -113,14 +105,15 @@ The following shows the updated documents in the ``paint_inventory`` collection:
 
 If zero documents match the query filter in the update operation,
 there are no changes to documents in the collection. See our :doc:`upsert
-page</fundamentals/crud/write-operations/upsert>` to learn how to insert
+guide </fundamentals/crud/write-operations/upsert>` to learn how to insert
 a new document instead of updating one if no documents match. 
 
 .. note::
 
-    You cannot modify fields in a document that belong to a unique index
-    in a collection. See the MongoDB server manual for more information
-    on :manual:`unique indexes </core/index-unique/>`.
+    The ``updateOne()`` and ``updateMany()`` methods cannot make changes
+    to a document that  violate unique index constraints on the
+    collection. See the MongoDB server manual for more information on
+    :manual:`unique indexes </core/index-unique/>`. 
 
 .. _replace-operation:
 
@@ -142,11 +135,11 @@ instance as follows:
 Replace Operation Parameters:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- ``query`` is a query filter that specifies the document you want to replace in your collection
-- ``replacementDocument`` specifies a ``Document`` object that contains fields and values with which to replace the matched document 
+- ``query`` specifies the document you want to replace in your collection
+- ``replacementDocument`` specifies fields and values of a new ``Document`` object to replace the matched document 
 
 This method removes all the existing fields and values from a
-document (except the ``_id`` field) and substitutes it with your
+document (except the ``_id`` field) and substitutes it with the
 replacement document. 
 
 Example
@@ -189,10 +182,10 @@ learn how to insert a new document instead of replacing one if no
 documents match. 
 
 If multiple documents match the query filter specified in
-the``replaceOne()`` method, it replaces the first result. 
+the ``replaceOne()`` method, it replaces the first result. 
 
 .. note::
 
-    You cannot modify fields in a document that belong to a unique index
-    in a collection. See the MongoDB server manual for more information
-    on :manual:`unique indexes </core/index-unique/>`.
+    The ``replaceOne()`` method cannot make changes to a document that
+    violate unique index constraints on the collection. See the MongoDB
+    server manual for more information on :manual:`unique indexes </core/index-unique/>`.
