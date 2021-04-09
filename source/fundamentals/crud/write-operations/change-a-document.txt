@@ -11,7 +11,7 @@ using two distinct operation types:
 - :ref:`Replace <replace-operation>`
 
 Update operations specify the field and value to change in one or more
-documents. A replace operation specify the fields and values to replace
+documents. A replace operation specifies the fields and values to replace
 a single document from your collection. 
 
 In the following examples, a paint store sells five different
@@ -36,9 +36,9 @@ specified in an update document to one or more documents that match your
 query filter. 
 
 The :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
-method changes the first document that your query filter matches and the
+method changes the first document your query filter matches and the
 :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>` 
-method changes all the documents it matches. 
+method changes all the documents your query filter matches. 
 
 You can call the ``updateOne()`` and ``updateMany()`` methods on a
 ``MongoCollection`` instance as follows: 
@@ -119,11 +119,13 @@ a new document instead of updating one if no documents match.
 Replace
 -------
 
-A replace operation substitutes one document from your collection that
-matches your query filter with a replacement document using the
-:java-docs:`replaceOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
-method. This method removes all the existing fields and values from a
-document (except the ``_id`` field) and substitutes it with the
+A replace operation substitutes one document from your collection. The
+substitution occurs between a document your query filter matches and a
+replacement document. 
+
+The :java-docs:`replaceOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>` 
+method removes all the existing fields and values in the
+matching document (except the ``_id`` field) and substitutes it with the
 replacement document. 
 
 You can call the ``repalceOne()`` method on a ``MongoCollection``
