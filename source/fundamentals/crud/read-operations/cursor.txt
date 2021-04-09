@@ -10,26 +10,22 @@ large sets of documents, these operations rely upon an object called a
 :java-docs:`MongoCursor </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html>`.
 
 A ``MongoCursor`` fetches documents in batches to reduce both memory
-consumption and network bandwidth usage. 
+consumption and network bandwidth usage. It can iterate through the
+fetched documents and ensures that the cursor closes if there is an
+early termination. 
 
-The following functions use cursors internally, and return the results of the operations:
+This page uses the ``find()`` method to show how to access data from a
+cursor. 
 
-- ``collection.find()``
-- ``collection.aggregate()``
-- ``collection.listIndexes()``
-- ``db.listCollectionNames()``
-
-Append ``.cursor()`` to use these functions as cursors.  
-
-The following shows ``collection.find()`` as a cursor:
+The following shows the ``find()`` method as a cursor:
 
 .. code-block:: java
    :copyable: true
    
-   collection.find().cursor();
+   MongoCursor<Document> cursor = collection.find().cursor();
 
-Cursor Paradigms
-----------------
+Usage Patterns
+--------------
 
 Work with cursors using **cursor paradigms**. Cursor paradigms
 allow you to access query results one document at a time, abstracting
@@ -48,8 +44,21 @@ method of any cursor to iterate through results in a functional style:
    :start-after: begin forEachRemainingIteration
    :end-before: end forEachRemainingIteration
 
-Manual Iteration
-~~~~~~~~~~~~~~~~
+.. note::
+
+   The ``find()`` method implements the Iterable interface. We often see the
+   ``forEach()`` method used to iterate through results:
+
+   .. code-block:: java
+
+      collection.find().forEach(doc -> System.out.println(doc.toJson()));
+
+   Using this method is not preferable because you can't ensure that
+   the underlying cursor closes if you stop iterating before exhaustion.
+
+
+Conditional Iteration
+~~~~~~~~~~~~~~~~~~~~~
 
 Use the :java-docs:`hasNext() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html#hasNext()>`
 method to check if there are any documents available in the cursor, and then use the
@@ -76,6 +85,6 @@ application and the MongoDB server:
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
    :dedent:
-   :start-after: begin close
-   :end-before: end close
+   :start-after: begin closeExample
+   :end-before: end closeExample
    

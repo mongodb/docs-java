@@ -44,10 +44,20 @@ public class Cursor {
             System.out.println(cursor.next().toJson());
         }
         // end manualIteration
+    }
 
-        // begin close 
-        cursor.close();
-        // end close 
+    private void closeExample(){
+        // begin closeExample
+        MongoCursor<Document> cursor = collection.find().cursor();
+        
+        try{
+            while (cursor.hasNext()){
+            System.out.println(cursor.next().toJson());
+            }
+        } finally{
+            cursor.close();
+        }
+        // end closeExample
     }
 
     public void setupPaintCollection(){
