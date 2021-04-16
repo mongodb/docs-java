@@ -10,7 +10,7 @@ using two distinct operation types:
 - :ref:`Update <update-operation>`
 - :ref:`Replace <replace-operation>`
 
-Update operations specify the field and value to change in one or more
+Update operations specify the fields and values to change in one or more
 documents. A replace operation specifies the fields and values to replace
 a single document from your collection. 
 
@@ -31,7 +31,7 @@ current inventory:
 Update
 ------
 
-Update operations can change the field and value. They apply changes
+Update operations can change the fields and values. They apply changes
 specified in an update document to one or more documents that match your
 query filter. 
 
@@ -52,8 +52,8 @@ You can call the ``updateOne()`` and ``updateMany()`` methods on a
 Update Operation Parameters:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- ``query`` specifies the document you want to update in your collection
-- ``updateDocument`` specifies the field and value to change in the matching document or documents. For this example, we use the :doc:`Updates builder </fundamentals/builders/updates>` to create the update document.
+- ``query`` specifies a query filter with the criteria to match documents to update in your collection
+- ``updateDocument`` specifies the fields and values to change in the matching document or documents. For this example, we use the :doc:`Updates builder </fundamentals/builders/updates>` to create the update document.
 
 You can create the ``updateDocument`` using an ``Updates`` builder as
 follows:
@@ -63,7 +63,7 @@ follows:
     Bson updateDocument = Updates.<update operator>("<field>", "<value>");
 
 See the MongoDB API documentation for a :java-core-api:`complete list of
-update operators and their usage <com/mongodb/client/model/Updates.html>`.
+``Updates`` builders and their usage <com/mongodb/client/model/Updates.html>`.
 
 Example
 ~~~~~~~
@@ -83,14 +83,12 @@ following:
    :start-after: begin updateManyExample
    :end-before: end updateManyExample
 
-The method returns:
+Your output should look something like this:
 
-.. code-block:: json   
+.. code-block:: none   
 
-    AcknowledgedUpdateResult{ matchedCount=5, modifiedCount=5, upsertedId=null } 
-
-The ``AcknowledgedUpdateResult`` tells us that five documents matched
-the query, five documents got modified and there was no upsert.
+    Matched document count: 5
+    Modified document count: 5
 
 The following shows the updated documents in the ``paint_inventory`` collection:
 
@@ -103,14 +101,15 @@ The following shows the updated documents in the ``paint_inventory`` collection:
     { "_id": 5, "color": "pink", "qty": 20 }
 
 If zero documents match the query filter in the update operation,
-there are no changes to documents in the collection. See our :doc:`upsert
-guide </fundamentals/crud/write-operations/upsert>` to learn how to insert
-a new document instead of updating one if no documents match. 
+``updateMany()`` makes no changes to documents in the collection. See
+our :doc:`upsert guide </fundamentals/crud/write-operations/upsert>` to
+learn how to insert a new document instead of updating one if no
+documents match. 
 
 .. note::
 
     The ``updateOne()`` and ``updateMany()`` methods cannot make changes
-    to a document that  violate unique index constraints on the
+    to a document that violate unique index constraints on the
     collection. See the MongoDB server manual for more information on
     :manual:`unique indexes </core/index-unique/>`. 
 
@@ -138,8 +137,8 @@ instance as follows:
 Replace Operation Parameters:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- ``query`` specifies the document you want to replace in your collection
-- ``replacementDocument`` specifies fields and values of a new ``Document`` object to replace the matched document 
+- ``query`` specifies a query filter with the criteria to match a document to replace in your collection
+- ``replacementDocument`` specifies fields and values of a new ``Document`` object to replace in the matched document 
 
 Example
 ~~~~~~~
@@ -159,14 +158,12 @@ following:
    :start-after: begin replaceOneExample
    :end-before: end replaceOneExample
 
-The method returns:
+Your output should look something like this:
 
-.. code-block:: json   
+.. code-block:: none   
 
-    AcknowledgedUpdateResult{ matchedCount=1, modifiedCount=1, upsertedId=null }
-
-The ``AcknowledgedUpdateResult`` tells us that one document matched
-the query, one document got modified and there was no upsert.
+    Matched document count: 1
+    Modified document count: 1
 
 The following shows the updated document:
 
@@ -175,8 +172,8 @@ The following shows the updated document:
     { "_id": 5, "color": "orange", "qty": 25 }
 
 If zero documents match the query filter in the replace operation,
-there are no changes to documents in the collection. See our
-:doc:`upsert guide </fundamentals/crud/write-operations/upsert>` to
+``replaceOne()`` makes no changes to documents in the collection. See
+our :doc:`upsert guide </fundamentals/crud/write-operations/upsert>` to
 learn how to insert a new document instead of replacing one if no
 documents match. 
 

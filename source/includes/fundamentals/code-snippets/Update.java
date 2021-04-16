@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 
 public class Update {
     private final MongoCollection<Document> collection;
@@ -44,7 +45,9 @@ public class Update {
         // begin updateManyExample
         Bson filter = Filters.empty();
         Bson update = Updates.inc("qty", 20);
-        System.out.println(collection.updateMany(filter, update));
+        UpdateResult result = collection.updateMany(filter, update);
+        System.out.println("Matched document count: " + result.getMatchedCount());
+        System.out.println("Modified document count: " + result.getModifiedCount());
         // end updateManyExample
     }
 
@@ -52,7 +55,9 @@ public class Update {
         // begin replaceOneExample
         Bson filter = Filters.eq("color", "pink");
         Document document = new Document("color", "orange").append("qty", 25);
-        System.out.println(collection.replaceOne(filter, document));
+        UpdateResult result = collection.replaceOne(filter, document);
+        System.out.println("Matched document count: " + result.getMatchedCount());
+        System.out.println("Modified document count: " + result.getModifiedCount());
         // end replaceOneExample
     }
 
