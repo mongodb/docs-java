@@ -45,10 +45,11 @@ method of any cursor to iterate through results in a functional style:
    :start-after: begin forEachRemainingIteration
    :end-before: end forEachRemainingIteration
 
-.. note::
+.. warning::
 
-   Initiating methods implement the Iterable interface. We sometimes
-   use an enhanced for-each loop to iterate through results:
+   Initiating methods implement the Iterable interface which allows you
+   to use iterator methods to iterate. Sometimes, we use an enhanced
+   for-each loop to iterate through results: 
 
    .. code-block:: java
 
@@ -58,7 +59,7 @@ method of any cursor to iterate through results in a functional style:
 
    Iterating this way is not preferable because if an exception is
    thrown before the loop completes, the cursor will not close. Using a
-   ``MongoCursor`` allows us to ensure the cursor as shown in the
+   ``MongoCursor`` allows us to ensure the cursor closes as shown in the
    :ref:`cursor cleanup section <cursor_cleanup>`.
 
 
@@ -95,13 +96,16 @@ application and the MongoDB server:
    :start-after: begin explicitCloseExample
    :end-before: end explicitCloseExample
    
-You can also use a `try-with-resources statement <https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html>`_:
+Try with Resources Statement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the `try-with-resources statement
+<https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html>`_
+to automatically free up a cursor's consumption of resources in both the
+client application and the MongoDB server:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
    :dedent:
    :start-after: begin implicitCloseExample
    :end-before: end implicitCloseExample
-
-The cursor here is automatically closed when execution is complete or if
-an exception occurs.
