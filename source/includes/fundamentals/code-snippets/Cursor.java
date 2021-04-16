@@ -63,7 +63,7 @@ public class Cursor {
 
     private void implicitCloseExample(){
         // begin implicitCloseExample
-        try (MongoCursor<Document> cursor = collection.find().cursor()) {
+        try (MongoCursor<Document> cursor = collection.find().cursor()){
             while (cursor.hasNext()){
                 System.out.println(cursor.next().toJson());
             }

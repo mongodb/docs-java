@@ -16,7 +16,7 @@ early termination.
 
 This page uses an initiating method, ``find()`` to show how to access
 data from a cursor. In each example, we call the terminal method,
-``cursor()`` to allow us to perform operations on the database. 
+``cursor()`` to iterate through data retrieved from a collection. 
 
 The following shows the ``find()`` method as a cursor:
 
@@ -48,13 +48,13 @@ method of any cursor to iterate through results in a functional style:
 .. warning::
 
    Initiating methods implement the Iterable interface which allows you
-   to use iterator methods to iterate. Sometimes, we use an enhanced
+   to iterate using iterator methods. Sometimes, we use an enhanced
    for-each loop to iterate through results: 
 
    .. code-block:: java
 
       for (Document cur : collection.find()) {
-         ..
+         ...
       }
 
    Iterating this way is not preferable because if an exception is
@@ -99,7 +99,7 @@ application and the MongoDB server:
 Try with Resources Statement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the `try-with-resources statement
+Use a `try-with-resources statement
 <https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html>`_
 to automatically free up a cursor's consumption of resources in both the
 client application and the MongoDB server:
