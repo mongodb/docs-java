@@ -14,8 +14,9 @@ consumption and network bandwidth usage. It can iterate through the
 fetched documents and ensures that the cursor closes if there is an
 early termination. 
 
-This page uses the ``find()`` method to show how to access data from a
-cursor. 
+This page uses an initiating method, ``find()`` to show how to access
+data from a cursor. In each example, we call the terminal method,
+``cursor()`` to allow us to perform operations on the database. 
 
 The following shows the ``find()`` method as a cursor:
 
@@ -46,15 +47,19 @@ method of any cursor to iterate through results in a functional style:
 
 .. note::
 
-   The ``find()`` method implements the Iterable interface. We often see the
-   ``forEach()`` method used to iterate through results:
+   Initiating methods implement the Iterable interface. We sometimes
+   use an enhanced for-each loop to iterate through results:
 
    .. code-block:: java
 
-      collection.find().forEach(doc -> System.out.println(doc.toJson()));
+      for (Document cur : collection.find()) {
+         ..
+      }
 
-   Using this method is not preferable because you can't ensure that
-   the underlying cursor closes if you stop iterating before exhaustion.
+   Iterating this way is not preferable because if an exception is
+   thrown before the loop completes, the cursor will not close. Using a
+   ``MongoCursor`` allows us to ensure the cursor as shown in the
+   :ref:`cursor cleanup section <cursor_cleanup>`.
 
 
 Conditional Iteration
@@ -71,6 +76,8 @@ method to retrieve the next available document from the cursor:
    :start-after: begin manualIteration
    :end-before: end manualIteration
 
+.. _cursor_cleanup:
+
 Cursor Cleanup
 --------------
 
@@ -85,6 +92,16 @@ application and the MongoDB server:
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
    :dedent:
-   :start-after: begin closeExample
-   :end-before: end closeExample
+   :start-after: begin explicitCloseExample
+   :end-before: end explicitCloseExample
    
+You can also use a `try-with-resources statement <https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html>`_:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
+   :language: java
+   :dedent:
+   :start-after: begin implicitCloseExample
+   :end-before: end implicitCloseExample
+
+The cursor here is automatically closed when execution is complete or if
+an exception occurs.

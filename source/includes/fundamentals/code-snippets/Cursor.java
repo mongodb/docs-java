@@ -28,6 +28,7 @@ public class Cursor {
         // c.setupPaintCollection();
         c.forEachRemainingIteration();
         c.manualIteration();
+        c.closeExample();
     }
 
     private void forEachRemainingIteration(){
@@ -46,18 +47,28 @@ public class Cursor {
         // end manualIteration
     }
 
-    private void closeExample(){
-        // begin closeExample
+    private void explicitCloseExample(){
+        // begin explicitCloseExample
         MongoCursor<Document> cursor = collection.find().cursor();
         
-        try{
+        try {
             while (cursor.hasNext()){
-            System.out.println(cursor.next().toJson());
+                System.out.println(cursor.next().toJson());
             }
-        } finally{
+        } finally {
             cursor.close();
         }
-        // end closeExample
+        // end explicitCloseExample
+    }
+
+    private void implicitCloseExample(){
+        // begin implicitCloseExample
+        try (MongoCursor<Document> cursor = collection.find().cursor()) {
+            while (cursor.hasNext()){
+                System.out.println(cursor.next().toJson());
+            }
+        } 
+        // end implicitCloseExample
     }
 
     public void setupPaintCollection(){
