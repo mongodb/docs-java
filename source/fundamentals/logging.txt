@@ -1,0 +1,50 @@
+=======
+Logging
+=======
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+.. _logging:
+
+Overview
+--------
+
+.. What is on this page? What new terms are introduced?
+
+In this guide, we show you how to set up and configure **logging** in the
+MongoDB Java Driver.
+
+.. What do any new terms mean?
+
+Logging is the act of recording events in a running program to an external file.
+The file where events are recorded is called the log. Logging will help you
+diagnose and fix problems in your programs.
+
+.. Who should read this? 
+
+You should read this guide if you would like to log events in your code.
+
+.. Where should I go if this isn't the page I was looking for?
+
+.. Not Applicable
+
+Set Up Logging
+--------------
+
+The MongoDB Java Driver uses the Simple Logging Facade For Java (SLF4J) API for
+logging. SLF4J allows you to specify your logging framework of choice at
+deployment time. For more information on SLF4J, 
+`see the SLF4J documentation <http://www.slf4j.org/>`__.
+
+To set up logging, add SLF4J to your project's dependency list. SLF4J requires a
+**binding**. A binding in this case refers to the logging framework you would like
+to use when logging messages from the MongoDB Java Driver. Some popular logging
+frameworks to use as a binding are ``Log4J2``, ``Logback``, and
+``java.util.logging``.
+
