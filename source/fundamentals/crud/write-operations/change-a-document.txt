@@ -60,7 +60,7 @@ follows:
 
 .. code-block:: java
 
-    Bson updateDocument = Updates.<update operator>("<field>", "<value>");
+    Bson updateDocument = Updates.<update operator>(field, value);
 
 See the MongoDB API documentation for a :java-core-api:`complete list of
 Updates builders and their usage <com/mongodb/client/model/Updates.html>`.
@@ -127,7 +127,7 @@ method removes all the existing fields and values in the
 matching document (except the ``_id`` field) and substitutes it with the
 replacement document. 
 
-You can call the ``repalceOne()`` method on a ``MongoCollection``
+You can call the ``replaceOne()`` method on a ``MongoCollection``
 instance as follows: 
 
 .. code-block:: java
