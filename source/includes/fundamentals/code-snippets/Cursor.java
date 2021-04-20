@@ -6,9 +6,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.*;
 
+import org.bson.conversions.Bson;
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.bson.Document;
+import com.mongodb.client.model.Filters;
 
 public class Cursor {
     private final MongoClient mongoClient;
@@ -25,10 +30,30 @@ public class Cursor {
 
     public static void main(String [] args){
         Cursor c = new Cursor();
-        // c.setupPaintCollection();
+        c.setupPaintCollection();
+
+        System.out.println("For Each Iteration");
+        c.forEachIteration();
+
+        System.out.println("For Each Remaining Iteration");
         c.forEachRemainingIteration();
+
+        System.out.println("First Example");
+        c.firstExample();
+
+        System.out.println("Into Example");
+        c.intoExample();
+
+        System.out.println("Manual Iteration");
         c.manualIteration();
-        c.closeExample();
+        // c.closeExample();
+    }
+
+    private void forEachIteration(){
+        // begin forEachIteration
+        FindIterable<Document> cursor = collection.find();
+        cursor.forEach(doc -> System.out.println(doc.toJson()));
+        // end forEachIteration
     }
 
     private void forEachRemainingIteration(){
@@ -36,6 +61,22 @@ public class Cursor {
         MongoCursor<Document> cursor = collection.find().cursor();
         cursor.forEachRemaining(doc -> System.out.println(doc.toJson()));
         // end forEachRemainingIteration
+    }
+
+    private void firstExample(){
+        // begin firstExample
+        FindIterable<Document> cursor = collection.find();
+        System.out.println(cursor.first());
+        // end firstExample
+    }
+
+    private void intoExample(){
+        // begin intoExample
+        List<Document> results = new ArrayList<>();
+        FindIterable<Document> cursor = collection.find();
+        cursor.into(results);
+        System.out.println(results);
+        // end intoExample
     }
 
     private void manualIteration(){
@@ -47,31 +88,22 @@ public class Cursor {
         // end manualIteration
     }
 
-    private void explicitCloseExample(){
-        // begin explicitCloseExample
+    private void closeExample(){
+        // begin closeExample
         MongoCursor<Document> cursor = collection.find().cursor();
         
         try {
             while (cursor.hasNext()){
-                System.out.println(cursor.next().toJson());
+            System.out.println(cursor.next().toJson());
             }
-        } finally {
+        } finally{
             cursor.close();
         }
-        // end explicitCloseExample
-    }
-
-    private void implicitCloseExample(){
-        // begin implicitCloseExample
-        try (MongoCursor<Document> cursor = collection.find().cursor()){
-            while (cursor.hasNext()){
-                System.out.println(cursor.next().toJson());
-            }
-        } 
-        // end implicitCloseExample
+        // end closeExample
     }
 
     public void setupPaintCollection(){
+        collection.drop();
         collection.insertMany(Arrays.asList(
             new Document("_id", 1).append("color", "red").append("qty", 5), 
             new Document("_id", 2).append("color", "purple").append("qty", 10), 
