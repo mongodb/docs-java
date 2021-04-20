@@ -7,24 +7,53 @@ Access Data From a Cursor
 Read operations that return multiple documents do not immediately return
 all values matching the query. Because a query can potentially match
 large sets of documents, these operations rely upon a
-:java-docs:`MongoCursor
-<apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html>` 
-and a :java-docs:`FindIterable
-<apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>` .
+:java-docs:`FindIterable
+<apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`.
 
-A ``MongoCursor`` fetches documents in batches to reduce both memory
-consumption and network bandwidth usage. It can iterate through the
-fetched documents and ensures that the cursor closes if there is an
-early termination. 
-
-A ``FindIterable`` can also iterate through the fetched documents.
-It also allows you to further specify which documents you see by setting
-paramaters though methods. 
+A ``FindIterable`` iterates through all the documents in your collection
+to find documents that match your search criteria. It also allows you to
+further specify which documents you see by setting paramaters though methods. 
 
 This page uses an initiating method, ``find()`` to show how to access
-data from a ``MongoCursor`` and ``FindIterable``. 
+data from a ``FindIterable``. 
 
-The following shows the ``find()`` method as a cursor:
+Terminal Methods
+----------------
+
+Execute database operations on a ``FindIterable`` using terminal
+methods. Terminal methods return a single value after iterating thorugh
+all the results.
+
+First
+~~~~~
+
+Use the :java-docs:`first() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`
+method to retireve the first document in your query results:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
+   :language: java
+   :dedent:
+   :start-after: begin firstExample
+   :end-before: end firstExample
+
+Into
+~~~~
+
+Use the :java-docs:`into() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#into(A)>`
+method to store your query results in an ``ArrayList``: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
+   :language: java
+   :dedent:
+   :start-after: begin intoExample
+   :end-before: end intoExample
+   
+Cursor
+~~~~~~
+
+Use the :java-docs:`cursor() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#cursor()>`
+method to iterate through fetched documents and ensure that the cursor
+closes if there is an early termination.
 
 .. code-block:: java
    :copyable: true
@@ -43,7 +72,7 @@ Functional Iteration
 
 Pass a function to the 
 `forEach() <https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Iterable.html?is-external=true#forEach(java.util.function.Consumer)>`_ 
-method of any cursor to iterate through results in a functional style:
+method of a ``FindIterable`` to iterate through results in a functional style:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -81,37 +110,6 @@ method to retrieve the next available document from the cursor:
    :dedent:
    :start-after: begin manualIteration
    :end-before: end manualIteration
-
-
-Terminal Methods
-----------------
-
-Terminal methods perform on a ``FindIterable`` to execute database operations.
-
-First
-~~~~~
-
-Use the :java-docs:`first() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`
-method to retireve the first document in your ``FindIterable``:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
-   :language: java
-   :dedent:
-   :start-after: begin firstExample
-   :end-before: end firstExample
-
-Into
-~~~~
-
-Use the :java-docs:`into() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#into(A)>`
-method to iterate through all your documents and to store your query
-results in an ``ArrayList``: 
-
-.. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
-   :language: java
-   :dedent:
-   :start-after: begin intoExample
-   :end-before: end intoExample
 
 .. _cursor_cleanup:
 
