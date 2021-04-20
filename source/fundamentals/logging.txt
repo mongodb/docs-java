@@ -15,36 +15,102 @@ Logging
 Overview
 --------
 
+.. (Chris) A reader might appreciate a presentation of what the various sections
+you're including are and what they are about.
+
 .. What is on this page? What new terms are introduced?
 
-In this guide, we show you how to set up and configure **logging** in the
-MongoDB Java Driver.
+In this guide, we show you how to set up and configure a logger in the
+MongoDB Java Driver. A logger is a <logger definition>. A logger will
+<use case in mongodb driver>.
+.. (Chris) When introducing terms, we should prefer the noun form rather
+than verb form, E.g. Logger
+.. We are treating logger/logging/log as understood. We will not provide a
+definition of logger in our documentation
 
 .. What do any new terms mean?
 
-Logging is the act of recording events in a running program to an external file.
-The file where events are recorded is called the log. Logging will help you
-diagnose and fix problems in your programs.
+Logging is the act of recording events in a running program to an
+external resource called a log.
+.. (nl) resource is probably more accurate than file, since you can
+.. log out to a network connection
 
-.. Who should read this? 
+Logging helps you diagnose and fix problems in your .
+.. (Chris) Rather than focusing only on describing what a logger and
+what a log is, could we connect it to the usage in the driver? Also,
+avoid future tense. If you are setting up a general logger, this isn't
+the page for you
+.. (nl) could remove the first sentence here without impacting the 
+.. meaning. It's also not 100% accurate. Could remove this second paragraph
 
-You should read this guide if you would like to log events in your code.
+.. (Kailie) the second sentence seems a bit repetitive of the first
+sentence here, also noticing there's some passive voice here "are
+recorded", "is called"
 
-.. Where should I go if this isn't the page I was looking for?
+.. What will we cover on this page?
+
+In this guide you will learn how to:
+
+- Set up the logger
+- Configure your log level
+- ...
+
+.. Who should read this? Where should I go if this isn't the page I was looking for?
 
 .. Not Applicable
 
-Set Up Logging
---------------
+.. You should read this guide if you would like to log events in your code.
+.. (Chris) slightly unclear what "in your code" refers to -- a reader
+might think this is saying that events get logged into your code. I
+think this also repeats the first sentence with less detail so you might
+consider omitting this or changing it to something else that might.
+Identify audience, and other audiences should go elsewhere. Loses
+impact? This is a preface to something else. This is an overview, does
+this interest you? Not effective. Ineffective. Just adds to text.
+direct the user to other related information.
+.. (nl) s/like to log events in your code/configure logging in your
+application
+.. If there is stuff that we didn't cover that is related to this
+document, it is here. 
+
+
+Set Up a Logger
+---------------
+
+To add a logger to your project, you need to add some dependencies.
 
 The MongoDB Java Driver uses the Simple Logging Facade For Java (SLF4J) API for
 logging. SLF4J allows you to specify your logging framework of choice at
 deployment time. For more information on SLF4J, 
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
 
-To set up logging, add SLF4J to your project's dependency list. SLF4J requires a
-**binding**. A binding in this case refers to the logging framework you would like
+To set up a logger, add SLF4J to your project's dependency list. SLF4J requires a
+**binding**. A binding is the logging framework you would like
 to use when logging messages from the MongoDB Java Driver. Some popular logging
-frameworks to use as a binding are ``Log4J2``, ``Logback``, and
+frameworks you can use as a binding are ``Log4J2``, ``Logback``, and
 ``java.util.logging``.
+.. (Chris) we should stick to using logger (noun) and logging (verb) and not
+use logging as a noun since that could be confusing. Rather than
+mentioning "SLF4J requires a binding", describe who is taking the action
+or what action is being taken. Not certain whether you were going to add
+an example, but seems like there should be one to demonstrate all the
+concepts described above.
+.. refers to is weak, what is it? Not what does it refer to
+.. 
 
+.. (nl) it takes until the second paragraph here to get to the point
+.. of, setting up logging. Could the first paragraph be moved into the
+.. Overview and replace the second weaker paragraph?
+ 
+
+.. (Kailie) As a person who isn't familar with the lower level details of
+logging, this seems to be pretty deep into it? I sort of get lost as you
+go deeper into the design pattern. I think it would help if there was a smoother
+transition to help me understand.
+
+Log Levels
+----------
+
+
+Filter On a Specific Class
+--------------------------
