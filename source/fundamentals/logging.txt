@@ -85,7 +85,6 @@ If you are using Maven, add one and only one of the following to your
            <version>1.2.3</version>
          </dependency>
 
-
       Once you have installed the above dependencies, try connecting to a
       MongoDB instance and retrieving a document with the following code.
 
@@ -103,6 +102,9 @@ If you are using Maven, add one and only one of the following to your
          ...
          1156 [main] DEBUG o.m.driver.protocol.command - Sending command '{"find": "<your collection>", "filter": {}, "limit": 1, "singleBatch": true, "$db": "<your db>", "lsid": {"id": {"$binary": {"base64": "<server session>", "subType": "04"}}}}' with request id 13 to database <your db> on connection <your connection> to server <your server>
          1173 [main] DEBUG o.m.driver.protocol.command - Execution of command with request id 13 completed successfully in 30.01 ms on connection <your connection> to server <your server>
+   
+         For more information on Logback, see the
+         `Logback manual <http://logback.qos.ch/manual/>`__.
    
    .. tab:: Log4j2
       :tabid: Log4j2-binding
@@ -149,6 +151,8 @@ If you are using Maven, add one and only one of the following to your
 
          12:35:00.438 [main] ERROR <my package path> - Logging an Error
 
+      For more information on Log4j2, see the
+      `Log4j2 manual <https://logging.apache.org/log4j/2.x/manual/>`__.
 
 Configure your Logger
 ---------------------
@@ -175,12 +179,12 @@ both the Logback and Log4j2 logging frameworks.
    .. tab:: Logback
       :tabid: logback-binding
 
-      You specify Logback configuration in your ''logback.xml'' file. Your
-      ''logback.xml'' file does not have to be in a specific location, but it must
+      You specify Logback configuration in your ``logback.xml`` file. Your
+      ``logback.xml`` file does not have to be in a specific location, but it must
       be accessible from your class path. 
 
-      The Logback framework defines the following logging levels. You can
-      see the logging levels listed below in order from most important to least
+      The Logback framework defines the following log levels. You can
+      see the log levels listed below in order from most important to least
       important: 
       
       - ERROR
@@ -220,8 +224,8 @@ both the Logback and Log4j2 logging frameworks.
    .. tab:: Log4j2
       :tabid: log4j2-binding
 
-      You specify Log4j2 configuration in your ''log4j2.xml'' file. Your
-      ''log4j2.xml'' file does not have to be in a specific location, but it must
+      You specify Log4j2 configuration in your ``log4j2.xml`` file. Your
+      ``log4j2.xml`` file does not have to be in a specific location, but it must
       be accessible from your class path. 
 
       The Log4j2 framework defines the following log levels. You can see the
@@ -256,5 +260,6 @@ both the Logback and Log4j2 logging frameworks.
             </Loggers>
          </Configuration>
 
-      For more information on configuring ``log4j2``, see the official 
-      `log4j2 configuration guide <https://logging.apache.org/log4j/2.x/manual/configuration.html>`__.
+      For more information on configuring Log4j2, see the official 
+      `Log4j2 configuration guide
+      <https://logging.apache.org/log4j/2.x/manual/configuration.html>`__.
