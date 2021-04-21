@@ -26,7 +26,7 @@ MongoDB Java driver.
 
 .. What can you expect to see on this page?
 
-In this guide you will learn how to:
+In this guide you can learn how to do the following:
 
 - Set up a logger with the Simple Logging Facade For Java (SLF4J)
 - Configure the log level of your logger
@@ -45,13 +45,13 @@ SLF4J allows you to specify your logging framework of choice at deployment time.
 For more information on SLF4J,
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
 
-To set up a logger you must add the ``slf4j-api``, a logging framework, and a
+To set up a logger you must add ``slf4j-api``, a logging framework, and a
 **binding** to your project's dependency list. A binding is a piece of code that
-connects the ``slf4j-api`` with a logging framework. The two most
-popular logging frameworks used with the ``slf4j-api`` are Log4j2 and Logback.
+connects ``slf4j-api`` with a logging framework. The two most
+popular logging frameworks used with ``slf4j-api`` are Log4j2 and Logback.
 
 Setting up a logger is optional. When you start your application the MongoDB
-Java driver will look for the ``slf4j-api`` in your classpath. If the driver
+Java driver will look for ``slf4j-api`` in your classpath. If the driver
 can't find ``slf4j-api``, the driver logs a single warning with
 ``java.util.logging`` and disables all further logging.
 
@@ -62,11 +62,9 @@ Here is the error the driver will log if it cannot find ``slf4j-api``:
    WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 
 
-Below are some examples demonstrating how to add SLF4J dependencies to your
-project and set up your logger. 
-
-If you are using Maven, add one and only one of the following to your
-``pom.xml`` dependencies list:
+Below is an example showing how to add SLF4J dependencies to your
+project and set up your logger using either the Logback or Log4j2 logging
+framework. The examples use the Maven build tool.
 
 .. tabs::
 
@@ -115,8 +113,8 @@ If you are using Maven, add one and only one of the following to your
          1156 [main] DEBUG o.m.driver.protocol.command - Sending command '{"find": "<your collection>", "filter": {}, "limit": 1, "singleBatch": true, "$db": "<your db>", "lsid": {"id": {"$binary": {"base64": "<server session>", "subType": "04"}}}}' with request id 13 to database <your db> on connection <your connection> to server <your server>
          1173 [main] DEBUG o.m.driver.protocol.command - Execution of command with request id 13 completed successfully in 30.01 ms on connection <your connection> to server <your server>
    
-         For more information on Logback, see the
-         `Logback manual <http://logback.qos.ch/manual/>`__.
+      For more information on Logback, see the
+      `Logback manual <http://logback.qos.ch/manual/>`__.
    
    .. tab:: Log4j2
       :tabid: Log4j2-binding
