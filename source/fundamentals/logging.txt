@@ -30,7 +30,6 @@ In this guide you will learn how to:
 
 - Set up a logger
 - Configure your log level
-- Filter your logs
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
@@ -85,6 +84,25 @@ If you are using Maven, add one of the following to your ``pom.xml`` dependencie
            <version>1.2.3</version>
          </dependency>
 
+
+      Once you have installed the above dependencies, try connecting to a
+      MongoDB instance and retrieving a document with the following code.
+
+      .. code-block:: java
+
+         MongoClient mongoClient = MongoClients.create(<my uri>);
+         MongoDatabase database = mongoClient.getDatabase(<my database>);
+         MongoCollection<Document> collection = database.getCollection(<my collection>);
+         collection.find().first();
+
+      You should see output resembling the following:
+
+      .. code-block:: none
+
+         ...
+         1156 [main] DEBUG o.m.driver.protocol.command - Sending command '{"find": "<your collection>", "filter": {}, "limit": 1, "singleBatch": true, "$db": "<your db>", "lsid": {"id": {"$binary": {"base64": "J1hTWnLrQTe/3LyhQyB/MA==", "subType": "04"}}}}' with request id 13 to database sample_mflix on connection <your connection> to server <your server>
+         1173 [main] DEBUG o.m.driver.protocol.command - Execution of command with request id 13 completed successfully in 30.01 ms on connection <your connection> to server <your server>
+   
    .. tab:: Log4j2
       :tabid: Log4j2-binding
    
@@ -111,7 +129,26 @@ If you are using Maven, add one of the following to your ``pom.xml`` dependencie
            <artifactId>log4j-core</artifactId>
            <version>2.14.1</version>
          </dependency>
-       
+
+      Once you have installed the above dependencies, try connecting to a
+      MongoDB instance and retrieving a document with the following code.
+
+      .. code-block:: java
+
+         import org.slf4j.Logger;
+         import org.slf4j.LoggerFactory;
+
+         ...
+
+         Logger logger = LoggerFactory.getLogger(App.class);
+         logger.error("Logging an Error");
+
+      You should see output resembling the following:
+
+      .. code-block:: none
+
+         12:35:00.438 [main] ERROR <my package path> - Logging an Error
+
 
 Configure your Logger
 ---------------------
@@ -138,8 +175,11 @@ both the ``logback`` and ``log4j2`` logging frameworks.
    .. tab:: Logback
       :tabid: logback-binding
 
-      The ``logback`` framework defines five logging levels. You can see the
-      five logging levels listed below in order from most important to least
+      You specify logback configuration in your ''logback.xml'' file. Your
+      ''logback.xml'' file must be accessible from your class path. 
+
+      The ``logback`` framework defines the following logging levels. You can
+      see the logging levels listed below in order from most important to least
       important: 
       
       - ERROR
@@ -148,9 +188,8 @@ both the ``logback`` and ``log4j2`` logging frameworks.
       - DEBUG
       - TRACE 
 
-      To configure a ``logback`` logger to filter all messages with a level
-      below INFO (DEBUG and TRACE),  add the following
-      configuration to your ``logback.xml`` file.
+      To configure a Logback logger to log all messages of level INFO or
+      higher, set your ``logback.xml`` file to the following.
 
       .. code-block:: xml
 
@@ -172,5 +211,48 @@ both the ``logback`` and ``log4j2`` logging frameworks.
            </root>
          </configuration>
 
-   This example is based of the
-   `Level Filter Example in chapter seven of the Logback Manual <https://logback.qos.ch/manual/filters.html#levelFilter>`__.
+      This example is based of the
+      `Level Filter Example in chapter seven of the Logback Manual <https://logback.qos.ch/manual/filters.html#levelFilter>`__.
+
+      .. tabs::
+
+   .. tab:: Log4j2
+      :tabid: log4j2-binding
+
+      You specify log4j2 configuration in your ''log4j2.xml'' file. Your
+      ''log4j2.xml'' file must be accessible from your class path. 
+
+      The ``log4j2`` framework defines the following logging levels. You can see the
+      logging levels listed below in order from most important to least
+      important: 
+      
+      - OFF
+      - FATAL
+      - ERROR
+      - WARN
+      - INFO
+      - DEBUG
+      - TRACE
+      - ALL 
+
+      To configure a log4j2 logger to log all messages of level INFO or
+      higher, set your ``log4j2.xml`` file to the following.
+
+      .. code-block:: xml
+
+         <?xml version="1.0" encoding="UTF-8"?>
+         <Configuration status="INFO">
+            <Appenders>
+               <Console name="Console" target="SYSTEM_OUT">
+                     <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+               </Console>
+            </Appenders>
+            <Loggers>
+               <Root level="info">
+                     <AppenderRef ref="Console"/>
+               </Root>
+            </Loggers>
+         </Configuration>
+
+      For more information on configuring ``log4j2``, see the official 
+      `log4j2 configuration guide <https://logging.apache.org/log4j/2.x/manual/configuration.html>`__.
