@@ -35,9 +35,6 @@ public class Cursor {
         System.out.println("For Each Iteration");
         c.forEachIteration();
 
-        System.out.println("For Each Remaining Iteration");
-        c.forEachRemainingIteration();
-
         System.out.println("First Example");
         c.firstExample();
 
@@ -46,35 +43,29 @@ public class Cursor {
 
         System.out.println("Manual Iteration");
         c.manualIteration();
-        // c.closeExample();
+        
+        c.closeExample();
     }
 
     private void forEachIteration(){
         // begin forEachIteration
-        FindIterable<Document> cursor = collection.find();
-        cursor.forEach(doc -> System.out.println(doc.toJson()));
+        FindIterable<Document> iterable = collection.find();
+        iterable.forEach(doc -> System.out.println(doc.toJson()));
         // end forEachIteration
-    }
-
-    private void forEachRemainingIteration(){
-        // begin forEachRemainingIteration
-        MongoCursor<Document> cursor = collection.find().cursor();
-        cursor.forEachRemaining(doc -> System.out.println(doc.toJson()));
-        // end forEachRemainingIteration
     }
 
     private void firstExample(){
         // begin firstExample
-        FindIterable<Document> cursor = collection.find();
-        System.out.println(cursor.first());
+        FindIterable<Document> iterable = collection.find();
+        System.out.println(iterable.first());
         // end firstExample
     }
 
     private void intoExample(){
         // begin intoExample
         List<Document> results = new ArrayList<>();
-        FindIterable<Document> cursor = collection.find();
-        cursor.into(results);
+        FindIterable<Document> iterable = collection.find();
+        iterable.into(results);
         System.out.println(results);
         // end intoExample
     }
@@ -86,10 +77,14 @@ public class Cursor {
             System.out.println(cursor.next().toJson());
         }
         // end manualIteration
+        
+        // begin explicitCloseExample
+        cursor.close();
+        // end explicitCloseExample
     }
 
     private void closeExample(){
-        // begin closeExample
+        // begin implicitCloseExample
         MongoCursor<Document> cursor = collection.find().cursor();
         
         try {
@@ -99,7 +94,7 @@ public class Cursor {
         } finally{
             cursor.close();
         }
-        // end closeExample
+        // end implicitCloseExample
     }
 
     public void setupPaintCollection(){

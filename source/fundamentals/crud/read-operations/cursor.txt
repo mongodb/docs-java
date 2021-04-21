@@ -12,7 +12,7 @@ large sets of documents, these operations rely upon a
 
 A ``FindIterable`` iterates through all the documents in your collection
 to find documents that match your search criteria. It also allows you to
-further specify which documents you see by setting paramaters though methods. 
+further specify which documents to see by setting paramaters though methods. 
 
 This page uses an initiating method, ``find()`` to show how to access
 data from a ``FindIterable``. 
@@ -22,7 +22,7 @@ Terminal Methods
 
 Execute database operations on a ``FindIterable`` using terminal
 methods. Terminal methods return a single value after iterating thorugh
-all the results.
+all the documents in a collection.
 
 First
 ~~~~~
@@ -63,9 +63,8 @@ closes if there is an early termination.
 Usage Patterns
 --------------
 
-Work with cursors using **cursor paradigms**. Cursor paradigms
-allow you to access query results one document at a time, abstracting
-away network and caching logic. 
+A ``MongoCursor`` and ``FindIterable`` allow you to access query results
+one document at a time, abstracting away network and caching logic. 
 
 Functional Iteration
 ~~~~~~~~~~~~~~~~~~~~~
