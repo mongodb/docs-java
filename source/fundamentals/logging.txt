@@ -28,7 +28,7 @@ MongoDB Java driver.
 
 In this guide you can learn how to do the following:
 
-- Set up a logger with the Simple Logging Facade For Java (SLF4J)
+- Set up a logger using the Simple Logging Facade For Java (SLF4J)
 - Configure the log level of your logger
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
@@ -45,17 +45,17 @@ SLF4J allows you to specify your logging framework of choice at deployment time.
 For more information on SLF4J,
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
 
-To set up a logger you must add ``slf4j-api``, a logging framework, and a
+To set up a logger you must add the ``slf4j-api`` package, a logging framework, and a
 **binding** to your project's dependency list. A binding is a piece of code that
-connects ``slf4j-api`` with a logging framework. The two most
+connects the ``slf4j-api`` package with a logging framework. The two most
 popular logging frameworks used with ``slf4j-api`` are Log4j2 and Logback.
 
 Setting up a logger is optional. When you start your application the MongoDB
-Java driver will look for ``slf4j-api`` in your classpath. If the driver
+Java driver looks for the ``slf4j-api`` package in your classpath. If the driver
 can't find ``slf4j-api``, the driver logs a single warning with
 ``java.util.logging`` and disables all further logging.
 
-Here is the error the driver will output if it cannot find ``slf4j-api``:
+Here is the error the driver outputs if it cannot find the ``slf4j-api`` package:
 
 .. code-block:: none
 
@@ -63,16 +63,15 @@ Here is the error the driver will output if it cannot find ``slf4j-api``:
 
 
 Below is an example showing how to add SLF4J dependencies to your
-project and set up your logger using either the Logback or Log4j2 logging
-framework. The examples uses Maven.
+project and set up your logger using either Logback or Log4j2. The examples uses Maven.
 
 .. tabs::
 
    .. tab:: Logback
       :tabid: logback-binding
 
-      If you add these dependencies to your ``pom.xml`` file, you will configure the MongoDB Java Driver
-      to output your logs using the Logback framework.
+      If you add these dependencies to your ``pom.xml`` file, the MongoDB Java
+      driver uses the Logback framework to output your logs.
 
       .. code-block:: xml
 
@@ -119,8 +118,8 @@ framework. The examples uses Maven.
    .. tab:: Log4j2
       :tabid: Log4j2-binding
    
-      If you add these dependencies to your ``pom.xml`` file, you will configure the
-      MongoDB Java driver to output your logs using the Log4j2 framework.
+      If you add these dependencies to your ``pom.xml`` file, the MongoDB Java
+      driver uses the Log4j2 framework to output your logs.
 
       .. code-block:: xml      
       
@@ -167,35 +166,31 @@ framework. The examples uses Maven.
 Configure your Logger
 ---------------------
 
-To configure your logger, you will need to configure the logging framework
-you specified when you set up your logger.
+To configure your logger, you must configure the logging framework bound to
+SLF4J.
 
-We will provide an example of how to set your log level with both the Logback
-and Log4j2 logging frameworks.
-
-Configure your Log level
-~~~~~~~~~~~~~~~~~~~~~~~~
+The example below shows you how to configure your logger's log level.
 
 Log levels are the' hierarchy of messages output by a logger. Messages related to
-errors are the most important, and messages related to
-stack traces or debugging are the least important. Logging frameworks have some
-variation in the log levels they support. 
+errors are the most urgent, and messages related to
+stack traces and debugging are the least urgent. A logger's log level
+specifies how urgent a message must be for the logger to output it.
 
-Here is an example that shows how to configure your logger's log level for
-both the Logback and Log4j2 logging frameworks.
+Here is an example that shows how to configure your logger's log level to
+``"INFO"`` for both the Logback and Log4j2 logging frameworks.
 
 .. tabs::
 
    .. tab:: Logback
       :tabid: logback-binding
 
-      You specify Logback configuration in your ``logback.xml`` file. Your
+      You specify Logback configurations in a file named ``logback.xml``. Your
       ``logback.xml`` file does not have to be in a specific location, but it must
       be accessible from your classpath. 
 
       The Logback framework defines the following log levels. You can
-      see the log levels listed below in order from most important to least
-      important: 
+      see the log levels listed below in order from most urgent to least
+      urgent: 
       
       - ERROR
       - WARN
@@ -237,13 +232,12 @@ both the Logback and Log4j2 logging frameworks.
    .. tab:: Log4j2
       :tabid: log4j2-binding
 
-      You specify Log4j2 configuration in your ``log4j2.xml`` file. Your
+      You specify Log4j2 configurations in a file named ``log4j2.xml``. Your
       ``log4j2.xml`` file does not have to be in a specific location, but it must
       be accessible from your classpath. 
 
       The Log4j2 framework defines the following log levels. You can see the
-      log levels listed below in order from most important to least
-      important: 
+      log levels listed below in order from most urgent to least urgent: 
       
       - OFF
       - FATAL
