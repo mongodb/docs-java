@@ -6,23 +6,25 @@ Access Data From a Cursor
 
 Read operations that return multiple documents do not immediately return
 all values matching the query. Because a query can potentially match
-large sets of documents, these operations rely upon a
-:java-docs:`FindIterable
-<apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`.
-
-A ``FindIterable`` iterates through all the documents in your collection
-to find documents that match your search criteria. It also allows you to
-further specify which documents to see by setting paramaters though methods. 
+large sets of documents, we need to be able to access or store the
+matched documents. 
 
 This page uses an initiating method, ``find()`` to show how to access
-data from a ``FindIterable``. 
+data from a :java-docs:`FindIterable
+<apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>` . 
+
+The ``find()`` method iterates through all the documents in your
+collection to find documents that match your query and returns an
+instance of a ``FindIterable``. A ``FindIterable`` consists of documents
+matched by your search criteria and allows you to further specify which
+documents to see by setting paramaters though methods. 
 
 Terminal Methods
 ----------------
 
-Execute database operations on a ``FindIterable`` using terminal
-methods. Terminal methods return a single value after iterating thorugh
-all the documents in a collection.
+Terminal methods execute an operation on the MongoDB server after
+configuring all parameters of an ``Iterable`` instance controlling the
+operation. 
 
 First
 ~~~~~
@@ -36,11 +38,14 @@ method to retireve the first document in your query results:
    :start-after: begin firstExample
    :end-before: end firstExample
 
+This method is often used when your query filter will match one
+document, as when filtering by a unique index. 
+
 Into
 ~~~~
 
 Use the :java-docs:`into() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#into(A)>`
-method to store your query results in an ``ArrayList``: 
+method to store your query results in a ``List``: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -48,6 +53,9 @@ method to store your query results in an ``ArrayList``:
    :start-after: begin intoExample
    :end-before: end intoExample
    
+This method is often used when your query filter returns a small number
+of documents that can fit into available memory. 
+
 Cursor
 ~~~~~~
 
@@ -126,8 +134,8 @@ application and the MongoDB server:
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
    :dedent:
-   :start-after: begin explicitCloseExample
-   :end-before: end explicitCloseExample
+   :start-after: begin closeExample
+   :end-before: end closeExample
    
 Try with Resources Statement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -140,5 +148,5 @@ client application and the MongoDB server:
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
    :dedent:
-   :start-after: begin implicitCloseExample
-   :end-before: end implicitCloseExample
+   :start-after: begin tryWithResourcesExample
+   :end-before: end tryWithResourcesExample

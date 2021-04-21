@@ -44,7 +44,11 @@ public class Cursor {
         System.out.println("Manual Iteration");
         c.manualIteration();
         
+        System.out.println("Close Example");
         c.closeExample();
+
+        System.out.println("Try With Resources");
+        c.tryWithResourcesExample();
     }
 
     private void forEachIteration(){
@@ -77,24 +81,30 @@ public class Cursor {
             System.out.println(cursor.next().toJson());
         }
         // end manualIteration
-        
-        // begin explicitCloseExample
-        cursor.close();
-        // end explicitCloseExample
     }
 
     private void closeExample(){
-        // begin implicitCloseExample
+        // begin closeExample
         MongoCursor<Document> cursor = collection.find().cursor();
         
         try {
             while (cursor.hasNext()){
-            System.out.println(cursor.next().toJson());
+                System.out.println(cursor.next().toJson());
             }
-        } finally{
+        } finally {
             cursor.close();
         }
-        // end implicitCloseExample
+        // end closeExample
+    }
+
+    private void tryWithResourcesExample(){
+        // begin tryWithResourcesExample
+        try(MongoCursor<Document> cursor = collection.find().cursor()) {
+            while (cursor.hasNext()){
+                System.out.println(cursor.next().toJson());
+            }
+        }
+        // end tryWithResourcesExample
     }
 
     public void setupPaintCollection(){
