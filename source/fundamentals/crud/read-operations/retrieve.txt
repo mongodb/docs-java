@@ -5,16 +5,26 @@ Retrieve Data
 .. default-domain:: mongodb
 
 
-Read operations allow you to retrieve data from your MongoDB collection.
+Read operations allow you to retrieve data from your MongoDB database.
 
-You can retrieve data with the following operations:
+You can retrieve data using find, aggregate, and watch operations.
 
-- the find operation if you want a subset of the existing data based on a set of criteria
-- the aggregate operation if you want an ordered pipeline of transformations to the matched data
-- the watch operation if you want to monitor the collection in real-time
+A find operation is useful if you want a subset of the existing data
+based on your query filter. You can further specify which documents to
+retrieve such as how to sort results, skip results, limit results and
+limit the fields to return. 
 
-The following examples are about invoices for paint store. The following
-documents are in their ``paint_orders`` collection: 
+An aggregate operation is useful if you want to perform an ordered
+pipeline of transformations to the matched data. You can perform all
+find operations, rename fields, calculate fields, summarize data and
+group values.
+
+A watch operation is useful if you want to monitor the database in
+real-time. You can specify which write operations to monitor such as
+insert, update and delete.
+
+The following examples use documents in the ``paint_orders`` collection
+which represent invoices of a paint store:
 
 .. code-block:: json
 
