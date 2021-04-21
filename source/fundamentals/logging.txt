@@ -34,7 +34,7 @@ In this guide you will learn how to:
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
-.. Not Applicable
+.. Not Applicable. No natural redirect location.
 
 
 Set Up a Logger
@@ -49,14 +49,65 @@ For more information on SLF4J,
 
 To set up a logger, add the ``slf4j-api`` and a **binding** to your project's
 dependency list. A binding is the underlying logging
-framework the ``slf4j-api`` will use to output log messages. Some popular logging
-frameworks used as bindings are ``Log4J2``, ``Logback``, and
-``java.util.logging``.
+framework the ``slf4j-api`` will use to output log messages. The two most
+popular logging frameworks used as bindings are ``Log4J2`` and ``Logback``.
 
 Below are some examples demonstrating how to add SLF4J dependencies to your
 project and set up your logger. 
 
-If you are using Maven, add the following to your ``pom.xml`` dependencies list:
+If you are using Maven, add one of the following to your ``pom.xml`` dependencies list:
+
+.. tabs::
+
+
+   .. tab:: Logback
+      :tabid: logback-binding
+
+      .. code-block:: xml
+'
+         <!-- SLF4J API   -->
+         <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>1.7.30</version>
+         </dependency>
+         <!-- This contains the SLF4J-Logback binding -->
+         <dependency>
+           <groupId>ch.qos.logback</groupId>
+           <artifactId>logback-classic</artifactId>
+           <version>1.2.3</version>
+         </dependency>
+         <!-- Logback Core Functionality -->
+         <dependency>
+           <groupId>ch.qos.logback</groupId>
+           <artifactId>logback-core</artifactId>
+           <version>1.2.3</version>
+         </dependency>
+
+   .. tab:: Log4j2
+      :tabid: Log4j2-binding
+   
+      .. code-block:: xml      
+      
+         <!-- SLF4J API -->
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+         </dependency>
+         <!-- SLF4J-Log4j2 binding -->
+         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.14.1</version>
+         </dependency>
+         <!-- Log4j2 core functionality -->
+         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.1</version>
+         </dependency>
+       
 
 Log Levels
 ----------
