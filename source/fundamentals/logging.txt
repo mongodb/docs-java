@@ -47,10 +47,10 @@ SLF4J allows you to specify your logging framework of choice at deployment time.
 For more information on SLF4J,
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
 
-To set up a logger, add the ``slf4j-api`` and a **binding** to your project's
-dependency list. A binding is the underlying logging
-framework the ``slf4j-api`` will use to output log messages. The two most
-popular logging frameworks used as bindings are ``Log4J2`` and ``Logback``.
+To set up a logger you must add the ``slf4j-api``, a logging framework, and a
+**binding** to your project's dependency list. A binding is a piece of code that
+connects the ``slf4j-api`` with a logging framework. The two most
+popular logging frameworks used with the ``slf4j-api`` are ``Log4J2`` and ``Logback``.
 
 Below are some examples demonstrating how to add SLF4J dependencies to your
 project and set up your logger. 
@@ -63,6 +63,9 @@ If you are using Maven, add one of the following to your ``pom.xml`` dependencie
    .. tab:: Logback
       :tabid: logback-binding
 
+      Adding these dependencies will configure the MongoDB Java Driver to output
+      your logs using the Logback framework.
+
       .. code-block:: xml
 
          <!-- SLF4J API   -->
@@ -71,7 +74,7 @@ If you are using Maven, add one of the following to your ``pom.xml`` dependencie
            <artifactId>slf4j-api</artifactId>
            <version>1.7.30</version>
          </dependency>
-         <!-- This contains the SLF4J-Logback binding -->
+         <!-- This package contains an SLF4J-Logback binding -->
          <dependency>
            <groupId>ch.qos.logback</groupId>
            <artifactId>logback-classic</artifactId>
@@ -87,30 +90,37 @@ If you are using Maven, add one of the following to your ``pom.xml`` dependencie
    .. tab:: Log4j2
       :tabid: Log4j2-binding
    
+      Adding these dependencies will configure the MongoDB Java Driver to output
+      your logs using the Log4j2 framework.
+
       .. code-block:: xml      
       
          <!-- SLF4J API -->
          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>1.7.30</version>
          </dependency>
          <!-- SLF4J-Log4j2 binding -->
          <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.14.1</version>
+           <groupId>org.apache.logging.log4j</groupId>
+           <artifactId>log4j-slf4j-impl</artifactId>
+           <version>2.14.1</version>
          </dependency>
          <!-- Log4j2 core functionality -->
          <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.14.1</version>
+           <groupId>org.apache.logging.log4j</groupId>
+           <artifactId>log4j-core</artifactId>
+           <version>2.14.1</version>
          </dependency>
        
 
 Log Levels
 ----------
+
+To configure your log level, you will need to configure the logging framework
+you specified when you set up your logger.
+
 
 
 Filter On a Specific Class
