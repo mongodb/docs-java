@@ -75,7 +75,7 @@ to retrieve data from your collection using the ``aggregate()`` method.
 This method accepts aggregation expressions to run in sequence. These
 expressions let you filter, group, and arrange the result data from a
 collection. For more information, see our :doc:`Aggregation
-<fundamentals/aggregation>` guide.
+<../../aggregation>` guide.
 
 The following example groups orders by colors and sums up their
 quantity in the ``paint_orders`` collection: 
@@ -103,7 +103,7 @@ Watch
 The watch operation allows you to monitor write operations to documents
 in a collection using the ``watch()`` method. For more information on
 write operations, see our :doc:`Write Operation
-<fundamentals/write-operations>` page. 
+<../write-operations>` page. 
 
 You can pass this method to an aggregation pipeline to perform actions
 as soon as a write operation occurs on the collection. 
@@ -117,5 +117,5 @@ operations in the ``paint_orders`` collection:
    :start-after: begin watchExample
    :end-before: end watchExample
 
-See :doc:`watch for changes </usage-examples/changeStream>` for a
+See :doc:`watch for changes <../../../usage-examples/watch>` for a
 fully-runnable ``watch()`` example.
