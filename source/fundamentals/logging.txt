@@ -18,7 +18,7 @@ Overview
 .. What is on this page?
 
 In this guide, we show you how to set up and configure a logger in the
-MongoDB Java Driver.
+MongoDB Java driver.
 
 .. What do any new terms mean?
 
@@ -28,8 +28,8 @@ MongoDB Java Driver.
 
 In this guide you will learn how to:
 
-- Set up a logger
-- Configure your log level
+- Set up a logger with the Simple Logging Facade For Java (SLF4J)
+- Configure the log level of your logger
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
@@ -40,7 +40,7 @@ Set Up a Logger
 
 To set up a logger for your project, you need to add some dependencies.
 
-The MongoDB Java Driver uses the Simple Logging Facade For Java (SLF4J).
+The MongoDB Java driver uses the Simple Logging Facade For Java (SLF4J).
 SLF4J allows you to specify your logging framework of choice at deployment time.
 For more information on SLF4J,
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
@@ -50,10 +50,10 @@ To set up a logger you must add the ``slf4j-api``, a logging framework, and a
 connects the ``slf4j-api`` with a logging framework. The two most
 popular logging frameworks used with the ``slf4j-api`` are Log4j2 and Logback.
 
-Setting up a logger is optional. The MongoDB Java Driver will look for the
-``slf4j-api`` in your classpath, and if the driver can't find it the driver will
-log a single warning with ``java.util.logging`` and all further logging will be
-disabled.
+Setting up a logger is optional. When you start your application the MongoDB
+Java driver will look for the ``slf4j-api`` in your classpath. If the driver
+can't find ``slf4j-api``, the driver logs a single warning with
+``java.util.logging`` and disables all further logging.
 
 Here is the error the driver will log if it cannot find ``slf4j-api``:
 
@@ -121,8 +121,8 @@ If you are using Maven, add one and only one of the following to your
    .. tab:: Log4j2
       :tabid: Log4j2-binding
    
-      If you add these dependencies to your ``pom.xml`` file, will configure the MongoDB Java Driver to output
-      your logs using the Log4j2 framework.
+      If you add these dependencies to your ``pom.xml`` file, you will configure the
+      MongoDB Java driver to output your logs using the Log4j2 framework.
 
       .. code-block:: xml      
       
