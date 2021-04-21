@@ -64,7 +64,7 @@ Here is the error the driver will output if it cannot find ``slf4j-api``:
 
 Below is an example showing how to add SLF4J dependencies to your
 project and set up your logger using either the Logback or Log4j2 logging
-framework. The examples use the Maven build tool.
+framework. The examples uses Maven.
 
 .. tabs::
 
@@ -171,12 +171,12 @@ To configure your logger, you will need to configure the logging framework
 you specified when you set up your logger.
 
 We will provide an example of how to set your log level with both the Logback
-and Log4j2 frameworks.
+and Log4j2 logging frameworks.
 
-Configure Log level
-~~~~~~~~~~~~~~~~~~~
+Configure your Log level
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Log levels form a hierarchy of messages output by a logger. Messages related to
+Log levels are the' hierarchy of messages output by a logger. Messages related to
 errors are the most important, and messages related to
 stack traces or debugging are the least important. Logging frameworks have some
 variation in the log levels they support. 
@@ -203,7 +203,7 @@ both the Logback and Log4j2 logging frameworks.
       - DEBUG
       - TRACE 
 
-      To configure a Logback logger to log all messages of level INFO or
+      To configure your Logback logger to log all messages of level INFO or
       higher, set your ``logback.xml`` file to the following.
 
       .. code-block:: xml
@@ -229,6 +229,9 @@ both the Logback and Log4j2 logging frameworks.
       The above ``logback.xml`` file is a copy of the
       `Level Filter Example in chapter seven of the Logback Manual <https://logback.qos.ch/manual/filters.html#levelFilter>`__.
 
+      For more information on configuring Logback, see the 
+      `the Logback Manual <https://logback.qos.ch/manual/configuration.html>`__.
+
       .. tabs::
 
    .. tab:: Log4j2
@@ -251,7 +254,7 @@ both the Logback and Log4j2 logging frameworks.
       - TRACE
       - ALL 
 
-      To configure a Log4j2 logger to log all messages of level INFO or
+      To configure your Log4j2 logger to log all messages of level INFO or
       higher, set your ``log4j2.xml`` file to the following.
 
       .. code-block:: xml
