@@ -1,6 +1,7 @@
 package fundamentals.monolightcodec;
 
 import org.bson.BsonReader;
+import org.bson.BsonType;
 import org.bson.BsonWriter;
 import org.bson.codecs.Codec;
 import org.bson.codecs.DecoderContext;
@@ -28,14 +29,17 @@ public class PowerStatusCodec implements Codec<String> {
 
     @Override
     public String decode(BsonReader reader, DecoderContext decoderContext) {
-        Boolean value = reader.readBoolean();
-
-        if (value) {
-            return "on";
-        } else if (!value) {
-            return "off";
+        BsonType bsonType = reader.readBsonType();
+        switch (bsonType) {
+            case NULL:
+                reader.readNull();
+                return null;
+            case BOOLEAN:
+                boolean value = reader.readBoolean();
+               return value ? "on" : "off";
+            default:
+                throw new IllegalStateException("Unexpected BsonType: " + bsonType);
         }
-        return null;
     }
 }
 // end class
