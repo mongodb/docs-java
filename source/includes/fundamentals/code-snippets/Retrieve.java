@@ -65,18 +65,21 @@ public class Retrieve {
         collection.aggregate(Arrays.asList(
             Aggregates.match(filter), 
             Aggregates.group("$color", Accumulators.sum("qty", "$qty")),
-            Aggregates.sort(Sorts.descending("qty")))).forEach(doc -> System.out.println(doc.toJson()));
+            Aggregates.sort(Sorts.descending("qty"))))
+            .forEach(doc -> System.out.println(doc.toJson()));
         // end aggregateExample
     }
 
     private void watchExample(){
         // begin watchExample
         List<Bson> pipeline = Arrays.asList(
-                Aggregates.match(Filters.in("operationType", Arrays.asList("insert", "update"))));
+            Aggregates.match(Filters.in("operationType", Arrays.asList("insert", "update"))));
         
-        ChangeStreamIterable<Document> changeStream = database.watch(pipeline).fullDocument(FullDocument.UPDATE_LOOKUP);
+        ChangeStreamIterable<Document> changeStream = database.watch(pipeline)
+            .fullDocument(FullDocument.UPDATE_LOOKUP);
         
-        changeStream.forEach(event -> System.out.println("Received a change to the collection: " + event));
+        changeStream.forEach(event -> 
+            System.out.println("Received a change to the collection: " + event));
         // end watchExample
     }
 

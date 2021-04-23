@@ -43,7 +43,10 @@ To access the results, you can iterate through the results using a
 cursor. For more information, see our :doc:`Access Data From a Cursor
 </fundamentals/crud/read-operations/cursor>` guide. 
 
-The following example filters for documents where their quantity is
+Example
+~~~~~~~
+
+The following example filters for invoices where their quantity is
 greater than ``9``, but less than ``15`` in the ``paint_orders``
 collection: 
 
@@ -76,7 +79,10 @@ method on a collection. This method accepts aggregation expressions to
 run in sequence. For more information, see our :doc:`Aggregation 
 </fundamentals/aggregation>` guide.
 
-The following example uses an aggregation pipeline to group orders by
+Example
+~~~~~~~
+
+The following example uses an aggregation pipeline to group invoices by
 colors and sums up their quantity for the documents in the
 ``paint_orders`` collection: 
 
@@ -103,14 +109,17 @@ Watch
 A watch operation is useful if you want to monitor write operations to
 the collection in real-time. You can monitor the operations using a
 change stream. For more information on change streams, see the MongoDB
-server manual page on :manual:`Change Streams </aggregation>`. 
+server manual page on :manual:`Change Streams </changeStreams>`. 
 
 You can perform a watch operation using the ``watch()`` method on a
 ``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. You can pass
 this method to an aggregation pipeline to perform actions as soon as a
 write operation occurs on the collection.
 
-The following example creates a watch stream for insert and update
+Example
+~~~~~~~
+
+The following example creates a watch stream for ``insert`` and ``update``
 operations on an aggregation pipeline with the documents in the
 ``paint_orders`` collection: 
 
