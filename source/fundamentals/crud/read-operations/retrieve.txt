@@ -5,23 +5,14 @@ Retrieve Data
 .. default-domain:: mongodb
 
 
-Read operations allow you to retrieve data from your MongoDB database.
+In this guide, you learn how to use read operations to retrieve data from
+your MongoDB database. 
 
-You can retrieve data using find, aggregate, and watch operations.
+Read operations allow you to do the following:
 
-A find operation is useful if you want a subset of the existing data
-based on your query filter. You can further specify which documents to
-retrieve such as how to sort results, skip results, limit results and
-limit the fields to return. 
-
-An aggregate operation is useful if you want to perform an ordered
-pipeline of transformations to the matched data. You can perform all
-find operations, rename fields, calculate fields, summarize data and
-group values.
-
-A watch operation is useful if you want to monitor the database in
-real-time. You can specify which write operations to monitor such as
-insert, update and delete.
+- Retrieve a subset of documents from your collection
+- Perform transformations on matched documents from your collection
+- Monitor real-time changes to your database
 
 The following examples use documents in the ``paint_orders`` collection
 which represent invoices of a paint store:
@@ -38,17 +29,23 @@ which represent invoices of a paint store:
 Find
 ----
 
-The find operation allows you to specify a query to show specific results
-using the ``find()`` method. This method makes a call to the collection
-specified with the query filter you provide. For more information, see
-our :doc:`Specify a Query </fundamentals/crud/query-document>` guide. 
+A find operation is useful if you want a subset of the existing data
+based on your query filter. You can further specify how to retrieve
+documents such as how to sort results, skip results, limit results and 
+limit the fields to return. 
+
+You can perform a find operation by using the ``find()`` method on a
+collection. This method searches a collection for documents that
+match the query filter you provide. For more information, see our
+:doc:`Specify a Query </fundamentals/crud/query-document>` guide. 
 
 To access the results, you can iterate through the results using a
 cursor. For more information, see our :doc:`Access Data From a Cursor
 </fundamentals/crud/read-operations/cursor>` guide. 
 
-The following example filters for orders where their quantity is greater
-than 9, but less than 15 in the ``paint_orders`` collection:
+The following example filters for documents where their quantity is
+greater than ``9``, but less than ``15`` in the ``paint_orders``
+collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -63,22 +60,25 @@ The following shows the output of the query above:
     { "_id": 2, "color": "purple", "qty": 10 }
     { "_id": 6, "color": "green", "qty": 11 }
 
-See :doc:`find a document </usage-examples/find>` and :doc:`find
-multiple documents </usage-examples/findOne>` for fully-runnable
-``find()`` and ``findOne()`` examples.
+For fully-runnable ``find()`` example, see our :doc:`Find Multiple
+Documents </usage-examples/find>` page. 
 
 Aggregate
 ---------
 
-The aggregate operation allows you to run a custom processing pipeline
-to retrieve data from your collection using the ``aggregate()`` method.
-This method accepts aggregation expressions to run in sequence. These
-expressions let you filter, group, and arrange the result data from a
-collection. For more information, see our :doc:`Aggregation
-<../../aggregation>` guide.
+An aggregate operation is useful if you want to perform an ordered
+pipeline of transformations to your matched documents. You can perform
+transformations such as matching documents, renaming fields and grouping
+values. 
 
-The following example groups orders by colors and sums up their
-quantity in the ``paint_orders`` collection: 
+You can perform an aggregation operation by using the ``aggregate()``
+method on a collection. This method accepts aggregation expressions to
+run in sequence. For more information, see our :doc:`Aggregation 
+</fundamentals/aggregation>` guide.
+
+The following example uses an aggregation pipeline to group orders by
+colors and sums up their quantity for the documents in the
+``paint_orders`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -94,22 +94,25 @@ The following shows the output of the query above:
     { "_id": "red", "qty": 25 }
     { "_id": "purple", "qty": 14 }
 
-See the MongoDB server manual pages on :manual:`aggregation </aggregation>`
-for more information on how to construct an aggregation pipeline.
+For more information on how to construct an aggregation pipeline, see
+the MongoDB server manual page on :manual:`Aggregation </aggregation>`.
 
 Watch
 -----
 
-The watch operation allows you to monitor write operations to documents
-in a collection using the ``watch()`` method. For more information on
-write operations, see our :doc:`Write Operation
-<../write-operations>` page. 
+A watch operation is useful if you want to monitor write operations to
+the collection in real-time. You can monitor the operations using a
+change stream. For more information on change streams, see the MongoDB
+server manual page on :manual:`Change Streams </aggregation>`. 
 
-You can pass this method to an aggregation pipeline to perform actions
-as soon as a write operation occurs on the collection. 
+You can perform a watch operation using the ``watch()`` method on a
+``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. You can pass
+this method to an aggregation pipeline to perform actions as soon as a
+write operation occurs on the collection.
 
 The following example creates a watch stream for insert and update
-operations in the ``paint_orders`` collection:
+operations on an aggregation pipeline with the documents in the
+``paint_orders`` collection: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -117,5 +120,5 @@ operations in the ``paint_orders`` collection:
    :start-after: begin watchExample
    :end-before: end watchExample
 
-See :doc:`watch for changes <../../../usage-examples/watch>` for a
-fully-runnable ``watch()`` example.
+For a fully-runnable ``watch()`` example, see our :doc:`Watch For
+Changes </usage-examples/watch>` page.
