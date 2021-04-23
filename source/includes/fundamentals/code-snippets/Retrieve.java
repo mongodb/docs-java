@@ -54,7 +54,7 @@ public class Retrieve {
 
     private void findExample(){
         // begin findExample
-        Bson filter = Filters.and(Filters.gt("qty", 9), Filters.lt("qty", 15));
+        Bson filter = Filters.and(Filters.gt("qty", 3), Filters.lt("qty", 10));
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end findExample
     }
@@ -93,12 +93,10 @@ public class Retrieve {
 
     private void setupPaintOrderCollection() {
         collection.insertMany(Arrays.asList(
-                new Document("_id", 1).append("color", "red").append("qty", 16), 
-                new Document("_id", 2).append("color", "purple").append("qty", 10), 
-                new Document("_id", 3).append("color", "green").append("qty", 8),
-                new Document("_id", 4).append("color", "purple").append("qty", 4),
-                new Document("_id", 5).append("color", "red").append("qty", 9),
-                new Document("_id", 6).append("color", "green").append("qty", 11)
+                new Document("_id", 1).append("color", "purple").append("qty", 10), 
+                new Document("_id", 2).append("color", "green").append("qty", 8),
+                new Document("_id", 3).append("color", "purple").append("qty", 4),
+                new Document("_id", 4).append("color", "green").append("qty", 11)
             ));
     }
 }

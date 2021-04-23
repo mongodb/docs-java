@@ -4,37 +4,51 @@ Retrieve Data
 
 .. default-domain:: mongodb
 
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
 
-In this guide, you learn how to use read operations to retrieve data from
-your MongoDB database. 
+Overview
+--------
+
+In this guide, you can learn how to retrieve data from your MongoDB
+database. To retrieve data, use read operations.
 
 Read operations allow you to do the following:
 
-- Retrieve a subset of documents from your collection
-- Perform transformations on matched documents from your collection
-- Monitor real-time changes to your database
+- :ref:`Retrieve a subset of documents from your collection <retrieve-find>`
+- :ref:`Perform transformations on retrieved documents from your collection <retrieve-aggregate>`
+- :ref:`Monitor real-time changes to your database <retrieve-watch>`
 
-The following examples use documents in the ``paint_orders`` collection
-which represent invoices of a paint store:
+Paint Orders
+~~~~~~~~~~~~~
+
+The following examples are about a paint store that keeps track of
+orders they need to fulfill. The paint store keeps track of orders in
+the ``color`` and ``qty`` field in their ``paint_orders`` collection: 
 
 .. code-block:: json
 
-    { "_id": 1, "color": "red", "qty": 16 }
-    { "_id": 2, "color": "purple", "qty": 10 }
-    { "_id": 3, "color": "green", "qty": 8 }
-    { "_id": 4, "color": "purple", "qty": 4 }
-    { "_id": 5, "color": "red", "qty": 9 }
-    { "_id": 6, "color": "green", "qty": 11 }
+    { "_id": 1, "color": "purple", "qty": 10 }
+    { "_id": 2, "color": "green", "qty": 8 }
+    { "_id": 3, "color": "purple", "qty": 4 }
+    { "_id": 4, "color": "green", "qty": 11 }
+
+Read operations
+---------------
+
+.. _retrieve-find:
 
 Find
-----
+~~~~
 
-A find operation is useful if you want a subset of the existing data
-based on your query filter. You can further specify how to retrieve
-documents such as how to sort results, skip results, limit results and 
-limit the fields to return. 
+Use the find operation to retrieve a subset of your existing data in
+MongoDB. To further specify which documents to retrieve, you can sort,
+skip, and limit the documents or fields.
 
-You can perform a find operation by using the ``find()`` method on a
+To perform a find operation, use the ``find()`` method on a
 collection. This method searches a collection for documents that
 match the query filter you provide. For more information, see our
 :doc:`Specify a Query </fundamentals/crud/query-document>` guide. 
@@ -44,11 +58,14 @@ cursor. For more information, see our :doc:`Access Data From a Cursor
 </fundamentals/crud/read-operations/cursor>` guide. 
 
 Example
-~~~~~~~
+```````
 
-The following example filters for invoices where their quantity is
-greater than ``9``, but less than ``15`` in the ``paint_orders``
-collection: 
+The paint store would like to know which orders contain at least three, but
+less than ten cans of paint.
+
+To address this scenario, the paint store needs query the
+``paint_orders`` collection with a filter for orders where their
+quantity is greater than ``3``, but less than ``10`` : 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -60,31 +77,39 @@ The following shows the output of the query above:
 
 .. code-block:: json
 
-    { "_id": 2, "color": "purple", "qty": 10 }
-    { "_id": 6, "color": "green", "qty": 11 }
+    { "_id": 2, "color": "green", "qty": 8 }
+    { "_id": 3, "color": "purple", "qty": 4 }
+
+After the paint store runs this query, they find that orders with
+``_id`` ``2`` and ``3`` contain at least three, but less than ten cans
+of paint.
 
 For fully-runnable ``find()`` example, see our :doc:`Find Multiple
 Documents </usage-examples/find>` page. 
 
+.. _retrieve-aggregate:
+
 Aggregate
----------
+~~~~~~~~~
 
-An aggregate operation is useful if you want to perform an ordered
-pipeline of transformations to your matched documents. You can perform
-transformations such as matching documents, renaming fields and grouping
-values. 
+Use an aggregate operation to perform an ordered pipeline of
+transformations to your matched documents. To perform transformations,
+you can define how to match documents, rename fields and group values. 
 
-You can perform an aggregation operation by using the ``aggregate()``
-method on a collection. This method accepts aggregation expressions to
-run in sequence. For more information, see our :doc:`Aggregation 
+To perform an aggregate operation, use the ``aggregate()`` method on a
+collection. This method accepts aggregation expressions to run in
+sequence. For more information, see our :doc:`Aggregation
 </fundamentals/aggregation>` guide.
 
 Example
-~~~~~~~
+```````
 
-The following example uses an aggregation pipeline to group invoices by
-colors and sums up their quantity for the documents in the
-``paint_orders`` collection: 
+The paint store would like to know the quantity they need to fulfill all
+the orders.
+
+To address the scenario, the paint store needs to use an aggregation
+pipeline in the ``paint_orders`` collection to group orders by colors
+and sums up their quantity for the documents: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -97,37 +122,47 @@ The following shows the output of the query above:
 .. code-block:: json
 
     { "_id": "green", "qty": 19 }
-    { "_id": "red", "qty": 25 }
     { "_id": "purple", "qty": 14 }
+
+After the paint store runs the query, they find that they need a total
+of 19 cans of green paint and 14 cans of purple paint.
 
 For more information on how to construct an aggregation pipeline, see
 the MongoDB server manual page on :manual:`Aggregation </aggregation>`.
 
+.. _retrieve-watch:
+
 Watch
------
+~~~~~
 
-A watch operation is useful if you want to monitor write operations to
-the collection in real-time. You can monitor the operations using a
-change stream. For more information on change streams, see the MongoDB
-server manual page on :manual:`Change Streams </changeStreams>`. 
+Use a watch operation to monitor write operations to your collection in
+real-time. To monitor the operations, use a change stream. For more
+information on change streams, see the MongoDB server manual page on
+:manual:`Change Streams </changeStreams>`. 
 
-You can perform a watch operation using the ``watch()`` method on a
+To perform a watch operation, use the ``watch()`` method on a
 ``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. You can pass
 this method to an aggregation pipeline to perform actions as soon as a
 write operation occurs on the collection.
 
 Example
-~~~~~~~
+```````
 
-The following example creates a watch stream for ``insert`` and ``update``
-operations on an aggregation pipeline with the documents in the
-``paint_orders`` collection: 
+The paint store would like notifications for when customers send in new
+orders or update their order.
+
+To address this scenario, the paint store need to create a watch stream
+in the ``paint_orders`` collection for ``insert`` and ``update``
+operations on an aggregation pipeline with the documents: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
    :dedent:
    :start-after: begin watchExample
    :end-before: end watchExample
+
+After the paint store runs the query, they will get notifcations for any
+future inserts or updates to thier collection.
 
 For a fully-runnable ``watch()`` example, see our :doc:`Watch For
 Changes </usage-examples/watch>` page.
