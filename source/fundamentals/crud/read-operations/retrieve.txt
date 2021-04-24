@@ -25,9 +25,10 @@ Read operations allow you to do the following:
 Paint Orders
 ~~~~~~~~~~~~~
 
-The following examples are about a paint store that keeps track of
-orders they need to fulfill. The paint store keeps track of orders in
-the ``color`` and ``qty`` field in their ``paint_orders`` collection: 
+The examples in the following sections are about a paint store that
+keeps track of orders they need to fulfill. The paint store keeps track
+of orders with the ``color`` and ``qty`` fields in their
+``paint_orders`` collection: 
 
 .. code-block:: json
 
@@ -50,12 +51,13 @@ skip, and limit the documents or fields.
 
 To perform a find operation, use the ``find()`` method on a
 collection. This method searches a collection for documents that
-match the query filter you provide. For more information, see our
-:doc:`Specify a Query </fundamentals/crud/query-document>` guide. 
+match the query filter you provide. For more information on how to
+specify a query, see our :doc:`Specify a Query
+</fundamentals/crud/query-document>` guide. 
 
 To access the results, you can iterate through the results using a
-cursor. For more information, see our :doc:`Access Data From a Cursor
-</fundamentals/crud/read-operations/cursor>` guide. 
+cursor. For more information on query filters, see our :doc:`Access Data
+From a Cursor </fundamentals/crud/read-operations/cursor>` guide. 
 
 Example
 ```````
@@ -63,9 +65,9 @@ Example
 The paint store would like to know which orders contain at least three, but
 less than ten cans of paint.
 
-To address this scenario, the paint store needs query the
+To address this scenario, the paint store needs to query the
 ``paint_orders`` collection with a filter for orders where their
-quantity is greater than ``3``, but less than ``10`` : 
+quantity is greater than "3", but less than "10" : 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -73,7 +75,10 @@ quantity is greater than ``3``, but less than ``10`` :
    :start-after: begin findExample
    :end-before: end findExample
 
-The following shows the output of the query above:
+For more information how to use filters, see our :doc:`Filters Builders
+</fundamentals/builders/filters>` guide.
+
+The following shows the output of the query specified above:
 
 .. code-block:: json
 
@@ -81,10 +86,10 @@ The following shows the output of the query above:
     { "_id": 3, "color": "purple", "qty": 4 }
 
 After the paint store runs this query, they find that orders with
-``_id`` ``2`` and ``3`` contain at least three, but less than ten cans
+``_id`` "2" and "3" contain at least three, but less than ten cans
 of paint.
 
-For fully-runnable ``find()`` example, see our :doc:`Find Multiple
+For a runnable ``find()`` example, see our :doc:`Find Multiple
 Documents </usage-examples/find>` page. 
 
 .. _retrieve-aggregate:
@@ -92,24 +97,28 @@ Documents </usage-examples/find>` page.
 Aggregate
 ~~~~~~~~~
 
-Use an aggregate operation to perform an ordered pipeline of
-transformations to your matched documents. To perform transformations,
-you can define how to match documents, rename fields and group values. 
+Use the aggregate operation to perform an aggregation pipeline.  An
+aggregation pipeline is a multi-staged transformation that produces an
+aggregated result. To perform transformations, you can define in stages
+how to match documents, rename fields and group values. 
 
 To perform an aggregate operation, use the ``aggregate()`` method on a
 collection. This method accepts aggregation expressions to run in
-sequence. For more information, see our :doc:`Aggregation
+sequence. For more information on aggregation, see our :doc:`Aggregation
 </fundamentals/aggregation>` guide.
 
 Example
 ```````
 
-The paint store would like to know the quantity they need to fulfill all
-the orders.
+The paint store would like to know which color is the most purchased.
 
-To address the scenario, the paint store needs to use an aggregation
-pipeline in the ``paint_orders`` collection to group orders by colors
-and sums up their quantity for the documents: 
+To address the scenario, the paint store needs to create an aggregation
+pipeline that:
+
+- matches all the documents in the ``paint_orders`` collection
+- groups orders by colors 
+- sums up their quantity for the documents
+- sorts the results in descending order by quantity
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -124,26 +133,26 @@ The following shows the output of the query above:
     { "_id": "green", "qty": 19 }
     { "_id": "purple", "qty": 14 }
 
-After the paint store runs the query, they find that they need a total
-of 19 cans of green paint and 14 cans of purple paint.
+After the paint store runs the query, they find that green is the most
+purchased color.
 
 For more information on how to construct an aggregation pipeline, see
 the MongoDB server manual page on :manual:`Aggregation </aggregation>`.
 
 .. _retrieve-watch:
 
-Watch
-~~~~~
+Change Streams
+~~~~~~~~~~~~~~
 
-Use a watch operation to monitor write operations to your collection in
-real-time. To monitor the operations, use a change stream. For more
-information on change streams, see the MongoDB server manual page on
-:manual:`Change Streams </changeStreams>`. 
+Open a change stream to monitor real-time changes to a collection.
+Change streams subscribe to all data changes specified and 
+immediately react to them. For more information on change streams, see
+the MongoDB server manual page on :manual:`Change Streams </changeStreams>`. 
 
-To perform a watch operation, use the ``watch()`` method on a
+To open a change stream, use the ``watch()`` method on a
 ``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. You can pass
-this method to an aggregation pipeline to perform actions as soon as a
-write operation occurs on the collection.
+this method to an aggregation pipeline to notify you and react as soon as a
+change occurs on the collection.
 
 Example
 ```````
@@ -151,8 +160,8 @@ Example
 The paint store would like notifications for when customers send in new
 orders or update their order.
 
-To address this scenario, the paint store need to create a watch stream
-in the ``paint_orders`` collection for ``insert`` and ``update``
+To address this scenario, the paint store needs to create a watch stream
+in the ``paint_orders`` collection for the ``insert`` and ``update``
 operations on an aggregation pipeline with the documents: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
@@ -164,5 +173,5 @@ operations on an aggregation pipeline with the documents:
 After the paint store runs the query, they will get notifcations for any
 future inserts or updates to thier collection.
 
-For a fully-runnable ``watch()`` example, see our :doc:`Watch For
+For a runnable ``watch()`` example, see our :doc:`Watch For
 Changes </usage-examples/watch>` page.
