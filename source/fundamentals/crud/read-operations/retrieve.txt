@@ -62,7 +62,7 @@ From a Cursor </fundamentals/crud/read-operations/cursor>` guide.
 Example
 ```````
 
-The paint store would like to know which orders contain at least three, but
+The paint store would like to know which orders contain more than three, but
 less than ten cans of paint.
 
 To address this scenario, the paint store needs to query the
@@ -86,7 +86,7 @@ The following shows the output of the query specified above:
     { "_id": 3, "color": "purple", "qty": 4 }
 
 After the paint store runs this query, they find that orders with
-``_id`` "2" and "3" contain at least three, but less than ten cans
+``_id`` "2" and "3" contain more than three, but less than ten cans
 of paint.
 
 For a runnable ``find()`` example, see our :doc:`Find Multiple
@@ -126,7 +126,7 @@ pipeline that:
    :start-after: begin aggregateExample
    :end-before: end aggregateExample
 
-The following shows the output of the query above:
+The following shows the output of the query specified above:
 
 .. code-block:: json
 
