@@ -21,7 +21,8 @@ insertOne()
 ~~~~~~~~~~~
 
 Use the ``insertOne()`` method to insert a single document. This method
-returns an ``InsertOneResult`` which tells us the id of the document inserted.
+returns an ``InsertOneResult`` which tells us the ``insertedId`` of the
+document inserted.
 
 The following example creates a document and inserts the document using
 the ``insertOne()`` method: 
@@ -45,10 +46,12 @@ For a runnable ``insertOne()`` example, see our :doc:`Insert a Document
 insertMany()
 ~~~~~~~~~~~~
 
-Use the ``insertMany()`` method to insert multiple documents.
+Use the ``insertMany()`` method to insert multiple documents. This method
+returns an ``InsertManyResult`` which tells us the ``insertedIds`` of the
+documents inserted.
 
-The following example creates 3 documents, adds it to an ``List`` of
-documents, and inserts the ``List`` using the ``insertMany()`` method: 
+The following example creates 3 documents, adds it to a ``List`` , and
+inserts the ``List`` using the ``insertMany()`` method: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Insert.java
    :language: java
