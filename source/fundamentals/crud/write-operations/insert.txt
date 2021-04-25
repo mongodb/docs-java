@@ -7,6 +7,61 @@ Insert a Document
 Overview
 --------
 
-In this section, we show you how to call the write operations to **insert**
-documents from a collection in your MongoDB database.
+In this guide, you can learn how to insert documents into your MongoDB
+database. To insert a document, use insert operations.
 
+Insert operations consist of the ``insertOne()`` and ``insertMany()``
+methods. For both methods, the driver automatically generates a unique
+``_id`` for documents unless specified. 
+
+Insert Operations
+-----------------
+
+insertOne()
+~~~~~~~~~~~
+
+Use the ``insertOne()`` method to insert a single document. This method
+returns an ``InsertOneResult`` which tells us the id of the document inserted.
+
+The following example creates a document and inserts the document using
+the ``insertOne()`` method: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Insert.java
+   :language: java
+   :dedent:
+   :start-after: begin insertOneExample
+   :end-before: end insertOneExample
+
+The output of the operation above should look similar to the following:
+
+.. code-block:: json
+   :copyable: false
+
+    AcknowledgedInsertOneResult{ insertedId = BsonInt32{value=1} }
+    
+For a runnable ``insertOne()`` example, see our :doc:`Insert a Document
+</usage-examples/insertOne>` page. 
+
+insertMany()
+~~~~~~~~~~~~
+
+Use the ``insertMany()`` method to insert multiple documents.
+
+The following example creates 3 documents, adds it to an ``List`` of
+documents, and inserts the ``List`` using the ``insertMany()`` method: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Insert.java
+   :language: java
+   :dedent:
+   :start-after: begin insertManyExample
+   :end-before: end insertManyExample
+
+The output of the operation above should look similar to the following:
+
+.. code-block:: json
+   :copyable: false
+
+    AcknowledgedInsertManyResult{ insertedIds = { 0 = BsonInt32{value=1}, 1 = BsonInt32{value=2}, 2 = BsonInt32{value=3} }}
+
+For a runnable ``insertMany()`` example, see our :doc:`Insert Multiple
+Documents </usage-examples/insertMany>` page. 
