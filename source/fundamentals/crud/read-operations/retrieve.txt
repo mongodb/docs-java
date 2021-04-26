@@ -117,7 +117,7 @@ pipeline that:
 
 - matches all the documents in the ``paint_orders`` collection
 - groups orders by colors 
-- sums up their quantity for the documents
+- sums up the quantity field by color
 - sorts the results in descending order by quantity
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
@@ -133,7 +133,7 @@ The following shows the output of the query specified above:
     { "_id": "green", "qty": 19 }
     { "_id": "purple", "qty": 14 }
 
-After the paint store runs the query, they find that green is the most
+After the paint store runs the query, they find that "green" is the most
 purchased color.
 
 For more information on how to construct an aggregation pipeline, see
@@ -152,7 +152,7 @@ the MongoDB server manual page on :manual:`Change Streams </changeStreams>`.
 To open a change stream, use the ``watch()`` method on a
 ``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. You can pass
 this method to an aggregation pipeline to notify you and react as soon as a
-change occurs on the collection.
+change occurs.
 
 Example
 ```````
@@ -160,9 +160,11 @@ Example
 The paint store would like notifications for when customers send in new
 orders or update their order.
 
-To address this scenario, the paint store needs to create a watch stream
-in the ``paint_orders`` collection for the ``insert`` and ``update``
-operations on an aggregation pipeline with the documents: 
+To address this scenario, the paint store needs to:
+
+- create an aggregation pipeline that filters for "insert" and "update" as a``operationType``
+- create a watch stream on the aggregation pipeline
+- print changes picked up by the watch stream
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -170,7 +172,7 @@ operations on an aggregation pipeline with the documents:
    :start-after: begin watchExample
    :end-before: end watchExample
 
-After the paint store runs the query, they will get notifcations for any
+After the paint store runs the query, they will get notifications for any
 future inserts or updates to thier collection.
 
 For a runnable ``watch()`` example, see our :doc:`Watch For
