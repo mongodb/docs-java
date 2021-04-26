@@ -38,7 +38,8 @@ You will learn how to:
 Set Up a Logger
 ---------------
 
-To set up a logger for your project, you need to add some dependencies.
+Background
+~~~~~~~~~~
 
 The MongoDB Java driver uses the Simple Logging Facade For Java (SLF4J).
 SLF4J allows you to specify your logging framework of choice at deployment time.
@@ -47,7 +48,7 @@ For more information on SLF4J,
 
 To set up a logger you must add the ``slf4j-api`` package, a logging framework, and a
 **binding** to your project's dependency list. A binding is a piece of code that
-connects the ``slf4j-api`` package with a logging framework. This guide shows
+connects the ``slf4j-api`` package with a logging framework. The example below shows
 how to bind the `slfj-api`to the two most popular logging frameworks, Log4j2 and
 Logback.
 
@@ -56,15 +57,17 @@ Java driver looks for the ``slf4j-api`` package in your classpath. If the driver
 can't find ``slf4j-api``, the driver logs a single warning with
 ``java.util.logging`` and disables all further logging.
 
-The driver will is output a warning if it cannot find the ``slf4j-api`` package:
+The driver will output this warning if it cannot find the ``slf4j-api`` package:
 
 .. code-block:: none
 
    WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 
+Example
+~~~~~~~
 
-Below is an example showing how to add SLF4J dependencies to your
-project and set up your logger using either Logback or Log4j2. The examples uses Maven.
+This example shows how to add set up your logger using either Logback or Log4j2.
+The example uses Maven.
 
 .. tabs::
 
