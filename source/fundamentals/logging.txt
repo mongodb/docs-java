@@ -52,7 +52,7 @@ For more information on SLF4J,
 To set up a logger you must add the ``slf4j-api`` package, a logging framework, and a
 **binding** to your project's dependency list. A binding is a piece of code that
 connects the ``slf4j-api`` package with a logging framework. The example below shows
-how to bind the ``slfj-api`` package to the two most popular logging frameworks, Log4j2 and
+how to bind the ``slf4j-api`` package to the two most popular logging frameworks, Log4j2 and
 Logback.
 
 Setting up a logger is optional. When you start your application the MongoDB
@@ -204,7 +204,7 @@ project.
       - DEBUG
       - TRACE 
 
-      To configure your Logback logger to log all messages of level INFO or
+      To configure your logger to log all messages of level INFO or
       higher, set your ``logback.xml`` file to the following.
 
       .. code-block:: xml
@@ -254,7 +254,7 @@ project.
       - TRACE
       - ALL 
 
-      To configure your Log4j2 logger to log all messages of level INFO or
+      To configure your logger to log all messages of level INFO or
       higher, set your ``log4j2.xml`` file to the following.
 
       .. code-block:: xml
