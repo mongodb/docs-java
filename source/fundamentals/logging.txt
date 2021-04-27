@@ -57,10 +57,8 @@ Logback.
 
 Setting up a logger is optional. When you start your application the MongoDB
 Java driver looks for the ``slf4j-api`` package in your classpath. If the driver
-can't find ``slf4j-api``, the driver logs a single warning with
-``java.util.logging`` and disables all further logging.
-
-The driver outputs this warning if it cannot find the ``slf4j-api`` package:
+can't find the ``slf4j-api`` package, the driver logs the following warning with
+``java.util.logging`` and disables all further logging:
 
 .. code-block:: none
 
