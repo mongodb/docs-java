@@ -49,12 +49,6 @@ SLF4J allows you to specify your logging framework of choice at deployment time.
 For more information on SLF4J,
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
 
-To set up a logger you must add the ``slf4j-api`` package, a logging framework, and a
-**binding** to your project's dependency list. A binding is a piece of code that
-connects the ``slf4j-api`` package with a logging framework. The example below shows
-how to bind the ``slf4j-api`` package to the two most popular logging frameworks, Log4j2 and
-Logback.
-
 Setting up a logger is optional. When you start your application the MongoDB
 Java driver looks for the ``slf4j-api`` package in your classpath. If the driver
 can't find the ``slf4j-api`` package, the driver logs the following warning with
@@ -63,6 +57,12 @@ can't find the ``slf4j-api`` package, the driver logs the following warning with
 .. code-block:: none
 
    WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+
+To set up a logger you must add the ``slf4j-api`` package, a logging framework, and a
+**binding** to your project's dependency list. A binding is a piece of code that
+connects the ``slf4j-api`` package with a logging framework. The example below shows
+how to bind the ``slf4j-api`` package to the two most popular logging frameworks, Log4j2 and
+Logback.
 
 Example
 ~~~~~~~
