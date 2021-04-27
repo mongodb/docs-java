@@ -101,12 +101,7 @@ tab corresponding to the logging framework you would like to use in your project
       Once you have installed the above dependencies, connect to your
       MongoDB instance and retrieve a document with the following code.
 
-      .. code-block:: java
-
-         MongoClient mongoClient = MongoClients.create(<my uri>);
-         MongoDatabase database = mongoClient.getDatabase(<my database>);
-         MongoCollection<Document> collection = database.getCollection(<my collection>);
-         collection.find().first();
+      .. include:: /includes/fundamentals/code-snippets/logging.rst
 
       You should see output resembling the following:
 
@@ -204,8 +199,7 @@ project.
       - DEBUG
       - TRACE 
 
-      To configure your logger to log all messages of level INFO or
-      higher, set your ``logback.xml`` file to the following.
+      Set your ``logback.xml`` file to the following.
 
       .. code-block:: xml
 
@@ -226,6 +220,19 @@ project.
            <appender-ref ref="CONSOLE" />
          </root>
          </configuration>
+
+      To test that your logger configuration was successful, run the following
+      code.
+
+      .. include:: /includes/fundamentals/code-snippets/logging.rst
+
+      You should see output resembling the following.
+
+      .. code-block:: none
+
+         ...
+         1317 [cluster-ClusterId{value='<your cluster id>', description='null'}-<your connection uri>] INFO  org.mongodb.driver.cluster - Discovered replica set primary <your connection uri>
+         1568 [main] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:7, serverValue:<server value>}] to <your connection uri>  
 
       The above ``logback.xml`` file is a copy of the
       `Threshold Filter Example in chapter seven of the Logback Manual <https://logback.qos.ch/manual/filters.html#thresholdFilter>`__.
@@ -254,8 +261,7 @@ project.
       - TRACE
       - ALL 
 
-      To configure your logger to log all messages of level INFO or
-      higher, set your ``log4j2.xml`` file to the following.
+      Set your ``log4j2.xml`` file to the following.
 
       .. code-block:: xml
 
@@ -273,6 +279,19 @@ project.
             </Loggers>
          </Configuration>
 
+      To test that your logger configuration was successful, run the following
+      code.
+
+      .. include:: /includes/fundamentals/code-snippets/logging.rst
+
+      You should see output resembling the following.
+
+      .. code-block:: none
+
+         ...
+         10:14:57.633 [cluster-ClusterId{value=<your cluster id>, description='null'}-<your connection uri>] INFO  org.mongodb.driver.cluster - Discovered replica set primary <your connection uri>
+         10:14:57.790 [main] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:7, serverValue:<your server value>}] to <your connection uri>
+      
       For more information on configuring Log4j2, see the official 
       `Log4j2 configuration guide
       <https://logging.apache.org/log4j/2.x/manual/configuration.html>`__.
