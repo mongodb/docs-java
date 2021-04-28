@@ -99,19 +99,22 @@ since Java cannot infer the type due to type erasure.
 
 .. _codecs-powerstatus-codec:
 
-See the following ``PowerStatus`` enum and ``PowerStatusCodec`` example
-classes. The ``PowerStatusCodec`` implements ``Codec`` in order to convert
-the Java ``enum`` values "ON" and "OFF" to corresponding BSON boolean values.
+See the following code examples that show how you can implement a custom
+``Codec``.
+
+The ``PowerStatus`` enum contains the values "ON" and "OFF" to represent
+the states of an electrical switch.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/PowerStatus.java
-   :caption: PowerStatus.java
    :start-after: start class
    :end-before: end class
    :language: java
    :dedent:
 
+The ``PowerStatusCodec`` class implements ``Codec`` in order to convert
+the Java ``enum`` values to corresponding BSON boolean values.
+
 .. literalinclude:: /includes/fundamentals/code-snippets/PowerStatusCodec.java
-   :caption: PowerStatusCodec.java
    :start-after: start class
    :end-before: end class
    :language: java
