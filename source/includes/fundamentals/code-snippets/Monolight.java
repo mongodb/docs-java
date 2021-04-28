@@ -1,19 +1,20 @@
 package fundamentals.monolightcodec;
 
-// start class
+// begin class
 public class Monolight {
-    private String powerStatus;
+    private PowerStatus powerStatus = PowerStatus.OFF;
     private Integer colorTemperature;
 
     public Monolight() {}
-    // ...
-// end class
 
-    public String getPowerStatus() {
+    // ...
+// end  class
+
+    public PowerStatus getPowerStatus() {
         return powerStatus;
     }
 
-    public void setPowerStatus(String powerStatus) {
+    public void setPowerStatus(PowerStatus powerStatus) {
         this.powerStatus = powerStatus;
     }
 
@@ -30,4 +31,5 @@ public class Monolight {
     public String toString() {
         return "Monolight [powerStatus=" + powerStatus + ", colorTemperature=" + colorTemperature + "]";
     }
+
 }

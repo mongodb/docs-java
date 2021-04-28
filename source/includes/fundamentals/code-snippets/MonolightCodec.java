@@ -11,12 +11,12 @@ import org.bson.codecs.configuration.CodecRegistry;
 // start class
 public class MonolightCodec implements Codec<Monolight>{
 
-    private Codec<String> powerStatusCodec;
+    private Codec<PowerStatus> powerStatusCodec;
     private Codec<Integer> integerCodec;
 
     public MonolightCodec(CodecRegistry registry) {
+        this.powerStatusCodec = registry.get(PowerStatus.class);
         this.integerCodec = registry.get(Integer.class);
-        this.powerStatusCodec = registry.get(String.class);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class MonolightCodec implements Codec<Monolight>{
         writer.writeName("powerStatus");
         powerStatusCodec.encode(writer, value.getPowerStatus(), encoderContext);
         writer.writeName("colorTemperature");
-        writer.writeInt32(value.getColorTemperature());
+        integerCodec.encode(writer, value.getColorTemperature(), encoderContext);
         writer.writeEndDocument();
     }
 
@@ -39,7 +39,7 @@ public class MonolightCodec implements Codec<Monolight>{
             if (fieldName.equals("powerStatus")) {
                 monolight.setPowerStatus(powerStatusCodec.decode(reader, decoderContext));
             } else if (fieldName.equals("colorTemperature")) {
-                monolight.setColorTemperature(reader.readInt32());
+                monolight.setColorTemperature(integerCodec.decode(reader, decoderContext));
             } else if (fieldName.equals("_id")){
                 reader.readObjectId();
             }
@@ -53,5 +53,6 @@ public class MonolightCodec implements Codec<Monolight>{
     public Class<Monolight> getEncoderClass() {
         return Monolight.class;
     }
+
 }
 // end class
