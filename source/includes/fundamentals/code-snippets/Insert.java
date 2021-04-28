@@ -54,11 +54,9 @@ public class Insert {
 
         Document doc1 = new Document("_id", 1).append("color", "red").append("qty", 5);
         Document doc2 = new Document("_id", 2).append("color", "purple").append("qty", 10);
-        Document doc3 = new Document("_id", 3).append("color", "blue").append("qty", 8);
        
         documents.add(doc1);
         documents.add(doc2);
-        documents.add(doc3);
         
         InsertManyResult result = collection.insertMany(documents);
         System.out.println(result);

@@ -4,25 +4,31 @@ Insert a Document
 
 .. default-domain:: mongodb
 
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
 Overview
 --------
 
 In this guide, you can learn how to insert documents into your MongoDB
-database. To insert a document, use insert operations.
+collection. To insert a document, use insert operations.
 
-Insert operations consist of the ``insertOne()`` and ``insertMany()``
+Insert operations consist of the :java-sync-api:`insertOne()
+<com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
+and :java-sync-api:`insertMany()
+<com/mongodb/client/MongoCollection.html#insertMany>`
 methods. For both methods, the driver automatically generates a unique
-``_id`` for documents unless specified. 
+``_id`` for documents unless the document specifies an ``_id``. 
 
-Insert Operations
+Insert a Document
 -----------------
 
-insertOne()
-~~~~~~~~~~~
-
-Use the ``insertOne()`` method to insert a single document. This method
-returns an ``InsertOneResult`` which tells us the ``insertedId`` of the
-document inserted.
+Use the ``insertOne()`` method to insert a single document into a
+collection. This method returns an ``InsertOneResult`` instance which
+tells us the ``insertedId`` of the document inserted.
 
 The following example creates a document and inserts the document using
 the ``insertOne()`` method: 
@@ -43,14 +49,14 @@ The output of the operation above should look similar to the following:
 For a runnable ``insertOne()`` example, see our :doc:`Insert a Document
 </usage-examples/insertOne>` page. 
 
-insertMany()
-~~~~~~~~~~~~
+Insert Multiple Documents
+-------------------------
 
-Use the ``insertMany()`` method to insert multiple documents. This method
-returns an ``InsertManyResult`` which tells us the ``insertedIds`` of the
-documents inserted.
+Use the ``insertMany()`` method to insert multiple documents into a
+collection. This method returns an ``InsertManyResult`` instance which
+tells us the ``insertedIds`` of the documents inserted.
 
-The following example creates 3 documents, adds it to a ``List`` , and
+The following example creates two documents, adds it to a ``List`` , and
 inserts the ``List`` using the ``insertMany()`` method: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Insert.java
@@ -64,7 +70,7 @@ The output of the operation above should look similar to the following:
 .. code-block:: json
    :copyable: false
 
-    AcknowledgedInsertManyResult{ insertedIds = { 0 = BsonInt32{value=1}, 1 = BsonInt32{value=2}, 2 = BsonInt32{value=3} }}
+    AcknowledgedInsertManyResult{ insertedIds = { 0 = BsonInt32{value=1}, 1 = BsonInt32{value=2} }}
 
 For a runnable ``insertMany()`` example, see our :doc:`Insert Multiple
 Documents </usage-examples/insertMany>` page. 
