@@ -26,13 +26,11 @@ public class Retrieve {
     private final MongoDatabase database;
 
     private Retrieve() {
-        // begin declaration
         final String uri = System.getenv("DRIVER_REF_URI");
 
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("crudOps");
         collection = database.getCollection("retrieve");
-        // end declaration
     }
 
     public static void main(String [] args){

@@ -18,17 +18,20 @@ database. To retrieve data, use read operations.
 
 Read operations allow you to do the following:
 
-- :ref:`Retrieve a subset of documents from your collection <retrieve-find>`
-- :ref:`Perform transformations on retrieved documents from your collection <retrieve-aggregate>`
-- :ref:`Monitor real-time changes to your database <retrieve-watch>`
+- Retrieve a subset of documents from your collection using a
+:ref:`find operation <retrieve-find>` 
+- Perform transformations on retrieved documents from your collection
+using an :ref:`aggregate operation <retrieve-aggregate>`
+- Monitor real-time changes to your database using a :ref:`change stream
+<retrieve-watch>` 
 
-Paint Orders
-~~~~~~~~~~~~~
+Sample Data for Examples
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-The examples in the following sections are about a paint store that
-keeps track of orders they need to fulfill. The paint store keeps track
-of orders with the ``color`` and ``qty`` fields in their
-``paint_orders`` collection: 
+The following sections feature examples about how the owner of a paint
+store manages their customers' orders. For each order, the owner keeps
+track of the color and quantity, which corresponds to the ``color`` and
+``qty`` fields in their ``paint_order`` collection: 
 
 .. code-block:: json
 
@@ -49,8 +52,8 @@ Use the find operation to retrieve a subset of your existing data in
 MongoDB. To further specify which documents to retrieve, you can sort,
 skip, and limit the documents or fields.
 
-To perform a find operation, use the ``find()`` method on a
-collection. This method searches a collection for documents that
+To perform a find operation, call the ``find()`` method on an instance
+of a ``MongoCollection``. This method searches a collection for documents that
 match the query filter you provide. For more information on how to
 specify a query, see our :doc:`Specify a Query
 </fundamentals/crud/query-document>` guide. 
@@ -65,9 +68,8 @@ Example
 The paint store would like to know which orders contain more than three, but
 less than ten cans of paint.
 
-To address this scenario, the paint store needs to query the
-``paint_orders`` collection with a filter for orders where their
-quantity is greater than "3", but less than "10" : 
+To address this scenario, the paint store needs to find orders where the
+quantity of paint ordered is greater than "3", but less than "10" : 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -75,7 +77,7 @@ quantity is greater than "3", but less than "10" :
    :start-after: begin findExample
    :end-before: end findExample
 
-For more information how to use filters, see our :doc:`Filters Builders
+For more information how to build filters, see our :doc:`Filters Builders
 </fundamentals/builders/filters>` guide.
 
 The following shows the output of the query specified above:
@@ -97,28 +99,30 @@ Documents </usage-examples/find>` page.
 Aggregate
 ~~~~~~~~~
 
-Use the aggregate operation to perform an aggregation pipeline.  An
-aggregation pipeline is a multi-staged transformation that produces an
-aggregated result. To perform transformations, you can define in stages
-how to match documents, rename fields and group values. 
+Use the aggregate operation to perform the stages in an aggregation
+pipeline.  An aggregation pipeline is a multi-staged transformation that
+produces an aggregated result. 
 
-To perform an aggregate operation, use the ``aggregate()`` method on a
-collection. This method accepts aggregation expressions to run in
-sequence. For more information on aggregation, see our :doc:`Aggregation
-</fundamentals/aggregation>` guide.
+To perform an aggregate operation, call the ``aggregate()`` method on an
+instance of a ``MongoCollection``. This method accepts aggregation
+expressions to run in sequence. To perform transformations, you can
+define aggregation stages that specify how to match documents, rename
+fields and group values. For more information on aggregation, see our
+:doc:`Aggregation  </fundamentals/aggregation>` guide.
 
 Example
 ```````
 
-The paint store would like to know which color is the most purchased.
+The paint store would like to know which color is the most purchased
+(highest quantity sold).
 
 To address the scenario, the paint store needs to create an aggregation
 pipeline that:
 
-- matches all the documents in the ``paint_orders`` collection
-- groups orders by colors 
-- sums up the quantity field by color
-- sorts the results in descending order by quantity
+- Matches all the documents in the ``paint_order`` collection
+- Groups orders by colors 
+- Sums up the quantity field by color
+- Sorts the results in descending order by quantity
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -145,26 +149,28 @@ Change Streams
 ~~~~~~~~~~~~~~
 
 Open a change stream to monitor real-time changes to a collection.
-Change streams subscribe to all data changes specified and 
-immediately react to them. For more information on change streams, see
-the MongoDB server manual page on :manual:`Change Streams </changeStreams>`. 
+Change streams can subscribe to types of data changes specified and 
+immediately produce change events. For more information on change
+streams, see the MongoDB server manual page on :manual:`Change Streams
+</changeStreams>`. 
 
-To open a change stream, use the ``watch()`` method on a
+To open a change stream, call the ``watch()`` method on an instance of a
 ``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. You can pass
-this method to an aggregation pipeline to notify you and react as soon as a
+an aggregation pipeline to this method to notify you and react as soon as a
 change occurs.
 
 Example
 ```````
 
-The paint store would like notifications for when customers send in new
-orders or update their order.
+The owner would like to receive notifications for when customers submit new
+orders or update their orders.
 
-To address this scenario, the paint store needs to:
+To address this scenario, the owner needs to:
 
-- create an aggregation pipeline that filters for "insert" and "update" as a``operationType``
-- create a watch stream on the aggregation pipeline
-- print changes picked up by the watch stream
+- Create an aggregation pipeline that filters for "insert" and "update"
+operation types
+- Create a change stream on the aggregation pipeline
+- Print changes picked up by the change stream
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -172,8 +178,25 @@ To address this scenario, the paint store needs to:
    :start-after: begin watchExample
    :end-before: end watchExample
 
-After the paint store runs the query, they will get notifications for any
-future inserts or updates to thier collection.
+After creating the change stream, the owner gets notifications for
+future inserts or updates to their collection.
+
+An insert notification for the owner looks similar to the following:
+
+.. code:: json
+
+   Received a change to the collection: ChangeStreamDocument{
+      operationType=OperationType{value='insert'},
+      resumeToken={"_data": "825EC..."},
+      namespace=database.collection,
+      destinationNamespace=null,
+      fullDocument=Document{{_id=5, color=blue, qty=8}},
+      documentKey={"_id": 5},
+      clusterTime=Timestamp{...},
+      updateDescription=null,
+      txnNumber=null,
+      lsid=null
+   }
 
 For a runnable ``watch()`` example, see our :doc:`Watch For
 Changes </usage-examples/watch>` page.
