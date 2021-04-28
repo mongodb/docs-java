@@ -8,7 +8,7 @@ public class Monolight {
     public Monolight() {}
 
     // ...
-// end  class
+// end class
 
     public PowerStatus getPowerStatus() {
         return powerStatus;
