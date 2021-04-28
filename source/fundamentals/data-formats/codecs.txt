@@ -112,7 +112,9 @@ the states of an electrical switch.
    :dedent:
 
 The ``PowerStatusCodec`` class implements ``Codec`` in order to convert
-the Java ``enum`` values to corresponding BSON boolean values.
+the Java ``enum`` values to corresponding BSON boolean values. The
+``encode()`` method converts a ``PowerStatus`` to a BSON boolean and the
+``decode()`` method performs the conversion in the opposite direction.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/PowerStatusCodec.java
    :start-after: start class
@@ -307,15 +309,17 @@ and its fields that we want to store and retrieve from a MongoDB collection:
 This class contains the following fields, each of which we need to assign a
 ``Codec``:
 
-- ``powerStatus`` describes whether the light is "on" or "off" for which we use
-  the :ref:`PowerStatusCodec <codecs-powerstatus-codec>` that converts specific
-  enum values to BSON booleans.
+- ``powerStatus`` describes whether the light is switched "on" or "off" for
+  which we use the :ref:`PowerStatusCodec <codecs-powerstatus-codec>` that
+  converts specific enum values to BSON booleans.
 - ``colorTemperature`` describes the color of the light and contains an
   ``Integer`` value for which we use the ``IntegerCodec`` included in the
   BSON library.
 
 The following code example shows how we can implement a ``Codec`` for the
-``Monolight`` class:
+``Monolight`` class. Note that the constructor expects an instance of
+``CodecRegistry`` from which it retrieves the ``Codec`` instances it needs
+to encode and decode its fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodec.java
    :start-after: start class
@@ -323,9 +327,9 @@ The following code example shows how we can implement a ``Codec`` for the
    :language: java
    :dedent:
 
-To ensure we construct the ``Codec`` instances for the fields before the
-one required for ``Monolight``, we implement a custom ``CodecProvider`` shown
-in the following code example:
+To ensure we make the ``Codec`` instances for the fields available for
+``Monolight``, we implement a custom ``CodecProvider`` shown in the following
+code example:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecProvider.java
    :start-after: start class
@@ -360,5 +364,7 @@ For more information about the methods and classes mentioned in this section,
 see the following API documentation:
 
 - :java-docs:`withCodecRegistry() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#withCodecRegistry(org.bson.codecs.configuration.CodecRegistry)>`
+- :java-docs:`MongoClientSettings.getDefaultCodecRegistry() <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getDefaultCodecRegistry()>`
 - :java-docs:`Codec <apidocs/bson/org/bson/codecs/Codec.html>`
 - :java-docs:`CodecProvider <apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`
+
