@@ -27,8 +27,9 @@ Insert a Document
 -----------------
 
 Use the ``insertOne()`` method to insert a single document into a
-collection. This method returns an ``InsertOneResult`` instance which
-tells us the ``insertedId`` of the document inserted.
+collection. This method returns an :java-docs:`InsertOneResult
+<apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
+instance which tells us the ``insertedId`` of the document inserted.
 
 The following example creates a document and inserts the document using
 the ``insertOne()`` method: 
@@ -53,8 +54,9 @@ Insert Multiple Documents
 -------------------------
 
 Use the ``insertMany()`` method to insert multiple documents into a
-collection. This method returns an ``InsertManyResult`` instance which
-tells us the ``insertedIds`` of the documents inserted.
+collection. This method returns an :java-docs:`InsertManyResult
+<apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
+instance which tells us the ``insertedIds`` of the documents inserted.
 
 The following example creates two documents, adds it to a ``List`` , and
 inserts the ``List`` using the ``insertMany()`` method: 
