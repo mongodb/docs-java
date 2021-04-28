@@ -1,6 +1,6 @@
 package fundamentals.monolightcodec;
 
-// begin class
+// start class
 public class Monolight {
     private PowerStatus powerStatus = PowerStatus.OFF;
     private Integer colorTemperature;

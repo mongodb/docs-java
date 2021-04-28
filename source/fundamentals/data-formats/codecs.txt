@@ -99,19 +99,27 @@ since Java cannot infer the type due to type erasure.
 
 .. _codecs-powerstatus-codec:
 
-See the following ``PowerStatusCodec`` class that implements ``Codec`` in
-order to convert the Java ``String`` values "on" and "off" to
-corresponding BSON boolean values.
+See the following ``PowerStatus`` enum and ``PowerStatusCodec`` example
+classes. The ``PowerStatusCodec`` implements ``Codec`` in order to convert
+the Java ``enum`` values "ON" and "OFF" to corresponding BSON boolean values.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/PowerStatusCodec.java
+.. literalinclude:: /includes/fundamentals/code-snippets/PowerStatus.java
+   :caption: PowerStatus.java
    :start-after: start class
    :end-before: end class
    :language: java
    :dedent:
 
-You can add an instance of your custom ``Codec`` to the ``CodecRegistry`` which
-contains a mapping between your ``Codec`` and the Java object type to which
-it applies. Continue to the :ref:`CodecRegistry <codecs-codecregistry>`
+.. literalinclude:: /includes/fundamentals/code-snippets/PowerStatusCodec.java
+   :caption: PowerStatusCodec.java
+   :start-after: start class
+   :end-before: end class
+   :language: java
+   :dedent:
+
+You can add an instance of the ``PowerStatusCodec`` to your ``CodecRegistry``
+which contains a mapping between your ``Codec`` and the Java object type to
+which it applies. Continue to the :ref:`CodecRegistry <codecs-codecregistry>`
 section of this page to see how you can include your ``Codec``.
 
 For more information about the classes and interfaces in this section, see the
@@ -188,12 +196,14 @@ retrieved by the ``get()`` method to convert between Java and BSON data types.
 However, in cases in which you add a class that contains fields that require
 corresponding ``Codec`` objects, you need to ensure that you instantiate the
 ``Codec`` objects for the class' fields before you instantiate the
-``Codec`` for the class. You can use the ``CodecProvider`` specify the
-order in which you add ``Codec`` objects to the registry.
+``Codec`` for the class. You can use the ``CodecRegistry`` parameter in
+the ``get()`` method to pass any of the ``Codec`` instances that the
+``Codec`` relies on.
 
 The following code example shows how you can implement ``CodecProvider`` to
-instantiate the ``Codec`` objects on which the ``Monolight`` depends
-including the ``PowerStatusCodec`` from our prior example:
+pass the ``MonolightCodec`` any ``Codec`` instances it needs in a
+``CodecRegistry`` instance such as the ``PowerStatusCodec`` from our prior
+example:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecProvider.java
    :start-after: start class
@@ -296,7 +306,7 @@ This class contains the following fields, each of which we need to assign a
 
 - ``powerStatus`` describes whether the light is "on" or "off" for which we use
   the :ref:`PowerStatusCodec <codecs-powerstatus-codec>` that converts specific
-  string values to BSON booleans.
+  enum values to BSON booleans.
 - ``colorTemperature`` describes the color of the light and contains an
   ``Integer`` value for which we use the ``IntegerCodec`` included in the
   BSON library.
@@ -341,7 +351,7 @@ If you run the example above, you should see the following output:
 .. code-block:: none
    :copyable: false
 
-   [Monolight [powerStatus=on, colorTemperature=5200]]
+   [Monolight [powerStatus=ON, colorTemperature=5200]]
 
 For more information about the methods and classes mentioned in this section,
 see the following API documentation:
