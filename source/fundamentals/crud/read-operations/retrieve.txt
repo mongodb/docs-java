@@ -147,18 +147,17 @@ streams, see the MongoDB server manual page on :manual:`Change Streams
 </changeStreams>`. 
 
 To open a change stream, call the ``watch()`` method on an instance of a
-:java-sync-api:`MongoCollection.watch() <com/mongodb/client/MongoCollection.html#watch()>`, 
-:java-sync-api:`MongoDatabase.watch() <com/mongodb/client/MongoDatabase.html#watch()>`
-or :java-sync-api:`MongoClient.watch() <com/mongodb/client/MongoClient.html#watch()>`. 
-Depending on which instance you choose, the scope of what you watch varies.  
-
-For a ``MongoCollection``, the method monitors a the collection. For a
-``MongoDatabase``, the method monitors all the collections in the
-database. For a ``MongoClient``, the method monitors a standalone
-MongoDB instance, a replica set, or a sharded cluster. 
-
+:java-sync-api:`MongoCollection <com/mongodb/client/MongoCollection.html#watch()>`, 
+:java-sync-api:`MongoDatabase <com/mongodb/client/MongoDatabase.html#watch()>`
+or :java-sync-api:`MongoClient <com/mongodb/client/MongoClient.html#watch()>`. 
 You can pass an aggregation pipeline to this method to notify you as
 soon as a change occurs.
+
+Depending on which instance you choose, the scope of what you watch
+varies. For a ``MongoCollection``, the method monitors a the collection.
+For a ``MongoDatabase``, the method monitors all the collections in the
+database. For a ``MongoClient``, the method monitors a standalone
+MongoDB instance, a replica set, or a sharded cluster. 
 
 Example
 ```````
