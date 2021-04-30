@@ -90,36 +90,39 @@ tab corresponding to the logging framework you would like to use in your project
    .. tab:: Logback
       :tabid: Logback-binding
 
-      .. tab:: Build Tool
-         :tabid: Maven
-                     
-         Add the following dependencies to your ``pom.xml`` file.
+      Select the build tool you are using in your project.
 
-         .. code-block:: xml
-
-            <!-- SLF4J API -->
-            <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-              <version>1.7.30</version>
-            </dependency>
-            <!-- This package contains an SLF4J-Logback binding -->
-            <dependency>
-              <groupId>ch.qos.logback</groupId>
-              <artifactId>logback-classic</artifactId>
-              <version>1.2.3</version>
-            </dependency>
-
-         :tabid: Gradle
-
-         Add the following dependencies to your ``build.gradle`` file.
-
-         .. code-block:: none
-
-            dependencies {
-               implementation 'org.slf4j:slf4j-api:1.7.30'
-               implementation 'ch.qos.logback:logback-classic:1.2.3'
-            }
+      .. tabs::
+         .. tab:: Build Tool
+            :tabid: Maven
+                        
+            Add the following dependencies to your ``pom.xml`` file.
+   
+            .. code-block:: xml
+   
+               <!-- SLF4J API -->
+               <dependency>
+                 <groupId>org.slf4j</groupId>
+                 <artifactId>slf4j-api</artifactId>
+                 <version>1.7.30</version>
+               </dependency>
+               <!-- This package contains an SLF4J-Logback binding -->
+               <dependency>
+                 <groupId>ch.qos.logback</groupId>
+                 <artifactId>logback-classic</artifactId>
+                 <version>1.2.3</version>
+               </dependency>
+   
+            :tabid: Gradle
+   
+            Add the following dependencies to your ``build.gradle`` file.
+   
+            .. code-block:: none
+   
+               dependencies {
+                  implementation 'org.slf4j:slf4j-api:1.7.30'
+                  implementation 'ch.qos.logback:logback-classic:1.2.3'
+               }
 
       Once you have installed the above dependencies, connect to your
       MongoDB instance and retrieve a document with the following code.
@@ -139,23 +142,44 @@ tab corresponding to the logging framework you would like to use in your project
    
    .. tab:: Log4j2
       :tabid: Log4j2-binding
-   
-      Add the following dependencies to your ``pom.xml`` file.
 
-      .. code-block:: xml      
+      Select the build tool you are using in your project.
       
-         <!-- SLF4J API -->
-         <dependency>
-           <groupId>org.slf4j</groupId>
-           <artifactId>slf4j-api</artifactId>
-           <version>1.7.30</version>
-         </dependency>
-         <!-- SLF4J-Log4j2 binding -->
-         <dependency>
-           <groupId>org.apache.logging.log4j</groupId>
-           <artifactId>log4j-slf4j-impl</artifactId>
-           <version>2.14.1</version>
-         </dependency>
+      .. tabs::
+
+         .. tab:: BuildTool
+            :tabid: Maven
+                        
+            Add the following dependencies to your ``pom.xml`` file.
+   
+            .. code-block:: xml
+   
+               <!-- SLF4J API -->
+               <dependency>
+                 <groupId>org.slf4j</groupId>
+                 <artifactId>slf4j-api</artifactId>
+                 <version>1.7.30</version>
+               </dependency>
+               <!-- SLF4J-Log4j2 binding -->
+               <dependency>
+                 <groupId>org.apache.logging.log4j</groupId>
+                 <artifactId>log4j-slf4j-impl</artifactId>
+                 <version>2.14.1</version>
+               </dependency>
+   
+            :tabid: Gradle
+   
+            Add the following dependencies to your ``build.gradle`` file.
+   
+            .. code-block:: none
+   
+               dependencies {
+                  implementation 'org.slf4j:slf4j-api:1.7.30'
+                  implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1'
+               }
+    
+      
+ 
 
       Once you have installed the above dependencies, log an error using the
       following code.
