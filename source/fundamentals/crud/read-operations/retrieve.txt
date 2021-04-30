@@ -22,10 +22,12 @@ Read operations allow you to do the following:
 - Perform transformations on retrieved documents from your collection using an :ref:`aggregate operation <retrieve-aggregate>`
 - Monitor real-time changes to your database using a :ref:`change stream <retrieve-watch>` 
 
+.. _retrieve-paint-order-collection:
+
 Sample Data for Examples
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following sections feature examples about how the owner of a paint
+The following sections feature examples of how the owner of a paint
 store manages their customers' orders. For each order, the owner keeps
 track of the color and quantity, which corresponds to the ``color`` and
 ``qty`` fields in their ``paint_order`` collection: 
@@ -46,9 +48,8 @@ Find
 ~~~~
 
 Use the find operation to retrieve a subset of your existing data in
-MongoDB. You can further specify what data to return including which
-documents to retrieve, in what order to retrieve them and how many to
-retrieve. 
+MongoDB. You can specify what data to return including which documents
+to retrieve, in what order to retrieve them and how many to retrieve. 
 
 To perform a find operation, call the ``find()`` method on an instance
 of a ``MongoCollection``. This method searches a collection for documents that
@@ -60,10 +61,9 @@ Example
 ```````
 
 The owner would like to know which orders contain greater than three, but
-less than 10 cans of paint.
+less than 10 cans of paint from their :ref:`paint_order collection <retrieve-paint-order-collection>`.
 
-To address this scenario, the owner finds orders where the quantity of
-paint ordered is greater than "3", but less than "10" : 
+To address this scenario, the owner finds orders to match the criteria:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Retrieve.java
    :language: java
@@ -78,11 +78,11 @@ The following shows the output of the query specified above:
 
 .. code-block:: json
 
-    { "_id": 2, "color": "green", "qty": 8 }
-    { "_id": 3, "color": "purple", "qty": 4 }
+   { "_id": 2, "color": "green", "qty": 8 }
+   { "_id": 3, "color": "purple", "qty": 4 }
 
-After the owner runs this query, they find the matched orders contain
-eight cans of green paint and four cans of purple paint.
+After the owner runs this query, they find two orders that matched the
+criteria. 
 
 For a runnable ``find()`` example, see our :doc:`Find Multiple
 Documents </usage-examples/find>` page. 
@@ -100,14 +100,14 @@ To perform an aggregate operation, call the ``aggregate()`` method on an
 instance of a ``MongoCollection``. This method accepts aggregation
 expressions to run in sequence. To perform aggregations, you can
 define aggregation stages that specify how to match documents, rename
-fields and group values. For more information on aggregation, see our
+fields and group values. For more information, see our
 :doc:`Aggregation </fundamentals/aggregation>` guide.
 
 Example
 ```````
 
-The owner would like to know which color is the most purchased
-(highest quantity sold).
+The owner would like to know which paint color is the most purchased
+(highest quantity sold) from their :ref:`paint_order collection <retrieve-paint-order-collection>`.
 
 To address the scenario, the owner creates an aggregation pipeline that:
 
@@ -122,7 +122,7 @@ To address the scenario, the owner creates an aggregation pipeline that:
    :start-after: begin aggregateExample
    :end-before: end aggregateExample
 
-The following shows the output of the aggergation specified above:
+The following shows the output of the aggregation specified above:
 
 .. code-block:: json
 
@@ -147,23 +147,23 @@ streams, see the MongoDB server manual page on :manual:`Change Streams
 </changeStreams>`. 
 
 To open a change stream, call the ``watch()`` method on an instance of a
-:java-sync-api:`MongoCollection <com/mongodb/client/MongoCollection.html#watch()>`, 
-:java-sync-api:`MongoDatabase <com/mongodb/client/MongoDatabase.html#watch()>`
-or :java-sync-api:`MongoClient <com/mongodb/client/MongoClient.html#watch()>`. 
+``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. 
 You can pass an aggregation pipeline to this method to notify you as
 soon as a change occurs.
 
-Depending on which instance you choose, the scope of what you watch
-varies. For a ``MongoCollection``, the method monitors a the collection.
-For a ``MongoDatabase``, the method monitors all the collections in the
-database. For a ``MongoClient``, the method monitors a standalone
-MongoDB instance, a replica set, or a sharded cluster. 
+The instance you call the ``watch()`` method on determines the scope of
+events which the change stream listens for. If you call ``watch()`` on a
+``MongoCollection``, the method monitors a collection. If you call
+``watch()`` on a ``MongoDatabase``, the method monitors all the
+collections in the database. If you call ``watch()`` on a
+``MongoClient``, the method monitors a standalone MongoDB instance, a
+replica set, or a sharded cluster. 
 
 Example
 ```````
 
 The owner would like to receive notifications for when customers submit new
-orders or update their orders.
+orders or update their orders from thier :ref:`paint_order collection <retrieve-paint-order-collection>`.
 
 To address this scenario, the owner:
 
@@ -180,9 +180,9 @@ To address this scenario, the owner:
 After creating the change stream, the owner gets notifications for
 future inserts or updates to their collection.
 
-An insert notification for the owner looks similar to the following:
+An insert notification looks similar to the following:
 
-.. code:: json
+.. code-block::
 
    Received a change to the collection: ChangeStreamDocument{
       operationType=OperationType{value='insert'},
@@ -193,3 +193,12 @@ An insert notification for the owner looks similar to the following:
 
 For a runnable ``watch()`` example, see our :doc:`Watch For
 Changes </usage-examples/watch>` page.
+
+For additional information on the methods mentioned on this page, see
+the following API documentation: 
+
+- :java-sync-api:`MongoCollection.find() <com/mongodb/client/MongoCollection.html#find()>`
+- :java-sync-api:`MongoCollection.aggregate() <com/mongodb/client/MongoCollection.html#aggregate(java.util.List)>`
+- :java-sync-api:`MongoCollection.watch() <com/mongodb/client/MongoCollection.html#watch()>`
+- :java-sync-api:`MongoDatabase.watch() <com/mongodb/client/MongoDatabase.html#watch()>`
+- :java-sync-api:`MongoClient.watch() <com/mongodb/client/MongoClient.html#watch()>`
