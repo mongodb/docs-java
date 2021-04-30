@@ -58,11 +58,18 @@ can't find the ``slf4j-api`` package, the driver logs the following warning with
 
    WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 
-To set up a logger, you must add the following to your project's dependency list.
+To set up a logger, you must include the following in your project's dependency
+list.
 
 * The ``slf4j-api`` package
 * a logging framework 
 * a **binding**
+
+.. note:: 
+
+    The dependency resolution features of Gradle and Maven allow us to install
+    all three of these dependencies through a single package for some
+    logging frameworks. You will see this in the example below.
 
 A binding is a piece of code that connects the ``slf4j-api`` package with a
 logging framework. The example below shows how to bind the ``slf4j-api`` package
@@ -329,7 +336,7 @@ Logger Names
 
 Your logger uses logger names to help organize different logging events. Logger
 names are strings that form a hierarchy. A logger is an ancestor of another if
-its name followed by a "." is a prefix of another logger's name. For example,
+its name followed by a ``"."`` is a prefix of another logger's name. For example,
 ``"grandparent"`` is an ancestor of ``"grandparent.parent"`` which is an
 ancestor of ``"grandparent.parent.child"``.
 
@@ -350,7 +357,7 @@ its own. You can think of this as similar to class inheritance in Java.
 
 Your logging framework and SLF4J do not define logger names. The people who work
 with a logging framework and SLF4J choose logging names that are meaningful in the context
-of how they are using SLF4J or their logging framework.
+of how they are using them.
 
 The makers of the MongoDB Java driver have defined the following logger names to
 help organize different log events in the driver. Here are the logger names
