@@ -165,14 +165,20 @@ tab corresponding to the logging framework you would like to use in your project
 Logger Names
 ------------
 
-Your logger organizes different loggers by logger name. Logger names are
-strings that form a hierarchy. A logger is an ancestor of another if its name
-followed by a "." is a prefix of another logger's name. For example, ``"grandparent"`` is
-an ancestor of ``"grandparent.parent"`` which is an ``"grandparent.parent.child"``.
+Your logger uses logger names to help organize different logging events. Logger
+names are strings that form a hierarchy. A logger is an ancestor of another if
+its name followed by a "." is a prefix of another logger's name. For example,
+``"grandparent"`` is an ancestor of ``"grandparent.parent"`` which is an
+ancestor of ``"grandparent.parent.child"``.
 
 For a concrete example, this is what a logger hierarchy looks like in code.
 
 .. code-block:: java
+
+   import org.slf4j.Logger;
+   import org.slf4j.LoggerFactory;
+
+   ...
 
    Logger logger_parent = LoggerFactory.getLogger("parent");
    Logger logger_child = LoggerFactory.getLogger("parent.child");
@@ -180,9 +186,9 @@ For a concrete example, this is what a logger hierarchy looks like in code.
 A logger inherits the properties of its ancestor logger and can define
 its own. You can think of this as similar to class inheritance in Java. 
 
-Your logging framework does not define logger names. The people who work
-with a logging framework choose logging names that are meaningful in the context
-of how they are using the logging framework.
+Your logging framework and SLF4J do not define logger names. The people who work
+with a logging framework and SLF4J choose logging names that are meaningful in the context
+of how they are using SLF4J or their logging framework.
 
 The makers of the MongoDB Java driver have defined the following logger names to
 help organize different log events in the driver. Here are the logger names
