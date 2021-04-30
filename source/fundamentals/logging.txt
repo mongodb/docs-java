@@ -93,7 +93,7 @@ tab corresponding to the logging framework you would like to use in your project
       Select the build tool you are using in your project.
 
       .. tabs::
-      
+
          .. tab:: Maven
             :tabid: maven
                         
@@ -101,12 +101,6 @@ tab corresponding to the logging framework you would like to use in your project
    
             .. code-block:: xml
    
-               <!-- SLF4J API -->
-               <dependency>
-                 <groupId>org.slf4j</groupId>
-                 <artifactId>slf4j-api</artifactId>
-                 <version>1.7.30</version>
-               </dependency>
                <!-- This package contains an SLF4J-Logback binding -->
                <dependency>
                  <groupId>ch.qos.logback</groupId>
@@ -122,7 +116,6 @@ tab corresponding to the logging framework you would like to use in your project
             .. code-block:: none
    
                dependencies {
-                  implementation 'org.slf4j:slf4j-api:1.7.30'
                   implementation 'ch.qos.logback:logback-classic:1.2.3'
                }
 
