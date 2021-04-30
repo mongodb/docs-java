@@ -71,7 +71,7 @@ to the two most popular logging frameworks, Log4j2 and Logback.
 Example
 ~~~~~~~
 
-This example shows how to set up your logger using Maven. Click the
+This example shows how to set up your logger. Click the
 tab corresponding to the logging framework you would like to use in your project.
 
 .. note:: Dependency Versions
@@ -90,22 +90,36 @@ tab corresponding to the logging framework you would like to use in your project
    .. tab:: Logback
       :tabid: Logback-binding
 
-      Add the following dependencies to your ``pom.xml`` file.
+      .. tab:: Build Tool
+         :tabid: Maven
+                     
+         Add the following dependencies to your ``pom.xml`` file.
 
-      .. code-block:: xml
+         .. code-block:: xml
 
-         <!-- SLF4J API -->
-         <dependency>
-           <groupId>org.slf4j</groupId>
-           <artifactId>slf4j-api</artifactId>
-           <version>1.7.30</version>
-         </dependency>
-         <!-- This package contains an SLF4J-Logback binding -->
-         <dependency>
-           <groupId>ch.qos.logback</groupId>
-           <artifactId>logback-classic</artifactId>
-           <version>1.2.3</version>
-         </dependency>
+            <!-- SLF4J API -->
+            <dependency>
+              <groupId>org.slf4j</groupId>
+              <artifactId>slf4j-api</artifactId>
+              <version>1.7.30</version>
+            </dependency>
+            <!-- This package contains an SLF4J-Logback binding -->
+            <dependency>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-classic</artifactId>
+              <version>1.2.3</version>
+            </dependency>
+
+         :tabid: Gradle
+
+         Add the following dependencies to your ``build.gradle`` file.
+
+         .. code-block:: none
+
+            dependencies {
+               implementation 'org.slf4j:slf4j-api:1.7.30'
+               implementation 'ch.qos.logback:logback-classic:1.2.3'
+            }
 
       Once you have installed the above dependencies, connect to your
       MongoDB instance and retrieve a document with the following code.
