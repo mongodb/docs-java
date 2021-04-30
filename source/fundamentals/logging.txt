@@ -333,8 +333,8 @@ Logger Names
 ------------
 
 Your logger uses logger names to help organize different logging events. Logger
-names are strings that form a hierarchy. A logger is an ancestor of another if
-its name followed by a ``"."`` is a prefix of another logger's name. For example,
+names are strings that form a hierarchy. A logger is an ancestor of another logger if
+its name followed by a ``"."`` is a prefix of the other logger's name. For example,
 ``"grandparent"`` is an ancestor of ``"grandparent.parent"`` which is an
 ancestor of ``"grandparent.parent.child"``.
 
@@ -354,8 +354,8 @@ A logger inherits the properties of its ancestor logger and can define
 its own. You can think of this as similar to class inheritance in Java. 
 
 The makers of the MongoDB Java driver have defined the following logger names to
-help organize different log events in the driver. Here are the logger names
-defined in the MongoDB Java driver and the logging events they correspond with. 
+organize different logging events in the driver. Here are the logger names
+defined in the driver and the logging events they correspond with. 
 
 * ``org.mongodb.driver`` : root logger for the MongoDB Java driver
 * ``org.mongodb.driver.cluster`` : monitoring of your MongoDB servers
