@@ -230,13 +230,16 @@ For more information about the classes and interfaces in this section, see the
 :java-docs:`CodecProvider API documentation <apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`.
 
 BsonTypeClassMap
-~~~~~~~~~~~~~~~~
+----------------
 
 The ``BsonTypeClassMap`` class contains a recommended mapping between BSON
-and Java types. You can use this class to help you manage which Java types
-to decode your BSON types to in your custom ``Codec`` or ``CodecProvider``.
-You can add or modify the mapping by passing a ``Map`` containing new or
-replacement entries. The ``Document`` class uses the recommended mapping.
+and Java types. You can use this class in your custom ``Codec`` or
+``CodecProvider`` to help you manage which Java types to decode your BSON
+types to container classes that implement ``Iterable`` or ``Map`` such as
+the ``Document`` class.
+
+You can add or modify the ``BsonTypeClassMap`` default mapping by passing a
+``Map`` containing new or replacement entries.
 
 The following code snippet shows how you can retrieve the Java class type
 that corresponds to the BSON type in the default ``BsonTypeClassMap``

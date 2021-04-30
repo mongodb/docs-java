@@ -19,14 +19,7 @@ public class PowerStatusCodec implements Codec<PowerStatus> {
 
     @Override
     public PowerStatus decode(BsonReader reader, DecoderContext decoderContext) {
-        Boolean value = reader.readBoolean();
-
-        if (value) {
-            return PowerStatus.ON;
-        } else if (!value) {
-            return PowerStatus.OFF;
-        }
-        return null;
+        return reader.readBoolean() ? PowerStatus.ON : PowerStatus.OFF;
     }
 
     @Override
