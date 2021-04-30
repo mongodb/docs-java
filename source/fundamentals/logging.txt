@@ -58,11 +58,15 @@ can't find the ``slf4j-api`` package, the driver logs the following warning with
 
    WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 
-To set up a logger you must add the ``slf4j-api`` package, a logging framework, and a
-**binding** to your project's dependency list. A binding is a piece of code that
-connects the ``slf4j-api`` package with a logging framework. The example below shows
-how to bind the ``slf4j-api`` package to the two most popular logging frameworks, Log4j2 and
-Logback.
+To set up a logger, you must add the following to your project's dependency list.
+
+* The ``slf4j-api`` package
+* a logging framework 
+* a **binding**
+
+A binding is a piece of code that connects the ``slf4j-api`` package with a
+logging framework. The example below shows how to bind the ``slf4j-api`` package
+to the two most popular logging frameworks, Log4j2 and Logback.
 
 Example
 ~~~~~~~
