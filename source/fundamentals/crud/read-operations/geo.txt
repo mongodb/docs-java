@@ -48,26 +48,29 @@ types use some form of the following structure:
 
 The object type determines the number of coordinates. For instance, a
 ``Point`` requires only one coordinate: a longitude and a latitude.
-A ``Line`` uses two coordinates: a longitude and a latitude for each end.
+A ``LineString`` uses two coordinates: a longitude and a latitude for each end.
 A ``Polygon`` consists of a list of coordinates in which the first and last
 coordinate are the same, effectively closing the polygon. To learn more
 about the GeoJSON shapes you can use in MongoDB, consult the
 :manual:`GeoJSON manual entry </reference/geojson/>`. 
 
+You can construct GeoJSON shapes in the MongoDB java driver using the
+`Point`, `LineString`, and `Polygon` classes of the `geoJSON` package. 
+
 To enable querying GeoJSON data, you must add the field to a ``2dsphere`` 
 index. The following snippet creates an index on the ``location.geo`` field in
-the ``theaters`` collection using the ``createIndex()`` method and the `Indexes`
+the ``theaters`` collection using the ``createIndex()`` method and the ``Indexes``
 builder:
 
 .. code-block:: java
 
-   import static com.mongodb.client.model.Indexes.geo2d;
+   import static com.mongodb.client.model.Indexes.geo2dsphere;
 
    ... mongo collection set up code
 
    collection.createIndex(geo2dsphere("location.geo"));
 
-For more information on the `Indexes` builder, see our 
+For more information on the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
 
 For more information on the classes and methods discussed in this section, see
@@ -84,10 +87,9 @@ the following API documentation:
 Coordinates on a 2D Plane
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also express geospatial queries using ``x`` and ``y`` coordinates in 
-a two-dimentional Euclidian plane. Until MongoDB, this was the only format 
-compatible with geospatial queries, and are now referred to as 
-"legacy coordinate pairs".
+You can also express geospatial queries using ``x`` and ``y`` coordinates on 
+a two-dimensional Euclidean plane. We refer to coordinates on a two-dimensional
+plane as "legacy coordinate pairs".
 
 Legacy coordinate pairs use the following structure:
 
@@ -99,13 +101,13 @@ The field should contain an array of two values in which the first represents
 the ``x`` axis value and the second represents the ``y`` axis value. 
 
 To enable querying using legacy coordinate pairs, create a ``2d`` index on
-the field on the collection. The following snippet creates an index on the
+the field you would like to query. The following snippet creates an index on the
 ``coordinates`` field in the ``shipwrecks`` collection using the
 ``createIndex()`` method:
 
 .. code-block:: java
 
-   import static com.mongodb.client.model.Indexes.geo2dsphere;
+   import static com.mongodb.client.model.Indexes.geo2d;
 
    ... mongo collection set up code
 
@@ -117,6 +119,11 @@ For more information on the `Indexes` builder, see our
 See the 
 :manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`
 for more information.
+
+For more information on the classes and methods discussed in this section, see
+the following API documentation:
+
+- :java-docs:`Indexes.geo2d() </apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2d>`
 
 .. note::
 
@@ -147,7 +154,8 @@ documents ordered from nearest to farthest. To limit the results to a
 maximum distance in meters, use the ``$maxDistance`` option. For a
 complete list of options, see the reference documentation for ``$near``.
 The following example queries for theaters within ``10,000`` meters of
-``[ -73.9667, 40.78 ]``.
+``[ -73.9667, 40.78 ]``. This point is in the 
+`Great Lawn of Central Park <https://en.wikipedia.org/wiki/Great_Lawn_and_Turtle_Pond>`__.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Geo.java
    :language: java
