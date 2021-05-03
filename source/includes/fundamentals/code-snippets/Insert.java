@@ -34,6 +34,7 @@ public class Insert {
 
         System.out.println("Insert Many:");
         insert.insertManyExample();
+        System.out.println();
         insert.preview();
     }
 
@@ -43,7 +44,7 @@ public class Insert {
         Document doc1 = new Document("_id", 1).append("color", "red").append("qty", 5);
         
         InsertOneResult result = collection.insertOne(doc1);
-        System.out.println("IntertedId: " + result.getInsertedId().asInt32());
+        System.out.println("Inserted a document with the following id: " + result.getInsertedId().asInt32().getValue());
         // end insertOneExample
     }
 
@@ -59,7 +60,12 @@ public class Insert {
         documents.add(doc2);
         
         InsertManyResult result = collection.insertMany(documents);
-        System.out.println("IntertedIds: " + result.getInsertedIds().values());
+        
+        List<Integer> insertedIds = new ArrayList<>();
+        result.getInsertedIds().values().forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
+        
+        System.out.print("Inserted documents with the following ids: " + insertedIds);
+        
         //end insertManyExample
     }
 

@@ -13,12 +13,11 @@ Insert Operations
 Overview
 --------
 
-In this guide, you will learn how to insert documents into MongoDB.
-
-You use MongoDB to retrieve, update and delete information. To
-perform any of those actions, that information, such as user profiles
-and orders, needs to exist in MongoDB. For information to exist, you 
-need to first perform an insert operation. 
+In this guide, you will learn how to insert documents into MongoDB. You
+can use MongoDB to retrieve, update and delete information. To perform
+any of those operations, that information, such as user profiles and
+orders, needs to exist in MongoDB. For that information to exist, you
+need to first perform an insert operation.
 
 An insert operation inserts a single or multiple documents in MongoDB
 using the  ``insertOne()``, ``insertMany()`` and ``bulkWrite()``
@@ -31,21 +30,27 @@ Operations <TODO>`` page.
 Insert a Single Document
 ------------------------
 
-When you want to insert a single document into MongoDB, use the
-``insertOne()`` method. If the insertion is successful,  the method
-returns an ``InsertOneResult`` instance representing the ``_id`` of the
-new document.  
+When you want to insert a single document, use the ``insertOne()``
+method. If the insertion is successful,  the method returns an
+``InsertOneResult`` instance representing the ``_id`` of the new
+document. 
 
 .. note::
 
    If you omit the ``_id`` field, the driver automatically generates a
-   unique ``_id`` for document.
+   unique ``_id`` before inserting the document.
+
+   A unique ``_id`` should look something like this:
+
+   .. code-block:: json
+
+      "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
 
 Example
 ~~~~~~~
 
-The following example creates and inserts the document using
-the ``insertOne()`` method: 
+The following example creates and inserts a document using the
+``insertOne()`` method: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Insert.java
    :language: java
@@ -58,7 +63,7 @@ Your output should look something like this:
 .. code-block:: json
    :copyable: false
 
-    IntertedId: BsonInt32{ value=1 }
+   Inserted a document with the following id: 1
     
 For a runnable ``insertOne()`` example, see our :doc:`Insert a Document
 </usage-examples/insertOne>` page. 
@@ -66,15 +71,21 @@ For a runnable ``insertOne()`` example, see our :doc:`Insert a Document
 Insert Multiple Documents
 -------------------------
 
-When you want to insert multiple documents into MongoDB, use the
-``insertMany()`` method. If the insertion is successful,  the method
-returns an ``InsertManyResult`` instance representing the ``_id`` of
-each new document. 
+When you want to insert multiple documents, use the ``insertMany()``
+method. If the insertion is successful,  the method returns an
+``InsertManyResult`` instance representing the ``_id`` of each new
+document. 
 
 .. note::
 
    If you omit the ``_id`` field, the driver automatically generates a
-   unique ``_id`` for document.
+   unique ``_id`` before inserting the document.
+
+   A unique ``_id`` should look something like this:
+
+   .. code-block:: json
+
+      "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
 
 Example
 ~~~~~~~
@@ -93,7 +104,7 @@ Your output should look something like this:
 .. code-block:: json
    :copyable: false
 
-    IntertedIds: [ BsonInt32{ value=1 }, BsonInt32{ value=2 }]
+    Inserted documents with the following ids: [1, 2]  
 
 For a runnable ``insertMany()`` example, see our :doc:`Insert Multiple
 Documents </usage-examples/insertMany>` page. 
@@ -103,17 +114,25 @@ Summary
 
 There are three ways to perform an insert operation, but we focused on two:
 
-- You can insert a single document using the ``insertOne()`` method.
-- You can insert multiple documents using the ``insertMany()`` method.
+- The ``insertOne()`` method inserts a single document.
+- The ``insertMany()`` method inserts multiple documents.
 
 External Resources
 ------------------
 
 For additional information on the classes and methods mentioned on this
-page, see the following API documentation: 
+page, see the following resources: 
+
+API Documentation: 
+~~~~~~~~~~~~~~~~~~
 
 - :java-sync-api:`insertOne() <com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
 - :java-sync-api:`insertMany() <com/mongodb/client/MongoCollection.html#insertMany>`
-- :java-sync-api:`bulkWrite() <com/mongodb/client/MongoCollection.html#bulkWrite(java.util.List,com.mongodb.client.model.BulkWriteOptions)>`
 - :java-docs:`InsertOneResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
 - :java-docs:`InsertManyResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
+
+Further Explanation:
+~~~~~~~~~~~~~~~~~~~~
+
+- :manual:`insertOne() </reference/method/db.collection.insertOne/>`
+- :manual:`insertMany() </reference/method/db.collection.insertMany/>`
