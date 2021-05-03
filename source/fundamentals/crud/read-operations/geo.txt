@@ -73,14 +73,13 @@ Index
 
 To enable querying GeoJSON data, you must add the field you would to query to a
 ``2dsphere`` index. The following snippet creates an index on the
-``location.geo`` field in the ``theaters`` collection using the
-``createIndex()`` method and the ``Indexes`` builder:
+``location.geo`` field using the ``Indexes`` builder:
 
 .. code-block:: java
 
    import static com.mongodb.client.model.Indexes.geo2dsphere;
 
-   ... mongo collection set up code
+   // <MongoCollection setup code here>
 
    collection.createIndex(geo2dsphere("location.geo"));
 
@@ -125,14 +124,13 @@ Index
 
 To enable querying using legacy coordinate pairs, create a ``2d`` index on
 the field you would like to query. The following snippet creates an index on the
-``coordinates`` field in the ``shipwrecks`` collection using the
-``createIndex()`` method:
+``coordinates`` field using the `Indexes` builder:
 
 .. code-block:: java
 
    import static com.mongodb.client.model.Indexes.geo2d;
 
-   ... mongo collection set up code
+   // <MongoCollection setup code here>
 
    collection.createIndex(geo2d("coordinates"));
 
