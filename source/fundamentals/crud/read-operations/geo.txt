@@ -56,7 +56,8 @@ about the GeoJSON shapes you can use in MongoDB, consult the
 
 To enable querying GeoJSON data, you must add the field to a ``2dsphere`` 
 index. The following snippet creates an index on the ``location.geo`` field in
-the ``theaters`` collection using the ``createIndex()`` method:
+the ``theaters`` collection using the ``createIndex()`` method and the `Indexes`
+builder:
 
 .. code-block:: java
 
@@ -64,7 +65,19 @@ the ``theaters`` collection using the ``createIndex()`` method:
 
    ... mongo collection set up code
 
-   collection.createIndex(geo2dsphere("location.geo"););
+   collection.createIndex(geo2dsphere("location.geo"));
+
+For more information on the `Indexes` builder, see our 
+:doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
+
+For more information on the classes and methods discussed in this section, see
+the following API documentation:
+
+- :java-docs:`Indexes.geo2dsphere() </apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2dsphere>`
+- :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
+- :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
+- :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
+- :java-docs:`Polygon </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Polygon.html>`
 
 .. _plane:
 
@@ -96,8 +109,11 @@ the field on the collection. The following snippet creates an index on the
 
    ... mongo collection set up code
 
-   collection.createIndex(geo2d("coordinates"););
+   collection.createIndex(geo2d("coordinates"));
 
+For more information on the `Indexes` builder, see our 
+:doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
+   
 See the 
 :manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`
 for more information.
