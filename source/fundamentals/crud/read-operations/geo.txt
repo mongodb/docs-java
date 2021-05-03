@@ -17,13 +17,11 @@ You can query data based on geographical location using geospatial query
 operators. You can format geospatial queries in the MongoDB Java driver using
 one of the following coordinate systems:
 
-- :ref:`Coordinates on an Earth-like Sphere <sphere>`
-- :ref:`Coordinates on a 2D Plane <plane>`
+- Coordinates on an Earth-like Sphere
+- Coordinates on a 2D Plane
 
 This section contains examples of geospatial queries using different
 query operators that you can run against your Atlas sample dataset.
-
-.. _sphere:
 
 Coordinates on an Earth-like Sphere
 -----------------------------------
@@ -49,13 +47,13 @@ types use some form of the following structure:
 GeoJSON Types
 ~~~~~~~~~~~~~
 
-Your document's type determines the structure of its **positions**. A position
-is the smallest location unit in GeoJSON, and roughly translates to a coordinate
-expressed by both a latitude and a longitude value. Here are some common GeoJSON
+Your GeoJSON object's type determines the structure of its **positions**. A position
+is the base unit in GeoJSON, and roughly translates to a coordinate
+containing both a latitude and a longitude value. Here are some common GeoJSON
 types and their corresponding positions:
 
 - ``Point``: a single position
-- ``LineString``: a list of two or more positions that form a series of line segments.
+- ``LineString``: a list of two or more positions, thus forming a series of line segments.
 - ``Polygon``: a list of positions in which the first and last
   position are the same, thus enclosing some space.
 
@@ -94,8 +92,6 @@ the following API documentation:
 - :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
 - :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
 - :java-docs:`Polygon </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Polygon.html>`
-
-.. _plane:
 
 Coordinates on a 2D Plane
 -------------------------
@@ -171,8 +167,10 @@ You can find the
 Query by Proximity
 ~~~~~~~~~~~~~~~~~~
 
-The ``$near`` operator accepts a set of longitude-latitude coordinates and returns
-documents ordered from nearest to farthest.
+The ``$near`` query operator accepts a set of longitude-latitude coordinates and returns
+documents ordered from nearest to farthest. In the example below, we use the
+``near()`` static utility method of the ``Filters`` builder class to construct a
+``$near`` query.
 
 The following example queries for theaters between ``10,000`` and ``5,000``
 meters from the 
@@ -202,8 +200,10 @@ The output of the code snippet should look something like this:
    {"location": {"address": {"city": "Elmhurst"}}}
 
 For more information on the ``$near`` operator, see  
-:manual:` the reference documentation for $near </reference/operator/query/near/#mongodb-query-op.-near>`.
-   
+:manual:`the reference documentation for $near </reference/operator/query/near/#mongodb-query-op.-near>`.
+
+For information on ``Filters``,
+:doc:`see our guide on the Filters builder </fundamentals/builders/filters>`
 
 Query Within a Range
 ~~~~~~~~~~~~~~~~~~~~
@@ -241,4 +241,3 @@ For more information on the ``$geoWithin`` operator, see the
 
 For more information on the operators you can use in your query, see the
 :manual:`MongoDB server manual page on geospatial query operators </geospatial-queries/index.html>`
-
