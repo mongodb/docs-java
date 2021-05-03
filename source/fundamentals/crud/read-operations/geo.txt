@@ -119,6 +119,9 @@ The examples use the ``theaters`` collection in the ``sample_mflix`` database
 from the sample dataset. The ``theaters`` collection contains a ``2dsphere`` index
 on the ``location.geo`` field.
 
+You can find the source code for the following examples on 
+`Github <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Geo.java>`__.
+
 Query by Proximity
 ~~~~~~~~~~~~~~~~~~
 
@@ -132,6 +135,7 @@ The following example queries for theaters within ``10,000`` meters of
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Geo.java
    :language: java
+   :dedent:
    :start-after: begin findExample
    :end-before: end findExample
 
@@ -167,6 +171,7 @@ described in the figure above.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Geo.java
    :language: java
+   :dedent:
    :start-after: begin rangeExample
    :end-before: end rangeExample
 
@@ -179,7 +184,6 @@ The output of the code snippet should look something like this:
    {"location": {"address": {"city": "Westbury"}}}
    {"location": {"address": {"city": "Mount Vernon"}}}
    {"location": {"address": {"city": "Massapequa"}}}
-   
 
 See the :manual:`MongoDB server manual page on geospatial query operators </geospatial-queries/index.html>`
 for more information on the operators you can use in your query.
