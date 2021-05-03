@@ -26,7 +26,7 @@ query operators that you can run against your Atlas sample dataset.
 .. _sphere:
 
 Coordinates on an Earth-like Sphere
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 For geospatial queries using longitude and latitude coordinates
 on an Earth-like sphere, use the :manual:`GeoJSON
@@ -46,22 +46,34 @@ types use some form of the following structure:
       ]
    }
 
-The object type determines the number of coordinates. For instance, a
-``Point`` requires only one coordinate: a longitude and a latitude.
-A ``LineString`` contains two or more coordinates: a list of longitude and
-latitude values that form a series of connected line segments.
-A ``Polygon`` consists of a list of coordinates in which the first and last
-coordinate are the same, effectively closing the polygon. To learn more
+GeoJSON Types
+~~~~~~~~~~~~~
+
+Your document's type determines the structure of its **positions**. A position
+is the smallest location unit in GeoJSON, and roughly translates to a coordinate
+expressed by both a latitude and a longitude. Here are some common GeoJSON types
+and their corresponding positions:
+
+- ``Point``: requires only one position: a longitude and a latitude.
+- ``LineString``: contains a list of two or more positions that form a series line segments.
+- ``Polygon``: consists of a list of coordinates in which the first and last
+coordinate are the same, effectively closing the polygon. 
+
+To learn more
 about the GeoJSON shapes you can use in MongoDB, consult the
 :manual:`GeoJSON manual entry </reference/geojson/>`. 
 
 To construct the above GeoJSON shapes in the MongoDB Java driver, use the
-``Point``, ``LineString``, and ``Polygon`` classes of the ``geoJSON`` package. 
+``Position``, ``Point``, ``LineString``, and ``Polygon`` classes of the
+``geoJSON`` package.
 
-To enable querying GeoJSON data, you must add the field to a ``2dsphere`` 
-index. The following snippet creates an index on the ``location.geo`` field in
-the ``theaters`` collection using the ``createIndex()`` method and the ``Indexes``
-builder:
+Index
+~~~~~
+
+To enable querying GeoJSON data, you must add the field you would to query to a
+``2dsphere`` index. The following snippet creates an index on the
+``location.geo`` field in the ``theaters`` collection using the
+``createIndex()`` method and the ``Indexes`` builder:
 
 .. code-block:: java
 
@@ -86,11 +98,14 @@ the following API documentation:
 .. _plane:
 
 Coordinates on a 2D Plane
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 You can also express geospatial queries using ``x`` and ``y`` coordinates on 
 a two-dimensional Euclidean plane. We refer to coordinates on a two-dimensional
 plane as "legacy coordinate pairs".
+
+Structure
+~~~~~~~~~
 
 Legacy coordinate pairs use the following structure:
 
@@ -99,7 +114,13 @@ Legacy coordinate pairs use the following structure:
    <field> : [ x, y ]
 
 The field should contain an array of two values in which the first represents 
-the ``x`` axis value and the second represents the ``y`` axis value. 
+the ``x`` axis value and the second represents the ``y`` axis value.
+
+To construct a legacy coordinate pair in the MongoDB Java driver, use the
+``Position`` class of the ``geoJSON`` package.
+
+Index
+~~~~~
 
 To enable querying using legacy coordinate pairs, create a ``2d`` index on
 the field you would like to query. The following snippet creates an index on the
@@ -125,6 +146,8 @@ For more information on the classes and methods discussed in this section, see
 the following API documentation:
 
 - :java-docs:`Indexes.geo2d() </apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2d>`
+- :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
+
 
 .. note::
 
