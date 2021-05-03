@@ -48,14 +48,16 @@ public class Geo {
         final Point centralPark = new Point(new Position(-73.9667, 40.78));
         final Bson query = near("location.geo", centralPark, 10000.0, 5000.0);
         final Bson projection = fields(include("location.address.city"), excludeId());
-        collection.find(query).projection(projection).forEach(doc -> System.out.println(doc.toJson()));
+        collection.find(query)
+                .projection(projection)
+                .forEach(doc -> System.out.println(doc.toJson()));
         // end findExample
     }
 
     private void rangeExample() {
         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
         MongoCollection<Document> collection = database.getCollection("theaters");
-        // start rangeExample
+        // begin rangeExample
 
         // code to set up your mongo collection ...
         Polygon longIslandTriangle = new Polygon(Arrays.asList(new Position(-72, 40),
@@ -64,7 +66,9 @@ public class Geo {
                 new Position(-72, 40)));
         final Bson projection = fields(include("location.address.city"), excludeId());
         Bson geoWithinComparison = geoWithin("location.geo", longIslandTriangle);
-        collection.find(geoWithinComparison).projection(projection).forEach(doc -> System.out.println(doc.toJson()));
+        collection.find(geoWithinComparison)
+                .projection(projection)
+                .forEach(doc -> System.out.println(doc.toJson()));
         // end rangeExample
     }
 }
