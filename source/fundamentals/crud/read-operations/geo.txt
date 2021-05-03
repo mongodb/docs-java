@@ -71,7 +71,7 @@ For an example showing how to construct GeoJSON shapes using the above classes, 
 Index
 ~~~~~
 
-To enable querying GeoJSON data, you must add the field you would to query to a
+To enable querying GeoJSON data, you must add the field you want query to a
 ``2dsphere`` index. The following snippet creates a ``2dsphere`` index on the
 ``location.geo`` field using the ``Indexes`` builder:
 
@@ -123,8 +123,8 @@ Index
 ~~~~~
 
 To enable querying using legacy coordinate pairs, create a ``2d`` index on
-the field you would like to query. The following snippet creates an index on the
-``coordinates`` field using the `Indexes` builder:
+the field you want to query. The following snippet creates a ``2d`` index on the
+``coordinates`` field using the ``Indexes`` builder:
 
 .. code-block:: java
 
@@ -137,9 +137,8 @@ the field you would like to query. The following snippet creates an index on the
 For more information on the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
    
-See the 
-:manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`
-for more information.
+For more information on legacy coordinate pairs, see the
+:manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`.
 
 For more information on the classes and methods discussed in this section, see
 the following API documentation:
