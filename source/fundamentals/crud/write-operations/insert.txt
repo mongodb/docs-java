@@ -13,19 +13,18 @@ Insert Operations
 Overview
 --------
 
-In this guide, you will learn how to insert documents into MongoDB. You
-can use MongoDB to retrieve, update and delete information. To perform
-any of those operations, that information, such as user profiles and
-orders, needs to exist in MongoDB. For that information to exist, you
-need to first perform an insert operation.
+In this guide, you will learn how to insert documents into MongoDB. 
+
+You can use MongoDB to retrieve, update and delete information. To
+perform any of those operations, that information, such as user profiles
+and orders, needs to exist in MongoDB. For that information to exist,
+you need to first perform an insert operation.
 
 An insert operation inserts a single or multiple documents in MongoDB
 using the  ``insertOne()``, ``insertMany()`` and ``bulkWrite()``
-methods. 
-
-The following sections focus on ``insertOne()`` and ``insertMany()``.
-For information on how to use the ``bulkWrite()`` method, see our ``Bulk
-Operations <TODO>`` page. 
+methods. The following sections focus on ``insertOne()`` and
+``insertMany()``. For information on how to use the ``bulkWrite()``
+method, see our ``Bulk Operations <TODO>`` page. 
 
 Insert a Single Document
 ------------------------
@@ -43,6 +42,7 @@ document.
    A unique ``_id`` should look something like this:
 
    .. code-block:: json
+      :copyable: false
 
       "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
 
@@ -64,9 +64,6 @@ Your output should look something like this:
    :copyable: false
 
    Inserted a document with the following id: 1
-    
-For a runnable ``insertOne()`` example, see our :doc:`Insert a Document
-</usage-examples/insertOne>` page. 
 
 Insert Multiple Documents
 -------------------------
@@ -84,6 +81,7 @@ document.
    A unique ``_id`` should look something like this:
 
    .. code-block:: json
+      :copyable: false
 
       "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
 
@@ -104,10 +102,7 @@ Your output should look something like this:
 .. code-block:: json
    :copyable: false
 
-    Inserted documents with the following ids: [1, 2]  
-
-For a runnable ``insertMany()`` example, see our :doc:`Insert Multiple
-Documents </usage-examples/insertMany>` page. 
+   Inserted documents with the following ids: [1, 2]  
 
 Summary
 -------
@@ -123,16 +118,22 @@ External Resources
 For additional information on the classes and methods mentioned on this
 page, see the following resources: 
 
-API Documentation: 
-~~~~~~~~~~~~~~~~~~
+API Documentation
+`````````````````
 
 - :java-sync-api:`insertOne() <com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
 - :java-sync-api:`insertMany() <com/mongodb/client/MongoCollection.html#insertMany>`
 - :java-docs:`InsertOneResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
 - :java-docs:`InsertManyResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
 
-Further Explanation:
-~~~~~~~~~~~~~~~~~~~~
+Further Explanation From Our Manual
+```````````````````````````````````
 
 - :manual:`insertOne() </reference/method/db.collection.insertOne/>`
 - :manual:`insertMany() </reference/method/db.collection.insertMany/>`
+
+Runnable Examples
+`````````````````
+
+- :doc:`Insert a Document </usage-examples/insertOne>` 
+- :doc:`Insert Multiple Documents </usage-examples/insertMany>`
