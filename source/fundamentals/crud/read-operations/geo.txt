@@ -51,13 +51,13 @@ GeoJSON Types
 
 Your document's type determines the structure of its **positions**. A position
 is the smallest location unit in GeoJSON, and roughly translates to a coordinate
-expressed by both a latitude and a longitude. Here are some common GeoJSON types
-and their corresponding positions:
+expressed by both a latitude and a longitude value. Here are some common GeoJSON
+types and their corresponding positions:
 
 - ``Point``: a single position
 - ``LineString``: a list of two or more positions that form a series of line segments.
 - ``Polygon``: a list of positions in which the first and last
-  position are the same.
+  position are the same, thus enclosing some space.
 
 To learn more about the GeoJSON shapes you can use in MongoDB, consult the
 :manual:`GeoJSON manual entry </reference/geojson/>`. 
