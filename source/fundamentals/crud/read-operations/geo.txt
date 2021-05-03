@@ -58,9 +58,13 @@ To enable querying GeoJSON data, you must add the field to a ``2dsphere``
 index. The following snippet creates an index on the ``location.geo`` field in
 the ``theaters`` collection using the ``createIndex()`` method:
 
-.. code-block:: javascript
+.. code-block:: java
 
-   db.theaters.createIndex({location.geo: "2dsphere"})
+   import static com.mongodb.client.model.Indexes.geo2d;
+
+   ... mongo collection set up code
+
+   collection.createIndex(geo2dsphere("location.geo"););
 
 .. _plane:
 
@@ -86,9 +90,13 @@ the field on the collection. The following snippet creates an index on the
 ``coordinates`` field in the ``shipwrecks`` collection using the
 ``createIndex()`` method:
 
-.. code-block:: javascript
+.. code-block:: java
 
-   db.shipwrecks({coordinates: "2d"})
+   import static com.mongodb.client.model.Indexes.geo2dsphere;
+
+   ... mongo collection set up code
+
+   collection.createIndex(geo2d("coordinates"););
 
 See the 
 :manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`
@@ -162,10 +170,6 @@ described in the figure above.
    :start-after: begin rangeExample
    :end-before: end rangeExample
 
-See the :manual:`MongoDB server manual page on geospatial query operators </geospatial-queries/index.html>`
-for more information on the operators you can use in your query.
-
-
 The output of the code snippet should look something like this:
 
 .. code-block:: json
@@ -175,3 +179,7 @@ The output of the code snippet should look something like this:
    {"location": {"address": {"city": "Westbury"}}}
    {"location": {"address": {"city": "Mount Vernon"}}}
    {"location": {"address": {"city": "Massapequa"}}}
+   
+
+See the :manual:`MongoDB server manual page on geospatial query operators </geospatial-queries/index.html>`
+for more information on the operators you can use in your query.
