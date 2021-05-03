@@ -43,7 +43,7 @@ public class Insert {
         Document doc1 = new Document("_id", 1).append("color", "red").append("qty", 5);
         
         InsertOneResult result = collection.insertOne(doc1);
-        System.out.println(result);
+        System.out.println("IntertedId: " + result.getInsertedId().asInt32());
         // end insertOneExample
     }
 
@@ -59,7 +59,7 @@ public class Insert {
         documents.add(doc2);
         
         InsertManyResult result = collection.insertMany(documents);
-        System.out.println(result);
+        System.out.println("IntertedIds: " + result.getInsertedIds().values());
         //end insertManyExample
     }
 
