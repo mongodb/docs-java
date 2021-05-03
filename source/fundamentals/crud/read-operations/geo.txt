@@ -65,14 +65,14 @@ To learn more about the GeoJSON shapes you can use in MongoDB, consult the
 To construct the above GeoJSON shapes in the MongoDB Java driver, use the
 ``Position``, ``Point``, ``LineString``, and ``Polygon`` classes.
 
-For an example showing how to construct shapes using the above classes, see the 
+For an example showing how to construct GeoJSON shapes using the above classes, see the 
 :ref:`query within a range example at the end of this page <example_range_query>`.
 
 Index
 ~~~~~
 
 To enable querying GeoJSON data, you must add the field you would to query to a
-``2dsphere`` index. The following snippet creates an index on the
+``2dsphere`` index. The following snippet creates a ``2dsphere`` index on the
 ``location.geo`` field using the ``Indexes`` builder:
 
 .. code-block:: java
@@ -89,7 +89,7 @@ For more information on the ``Indexes`` builder, see our
 For more information on the classes and methods discussed in this section, see
 the following API documentation:
 
-- :java-docs:`Indexes.geo2dsphere() </apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2dsphere>`
+- :java-docs:`Indexes.geo2dsphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
 - :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
 - :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
 - :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
@@ -107,13 +107,13 @@ plane as "legacy coordinate pairs".
 Structure
 ~~~~~~~~~
 
-Legacy coordinate pairs use the following structure:
+Legacy coordinate pairs have the following structure:
 
 .. code-block:: javascript
 
    <field> : [ x, y ]
 
-The field should contain an array of two values in which the first represents 
+Your field should contain an array of two values in which the first represents 
 the ``x`` axis value and the second represents the ``y`` axis value.
 
 To construct a legacy coordinate pair in the MongoDB Java driver, use the
