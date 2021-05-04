@@ -31,22 +31,24 @@ method, see our ``Bulk Operations <TODO>`` page.
 Insert a Single Document
 ------------------------
 
-When you want to insert a single document, use the ``insertOne()``
-method. If the insertion is successful,  the method returns an
-``InsertOneResult`` instance representing the ``_id`` of the new
+Use the ``insertOne()`` method when you want to insert a single
 document. 
 
-.. note::
+A document must contain a unique ``_id`` field. If you duplicate this
+field, the insertion fails and a ``writeError`` occurs. If you omit the
+``_id`` field, the driver automatically generates a unique ``_id``
+before inserting the document. 
 
-   If you omit the ``_id`` field, the driver automatically generates a
-   unique ``_id`` before inserting the document.
+A unique ``_id`` from the driver should look something like this:
 
-   A unique ``_id`` should look something like this:
+.. code-block:: json
+   :copyable: false
 
-   .. code-block:: json
-      :copyable: false
-
-      "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
+   "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
+   
+If the insertion is successful,  the method returns an 
+``InsertOneResult`` instance representing the ``_id`` of the new
+document. 
 
 Example
 ~~~~~~~
@@ -70,22 +72,24 @@ Your output should look something like this:
 Insert Multiple Documents
 -------------------------
 
-When you want to insert multiple documents, use the ``insertMany()``
-method. If the insertion is successful,  the method returns an
+Use the ``insertMany()`` method when you want to insert multiple
+documents.  
+
+Each document must contain a unique ``_id`` field. If you duplicate this
+field, the insertion fails and a ``writeError`` occurs. If you omit the
+``_id`` field, the driver automatically generates a unique ``_id``
+before inserting the document. 
+
+A unique ``_id`` from the driver should look something like this:
+
+.. code-block:: json
+   :copyable: false
+
+   "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
+   
+If the insertion is successful,  the method returns an
 ``InsertManyResult`` instance representing the ``_id`` of each new
-document. 
-
-.. note::
-
-   If you omit the ``_id`` field, the driver automatically generates a
-   unique ``_id`` before inserting the document.
-
-   A unique ``_id`` should look something like this:
-
-   .. code-block:: json
-      :copyable: false
-
-      "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
+document.
 
 Example
 ~~~~~~~
@@ -109,10 +113,22 @@ Your output should look something like this:
 Summary
 -------
 
+An insert operation is the first step you perform in MongoDB. After
+performing this operation, you can perform other operations such as
+retrieving, updating and deleting. 
+
 There are three ways to perform an insert operation, but we focused on two:
 
 - The ``insertOne()`` method inserts a single document.
 - The ``insertMany()`` method inserts multiple documents.
+
+For both methods, MongoDB expects all documents to have a unique ``_id``
+field. If the field is not unique, the insertion fails and a
+``writeError`` occurs. If you omit the field, the driver will
+automatically generate a unique ``_id`` before inserting the document.
+
+If the insertion is successful, both methods return an instance
+representing the ``_id`` of each new document.
 
 External Resources
 ------------------
