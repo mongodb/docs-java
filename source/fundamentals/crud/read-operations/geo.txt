@@ -49,12 +49,12 @@ is the base unit in GeoJSON, and roughly translates to a coordinate
 containing both a latitude and a longitude value. Here are some common GeoJSON
 types and their corresponding positions:
 
-- ``Point``: a single position
+- ``Point``: a single position.
 - ``LineString``: a list of two or more positions, thus forming a series of line segments.
 - ``Polygon``: a list of positions in which the first and last
   position are the same, thus enclosing some space.
 
-To learn more about the GeoJSON shapes you can use in MongoDB, consult the
+To learn more about the GeoJSON shapes you can use in MongoDB, see the
 :manual:`GeoJSON manual entry </reference/geojson/>`. 
 
 To construct the above GeoJSON shapes in the MongoDB Java driver, use the
@@ -147,7 +147,7 @@ the following API documentation:
 
    Spherical (``2dsphere``) and flat (``2d``) indexes support some, but
    not all, of the same query operators. For a full list of operators
-   and their index compatibility, consult the
+   and their index compatibility, see the
    :manual:`manual entry for geospatial queries </geospatial-queries/#geospatial-query-operators>`.
 
 Examples
@@ -208,8 +208,8 @@ For information on ``Filters``,
 Query Within a Range
 ~~~~~~~~~~~~~~~~~~~~
 
-The ``$geoWithin`` operator selects documents with geospatial data that exist
-within a specified shape. 
+The ``$geoWithin`` operator selects documents that have geospatial data within a
+specified shape. 
 
 .. figure:: /includes/figures/geo_geometry.png
    :alt: Area of Long Island we are searching for movie theaters
