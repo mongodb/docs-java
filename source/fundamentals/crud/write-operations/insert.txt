@@ -36,8 +36,8 @@ document.
 
 A document must contain a unique ``_id`` field. If you duplicate this
 field with a document that exists, the insertion fails and a
-``writeError`` occurs. If you omit the ``_id`` field, the driver
-automatically generates a unique ``_id`` before inserting the document. 
+``writeError`` occurs. If you omit this field, the driver automatically
+generates a unique ``_id`` before inserting the document. 
 
 A unique ``_id`` from the driver should look something like this:
 
@@ -76,9 +76,10 @@ Use the ``insertMany()`` method when you want to insert multiple
 documents.  
 
 Each document must contain a unique ``_id`` field. If you duplicate this
-field with a document that exists, the insertion fails and a
-``writeError`` occurs. If you omit the ``_id`` field, the driver
-automatically generates a unique ``_id`` before inserting the document. 
+field with a document that exists, the insertion from the duplicated
+document and forward fails and a ``writeError`` occurs. If you omit this
+field, the driver automatically generates a unique ``_id`` before
+inserting the document. 
 
 A unique ``_id`` from the driver should look something like this:
 
@@ -123,8 +124,8 @@ There are three ways to perform an insert operation, but we focused on two:
 - The ``insertMany()`` method inserts multiple documents.
 
 For both methods, MongoDB expects all documents to have a unique ``_id``
-field. If the field is not unique, the insertion fails and a
-``writeError`` occurs. If you omit the field, the driver will
+field. If this field is not unique, the insertion fails and a
+``writeError`` occurs. If you omit this field, the driver will
 automatically generate a unique ``_id`` before inserting the document.
 
 If the insertion is successful, both methods return an instance
