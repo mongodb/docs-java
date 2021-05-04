@@ -13,22 +13,22 @@ Search Geospatially
 Overview
 --------
 
-You can query data based on geographical location using geospatial query
-operators. You can format geospatial queries in the MongoDB Java driver using
-one of the following coordinate systems:
+On this page, we show you how to query data based on geographical location
+in the MongoDB Java Driver. 
 
-- Coordinates on an Earth-like Sphere
-- Coordinates on a 2D Plane
+You should read this guide if you would like to:
 
-This section contains examples of geospatial queries using different
-query operators that you can run against your Atlas sample dataset.
+- Understand the different geospatial data formats in MongoDB.
+- Build geospatial queries using **GeoJSON**.
 
 Coordinates on an Earth-like Sphere
 -----------------------------------
 
-For geospatial queries using longitude and latitude coordinates
-on an Earth-like sphere, use the ``GeoJSON`` query format. All GeoJSON data types use
-some form of the following structure:
+GeoJSON is a geospatial data interchange format based off of JSON. For
+geospatial data with longitude and latitude coordinates
+on an Earth-like sphere, use the **GeoJSON** format.
+
+GeoJSON data has the following structure:
 
 .. code-block:: javascript
 
@@ -40,6 +40,9 @@ some form of the following structure:
          [longitude_n, latitude_n]
       ]
    }
+
+You can use the GeoJSON format to store your data, and you must use the GeoJSON
+format to query your geospatial data.
 
 GeoJSON Types
 ~~~~~~~~~~~~~
@@ -57,18 +60,12 @@ types and their corresponding positions:
 To learn more about the GeoJSON shapes you can use in MongoDB, see the
 :manual:`GeoJSON manual entry </reference/geojson/>`. 
 
-To construct the above GeoJSON shapes in the MongoDB Java driver, use the
-``Position``, ``Point``, ``LineString``, and ``Polygon`` classes.
-
-For an example showing how to construct GeoJSON shapes using the above classes, see the 
-:ref:`query within a range example at the end of this page <example_range_query>`.
-
 Index
 ~~~~~
 
-To enable querying GeoJSON data, you must add the field you want query to a
-``2dsphere`` index. The following snippet creates a ``2dsphere`` index on the
-``location.geo`` field using the ``Indexes`` builder:
+To query data stored in GeoJSON format, you must add the field containing
+GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
+``2dsphere`` index on the ``location.geo`` field using the ``Indexes`` builder:
 
 .. code-block:: java
 
@@ -84,24 +81,12 @@ For more information on the ``Indexes`` builder, see our
 For more information on geospatial queries, see the
 :manual:`geospatial queries manual entry </geospatial-queries/>`.
 
-For more information on the classes and methods discussed in this section, see
-the following API documentation:
-
-- :java-docs:`Indexes.geo2dsphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)>`
-- :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
-- :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
-- :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
-- :java-docs:`Polygon </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Polygon.html>`
-
 Coordinates on a 2D Plane
 -------------------------
 
-You can also express geospatial queries using ``x`` and ``y`` coordinates on 
+You can store geospatial data using ``x`` and ``y`` coordinates on 
 a two-dimensional Euclidean plane. We refer to coordinates on a two-dimensional
 plane as "legacy coordinate pairs".
-
-Structure
-~~~~~~~~~
 
 Legacy coordinate pairs have the following structure:
 
@@ -112,15 +97,12 @@ Legacy coordinate pairs have the following structure:
 Your field should contain an array of two values in which the first represents 
 the ``x`` axis value and the second represents the ``y`` axis value.
 
-To construct a legacy coordinate pair in the MongoDB Java driver, use the
-``Position`` class.
-
 Index
 ~~~~~
 
-To enable querying using legacy coordinate pairs, create a ``2d`` index on
-the field you want to query. The following snippet creates a ``2d`` index on the
-``coordinates`` field using the ``Indexes`` builder:
+To query data stored as legacy coordinate pairs, you must add the field containing
+legacy coordinate pairs to  a ``2d`` index. The following snippet creates a
+``2d`` index on the ``coordinates`` field using the ``Indexes`` builder:
 
 .. code-block:: java
 
@@ -139,16 +121,36 @@ For more information on legacy coordinate pairs, see the
 For more information on the classes and methods discussed in this section, see
 the following API documentation:
 
-- :java-docs:`Indexes.geo2d() </apidocs/mongodb-driver-core/com/mongodb/client/model/Indexes.html#geo2d>`
-- :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
-
-
 .. note::
 
    Spherical (``2dsphere``) and flat (``2d``) indexes support some, but
    not all, of the same query operators. For a full list of operators
    and their index compatibility, see the
    :manual:`manual entry for geospatial queries </geospatial-queries/#geospatial-query-operators>`.
+
+Query Geospatial Data with the MongoDB Java Driver
+-------------------------------------------------
+
+To query your geospatial data, use the query operators ``$near``, ``$geoWithin``,
+``$nearSphere`` and ``$geoIntersects``. You can specify these query operators in
+your queries with the ``near()``, ``geoWithin()``,
+``nearSphere()``, and ``geoIntersects()`` utility methods of the ``Filters``
+builder class.
+
+To specify the GeoJSON shapes used in geospatial queries, use the ``Position``,
+``Point``, ``LineString``, and ``Polygon`` classes.
+
+For more information on ``Filters``, see our 
+:doc:`guide on the Filters builder </fundamentals/builders/filters>`.  
+
+For more information on the classes and methods discussed in this section, see
+the following API documentation:
+
+- :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
+- :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
+- :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
+- :java-docs:`Polygon </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Polygon.html>`
+
 
 Examples
 --------
