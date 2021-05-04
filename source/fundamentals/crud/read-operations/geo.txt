@@ -14,7 +14,7 @@ Overview
 --------
 
 On this page, we show you how to query data based on geographical location
-in the MongoDB Java Driver. 
+with the MongoDB Java Driver. 
 
 You should read this guide if you would like to:
 
@@ -127,30 +127,36 @@ For more information on legacy coordinate pairs, see the
 Geospatial Queries
 ------------------
 
-To query your geospatial data, use the query operators ``$near``, ``$geoWithin``,
-``$nearSphere`` and ``$geoIntersects``. You can specify these query operators in
-your queries with the ``near()``, ``geoWithin()``,
+Geospatial queries consist of query operators with GeoJSON query parameters.
+
+Query Operators
+~~~~~~~~~~~~~~~
+
+To query your geospatial data, use one of the following query operators: 
+
+- ``$near``
+- ``$geoWithin``
+- ``$nearSphere``
+- ``$geoIntersects``
+
+You can specify these query operators in your queries with the ``near()``, ``geoWithin()``,
 ``nearSphere()``, and ``geoIntersects()`` utility methods of the ``Filters``
 builder class.
 
-To specify the GeoJSON shapes used in geospatial queries, use the ``Position``,
-``Point``, ``LineString``, and ``Polygon`` classes. For a full list of GeoJSON
-shapes available in the MongoDB Java driver, see the
-:java-docs:`GeoJSON package </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/package-summary.html>`.
-
-For more information on geospatial queries, see the
-:manual:`geospatial queries manual entry </geospatial-queries/>`.
+For more information on geospatial query operators, see the
+:manual:`geospatial queries manual entry </geospatial-queries/#geospatial-query-operators>`.
 
 For more information on ``Filters``, see our 
 :doc:`guide on the Filters builder </fundamentals/builders/filters>`.  
 
-For more information on the classes and methods discussed in this section, see
-the following API documentation:
+Query Parameters
+~~~~~~~~~~~~~~~~
 
-- :java-docs:`Position </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Position.html>`
-- :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
-- :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
-- :java-docs:`Polygon </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Polygon.html>`
+To specify the GeoJSON shapes used as parameters in geospatial queries, use the
+``Position``, ``Point``, ``LineString``, and ``Polygon`` classes.
+
+For a full list of GeoJSON shapes available in the MongoDB Java driver, see the
+:java-docs:`GeoJSON package </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/package-summary.html>`.
 
 Examples
 --------
