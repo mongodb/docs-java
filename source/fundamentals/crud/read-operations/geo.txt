@@ -42,7 +42,9 @@ GeoJSON data has the following structure:
    }
 
 You can use the GeoJSON format to store your data, and you must use the GeoJSON
-format to query your geospatial data.
+format to query your geospatial data. 
+
+For more on GeoJSON, see the `GeoJSON specification <https://tools.ietf.org/html/rfc7946>`__.
 
 GeoJSON Types
 ~~~~~~~~~~~~~
@@ -77,9 +79,6 @@ GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
 
 For more information on the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
-
-For more information on geospatial queries, see the
-:manual:`geospatial queries manual entry </geospatial-queries/>`.
 
 Coordinates on a 2D Plane
 -------------------------
@@ -140,6 +139,9 @@ builder class.
 To specify the GeoJSON shapes used in geospatial queries, use the ``Position``,
 ``Point``, ``LineString``, and ``Polygon`` classes.
 
+For more information on geospatial queries, see the
+:manual:`geospatial queries manual entry </geospatial-queries/>`.
+
 For more information on ``Filters``, see our 
 :doc:`guide on the Filters builder </fundamentals/builders/filters>`.  
 
@@ -150,7 +152,6 @@ the following API documentation:
 - :java-docs:`Point </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Point.html>`
 - :java-docs:`LineString </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/LineString.html>`
 - :java-docs:`Polygon </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/Polygon.html>`
-
 
 Examples
 --------
