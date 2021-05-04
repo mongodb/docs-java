@@ -35,9 +35,9 @@ Use the ``insertOne()`` method when you want to insert a single
 document. 
 
 A document must contain a unique ``_id`` field. If you duplicate this
-field, the insertion fails and a ``writeError`` occurs. If you omit the
-``_id`` field, the driver automatically generates a unique ``_id``
-before inserting the document. 
+field with a document that exists, the insertion fails and a
+``writeError`` occurs. If you omit the ``_id`` field, the driver
+automatically generates a unique ``_id`` before inserting the document. 
 
 A unique ``_id`` from the driver should look something like this:
 
@@ -76,9 +76,9 @@ Use the ``insertMany()`` method when you want to insert multiple
 documents.  
 
 Each document must contain a unique ``_id`` field. If you duplicate this
-field, the insertion fails and a ``writeError`` occurs. If you omit the
-``_id`` field, the driver automatically generates a unique ``_id``
-before inserting the document. 
+field with a document that exists, the insertion fails and a
+``writeError`` occurs. If you omit the ``_id`` field, the driver
+automatically generates a unique ``_id`` before inserting the document. 
 
 A unique ``_id`` from the driver should look something like this:
 
