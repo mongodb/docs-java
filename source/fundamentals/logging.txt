@@ -357,19 +357,15 @@ The makers of the MongoDB Java driver have defined the following logger names to
 organize different logging events in the driver. Here are the logger names
 defined in the driver and the logging events they correspond with. 
 
-* ``org.mongodb.driver`` : root logger for the MongoDB Java driver
-* ``org.mongodb.driver.cluster`` : monitoring of your MongoDB servers
+* ``org.mongodb.driver.authenticator`` : authentication
+* ``org.mongodb.driver.client`` : events related to ``MongoClient`` instances
+* ``org.mongodb.driver.cluster`` : monitoring of MongoDB servers
 * ``org.mongodb.driver.connection`` : connections and connection pools
-* ``org.mongodb.driver.protocol`` : protocol message sent to and received from your MongoDB server
-* ``org.mongodb.driver.protocol.insert`` : insert messages and responses
-* ``org.mongodb.driver.protocol.update`` : update messages and responses
-* ``org.mongodb.driver.protocol.delete`` : delete messages and responses
-* ``org.mongodb.driver.protocol.query`` : query messages and responses
-* ``org.mongodb.driver.protocol.getmore`` : getmore messages and responses
-* ``org.mongodb.driver.protocol.killcursor`` : killcursor messages and responses
-* ``org.mongodb.driver.protocol.command`` : command messages and responses
+* ``org.mongodb.driver.connection.tls`` : TLS/SSL
+* ``org.mongodb.driver.operation`` : operations, including logging related to automatic retries
+* ``org.mongodb.driver.protocol`` : commands sent to and replies received from MongoDB servers
 * ``org.mongodb.driver.uri`` : connection string parsing
-* ``org.mongodb.driver.management`` : JMX (Java Management Extensions)'
+* ``org.mongodb.driver.management`` : JMX (Java Management Extensions)
 
 For more information on configuring your logger using logger names,
 see the `official Logback configuration guide
