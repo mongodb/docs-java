@@ -95,7 +95,7 @@ To learn more about the GeoJSON shapes you can use in MongoDB, see the
 Index
 ~~~~~
 
-To query data stored in GeoJSON format, add the field containing
+To query data stored in ths GeoJSON format, add the field containing
 GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
 ``2dsphere`` index on the ``location.geo`` field using the ``Indexes`` builder:
 
@@ -121,9 +121,9 @@ plane as "legacy coordinate pairs".
 
 Legacy coordinate pairs have the following structure:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   <field> : [ x, y ]
+   "<field name>" : [ x, y ]
 
 Your field should contain an array of two values in which the first represents 
 the ``x`` axis value and the second represents the ``y`` axis value.
@@ -175,9 +175,9 @@ To query your geospatial data, use one of the following query operators:
 - ``$nearSphere``
 - ``$geoIntersects``
 
-You can specify these query operators in your queries with the ``near()``, ``geoWithin()``,
-``nearSphere()``, and ``geoIntersects()`` utility methods of the ``Filters``
-builder class.
+You can specify these query operators in the MongoDB Java driver with the
+``near()``, ``geoWithin()``, ``nearSphere()``, and ``geoIntersects()`` utility
+methods of the ``Filters`` builder class.
 
 For more information on geospatial query operators, see the
 :manual:`geospatial queries manual entry </geospatial-queries/#geospatial-query-operators>`.
@@ -191,7 +191,8 @@ Query Parameters
 ~~~~~~~~~~~~~~~~
 
 To specify the GeoJSON shapes used as parameters in geospatial queries, use the
-``Position``, ``Point``, ``LineString``, and ``Polygon`` classes.
+``Position``, ``Point``, ``LineString``, and ``Polygon`` classes of the MongoDB
+Java driver.
 
 For a full list of GeoJSON shapes available in the MongoDB Java driver, see the
 :java-docs:`GeoJSON package </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/package-summary.html>`.
@@ -209,8 +210,16 @@ The examples use the ``theaters`` collection in the ``sample_mflix`` database
 from the sample dataset. The ``theaters`` collection contains a ``2dsphere`` index
 on the ``location.geo`` field.
 
+The examples require the following imports:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Geo.java
+   :language: java
+   :dedent:
+   :start-after: begin exampleImports
+   :end-before: end exampleImports
+
 You can find the  
-`source code for the following examples on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Geo.java>`__.
+`source code for the examples on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Geo.java>`__.
 
 .. external resource
 

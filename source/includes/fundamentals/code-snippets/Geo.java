@@ -4,21 +4,20 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+// begin exampleImports
+import java.util.Arrays;
+import org.bson.conversions.Bson;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
-import org.bson.Document;
-import org.bson.conversions.Bson;
-
-// begin importsFindExample
-import java.util.Arrays;
-
 import static com.mongodb.client.model.Filters.near;
 import static com.mongodb.client.model.Filters.geoWithin;
 import static com.mongodb.client.model.Projections.fields;
 import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Projections.excludeId;
-//end importsFindExample
+// end exampleImports
 
 public class Geo {
 
