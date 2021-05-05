@@ -68,7 +68,7 @@ array containing two or three number values:
 
 - a longitude in the first position
 - a latitude in the second position
-- an optional elevation in the third position. 
+- an optional elevation in the third position 
 
 .. tip:: Order Matters
 
@@ -95,7 +95,7 @@ To learn more about the GeoJSON shapes you can use in MongoDB, see the
 Index
 ~~~~~
 
-To query data stored in ths GeoJSON format, add the field containing
+To query data stored in the GeoJSON format, add the field containing
 GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
 ``2dsphere`` index on the ``location.geo`` field using the ``Indexes`` builder:
 
@@ -173,14 +173,14 @@ To query your geospatial data, use one of the following query operators:
 - ``$near``
 - ``$geoWithin``
 - ``$nearSphere``
-- ``$geoIntersects``
+- ``$geoIntersects`` *requires a ``2dsphere`` index*
 
 You can specify these query operators in the MongoDB Java driver with the
 ``near()``, ``geoWithin()``, ``nearSphere()``, and ``geoIntersects()`` utility
 methods of the ``Filters`` builder class.
 
 For more information on geospatial query operators, see the
-:manual:`geospatial queries manual entry </geospatial-queries/#geospatial-query-operators>`.
+:manual:`manual entry for geospatial queries </geospatial-queries/#geospatial-query-operators>`.
 
 .. external resource
 
@@ -261,8 +261,8 @@ The output of the code snippet should look something like this:
 For more information on the ``$near`` operator, see  
 :manual:`the reference documentation for $near </reference/operator/query/near/#mongodb-query-op.-near>`.
 
-For information on ``Filters``,
-:doc:`see our guide on the Filters builder </fundamentals/builders/filters>`
+For more information on ``Filters``,
+:doc:`see our guide on the Filters builder </fundamentals/builders/filters>`.
 
 Query Within a Range
 ~~~~~~~~~~~~~~~~~~~~
