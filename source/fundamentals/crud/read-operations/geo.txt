@@ -13,20 +13,30 @@ Search Geospatially
 Overview
 --------
 
-On this page, we show you how to query data based on geographical location
+On this page, you can learn how to query **geospatial data**
 with the MongoDB Java Driver. 
+
+Geospatial data is data tied to a geographical location on
+the surface of the earth. Examples of geospatial data include:
+
+- Locations of movie theaters
+- Borders of countries
+- Routes of bicycle rides
+- Dog exercise areas in New York City
 
 You should read this guide if you would like to:
 
 - Understand the different geospatial data formats in MongoDB.
-- Build geospatial queries using **GeoJSON**.
+- Build geospatial queries.
 
 Coordinates on an Earth-like Sphere
 -----------------------------------
 
-GeoJSON is a geospatial data interchange format based off of JSON. For
-geospatial data with longitude and latitude coordinates
-on an Earth-like sphere, use the **GeoJSON** format.
+You can represent geospatial data on an Earth-like sphere with the **GeoJSON**
+format. GeoJSON is a geospatial data format. You can use the GeoJSON format to
+store your data, and you must use the GeoJSON format to query your geospatial
+data. 
+
 
 GeoJSON data has the following structure:
 
@@ -35,24 +45,40 @@ GeoJSON data has the following structure:
    <field> : {
       type: <GeoJSON type>,
       coordinates: [
-         [longitude_1, latitude_1],
+         [<longitude>, <latitude>],
          ...
-         [longitude_n, latitude_n]
+         [<longitude>, <latitude>]
       ]
    }
 
-You can use the GeoJSON format to store your data, and you must use the GeoJSON
-format to query your geospatial data. 
+For definitive information on GeoJSON, see the
+`official IETF GeoJSON specification <https://tools.ietf.org/html/rfc7946>`__.
+.. external resource
 
-For more information on GeoJSON, see the `GeoJSON specification <https://tools.ietf.org/html/rfc7946>`__.
 
 GeoJSON Types
 ~~~~~~~~~~~~~
 
-Your GeoJSON object's type determines the structure of its **positions**. A position
-is the base unit in GeoJSON, and roughly translates to a coordinate
-containing both a latitude and a longitude value. Here are some common GeoJSON
-types and their corresponding positions:
+Your GeoJSON object's type determines its geometric shape
+
+In GeoJSON, you make a shape from **positions**. A position is the base unit in
+GeoJSON. A position is an array containing two to three number values: 
+
+- a longitude in the first position
+- a latitude in the second position
+- an optional elevation in the third position. 
+
+.. tip:: Order Matters
+
+   GeoJSON orders coordinates as longitude first and latitude second. This may
+   be surprising as geographic coordinate system conventions generally list
+   latitude first and longitude second. Popular tools such as
+   OpenStreetMap and Google Maps list coordinates as latitude first and longitude
+   second, so be take care to swap the positions of your latitude and longitude
+   when transferring geospatial data between tools that use different
+   conventions. 
+
+Here are some common GeoJSON types and their corresponding positions:
 
 - ``Point``: a single position.
 - ``LineString``: a list of two or more positions, thus forming a series of line segments.
@@ -61,11 +87,12 @@ types and their corresponding positions:
 
 To learn more about the GeoJSON shapes you can use in MongoDB, see the
 :manual:`GeoJSON manual entry </reference/geojson/>`. 
+.. external resource
 
 Index
 ~~~~~
 
-To query data stored in GeoJSON format, you must add the field containing
+To query data stored in GeoJSON format, add the field containing
 GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
 ``2dsphere`` index on the ``location.geo`` field using the ``Indexes`` builder:
 
@@ -116,6 +143,7 @@ For more information on the ``Indexes`` builder, see our
    
 For more information on legacy coordinate pairs, see the
 :manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`.
+.. external resource
 
 .. note::
 
@@ -123,6 +151,7 @@ For more information on legacy coordinate pairs, see the
    not all, of the same query operators. For a full list of operators
    and their index compatibility, see the
    :manual:`manual entry for geospatial queries </geospatial-queries/#geospatial-query-operators>`.
+.. external resource
 
 Geospatial Queries
 ------------------
@@ -145,6 +174,7 @@ builder class.
 
 For more information on geospatial query operators, see the
 :manual:`geospatial queries manual entry </geospatial-queries/#geospatial-query-operators>`.
+.. external resource
 
 For more information on ``Filters``, see our 
 :doc:`guide on the Filters builder </fundamentals/builders/filters>`.  
@@ -157,6 +187,7 @@ To specify the GeoJSON shapes used as parameters in geospatial queries, use the
 
 For a full list of GeoJSON shapes available in the MongoDB Java driver, see the
 :java-docs:`GeoJSON package </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/package-summary.html>`.
+.. external resource
 
 Examples
 --------
@@ -171,6 +202,7 @@ on the ``location.geo`` field.
 
 You can find the  
 `source code for the following examples on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Geo.java>`__.
+.. external resource
 
 Query by Proximity
 ~~~~~~~~~~~~~~~~~~
