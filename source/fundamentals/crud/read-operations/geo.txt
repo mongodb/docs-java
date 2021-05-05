@@ -35,7 +35,7 @@ Coordinates on an Earth-like Sphere
 You can represent geospatial data on an Earth-like sphere with the **GeoJSON**
 format. GeoJSON is a geospatial data format. You can use the GeoJSON format to
 store your data, and you must use the GeoJSON format to query your geospatial
-data. 
+data with MongoDB. 
 
 
 GeoJSON data has the following structure:
@@ -53,16 +53,18 @@ GeoJSON data has the following structure:
 
 For definitive information on GeoJSON, see the
 `official IETF GeoJSON specification <https://tools.ietf.org/html/rfc7946>`__.
+
 .. external resource
 
 
 GeoJSON Types
 ~~~~~~~~~~~~~
 
-Your GeoJSON object's type determines its geometric shape
+Your GeoJSON object's type determines its geometric shape.
 
 In GeoJSON, you make a shape from **positions**. A position is the base unit in
-GeoJSON. A position is an array containing two to three number values: 
+GeoJSON, and represents a single place on earth. A position is an array
+containing two or three number values: 
 
 - a longitude in the first position
 - a latitude in the second position
@@ -74,9 +76,9 @@ GeoJSON. A position is an array containing two to three number values:
    be surprising as geographic coordinate system conventions generally list
    latitude first and longitude second. Popular tools such as
    OpenStreetMap and Google Maps list coordinates as latitude first and longitude
-   second, so be take care to swap the positions of your latitude and longitude
-   when transferring geospatial data between tools that use different
-   conventions. 
+   second. Be careful when moving geospatial data between GeoJSON and tools that
+   use geographic coordinate system conventions as you may need to swap your
+   longitude and latitude values. 
 
 Here are some common GeoJSON types and their corresponding positions:
 
@@ -86,7 +88,8 @@ Here are some common GeoJSON types and their corresponding positions:
   position are the same, thus enclosing some space.
 
 To learn more about the GeoJSON shapes you can use in MongoDB, see the
-:manual:`GeoJSON manual entry </reference/geojson/>`. 
+:manual:`GeoJSON manual entry </reference/geojson/>`.
+
 .. external resource
 
 Index
@@ -105,7 +108,9 @@ GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
    collection.createIndex(geo2dsphere("location.geo"));
 
 For more information on the ``Indexes`` builder, see our 
-:doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
+:doc:`guide on the Indexes builder </fundamentals/builders/indexes>`.
+
+.. guide resource
 
 Coordinates on a 2D Plane
 -------------------------
@@ -143,6 +148,7 @@ For more information on the ``Indexes`` builder, see our
    
 For more information on legacy coordinate pairs, see the
 :manual:`MongoDB server manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`.
+
 .. external resource
 
 .. note::
@@ -151,7 +157,8 @@ For more information on legacy coordinate pairs, see the
    not all, of the same query operators. For a full list of operators
    and their index compatibility, see the
    :manual:`manual entry for geospatial queries </geospatial-queries/#geospatial-query-operators>`.
-.. external resource
+
+   .. external resource
 
 Geospatial Queries
 ------------------
@@ -174,6 +181,7 @@ builder class.
 
 For more information on geospatial query operators, see the
 :manual:`geospatial queries manual entry </geospatial-queries/#geospatial-query-operators>`.
+
 .. external resource
 
 For more information on ``Filters``, see our 
@@ -187,6 +195,7 @@ To specify the GeoJSON shapes used as parameters in geospatial queries, use the
 
 For a full list of GeoJSON shapes available in the MongoDB Java driver, see the
 :java-docs:`GeoJSON package </apidocs/mongodb-driver-core/com/mongodb/client/model/geojson/package-summary.html>`.
+
 .. external resource
 
 Examples
@@ -202,6 +211,7 @@ on the ``location.geo`` field.
 
 You can find the  
 `source code for the following examples on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Geo.java>`__.
+
 .. external resource
 
 Query by Proximity
@@ -279,5 +289,9 @@ The output of the code snippet should look something like this:
 For more information on the ``$geoWithin`` operator, see the
 :manual:`reference documentation for $geoWithin </reference/operator/query/geoWithin/>`
 
+.. external resouce
+
 For more information on the operators you can use in your query, see the
 :manual:`MongoDB server manual page on geospatial query operators </geospatial-queries/index.html>`
+
+.. external resource
