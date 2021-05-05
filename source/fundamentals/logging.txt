@@ -50,8 +50,8 @@ For more information on SLF4J,
 `see the SLF4J documentation <http://www.slf4j.org/>`__.
 
 Setting up a logger is optional. When you start your application the MongoDB
-Java driver looks for the ``slf4j-api`` package in your classpath. If the driver
-can't find the ``slf4j-api`` package, the driver logs the following warning with
+Java driver looks for the ``slf4j-api`` artifact in your classpath. If the driver
+can't find the ``slf4j-api`` artifact, the driver logs the following warning with
 ``java.util.logging`` and disables all further logging:
 
 .. code-block:: none
@@ -60,19 +60,19 @@ can't find the ``slf4j-api`` package, the driver logs the following warning with
 
 To set up a logger, you must include the following in your project.
 
-* The ``slf4j-api`` package
+* The ``slf4j-api`` artifact
 * a logging framework 
 * a **binding**
 
 .. note:: 
 
     For the most popular logging frameworks, there is often a single binding
-    package that lists the ``slf4j-api`` and the logging framework as
-    dependencies. This means that you can set up a logger by adding one package
+    artifact that lists the ``slf4j-api`` and the logging framework as
+    dependencies. This means that you can set up a logger by adding one artifact
     to your project's dependency list. You will see this in the example below.
 
-A binding is a piece of code that connects the ``slf4j-api`` package with a
-logging framework. The example below shows how to bind the ``slf4j-api`` package
+A binding is a piece of code that connects the ``slf4j-api`` artifact with a
+logging framework. The example below shows how to bind the ``slf4j-api`` artifact
 to the two most popular logging frameworks, Log4j2 and Logback.
 
 Example
