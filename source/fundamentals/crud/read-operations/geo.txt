@@ -50,26 +50,15 @@ For definitive information on GeoJSON, see the
 
 .. external resource
 
+GeoJSON Positions
+~~~~~~~~~~~~~~~~~
 
-GeoJSON Types
-~~~~~~~~~~~~~
-
-Your GeoJSON object's type determines its geometric shape.
-
-You make a geometric shape from **positions**. A position is the
-base unit in GeoJSON, and represents a single place on Earth. A position is an
-array containing two or three number values: 
+A position is the base unit in GeoJSON, and represents a single place on Earth.
+A position is an array containing two or three number values: 
 
 - a longitude in the first position
 - a latitude in the second position
 - an optional elevation in the third position 
-
-Here are some common GeoJSON types and their corresponding positions:
-
-- ``Point``: a single position.
-- ``LineString``: a list of two or more positions, thus forming a series of line segments.
-- ``Polygon``: a list of positions in which the first and last
-  position are the same, thus enclosing some space.
 
 .. tip:: Order Matters
 
@@ -80,6 +69,20 @@ Here are some common GeoJSON types and their corresponding positions:
   second. Be careful when moving geospatial data between GeoJSON and tools that
   use geographic coordinate system conventions as you may need to swap your
   longitude and latitude values. 
+
+GeoJSON Types
+~~~~~~~~~~~~~
+
+Your GeoJSON object's type determines its geometric shape. Geometric shapes are
+made up of positions.
+
+Here are some common GeoJSON types and their corresponding positions:
+
+- ``Point``: a single position.
+- ``LineString``: a list of two or more positions, thus forming a series of line segments.
+- ``Polygon``: a list of positions in which the first and last
+  position are the same, thus enclosing some space.
+
 
 To learn more about the shapes you can use in MongoDB, see the
 :manual:`GeoJSON manual entry </reference/geojson/>`.
