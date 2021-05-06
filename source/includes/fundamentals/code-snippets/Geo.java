@@ -29,6 +29,11 @@ public class Geo {
 
     }
 
+    public static void main(String[] args) {
+        Geo geo = new Geo();
+        geo.go();
+    }
+
     public void go() {
         Geo geo = new Geo();
         System.out.println("Near Example: ");
