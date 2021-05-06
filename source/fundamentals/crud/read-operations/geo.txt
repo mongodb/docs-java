@@ -64,16 +64,6 @@ array containing two or three number values:
 - a latitude in the second position
 - an optional elevation in the third position 
 
-.. tip:: Order Matters
-
-   GeoJSON orders coordinates as longitude first and latitude second. This may
-   be surprising as geographic coordinate system conventions generally list
-   latitude first and longitude second. Popular tools such as
-   OpenStreetMap and Google Maps list coordinates as latitude first and longitude
-   second. Be careful when moving geospatial data between GeoJSON and tools that
-   use geographic coordinate system conventions as you may need to swap your
-   longitude and latitude values. 
-
 Here are some common GeoJSON types and their corresponding positions:
 
 - ``Point``: a single position.
@@ -81,7 +71,17 @@ Here are some common GeoJSON types and their corresponding positions:
 - ``Polygon``: a list of positions in which the first and last
   position are the same, thus enclosing some space.
 
-To learn more about the GeoJSON shapes you can use in MongoDB, see the
+.. tip:: Order Matters
+
+  GeoJSON orders coordinates as longitude first and latitude second. This may
+  be surprising as geographic coordinate system conventions generally list
+  latitude first and longitude second. Popular tools such as
+  OpenStreetMap and Google Maps list coordinates as latitude first and longitude
+  second. Be careful when moving geospatial data between GeoJSON and tools that
+  use geographic coordinate system conventions as you may need to swap your
+  longitude and latitude values. 
+
+To learn more about the shapes you can use in MongoDB, see the
 :manual:`GeoJSON manual entry </reference/geojson/>`.
 
 .. external resource
@@ -90,7 +90,7 @@ Index
 ~~~~~
 
 To query data stored in the GeoJSON format, add the field containing
-GeoJSON data to  a ``2dsphere`` index. The following snippet creates a
+GeoJSON data to a ``2dsphere`` index. The following snippet creates a
 ``2dsphere`` index on the ``location.geo`` field using the ``Indexes`` builder:
 
 .. code-block:: java
