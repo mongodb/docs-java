@@ -38,7 +38,7 @@ and values except for the ``_id`` field. By default, MongoDB makes the
 There are two ways to manage this field:
 
 - You can provide the same type for each ``_id``.
-- Omit the field to let the driver automatically generate unique values.
+- You can omit the field to let the driver automatically generate unique values.
 
 Unless you have another way to guarantee a unique index, let the
 driver to automatically generate ``_id`` values. 
@@ -94,7 +94,7 @@ For example, assume you want to insert the following documents:
    { "_id": 6, "color": "blue", "qty": 8 }
 
 If you attempt to insert these documents, a ``writeError`` occurs and
-the documents where the ``color`` is "red"  and "purple" appear in your
+the documents where the ``color`` is "red"  and "purple" are in your
 collection. 
 
 .. warning::
@@ -102,8 +102,8 @@ collection.
    There is no acknowledgment for the documents that inserted before
    the error occurs.
 
-If the insertion is successful for all the documents, the method returns
-an ``InsertManyResult`` instance representing the ``_id`` of each new
+If the insertion is successful, the method returns an
+``InsertManyResult`` instance representing the ``_id`` of each new 
 document. 
 
 Example
