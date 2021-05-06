@@ -28,34 +28,31 @@ The following sections focus on ``insertOne()`` and
 ``insertMany()``. For information on how to use the ``bulkWrite()``
 method, see our ``Bulk Operations <TODO>`` page. 
 
-Uniqueness
-----------
+A Note About ``_id``
+--------------------
 
-MongoDB expects all documents to be unique. To achieve this, the
-``_id`` field acts like the primary key.
+When inserting a document, you have the choice to include certain fields
+and values except for the ``_id`` field. By default, MongoDB makes the
+``_id`` field our unique index.
 
-Typically, the ``_id`` field should be one type. Although MongoDB allows
-you to have multiple types in a collection, this weakens your mechanism
-for uniqueness. You can address this by providing the same type for
-``_id`` or by omitting the ``_id`` field to let MongoDB automatically
-generate unique values. 
+There are two ways to manage this field:
 
-A unique ``_id`` from the driver should look something like this:
+- You can provide the same type for each ``_id``.
+- Omit the field to let the driver automatically generate unique values.
 
-.. code-block:: json
-   :copyable: false
+Unless you have another way to guarantee a unique index, let the
+driver to automatically generate ``_id`` values. 
 
-   "_id": { "$oid": "60905ef9865e2105ceb7f7b8" }
+.. note::
 
-If your ``_id`` isn't unique, the insertion fails and a ``writeError``
-occurs. 
+   If you violate the unique index constraint, the insertion fails and a
+   ``writeError`` occurs. 
  
 Insert a Single Document
 ------------------------
 
 Use the ``insertOne()`` method when you want to insert a single
-document. This method inserts a single document if the ``_id`` is
-unique. 
+document. 
 
 If the insertion is successful, the method returns an
 ``InsertOneResult`` instance representing the ``_id`` of the new
@@ -78,26 +75,32 @@ Your output should look something like this:
 .. code-block:: json
    :copyable: false
 
-   Inserted a document with the following id: 1
+   Inserted a document with the following id: 60930c39a982931c20ef6cd6
 
 Insert Multiple Documents
 -------------------------
 
 Use the ``insertMany()`` method when you want to insert multiple
-documents. This method inserts documents in the order you list the
-documents and stops inserting at the first document with a duplicated
-``_id``. 
+documents. This method inserts documents in the order specified until an
+exception occurs if any.
 
-For example, assume you have the following documents:
+For example, assume you want to insert the following documents:
 
 .. code-block:: json
 
-   { "_id": 5, "color": "red", "qty": 5 }
-   { "_id": 5, "color": "purple", "qty": 10 }
-   { "_id": 6, "color": "yellow", "qty": 3 }
+   { "_id": 3, "color": "red", "qty": 5 }
+   { "_id": 4, "color": "purple", "qty": 10 }
+   { "_id": 3, "color": "yellow", "qty": 3 }
+   { "_id": 6, "color": "blue", "qty": 8 }
 
-If you insert these documents, a ``writeError`` occurs and only the
-document where the ``color`` is "red" appears in your collection. 
+If you attempt to insert these documents, a ``writeError`` occurs and
+the documents where the ``color`` is "red"  and "purple" appear in your
+collection. 
+
+.. warning::
+
+   There is no acknowledgment for the documents that inserted before
+   the error occurs.
 
 If the insertion is successful for all the documents, the method returns
 an ``InsertManyResult`` instance representing the ``_id`` of each new
@@ -120,25 +123,18 @@ Your output should look something like this:
 .. code-block:: json
    :copyable: false
 
-   Inserted documents with the following ids: [1, 2]  
+   Inserted documents with the following ids: [60930c3aa982931c20ef6cd7, 60930c3aa982931c20ef6cd8] 
 
 Summary
 -------
-
-An insert operation is the first step you perform in MongoDB. After
-performing this operation, you can perform other operations such as
-retrieving, updating and deleting. 
 
 There are three ways to perform an insert operation, but we focused on two:
 
 - The ``insertOne()`` method inserts a single document.
 - The ``insertMany()`` method inserts multiple documents.
 
-For both methods, MongoDB expects all documents to have a unique ``_id``
-field. If this field is not unique, the insertion fails and a
-``writeError`` occurs. To guarantee uniqueness, you can provide the same
-type for ``_id`` or omit the field to let the driver automatically
-generate unique values. 
+Both methods automatically generate an ``_id`` if you omit the field in
+your document. 
 
 If the insertion is successful, both methods return an instance
 representing the ``_id`` of each new document.
@@ -162,6 +158,7 @@ Further Explanation From Our Manual
 
 - :manual:`insertOne() </reference/method/db.collection.insertOne/>`
 - :manual:`insertMany() </reference/method/db.collection.insertMany/>`
+- :manual:`Unique Indexes </core/index-unique/>`
 
 Runnable Examples
 ~~~~~~~~~~~~~~~~~

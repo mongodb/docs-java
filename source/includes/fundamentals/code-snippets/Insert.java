@@ -8,6 +8,8 @@ import com.mongodb.client.result.InsertManyResult;
 import com.mongodb.client.result.InsertOneResult;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -41,10 +43,10 @@ public class Insert {
     private void insertOneExample() {
         collection.drop();
         // begin insertOneExample
-        Document doc1 = new Document("_id", 1).append("color", "red").append("qty", 5);
+        Document doc1 = new Document("color", "red").append("qty", 5);
         
         InsertOneResult result = collection.insertOne(doc1);
-        System.out.println("Inserted a document with the following id: " + result.getInsertedId().asInt32().getValue());
+        System.out.println("Inserted a document with the following id: " + result.getInsertedId().asObjectId().getValue());
         // end insertOneExample
     }
 
@@ -53,16 +55,16 @@ public class Insert {
         // begin insertManyExample
         List<Document> documents = new ArrayList<>();
 
-        Document doc1 = new Document("_id", 1).append("color", "red").append("qty", 5);
-        Document doc2 = new Document("_id", 2).append("color", "purple").append("qty", 10);
+        Document doc1 = new Document("color", "red").append("qty", 5);
+        Document doc2 = new Document("color", "purple").append("qty", 10);
        
         documents.add(doc1);
         documents.add(doc2);
         
         InsertManyResult result = collection.insertMany(documents);
         
-        List<Integer> insertedIds = new ArrayList<>();
-        result.getInsertedIds().values().forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
+        List<ObjectId> insertedIds = new ArrayList<>();
+        result.getInsertedIds().values().forEach(doc -> insertedIds.add(doc.asObjectId().getValue()));
         
         System.out.print("Inserted documents with the following ids: " + insertedIds);
         
