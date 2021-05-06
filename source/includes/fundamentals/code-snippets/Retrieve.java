@@ -52,7 +52,7 @@ public class Retrieve {
 
     private void findExample(){
         // begin findExample
-        Bson filter = Filters.and(Filters.gt("qty", 3), Filters.lt("qty", 10));
+        Bson filter = Filters.and(Filters.gt("qty", 3), Filters.lt("qty", 9));
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end findExample
     }

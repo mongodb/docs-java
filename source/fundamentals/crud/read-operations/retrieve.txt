@@ -61,7 +61,7 @@ Example
 ```````
 
 The owner would like to know which orders contain greater than three, but
-less than 10 cans of paint from their :ref:`paint_order collection <retrieve-paint-order-collection>`.
+less than nine cans of paint from their :ref:`paint_order collection <retrieve-paint-order-collection>`.
 
 To address this scenario, the owner finds orders to match the criteria:
 
@@ -150,6 +150,11 @@ To open a change stream, call the ``watch()`` method on an instance of a
 ``MongoCollection``, ``MongoDatabase`` or ``MongoClient``. 
 You can pass an aggregation pipeline to this method to notify you as
 soon as a change occurs.
+
+.. note::
+
+   Change streams don't support standalone MongoDB instances because
+   they don't have an oplog. 
 
 The instance you call the ``watch()`` method on determines the scope of
 events which the change stream listens for. If you call ``watch()`` on a
