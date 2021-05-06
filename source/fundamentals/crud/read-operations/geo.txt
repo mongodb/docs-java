@@ -35,7 +35,7 @@ Coordinates on an Earth-like Sphere
 You can represent geospatial data on an Earth-like sphere with **GeoJSON**.
 GeoJSON is a geospatial data format created by the Internet Engineering
 Task Force (IETF). You can use the GeoJSON format to store your data in MongoDB,
-and you must use the GeoJSON format to query your geospatial data with MongoDB. 
+and you must use the GeoJSON format to query your geospatial data in MongoDB. 
 
 For a concrete reference, GeoJSON data often resembles the following structure:
 
@@ -69,11 +69,12 @@ A position is an array containing two or three number values:
 
   GeoJSON orders coordinates as longitude first and latitude second. This may
   be surprising as geographic coordinate system conventions generally list
-  latitude first and longitude second. Popular tools such as
-  OpenStreetMap and Google Maps list coordinates as latitude first and longitude
-  second. Be careful when moving geospatial data between GeoJSON and tools that
-  use geographic coordinate system conventions as you may need to swap your
-  longitude and latitude values. 
+  latitude first and longitude second. Make sure to check what format any other
+  tools you are working with use. Popular tools such as OpenStreetMap and Google
+  Maps list coordinates as latitude first and longitude second. 
+  
+  Be careful when moving geospatial data between GeoJSON and other
+  formats, as you may need to swap your longitude and latitude values. 
 
 GeoJSON Types
 ~~~~~~~~~~~~~
