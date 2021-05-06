@@ -191,6 +191,14 @@ tab corresponding to the logging framework you would like to use in your project
 
          12:35:00.438 [main] ERROR <my package path> - Logging an Error
 
+      .. note::
+
+         The default log level of Log4J2 is ERROR. This means that running
+         standard operations on the MongoDB Java driver will not produce output
+         from Log4J2 without configuration. To learn how to set your Log4J2
+         logger's log level, see the 
+         :ref:`example in the Configure Your Logger section of this page <configure-log-level>` .
+
       For more information on Log4j2, see the
       `Log4j2 manual <https://logging.apache.org/log4j/2.x/manual/>`__.
 
@@ -212,6 +220,8 @@ Example
 This example shows how to configure your logger's log level to INFO.
 Select the tab corresponding to the logging framework you are using in your
 project.
+
+.. _configure-log-level:
 
 .. tabs::
 
