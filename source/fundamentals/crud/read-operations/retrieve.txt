@@ -7,7 +7,7 @@ Retrieve Data
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 2
+   :depth: 1
    :class: singlecol
 
 Overview
@@ -39,13 +39,10 @@ track of the color and quantity, which corresponds to the ``color`` and
    { "_id": 3, "color": "purple", "qty": 4 }
    { "_id": 4, "color": "green", "qty": 11 }
 
-Read Operations
----------------
-
 .. _retrieve-find:
 
-Find
-~~~~
+Find Operation
+--------------
 
 Use the find operation to retrieve a subset of your existing data in
 MongoDB. You can specify what data to return including which documents
@@ -58,7 +55,7 @@ specify a query, see our :doc:`Specify a Query
 </fundamentals/crud/query-document>` guide. 
 
 Example
-```````
+~~~~~~~
 
 The owner would like to know which orders contain greater than three, but
 less than nine cans of paint from their :ref:`paint_order collection <retrieve-paint-order-collection>`.
@@ -89,8 +86,8 @@ Documents </usage-examples/find>` page.
 
 .. _retrieve-aggregate:
 
-Aggregate
-~~~~~~~~~
+Aggregate Operation
+-------------------
 
 Use the aggregate operation to perform the stages in an aggregation
 pipeline.  An aggregation pipeline is a multi-staged transformation that
@@ -104,7 +101,7 @@ fields and group values. For more information, see our
 :doc:`Aggregation </fundamentals/aggregation>` guide.
 
 Example
-```````
+~~~~~~~
 
 The owner would like to know which paint color is the most purchased
 (highest quantity sold) from their :ref:`paint_order collection <retrieve-paint-order-collection>`.
@@ -138,7 +135,7 @@ the MongoDB server manual page on :manual:`Aggregation </aggregation>`.
 .. _retrieve-watch:
 
 Change Streams
-~~~~~~~~~~~~~~
+--------------
 
 Open a change stream to monitor real-time changes to a collection.
 Change streams can subscribe to specific types of data changes and 
@@ -165,7 +162,7 @@ collections in the database. If you call ``watch()`` on a
 replica set, or a sharded cluster. 
 
 Example
-```````
+~~~~~~~
 
 The owner would like to receive notifications for when customers submit new
 orders or update their orders from thier :ref:`paint_order collection <retrieve-paint-order-collection>`.
