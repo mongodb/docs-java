@@ -380,10 +380,12 @@ Example - Logger Names
 ~~~~~~~~~~~~~~~~~~~~~~
 
 This example shows how to change the log level for a specific driver logger.
+We set the root logger to "OFF" and the  ``org.mongodb.connection`` logger to
+"INFO". This will cause the logger to only output messages related to connecting
+to a MongoDB instance. 
 
-In the following example, we set our root logger to "OFF" and the 
-``org.mongodb.connection`` logger to "INFO". This will cause your logger to only output
-messages related to connecting to your MongoDB instance. 
+Select the tab corresponding to the logging framework you are using in your
+project.
 
 .. tabs::
 
