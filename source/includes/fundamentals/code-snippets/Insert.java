@@ -38,12 +38,10 @@ public class Insert {
 
         System.out.println("Insert Many:");
         insert.insertManyExample();
-        System.out.println();
         insert.preview();
 
         System.out.println("Insert Many Error:");
         insert.insertManyErrorExample();
-        System.out.println();
         insert.preview();
     }
 
@@ -53,7 +51,8 @@ public class Insert {
         Document doc1 = new Document("color", "red").append("qty", 5);
         
         InsertOneResult result = collection.insertOne(doc1);
-        System.out.println("Inserted a document with the following id: " + result.getInsertedId().asObjectId().getValue());
+        System.out.println("Inserted a document with the following id: " 
+            + result.getInsertedId().asObjectId().getValue());
         // end insertOneExample
     }
 
@@ -71,9 +70,11 @@ public class Insert {
         InsertManyResult result = collection.insertMany(documents);
         
         List<ObjectId> insertedIds = new ArrayList<>();
-        result.getInsertedIds().values().forEach(doc -> insertedIds.add(doc.asObjectId().getValue()));
+        result.getInsertedIds()
+            .values()
+            .forEach(doc -> insertedIds.add(doc.asObjectId().getValue()));
         
-        System.out.print("Inserted documents with the following ids: " + insertedIds);
+        System.out.println("Inserted documents with the following ids: " + insertedIds);
         
         //end insertManyExample
     }
@@ -97,11 +98,16 @@ public class Insert {
         List<Integer> insertedIds = new ArrayList<>();
         try {
             InsertManyResult result = collection.insertMany(documents);  
-            result.getInsertedIds().values().forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
-            System.out.print("Inserted documents with the following ids: " + insertedIds);
+            result.getInsertedIds()
+                .values()
+                .forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
+            System.out.println("Inserted documents with the following ids: " + insertedIds);
         } catch(MongoBulkWriteException exception) {
-            exception.getWriteResult().getInserts().forEach(doc -> insertedIds.add(doc.getId().asInt32().getValue()));
-            System.out.print("A MongoBulkWriteException occurred, but there are documents successfully processed with the following ids: " + insertedIds);
+            exception.getWriteResult()
+                .getInserts()
+                .forEach(doc -> insertedIds.add(doc.getId().asInt32().getValue()));
+            System.out.println("A MongoBulkWriteException occurred, but there are " + 
+                "successfully processed documents have the following ids: " + insertedIds);
         }
         //end insertManyErrorExample
     }
