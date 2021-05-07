@@ -1,0 +1,117 @@
+===========================
+Update Arrays in a Document
+===========================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Overview
+--------
+
+
+Purpose of the document:
+    To teach the reader the ways to update an array in a document
+    To inform users of the available array update operations and when
+    they are useful
+    
+Why the user should care:
+   It's different than using an updates builder to update a field
+   Includes updating, adding, and deleting
+
+How the user's needs are met:
+    update
+        first match -- > $
+        all matches --> $[] and $[<identifier>]
+    
+    Also in Updates builder page:
+    
+    removal
+        first or last --> pop, same as Updates builder page
+        all array elements --> pull
+        all matching values --> pullAll, same as Updates builder page
+    adding
+        if does not exist --> add to set
+        adds regardless --> push
+
+Sample Data for Examples
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following sections feature examples on how to update the ``instock``
+embedded array in this document:
+
+.. code-block:: json
+
+    { _id: 1, 
+      color: 'green', 
+      instock: [ 
+          { qty: 8, warehouse: ['A', 'E'] }, 
+          { qty: 13, warehouse: ['B', 'C'] } , 
+          { qty: 15, warehouse: ['B', 'E'] } 
+        ] }
+
+First Element
+-------------
+
+Use the positional ``$`` operator to update the first element that
+matches your query filter.
+
+
+All Elements
+------------
+
+$[] 
+
+Use the positional ``$[]`` operator to update the first element that
+matches your query filter.
+
+and %[<identifier>]
+
+
+Delete an element
+
+pop
+
+pull
+
+
+
+Add an element
+
+addToSet
+
+push
+
+Summary
+-------
+
+Additional Resources
+--------------------
+
+For additional information on the classes and methods mentioned on this
+page, see the following resources: 
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+- :java-sync-api:`insertOne() <com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
+- :java-sync-api:`insertMany() <com/mongodb/client/MongoCollection.html#insertMany>`
+- :java-docs:`InsertOneResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
+- :java-docs:`InsertManyResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
+
+Further Explanation From Our Manual
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- :manual:`insertOne() </reference/method/db.collection.insertOne/>`
+- :manual:`insertMany() </reference/method/db.collection.insertMany/>`
+- :manual:`Unique Indexes </core/index-unique/>`
+
+Runnable Examples
+~~~~~~~~~~~~~~~~~
+
+- :doc:`Insert a Document </usage-examples/insertOne>` 
+- :doc:`Insert Multiple Documents </usage-examples/insertMany>`
