@@ -70,8 +70,7 @@ public class Insert {
         InsertManyResult result = collection.insertMany(documents);
         
         List<ObjectId> insertedIds = new ArrayList<>();
-        result.getInsertedIds()
-            .values()
+        result.getInsertedIds().values()
             .forEach(doc -> insertedIds.add(doc.asObjectId().getValue()));
         
         System.out.println("Inserted documents with the following ids: " + insertedIds);
@@ -98,16 +97,14 @@ public class Insert {
         List<Integer> insertedIds = new ArrayList<>();
         try {
             InsertManyResult result = collection.insertMany(documents);  
-            result.getInsertedIds()
-                .values()
+            result.getInsertedIds().values()
                 .forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
             System.out.println("Inserted documents with the following ids: " + insertedIds);
         } catch(MongoBulkWriteException exception) {
-            exception.getWriteResult()
-                .getInserts()
+            exception.getWriteResult().getInserts()
                 .forEach(doc -> insertedIds.add(doc.getId().asInt32().getValue()));
             System.out.println("A MongoBulkWriteException occurred, but there are " + 
-                "successfully processed documents have the following ids: " + insertedIds);
+                "successfully processed documents with the following ids: " + insertedIds);
         }
         //end insertManyErrorExample
     }
