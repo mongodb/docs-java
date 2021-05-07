@@ -7,6 +7,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertManyResult;
 import com.mongodb.client.result.InsertOneResult;
 
+import com.mongodb.MongoBulkWriteException;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -36,6 +38,11 @@ public class Insert {
 
         System.out.println("Insert Many:");
         insert.insertManyExample();
+        System.out.println();
+        insert.preview();
+
+        System.out.println("Insert Many Error:");
+        insert.insertManyErrorExample();
         System.out.println();
         insert.preview();
     }
@@ -69,6 +76,34 @@ public class Insert {
         System.out.print("Inserted documents with the following ids: " + insertedIds);
         
         //end insertManyExample
+    }
+
+    private void insertManyErrorExample() {
+        collection.drop();
+        
+        List<Document> documents = new ArrayList<>();
+
+        Document doc1 = new Document("_id", 3).append("color", "red").append("qty", 5);
+        Document doc2 = new Document("_id", 4).append("color", "purple").append("qty", 10);
+        Document doc3 = new Document("_id", 3).append("color", "yellow").append("qty", 3);
+        Document doc4 = new Document("_id", 6).append("color", "blue").append("qty", 8);
+       
+        documents.add(doc1);
+        documents.add(doc2);
+        documents.add(doc3);
+        documents.add(doc4);
+
+        // begin insertManyErrorExample
+        List<Integer> insertedIds = new ArrayList<>();
+        try {
+            InsertManyResult result = collection.insertMany(documents);  
+            result.getInsertedIds().values().forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
+            System.out.print("Inserted documents with the following ids: " + insertedIds);
+        } catch(MongoBulkWriteException exception) {
+            exception.getWriteResult().getInserts().forEach(doc -> insertedIds.add(doc.getId().asInt32().getValue()));
+            System.out.print("A MongoBulkWriteException occurred, but there are documents successfully processed with the following ids: " + insertedIds);
+        }
+        //end insertManyErrorExample
     }
 
     private void preview(){

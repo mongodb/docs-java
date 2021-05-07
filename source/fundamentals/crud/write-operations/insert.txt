@@ -97,10 +97,33 @@ If you attempt to insert these documents, a ``writeError`` occurs at the
 third document and the documents prior to the error get inserted into
 your collection. 
 
-.. warning::
+.. note::
 
-   There is no acknowledgment for the inserted documents before the
-   error occurs. 
+   Use a try-catch block to get an acknowledgment for successfully
+   processed documents before the error occurs:
+
+   .. literalinclude:: /includes/fundamentals/code-snippets/Insert.java
+      :language: java
+      :dedent:
+      :start-after: begin insertManyErrorExample
+      :end-before: end insertManyErrorExample
+
+   The output should look something like this:
+
+   .... code-block:: 
+      :copyable: false
+      
+      A MongoBulkWriteException occurred, but there are documents
+      successfully processed with the following ids: [3, 4, 6]
+      
+   The output consists of the properly formatted documents you can 
+   insert into your collection. When previewing inside your collection,
+   you see:
+   
+   .. code-block:: json
+
+      { "_id": 3, "color": "red", "qty": 5 }
+      { "_id": 4, "color": "purple", "qty": 10 }
 
 If the insertion is successful, the method returns an
 ``InsertManyResult`` instance representing the ``_id`` of each new 
