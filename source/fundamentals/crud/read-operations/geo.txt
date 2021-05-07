@@ -29,25 +29,19 @@ You should read this guide if you would like to:
 - Understand the different geospatial data formats in MongoDB.
 - Build geospatial queries.
 
-Coordinates on an Earth-like Sphere
------------------------------------
+Coordinates on Earth
+--------------------
 
-You can represent geospatial data on an Earth-like sphere with **GeoJSON**.
-GeoJSON is a geospatial data format created by the Internet Engineering
-Task Force (IETF). You can use the GeoJSON format to store your data in MongoDB,
-and you must use the GeoJSON format to query your geospatial data in MongoDB. 
+To store and query your geospatial data in MongoDB, use **GeoJSON**. GeoJSON is
+a data format created by the Internet Engineering Task Force (IETF). 
 
-For a concrete reference, GeoJSON data often resembles the following structure:
+Here is the location of MongoDB headquarters in GeoJSON:
 
 .. code-block:: json
 
-   "<field name>" : {
-      "type": "<GeoJSON type>",
-      "coordinates": [
-         [<longitude>, <latitude>],
-         ...
-         [<longitude>, <latitude>]
-      ]
+   "MongoDB Headquarters" : {
+      "type": "point",
+      "coordinates": [-73.986805, 40.7620853]
    }
 
 For definitive information on GeoJSON, see the
@@ -264,6 +258,12 @@ The output of the code snippet should look something like this:
    {"location": {"address": {"city": "Flushing"}}}
    {"location": {"address": {"city": "Flushing"}}}
    {"location": {"address": {"city": "Elmhurst"}}}
+
+.. note:: Fun Fact
+
+   MongoDB uses the
+   :manual:`same reference system </reference/glossary/#std-term-WGS84>`
+   as GPS satellites to calculate geometries over the Earth.
 
 For more information on the ``$near`` operator, see  
 :manual:`the reference documentation for $near </reference/operator/query/near/#mongodb-query-op.-near>`.
