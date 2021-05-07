@@ -194,8 +194,8 @@ tab corresponding to the logging framework you would like to use in your project
       .. note::
 
          The default log level of Log4J2 is ERROR. This means that running
-         standard operations on the MongoDB Java driver will not produce output
-         from Log4J2 without configuration. To learn how to set your Log4J2
+         standard operations in the MongoDB Java driver will not produce output
+         from Log4J2 without configuration. To learn how to change your Log4J2
          logger's log level, see the 
          :ref:`example in the Configure Your Logger section of this page <configure-log-level>` .
 
@@ -380,8 +380,8 @@ Example - Names
 ~~~~~~~~~~~~~~~
 
 This example shows how to change the log level for a specific driver logger.
-We set the root logger to "OFF" and the  ``org.mongodb.connection`` logger to
-"INFO". This will cause the application to only log messages related to connecting
+We set the root logger to OFF and the ``org.mongodb.connection`` logger to
+INFO. This will cause the application to only log messages related to connecting
 to a MongoDB instance. 
 
 Select the tab corresponding to the logging framework you are using in your
@@ -466,5 +466,5 @@ project.
          15:40:23.005 [cluster-ClusterId{value='<some value>', description='null'}-<your connection uri>] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:3, serverValue:<your server value>}] to <your connection uri>
          15:40:23.159 [main] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:7, serverValue:<your server value>}] to <your connection uri>
       
-      For more information on configuring Log4j2, see the official 
+      For more information on configuring Log4j2, see the 
       `official Log4J2 configuration guide <https://logging.apache.org/log4j/2.x/manual/configuration.html>`__.
