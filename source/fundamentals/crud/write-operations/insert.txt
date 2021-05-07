@@ -108,18 +108,16 @@ your collection.
       :start-after: begin insertManyErrorExample
       :end-before: end insertManyErrorExample
 
-   The output should look something like this:
+   The output consists of documents MongoDB can process and should look
+   something like this:
 
-   .... code-block:: 
-   
+   .. code-block:: 
       :copyable: false
       
       A MongoBulkWriteException occurred, but there are documents
       successfully processed with the following ids: [3, 4, 6]
-      
-   The output consists of the properly formatted documents you can 
-   insert into your collection. When previewing inside your collection,
-   you see:
+   
+   If you look inside your collection, you see the following documents:
    
    .. code-block:: json
 
