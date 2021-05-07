@@ -58,12 +58,12 @@ For definitive information on GeoJSON, see the
 GeoJSON Positions
 ~~~~~~~~~~~~~~~~~
 
-A position is the base unit in GeoJSON, and represents a single place on Earth.
-A position is an array containing two or three number values: 
+A position represents a single place on Earth, and exists in code as an array
+containing two or three number values: 
 
-- a longitude in the first position
-- a latitude in the second position
-- an optional elevation in the third position 
+- Longitude in the first position (required)
+- Latitude in the second position (required)
+- Elevation in the third position (optional)
 
 .. tip:: Order Matters
 
@@ -75,6 +75,9 @@ A position is an array containing two or three number values:
   
   Be careful when moving geospatial data between GeoJSON and other
   formats, as you may need to swap your longitude and latitude values. 
+
+For more information on GeoJSON positions, see the
+:rfc:`official definition of position from the GeoJSON specification <7946#section-3.1.1>`.
 
 GeoJSON Types
 ~~~~~~~~~~~~~
