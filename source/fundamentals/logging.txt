@@ -138,6 +138,13 @@ tab corresponding to the logging framework you would like to use in your project
          1156 [main] DEBUG o.m.driver.protocol.command - Sending command '{"find": "<your collection>", "filter": {}, "limit": 1, "singleBatch": true, "$db": "<your db>", "lsid": {"id": {"$binary": {"base64": "<server session>", "subType": "04"}}}}' with request id 13 to database <your db> on connection <your connection> to server <your server>
          1173 [main] DEBUG o.m.driver.protocol.command - Execution of command with request id 13 completed successfully in 30.01 ms on connection <your connection> to server <your server>
    
+      .. note:: Default Log Level
+
+         The default log level of Logback is DEBUG. To learn how to change your
+         Logback logger's log level, see the 
+         :ref:`example in the Configure Your Logger section of this page <configure-log-level>` .
+
+
       For more information on Logback, see the
       `Logback manual <http://logback.qos.ch/manual/>`__.
    
