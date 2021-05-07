@@ -254,22 +254,18 @@ project.
       .. code-block:: xml
 
          <configuration>
-         <appender name="CONSOLE"
-                   class="ch.qos.logback.core.ConsoleAppender">
-           <!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
-           <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-             <level>INFO</level>
-           </filter>
-           <encoder>
-             <pattern>
-               %-4relative [%thread] %-5level %logger{30} - %msg%n
-             </pattern>
-           </encoder>
-         </appender>
-         <root level="DEBUG">
-           <appender-ref ref="CONSOLE" />
-         </root>
-         </configuration>
+            <appender name="CONSOLE"
+                     class="ch.qos.logback.core.ConsoleAppender">
+               <encoder>
+                  <pattern>
+                        %-4relative [%thread] %-5level %logger{30} - %msg%n
+                  </pattern>
+               </encoder>
+            </appender>
+            <root level="INFO">
+               <appender-ref ref="CONSOLE" />
+            </root>
+      </configuration>
 
       To test that your logger configuration was successful, run the following
       code.
@@ -283,9 +279,6 @@ project.
          ...
          1317 [cluster-ClusterId{value='<your cluster id>', description='null'}-<your connection uri>] INFO  org.mongodb.driver.cluster - Discovered replica set primary <your connection uri>
          1568 [main] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:7, serverValue:<server value>}] to <your connection uri>  
-
-      The above ``logback.xml`` file is a copy of the
-      `Threshold Filter Example in chapter seven of the Logback Manual <https://logback.qos.ch/manual/filters.html#thresholdFilter>`__.
 
       For more information on configuring Logback, see the 
       `the Logback Manual <https://logback.qos.ch/manual/configuration.html>`__.
