@@ -41,12 +41,12 @@ There are two ways to manage this field:
 - You can let the driver automatically generate unique ObjectId values.
 
 Unless you have provided strong guarantees for uniqueness, we recommend
-you let the driver to automatically generate ``_id`` values. 
+you let the driver automatically generate ``_id`` values. 
 
 .. note::
 
-   If you violate the unique index constraint, the insertion fails and a
-   ``writeError`` occurs. 
+   Duplicate ``_id`` values violate unique index constraints, resulting
+   in a ``writeError``. 
  
 Insert a Single Document
 ------------------------
@@ -54,9 +54,8 @@ Insert a Single Document
 Use the ``insertOne()`` method when you want to insert a single
 document. 
 
-If the insertion is successful, the method returns an
-``InsertOneResult`` instance representing the ``_id`` of the new
-document. 
+On successful insertion, the method returns an ``InsertOneResult``
+instance representing the ``_id`` of the new document. 
 
 Example
 ~~~~~~~
@@ -124,9 +123,8 @@ your collection.
       { "_id": 3, "color": "red", "qty": 5 }
       { "_id": 4, "color": "purple", "qty": 10 }
 
-If the insertion is successful, the method returns an
-``InsertManyResult`` instance representing the ``_id`` of each new 
-document. 
+On successful insertion, the method returns an ``InsertManyResult``
+instance representing the ``_id`` of each new document. 
 
 Example
 ~~~~~~~
