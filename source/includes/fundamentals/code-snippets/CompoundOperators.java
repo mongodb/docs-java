@@ -7,13 +7,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 
-/**
- * Hello world!
- */
-
-
-
-
 public class CompoundOperators {
 
 
@@ -23,7 +16,7 @@ public class CompoundOperators {
 
     /**
      * This example demonstrates a race condition that compound operations can help
-     * mitigate. Run the example a few times and see what happens in the safe example
+     * fix. Run the example a few times and see what happens in the safe example
      * and the unsafe example. Notice that in the unsafe example often someone is incorrectly
      * notified that they booked a room.
      */
@@ -39,13 +32,15 @@ public class CompoundOperators {
         CompoundOperators.resetExample();
         Thread thread1;
         Thread thread2;
+        String guest1 = "Jan";
+        String guest2 = "Pat";
         if (safe) {
-            thread1 = new DemoClientSafe("Jan");
-            thread2 = new DemoClientSafe("Pat");
+            thread1 = new DemoClientSafe(guest1);
+            thread2 = new DemoClientSafe(guest2);
         }
         else {
-            thread1 = new DemoClientUnsafe("Jan");
-            thread2 = new DemoClientUnsafe("Pat");
+            thread1 = new DemoClientUnsafe(guest1);
+            thread2 = new DemoClientUnsafe(guest2);
         }
         thread1.start();
         thread2.start();
@@ -108,17 +103,20 @@ class DemoClientUnsafe extends DemoClient {
         super(guest);
     }
 
+    // start the-unsafe-book-a-room
     public void bookARoom() {
         MongoCollection<Document> collection = CompoundOperators.getCollection();
-        Bson myRoom = collection.find(Filters.eq("reserved", false)).first();
+        Bson filter = Filters.eq("reserved", false);
+        Document myRoom = collection.find(filter).first();
         if (myRoom == null){
             System.out.println("Sorry, we are booked " + this.guest);
             return;
         }
         System.out.println("You got the room " + this.guest);
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
-        collection.updateOne(Filters.eq("_id", myRoom.toBsonDocument().get("_id")), update);
+        collection.updateOne(Filters.eq("_id", myRoom.getObjectId("_id")), update);
     }
+    // end the-unsafe-book-a-room
 
 }
 
@@ -134,15 +132,18 @@ class DemoClientSafe extends DemoClient {
         super(guest);
     }
 
+    // start the-safe-book-a-room
     public void bookARoom(){
         MongoCollection<Document> collection = CompoundOperators.getCollection();
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
-        Bson myRoom = collection.findOneAndUpdate(Filters.eq("reserved", false), update);
+        Bson filter = Filters.eq("reserved", false);
+        Bson myRoom = collection.findOneAndUpdate(filter, update);
         if (myRoom == null){
             System.out.println("Sorry, we are booked " + this.guest);
             return;
         }
         System.out.println("You got the room " + this.guest);
     }
+    // end the-safe-book-a-room
 
 }
