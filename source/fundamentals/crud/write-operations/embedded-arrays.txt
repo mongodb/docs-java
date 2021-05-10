@@ -30,14 +30,13 @@ embedded arrays of ``outer_array``:
         ... ]
 
 To access elements in an embedded array, concatenate the array name and
-the embedded array name using the dot notation. For example, to access
-``inner_array2`` elements from the snippet above, you must say
-``outer_array.inner_array2``. 
+the embedded array name using the dot notation. For example, using
+``outer_array.inner_array2`` would allow you to access ``inner_array2``
+elements from the snippet above. 
 
 To update an embedded array, you must first specify which embedded
 arrays to update with positional operators. Positional operators specify
-the embedded arrays we want to match. In MongoDB, you can specify the
-first embedded array, all embedded arrays, or certain embedded arrays. 
+the first, all, or certain embedded arrays.
 
 Then, you can perform the update using Updates builders as the second
 parameter in the ``updateOne()`` and ``updateMany()`` methods. 
@@ -68,14 +67,14 @@ For embedded arrays, you must pass the field and a document that
 represents an embedded array to the following array helper methods:
 
 - ``pull()``, which removes all embedded arrays with the values in the document
-- ``push()``, which appends the document to the array regardless if it exists
-- ``addToSet()`` , which appends the document to an array if the document is not already present
+- ``push()``, which appends the document to the array regardless if the embedded array exists
+- ``addToSet()``, which appends the document to an array if the embedded array does not exist
 
 Example
 ~~~~~~~
 
-The following example adds a document to the ``instock`` array where the
-``qty`` is "11" and ``warehouse`` is "D" by: 
+The following example adds an embedded array where the ``qty`` is "11" and
+``warehouse`` is "D" to the ``instock`` array by: 
 
 - Creating a document where ``qty`` is "11" and ``warehouse`` is "D"
 - Using the ``push()`` method to add the document
@@ -85,7 +84,6 @@ The following example adds a document to the ``instock`` array where the
    :dedent:
    :start-after: begin pushElementsExample
    :end-before: end pushElementsExample
-   :emphasize-lines: 2
 
 Your output should look something like this:
 
@@ -184,8 +182,8 @@ variable in your ``arrayFilters``.
 
 .. note::
 
-    The <identifier> must begin with a lowercase letter and contain only
-    alphanumeric characters.
+    The ``<identifier>`` must begin with a lowercase letter and contain
+    only alphanumeric characters.
 
 Example
 ~~~~~~~
@@ -193,8 +191,7 @@ Example
 The following example removes "B" from the ``warehouse`` array in each
 embedded array by:
 
-- Setting a ``UpdateOptions.arrayFilters`` condition to search for "B"
- in the warehouse array
+- Setting a ``UpdateOptions.arrayFilters`` condition to search for "B" in the warehouse array
 - Using the ``pull()`` method with a filtered positional operator to remove "B"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
@@ -253,4 +250,4 @@ Other Doc's Pages
 
 - :doc:`Update a Document </usage-examples/updateOne>` 
 - :doc:`Update Multiple Documents </usage-examples/updateMany>`
-- :doc:`Updates builders </fundamentals/builders/updates>`
+- :doc:`Updates Builders </fundamentals/builders/updates>`
