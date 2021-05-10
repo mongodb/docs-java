@@ -35,12 +35,12 @@ public class UpdateArray {
         updateArray.updateValueExample();
         updateArray.preview();
 
-        System.out.println("$[] example:");
+        System.out.println("$<> example:");
         updateArray.setUpDocument();
         updateArray.updateValueOptionsExample();
         updateArray.preview();
 
-        System.out.println("$<> example:");
+        System.out.println("$[] example:");
         updateArray.setUpDocument();
         updateArray.updateAllElementsExample();
         updateArray.preview();
@@ -49,31 +49,6 @@ public class UpdateArray {
         updateArray.setUpDocument();
         updateArray.pushElementsExample();
         updateArray.preview();
-
-        System.out.println("Add To Set example:");
-        updateArray.setUpDocument();
-        updateArray.addToSetElementsExample();
-        updateArray.preview();
-
-        // System.out.println("Pop First example:");
-        // updateArray.setUpDocument();
-        // updateArray.popFirstElementsExample();
-        // updateArray.preview();
-
-        // System.out.println("Pop Last example:");
-        // updateArray.setUpDocument();
-        // updateArray.popLastElementsExample();
-        // updateArray.preview();
-
-        System.out.println("Pull example:");
-        updateArray.setUpDocument();
-        updateArray.pullElementsExample();
-        updateArray.preview();
-
-        // System.out.println("Pull All example:");
-        // updateArray.setUpDocument();
-        // updateArray.pullAllElementsExample();
-        // updateArray.preview();
     }
 
     private void updateValueExample(){
@@ -86,16 +61,16 @@ public class UpdateArray {
 
     private void updateValueOptionsExample(){
         // begin updateValueOptionsExample
-        Bson filter = Filters.empty();
-        UpdateOptions options = new UpdateOptions().arrayFilters(Arrays.asList(Filters.eq("instock.warehouse", 'B')));
-        Bson update = Updates.inc("instock.$[instock].qty", -3);
+        Bson filter = Filters.eq("_id", 1);
+        UpdateOptions options = new UpdateOptions().arrayFilters(Arrays.asList(Filters.eq("location.warehouse", 'B')));
+        Bson update = Updates.pull("instock.$[location].warehouse", 'B' );
         collection.updateOne(filter, update, options);
         // end updateValueOptionsExample
     }
 
     private void updateAllElementsExample(){
         // begin updateAllElementsExample
-        Bson filter = Filters.eq("instock.warehouse", 'B');
+        Bson filter = Filters.eq("_id", 1);
         Bson update = Updates.inc("instock.$[].qty", 5);
         collection.updateOne(filter, update);
         // end updateAllElementsExample
@@ -103,55 +78,13 @@ public class UpdateArray {
 
     private void pushElementsExample(){
         // begin pushElementsExample
-        Bson filter = Filters.empty();
-        Document doc = new Document().append("qty", "11").append("warehouse", Arrays.asList('D'));
+        Bson filter = Filters.eq("_id", 1);
+        Document doc = new Document("qty", "11").append("warehouse", Arrays.asList('D'));
         Bson update = Updates.push("instock", doc);
         collection.updateOne(filter, update);
         // end pushElementsExample
     }
-
-    private void addToSetElementsExample(){
-        // begin addToSetElementsExample
-        Bson filter = Filters.empty();
-        Document doc = new Document().append("qty", 8).append("warehouse", Arrays.asList('A', 'E'));
-        Bson update = Updates.addToSet("instock", doc);
-        collection.updateOne(filter, update);
-        // end addToSetElementsExample
-    }
-
-    // private void popFirstElementsExample(){
-    //     // begin popFirstElementsExample
-    //     Bson filter = Filters.empty();
-    //     Bson update = Updates.popFirst("instock");
-    //     collection.updateOne(filter, update);
-    //     // end popFirstElementsExample
-    // }
-
-    // private void popLastElementsExample(){
-    //     // begin popLastElementsExample
-    //     Bson filter = Filters.empty();
-    //     Bson update = Updates.popLast("instock");
-    //     collection.updateOne(filter, update);
-    //     // end popLastElementsExample
-    // }
-
-    private void pullElementsExample(){
-        // begin pullElementsExample
-        Bson filter = Filters.empty();
-        Document doc = new Document().append("warehouse", 'B');
-        Bson update = Updates.pull("instock", doc);
-        collection.updateOne(filter, update);
-        // end pullElementsExample
-    }
-
-    // private void pullAllElementsExample(){
-    //     // begin pullAllElementsExample
-    //     Bson filter = Filters.empty();
-    //     Bson update = Updates.pullAll("instock", Arrays.asList('A', 'E'));
-    //     collection.updateOne(filter, update);
-    //     // end pullAllElementsExample
-    // }
-
+    
     private void preview(){
         collection.find().forEach(doc -> System.out.println(doc.toJson()));
     }
@@ -159,10 +92,7 @@ public class UpdateArray {
     private void setUpDocument(){
         collection.drop();
         collection.insertOne(
-            Document.parse("{ _id: 1, color: 'green', instock: [ { qty: 8, warehouse: ['A', 'E'] }, { qty: 13, warehouse: ['B', 'C'] } , { qty: 15, warehouse: ['B', 'E'] } ] }")
+            Document.parse("{ _id: 1, color: 'green', instock: [ { qty: 8, warehouse: ['A', 'E'] }, { qty: 13, warehouse: ['B', 'C'] } , { qty: 15, warehouse: ['B', 'F']} ] }")
             );
     }
-}
-public class UpdateArray {
-    
 }

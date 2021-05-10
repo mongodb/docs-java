@@ -13,81 +13,170 @@ Update Arrays in a Document
 Overview
 --------
 
+In this guide, you will learn how to update an embedded array in a
+document.
 
-Purpose of the document:
-    To teach the reader the ways to update an array in a document
-    To inform users of the available array update operations and when
-    they are useful
-    
-Why the user should care:
-   It's different than using an updates builder to update a field
-   Includes updating, adding, and deleting
+Similar to updating an array, you can update an embedded array by using
+:doc:`Updates builders </fundamentals/builders/updates>`. Additionally,
+you can specify which embedded arrays you want to modify with positional
+operators. 
 
-How the user's needs are met:
-    update
-        first match -- > $
-        all matches --> $[] and $[<identifier>]
-    
-    Also in Updates builder page:
-    
-    removal
-        first or last --> pop, same as Updates builder page
-        all array elements --> pull
-        all matching values --> pullAll, same as Updates builder page
-    adding
-        if does not exist --> add to set
-        adds regardless --> push
-
-Sample Data for Examples
-~~~~~~~~~~~~~~~~~~~~~~~~
+Sample Document for Examples
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following sections feature examples on how to update the ``instock``
-embedded array in this document:
+array in this document:
 
 .. code-block:: json
 
-    { _id: 1, 
-      color: 'green', 
-      instock: [ 
-          { qty: 8, warehouse: ['A', 'E'] }, 
-          { qty: 13, warehouse: ['B', 'C'] } , 
-          { qty: 15, warehouse: ['B', 'E'] } 
-        ] }
+    { "_id": 1, 
+      "color": "green", 
+      "instock": [
+        { "qty": 8, "warehouse": ["A", "E"] }, 
+        { "qty": 13, "warehouse": ["B", "C"] }, 
+        { "qty": 15, "warehouse": ["B", "F"] } ]}
 
-First Element
--------------
+Updates Builders
+----------------
+
+To update an array, you pass the field and value you want to an Updates
+builder method. But for embedded arrays, you need to pass the field and
+a document that represents an array to the ``push()``, ``pull()`` and
+``addToSet()`` methods. 
+
+Example
+```````
+
+The following example adds an embedded array to the ``instock`` array
+where the ``qty`` is "11" and ``warehouse`` is "D":
+
+.. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
+   :language: java
+   :dedent:
+   :start-after: begin pushElementsExample
+   :end-before: end pushElementsExample
+   :emphasize-lines: 2
+
+Your output should look something like this:
+
+.. code-block::
+   :copyable: false
+
+    { "_id": 1, 
+      "color": "green", 
+      "instock": [
+        { "qty": 8, "warehouse": ["A", "E"] }, 
+        { "qty": 13, "warehouse": ["B", "C"] }, 
+        { "qty": 15, "warehouse": ["B", "F"] }, 
+        { "qty": "11", "warehouse": ["D"] } ]}
+
+Matching the First Array Element
+--------------------------------
 
 Use the positional ``$`` operator to update the first element that
-matches your query filter.
+matches your query filter. 
 
+This positional operator references the array matched by the query
+filter and cannot reference a nested array. If you want to access a
+nested array, use the :ref:`filtered positional operator <filtered_positional_operator>`. 
 
-All Elements
-------------
+Example
+```````
 
-$[] 
+The following example filters for the first embedded arrays where "B" is
+in the ``warehouse`` field and decreases the ``qty`` field by "3":
 
-Use the positional ``$[]`` operator to update the first element that
-matches your query filter.
+.. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
+   :language: java
+   :dedent:
+   :start-after: begin updateValueExample
+   :end-before: end updateValueExample
 
-and %[<identifier>]
+Your output should look something like this:
 
+.. code-block::
+   :copyable: false
 
-Delete an element
+    { "_id": 1, 
+      "color": "green", 
+      "instock": [
+        { "qty": 8, "warehouse": ["A", "E"] }, 
+        { "qty": 10, "warehouse": ["B", "C"] }, 
+        { "qty": 15, "warehouse": ["B", "F"] } ]}
 
-pop
+Matching All Array Elements
+---------------------------
 
-pull
+Use the all positional ``$[]`` operator to update each embedded array in
+the document matched by your query filter.
 
+Example
+```````
 
+The following example increases the ``qty`` field for each embedded
+array by "5": 
 
-Add an element
+.. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
+   :language: java
+   :dedent:
+   :start-after: begin updateAllElementsExample
+   :end-before: end updateAllElementsExample
 
-addToSet
+Your output should look something like this:
 
-push
+.. code-block::
+   :copyable: false
+
+    { "_id": 1, 
+      "color": "green", 
+      "instock": [
+        {"qty": 13, "warehouse": ["A", "E"]}, 
+        {"qty": 18, "warehouse": ["B", "C"]}, 
+        {"qty": 20, "warehouse": ["B", "F"]} ]}
+
+.. _filtered_positional_operator:
+
+Filtered Positional Operator
+----------------------------
+
+Use the filtered positional ``$[<identifier>]`` operator to update the
+embedded arrays that match the ``UpdateOptions.arrayFilters`` condition.
+The ``identifier`` is the value you give the prefix of the variable in
+your ``arrayFilters``. 
+
+Example
+```````
+
+The following example removes "B" from the ``warehouse`` field in each
+embedded array:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
+   :language: java
+   :dedent:
+   :start-after: begin updateValueExample
+   :end-before: end updateValueExample
+
+Your output should look something like this:
+
+.. code-block::
+   :copyable: false
+
+    {  "_id": 1, 
+      "color": "green", 
+      "instock": [
+        { "qty": 8, "warehouse": ["A", "E"] }, 
+        { "qty": 13, "warehouse": ["C"] }, 
+        { "qty": 15, "warehouse": ["F"] } ]}
 
 Summary
 -------
+
+There are three positional operators that can specify which embedded
+array to update:
+
+- ``$`` updates the first element that matches your query filter
+- ``$[]`` updates all elements that match your query filter
+- ``$[<identifier>]`` updates the elements that match your ``UpdateOptions.arrayFilters`` condition
 
 Additional Resources
 --------------------
@@ -96,22 +185,23 @@ For additional information on the classes and methods mentioned on this
 page, see the following resources: 
 
 API Documentation
-~~~~~~~~~~~~~~~~~
+`````````````````
 
-- :java-sync-api:`insertOne() <com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
-- :java-sync-api:`insertMany() <com/mongodb/client/MongoCollection.html#insertMany>`
-- :java-docs:`InsertOneResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
-- :java-docs:`InsertManyResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
+- :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>>`
+- :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>`
+- :java-core-api:`push() method <com/mongodb/client/model/Updates.html#push(java.lang.String,TItem)>`
+- :java-core-api:`pull() method <com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>`
+- :java-core-api:`addToSet() method <com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`
 
 Further Explanation From Our Manual
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```````````````````````````````````
 
-- :manual:`insertOne() </reference/method/db.collection.insertOne/>`
-- :manual:`insertMany() </reference/method/db.collection.insertMany/>`
-- :manual:`Unique Indexes </core/index-unique/>`
+- :manual:`$ operator </reference/operator/update/positional>`
+- :manual:`$[] operator </reference/operator/update/positional-all/>`
+- :manual:`$[<identifier>] operator </reference/operator/update/positional-filtered/>`
 
 Runnable Examples
-~~~~~~~~~~~~~~~~~
+`````````````````
 
-- :doc:`Insert a Document </usage-examples/insertOne>` 
-- :doc:`Insert Multiple Documents </usage-examples/insertMany>`
+- :doc:`Update a Document </usage-examples/updateOne>` 
+- :doc:`Update Multiple Documents </usage-examples/updateMany>`
