@@ -16,10 +16,28 @@ Overview
 In this guide, you will learn how to update an embedded array in a
 document.
 
-Similar to updating an array, you can update an embedded array by using
-:doc:`Updates builders </fundamentals/builders/updates>`. Additionally,
-you can specify which embedded arrays you want to modify with positional
-operators. 
+Generally, an array has the following format: 
+
+.. code-block:: json
+
+    "array": [ val1, val2, ..., valn]
+
+An embedded array is an array within an array. with the following format:
+
+.. code-block:: json
+
+    "outer_array": [
+        { "inner_array1": [ val1, val2 ] }, 
+        { "inner_array2": [ val3, val4 ] },
+        ... ]
+
+The snippet above shows ``inner_array1`` and ``inner_array2`` as
+embedded arrays within ``outer_array``.
+
+You can update an embedded array by using Updates builders. Additionally,
+you can specify how to update embedded arrays with positional operators.
+Positional operators specify the position of the embedded array we want 
+to access. 
 
 Sample Document for Examples
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -39,15 +57,23 @@ array in this document:
 Updates Builders
 ----------------
 
-To update an array, you pass the field and value you want to an Updates
-builder method. But for embedded arrays, you need to pass the field and
-a document that represents an array to the ``push()``, ``pull()`` and
-``addToSet()`` methods. 
+Update builders provide helper methods to update fields and arrays in a
+document.  
+
+To update a non-embedded array, you pass the field and value you want to
+an array Updates method. 
+
+For embedded arrays, you must to pass the field and a document that
+represents an array to the following methods: 
+
+- ``pull()``, which removes all embedded arrays with the values in the document
+- ``push()``, which appends the document to the array regardless if it exists
+- ``addToSet()`` , which appends the document to an array if the document is not already present
 
 Example
 ~~~~~~~
 
-The following example adds an embedded array to the ``instock`` array
+The following example adds a document to the ``instock`` array
 where the ``qty`` is "11" and ``warehouse`` is "D":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
@@ -55,7 +81,7 @@ where the ``qty`` is "11" and ``warehouse`` is "D":
    :dedent:
    :start-after: begin pushElementsExample
    :end-before: end pushElementsExample
-   :emphasize-lines: 2-3
+   :emphasize-lines: 2
 
 Your output should look something like this:
 
@@ -73,8 +99,8 @@ Your output should look something like this:
 Matching the First Array Element
 --------------------------------
 
-Use the positional ``$`` operator to update the first element that
-matches your query filter. 
+To update the first element that matches your query filter, use the
+positional ``$`` operator. 
 
 This positional operator references the array matched by the query
 filter and cannot reference a nested array. If you want to access a
@@ -107,13 +133,13 @@ Your output should look something like this:
 Matching All Array Elements
 ---------------------------
 
-Use the all positional ``$[]`` operator to update each embedded array in
-the document matched by your query filter.
+To update each embedded array in the document matched by your query
+filter, use the all positional ``$[]`` operator. 
 
 Example
 ~~~~~~~
 
-The following example increases the ``qty`` field for each embedded
+The following example increments the ``qty`` field for each embedded
 array by "5": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
@@ -139,10 +165,10 @@ Your output should look something like this:
 Filtered Positional Operator
 ----------------------------
 
-Use the filtered positional ``$[<identifier>]`` operator to update the
-embedded arrays that match the ``UpdateOptions.arrayFilters`` condition.
-The ``identifier`` is the value you give the prefix of the variable in
-your ``arrayFilters``. 
+To update the embedded arrays that match the
+``UpdateOptions.arrayFilters`` condition, use the filtered positional
+``$[<identifier>]`` operator. The ``identifier`` is the value you give
+the prefix of the variable in your ``arrayFilters``. 
 
 Example
 ~~~~~~~
@@ -198,10 +224,11 @@ Further Explanation From Our Manual
 
 - :manual:`$ operator </reference/operator/update/positional>`
 - :manual:`$[] operator </reference/operator/update/positional-all/>`
-- :manual:`$[<identifier>] operator </reference/operator/update/positional-filtered/>`
+- :manual:`$[\<identifier\>] operator </reference/operator/update/positional-filtered/>`
 
-Runnable Examples
+Other Doc's Pages
 ~~~~~~~~~~~~~~~~~
 
 - :doc:`Update a Document </usage-examples/updateOne>` 
 - :doc:`Update Multiple Documents </usage-examples/updateMany>`
+- :doc:`Updates builders </fundamentals/builders/updates>`

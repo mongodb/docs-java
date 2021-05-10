@@ -79,7 +79,7 @@ public class UpdateArray {
     private void pushElementsExample(){
         // begin pushElementsExample
         Bson filter = Filters.eq("_id", 1);
-        Document doc = new Document("qty", "11").append("warehouse", Arrays.asList('D'));
+        Document doc = new Document("qty", 11).append("warehouse", Arrays.asList('D'));
         Bson update = Updates.push("instock", doc);
         collection.updateOne(filter, update);
         // end pushElementsExample
