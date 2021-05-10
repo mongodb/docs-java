@@ -45,7 +45,7 @@ a document that represents an array to the ``push()``, ``pull()`` and
 ``addToSet()`` methods. 
 
 Example
-```````
+~~~~~~~
 
 The following example adds an embedded array to the ``instock`` array
 where the ``qty`` is "11" and ``warehouse`` is "D":
@@ -55,11 +55,11 @@ where the ``qty`` is "11" and ``warehouse`` is "D":
    :dedent:
    :start-after: begin pushElementsExample
    :end-before: end pushElementsExample
-   :emphasize-lines: 2
+   :emphasize-lines: 2-3
 
 Your output should look something like this:
 
-.. code-block::
+.. code-block:: json
    :copyable: false
 
     { "_id": 1, 
@@ -81,7 +81,7 @@ filter and cannot reference a nested array. If you want to access a
 nested array, use the :ref:`filtered positional operator <filtered_positional_operator>`. 
 
 Example
-```````
+~~~~~~~
 
 The following example filters for the first embedded arrays where "B" is
 in the ``warehouse`` field and decreases the ``qty`` field by "3":
@@ -94,7 +94,7 @@ in the ``warehouse`` field and decreases the ``qty`` field by "3":
 
 Your output should look something like this:
 
-.. code-block::
+.. code-block:: json
    :copyable: false
 
     { "_id": 1, 
@@ -111,7 +111,7 @@ Use the all positional ``$[]`` operator to update each embedded array in
 the document matched by your query filter.
 
 Example
-```````
+~~~~~~~
 
 The following example increases the ``qty`` field for each embedded
 array by "5": 
@@ -124,7 +124,7 @@ array by "5":
 
 Your output should look something like this:
 
-.. code-block::
+.. code-block:: json
    :copyable: false
 
     { "_id": 1, 
@@ -145,7 +145,7 @@ The ``identifier`` is the value you give the prefix of the variable in
 your ``arrayFilters``. 
 
 Example
-```````
+~~~~~~~
 
 The following example removes "B" from the ``warehouse`` field in each
 embedded array:
@@ -158,7 +158,7 @@ embedded array:
 
 Your output should look something like this:
 
-.. code-block::
+.. code-block:: json
    :copyable: false
 
     {  "_id": 1, 
@@ -185,7 +185,7 @@ For additional information on the classes and methods mentioned on this
 page, see the following resources: 
 
 API Documentation
-`````````````````
+~~~~~~~~~~~~~~~~~
 
 - :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>>`
 - :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>`
@@ -194,14 +194,14 @@ API Documentation
 - :java-core-api:`addToSet() method <com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`
 
 Further Explanation From Our Manual
-```````````````````````````````````
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - :manual:`$ operator </reference/operator/update/positional>`
 - :manual:`$[] operator </reference/operator/update/positional-all/>`
 - :manual:`$[<identifier>] operator </reference/operator/update/positional-filtered/>`
 
 Runnable Examples
-`````````````````
+~~~~~~~~~~~~~~~~~
 
 - :doc:`Update a Document </usage-examples/updateOne>` 
 - :doc:`Update Multiple Documents </usage-examples/updateMany>`
