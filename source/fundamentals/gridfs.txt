@@ -1,0 +1,87 @@
+======
+GridFS
+======
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+This guide shows you how to store and retrieve large files in MongoDB using 
+**GridFS**. GridFS is a specification that describes how to split files
+into chunks for storage and reassemble them for retrieval. You should use
+GridFS if the size of your files may exceed the BSON document limit of 16MB. 
+
+For more information on whether GridFS is suitable for your use case, see the
+:manual:`GridFS server manual page </core/gridfs>`.
+
+
+How GridFS Works
+----------------
+
+.. GridFS is an abstraction that handles MongoDB operations that store and retrieve binary files. 
+
+GridFS organizes files in a **bucket**, a group of MongoDB collections
+that contain the chunks of files and information describing them. The
+default bucket name is ``fs`` which is used prefix the collections it
+contains:
+
+.. TODO: reword last sentence
+
+- The ``chunks`` collection stores the binary file chunks. 
+- The ``files`` collection stores the file metadata.
+
+When storing files, GridFS splits the files into smaller chunks, each 
+represented by a separate document in the ``chunks`` collection. It also
+creates a document in the ``files`` collection that contains file metadata
+and references to each of chunks.
+
+.. figure:: /includes/figures/GridFS-upload.png
+
+When retrieving files, GridFS fetches the metadata from the ``files`` 
+collection and uses the information to reconstruct the file from documents
+in the ``chunks`` collection. You can read the file into memory or output it 
+to a stream.
+
+You can learn how to perform the following GridFS operations from the
+following sections:
+
+Create a GridFS bucket or reference an existing one
+
+Store files using an InputStream
+
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFS.java
+   :language: java
+   :dedent:
+   :start-after: start uploadFromInputStream
+   :end-before: end uploadFromInputStream
+
+Store files using an OutputStream
+
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFS.java
+   :language: java
+   :dedent:
+   :start-after: start uploadFromOutputStream
+   :end-before: end uploadFromOutputStream
+
+Retrieve file metadata (all files, using a query filter)
+
+Modify file metadata (rename files)
+
+Send retrieved files to an outputstream
+
+Send retrieved files to an inputstream
+
+Delete files by id
+
+
+Additional Resources
+--------------------
+
+- Runnable example 
+  `GridFSTour.java <https://github.com/mongodb/mongo-java-driver/blob/master/driver-sync/src/examples/gridfs/GridFSTour.java>`__ 
+  from the MongoDB Java Driver repository.
+
