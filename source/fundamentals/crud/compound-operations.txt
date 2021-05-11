@@ -26,7 +26,7 @@ If an operation is atomic, then the operation is **thread safe**. A thread safe
 operation is an operation that your computer can run in parallel and produce the
 expected result. 
 
-When to use Compound Operations
+When to Use Compound Operations
 -------------------------------
 
 Compound operations can fix certain kinds of **race conditions** in your code.
@@ -40,7 +40,7 @@ that makes us check out one hotel room to two people.
 `The full code for this example is available on Github here. <http://httpstat.us/404>`__
 
 For this example, lets imagine that we run a hotel with one room, and we have a
-small Java application to help us check out this room to guests. 
+small Java application to help us check out this room to guests.  
 
 We represent our one room with this document in MongoDB. 
 
@@ -59,7 +59,7 @@ Lets say our app uses this unsafe Java method to check out our room to guests.
    :start-after: start the-unsafe-book-a-room
    :end-before: end the-unsafe-book-a-room
 
-Now imaging two separate guests, Jan and Pat, try to use this method to book
+Now imagine two separate guests, Jan and Pat, try to use this method to book
 our room from two different computers at the same time.
 
 Jan sees the following output:
@@ -91,10 +91,13 @@ instance:
 - Update the room to booked for Pat
 - Update the room to booked for Jan
 
+Pat's reservation got overwritten. Let's see how we can
+use compound operations to fix this problem. 
+
 Example - Safe
 ~~~~~~~~~~~~~~~~
 
-Lets say our app uses this safe Java method to check out our room to guests.
+Lets fix our ``bookARoom`` method using a compound operator.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
    :language: java
@@ -102,11 +105,14 @@ Lets say our app uses this safe Java method to check out our room to guests.
    :start-after: start the-safe-book-a-room
    :end-before: end the-safe-book-a-room
 
+Now imagine Jan and Pat try to use this method to book
+our room from two different computers at the same time.
+
 Jan sees the following output:
 
 .. code-block:: none
 
-    You got the room Jan
+   You got the room Jan
 
 And Pat sees the following output:
 
@@ -120,6 +126,7 @@ When we look at our database, we see the following:
 
     {"_id":1, "guest":"Jan", "reserved":true}
  
-Pat got the correct message.
+Pat got the correct message. While she might be sad she didn't get the
+reservation, at least she will know to not travel to the hotel.
 
 
