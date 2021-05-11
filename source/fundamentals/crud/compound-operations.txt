@@ -19,34 +19,32 @@ Compound operations combine a read operation and a write operation into a single
 **atomic operation**.
 
 An atomic operation is an operation that happens all at once from the perspective of
-other processes and threads running on a computer. In MongoDB, an atomic
-operation is an operation is an o
+other processes and threads running on a computer.
 
-If an operation is atomic, then the operation is **thread safe**. A thread safe
-operation is an operation that your computer can run in parallel and produce the
-expected result. 
-
-When to Use Compound Operations
--------------------------------
-
-Compound operations can fix certain kinds of **race conditions** in your code.
+Atomic operations can fix certain kinds of **race conditions** in your code.
 
 A race condition occurs when your code's behavior is dependent on the order of
-uncontrollable events. 
+uncontrollable events.
 
-In the following example, we use a compound operator to fix a race condition
-that makes us check out one hotel room to two people.  
+Compound Operations Use Case
+----------------------------
 
-`The full code for this example is available on Github here. <http://httpstat.us/404>`__
+In this section, we will go through an example that demonstrates the use case
+for compound operations.
+
+We go through an example race condition, and show how to use a compound
+operation to fix the race condition.
 
 For this example, lets imagine that we run a hotel with one room, and we have a
-small Java application to help us check out this room to guests.  
+small Java application to help us check out this room to a guest.  
 
 We represent our one room with this document in MongoDB. 
 
 .. code-block:: json
 
     {"_id":1, "guest":null, "reserved":false}
+
+`The full code for this example is available on Github here. <http://httpstat.us/404>`__
 
 Example - Unsafe
 ~~~~~~~~~~~~~~~~
@@ -59,7 +57,7 @@ Lets say our app uses this unsafe Java method to check out our room to guests.
    :start-after: start the-unsafe-book-a-room
    :end-before: end the-unsafe-book-a-room
 
-Now imagine two separate guests, Jan and Pat, try to use this method to book
+Now imagine two separate guests, Jan and Pat, use this method to book
 our room from two different computers at the same time.
 
 Jan sees the following output:
@@ -91,11 +89,11 @@ instance:
 - Update the room to booked for Pat
 - Update the room to booked for Jan
 
-Pat's reservation got overwritten. Let's see how we can
-use compound operations to fix this problem. 
+Pat's reservation was incorrectly overwritten. Let's see how we can
+use compound operations to fix this race condition. 
 
 Example - Safe
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 Lets fix our ``bookARoom`` method using a compound operator.
 
@@ -105,7 +103,7 @@ Lets fix our ``bookARoom`` method using a compound operator.
    :start-after: start the-safe-book-a-room
    :end-before: end the-safe-book-a-room
 
-Now imagine Jan and Pat try to use this method to book
+Now imagine Jan and Pat use this method to book
 our room from two different computers at the same time.
 
 Jan sees the following output:
