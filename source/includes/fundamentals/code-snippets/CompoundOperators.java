@@ -76,9 +76,11 @@ public class CompoundOperators {
 
 abstract class DemoClient extends Thread {
     String guest;
+    MongoCollection<Document> collection;
 
     DemoClient(String guest) {
         this.guest = guest;
+        this.collection = CompoundOperators.getCollection();
     }
 
     @Override
@@ -105,16 +107,15 @@ class DemoClientUnsafe extends DemoClient {
 
     // start the-unsafe-book-a-room
     public void bookARoom() {
-        MongoCollection<Document> collection = CompoundOperators.getCollection();
         Bson filter = Filters.eq("reserved", false);
-        Document myRoom = collection.find(filter).first();
+        Document myRoom = this.collection.find(filter).first();
         if (myRoom == null){
             System.out.println("Sorry, we are booked " + this.guest);
             return;
         }
         System.out.println("You got the room " + this.guest);
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
-        collection.updateOne(Filters.eq("_id", myRoom.getObjectId("_id")), update);
+        this.collection.updateOne(Filters.eq("_id", myRoom.getObjectId("_id")), update);
     }
     // end the-unsafe-book-a-room
 
@@ -134,10 +135,9 @@ class DemoClientSafe extends DemoClient {
 
     // start the-safe-book-a-room
     public void bookARoom(){
-        MongoCollection<Document> collection = CompoundOperators.getCollection();
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
         Bson filter = Filters.eq("reserved", false);
-        Bson myRoom = collection.findOneAndUpdate(filter, update);
+        Bson myRoom = this.collection.findOneAndUpdate(filter, update);
         if (myRoom == null){
             System.out.println("Sorry, we are booked " + this.guest);
             return;

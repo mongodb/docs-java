@@ -19,16 +19,107 @@ Compound operations combine a read operation and a write operation into a single
 **atomic operation**.
 
 An atomic operation is an operation that happens all at once from the perspective of
-other processes and threads running on your computer. Atomic operations are
-useful because your computer can't run instructions between them.
+other processes and threads running on a computer. In MongoDB, an atomic
+operation is an operation is an o
+
+If an operation is atomic, then the operation is **thread safe**. A thread safe
+operation is an operation that your computer can run in parallel and produce the
+expected result. 
+
+When to use Compound Operations
+-------------------------------
+
+Compound operations can fix certain kinds of **race conditions** in your code.
+
+A race condition occurs when your code's behavior is dependent on the order of
+uncontrollable events. 
+
+In the following example, we use a compound operator to fix a race condition
+that makes us check out one hotel room to two people.  
+
+`The full code for this example is available on Github here. <http://httpstat.us/404>`__
+
+For this example, lets imagine that we run a hotel with one room, and we have a
+small Java application to help us check out this room to guests. 
+
+We represent our one room with this document in MongoDB. 
+
+.. code-block:: json
+
+    {"_id":1, "guest":null, "reserved":false}
+
+Example - Unsafe
+~~~~~~~~~~~~~~~~
+
+Lets say our app uses this unsafe Java method to check out our room to guests.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
+   :language: java
+   :dedent:
+   :start-after: start the-unsafe-book-a-room
+   :end-before: end the-unsafe-book-a-room
+
+Now imaging two separate guests, Jan and Pat, try to use this method to book
+our room from two different computers at the same time.
+
+Jan sees the following output:
+
+.. code-block:: none
+
+   You got the room Jan
+
+And Pat sees the following output:
+
+.. code-block:: none
+
+   You got the room Pat
+
+When we look at our database, we see the following: 
+
+.. code-block:: json
+
+    {"_id":1, "guest":"Jan", "reserved":true}
+
+Pat will be pretty unhappy as when she shows up to our hotel, Jan will be
+occupying her room. What went wrong?
+
+Here is the sequence of events that happened from the perspective of our MongoDB
+instance:
+
+- Find an empty room for Jan
+- Find an empty room for Pat
+- Update the room to booked for Pat
+- Update the room to booked for Jan
+
+Example - Safe
+~~~~~~~~~~~~~~~~
+
+Lets say our app uses this safe Java method to check out our room to guests.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
+   :language: java
+   :dedent:
+   :start-after: start the-safe-book-a-room
+   :end-before: end the-safe-book-a-room
+
+Jan sees the following output:
+
+.. code-block:: none
+
+    You got the room Jan
+
+And Pat sees the following output:
+
+.. code-block:: none
+
+   Sorry, we are booked Pat
+
+When we look at our database, we see the following: 
+
+.. code-block:: json
+
+    {"_id":1, "guest":"Jan", "reserved":true}
+ 
+Pat got the correct message.
 
 
-Atomic Operations
------------------
-
-
-
-
-
-
-.. keyterms : atomicity
