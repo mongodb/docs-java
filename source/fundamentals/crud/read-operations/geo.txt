@@ -95,11 +95,8 @@ GeoJSON data to a ``2dsphere`` index. The following snippet creates a
 
 .. code-block:: java
 
-   import static com.mongodb.client.model.Indexes.geo2dsphere;
-
    // <MongoCollection setup code here>
-
-   collection.createIndex(geo2dsphere("location.geo"));
+   collection.createIndex(Indexes.geo2dsphere("location.geo"));
 
 For more information on the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`.
@@ -131,11 +128,8 @@ legacy coordinate pairs to  a ``2d`` index. The following snippet creates a
 
 .. code-block:: java
 
-   import static com.mongodb.client.model.Indexes.geo2d;
-
    // <MongoCollection setup code here>
-
-   collection.createIndex(geo2d("coordinates"));
+   collection.createIndex(Indexes.geo2d("coordinates"));
 
 For more information on the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
