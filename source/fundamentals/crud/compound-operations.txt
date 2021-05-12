@@ -49,9 +49,9 @@ We represent our one room with this document in MongoDB.
 
 .. code-block:: json
 
-    {"_id":1, "guest":null, "reserved":false}
+    {"_id":1, "guest":null, "room":"Blue Room", "reserved":false}
 
-`The full code for this example is available on Github here. <http://httpstat.us/404>`__
+`The full code for this example is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperators.java>`__
 
 Example - Unsafe
 ~~~~~~~~~~~~~~~~
@@ -67,23 +67,23 @@ Lets say our app uses this unsafe ``bookARoom`` method to check out our room to 
 Now imagine two separate guests, Jan and Pat, use this method to book
 our room from two different computers at the same time.
 
-Jan sees the following output:
+Jan sees this output:
 
 .. code-block:: none
 
-   You got the room Jan
+   You got the Blue Room Jan
 
-And Pat sees the following output:
+And Pat sees this output:
 
 .. code-block:: none
 
-   You got the room Pat
+   You got the Blue Room Pat
 
 When we look at our database, we see the following: 
 
 .. code-block:: json
 
-    {"_id":1, "guest":"Jan", "reserved":true}
+    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
 
 Pat will be pretty unhappy. When Pat shows up to our hotel, Jan will be
 occupying her room. What went wrong?
@@ -118,7 +118,7 @@ Jan sees the following output:
 
 .. code-block:: none
 
-   You got the room Jan
+   You got the Blue Room Jan
 
 And Pat sees the following output:
 
@@ -130,9 +130,40 @@ When we look at our database, we see the following:
 
 .. code-block:: json
 
-    {"_id":1, "guest":"Jan", "reserved":true}
+    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
  
 Pat got the correct message. While she might be sad she didn't get the
 reservation, at least she will know to not travel to the hotel.
 
+Here is the sequence of events that happened from the perspective of our MongoDB
+instance:
 
+- Find an empty room for Jan and reserve it.
+- Try to find an empty room for Pat and reserve it. As there are not any rooms
+  left, return null. 
+
+Available Compound Operations
+-----------------------------
+
+Here are the available compound operators in the MongoDB Java Driver.
+
+Find and Update a Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Find and Replace a Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Find and Remove a Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Transactions
+------------
+
+If you need to perform more complex tasks atomically, such as reading and
+writing to more than one document, use **transactions**.
+
+Transactions are a feature of MongoDB and other databases that let you define
+arbitrary database operations as atomic statements.  
+
+For more information on transactions, 
+:manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
