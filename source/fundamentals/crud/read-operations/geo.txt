@@ -68,17 +68,16 @@ GeoJSON Types
 Your GeoJSON object's type determines its geometric shape. Geometric shapes are
 made up of positions.
 
-Here are some common GeoJSON types and their corresponding positions:
+Here are some common GeoJSON types and how you can specify them with positions:
 
 - ``Point``: a single position. This could represent the location of a
   `sculpture <https://en.wikipedia.org/wiki/Chicago_Picasso>`__. 
-- ``LineString``: a list of two or more positions, thus forming a series of line
+- ``LineString``: an array of two or more positions, thus forming a series of line
   segments. This could represent
   `the route of the Great Wall of China <https://commons.wikimedia.org/wiki/File:GreatWallChina4.png>`__. 
-- ``Polygon``: a list of positions in which the first and last
-  position are the same, thus enclosing some space. This could represent the
-  land within
-  `Vatican City <https://commons.wikimedia.org/wiki/File:Vatican_City_map_EN.png>`__.
+- ``Polygon``: an array of positions in which the first and last
+  position are the same, thus enclosing some space. This could represent 
+  `the land within Vatican City <https://commons.wikimedia.org/wiki/File:Vatican_City_map_EN.png>`__.
 
 
 To learn more about the shapes you can use in MongoDB, see the
