@@ -60,7 +60,7 @@ public class CompoundOperators {
     public static void resetExample() {
         MongoCollection<Document> collection = CompoundOperators.getCollection();
         UpdateOptions options = new UpdateOptions().upsert(true);
-        Bson update = Updates.combine(Updates.set("reserved", false), Updates.set("guest", null));
+        Bson update = Updates.combine(Updates.set("reserved", false), Updates.set("guest", null),  Updates.set("room", "Blue Room"));
         collection.updateOne(new Document(), update, options);
     }
 
@@ -113,7 +113,8 @@ class DemoClientUnsafe extends DemoClient {
             System.out.println("Sorry, we are booked " + this.guest);
             return;
         }
-        System.out.println("You got the room " + this.guest);
+        String myRoomName = myRoom.getString("room");
+        System.out.println("You got the " + myRoomName + " " + this.guest);
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
         this.collection.updateOne(Filters.eq("_id", myRoom.getObjectId("_id")), update);
     }
@@ -137,12 +138,13 @@ class DemoClientSafe extends DemoClient {
     public void bookARoom(){
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
         Bson filter = Filters.eq("reserved", false);
-        Bson myRoom = this.collection.findOneAndUpdate(filter, update);
+        Document myRoom = this.collection.findOneAndUpdate(filter, update);
         if (myRoom == null){
             System.out.println("Sorry, we are booked " + this.guest);
             return;
         }
-        System.out.println("You got the room " + this.guest);
+        String myRoomName = myRoom.getString("room");
+        System.out.println("You got the " + myRoomName + " " + this.guest);
     }
     // end the-safe-book-a-room
 
