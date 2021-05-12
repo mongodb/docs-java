@@ -261,8 +261,9 @@ For more information on ``Filters``,
 Query Within a Range
 ~~~~~~~~~~~~~~~~~~~~
 
-The ``$geoWithin`` operator selects documents that have geospatial data within a
-specified shape. 
+To search for geospatial data within a specified shape use the ``geoWithin()``
+static utility method of the ``Filters`` builder class. The ``geoWithin()``
+method constructs a query with the ``$geoWithin`` query operator. 
 
 .. figure:: /includes/figures/geo_geometry.png
    :alt: Area of Long Island we are searching for movie theaters
