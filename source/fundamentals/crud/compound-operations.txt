@@ -140,15 +140,46 @@ instance:
 
 - Find an empty room for Jan and reserve it.
 - Try to find an empty room for Pat and reserve it. As there are not any rooms
-  left, return null. 
+  left, return ``null``. 
 
 Available Compound Operations
 -----------------------------
 
 Here are the available compound operators in the MongoDB Java Driver.
 
+The following examples use a collection containing this sample document.
+
+.. code-block:: json
+
+    {"_id":1, "food":"donut", "color":"green"}
+
 Find and Update a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To find and update a document, use the ``findOneAndUpdate()`` method of the
+``MongoCollection`` class.
+
+In the following example we use the ``findOneAndUpdate()`` method to find all
+documents with the ``color`` field set to ``"green"`` and  update the
+``food`` field in those documents to ``"pizza"``. 
+
+We use a ``FindOneAndUpdateOptions``  instance specify the following options:
+
+- Exclude the `_id` field from our found document (projection)
+- Specify that we would like to insert a document if no documents match our query (upsert)
+- Set a maximum execution time of 5 seconds for this operation on our MongoDB instance (maxTime)
+
+.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java
+   :language: java
+   :dedent:
+   :start-after: start findOneAndUpdate-example
+   :end-before: end findOneAndUpdate-example
+
+The output of the above code should look like this:
+
+.. code-block:: json
+
+   {"color": "green", "food": "pizza"}
 
 Find and Replace a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,7 +194,7 @@ If you need to perform more complex tasks atomically, such as reading and
 writing to more than one document, use **transactions**.
 
 Transactions are a feature of MongoDB and other databases that let you define
-arbitrary database operations as atomic statements.  
+an arbitrary sequence of database commands as atomic operations.  
 
 For more information on transactions, 
 :manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
