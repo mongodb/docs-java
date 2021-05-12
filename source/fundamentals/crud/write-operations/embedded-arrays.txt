@@ -24,7 +24,7 @@ embedded arrays of ``outer_array``:
 .. code-block:: json
    :copyable: false
 
-   { "_id" : 1
+   { "_id" : 1,
      "outer_array": [
         { "inner_array1": [ val1, val2 ] }, 
         { "inner_array2": [ val3, val4 ] }]}
@@ -33,14 +33,12 @@ To access elements in an embedded array, use the dot notation. For
 example, use ``outer_array.inner_array2`` to access the values of
 ``inner_array2`` in the document above. 
 
-To update an embedded array, you first create an ``Updates`` builder.
-The first parameter specifies which embedded arrays to update with
-positional operators. Positional operators specify the first, all, or
-certain embedded arrays. 
+To update an embedded array, you first specify a positional operator as
+your first parameter in your ``Updates`` builder. Positional operators
+specify the first, all or certain embedded arrays to update.
 
-The second parameter defines what the update is. Then, you can pass your 
-``Updates`` builder as the second parameter in the ``updateOne()`` and
-``updateMany()`` methods. 
+Then, you can pass your ``Updates`` builder as the second parameter in
+the ``updateOne()`` and ``updateMany()`` methods. 
 
 Sample Document for Examples
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -257,8 +255,11 @@ section, see the following resources:
 Summary
 -------
 
+You can update an embedded array by specifying a positional operator as
+your first parameter in your ``Updates`` builder. 
+
 There are three positional operators that can specify which embedded
-array to update:
+array to update: 
 
 - ``$`` updates the first embedded array that matches your query filter
 - ``$[]`` updates all embedded arrays that match your query filter
