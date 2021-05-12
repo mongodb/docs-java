@@ -46,8 +46,13 @@ you let the driver automatically generate ``_id`` values.
 .. note::
 
    Duplicate ``_id`` values violate unique index constraints, resulting
-   in a ``writeError``. 
+   in a ``WriteError``. 
  
+For additional information on the classes and methods mentioned in this
+section, see the following resources: 
+
+- :manual:`Unique Indexes </core/index-unique/>`
+
 Insert a Single Document
 ------------------------
 
@@ -76,6 +81,14 @@ Your output should look something like this:
 
    Inserted a document with the following id: 60930c39a982931c20ef6cd6
 
+For additional information on the classes and methods mentioned in this
+section, see the following resources: 
+
+- API Documentation on :java-sync-api:`insertOne() <com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
+- API Documentation on :java-docs:`InsertOneResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
+- Manual Explanation on :manual:`insertOne() </reference/method/db.collection.insertOne/>`
+- Runnable :doc:`Insert a Document Example </usage-examples/insertOne>` 
+
 Insert Multiple Documents
 -------------------------
 
@@ -92,7 +105,7 @@ For example, assume you want to insert the following documents:
    { "_id": 3, "color": "yellow", "qty": 3 }
    { "_id": 6, "color": "blue", "qty": 8 }
 
-If you attempt to insert these documents, a ``writeError`` occurs at the
+If you attempt to insert these documents, a ``WriteError`` occurs at the
 third document and the documents prior to the error get inserted into
 your collection. 
 
@@ -145,6 +158,14 @@ Your output should look something like this:
 
    Inserted documents with the following ids: [60930c3aa982931c20ef6cd7, 60930c3aa982931c20ef6cd8] 
 
+For additional information on the classes and methods mentioned in this
+section, see the following resources: 
+
+- :java-sync-api:`API Documentation on insertMany() <com/mongodb/client/MongoCollection.html#insertMany>`
+- :java-docs:`API Documentation on InsertManyResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
+- :manual:`Manual Explanation on insertMany() </reference/method/db.collection.insertMany/>`
+- :doc:`Runnable Insert Multiple Documents Example </usage-examples/insertMany>`
+
 Summary
 -------
 
@@ -158,30 +179,3 @@ your document.
 
 If the insertion is successful, both methods return an instance
 representing the ``_id`` of each new document.
-
-Additional Resources
---------------------
-
-For additional information on the classes and methods mentioned on this
-page, see the following resources: 
-
-API Documentation
-~~~~~~~~~~~~~~~~~
-
-- :java-sync-api:`insertOne() <com/mongodb/client/MongoCollection.html#insertOne(TDocument)>` 
-- :java-sync-api:`insertMany() <com/mongodb/client/MongoCollection.html#insertMany>`
-- :java-docs:`InsertOneResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`
-- :java-docs:`InsertManyResult <apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`
-
-Further Explanation From Our Manual
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- :manual:`insertOne() </reference/method/db.collection.insertOne/>`
-- :manual:`insertMany() </reference/method/db.collection.insertMany/>`
-- :manual:`Unique Indexes </core/index-unique/>`
-
-Runnable Examples
-~~~~~~~~~~~~~~~~~
-
-- :doc:`Insert a Document </usage-examples/insertOne>` 
-- :doc:`Insert Multiple Documents </usage-examples/insertMany>`
