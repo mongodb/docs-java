@@ -67,10 +67,10 @@ public class CompoundOperatorsIndividualExamples {
         //start findOneAndDelete-example
         // <MongoCollection set up code here>
         Bson sort = Sorts.descending("_id");
-        Document replace = new Document("music", "classical").append("color", "green");
+        Bson filter = Filters.empty();
         FindOneAndDeleteOptions options = new FindOneAndDeleteOptions().
                 sort(sort);
-        Document result = collection.findOneAndDelete(new Document(), options);
+        Document result = collection.findOneAndDelete(filter, options);
         System.out.println(result.toJson());
         //end findOneAndDelete-example
     }
