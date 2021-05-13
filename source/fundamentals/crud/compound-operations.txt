@@ -13,159 +13,26 @@ Compound Operations
 Overview
 --------
 
-On this page you will learn how to perform **compound operations**. 
+On this page you will learn how to perform **compound operations** with the
+MongoDB Java driver. 
 
-Compound operations combine a read operation and a write operation into a single
-**atomic operation**. An atomic operation is an operation that happens all at once from the perspective of
-other programs that interact with that operation.
+Compound operations consist of a read and write operation performed as one
+**atomic operation**. An atomic operation is an operation that happens all at
+once from the perspective of other programs that interact with that operation.
 
-Atomic operations can fix certain kinds of **race conditions** in your code. A
+Atomic operations can help avoid certain kinds of **race conditions** in your code. A
 race condition occurs when your code's behavior is dependent on the order of
 uncontrollable events.
 
-The following compound operations are available in the MongoDB Java driver as
-instance methods of the ``MongoCollection`` class:
+MongoDB supports the following compound operations:
 
-- ``findOneAndUpdate()``
-- ``findOneAndDelete()``
-- ``findOneAndReplace()``
+- Find and update one document
+- Find and replace one document
+- Find and delete one document
 
-If you would like to learn the fundamentals of the find operation, consider
-reading our
-:doc:`guide on retrieving data </fundamentals/crud/read-operations/retrieve/>`.
 
-If you would like to learn the fundamentals of updating a document, consider
-reading our
-:doc:`guide on changing data </fundamentals/crud/write-operations/change-a-document/>`.
-
-Use Case
---------
-
-In this section, we will go through an example that demonstrates the use case
-for compound operations.
-
-Our example contains a race condition. We show how to use a compound
-operation to fix the race condition.
-
-For this example, lets imagine that we run a hotel with one room, and we have a
-small Java program to help us check out this room to a guest.  
-
-We represent our one room with this document in MongoDB. 
-
-.. code-block:: json
-
-    {"_id":1, "guest":null, "room":"Blue Room", "reserved":false}
-
-`The full code for this example is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperators.java>`__
-
-Unsafe
-~~~~~~
-
-Lets say our app uses this unsafe ``bookARoom`` method to check out our room to
-a guest.
-
-.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
-   :language: java
-   :dedent:
-   :emphasize-lines: 3,11
-   :start-after: start the-unsafe-book-a-room
-   :end-before: end the-unsafe-book-a-room
-
-Now imagine two separate guests, Jan and Pat, use this method to book
-our room from two different computers at the same time.
-
-Jan sees this output:
-
-.. code-block:: none
-
-   You got the Blue Room Jan
-
-And Pat sees this output:
-
-.. code-block:: none
-
-   You got the Blue Room Pat
-
-When we look at our database, we see the following: 
-
-.. code-block:: json
-
-    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
-
-Pat will be pretty unhappy. When Pat shows up to our hotel, Jan will be
-occupying her room. What went wrong?
-
-Here is the sequence of events that happened from the perspective of our MongoDB
-instance:
-
-- Find and return an empty room for Jan
-- Find and return an empty room for Pat
-- Update the room to booked for Pat
-- Update the room to booked for Jan
-
-Pat's reservation was incorrectly overwritten. Let's see how we can
-use compound operations to fix this race condition and always give our users the
-correct message. 
-
-Safe
-~~~~
-
-Lets fix our ``bookARoom`` method using a compound operation.
-
-.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
-   :language: java
-   :dedent:
-   :emphasize-lines: 4
-   :start-after: start the-safe-book-a-room
-   :end-before: end the-safe-book-a-room
-
-Now imagine Jan and Pat use this method to book
-our room from two different computers at the same time.
-
-Jan sees this output:
-
-.. code-block:: none
-
-   You got the Blue Room Jan
-
-And Pat sees this output:
-
-.. code-block:: none
-
-   Sorry, we are booked Pat
-
-When we look at our database, we see the following: 
-
-.. code-block:: json
-
-    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
- 
-Pat got the correct message. While she might be sad she didn't get the
-reservation, at least she will know not to travel to our hotel.
-
-Here is the sequence of events that happened from the perspective of our MongoDB
-instance:
-
-- Find an empty room for Jan and reserve it.
-- Try to find an empty room for Pat and reserve it. As there are not any rooms
-  left, return ``null``. 
-
-.. note:: Write Lock
-
-   Your MongoDB instance places a write lock on the document you are modifying
-   for the duration of your compound operation. 
-
-For information on the ``Updates`` class, see our
-:doc:`guide on the Updates builder </fundamentals/builders/updates/>`.
-
-For more information of the ``Filters`` class, see our
-:doc:`guide on the Filters builder </fundamentals/builders/filters/>`.
-
-For more information on the ``findOneAndUpdate()`` method, see 
-:java-docs:`the API documentation for the MongoCollection class <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`.
-
-Examples
---------
+Compound Operations in the MongoDB Java Driver
+----------------------------------------------
 
 This section shows how to use each compound operation in the MongoDB Java Driver.
 
@@ -294,3 +161,130 @@ an arbitrary sequence of database commands as an atomic operation.
 
 For more information on transactions, 
 :manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
+
+
+Avoiding A Race Condition
+-------------------------
+
+In this section, we will go through an example that demonstrates that
+demonstrates how we can avoid race conditions using compound operators.
+
+Our example contains a race condition. We show how to use a compound
+operation to fix the race condition.
+
+For this example, lets imagine that we run a hotel with one room, and we have a
+small Java program to help us check out this room to a guest.  
+
+We represent our one room with this document in MongoDB. 
+
+.. code-block:: json
+
+    {"_id":1, "guest":null, "room":"Blue Room", "reserved":false}
+
+`The full code for this example is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperators.java>`__
+
+Unsafe Example
+~~~~~~~~~~~~~~
+
+Lets say our app uses this unsafe ``bookARoom`` method to check out our room to
+a guest.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
+   :language: java
+   :dedent:
+   :emphasize-lines: 3,11
+   :start-after: start the-unsafe-book-a-room
+   :end-before: end the-unsafe-book-a-room
+
+Now imagine two separate guests, Jan and Pat, use this method to book
+our room from two different computers at the same time.
+
+Jan sees this output:
+
+.. code-block:: none
+
+   You got the Blue Room Jan
+
+And Pat sees this output:
+
+.. code-block:: none
+
+   You got the Blue Room Pat
+
+When we look at our database, we see the following: 
+
+.. code-block:: json
+
+    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
+
+Pat will be pretty unhappy. When Pat shows up to our hotel, Jan will be
+occupying her room. What went wrong?
+
+Here is the sequence of events that happened from the perspective of our MongoDB
+instance:
+
+- Find and return an empty room for Jan
+- Find and return an empty room for Pat
+- Update the room to booked for Pat
+- Update the room to booked for Jan
+
+Pat's reservation was incorrectly overwritten. Let's see how we can
+use compound operations to fix this race condition and always give our users the
+correct message. 
+
+Safe Example
+~~~~~~~~~~~~
+
+Lets fix our ``bookARoom`` method using a compound operation.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
+   :language: java
+   :dedent:
+   :emphasize-lines: 4
+   :start-after: start the-safe-book-a-room
+   :end-before: end the-safe-book-a-room
+
+Now imagine Jan and Pat use this method to book
+our room from two different computers at the same time.
+
+Jan sees this output:
+
+.. code-block:: none
+
+   You got the Blue Room Jan
+
+And Pat sees this output:
+
+.. code-block:: none
+
+   Sorry, we are booked Pat
+
+When we look at our database, we see the following: 
+
+.. code-block:: json
+
+    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
+ 
+Pat got the correct message. While she might be sad she didn't get the
+reservation, at least she will know not to travel to our hotel.
+
+Here is the sequence of events that happened from the perspective of our MongoDB
+instance:
+
+- Find an empty room for Jan and reserve it.
+- Try to find an empty room for Pat and reserve it. As there are not any rooms
+  left, return ``null``. 
+
+.. note:: Write Lock
+
+   Your MongoDB instance places a write lock on the document you are modifying
+   for the duration of your compound operation. 
+
+For information on the ``Updates`` class, see our
+:doc:`guide on the Updates builder </fundamentals/builders/updates/>`.
+
+For more information of the ``Filters`` class, see our
+:doc:`guide on the Filters builder </fundamentals/builders/filters/>`.
+
+For more information on the ``findOneAndUpdate()`` method, see 
+:java-docs:`the API documentation for the MongoCollection class <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`.
