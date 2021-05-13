@@ -61,7 +61,7 @@ Lets say our app uses this unsafe ``bookARoom`` method to check out our room to 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
    :language: java
    :dedent:
-   :emphasize-lines: 3,10
+   :emphasize-lines: 3,11
    :start-after: start the-unsafe-book-a-room
    :end-before: end the-unsafe-book-a-room
 
@@ -135,7 +135,7 @@ When we look at our database, we see the following:
     {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
  
 Pat got the correct message. While she might be sad she didn't get the
-reservation, at least she will know not travel to our hotel.
+reservation, at least she will know not to travel to our hotel.
 
 Here is the sequence of events that happened from the perspective of our MongoDB
 instance:
