@@ -147,11 +147,12 @@ Available Compound Operations
 
 Here are the available compound operators in the MongoDB Java Driver.
 
-The following examples use a collection containing this sample document.
+The following examples use a collection containing these sample document.
 
 .. code-block:: json
 
     {"_id":1, "food":"donut", "color":"green"}
+    {"_id":2, "food":"pear", "color":"yellow"}
 
 Find and Update a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,9 +164,9 @@ In the following example we use the ``findOneAndUpdate()`` method to find all
 documents with the ``color`` field set to ``"green"`` and  update the
 ``food`` field in those documents to ``"pizza"``. 
 
-We use a ``FindOneAndUpdateOptions``  instance specify the following options:
+We use a ``FindOneAndUpdateOptions`` instance to specify the following options:
 
-- Exclude the `_id` field from our found document (projection)
+- Exclude the ``_id`` field from our found document (projection)
 - Specify that we would like to insert a document if no documents match our query (upsert)
 - Set a maximum execution time of 5 seconds for this operation on our MongoDB instance (maxTime)
 
@@ -184,8 +185,55 @@ The output of the above code should look like this:
 Find and Replace a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Find and Remove a Document
+To find and replace a document, use the ``findOneAndReplace()`` method of the
+``MongoCollection`` class.
+
+In the following example we use the ``findOneAndReplace()`` method to find all
+documents with the ``color`` field set to ``"green"`` and  replace them
+with the following document:
+
+.. code-block:: json
+
+    {"_id":1, "music":"classical", "color":"green"}
+
+We use a ``FindOneAndReplaceOptions`` instance to specify that we would like our
+returned document to be in the state after our replace operation.
+
+  .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java
+  :language: java
+  :dedent:
+  :start-after: start findOneAndReplace-example
+  :end-before: end findOneAndReplace-example
+
+The output of the code above should look like this:
+
+.. code-block:: json
+
+   {"_id": 1, "music": "classical", "color": "green"}
+
+Find and Delete a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To find and delete a document, use the ``findOneAndDelete()`` method of the
+``MongoCollection`` class.
+
+In the following example we use the ``findOneAndDelete()`` method to find and
+delete the document with the largest ``_id`` value.
+
+We use a ``FindOneAndDeleteOptions`` instance to specify a descending sort on
+the ``_id`` field.
+
+  .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java
+  :language: java
+  :dedent:
+  :start-after: start findOneAndDelete-example
+  :end-before: end findOneAndDelete-example
+
+The output of the code above should look like this:
+
+.. code-block:: json
+
+   {"_id": 2, "food": "pear", "color": "yellow"}
 
 Transactions
 ------------
