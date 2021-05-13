@@ -144,6 +144,15 @@ instance:
 - Try to find an empty room for Pat and reserve it. As there are not any rooms
   left, return ``null``. 
 
+For information on the ``Updates`` class, see our
+:doc:`guide on the Updates builder </fundamentals/builders/updates/>`.
+
+For more information of the ``Filters`` class, see our
+:doc:`guide on the Filters builder </fundamentals/builders/filters/>`.
+
+For more information on the ``findOneAndUpdate()`` method, see 
+:java-doc:`the API documentation for the MongoCollection class <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`.
+
 Examples
 --------
 
@@ -184,6 +193,12 @@ The output of the above code should look like this:
 
    {"color": "green", "food": "pizza"}
 
+For more information on the methods and classes in this section, see the
+following API documentation pages:
+
+- :java-doc:`findOneAndUpdate() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`
+- :java-doc:`FindOneAndUpdateOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndUpdateOptions.html>`
+
 Find and Replace a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -213,6 +228,12 @@ The output of the code above should look like this:
 
    {"_id": 1, "music": "classical", "color": "green"}
 
+For more information on the methods and classes in this section, see the
+following API documentation pages:
+
+- :java-doc:`findOneAndReplace() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndReplace(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.FindOneAndReplaceOptions)>`
+- :java-doc:`FindOneAndReplaceOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndReplaceOptions.html>`
+
 Find and Delete a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -236,6 +257,12 @@ The output of the code above should look like this:
 .. code-block:: json
 
    {"_id": 2, "food": "pear", "color": "yellow"}
+
+For more information on the methods and classes in this section, see the
+following API documentation pages:
+
+- :java-doc:`findOneAndDelete() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson,com.mongodb.client.model.FindOneAndDeleteOptions)>`
+- :java-doc:`FindOneAndDeleteOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`
 
 Transactions
 ------------
