@@ -36,7 +36,7 @@ public class CompoundOperatorsIndividualExamples {
         collection.insertMany(docs);
     }
 
-    public static MongoCollection<Document> getCollection(){
+    public static MongoCollection<Document> getCollection() {
         String uri = System.getenv("DRIVER_URL");
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
@@ -44,14 +44,14 @@ public class CompoundOperatorsIndividualExamples {
         return collection;
     }
 
-    private void findOneAndUpdateExample(){
+    private void findOneAndUpdateExample() {
         System.out.println("Starting find one and update example...");
         MongoCollection<Document> collection = getCollection();
         //start findOneAndUpdate-example
         // <MongoCollection set up code here>
         Bson projection = Projections.excludeId();
-        Bson filter = Filters.eq("color","green");
-        Bson update = Updates.set("food","pizza");
+        Bson filter = Filters.eq("color", "green");
+        Bson update = Updates.set("food", "pizza");
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().
                 projection(projection).
                 upsert(true).
@@ -61,7 +61,7 @@ public class CompoundOperatorsIndividualExamples {
         //end findOneAndUpdate-example
     }
 
-    private void findOneAndDeleteExample(){
+    private void findOneAndDeleteExample() {
         System.out.println("Starting find one and delete example...");
         MongoCollection<Document> collection = getCollection();
         //start findOneAndDelete-example
