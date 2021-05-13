@@ -16,14 +16,11 @@ Overview
 On this page you will learn how to perform **compound operations**. 
 
 Compound operations combine a read operation and a write operation into a single
-**atomic operation**.
-
-An atomic operation is an operation that happens all at once from the perspective of
+**atomic operation**. An atomic operation is an operation that happens all at once from the perspective of
 other programs that interact with that operation.
 
-Atomic operations can fix certain kinds of **race conditions** in your code.
-
-A race condition occurs when your code's behavior is dependent on the order of
+Atomic operations can fix certain kinds of **race conditions** in your code. A
+race condition occurs when your code's behavior is dependent on the order of
 uncontrollable events.
 
 The following compound operations are available in the MongoDB Java driver as
@@ -51,7 +48,7 @@ Our example contains a race condition. We show how to use a compound
 operation to fix the race condition.
 
 For this example, lets imagine that we run a hotel with one room, and we have a
-small Java application to help us check out this room to a guest.  
+small Java program to help us check out this room to a guest.  
 
 We represent our one room with this document in MongoDB. 
 
@@ -64,7 +61,8 @@ We represent our one room with this document in MongoDB.
 Unsafe
 ~~~~~~
 
-Lets say our app uses this unsafe ``bookARoom`` method to check out our room to guests.
+Lets say our app uses this unsafe ``bookARoom`` method to check out our room to
+a guest.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
    :language: java
@@ -152,6 +150,11 @@ instance:
 - Try to find an empty room for Pat and reserve it. As there are not any rooms
   left, return ``null``. 
 
+.. note:: Write Lock
+
+   Your MongoDB instance places a write lock on the document you are modifying
+   for the duration of your compound operation. 
+
 For information on the ``Updates`` class, see our
 :doc:`guide on the Updates builder </fundamentals/builders/updates/>`.
 
@@ -159,19 +162,21 @@ For more information of the ``Filters`` class, see our
 :doc:`guide on the Filters builder </fundamentals/builders/filters/>`.
 
 For more information on the ``findOneAndUpdate()`` method, see 
-:java-doc:`the API documentation for the MongoCollection class <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`.
+:java-docs:`the API documentation for the MongoCollection class <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`.
 
 Examples
 --------
 
-This section shows how to use compound operations in the MongoDB Java Driver.
+This section shows how to use each compound operation in the MongoDB Java Driver.
 
-The following examples use a collection containing these two sample document.
+The following examples use a collection containing these two sample documents.
 
 .. code-block:: json
 
     {"_id":1, "food":"donut", "color":"green"}
     {"_id":2, "food":"pear", "color":"yellow"}
+
+`The full code for the following examples is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java>`__
 
 Find and Update a Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -216,8 +221,8 @@ Find and Replace a Document
 To find and replace a document, use the ``findOneAndReplace()`` method of the
 ``MongoCollection`` class.
 
-In the following example we use the ``findOneAndReplace()`` method to find all
-documents with the ``color`` field set to ``"green"`` and  replace them
+In the following example we use the ``findOneAndReplace()`` method to find a
+document with the ``color`` field set to ``"green"`` and  replace it
 with the following document:
 
 .. code-block:: json
