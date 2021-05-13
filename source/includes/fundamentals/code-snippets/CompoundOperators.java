@@ -10,8 +10,8 @@ import org.bson.conversions.Bson;
 public class CompoundOperators {
 
 
-    public static final String COLLECTION = "compound-test";
-    public static final String DATABASE = "test";
+    private static final String COLLECTION = "compound-test";
+    private static final String DATABASE = "test";
 
 
     /**
@@ -58,10 +58,10 @@ public class CompoundOperators {
     }
 
     public static void resetExample() {
-        MongoCollection<Document> collection = CompoundOperators.getCollection();
-        UpdateOptions options = new UpdateOptions().upsert(true);
-        Bson update = Updates.combine(Updates.set("reserved", false), Updates.set("guest", null),  Updates.set("room", "Blue Room"));
-        collection.updateOne(new Document(), update, options);
+        MongoCollection<Document> collection = getCollection();
+        collection.deleteMany(new Document());
+        Document insert_room = new Document("_id", 1).append("reserved", false).append("guest", null).append("room", "Blue Room");
+        collection.insertOne(insert_room);
     }
 
     public static MongoCollection<Document> getCollection(){
@@ -116,7 +116,7 @@ class DemoClientUnsafe extends DemoClient {
         String myRoomName = myRoom.getString("room");
         System.out.println("You got the " + myRoomName + " " + this.guest);
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
-        this.collection.updateOne(Filters.eq("_id", myRoom.getObjectId("_id")), update);
+        this.collection.updateOne(Filters.eq("_id", myRoom.get("_id", Integer.class)), update);
     }
     // end the-unsafe-book-a-room
 
