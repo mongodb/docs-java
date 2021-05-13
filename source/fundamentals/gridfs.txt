@@ -51,11 +51,30 @@ to a stream.
 You can learn how to perform the following GridFS operations from the
 following sections:
 
+- Create a GridFS bucket
+- Store Files
+- Retrieve Files
+- Download Files
+- Rename Files
+- Delete Files
+
+Create a GridFS Bucket
+----------------------
+
 Create a GridFS bucket or reference an existing one
+
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start createGridFSBucket
+   :end-before: end createGridFSBucket
+
+Store Files
+-----------
 
 Store files using an InputStream
 
-.. literalinclude:: /includes/fundamentals/code-snippets/GridFS.java
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
    :dedent:
    :start-after: start uploadFromInputStream
@@ -63,24 +82,67 @@ Store files using an InputStream
 
 Store files using an OutputStream
 
-.. literalinclude:: /includes/fundamentals/code-snippets/GridFS.java
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
    :dedent:
    :start-after: start uploadFromOutputStream
    :end-before: end uploadFromOutputStream
 
+Retrieve Files
+--------------
+
 Retrieve file metadata (all files, using a query filter)
 
-Retrieve file revision
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start findAllFiles
+   :end-before: end findAllFiles
 
-Modify file metadata (rename files)
+Retrieve file revisions
 
-Send retrieved files to an outputstream
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start findFileRevision
+   :end-before: end findFileRevision
 
-Send retrieved files to an inputstream
+Download Files
+--------------
 
-Delete files by id
+Download a file to a stream
 
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start downloadToStream
+   :end-before: end downloadToStream
+
+Download a file to memory
+
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start downloadToMemory
+   :end-before: end downloadToMemory
+
+Rename Files
+------------
+
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start renameFile
+   :end-before: end renameFile
+
+Delete Files
+------------
+
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start deleteFile
+   :end-before: end deleteFile
 
 Additional Resources
 --------------------
