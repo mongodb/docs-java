@@ -19,7 +19,7 @@ Compound operations combine a read operation and a write operation into a single
 **atomic operation**.
 
 An atomic operation is an operation that happens all at once from the perspective of
-other processes and threads running on a computer.
+other programs that interact with that operation.
 
 Atomic operations can fix certain kinds of **race conditions** in your code.
 
@@ -33,8 +33,8 @@ instance methods of the ``MongoCollection`` class:
 - ``findOneAndDelete()``
 - ``findOneAndReplace()``
 
-Compound Operations Use Case
-----------------------------
+Use Case
+--------
 
 In this section, we will go through an example that demonstrates the use case
 for compound operations.
@@ -53,8 +53,8 @@ We represent our one room with this document in MongoDB.
 
 `The full code for this example is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperators.java>`__
 
-Example - Unsafe
-~~~~~~~~~~~~~~~~
+Unsafe
+~~~~~~
 
 Lets say our app uses this unsafe ``bookARoom`` method to check out our room to guests.
 
@@ -100,10 +100,10 @@ Pat's reservation was incorrectly overwritten. Let's see how we can
 use compound operations to fix this race condition and always give our users the
 correct message. 
 
-Example - Safe
-~~~~~~~~~~~~~~
+Safe
+~~~~
 
-Lets fix our ``bookARoom`` method using a compound operator.
+Lets fix our ``bookARoom`` method using a compound operation.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
    :language: java
@@ -114,13 +114,13 @@ Lets fix our ``bookARoom`` method using a compound operator.
 Now imagine Jan and Pat use this method to book
 our room from two different computers at the same time.
 
-Jan sees the following output:
+Jan sees this output:
 
 .. code-block:: none
 
    You got the Blue Room Jan
 
-And Pat sees the following output:
+And Pat sees this output:
 
 .. code-block:: none
 
@@ -133,7 +133,7 @@ When we look at our database, we see the following:
     {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
  
 Pat got the correct message. While she might be sad she didn't get the
-reservation, at least she will know to not travel to the hotel.
+reservation, at least she will know not travel to our hotel.
 
 Here is the sequence of events that happened from the perspective of our MongoDB
 instance:
@@ -142,12 +142,12 @@ instance:
 - Try to find an empty room for Pat and reserve it. As there are not any rooms
   left, return ``null``. 
 
-Available Compound Operations
------------------------------
+Examples
+--------
 
-Here are the available compound operators in the MongoDB Java Driver.
+This section shows how to use compound operations in the MongoDB Java Driver.
 
-The following examples use a collection containing these sample document.
+The following examples use a collection containing these two sample document.
 
 .. code-block:: json
 
@@ -166,9 +166,9 @@ documents with the ``color`` field set to ``"green"`` and  update the
 
 We use a ``FindOneAndUpdateOptions`` instance to specify the following options:
 
-- Exclude the ``_id`` field from our found document (projection)
-- Specify that we would like to insert a document if no documents match our query (upsert)
-- Set a maximum execution time of 5 seconds for this operation on our MongoDB instance (maxTime)
+- Exclude the ``_id`` field from our found document
+- Specify that we would like to insert a document if no documents match our query
+- Set a maximum execution time of 5 seconds for this operation on our MongoDB instance
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java
    :language: java
@@ -194,7 +194,7 @@ with the following document:
 
 .. code-block:: json
 
-    {"_id":1, "music":"classical", "color":"green"}
+    {"music":"classical", "color":"green"}
 
 We use a ``FindOneAndReplaceOptions`` instance to specify that we would like our
 returned document to be in the state after our replace operation.
@@ -218,7 +218,7 @@ To find and delete a document, use the ``findOneAndDelete()`` method of the
 ``MongoCollection`` class.
 
 In the following example we use the ``findOneAndDelete()`` method to find and
-delete the document with the largest ``_id`` value.
+delete the document with the largest value in the ``_id`` field.
 
 We use a ``FindOneAndDeleteOptions`` instance to specify a descending sort on
 the ``_id`` field.
@@ -241,8 +241,8 @@ Transactions
 If you need to perform more complex tasks atomically, such as reading and
 writing to more than one document, use **transactions**.
 
-Transactions are a feature of MongoDB and other databases that let you define
-an arbitrary sequence of database commands as atomic operations.  
+Transactions are a feature of MongoDB and other databases that lets you define
+an arbitrary sequence of database commands as an atomic operation.  
 
 For more information on transactions, 
 :manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
