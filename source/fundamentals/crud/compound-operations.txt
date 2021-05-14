@@ -42,17 +42,17 @@ For more information on atomic operations and atomicity, see
 For more information on transactions, 
 :manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
 
-Compound Operations in the MongoDB Java Driver
-----------------------------------------------
+How to Use Compound Operations
+------------------------------
 
-This section shows how to use each compound operation in the MongoDB Java Driver.
+This section shows how to use each compound operation with the MongoDB Java Driver.
 
 The following examples use a collection containing these two sample documents.
 
 .. code-block:: json
 
-    {"_id":1, "food":"donut", "color":"green"}
-    {"_id":2, "food":"pear", "color":"yellow"}
+    {"_id": 1, "food": "donut", "color": "green"}
+    {"_id": 2, "food": "pear", "color": "yellow"}
 
 `The full code for the following examples is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java>`__
 
@@ -70,7 +70,8 @@ The example also uses a ``FindOneAndUpdateOptions`` instance to specify the
 following options:
 
 - Exclude the ``_id`` field from the found document
-- Specify to insert a document if no documents match our query, known as an "upsert".
+- Specify to insert a document if no documents match our query. MongoDB and
+  other databases refer to this operation as an upsert.
 - Set a maximum execution time of 5 seconds for this operation on the MongoDB
   instance. If the operation takes longer, the ``findOneAndUpdate()`` method
   will throw a ``MongoExecutionTimeoutException``.  
@@ -110,7 +111,7 @@ with the following document:
 
 .. code-block:: json
 
-    {"music":"classical", "color":"green"}
+    {"music": "classical", "color": "green"}
 
 The example also uses a ``FindOneAndReplaceOptions`` instance to specify that
 the returned document should be in the state after our replace operation.
@@ -179,7 +180,7 @@ We represent our one room with this document in MongoDB.
 
 .. code-block:: json
 
-    {"_id":1, "guest":null, "room":"Blue Room", "reserved":false}
+    {"_id": 1, "guest": null, "room": "Blue Room", "reserved": false}
 
 `The full code for this example is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperators.java>`__
 
@@ -215,7 +216,7 @@ When we look at our database, we see the following:
 
 .. code-block:: json
 
-    {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
+    {"_id": 1, "guest": "Jan", "room": "Blue Room", "reserved": true}
 
 Pat will be unhappy. When Pat shows up to our hotel, Jan will be
 occupying her room. What went wrong?
@@ -234,8 +235,8 @@ operation was the last to execute our document has ``"Jan"`` as the guest.
 Let's see how we can use compound operations to avoid this race condition and
 always give our users the correct message. 
 
-Example Avoiding Race Condition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example Without Race Condition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let's fix our ``bookARoom`` method using a compound operation.
 
