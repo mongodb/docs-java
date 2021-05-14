@@ -45,14 +45,14 @@ The following examples use a collection containing these two sample documents.
 
 `The full code for the following examples is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java>`__
 
-Find and Update a Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Find and Update One Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To find and update a document, use the ``findOneAndUpdate()`` method of the
 ``MongoCollection`` class.
 
 The following example uses the ``findOneAndUpdate()`` method to find a
-document with the ``color`` field set to ``"green"`` and  updates the
+document with the ``color`` field set to ``"green"`` and  update the
 ``food`` field in that document to ``"pizza"``. 
 
 The example also uses a ``FindOneAndUpdateOptions`` instance to specify the
@@ -87,13 +87,13 @@ following API documentation pages:
 - :java-docs:`MongoExecutionTimeoutException <apidocs/mongodb-driver-core/com/mongodb/MongoExecutionTimeoutException.html>`
 
 
-Find and Replace a Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Find and Replace One Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To find and replace a document, use the ``findOneAndReplace()`` method of the
 ``MongoCollection`` class.
 
-In the following example we use the ``findOneAndReplace()`` method to find a
+The following example uses the ``findOneAndReplace()`` method to find a
 document with the ``color`` field set to ``"green"`` and  replace it
 with the following document:
 
@@ -101,8 +101,8 @@ with the following document:
 
     {"music":"classical", "color":"green"}
 
-We use a ``FindOneAndReplaceOptions`` instance to specify that we would like our
-returned document to be in the state after our replace operation.
+The example also uses a ``FindOneAndReplaceOptions`` instance to specify that
+the returned document should be in the state after our replace operation.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java
    :language: java
@@ -122,17 +122,17 @@ following API documentation pages:
 - :java-docs:`findOneAndReplace() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndReplace(org.bson.conversions.Bson,TDocument,com.mongodb.client.model.FindOneAndReplaceOptions)>`
 - :java-docs:`FindOneAndReplaceOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndReplaceOptions.html>`
 
-Find and Delete a Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Find and Delete One Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To find and delete a document, use the ``findOneAndDelete()`` method of the
 ``MongoCollection`` class.
 
-In the following example we use the ``findOneAndDelete()`` method to find and
+The following example uses the ``findOneAndDelete()`` method to find and
 delete the document with the largest value in the ``_id`` field.
 
-We use a ``FindOneAndDeleteOptions`` instance to specify a descending sort on
-the ``_id`` field.
+The example uses a ``FindOneAndDeleteOptions`` instance to specify a
+descending sort on the ``_id`` field.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java
    :language: java
@@ -155,24 +155,11 @@ following API documentation pages:
 - :java-docs:`findOneAndDelete() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson,com.mongodb.client.model.FindOneAndDeleteOptions)>`
 - :java-docs:`FindOneAndDeleteOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`
 
-Transactions
-------------
-
-If you need to perform more complex tasks atomically, such as reading and
-writing to more than one document, use **transactions**.
-
-Transactions are a feature of MongoDB and other databases that lets you define
-an arbitrary sequence of database commands as an atomic operation.  
-
-For more information on transactions, 
-:manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
-
-
 Avoiding A Race Condition
 -------------------------
 
-In this section, we will go through an example that demonstrates how we can
-avoid race conditions using compound operators.
+In this section, we will go through an example that shows how we can
+avoid a race condition with compound operations.
 
 For this example, let's imagine that we run a hotel with one room and that we
 have a small Java program to help us check out this room to a guest.  
@@ -292,3 +279,15 @@ For more information of the ``Filters`` class, see our
 
 For more information on the ``findOneAndUpdate()`` method, see 
 :java-docs:`the API documentation for the MongoCollection class <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>`.
+
+Transactions
+------------
+
+If you need to perform more complex tasks atomically, such as reading and
+writing to more than one document, use **transactions**.
+
+Transactions are a feature of MongoDB and other databases that lets you define
+an arbitrary sequence of database commands as an atomic operation.  
+
+For more information on transactions, 
+:manual:`see the MongoDB manual entry for transactions </core/transactions/>`.
