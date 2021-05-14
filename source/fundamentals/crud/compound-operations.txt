@@ -17,8 +17,10 @@ On this page you will learn how to perform **compound operations** with the
 MongoDB Java driver. 
 
 Compound operations consist of a read and write operation performed as one
-**atomic operation**. An atomic operation is an operation that happens all at
-once from the perspective of other programs that interact with that operation.
+**atomic operation**. An atomic operation is an irreducible series of one or
+more database operations such that all occur or none occur. For more information
+on atomic operations and atomicity, see 
+:manual:`the MongoDB manual entry for Atomicity and Transactions </core/write-operations-atomicity/>`.
 
 Atomic operations can help avoid certain kinds of **race conditions** in your code. A
 race condition occurs when your code's behavior is dependent on the order of
