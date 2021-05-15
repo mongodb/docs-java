@@ -38,20 +38,20 @@ public class BulkWrite {
 
     public static void main(String[] args) {
         BulkWrite bulkWrite = new BulkWrite();
-        System.out.println("Ordered BulkWrite");
-        bulkWrite.setUpCollection();
-        bulkWrite.bulkWriteExample();
-        bulkWrite.preview();
+        // System.out.println("Ordered BulkWrite");
+        // bulkWrite.setUpCollection();
+        // bulkWrite.bulkWriteExample();
+        // bulkWrite.preview();
 
-        System.out.println("Unordered BulkWrite");
-        bulkWrite.setUpCollection();
-        bulkWrite.bulkWriteNotOrderedExample();
-        bulkWrite.preview();
+        // System.out.println("Unordered BulkWrite");
+        // bulkWrite.setUpCollection();
+        // bulkWrite.bulkWriteNotOrderedExample();
+        // bulkWrite.preview();
 
-        System.out.println("Unordered BulkWriteException");
-        bulkWrite.setUpCollection();
-        bulkWrite.bulkWriteOrderedExceptionExample();
-        bulkWrite.preview();
+        // System.out.println("Unordered BulkWriteException");
+        // bulkWrite.setUpCollection();
+        // bulkWrite.bulkWriteOrderedExceptionExample();
+        // bulkWrite.preview();
 
         System.out.println("Insert");
         bulkWrite.insertDocumentsExample();
@@ -74,13 +74,23 @@ public class BulkWrite {
     private void bulkWriteOrderedExceptionExample() {
         // begin bulkWriteOrderedExceptionExample
         try {
-            collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 1)),
-                            new ReplaceOneModel<>(Filters.eq("_id", 1),
-                                                new Document("_id", 1).append("x", 2)),
-                            new UpdateOneModel<>(Filters.eq("_id", 3), Updates.set("x", 2)), 
-                            new DeleteManyModel<>(Filters.eq("x", 2)) ),
-                            new BulkWriteOptions().ordered(false));
+            List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+            InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
+            ReplaceOneModel<Document> doc2 = new ReplaceOneModel(Filters.eq("_id", 1), 
+                                                new Document("_id", 1).append("x", 2));                            
+            UpdateOneModel<Document> doc3 = new UpdateOneModel(Filters.eq("_id", 1), Updates.set("x", 2));
+            DeleteManyModel<Document> doc4 = new DeleteManyModel(Filters.eq("x", 2));
+    
+            bulkOperations.add(doc1);
+            bulkOperations.add(doc2);
+            bulkOperations.add(doc3);
+            bulkOperations.add(doc4);
+            
+            BulkWriteOptions options = new BulkWriteOptions().ordered(false);
+            
+            collection.bulkWrite(bulkOperations, options); 
+        
         } catch (MongoBulkWriteException e){
             collection.find().forEach(doc -> System.out.println(doc.toJson()));
             
@@ -90,75 +100,132 @@ public class BulkWrite {
     }
 
     private void bulkWriteNotOrderedExample() {
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 3));
+        ReplaceOneModel<Document> doc2 = new ReplaceOneModel(Filters.eq("_id", 1), 
+                                            new Document("_id", 1).append("x", 2));                            
+        UpdateOneModel<Document> doc3 = new UpdateOneModel(Filters.eq("_id", 3), Updates.set("x", 2));
+        DeleteManyModel<Document> doc4 = new DeleteManyModel(Filters.eq("x", 2));
+   
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+        bulkOperations.add(doc3);
+        bulkOperations.add(doc4);
+        
         // begin bulkWriteNotOrderedExample
-        collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 3)),
-                            new ReplaceOneModel<>(Filters.eq("_id", 1),
-                                                new Document("_id", 1).append("x", 2)),
-                            new UpdateOneModel<>(Filters.eq("_id", 3), Updates.set("x", 2)), 
-                            new DeleteManyModel<>(Filters.eq("x", 2)) ),
-                            new BulkWriteOptions().ordered(false));
+        BulkWriteOptions options = new BulkWriteOptions().ordered(false);
+        
+        collection.bulkWrite(bulkOperations, options); 
         //end bulkWriteNotOrderedExample
     }
 
     private void bulkWriteExample() {
         // begin bulkWriteExample
-        collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 3)),
-                            new ReplaceOneModel<>(Filters.eq("_id", 1),
-                                                new Document("_id", 1).append("x", 2)),
-                            new UpdateOneModel<>(Filters.eq("_id", 3), Updates.set("x", 2)), 
-                            new DeleteManyModel<>(Filters.eq("x", 2)) ));                  
+
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 3));
+        ReplaceOneModel<Document> doc2 = new ReplaceOneModel(Filters.eq("_id", 1), 
+                                            new Document("_id", 1).append("x", 2));                            
+        UpdateOneModel<Document> doc3 = new UpdateOneModel(Filters.eq("_id", 3), Updates.set("x", 2));
+        DeleteManyModel<Document> doc4 = new DeleteManyModel(Filters.eq("x", 2));
+   
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+        bulkOperations.add(doc3);
+        bulkOperations.add(doc4);
+
+        collection.bulkWrite(bulkOperations);               
         //end bulkWriteExample
     }
 
-    private void setUpCollection(){
-            collection.drop();
-            collection.bulkWrite(
-                Arrays.asList(new InsertOneModel<>(new Document("_id", 1)),
-                                new InsertOneModel<>(new Document("_id", 2)) ));
-        }
+    private void insertDocumentsExample(){
+        collection.drop();
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+        // begin insertDocumentsExample
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 3));
+        InsertOneModel<Document> doc2 = new InsertOneModel<>(new Document("_id", 4));
+        //end insertDocumentsExample
+        
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+
+        collection.bulkWrite(bulkOperations);
+    }
+    
+    private void replaceDocumentsExample(){
+        collection.drop();
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
+        InsertOneModel<Document> doc2 = new InsertOneModel<>(new Document("_id", 2));
+
+        // begin replaceDocumentsExample
+        ReplaceOneModel<Document> doc3 = new ReplaceOneModel(Filters.eq("_id", 1), new Document("_id", 1).append("x", 4));
+        //end replaceDocumentsExample
+
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+        bulkOperations.add(doc3);
+
+        collection.bulkWrite(bulkOperations);
+    }
+
+    private void updateDocumentsExample(){
+        collection.drop();
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
+        InsertOneModel<Document> doc2 = new InsertOneModel<>(new Document("_id", 2));
+
+        // begin updateDocumentsExample
+        UpdateOneModel<Document> doc3 = new UpdateOneModel(Filters.eq("_id", 2), Updates.set("x", 8));
+        //end updateDocumentsExample
+
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+        bulkOperations.add(doc3);
+
+        collection.bulkWrite(bulkOperations);
+    }
+
+    private void deleteDocumentsExample(){
+        collection.drop();
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
+        InsertOneModel<Document> doc2 = new InsertOneModel<>(new Document("_id", 2));
+
+        // begin deleteDocumentsExample
+        DeleteOneModel<Document> doc3 = new DeleteOneModel(Filters.eq("_id", 1));
+        //end deleteDocumentsExample
+
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+        bulkOperations.add(doc3);
+
+        collection.bulkWrite(bulkOperations);
+    }
 
     private void preview(){
         collection.find().forEach(doc -> System.out.println(doc.toJson()));
     }
 
-    private void insertDocumentsExample(){
+    private void setUpCollection(){
         collection.drop();
-        // begin insertDocumentsExample
-        collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 1)),
-                            new InsertOneModel<>(new Document("_id", 2))));
-        //end insertDocumentsExample
-    }
-    
-    private void replaceDocumentsExample(){
-        collection.drop();
-        // begin replaceDocumentsExample
-        collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 1)),
-                            new InsertOneModel<>(new Document("_id", 2)),
-                            new ReplaceOneModel<>(Filters.eq("_id", 1), new Document("_id", 1).append("x", 4))));
-        //end replaceDocumentsExample
-    }
 
-    private void updateDocumentsExample(){
-        collection.drop();
-        // begin updateDocumentsExample
-        collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 1)),
-                            new InsertOneModel<>(new Document("_id", 2)),
-                            new UpdateOneModel<>(Filters.eq("_id", 2), Updates.set("x", 8))));
-        //end updateDocumentsExample
-    }
+        //begin bulkOpsList
+        List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+        //end bulkOpsList
 
-    private void deleteDocumentsExample(){
-       collection.drop();
-       // begin deleteDocumentsExample
-       collection.bulkWrite(
-            Arrays.asList(new InsertOneModel<>(new Document("_id", 1)),
-                            new InsertOneModel<>(new Document("_id", 2)),
-                            new DeleteOneModel<>(Filters.eq("_id", 1))));
-        //end deleteDocumentsExample
+        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
+        InsertOneModel<Document> doc2 = new InsertOneModel<>(new Document("_id", 2));
+        
+        bulkOperations.add(doc1);
+        bulkOperations.add(doc2);
+
+        collection.bulkWrite(bulkOperations);
     }
 }
