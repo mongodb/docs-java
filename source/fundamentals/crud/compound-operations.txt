@@ -55,7 +55,7 @@ The following examples use a collection containing these two sample documents.
 
 `The full code for the following examples is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java>`__
 
-.. note:: Before or After?
+.. note:: Before or After the Write?
 
    By default, compound operations return your found document in the state
    before your write operation. You can retrieve your found document in the
@@ -80,7 +80,7 @@ document with the ``color`` field set to ``"green"`` and  update the
 The example also uses a ``FindOneAndUpdateOptions`` instance to specify the
 following options:
 
-- Exclude the ``_id`` field from the found document
+- Exclude the ``_id`` field from the found document.
 - Specify to insert a document if no documents match the query. MongoDB and
   other databases refer to this operation as an upsert.
 - Set a maximum execution time of 5 seconds for this operation on the MongoDB

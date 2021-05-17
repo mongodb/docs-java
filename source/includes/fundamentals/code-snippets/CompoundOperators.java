@@ -116,7 +116,7 @@ class DemoClientUnsafe extends DemoClient {
         String myRoomName = myRoom.getString("room");
         System.out.println("You got the " + myRoomName + " " + this.guest);
         Bson update = Updates.combine(Updates.set("reserved", true), Updates.set("guest", guest));
-        Bson roomFilter = Filters.eq("_id", myRoom.get("_id", Integer.class))
+        Bson roomFilter = Filters.eq("_id", myRoom.get("_id", Integer.class));
         this.collection.updateOne(roomFilter, update);
     }
     // end the-unsafe-book-a-room
