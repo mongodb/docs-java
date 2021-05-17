@@ -49,9 +49,9 @@ public class Geo {
         // code to set up your mongo client ...
         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
         MongoCollection<Document> collection = database.getCollection("theaters");
-        final Point centralPark = new Point(new Position(-73.9667, 40.78));
-        final Bson query = near("location.geo", centralPark, 10000.0, 5000.0);
-        final Bson projection = fields(include("location.address.city"), excludeId());
+        Point centralPark = new Point(new Position(-73.9667, 40.78));
+        Bson query = near("location.geo", centralPark, 10000.0, 5000.0);
+        Bson projection = fields(include("location.address.city"), excludeId());
         collection.find(query)
                 .projection(projection)
                 .forEach(doc -> System.out.println(doc.toJson()));
@@ -68,7 +68,7 @@ public class Geo {
                 new Position(-74, 41),
                 new Position(-72, 39),
                 new Position(-72, 40)));
-        final Bson projection = fields(include("location.address.city"), excludeId());
+        Bson projection = fields(include("location.address.city"), excludeId());
         Bson geoWithinComparison = geoWithin("location.geo", longIslandTriangle);
         collection.find(geoWithinComparison)
                 .projection(projection)
