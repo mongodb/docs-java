@@ -55,6 +55,14 @@ The following examples use a collection containing these two sample documents.
 
 `The full code for the following examples is available on Github here. <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/CompoundOperatorsIndividualExamples.java>`__
 
+.. note:: Before or After?
+
+   By default, compound operations return your found document in the state
+   before your write operation. You can retrieve your found document in the
+   state after your write operation by using the options class corresponding to
+   your compound operation. You can see an example of this configuration in the 
+   :ref:`Find and Replace example below <java-find-and-replace-example>`.
+
 Find and Update
 ~~~~~~~~~~~~~~~
 
@@ -98,6 +106,8 @@ following API documentation pages:
 - :java-docs:`FindOneAndUpdateOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndUpdateOptions.html>`
 - :java-docs:`MongoExecutionTimeoutException <apidocs/mongodb-driver-core/com/mongodb/MongoExecutionTimeoutException.html>`
 
+
+.. _java-find-and-replace-example:
 
 Find and Replace
 ~~~~~~~~~~~~~~~~
