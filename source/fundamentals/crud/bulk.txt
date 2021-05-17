@@ -125,7 +125,7 @@ the document you want to replace with the replacement document.
 
    When performing a ``bulkWrite()``, the ``ReplaceOneModel`` cannot
    make changes to a document that violate unique index constraints on
-   the collection. The model also does not replace a document if there
+   the collection. Also, the model does not replace a document if there
    are no matches to your query filter. 
 
 Example
@@ -162,7 +162,7 @@ match your query filter.
 
    When performing a ``bulkWrite()``, the ``UpdateOneModel`` and
    ``UpdateManyModel`` cannot make changes to a document that violate
-   unique index constraints on the collection. The models also do not
+   unique index constraints on the collection. Also, the models do not
    update any documents if there are no matches to your query filter. 
 
 Example
@@ -198,7 +198,7 @@ match your query filter.
 .. note::
 
    When performing a ``bulkWrite()``, the ``DeleteOneModel`` and
-   ``DeleteOneModel``do not delete any documents if there are no matches
+   ``DeleteOneModel`` do not delete any documents if there are no matches
    to your query filter. 
 
 Example
@@ -267,8 +267,8 @@ to the ``order()`` method on ``BulkWriteOptions``. This means that
 all the bulk operations execute regardless if an error occurs and
 reports the errors at the end, if any. 
 
-Adding to the example above, adding the following snippet specifies the
-bulk operations to execute in any order:
+Adding to the example above, including the following specifies the bulk
+operations to execute in any order: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/BulkWrite.java
    :language: java
