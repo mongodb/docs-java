@@ -68,7 +68,7 @@ Find and Update
 
 To find and update one document, use the ``findOneAndUpdate()`` method of the
 ``MongoCollection`` class. The ``findOneAndUpdate()`` method returns your found
-document or ``null`` if no documents matched your query.
+document or ``null`` if no documents match your query.
 
 Example
 ^^^^^^^
@@ -81,7 +81,7 @@ The example also uses a ``FindOneAndUpdateOptions`` instance to specify the
 following options:
 
 - Exclude the ``_id`` field from the found document
-- Specify to insert a document if no documents match our query. MongoDB and
+- Specify to insert a document if no documents match the query. MongoDB and
   other databases refer to this operation as an upsert.
 - Set a maximum execution time of 5 seconds for this operation on the MongoDB
   instance. If the operation takes longer, the ``findOneAndUpdate()`` method
@@ -117,7 +117,7 @@ Find and Replace
 
 To find and replace one document, use the ``findOneAndReplace()`` method of the
 ``MongoCollection`` class. The ``findOneAndReplace()`` method returns your found
-document or ``null`` if no documents matched your query.
+document or ``null`` if no documents match your query.
 
 Example
 ^^^^^^^
@@ -139,7 +139,7 @@ the returned document should be in the state after our replace operation.
    :start-after: start findOneAndReplace-example
    :end-before: end findOneAndReplace-example
 
-The output of the code above should look like this:
+The output of the above code should look like this:
 
 .. code-block:: json
 
@@ -156,7 +156,7 @@ Find and Delete
 
 To find and delete one document, use the ``findOneAndDelete()`` method of the
 ``MongoCollection`` class. The ``findOneAndDelete()`` method returns your found
-document or ``null`` if no documents matched your query.
+document or ``null`` if no documents match your query.
 
 Example
 ^^^^^^^
@@ -173,7 +173,7 @@ descending sort on the ``_id`` field.
    :start-after: start findOneAndDelete-example
    :end-before: end findOneAndDelete-example
 
-The output of the code above should look like this:
+The output of the above code should look like this:
 
 .. code-block:: json
 
@@ -195,7 +195,7 @@ In this section we explore two examples. The first example contains a
 race condition, the second example uses a compound operation to
 avoid the race condition present in the first example.
 
-For this example, let's imagine that we run a hotel with one room and that we
+In this section, let's imagine that we run a hotel with one room and that we
 have a small Java program to help us checkout this room to a guest.  
 
 The following document in MongoDB represents the room:
