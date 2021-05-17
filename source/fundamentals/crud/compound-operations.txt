@@ -70,6 +70,9 @@ To find and update one document, use the ``findOneAndUpdate()`` method of the
 ``MongoCollection`` class. The ``findOneAndUpdate()`` method returns your found
 document or ``null`` if no documents matched your query.
 
+Example
+^^^^^^^
+
 The following example uses the ``findOneAndUpdate()`` method to find a
 document with the ``color`` field set to ``"green"`` and  update the
 ``food`` field in that document to ``"pizza"``. 
@@ -116,6 +119,9 @@ To find and replace one document, use the ``findOneAndReplace()`` method of the
 ``MongoCollection`` class. The ``findOneAndReplace()`` method returns your found
 document or ``null`` if no documents matched your query.
 
+Example
+^^^^^^^
+
 The following example uses the ``findOneAndReplace()`` method to find a
 document with the ``color`` field set to ``"green"`` and  replace it
 with the following document:
@@ -151,6 +157,9 @@ Find and Delete
 To find and delete one document, use the ``findOneAndDelete()`` method of the
 ``MongoCollection`` class. The ``findOneAndDelete()`` method returns your found
 document or ``null`` if no documents matched your query.
+
+Example
+^^^^^^^
 
 The following example uses the ``findOneAndDelete()`` method to find and
 delete the document with the largest value in the ``_id`` field.
