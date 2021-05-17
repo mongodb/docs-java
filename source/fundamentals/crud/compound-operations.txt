@@ -254,13 +254,11 @@ instance:
 Notice that for a brief moment Pat had reserved the room, but as Jan's update
 operation was the last to execute our document has ``"Jan"`` as the guest. 
 
-Let's see how we can use compound operations to avoid this race condition and
-always give our users the correct message. 
-
 Example Without Race Condition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Let's fix our ``bookARoom`` method using a compound operation.
+Let's use a compound operation to avoid the race condition and
+always give our users the correct message. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/CompoundOperators.java
    :language: java
