@@ -11,8 +11,9 @@ import org.bson.conversions.Bson;
 import java.util.Arrays;
 
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.FindOneAndUpdateOptions;
+import com.mongodb.client.model.ReturnDocument;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.model.UpdateOptions;
 
 public class UpdateArray {
     private final MongoCollection<Document> collection;
@@ -33,38 +34,39 @@ public class UpdateArray {
         System.out.println("$ example:");
         updateArray.setUpDocument();
         updateArray.updateValueExample();
-        updateArray.preview();
 
         System.out.println("$<> example:");
         updateArray.setUpDocument();
         updateArray.updateValueOptionsExample();
-        updateArray.preview();
 
         System.out.println("$[] example:");
         updateArray.setUpDocument();
         updateArray.updateAllElementsExample();
-        updateArray.preview();
 
         System.out.println("Push example:");
         updateArray.setUpDocument();
         updateArray.pushElementsExample();
-        updateArray.preview();
     }
 
     private void updateValueExample(){
         // begin updateValueExample
         Bson filter = Filters.eq("instock.warehouse", 'B');
         Bson update = Updates.inc("instock.$.qty", -3);
-        collection.updateOne(filter, update);
+        FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER);
+        
+        Document result = collection.findOneAndUpdate(filter, update, options);
+        System.out.println(result.toJson());
         // end updateValueExample
     }
 
     private void updateValueOptionsExample(){
         // begin updateValueOptionsExample
         Bson filter = Filters.eq("_id", 1);
-        UpdateOptions options = new UpdateOptions().arrayFilters(Arrays.asList(Filters.eq("location.warehouse", 'B')));
+        FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER).arrayFilters(Arrays.asList(Filters.eq("location.warehouse", 'B')));
         Bson update = Updates.pull("instock.$[location].warehouse", 'B' );
-        collection.updateOne(filter, update, options);
+        
+        Document result = collection.findOneAndUpdate(filter, update, options);
+        System.out.println(result.toJson());
         // end updateValueOptionsExample
     }
 
@@ -72,7 +74,10 @@ public class UpdateArray {
         // begin updateAllElementsExample
         Bson filter = Filters.eq("_id", 1);
         Bson update = Updates.inc("instock.$[].qty", 5);
-        collection.updateOne(filter, update);
+        FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER);
+        
+        Document result = collection.findOneAndUpdate(filter, update, options);
+        System.out.println(result.toJson());
         // end updateAllElementsExample
     }
 
@@ -81,12 +86,11 @@ public class UpdateArray {
         Bson filter = Filters.eq("_id", 1);
         Document doc = new Document("qty", 11).append("warehouse", Arrays.asList('D'));
         Bson update = Updates.push("instock", doc);
-        collection.updateOne(filter, update);
+        FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER);
+        
+        Document result = collection.findOneAndUpdate(filter, update, options);
+        System.out.println(result.toJson());
         // end pushElementsExample
-    }
-    
-    private void preview(){
-        collection.find().forEach(doc -> System.out.println(doc.toJson()));
     }
 
     private void setUpDocument(){

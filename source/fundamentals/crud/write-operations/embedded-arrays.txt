@@ -7,7 +7,7 @@ Update Arrays in a Document
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 Overview
@@ -16,32 +16,12 @@ Overview
 In this guide, you will learn how to match and update **embedded arrays** in
 a document.
 
-An embedded array is an array within another array.
+An embedded array is an array within another array. Compared to a
+non-embedded array, there are some differences such as: 
 
-The following document shows ``inner_array1`` and ``inner_array2`` as
-embedded arrays of ``outer_array``:
-
-.. code-block:: json
-   :copyable: false
-
-   { "_id" : 1,
-     "outer_array": [
-        { "inner_array1": [ val1, val2 ] }, 
-        { "inner_array2": [ val3, val4 ] }]}
-
-To access elements in an embedded array, use the dot notation. For
-example, use ``outer_array.inner_array2`` to access the values of
-``inner_array2`` in the document above. 
-
-To update an embedded array, you first specify a positional operator as
-your first parameter in your ``Updates`` builder. Positional operators
-specify the first, all or certain embedded arrays to update.
-
-Then, you can pass your ``Updates`` builder as the second parameter in
-the ``updateOne()`` and ``updateMany()`` methods. 
-
-Sample Document for Examples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- :ref:`Accessing array elements <accessing-elements>`
+- :ref:`Specifying an update <specify-update>`
+- :ref:`Specifying an array <specify-array>`
 
 The following sections feature examples on how to update the ``instock``
 array in this document:
@@ -55,39 +35,72 @@ array in this document:
         { "qty": 13, "warehouse": ["B", "C"] }, 
         { "qty": 15, "warehouse": ["B", "F"] } ]}
 
+Each example uses the ``findOneAndUpdate()`` method to execute the
+update and uses ``FindOneAndUpdateOptions`` to show the resulting
+document after the update. For more information on how this method
+works, see our Compound Operations guide <TODO>.
+
 For additional information on the classes and methods mentioned in this
 section, see the following resources: 
 
-- Manual Explanation on :manual:`Dot Notation </core/document/#std-label-document-dot-notation>`
-- :doc:`Updates Builders Guide </fundamentals/builders/updates>`
-- API Documentation on :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>>`
-- API Documentation on :java-docs:`updateMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>`
-- Runnable :doc:`Update a Document Example </usage-examples/updateOne>` 
-- Runnable :doc:`Update Multiple Documents Example </usage-examples/updateMany>`
+- :java-sync-api:`findOneAndUpdate() <com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>` API Documentation
+- :java-core-api:`FindOneAndUpdateOptions <com/mongodb/client/model/FindOneAndUpdateOptions.html>`
 
-``Updates`` Builder
--------------------
+.. _accessing-elements:
+
+Accessing Elements
+------------------
+
+Use the dot notation to access elements in an embedded array.
+
+The following document shows ``inner_array1`` and ``inner_array2`` as
+embedded arrays of ``outer_array``:
+
+.. code-block:: json
+   :copyable: false
+
+   { "_id" : 2,
+     "outer_array": [
+        { "inner_array1": [ val1, val2 ] }, 
+        { "inner_array2": [ val3, val4 ] }]}
+
+To access the values of ``inner_array2`` in the document above, use
+``outer_array.inner_array2``. 
+
+For additional information, see the server manual explanation on
+:manual:`Dot notation </core/document/#std-label-document-dot-notation>`.
+
+.. _specify-update:
+
+Specify an Update
+-----------------
+
+To specify an update, pass a query filter to find a document and an
+``Updates`` builder to update the document to the ``findOneAndUpdate()``
+method. 
 
 The ``Updates`` builder provides static utility methods to update fields
 and arrays in a document. To update a non-embedded array, pass the field
-and value you want to an array static utility method. 
+and the updated value to any method of the doc:`Updates builders</fundamentals/builders/updates>`.
 
-For embedded arrays, you must pass the field and a document that
-represents an embedded array to the following array static utility
-methods of the ``Updates`` builder:
+For embedded arrays, pass the field and the updated document
+representing an embedded array to one of the following methods of the
+``Updates`` builder: 
 
 - ``pull()`` removes all embedded arrays with the values in the document
 - ``push()`` appends the document to the array regardless if the embedded array exists
 - ``addToSet()`` appends the document to an array if the embedded array does not exist
 
+You use the other ``Updates`` builder methods the same way as for
+non-embedded arrays. 
+
 Example
 ~~~~~~~
 
-The following example adds an embedded array where the ``qty`` is "11" and
-``warehouse`` is "D" to the ``instock`` array in the document by: 
+The following example performs the following actions: 
 
-- Creating a new document where ``qty`` is "11" and ``warehouse`` is "D"
-- Using the ``push()`` method to add the document
+- Create a new document where ``qty`` is "11" and ``warehouse`` is "D"
+- Use the ``push()`` method to add the document to the ``instock`` array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -95,7 +108,7 @@ The following example adds an embedded array where the ``qty`` is "11" and
    :start-after: begin pushElementsExample
    :end-before: end pushElementsExample
 
-The example above updates the original document to the following state:
+The output of the above code should look like this:
 
 .. code-block:: json
    :copyable: false
@@ -108,33 +121,41 @@ The example above updates the original document to the following state:
         { "qty": 15, "warehouse": ["B", "F"] }, 
         { "qty": 11, "warehouse": ["D"] } ]}
 
-For additional information on the classes and methods mentioned in this
-section, see the following resources: 
+For additional information on the methods mentioned in this section, see
+the following resources: 
 
-- :doc:`Updates Builders Guide</fundamentals/builders/updates>`
-- API Documentation on :java-core-api:`push() <com/mongodb/client/model/Updates.html#push(java.lang.String,TItem)>`
-- API Documentation on :java-core-api:`pull() <com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>`
-- API Documentation on :java-core-api:`addToSet() <com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`
+- :java-core-api:`push() <com/mongodb/client/model/Updates.html#push(java.lang.String,TItem)>` API Documentation
+- :java-core-api:`pull() <com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>` API Documentation
+- :java-core-api:`addToSet() <com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>` API Documentation
 
-Matching the First Array Element
---------------------------------
+.. _specify-array:
+
+Specifying an Array
+-------------------
+
+To update an embedded array, specify which embedded array to update
+using a positional operator. This specification is your first parameter
+in your ``Updates`` builder. Positional operators can specify the first,
+all or certain embedded arrays to update. 
+
+The First Array Element
+~~~~~~~~~~~~~~~~~~~~~~~
 
 To update the first element that matches your query filter, use the
 positional ``$`` operator. 
 
-The positional ``$`` operator references the array matched by the query
+The positional ``$`` operator references the array matched by your query
 filter and cannot reference a nested array. If you want to access a
 nested array, use the :ref:`filtered positional operator <filtered_positional_operator>`. 
 
 Example
-~~~~~~~
+```````
 
-The following example filters for the first embedded array where "B" is
-in the ``warehouse`` array and decrements the ``qty`` field by "3" in
-the document by:
+The following example performs the following actions:
 
-- Querying for embedded arrays where "B" exists in warehouses
-- Using the ``inc()`` method with a positional ``$`` operator
+- Query for embedded arrays where "B" exists in warehouses
+- Use the ``inc()`` method to decrement the ``qty`` field by "3" 
+- Use a positional ``$`` operator to indicate an update to the first matched embedded array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -142,7 +163,7 @@ the document by:
    :start-after: begin updateValueExample
    :end-before: end updateValueExample
 
-The example above updates the original document to the following state:
+The output of the above code should look like this:
 
 .. code-block:: json
    :copyable: false
@@ -154,26 +175,25 @@ The example above updates the original document to the following state:
         { "qty": 10, "warehouse": ["B", "C"] }, 
         { "qty": 15, "warehouse": ["B", "F"] } ]}
 
-For additional information on the classes and methods mentioned in this
+For additional information on the operator and method mentioned in this
 section, see the following resources: 
 
-- Manual Explanation on :manual:`Positional $ Operator </reference/operator/update/positional>`
-- API Documentation on :java-core-api:`inc() <com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>`
-- API Documentation on :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>>`
+- :manual:`Positional $ Operator </reference/operator/update/positional>` Server Manual Explanation
+- :java-core-api:`inc() <com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>` API Documentation
 
-Matching All Array Elements
----------------------------
+All Array Elements
+~~~~~~~~~~~~~~~~~~
 
 To update each embedded array in the document, use the all positional
 ``$[]`` operator. 
 
 Example
-~~~~~~~
+```````
 
-The following example increments the ``qty`` field for each embedded
-array by "5" in the document by: 
+The following example performs the following actions: 
 
-- Using the ``inc()`` method with an all positional operator
+- Using the ``inc()`` method to increment the ``qty`` field by "5"
+- Use an all positional operator to indicate an update to each embedded array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -193,17 +213,16 @@ The example above updates the original document to the following state:
         {"qty": 18, "warehouse": ["B", "C"]}, 
         {"qty": 20, "warehouse": ["B", "F"]} ]}
 
-For additional information on the classes and methods mentioned in this
+For additional information on the operator and method mentioned in this
 section, see the following resources: 
 
-- Manual Explanation on :manual:`Positional $[] Operator </reference/operator/update/positional-all/>`
-- API Documentation on :java-core-api:`inc() <com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>`
-- API Documentation on :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>>`
+- :manual:`Positional $[] Operator </reference/operator/update/positional-all/>` Server Manual Explanation
+- :java-core-api:`inc() <com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>` API Documentation
 
 .. _filtered_positional_operator:
 
-Filtered Positional Operator
-----------------------------
+Filtered Array Elements
+~~~~~~~~~~~~~~~~~~~~~~~
 
 To update certain embedded arrays in a document, specify a
 ``UpdateOptions.arrayFilters`` condition and use the filtered positional
@@ -219,13 +238,13 @@ variable in your ``arrayFilters``.
     only alphanumeric characters.
 
 Example
-~~~~~~~
+```````
 
-The following example removes "B" from the ``warehouse`` array in each
-embedded array in the document by:
+The following example performs the following actions:
 
-- Setting a ``UpdateOptions.arrayFilters`` condition to search for "B" in the warehouse array
-- Using the ``pull()`` method with a filtered positional operator to remove "B"
+- Set a ``UpdateOptions.arrayFilters`` condition to search for "B" in the warehouse array
+- Use the ``pull()`` method to remove an element
+- Use  a filtered positional operator to remove "B" in each embedded array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -245,22 +264,25 @@ The example above updates the original document to the following state:
         { "qty": 13, "warehouse": ["C"] }, 
         { "qty": 15, "warehouse": ["F"] } ]}
 
-For additional information on the classes and methods mentioned in this
+For additional information on the operator and method mentioned in this
 section, see the following resources: 
 
-- Manual Explanation on :manual:`Positional $[\<identifier\>] Operator </reference/operator/update/positional-filtered/>`
-- API Documentation on :java-core-api:`pull() <com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>`
-- API Documentation on :java-docs:`updateOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>>`
+- :manual:`Positional $[\<identifier\>] Operator </reference/operator/update/positional-filtered/>` Server Manual Explanation
+- :java-core-api:`pull() <com/mongodb/client/model/Updates.html#pull(java.lang.String,TItem)>` API Documentation
 
 Summary
 -------
 
-You can update an embedded array by specifying a positional operator as
-your first parameter in your ``Updates`` builder. 
+You can update an embedded array using the ``findOneAndUpdate()``
+method with the following parameters:
+
+- A query filter to match a document
+- An ``Updates`` builder with the field and updated value
+- A positional operator as your field in the ``Updates`` builder
 
 There are three positional operators that can specify which embedded
 array to update: 
 
-- ``$`` updates the first embedded array that matches your query filter
-- ``$[]`` updates all embedded arrays that match your query filter
-- ``$[<identifier>]`` updates the embedded arrays that match your ``UpdateOptions.arrayFilters`` condition
+- The positional ``$`` operator updates the first embedded array that matches your query filter
+- The all positional ``$[]`` operator updates all embedded arrays that match your query filter
+- The filter positional ``$[<identifier>]`` operator updates the embedded arrays that match your ``UpdateOptions.arrayFilters`` condition
