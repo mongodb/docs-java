@@ -81,11 +81,9 @@ where their ``_id`` are "3" and "4":
 
 .. note::
 
-   When performing a ``bulkWrite()``, the ``InsertOneModel``:
-   
-   - Cannot insert a document with an ``_id`` that already exists in the collection
-   
-   Instead, the method throws an ``MongoBulkWriteException``.
+   When performing a ``bulkWrite()``, the ``InsertOneModel`` cannot
+   insert a document with an ``_id`` that already exists in the
+   collection. Instead, the method throws an ``MongoBulkWriteException``.
 
    The following example tries to insert two documents where the ``_id`` is
    "1" and "3":
@@ -125,10 +123,10 @@ the document you want to replace with the replacement document.
 
 .. note::
 
-   When performing a ``bulkWrite()``, the ``ReplaceOneModel``:
-   
-   - Cannot make changes to a document that violate unique index constraints on the collection
-   - Does not replace a document if there are no matches to your query filter
+   When performing a ``bulkWrite()``, the ``ReplaceOneModel`` cannot
+   make changes to a document that violate unique index constraints on
+   the collection. The model also does not replace a document if there
+   are no matches to your query filter. 
 
 Example
 ```````
@@ -163,10 +161,9 @@ match your query filter.
 .. note::
 
    When performing a ``bulkWrite()``, the ``UpdateOneModel`` and
-   ``UpdateManyModel``:
-   
-   - Cannot make changes to a document that violate unique index constraints on the collection. 
-   - Do not update any documents if there are no matches to your query filter
+   ``UpdateManyModel`` cannot make changes to a document that violate
+   unique index constraints on the collection. The models also do not
+   update any documents if there are no matches to your query filter. 
 
 Example
 ```````
@@ -201,9 +198,8 @@ match your query filter.
 .. note::
 
    When performing a ``bulkWrite()``, the ``DeleteOneModel`` and
-   ``DeleteOneModel``:
-   
-   - Do not delete any documents if there are no matches to your query filter
+   ``DeleteOneModel``do not delete any documents if there are no matches
+   to your query filter. 
 
 Example
 ```````
@@ -247,7 +243,7 @@ The following example performs these bulk operations:
 - An insert operation for a document where ``_id`` is "3"
 - A replace operation for a document where the ``_id`` is "1" to a document with an additional field ``x`` with the value "2"
 - An update operation for a document where the ``_id`` is "3" to a document with an additional field ``x`` with the value "2"
-- A delete operation for all documents that contain the field ``x`` with the value 2
+- A delete operation for all documents that contain the field ``x`` with the value "2"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/BulkWrite.java
    :language: java
@@ -283,13 +279,13 @@ bulk operations to execute in any order:
 .. note::
 
    Unordered bulk operations do not guarantee order of execution. The
-   order the operations may differ from the way you list them to optimize
-   the runtime.
+   order may differ from the way you list them to optimize the runtime.
    
-   If the ``bulkWrite()`` method decided to perform the insert operation
-   after the update operation, nothing changes with the update operation
-   because the document does not exist at that point in time. Your
-   collection would contain the following documents:
+   In the exampel above, if the ``bulkWrite()`` method decided to
+   perform the insert operation after the update operation, nothing
+   changes with the update operation because the document does not exist
+   at that point in time. Your collection then contains the following
+   documents: 
    
    .. code-block:: json
       :copyable: false
