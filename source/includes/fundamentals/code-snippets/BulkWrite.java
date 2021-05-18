@@ -83,9 +83,7 @@ public class BulkWrite {
             collection.bulkWrite(bulkOperations); 
         
         } catch (MongoBulkWriteException e){
-            collection.find().forEach(doc -> System.out.println(doc.toJson()));
-            
-            System.out.println("A MongoBulkWriteException occured: " + e.getWriteErrors());
+            System.out.println("A MongoBulkWriteException occured with the following message: " + e.getMessage());
         }
         //end insertExceptionExample
     }
