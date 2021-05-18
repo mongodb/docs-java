@@ -56,6 +56,8 @@ public class CompoundOperatorsIndividualExamples {
                 projection(projection).
                 upsert(true).
                 maxTime(5, TimeUnit.SECONDS);
+        /* The result variable contains your document in the
+           state before your update operation is performed. */
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         //end findOneAndUpdate-example
