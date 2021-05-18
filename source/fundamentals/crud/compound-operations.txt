@@ -13,7 +13,7 @@ Compound Operations
 Overview
 --------
 
-In this guide you will learn how to perform **compound operations** with the
+In this guide, you will learn how to perform **compound operations** with the
 MongoDB Java driver. 
 
 Compound operations consist of a read and write operation performed as one
@@ -195,7 +195,7 @@ In this section we explore two examples. The first example contains a
 race condition, the second example uses a compound operation to
 avoid the race condition present in the first example.
 
-In this section, let's imagine that we run a hotel with one room and that we
+For both examples, let's imagine that we run a hotel with one room and that we
 have a small Java program to help us checkout this room to a guest.  
 
 The following document in MongoDB represents the room:
@@ -289,7 +289,7 @@ When we look at our database, we see the following:
     {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
  
 Pat got the correct message. While she might be sad she didn't get the
-reservation, at least she will know not to travel to our hotel.
+reservation, at least she knows not to travel to our hotel.
 
 Here is the sequence of events that happened from the perspective of our MongoDB
 instance:
