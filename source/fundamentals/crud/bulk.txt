@@ -29,9 +29,9 @@ Performing Bulk Operations
 --------------------------
 
 Bulk operations consist of a large number of CRUD operations. To perform
-the bulk operation, pass a ``List`` of bulk operations in the format of
-``WriteModel`` documents  to the ``bulkWrite()`` method. A
-``WriteModel`` is a model that represents any of the CRUD operations. 
+the bulk operation, pass a ``List`` of ``WriteModel`` documents  to the
+``bulkWrite()`` method. A ``WriteModel`` is a model that represents any
+of the CRUD operations. 
 
 The following sections show how to create and use each ``WriteModel``
 document. The examples in each section contain the following documents
@@ -92,7 +92,7 @@ where the ``_id`` is "3" and "4":
       Write errors: [BulkWriteError{index=0, code=11000, message='E11000 duplicate key error collection: 
       crudOps.bulkWrite index: _id_ dup key: { _id: 1 }', details={}}].
 
-   To see why the document where the ``_id`` is "3" didn't insert, see
+   To see why the document with the ``_id`` of "3" didn't insert, see
    the :ref:`Order of Execution <orderOfExecution>` section.
 
 For additional information on the class mentioned in this
@@ -211,7 +211,7 @@ section, see the following resources:
 Order of Execution
 ------------------
 
-The ``bulkWrite()`` method also optionally takes ``BulkWriteOptions`` as
+The ``bulkWrite()`` method accepts an optional ``BulkWriteOptions`` as
 a second parameter to specify if you want to execute the bulk operations
 as ordered or unordered. 
 
