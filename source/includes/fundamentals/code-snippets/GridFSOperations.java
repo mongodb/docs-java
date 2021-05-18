@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.function.Consumer;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoClient;
@@ -22,13 +23,13 @@ import com.mongodb.client.gridfs.GridFSUploadStream;
 import com.mongodb.client.gridfs.model.GridFSDownloadOptions;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.client.gridfs.model.GridFSUploadOptions;
+import com.mongodb.client.model.Filters;
 
 public final class GridFSOperations {
 
     private static void uploadFromInputStream(GridFSBucket gridFSBucket) throws Exception {
-
-        String filePath = "/Users/ccho/Downloads/download.csv";
         // start uploadFromInputStream
+        String filePath = "/path/to/project.zip";
         try (InputStream streamToUploadFrom = new FileInputStream(filePath) ) {
             GridFSUploadOptions options = new GridFSUploadOptions()
                     .chunkSizeBytes(1024)
@@ -44,8 +45,7 @@ public final class GridFSOperations {
     private static void uploadFromOutputStream(GridFSBucket gridFSBucket) throws Exception {
 
         // start uploadFromOutputStream
-        // read largeFile.txt into memory
-        Path filePath = Paths.get("/path/to/largeFile.txt");
+        Path filePath = Paths.get("/path/to/project.zip");
         byte[] data = Files.readAllBytes(filePath);
 
         GridFSUploadOptions options = new GridFSUploadOptions()
@@ -54,7 +54,6 @@ public final class GridFSOperations {
 
         try (GridFSUploadStream uploadStream = gridFSBucket.openUploadStream("myProject.zip", options)) {
             uploadStream.write(data);
-            uploadStream.close();
             System.out.println("The file id of the uploaded file is: " + uploadStream.getObjectId().toHexString());
         }
         // end uploadFromOutputStream
@@ -65,18 +64,15 @@ public final class GridFSOperations {
         gridFSBucket.find().forEach(new Consumer<GridFSFile>() {
             @Override
             public void accept(final GridFSFile gridFSFile) {
-//                gridFSFile.getId()
-//                gridFSFile.getLength()
-//                gridFSFile.getUploadDate()
-//                gridFSFile.toString()
-                System.out.println(gridFSFile); //.getFilename());
+                System.out.println(gridFSFile);
             }
         });
         // end findAllFiles
     }
     private static void findMatchingFiles(GridFSBucket gridFSBucket) throws Exception {
         // start findMatchingFiles
-        gridFSBucket.find().forEach(new Consumer<GridFSFile>() {
+        Bson query = Filters.eq("metadata.type", "zip archive");
+        gridFSBucket.find(query).forEach(new Consumer<GridFSFile>() {
             @Override
             public void accept(final GridFSFile gridFSFile) {
                 System.out.println(gridFSFile.getFilename());
@@ -96,9 +92,8 @@ public final class GridFSOperations {
     }
 
     private static void downloadToMemory(GridFSBucket gridFSBucket) throws Exception {
-        ObjectId fileId = new ObjectId();
-
         // start downloadToMemory
+        ObjectId fileId = new ObjectId("60345d38ebfcf47030e81cc9");
         try (GridFSDownloadStream downloadStream = gridFSBucket.openDownloadStream(fileId)) {
             int fileLength = (int) downloadStream.getGridFSFile().getLength();
             byte[] bytesToWriteTo = new byte[fileLength];
@@ -110,21 +105,24 @@ public final class GridFSOperations {
 
 
     private static void renameFile(GridFSBucket gridFSBucket) throws Exception {
-        ObjectId fileId = new ObjectId();
-
         // start renameFile
-        gridFSBucket.rename(fileId, "mongodbTutorial");
+        ObjectId fileId = new ObjectId("60345d38ebfcf47030e81cc9");
+        gridFSBucket.rename(fileId, "mongodbTutorial.zip");
         // end renameFile
     }
 
     private static void deleteFile(GridFSBucket gridFSBucket) throws Exception {
-        ObjectId fileId = new ObjectId();
-
         // start deleteFile
+        ObjectId fileId = new ObjectId("60345d38ebfcf47030e81cc9");
         gridFSBucket.delete(fileId);
         // end deleteFile
     }
 
+    private static void dropBucket(GridFSBucket gridFSBucket) throws Exception {
+        // start dropBucket
+        gridFSBucket.drop();
+        // end dropBucket
+    }
 
     public static void main(final String[] args) throws Exception {
         String uri = "mongodb://localhost:27017";
@@ -136,8 +134,6 @@ public final class GridFSOperations {
             GridFSBucket gridFSBucket = GridFSBuckets.create(database);
             // end createGridFSBucket
 
-            uploadFromInputStream(gridFSBucket);
-            findAllFiles(gridFSBucket);
         }
     }
 
