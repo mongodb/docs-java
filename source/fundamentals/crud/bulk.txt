@@ -21,21 +21,17 @@ use their corresponding method. For example, to insert one document,
 update multiple documents, and delete one document in your collection,
 you use the ``insertOne()``, ``updateMany()`` and ``deleteOne()`` methods. 
 
-To perform a CRUD operation, the ``MongoClient`` needs to make
-a call for each operation to the database. Instead, the ``MongoClient``
-can make one call for all the operations to the database by using bulk
-operations.
+The ``MongoClient`` performs these operations by making a call for each
+operation to the database. You can reduce the number of calls to the
+database to one by using bulk operations. 
 
 Performing Bulk Operations
 --------------------------
 
 Bulk operations consist of a large number of CRUD operations. To perform
-a bulk operation, you pass the operations to the ``bulkWrite()`` method. 
-
-The ``bulkWrite()`` method accepts a list of bulk operations in the
-format of ``WriteModel`` documents. A ``WriteModel`` is a model you can
-use in bulk operations. There is a  ``WriteModel`` for each of the CRUD
-operations. 
+the bulk operation, pass a ``List`` of bulk operations in the format of
+``WriteModel`` documents  to the ``bulkWrite()`` method. A
+``WriteModel`` is a model that represents any of the CRUD operations. 
 
 The following sections show how to create and use each ``WriteModel``
 document. The examples in each section contain the following documents
