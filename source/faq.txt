@@ -33,15 +33,15 @@ What's the difference between ``mongodb-driver-sync``, ``mongodb-driver`` or ``m
 
    * - Driver
      - Description
-   * - mongodb-driver-sync
+   * - ``mongodb-driver-sync``
      - The synchronous driver **only**, new in 3.7. **No legacy classes.**
-   * - mongodb-driver-async
+   * - ``mongodb-driver-async``
      - The new asynchronous driver **only**, new in 3.0. **No legacy classes.**
-   * - mongodb-driver
+   * - ``mongodb-driver``
      - The synchronous driver plus the legacy driver, new in 3.0.
-   * - mongo-java-driver
-     - An uber jar containing the bson library, the core library and the mongodb-driver. This artifact is a valid OSGi bundle.
-   * - mongodb-driver-core
+   * - mongo-java-driver``
+     - ``An uber jar containing the bson library, the core library and the mongodb-driver. This artifact is a valid OSGi bundle.
+   * - ``mongodb-driver-core``
      - The core library, (new in 3.0). **No BSON included (but is a dependency), and no high-level drivers.**
 
 POJOs
@@ -55,7 +55,6 @@ Imagine you have an entity like the following:
 .. code-block:: java
 
    public class Entity {
-
       public final ObjectId id;
       public String value;
 
@@ -69,13 +68,12 @@ insert, but the value of this ID is not passed back via the driver.
 
 .. note::
 
-   You can mark any one field to encode as `_id` with the @BsonId
-   annotation. 
+   You can mark any one field to encode as ``_id`` with the @BsonId annotation. 
 
 Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes. See example at https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java (TODO: link to equivalent in driver repo)
+Yes. For an example of this, see `our implmentaition <https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java>`_ (TODO: link to equivalent in driver repo)
 
 What is the discriminator?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,6 +128,7 @@ For example, the following methods throws an exception during encoding:
 .. code-block:: java
    
    private String getField();
+   
    public String setField(String x); 
 
 Can I use polymorphism in a POJO accessor?
@@ -159,7 +158,6 @@ We recommend adding a static in your class as shown:
 
    public class Person {
       public static final String COLLECTION_NAME = "people"; 
-      ...
    }
 
 The following snippet specifies the collection name for a particular
