@@ -12,4 +12,168 @@ Frequently Asked Questions
    :depth: 1
    :class: singlecol
 
-Lorem ipsum.
+General
+-------
+
+Why are there two versions of the classes? e.g. ``Mongo`` and ``MongoClient``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``MongoDatabase``, ``MongoClient``, ``MongoCollection`` are the
+newer generation of classes and have better defaults for production use.
+
+For more information, see our blog post on `MongoClient
+<https://www.mongodb.com/blog/post/introducing-mongoclient>`_. 
+
+What's the difference between ``mongodb-driver-sync``, ``mongodb-driver`` or ``mongo-java-driver``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 35 65
+   :header-rows: 1
+
+   * - Driver
+     - Description
+
+      - mongodb-driver-sync
+      - The synchronous driver **only**, new in 3.7. **No legacy classes.**
+
+      - mongodb-driver-async
+      - The new asynchronous driver **only**, new in 3.0. **No legacy classes.**
+
+      - mongodb-driver
+      - The synchronous driver plus the legacy driver, new in 3.0.
+
+      - mongo-java-driver
+      - An uber jar containing the bson library, the core library and the mongodb-driver. This artifact is a valid OSGi bundle.
+
+      - mongodb-driver-core
+      - The core library, (new in 3.0). **No BSON included (but is a dependency), and no high-level drivers.**
+
+POJOs
+-----
+
+Do I have to specify an ID field value myself?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Imagine you have an entity like the following:
+
+.. code-block:: java
+
+   public class Entity {
+
+      public final ObjectId id;
+      public String value;
+
+      public Entity(){ }
+   }
+
+When inserting with ``collection.insertOne()``, the Codec will encode
+this into JSON, but skip the _id field since the value is null. The
+server, however, automatically generates an ID for the document during
+insert, but the value of this ID is not passed back via the driver. 
+
+.. note::
+
+   You can mark any one field to encode as `_id` with the @BsonId
+   annotation. 
+
+Can the ID field be a compound key?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes. See example at https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java (TODO: link to equivalent in driver repo)
+
+What is the discriminator?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The discriminator is something used for cases where you want to use
+inheritance, and store multiple types of documents within the same
+collection or parent document (in case you embed sub-documents). 
+
+For example, if you have a ``Event`` class, that you extend in Java (e.g.
+``MachineEvent`` or ``NetworkEvent``), using the discriminator identifies
+which class the PojoCodec should use to serialize/deserialize the
+document. 
+
+Can I control serialization of ``LocalDate``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes, the 3.7 driver adds native support for ``JSR-310 Instant``, ``LocalDate`` &
+``LocalDateTime`` support. 
+
+Add the Codec to the top your registry before the DefaultCodecRegister
+and before the PojoCodecProvider: 
+
+.. code-block:: java
+
+   static final CodecRegistry CODEC_REGISTRY = fromRegistries(
+      CodecRegistries.fromCodecs(
+         new MyDateAsStringCodec()),
+         MongoClient.getDefaultCodecRegistry(),
+         fromProviders(pojoCodecProvider) );
+
+Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes, you can build your own Codec for this class and add it to the registry. 
+
+Can I make POJOs read/write directly to the field and not use the getters/setters at all?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Not natively, but you can build your own POJO Codec.
+
+However, the ``SET_PRIVATE_FIELDS_CONVENTION`` sets a private field via
+reflection if no public setter is available. 
+
+Can I mix private, protected and public setters and getters?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+No. The native POJO Codec assumes that getters/setters have the same
+modifiers for each field.  
+
+For example, the following methods throws an exception during encoding:
+
+.. code-block:: java
+   
+   private String getField();
+   public String setField(String x); 
+
+Can I use polymorphism in a POJO accessor?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+No. Currently, if the types of the accessors do not match with the field
+itself, then the codec throws an exception. 
+
+How do I fix ``org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X .``? 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The class should be public and should have at least one field.
+
+Is it important what order I list my codecs?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes! 
+
+How do I specify the collection name for a particular POJO class? Is there an annotation?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Currently, there is no annotation. 
+
+We recommend adding a static in your class as shown:
+
+.. code-block:: java
+
+   public class Person {
+      public static final String COLLECTION_NAME = "people"; 
+      ...
+   }
+
+The following snippet specifies the collection name for a particular
+POJO class: 
+
+.. code-block:: java
+
+   database.getCollection(Person.COLLECTION_NAME, Person.class);
+
+If you are unable to find the answer to your question here, try our forums and
+support channels listed in the :doc:`Issues and Help <issues-and-help>`
+section.
