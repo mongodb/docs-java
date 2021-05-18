@@ -80,9 +80,8 @@ document with the ``color`` field set to ``"green"`` and  update the
 The example also uses a ``FindOneAndUpdateOptions`` instance to specify the
 following options:
 
-- Exclude the ``_id`` field from the found document.
-- Specify to insert a document if no documents match the query. MongoDB and
-  other databases refer to this operation as an upsert.
+- Exclude the ``_id`` field from the found document with a projection.
+- Specify an upsert, which inserts a document if no documents match the query.
 - Set a maximum execution time of 5 seconds for this operation on the MongoDB
   instance. If the operation takes longer, the ``findOneAndUpdate()`` method
   will throw a ``MongoExecutionTimeoutException``.  
@@ -101,6 +100,9 @@ The output of the above code should look like this:
 
 For more information on the ``Projections`` class, see our
 :doc:`guide on the Projections builder </fundamentals/builders/projections/>`.
+
+For more information on the upsert operation, see our 
+:doc:`guide on upserts </fundamentals/crud/write-operations/upsert/#insert-or-update-in-a-single-operation/>`.
 
 For more information on the methods and classes in this section, see the
 following API documentation pages:
