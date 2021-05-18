@@ -17,7 +17,7 @@ In this guide, you will learn how to match and update **embedded arrays** in
 a document.
 
 An embedded array is an array within another array. Compared to a
-non-embedded array, there are some differences such as: 
+non-embedded array, there are differences in: 
 
 - :ref:`Accessing array elements <accessing-elements>`
 - :ref:`Specifying an update <specify-update>`
@@ -36,15 +36,15 @@ array in this document:
         { "qty": 15, "warehouse": ["B", "F"] } ]}
 
 Each example uses the ``findOneAndUpdate()`` method to execute the
-update and uses ``FindOneAndUpdateOptions`` to show the resulting
-document after the update. For more information on how this method
-works, see our Compound Operations guide <TODO>.
+update and ``FindOneAndUpdateOptions`` to show the resulting
+document after the update. For more information, see our Compound
+Operations guide <TODO>. 
 
-For additional information on the classes and methods mentioned in this
+For additional information on the class and method mentioned in this
 section, see the following resources: 
 
 - :java-sync-api:`findOneAndUpdate() <com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.FindOneAndUpdateOptions)>` API Documentation
-- :java-core-api:`FindOneAndUpdateOptions <com/mongodb/client/model/FindOneAndUpdateOptions.html>`
+- :java-core-api:`FindOneAndUpdateOptions <com/mongodb/client/model/FindOneAndUpdateOptions.html>` API Documentation
 
 .. _accessing-elements:
 
@@ -68,31 +68,29 @@ To access the values of ``inner_array2`` in the document above, use
 ``outer_array.inner_array2``. 
 
 For additional information, see the server manual explanation on
-:manual:`Dot notation </core/document/#std-label-document-dot-notation>`.
+:manual:`dot notation </core/document/#std-label-document-dot-notation>`.
 
 .. _specify-update:
 
-Specify an Update
------------------
+Specifying an Update
+--------------------
 
-To specify an update, pass a query filter to find a document and an
-``Updates`` builder to update the document to the ``findOneAndUpdate()``
-method. 
+Pass a query filter and an ``Updates`` builder to the
+``findOneAndUpdate()`` method to specify an update. 
+
+The query filter looks for the first document that matches your criteria. 
 
 The ``Updates`` builder provides static utility methods to update fields
-and arrays in a document. To update a non-embedded array, pass the field
-and the updated value to any method of the doc:`Updates builders</fundamentals/builders/updates>`.
-
-For embedded arrays, pass the field and the updated document
-representing an embedded array to one of the following methods of the
-``Updates`` builder: 
+and arrays in a document. To update an embedded array, pass the field
+and the updated document representing an embedded array to one of the
+following methods of the ``Updates`` builder: 
 
 - ``pull()`` removes all embedded arrays with the values in the document
 - ``push()`` appends the document to the array regardless if the embedded array exists
 - ``addToSet()`` appends the document to an array if the embedded array does not exist
 
-You use the other ``Updates`` builder methods the same way as for
-non-embedded arrays. 
+The other array doc:`Updates builder </fundamentals/builders/updates>`
+methods operate the same way as for non-embedded arrays. 
 
 Example
 ~~~~~~~
@@ -100,7 +98,7 @@ Example
 The following example performs the following actions: 
 
 - Create a new document where ``qty`` is "11" and ``warehouse`` is "D"
-- Use the ``push()`` method to add the document to the ``instock`` array
+- Use the ``push()`` method of the ``Updates`` builder to add the document to the ``instock`` array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -133,20 +131,20 @@ the following resources:
 Specifying an Array
 -------------------
 
-To update an embedded array, specify which embedded array to update
-using a positional operator. This specification is your first parameter
-in your ``Updates`` builder. Positional operators can specify the first,
-all or certain embedded arrays to update. 
+You can specify which embedded array to update using a positional
+operator. This specification is your first parameter in your ``Updates``
+builder. Positional operators can specify the first, all or certain
+embedded arrays to update. 
 
 The First Array Element
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-To update the first element that matches your query filter, use the
-positional ``$`` operator. 
+Use the positional ``$`` operator to update the first element that
+matches your query filter. 
 
 The positional ``$`` operator references the array matched by your query
-filter and cannot reference a nested array. If you want to access a
-nested array, use the :ref:`filtered positional operator <filtered_positional_operator>`. 
+filter and cannot reference an embedded array. If you want to access an
+embedded array, use the :ref:`filtered positional operator <filtered_positional_operator>`. 
 
 Example
 ```````
@@ -154,7 +152,7 @@ Example
 The following example performs the following actions:
 
 - Query for embedded arrays where "B" exists in warehouses
-- Use the ``inc()`` method to decrement the ``qty`` field by "3" 
+- Use the ``inc()`` method of the ``Updates`` builder to decrement the ``qty`` field by "3" 
 - Use a positional ``$`` operator to indicate an update to the first matched embedded array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
@@ -184,15 +182,15 @@ section, see the following resources:
 All Array Elements
 ~~~~~~~~~~~~~~~~~~
 
-To update each embedded array in the document, use the all positional
-``$[]`` operator. 
+Use the all positional ``$[]`` operator to update each embedded array in
+the document. 
 
 Example
 ```````
 
 The following example performs the following actions: 
 
-- Using the ``inc()`` method to increment the ``qty`` field by "5"
+- Using the ``inc()`` method of the ``Updates`` builder to increment the ``qty`` field by "5"
 - Use an all positional operator to indicate an update to each embedded array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
@@ -224,9 +222,9 @@ section, see the following resources:
 Filtered Array Elements
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-To update certain embedded arrays in a document, specify a
-``UpdateOptions.arrayFilters`` condition and use the filtered positional
-``$[<identifier>]`` operator. 
+Specify a ``UpdateOptions.arrayFilters`` condition and use the filtered
+positional ``$[<identifier>]`` operator to update certain embedded
+arrays in a document. 
 
 The ``<identifier>`` is the placeholder value you give to represent an
 element of the array field. This value is the prefix of the array
@@ -243,7 +241,7 @@ Example
 The following example performs the following actions:
 
 - Set a ``UpdateOptions.arrayFilters`` condition to search for "B" in the warehouse array
-- Use the ``pull()`` method to remove an element
+- Use the ``pull()`` method of the ``Updates`` builder to remove an element
 - Use  a filtered positional operator to remove "B" in each embedded array
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
