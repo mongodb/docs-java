@@ -49,6 +49,7 @@ This section shows how to use each compound operation with the MongoDB Java Driv
 The following examples use a collection containing these two sample documents.
 
 .. code-block:: json
+   :copyable: false
 
     {"_id": 1, "food": "donut", "color": "green"}
     {"_id": 2, "food": "pear", "color": "yellow"}
@@ -81,7 +82,7 @@ The example also uses a ``FindOneAndUpdateOptions`` instance to specify the
 following options:
 
 - Exclude the ``_id`` field from the found document with a projection.
-- Specify an upsert, which inserts a document if no documents match the query.
+- Specify an upsert, which inserts the query document if no documents match the query.
 - Set a maximum execution time of 5 seconds for this operation on the MongoDB
   instance. If the operation takes longer, the ``findOneAndUpdate()`` method
   will throw a ``MongoExecutionTimeoutException``.  
@@ -95,6 +96,7 @@ following options:
 The output of the above code should look like this:
 
 .. code-block:: json
+   :copyable: false
 
    {"food": "donut", "color": "green"}
 
@@ -129,6 +131,7 @@ document with the ``color`` field set to ``"green"`` and  replace it
 with the following document:
 
 .. code-block:: json
+   :copyable: false
 
    {"music": "classical", "color": "green"}
 
@@ -144,6 +147,7 @@ the returned document should be in the state after our replace operation.
 The output of the above code should look like this:
 
 .. code-block:: json
+   :copyable: false
 
    {"_id": 1, "music": "classical", "color": "green"}
 
@@ -178,6 +182,7 @@ descending sort on the ``_id`` field.
 The output of the above code should look like this:
 
 .. code-block:: json
+   :copyable: false
 
    {"_id": 2, "food": "pear", "color": "yellow"}
 
@@ -203,6 +208,7 @@ have a small Java program to help us checkout this room to a guest.
 The following document in MongoDB represents the room:
 
 .. code-block:: json
+   :copyable: false
 
     {"_id": 1, "guest": null, "room": "Blue Room", "reserved": false}
 
@@ -227,18 +233,21 @@ at the same time.
 Jan sees this output:
 
 .. code-block:: none
+   :copyable: false
 
    You got the Blue Room Jan
 
 And Pat sees this output:
 
 .. code-block:: none
+   :copyable: false
 
    You got the Blue Room Pat
 
 When we look at our database, we see the following: 
 
 .. code-block:: json
+   :copyable: false
 
     {"_id": 1, "guest": "Jan", "room": "Blue Room", "reserved": true}
 
@@ -275,18 +284,21 @@ at the same time.
 Jan sees this output:
 
 .. code-block:: none
+   :copyable: false
 
    You got the Blue Room Jan
 
 And Pat sees this output:
 
 .. code-block:: none
+   :copyable: false
 
    Sorry, we are booked Pat
 
 When we look at our database, we see the following: 
 
 .. code-block:: json
+   :copyable: false
 
     {"_id":1, "guest":"Jan", "room":"Blue Room", "reserved":true}
  
