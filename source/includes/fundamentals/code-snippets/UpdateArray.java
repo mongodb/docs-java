@@ -54,7 +54,6 @@ public class UpdateArray {
         Bson update = Updates.inc("qty.$", -3);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER);
-        
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         // end updateValueExample
@@ -79,7 +78,6 @@ public class UpdateArray {
         Bson update = Updates.mul("qty.$[]", 2);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER);
-        
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         // end updateAllElementsExample
@@ -91,7 +89,6 @@ public class UpdateArray {
         Bson update = Updates.push("qty", 17);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER);
-        
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         // end pushElementsExample
