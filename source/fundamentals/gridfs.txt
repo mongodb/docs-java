@@ -72,7 +72,7 @@ Create a GridFS Bucket
 To use GridFS, first create a bucket or reference an existing one on
 a MongoDB database. Call the ``GridFSBuckets.create()`` helper method with
 a database instance as the parameter to instantiate a ``GridFSBucket``.
-You can use the ``GridFSBucket`` instance to call read and write operations on 
+You can use the ``GridFSBucket`` instance to call read and write operations on
 your bucket.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
@@ -81,13 +81,23 @@ your bucket.
    :start-after: start createGridFSBucket
    :end-before: end createGridFSBucket
 
-For more 
-See the :java-docs:`GridFSBuckets <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBuckets.html>`
-API documentation for more information.
+.. gridfs-create-custom-bucket:
 
+To create or reference a bucket with a custom name other than the default name
+"fs", pass your bucket name as the second parameter to the ``create()`` method
+as shown below:
 
-:java-docs:`GridFSBucket <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html>`
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start createCustomGridFSBucket
+   :end-before: end createCustomGridFSBucket
 
+For more information on the classes and methods mentioned in this section,
+see the following API documentation:
+
+- :java-docs:`GridFSBuckets <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBuckets.html>`
+- :java-docs:`GridFSBucket <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html>`
 
 .. _gridfs-store-files:
 
@@ -98,10 +108,15 @@ To store a file in a GridFS bucket, you can either upload it from an instance
 of ``InputStream`` or write its data to a ``GridFSUploadStream``.
 
 For either type of upload, you can specify configuration information such
-as file chunk size and other field/value pairs to store as metadata. You
-can specify this information on an instance of ``GridFSUploadOptions`` as
-shown in the following code snippet:
+as file chunk size and other field/value pairs to store as metadata. Set
+this information on an instance of ``GridFSUploadOptions`` as shown in the
+following code snippet:
 
+.. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
+   :language: java
+   :dedent:
+   :start-after: start uploadOptions
+   :end-before: end uploadOptions
 .. code-block:: java
 
    GridFSUploadOptions options = new GridFSUploadOptions()
@@ -111,10 +126,8 @@ shown in the following code snippet:
 See the :java-docs:`GridFSUploadOptions <apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSUploadOptions.html>`
 API documentation for more information.
 
-See the following sections TODO
-
-Upload a File Using InputStream
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Upload a File Using an Input Stream
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section shows you how to upload a file to a GridFS bucket using an input
 stream. The code example below shows how you can use a ``FileInputStream`` to
@@ -133,10 +146,11 @@ operations:
    :start-after: start uploadFromInputStream
    :end-before: end uploadFromInputStream
 
-:java-docs:`uploadFromStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#uploadFromStream(java.lang.String,java.io.InputStream,com.mongodb.client.gridfs.model.GridFSUploadOptions)>`
+For more information, see the API documentation on
+:java-docs:`uploadFromStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#uploadFromStream(java.lang.String,java.io.InputStream,com.mongodb.client.gridfs.model.GridFSUploadOptions)>`.
 
-Upload a File Using OutputStream
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Upload a File Using an Output Stream
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section shows you how to upload a file to a GridFS bucket by writing to
 an output stream. The code example below shows how you can write to a
@@ -156,7 +170,8 @@ operations:
    :start-after: start uploadFromOutputStream
    :end-before: end uploadFromOutputStream
 
-apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSUploadStream.html
+For more information, see the API documentation on
+:java-docs:`GridFSUploadStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSUploadStream.html>`.
 
 .. _gridfs-retrieve-file-info:
 
@@ -172,10 +187,15 @@ about the file it refers to including:
 - Length/size of the file
 - Upload date and time
 
-TODO: mention the Consumer interface; iterates over GridFSIterable
+To retrieve files from a GridFS bucket, call the the ``find()`` method on
+the ``GridFSBucket`` instance. The method returns a ``GridFSFindIterable``
+from which you can access the results.
 
 The following code example shows you how to retrieve and print file metadata
-from all your files in a GridFS bucket:
+from all your files in a GridFS bucket. Note that among the several ways
+that you can traverse the retrieved results from the ``GridFSFindIterable``,
+we use a ``Consumer`` functional interface to print the results in the
+example below:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -184,7 +204,9 @@ from all your files in a GridFS bucket:
    :end-before: end findAllFiles
 
 The next code example shows you how to retrieve and print the file names
-for all files that match the metadata fields specified in the query filter:
+for all files that match the metadata fields specified in the query
+filter. The example also calls ``sort()`` and ``limit()`` on the returned
+``GridFSFindIterable`` to specify the order and maximum number of results:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -192,11 +214,18 @@ for all files that match the metadata fields specified in the query filter:
    :start-after: start findMatchingFiles
    :end-before: end findMatchingFiles
 
-For more information on the classes and methods mentioned in this section,
-see the following API documentation:
+Note that since ``metadata`` is an embedded document, the query filter
+specifies the ``type`` field using dot notation. See the server manual guide
+on how to :manual:`Query on Embedded/Nested Documents </tutorial/query-embedded-documents/>`
+for more information on how to structure this type of query.
 
-- :java-docs:`GridFSFindIterable <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html>`
-- :java-docs:`GridFSBucket.find() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#find(org.bson.conversions.Bson)>`
+For more information on the classes and methods mentioned in this section,
+see the following links:
+
+- :java-docs:`GridFSFindIterable <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html>` API documentation
+- :java-docs:`GridFSBucket.find() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#find(org.bson.conversions.Bson)>` API documentation
+- :doc:`Sort Results <fundamentals/crud/read-operations/sort>`
+- :doc:`Limit the Number of Returned Results <fundamentals/crud/read-operations/limit>`
 
 .. _gridfs-download-files:
 
@@ -232,8 +261,8 @@ of a file in an instance of ``GridFSDownloadOptions``:
 For more information on the enumeration of revisions, see the API
 documentation for :java-docs:`GridFSDownloadOptions <apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSDownloadOptions.html>`.
 
-Download a File to a Stream
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Download a File to an Output Stream
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can download a file in a GridFS bucket to an output stream. The following
 code example shows you how you can call the ``downloadToStream()`` method to
@@ -250,8 +279,8 @@ For more information on this method, see the
 :java-docs:`downloadToStream() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#downloadToStream(java.lang.String,java.io.OutputStream,com.mongodb.client.gridfs.model.GridFSDownloadOptions)>`
 API documentation.
 
-Download a File to Memory
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Download a File to an Input Stream
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can download a file in a GridFS bucket to memory by using an input
 stream. You can call the ``openDownloadStream()`` method on the GridFS
@@ -267,12 +296,12 @@ the ``fileId`` variable into memory:
    :start-after: start downloadToMemory
    :end-before: end downloadToMemory
 
-.. _gridfs-rename-files:
-
 For more information on this method, see the
 :java-docs:`openDownloadStream()
 <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#openDownloadStream(java.lang.String,com.mongodb.client.gridfs.model.GridFSDownloadOptions)>`.
 API documentation.
+
+.. _gridfs-rename-files:
 
 Rename Files
 ------------
@@ -283,10 +312,10 @@ value of its file id rather than its file name.
 
 .. note::
 
-   The ``rename()`` method only supports updating a single file name. To
-   rename multiple files, retrieve a full list of files in the bucket, extract
-   the file id values from the files you want to rename, and pass each file id
-   in separate calls to the ``rename()`` method.
+   The ``rename()`` method only supports updating the name of a single file.
+   To rename multiple files, retrieve a list of files matching the file name
+   from the bucket, extract the file id values from the files you want to
+   rename, and pass each file id in separate calls to the ``rename()`` method.
 
 The code example below shows you how to update the name of the file referenced
 by the ``fileId`` variable to "mongodbTutorial.zip":
@@ -313,7 +342,7 @@ its file name.
 .. note::
 
    The ``delete()`` method only supports deleting one file at a time. To
-   delete multiple files, retrieve a full list of files in the bucket, extract
+   delete multiple files, retrieve the files from the bucket, extract
    the file id values from the files you want to delete, and pass each file id
    in separate calls to the ``delete()`` method.
 
@@ -335,14 +364,19 @@ API documentation.
 Delete a GridFS Bucket
 ----------------------
 
+The code example below shows you how to delete a GridFS bucket.
+If you need to reference a custom named bucket, see the section of this
+guide on :ref:`how to create a custom bucket <gridfs-create-custom-bucket>`.
+
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
    :dedent:
    :start-after: start dropBucket
    :end-before: end dropBucket
 
+For more information, see the
 :java-docs:`drop() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#drop()>`
-
+API documentation.
 
 Additional Resources
 --------------------

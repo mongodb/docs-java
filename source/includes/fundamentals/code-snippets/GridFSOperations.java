@@ -24,8 +24,17 @@ import com.mongodb.client.gridfs.model.GridFSDownloadOptions;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.client.gridfs.model.GridFSUploadOptions;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 
 public final class GridFSOperations {
+
+    private static void uploadOptions() {
+        // start uploadOptions
+        GridFSUploadOptions options = new GridFSUploadOptions()
+                .chunkSizeBytes(1048576) // 1MB chunk size
+                .metadata(new Document("myField", "myValue"));
+        // end uploadOptions
+    }
 
     private static void uploadFromInputStream(GridFSBucket gridFSBucket) throws Exception {
         // start uploadFromInputStream
@@ -43,7 +52,6 @@ public final class GridFSOperations {
     }
 
     private static void uploadFromOutputStream(GridFSBucket gridFSBucket) throws Exception {
-
         // start uploadFromOutputStream
         Path filePath = Paths.get("/path/to/project.zip");
         byte[] data = Files.readAllBytes(filePath);
@@ -72,12 +80,16 @@ public final class GridFSOperations {
     private static void findMatchingFiles(GridFSBucket gridFSBucket) throws Exception {
         // start findMatchingFiles
         Bson query = Filters.eq("metadata.type", "zip archive");
-        gridFSBucket.find(query).forEach(new Consumer<GridFSFile>() {
-            @Override
-            public void accept(final GridFSFile gridFSFile) {
-                System.out.println(gridFSFile.getFilename());
-            }
-        });
+        Bson sort = Sorts.ascending("filename");
+        gridFSBucket.find(query)
+                .sort(sort)
+                .limit(5)
+                .forEach(new Consumer<GridFSFile>() {
+                    @Override
+                    public void accept(final GridFSFile gridFSFile) {
+                        System.out.println(gridFSFile);
+                    }
+                });
         //end findMatchingFiles
     }
 
@@ -118,22 +130,29 @@ public final class GridFSOperations {
         // end deleteFile
     }
 
-    private static void dropBucket(GridFSBucket gridFSBucket) throws Exception {
+    private static void dropBucket(MongoClient mongoClient) throws Exception {
         // start dropBucket
+        MongoDatabase database = mongoClient.getDatabase("mydb");
+        GridFSBucket gridFSBucket = GridFSBuckets.create(database);
         gridFSBucket.drop();
         // end dropBucket
+    }
+
+    public static void createCustomBucket(MongoClient mongoClient) throws Exception {
+        // start createCustomGridFSBucket
+        MongoDatabase database = mongoClient.getDatabase("mydb");
+        GridFSBucket gridFSBucket = GridFSBuckets.create(database, "myCustomBucket");
+        // end createCustomGridFSBucket
     }
 
     public static void main(final String[] args) throws Exception {
         String uri = "mongodb://localhost:27017";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-
             // start createGridFSBucket
             MongoDatabase database = mongoClient.getDatabase("mydb");
             GridFSBucket gridFSBucket = GridFSBuckets.create(database);
             // end createGridFSBucket
-
         }
     }
 
