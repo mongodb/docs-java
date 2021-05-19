@@ -13,8 +13,10 @@ Update Arrays in a Document
 Overview
 --------
 
-In this guide, you will learn how to match and update arrays in
-a document.
+In this guide, you will learn how to update arrays in a document.
+
+To update an array, you need to specify an update and the array elements
+you want to update to an update operation. 
 
 Sample Document for Examples
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -33,33 +35,18 @@ method to return the document  after the update occurs. For more
 information on the ``findOneAndUpdate()`` method, see our Compound
 Operations guide <TODO>. 
 
-Accessing Elements
-------------------
-
-To access elements in an array, use the **dot notation**. Dot notation is a
-property access syntax for navigating JSON objects 
-
-For example, to access the ``qty`` field in the sample document, use
-``instock.qty``. 
-
-For additional information, see the server manual entry on
-:manual:`dot notation </core/document/#std-label-document-dot-notation>`.
-
 Specifying an Update
 --------------------
 
-To specify an update, use an ``Updates`` builder. 
-
-The ``Updates`` builder provides static utility methods to construct
-update specifications. 
-
-For more information on the ``Updates`` builder array methods, see our 
-:doc:`guide on the Updates builder </fundamentals/builders/updates>`.
+To specify an update, use an ``Updates`` builder. The ``Updates``
+builder provides static utility methods to construct update
+specifications. For more information on using ``Updates`` builder with
+arrays, see our :doc:`guide on the Updates builder </fundamentals/builders/updates>`.
 
 The following example performs these actions: 
 
-- Create a filter to find where the sample document
-- Use the ``push()`` method of the ``Updates`` builder to add "17" to the ``qty`` array
+- Create a filter to find the sample document
+- Add "17" to the ``qty`` array using the ``push()`` method of the ``Updates`` builder
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -67,19 +54,24 @@ The following example performs these actions:
    :start-after: begin pushElementsExample
    :end-before: end pushElementsExample
 
-The output of the above code should look like this:
+The example above updates the original document to the following state:
 
 .. code-block:: json
    :copyable: false
 
    { "_id": 1, "color": "green", "qty": [8, 12, 18, 17] }
 
-Specifying an Array
--------------------
+Specifying Array Elements
+-------------------------
 
 You can specify which array elements to update using a positional
 operator. Positional operators can specify the first, all or certain
 embedded arrays to update. 
+
+To specify elements in an array with positional operators, use the **dot
+notation**. Dot notation is a property access syntax for navigating JSON
+objects. For additional information, see the server manual entry on
+:manual:`dot notation </core/document/#std-label-document-dot-notation>`.
 
 The First Array Element
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,8 +80,7 @@ To update the first element that matches your query filter, use the
 positional ``$`` operator. 
 
 The positional ``$`` operator specifies the first element of the array
-matched by your query filter and cannot reference an embedded array. If
-you want to access an embedded array, use the :ref:`filtered positional operator <filtered_positional_operator>`. 
+matched by your query filter.  
 
 Example
 ```````
@@ -98,7 +89,7 @@ The following example performs these actions:
 
 - Query for the position in ``qty`` where the value is "18"
 - Decrement the value by "3"  using the ``inc()`` method of the ``Updates`` builder  
-- Match and update the first value with a positional ``$`` operator 
+- Match and update the first element in the array with a positional ``$`` operator 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -106,7 +97,7 @@ The following example performs these actions:
    :start-after: begin updateValueExample
    :end-before: end updateValueExample
 
-The output of the above code should look like this:
+The example above updates the original document to the following state:
 
 .. code-block:: json
    :copyable: false
@@ -122,8 +113,8 @@ section, see the following resources:
 All Array Elements
 ~~~~~~~~~~~~~~~~~~
 
-To update an element in each array, use the all positional ``$[]``
-operator. 
+To update all elements in an array that match your query filter, use the
+all positional ``$[]`` operator. 
 
 Example
 ```````
@@ -152,27 +143,25 @@ section, see the following resources:
 - :manual:`Positional $[] Operator </reference/operator/update/positional-all/>` Server Manual Entry
 - :java-core-api:`mul() <com/mongodb/client/model/Updates.html#mul(java.lang.String,java.lang.Number)>` API Documentation
 
-.. _filtered_positional_operator:
-
-Filtered Array Elements
+Multiple Array Elements
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-To update embedded arrays in a document, use the filtered positional
-``$[<identifier>]`` operator. You must include an array filter to
-specify which embedded arrays to update.
+To update multiple array elements that match your query filter, use the
+filtered positional ``$[<identifier>]`` operator. You must include an
+array filter to specify which array elements to update.
 
-The ``<identifier>`` is the placeholder value you give to represent an
-element of the array field. This value must begin with a lowercase
-letter and contain only alphanumeric characters.
+The ``<identifier>`` is the placeholder value you give to represent
+elements elements of the array field. This value must begin with a
+lowercase letter and contain only alphanumeric characters.
 
 Example
 ```````
 
 The following example performs these actions:
 
-- Set a ``UpdateOptions.arrayFilters`` condition to search for values less than "15" in the ``qty`` array
+- Set a ``FindOneAndUpdateOptions.arrayFilters`` condition to search for values less than "15"
 - Increment the value by "5"  using the ``inc()`` method of the ``Updates`` builder  
-- Updates each value matched in the array using a filtered positional operator
+- Updates each element matched in the array using a filtered positional operator
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
