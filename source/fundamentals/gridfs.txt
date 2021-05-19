@@ -20,7 +20,7 @@ You should use GridFS if the size of your files exceed the BSON document
 size limit of 16MB. For more detailed information on whether GridFS is
 suitable for your use case, see the :manual:`GridFS server manual page </core/gridfs>`.
 
-See the following sections which describe GridFS operations and how to
+See the following sections that describe GridFS operations and how to
 perform them:
 
 - :ref:`Create a GridFS bucket <gridfs-create-bucket>`
@@ -51,10 +51,10 @@ page on :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`.
 
 When storing files with GridFS, the driver splits the files into smaller
 chunks, each represented by a separate document in the ``chunks`` collection.
-It also creates a document in the ``files`` collection that contains file
-metadata and references to each of the chunks. You can upload the file from
-memory or from a stream. See the following diagram to see how GridFS
-splits the files when uploaded to a bucket.
+It also creates a document in the ``files`` collection that contains
+a file id as an ``ObjectId``, file name, and other file metadata. You can
+upload the file from memory or from a stream. See the following diagram to
+see how GridFS splits the files when uploaded to a bucket.
 
 .. figure:: /includes/figures/GridFS-upload.png
    :alt: A diagram that shows how GridFS uploads a file to a bucket
@@ -144,7 +144,7 @@ This code example prints the file id of the uploaded file after it is
 successfully saved in GridFS.
 
 For more information, see the API documentation on
-:java-docs:`uploadFromStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#uploadFromStream(java.lang.String,java.io.InputStream,com.mongodb.client.gridfs.model.GridFSUploadOptions)>`.
+:java-docs:`uploadFromStream() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#uploadFromStream(java.lang.String,java.io.InputStream,com.mongodb.client.gridfs.model.GridFSUploadOptions)>`.
 
 Upload a File Using an Output Stream
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -214,8 +214,8 @@ filter. The example also calls ``sort()`` and ``limit()`` on the returned
    :end-before: end findMatchingFiles
 
 Since ``metadata`` is an embedded document, the query filter specifies the
-``type`` field using dot notation. See the server manual guide on how to
-:manual:`Query on Embedded/Nested Documents </tutorial/query-embedded-documents/>`
+``type`` field within the document using dot notation. See the server manual
+guide on how to :manual:`Query on Embedded/Nested Documents </tutorial/query-embedded-documents/>`
 for more information.
 
 For more information on the classes and methods mentioned in this section,
@@ -305,8 +305,8 @@ Rename Files
 ------------
 
 You can update the name of a GridFS file in your bucket by calling the
-``rename()`` method. You must specify the file that you are renaming by the
-value of its file id rather than its file name.
+``rename()`` method. You must specify the file to rename by its file id
+rather than its file name.
 
 .. note::
 
@@ -353,7 +353,7 @@ The code example below shows you how to delete the file referenced by the
    :start-after: start deleteFile
    :end-before: end deleteFile
 
-For more information, see the
+For more information on this method, see the
 :java-docs:`delete() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#delete(org.bson.types.ObjectId)>`
 API documentation.
 
@@ -362,9 +362,10 @@ API documentation.
 Delete a GridFS Bucket
 ----------------------
 
-The code example below shows you how to delete a GridFS bucket.
-If you need to reference a custom named bucket, see the section of this
-guide on :ref:`how to create a custom bucket <gridfs-create-custom-bucket>`.
+The code example below shows you how to delete the default GridFS bucket
+on the database named "mydb". If you need to reference a custom named bucket,
+see the section of this guide on
+:ref:`how to create a custom bucket <gridfs-create-custom-bucket>`.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -372,7 +373,7 @@ guide on :ref:`how to create a custom bucket <gridfs-create-custom-bucket>`.
    :start-after: start dropBucket
    :end-before: end dropBucket
 
-For more information, see the
+For more information on this method, see the
 :java-docs:`drop() <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#drop()>`
 API documentation.
 
