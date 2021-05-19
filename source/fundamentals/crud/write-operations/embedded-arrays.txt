@@ -18,8 +18,8 @@ In this guide, you will learn how to update arrays in a document.
 To update an array, you need to specify an update and the array elements
 you want to update to an update operation. 
 
-Sample Document for Examples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample Document
+~~~~~~~~~~~~~~~
 
 The following sections feature examples on how to update this sample
 document: 
@@ -45,7 +45,7 @@ arrays, see our :doc:`guide on the Updates builder </fundamentals/builders/updat
 
 The following example performs these actions: 
 
-- Create a filter to find the sample document
+- Query for the sample document
 - Add "17" to the ``qty`` array using the ``push()`` method of the ``Updates`` builder
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
@@ -121,6 +121,7 @@ Example
 
 The following example performs these actions: 
 
+- Query for the sample document
 - Multiplies each value by "2"  using the ``mul()`` method of the ``Updates`` builder 
 - Updates all elements in the ``qty`` array using an all positional operator
 
@@ -151,7 +152,7 @@ filtered positional ``$[<identifier>]`` operator. You must include an
 array filter to specify which array elements to update.
 
 The ``<identifier>`` is the placeholder value you give to represent
-elements elements of the array field. This value must begin with a
+elements of the array field. This value must begin with a
 lowercase letter and contain only alphanumeric characters.
 
 Example
@@ -159,6 +160,7 @@ Example
 
 The following example performs these actions:
 
+- Query for the sample document
 - Set a ``FindOneAndUpdateOptions.arrayFilters`` condition to search for values less than "15"
 - Increment the value by "5"  using the ``inc()`` method of the ``Updates`` builder  
 - Updates each element matched in the array using a filtered positional operator
