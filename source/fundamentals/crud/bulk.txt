@@ -87,10 +87,10 @@ where the ``_id`` is "3" and "4":
 
    .. code-block:: shell
 
-      A MongoBulkWriteException occured: A MongoBulkWriteException occured with the following message:  
+      A MongoBulkWriteException occured with the following message:  
       Bulk write operation error on server sample-shard-00-02.pw0q4.mongodb.net:27017. 
-      Write errors: [BulkWriteError{index=0, code=11000, message='E11000 duplicate key error collection: 
-      crudOps.bulkWrite index: _id_ dup key: { _id: 1 }', details={}}].
+      Write errors: [BulkWriteError{index=0, code=11000, message='E11000 duplicate key 
+      error collection: crudOps.bulkWrite index: _id_ dup key: { _id: 1 }', details={}}].
 
    To see why the document with the ``_id`` of "3" didn't insert, see
    the :ref:`Order of Execution <orderOfExecution>` section.
@@ -227,9 +227,9 @@ Example
 
 The following example performs these bulk operations:
 
-- An insert operation for a document where ``_id`` is "3"
-- A replace operation for a document where the ``_id`` is "1" to a document with an additional field ``x`` with the value "2"
-- An update operation for a document where the ``_id`` is "3" to a document with an additional field ``x`` with the value "2"
+- An insert operation for a document where the ``_id`` is "3"
+- A replace operation for a document where the ``_id`` is "1" with a document that contains an additional field
+- An update operation for a document where the ``_id`` is "3" to a document that contains an additional field
 - A delete operation for all documents that contain the field ``x`` with the value "2"
 
 .. literalinclude:: /includes/fundamentals/code-snippets/BulkWrite.java
