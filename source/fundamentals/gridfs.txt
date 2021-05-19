@@ -46,18 +46,18 @@ When you create a new GridFS bucket, the driver creates the collections
 referenced above, prefixed with the default bucket name ``fs``, unless
 you specify a different name. The driver also creates an index on each
 collection to ensure efficient retrieval of the files and related
-metadata. For more information on GridFS indexes, see our server manual
+metadata. For more information on GridFS indexes, see the server manual
 page on :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`.
 
 When storing files with GridFS, the driver splits the files into smaller
 chunks, each represented by a separate document in the ``chunks`` collection.
 It also creates a document in the ``files`` collection that contains file
 metadata and references to each of the chunks. You can upload the file from
-memory or from a stream. See the following diagram to see how the files are
-split when uploaded to a bucket.
+memory or from a stream. See the following diagram to see how GridFS
+splits the files when uploaded to a bucket.
 
 .. figure:: /includes/figures/GridFS-upload.png
-   :alt: A diagram that shows how a file is uploaded to a GridFS bucket
+   :alt: A diagram that shows how GridFS uploads a file to a bucket
 
 When retrieving files, GridFS fetches the metadata from the ``files``
 collection in the specified bucket and uses the information to reconstruct
@@ -73,7 +73,7 @@ To use GridFS, first create a bucket or reference an existing one on
 a MongoDB database. Call the ``GridFSBuckets.create()`` helper method with
 a database instance as the parameter to instantiate a ``GridFSBucket``.
 You can use the ``GridFSBucket`` instance to call read and write operations on
-your bucket.
+the files in your bucket.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -84,8 +84,8 @@ your bucket.
 .. gridfs-create-custom-bucket:
 
 To create or reference a bucket with a custom name other than the default name
-"fs", pass your bucket name as the second parameter to the ``create()`` method
-as shown below:
+``fs``, pass your bucket name as the second parameter to the ``create()``
+method as shown below:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -107,7 +107,7 @@ Store Files
 To store a file in a GridFS bucket, you can either upload it from an instance
 of ``InputStream`` or write its data to a ``GridFSUploadStream``.
 
-For either type of upload, you can specify configuration information such
+For either upload process, you can specify configuration information such
 as file chunk size and other field/value pairs to store as metadata. Set
 this information on an instance of ``GridFSUploadOptions`` as shown in the
 following code snippet:
@@ -117,11 +117,6 @@ following code snippet:
    :dedent:
    :start-after: start uploadOptions
    :end-before: end uploadOptions
-.. code-block:: java
-
-   GridFSUploadOptions options = new GridFSUploadOptions()
-       .chunkSizeBytes(1048576) // 1MB chunk size
-       .metadata(new Document("myField", "myValue"));
 
 See the :java-docs:`GridFSUploadOptions <apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSUploadOptions.html>`
 API documentation for more information.
@@ -131,20 +126,22 @@ Upload a File Using an Input Stream
 
 This section shows you how to upload a file to a GridFS bucket using an input
 stream. The code example below shows how you can use a ``FileInputStream`` to
-read data from a file in your filesystem by performing the following
-operations:
+read data from a file in your filesystem and upload it to GridFS by performing
+the following operations:
 
 - Read from the filesystem using a ``FileInputStream``.
 - Set the chunk size using ``GridFSUploadOptions``.
 - Set a custom metadata field called ``type`` to the value "zip archive".
 - Upload the file, specifying the file name as "myProject.zip".
-- Output the ObjectId of the stored file.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
    :dedent:
    :start-after: start uploadFromInputStream
    :end-before: end uploadFromInputStream
+
+This code example prints the file id of the uploaded file after it is
+successfully saved in GridFS.
 
 For more information, see the API documentation on
 :java-docs:`uploadFromStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSBucket.html#uploadFromStream(java.lang.String,java.io.InputStream,com.mongodb.client.gridfs.model.GridFSUploadOptions)>`.
@@ -170,6 +167,9 @@ operations:
    :start-after: start uploadFromOutputStream
    :end-before: end uploadFromOutputStream
 
+This code example prints the file id of the uploaded file after it is
+successfully saved in GridFS.
+
 For more information, see the API documentation on
 :java-docs:`GridFSUploadStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSUploadStream.html>`.
 
@@ -179,7 +179,7 @@ Retrieve File Information
 -------------------------
 
 In this section, you can learn how to retrieve file metadata stored in the
-``files`` portion of the GridFS bucket. The metadata includes information
+``files`` collection of the GridFS bucket. The metadata includes information
 about the file it refers to including:
 
 - Id of the file
@@ -187,15 +187,14 @@ about the file it refers to including:
 - Length/size of the file
 - Upload date and time
 
-To retrieve files from a GridFS bucket, call the the ``find()`` method on
+To retrieve files from a GridFS bucket, call the ``find()`` method on
 the ``GridFSBucket`` instance. The method returns a ``GridFSFindIterable``
 from which you can access the results.
 
 The following code example shows you how to retrieve and print file metadata
-from all your files in a GridFS bucket. Note that among the several ways
-that you can traverse the retrieved results from the ``GridFSFindIterable``,
-we use a ``Consumer`` functional interface to print the results in the
-example below:
+from all your files in a GridFS bucket. Among the different ways that you can
+traverse the retrieved results from the ``GridFSFindIterable``, the example
+uses a ``Consumer`` functional interface to print the results below:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -214,10 +213,10 @@ filter. The example also calls ``sort()`` and ``limit()`` on the returned
    :start-after: start findMatchingFiles
    :end-before: end findMatchingFiles
 
-Note that since ``metadata`` is an embedded document, the query filter
-specifies the ``type`` field using dot notation. See the server manual guide
-on how to :manual:`Query on Embedded/Nested Documents </tutorial/query-embedded-documents/>`
-for more information on how to structure this type of query.
+Since ``metadata`` is an embedded document, the query filter specifies the
+``type`` field using dot notation. See the server manual guide on how to
+:manual:`Query on Embedded/Nested Documents </tutorial/query-embedded-documents/>`
+for more information.
 
 For more information on the classes and methods mentioned in this section,
 see the following links:
@@ -240,10 +239,9 @@ File Revisions
 ~~~~~~~~~~~~~~
 
 When your bucket contains multiple files that share the same file name,
-GridFS chooses the most recently uploaded version of the file by default.
-To differentiate between each file that shares the same name, GridFS
-assigns files that share the same filename a revision number, ordered by
-upload time.
+GridFS chooses the latest uploaded version of the file by default. To
+differentiate between each file that shares the same name, GridFS assigns
+files that share the same filename a revision number, ordered by upload time.
 
 The original file revision number is "0" and the next most recent file
 revision number is "1". You can also specify negative values which

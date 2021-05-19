@@ -28,6 +28,13 @@ import com.mongodb.client.model.Sorts;
 
 public final class GridFSOperations {
 
+    private static void createCustomBucket(MongoClient mongoClient) throws Exception {
+        MongoDatabase database = mongoClient.getDatabase("mydb");
+        // start createCustomGridFSBucket
+        GridFSBucket gridFSBucket = GridFSBuckets.create(database, "myCustomBucket");
+        // end createCustomGridFSBucket
+    }
+
     private static void uploadOptions() {
         // start uploadOptions
         GridFSUploadOptions options = new GridFSUploadOptions()
@@ -136,13 +143,6 @@ public final class GridFSOperations {
         GridFSBucket gridFSBucket = GridFSBuckets.create(database);
         gridFSBucket.drop();
         // end dropBucket
-    }
-
-    public static void createCustomBucket(MongoClient mongoClient) throws Exception {
-        // start createCustomGridFSBucket
-        MongoDatabase database = mongoClient.getDatabase("mydb");
-        GridFSBucket gridFSBucket = GridFSBuckets.create(database, "myCustomBucket");
-        // end createCustomGridFSBucket
     }
 
     public static void main(final String[] args) throws Exception {
