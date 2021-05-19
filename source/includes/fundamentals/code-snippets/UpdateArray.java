@@ -50,10 +50,11 @@ public class UpdateArray {
 
     private void updateValueExample(){
         // begin updateValueExample
-        Bson filter = Filters.eq("instock.warehouse", 'B');
-        Bson update = Updates.inc("instock.$.qty", -3);
+        Bson filter = Filters.eq("qty", 18);
+        Bson update = Updates.inc("qty.$", -3);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER);
+        
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         // end updateValueExample
@@ -64,9 +65,8 @@ public class UpdateArray {
         Bson filter = Filters.eq("_id", 1);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER)
-                                            .arrayFilters(Arrays.asList(
-                                                    Filters.eq("location.warehouse", 'B') ));
-        Bson update = Updates.pull("instock.$[location].warehouse", 'B' );
+                                            .arrayFilters(Arrays.asList(Filters.lt("smaller", 15)));
+        Bson update = Updates.inc("qty.$[smaller]", 5);
         
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
@@ -76,9 +76,10 @@ public class UpdateArray {
     private void updateAllElementsExample(){
         // begin updateAllElementsExample
         Bson filter = Filters.eq("_id", 1);
-        Bson update = Updates.inc("instock.$[].qty", 5);
+        Bson update = Updates.mul("qty.$[]", 2);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER);
+        
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         // end updateAllElementsExample
@@ -87,10 +88,10 @@ public class UpdateArray {
     private void pushElementsExample(){
         // begin pushElementsExample
         Bson filter = Filters.eq("_id", 1);
-        Document doc = new Document("qty", 11).append("warehouse", Arrays.asList('D'));
-        Bson update = Updates.push("instock", doc);
+        Bson update = Updates.push("qty", 17);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER);
+        
         Document result = collection.findOneAndUpdate(filter, update, options);
         System.out.println(result.toJson());
         // end pushElementsExample
@@ -99,7 +100,7 @@ public class UpdateArray {
     private void setUpDocument(){
         collection.drop();
         collection.insertOne(
-            Document.parse("{ _id: 1, color: 'green', instock: [ { qty: 8, warehouse: ['A', 'E'] }, { qty: 13, warehouse: ['B', 'C'] } , { qty: 15, warehouse: ['B', 'F']} ] }")
+            Document.parse("{ _id: 1, color: 'green', qty: [ 8, 12, 18 ] }")
             );
     }
 }
