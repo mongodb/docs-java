@@ -154,7 +154,7 @@ public class BulkWrite {
         // begin replaceDocumentsExample
         ReplaceOneModel<Document> doc3 = new ReplaceOneModel<>(
                                             Filters.eq("_id", 1), 
-                                            new Document("_id", 1).append("x", 4) );
+                                            new Document("_id", 1).append("x", 4));
         //end replaceDocumentsExample
 
         bulkOperations.add(doc1);
@@ -174,7 +174,7 @@ public class BulkWrite {
         // begin updateDocumentsExample
         UpdateOneModel<Document> doc3 = new UpdateOneModel<>(
                                             Filters.eq("_id", 2), 
-                                            Updates.set("x", 8) );
+                                            Updates.set("x", 8));
         //end updateDocumentsExample
 
         bulkOperations.add(doc1);
