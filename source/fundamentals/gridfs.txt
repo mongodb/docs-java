@@ -52,9 +52,9 @@ page on :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`.
 When storing files with GridFS, the driver splits the files into smaller
 chunks, each represented by a separate document in the ``chunks`` collection.
 It also creates a document in the ``files`` collection that contains
-a file id as an ``ObjectId``, file name, and other file metadata. You can
-upload the file from memory or from a stream. See the following diagram to
-see how GridFS splits the files when uploaded to a bucket.
+a file id, file name, and other file metadata. You can upload the file from
+memory or from a stream. See the following diagram to see how GridFS splits
+the files when uploaded to a bucket.
 
 .. figure:: /includes/figures/GridFS-upload.png
    :alt: A diagram that shows how GridFS uploads a file to a bucket
@@ -69,11 +69,11 @@ into memory or output it to a stream.
 Create a GridFS Bucket
 ----------------------
 
-To use GridFS, first create a bucket or reference an existing one on
-a MongoDB database. Call the ``GridFSBuckets.create()`` helper method with
-a database instance as the parameter to instantiate a ``GridFSBucket``.
-You can use the ``GridFSBucket`` instance to call read and write operations on
-the files in your bucket.
+To store or retrieve files from GridFS, create a bucket or get a reference
+to an existing one on a MongoDB database. Call the ``GridFSBuckets.create()``
+helper method with a ``MongoDatabase`` instance as the parameter to
+instantiate a ``GridFSBucket``. You can use the ``GridFSBucket`` instance to
+call read and write operations on the files in your bucket.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -92,6 +92,10 @@ method as shown below:
    :dedent:
    :start-after: start createCustomGridFSBucket
    :end-before: end createCustomGridFSBucket
+
+.. note::
+
+   The driver does not create the bucket until you upload a file if it does not already exist.
 
 For more information on the classes and methods mentioned in this section,
 see the following API documentation:
@@ -132,7 +136,7 @@ the following operations:
 - Read from the filesystem using a ``FileInputStream``.
 - Set the chunk size using ``GridFSUploadOptions``.
 - Set a custom metadata field called ``type`` to the value "zip archive".
-- Upload the file, specifying the file name as "myProject.zip".
+- Upload a file called ``project.zip``, specifying the GridFS file name as "myProject.zip".
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -154,12 +158,13 @@ an output stream. The code example below shows how you can write to a
 ``GridFSUploadStream`` to send data to GridFS by performing the following
 operations:
 
-- Read a file from the filesystem into a byte array.
+- Read a file named "project.zip" from the filesystem into a byte array.
 - Set the chunk size using ``GridFSUploadOptions``.
 - Set a custom metadata field called ``type`` to the value "zip archive".
-- Write the bytes to a ``GridFSUploadStream``. The stream reads data into
-  a buffer until it reaches the limit specified in the ``chunkSize``
-  setting, and inserts it as a new chunk in the ``chunks`` collection.
+- Write the bytes to a ``GridFSUploadStream``, assigning the file name
+  "myProject.zip". The stream reads data into a buffer until it reaches the
+  limit specified in the ``chunkSize`` setting, and inserts it as a new chunk
+  in the ``chunks`` collection.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -179,8 +184,8 @@ Retrieve File Information
 -------------------------
 
 In this section, you can learn how to retrieve file metadata stored in the
-``files`` collection of the GridFS bucket. The metadata includes information
-about the file it refers to including:
+``files`` collection of the GridFS bucket. The metadata contains information
+about the file it refers to, including:
 
 - Id of the file
 - Name of the file
@@ -310,10 +315,11 @@ rather than its file name.
 
 .. note::
 
-   The ``rename()`` method only supports updating the name of a single file.
-   To rename multiple files, retrieve a list of files matching the file name
-   from the bucket, extract the file id values from the files you want to
-   rename, and pass each file id in separate calls to the ``rename()`` method.
+   The ``rename()`` method only supports updating the name of one file at
+   a time. To rename multiple files, retrieve a list of files matching the
+   file name from the bucket, extract the file id values from the files you
+   want to rename, and pass each file id in separate calls to the ``rename()``
+   method.
 
 The code example below shows you how to update the name of the file referenced
 by the ``fileId`` variable to "mongodbTutorial.zip":
@@ -334,8 +340,7 @@ Delete Files
 ------------
 
 You can remove a file from your GridFS bucket by calling the ``delete()``
-method. You must specify the file by the value of its file id rather than
-its file name.
+method. You must specify the file by its file id rather than its file name.
 
 .. note::
 
