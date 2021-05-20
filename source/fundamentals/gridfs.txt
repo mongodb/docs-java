@@ -189,10 +189,11 @@ In this section, you can learn how to retrieve file metadata stored in the
 ``files`` collection of the GridFS bucket. The metadata contains information
 about the file it refers to, including:
 
-- Id of the file
-- Name of the file
-- Length/size of the file
-- Upload date and time
+- The id of the file
+- The name of the file
+- The length/size of the file
+- The upload date and time
+- A ``metadata`` document in which you can store any other information
 
 To retrieve files from a GridFS bucket, call the ``find()`` method on
 the ``GridFSBucket`` instance. The method returns a ``GridFSFindIterable``
@@ -210,9 +211,9 @@ uses a ``Consumer`` functional interface to print the results below:
    :end-before: end findAllFiles
 
 The next code example shows you how to retrieve and print the file names
-for all files that match the metadata fields specified in the query
-filter. The example also calls ``sort()`` and ``limit()`` on the returned
-``GridFSFindIterable`` to specify the order and maximum number of results:
+for all files that match the fields specified in the query filter. The example
+also calls ``sort()`` and ``limit()`` on the returned ``GridFSFindIterable``
+to specify the order and maximum number of results:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
