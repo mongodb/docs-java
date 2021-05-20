@@ -231,8 +231,8 @@ public class AggBuilders {
 
         MongoCursor<Document> cursor = collection
                 .aggregate(asList(lookup("warehouses", variables, pipeline, "stockdata"))).cursor();
-        cursor.forEachRemaining(doc -> System.out.println(doc.toJson()));
         // end advanced lookup
+        cursor.forEachRemaining(doc -> System.out.println(doc.toJson()));
         database = mongoClient.getDatabase("sample_mflix");
         collection = database.getCollection("movies");
     }

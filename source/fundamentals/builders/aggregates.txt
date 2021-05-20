@@ -164,8 +164,8 @@ Left Outer Join
 
 This example creates a pipeline stage that performs a left outer
 join between the ``movies`` and ``comments`` collections. It joins the
-``_id`` field to the ``movie_id` field and outputs the
-results in the ``"comments"`` field:
+``_id`` field to the ``movie_id`` field and outputs the
+results in the ``comments`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin basic lookup
@@ -212,7 +212,7 @@ of the values of the ``quantity`` field into the ``totalQuantity`` and
 Unwind
 ------
 
-Use the ``unwind()`` method to create an :manual:`$unwind </reference/operator/aggregation/unwind/`
+Use the ``unwind()`` method to create an :manual:`$unwind </reference/operator/aggregation/unwind/>`
 pipeline stage to deconstruct an array field from input documents, creating
 an output document for each array element.
 
