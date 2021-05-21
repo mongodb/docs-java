@@ -7,7 +7,7 @@ Search text
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 Overview
@@ -16,21 +16,16 @@ Overview
 In this guide, you will learn how to perform a text search in MongoDB.
 
 Text search allows you to search a string field in your collection for
-words or phrases. Before you preform a text search, you must specify the
-search field in a text index on your collection. 
-
-You can also specify additional options to the operator to handle case
-sensitivity, word stemming (e.g. plural forms, tense) and words for
-a supported language. This is useful for unstructured text such as
+terms or phrases. This is useful for searching unstructured text such as
 transcripts, resumes, essays, or web pages. 
 
 Sample Documents
 ~~~~~~~~~~~~~~~~
 
 In the following examples, a junior year student is browsing through
-some computer science courses at their college. The ``junior_courses``
-collection represents the courses available for the student to pick
-from: 
+computer science courses to take at their college. The documents in the
+``junior_courses`` collection represents the courses available for the
+student to pick from: 
 
 .. code-block:: json
 
@@ -45,13 +40,16 @@ from:
 Text Index
 ----------
 
+Before you preform a text search, you must specify the search field in a
+text index on your collection. 
+
 The text index specifies the fields to query in a text search. There can
 only be one text index per collection with a field whose value is a
 string or an array of string elements. 
 
 For the following examples, we perform text searches on the ``course``
-field. To enable text searches on the ``course`` field, create a text
-index using the following snippet: 
+field in the ``junior_courses`` collection. To enable text searches on
+the ``course`` field, create a text index using the following snippet: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -67,6 +65,9 @@ both fields using the following snippet:
 
     collection.createIndex(Indexes.compoundIndex(Indexes.text("course"), Indexes.text("description")));
 
+For more information, see our server manual entry on :manual:`text
+indexes </core/index-text/>`.
+
 Searching
 ---------
 
@@ -78,21 +79,32 @@ a text index. The text search matches documents which contain a
 specified search term. 
 
 You can pass in ``TextSearchOptions`` as the second parameter to specify
-text search options such as case sensitivity, diacritic sensitivity and
-language. 
+additional text search options to handle case sensitivity, diacritic
+sensitivity and language. 
 
-By a Word
+For more information, see the API Documentation on the
+:java-core-api:`text()
+<com/mongodb/client/model/Filters.html#text(java.lang.String)>` method
+and :java-core-api:`TextSearchOptions<com/mongodb/client/model/TextSearchOptions.html>`.
+
+By a Term
 ~~~~~~~~~
 
-To search for one word in your text index, pass the word as a string
+To search for a term in your text index, pass the term as a string
 to the ``text()`` method. 
 
-If you want to match multiple words in your text index, separate your
-words with spaces. The ``text()`` method performs a logical OR search on
+If you want to match multiple terms in your text index, separate your
+terms with spaces. The ``text()`` method performs a logical OR search on
 each term and returns documents that contains any of the terms. 
 
-The following example performs a text search on documents that contain
-the term "Computer": 
+Example 
+```````
+
+The student would like to see which courses mention "Computer" in their
+name. 
+
+To address this scenario, the student performs a text search on
+documents that contain the term "Computer": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -100,7 +112,7 @@ the term "Computer":
    :start-after: begin wordExample
    :end-before: end wordExample
 
-Your output should look something like this:
+The following shows the output of the code above:
 
 .. code-block:: json
    :copyable: false
@@ -111,6 +123,17 @@ Your output should look something like this:
    { "_id": 6, "course": "Advanced Computer Game Programming" }
    { "_id": 7, "course": "Image Processing in Computer Science" }
 
+.. note::
+
+    The output of the snippet above is equivalent to performing the
+    following text search:
+
+    .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
+       :language: java
+       :dedent:
+       :start-after: begin multiWordExample
+       :end-before: end multiWordExample
+
 By a Phrase
 ~~~~~~~~~~~
 
@@ -118,10 +141,16 @@ To search for a phrase in your text index, pass the phrase with escaped quotes
 to the ``text()`` method.  
 
 If you don't add escaped quotes, the method performs a logical OR on the
-words listed.
+terms listed.
 
-The following example performs a text search on documents that contain
-the phrase "Computer Science":
+Example 
+```````
+
+The student would like to know which courses mention "Computer Science"
+in their name. 
+
+To address this scenario, the student performs a text search on
+documents that contain the phrase "Computer Science":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -129,7 +158,7 @@ the phrase "Computer Science":
    :start-after: begin phraseExample
    :end-before: end phraseExample
 
-Your output should look something like this:
+The following shows the output of the code above:
 
 .. code-block:: json
    :copyable: false
@@ -138,14 +167,19 @@ Your output should look something like this:
    { "_id": 4, "course": "Computer Science" }
    { "_id": 7, "course": "Image Processing in Computer Science" }
 
-Excluding a Word
+Excluding a Term
 ~~~~~~~~~~~~~~~~
 
-To exclude a word in your text search, prefix a minus sign ``-`` to the text you
-want to omit. 
+To exclude a term in your text search, prefix a minus sign, ``-``, to
+each term you want to omit. 
 
-The following example performs a text search on documents that contain
-the term "Computer", but do not contain the term "Science":
+Example 
+```````
+The student would like to know which courses only mention "Computer".
+
+To address this scenario, the student performs a text search on
+documents that contain the term "Computer", but not contain the term
+"Science": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -153,7 +187,7 @@ the term "Computer", but do not contain the term "Science":
    :start-after: begin negateExample
    :end-before: end negateExample
 
-Your output should look something like this:
+The following shows the output of the code above:
 
 .. code-block:: json
    :copyable: false
@@ -164,11 +198,21 @@ Your output should look something like this:
 Sort by Relevance
 ~~~~~~~~~~~~~~~~~
 
-Text search assigns a score to each match that represents the relevance
-of a document to the specified text search query filter.
+Text search assigns a ``metsTextScore`` to each match that represents
+the relevance of a document to the specified text search query filter.
+A high score resembles a high relevance and a low score resembles a low
+relevance. 
 
-The following example performs a text search for the term "Computer
-Science" and sorts the results in descending order:
+Example 
+```````
+The student would like to see which course mentioning "Computer Science"
+is the most relevant. 
+
+To address this scenario, the student performs the following actions:
+
+- A text search for the term "Computer Science"
+- A projection to calculate the ``metaTextScore``
+- A sort to display the results in descending order
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -176,7 +220,7 @@ Science" and sorts the results in descending order:
    :start-after: begin scoreExample
    :end-before: end scoreExample
 
-Your output should look something like this:
+The following shows the output of the code above:
 
 .. code-block:: json
    :copyable: false
@@ -184,3 +228,9 @@ Your output should look something like this:
    { "_id": 4, "course": "Computer Science", "score": 1.5 }
    { "_id": 7, "course": "Image Processing in Computer Science", "score": 1.25 }
    { "_id": 2, "course": "Discrete Mathematical Structures for Computer Science", "score": 1.2 }
+
+After the student runs the query, the course with the ``_id`` as 4 is
+the most relevant to their search.
+
+For more information, see our server manual entry on :manual:`meta
+</reference/operator/aggregation/meta/#mongodb-expression-exp.-meta>`.

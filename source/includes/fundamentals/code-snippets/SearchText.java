@@ -36,6 +36,9 @@ public class SearchText {
         System.out.println("Matches for 'Computer'");
         searchText.wordExample();
 
+        System.out.println("Matches for 'Computer or Science'");
+        searchText.multiWordExample();
+
         System.out.println("Matches for 'Computer' without 'Science'");
         searchText.negateExample();
 
@@ -53,6 +56,13 @@ public class SearchText {
         // end wordExample
     }
 
+    private void multiWordExample(){
+        // begin multiWordExample
+        Bson filter = Filters.text("Computer Science");
+        collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
+        // end multiWordExample
+    }
+    
     private void negateExample(){
         // begin negateExample
         Bson filter = Filters.text("Computer -Science");
