@@ -50,7 +50,7 @@ POJOs
 Do I have to specify an ID field value myself?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Imagine you have an entity like the following:
+Imagine you have the following entity:
 
 .. code-block:: java
 
@@ -62,9 +62,10 @@ Imagine you have an entity like the following:
    }
 
 When inserting with ``collection.insertOne()``, the Codec will encode
-this into JSON, but skip the _id field since the value is null. The
-server, however, automatically generates an ID for the document during
-insert, but the value of this ID is not passed back via the driver. 
+this into JSON, but skip the ``_id`` field since the value is ``null``.
+However, the server automatically generates an ``_id`` for the document
+during the insert, but the value of this ``_id`` is not passed back via
+the driver. 
 
 .. note::
 
@@ -73,16 +74,16 @@ insert, but the value of this ID is not passed back via the driver.
 Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes. For an example of this, see `our implmentaition <https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java>`_ (TODO: link to equivalent in driver repo)
+Yes. For an example of this, see `our implementation <https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java>`_
 
 What is the discriminator?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The discriminator is something used for cases where you want to use
-inheritance, and store multiple types of documents within the same
-collection or parent document (in case you embed sub-documents). 
+The discriminator is for cases where you want to use inheritance, and
+store multiple types of documents within the same collection or parent
+document (in case you embed sub-documents). 
 
-For example, if you have a ``Event`` class, that you extend in Java (e.g.
+For example, if you have an ``Event`` class, that you extend in Java (e.g.
 ``MachineEvent`` or ``NetworkEvent``), using the discriminator identifies
 which class the PojoCodec should use to serialize/deserialize the
 document. 
@@ -90,11 +91,11 @@ document.
 Can I control serialization of ``LocalDate``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes, the 3.7 driver adds native support for ``JSR-310 Instant``, ``LocalDate`` &
-``LocalDateTime`` support. 
+Yes, the 3.7 Java driver adds native support for ``JSR-310 Instant``,
+``LocalDate`` & ``LocalDateTime``. 
 
-Add the Codec to the top your registry before the DefaultCodecRegister
-and before the PojoCodecProvider: 
+Add the Codec to the top your registry before the ``DefaultCodecRegister``
+and before the ``PojoCodecProvider``: 
 
 .. code-block:: java
 
@@ -134,8 +135,8 @@ For example, the following methods throws an exception during encoding:
 Can I use polymorphism in a POJO accessor?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No. Currently, if the types of the accessors do not match with the field
-itself, then the codec throws an exception. 
+No. The codec throws an exception if the types of the accessors do not
+match with the field itself. 
 
 How do I fix ``org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X .``? 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,9 +151,7 @@ Yes!
 How do I specify the collection name for a particular POJO class? Is there an annotation?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Currently, there is no annotation. 
-
-We recommend adding a static in your class as shown:
+There is no annotation. We recommend adding a static in your class as shown:
 
 .. code-block:: java
 
