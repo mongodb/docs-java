@@ -62,9 +62,10 @@ public class UpdateArray {
     private void updateValueOptionsExample(){
         // begin updateValueOptionsExample
         Bson filter = Filters.eq("_id", 1);
+        Bson smallerFilter = Filters.lt("smaller", 15);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER)
-                                            .arrayFilters(Arrays.asList(Filters.lt("smaller", 15)));
+                                            .arrayFilters(Arrays.asList(smallerFilter)));
         Bson update = Updates.inc("qty.$[smaller]", 5);
         
         Document result = collection.findOneAndUpdate(filter, update, options);

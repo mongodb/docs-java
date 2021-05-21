@@ -15,13 +15,16 @@ Overview
 
 In this guide, you will learn how to update arrays in a document.
 
-To update an array, you need to specify an update and the array elements
-you want to update to an update operation. 
+To update an array, you must do the following:
+
+- Specify the update you want to perform
+- Specify what array elements to apply your update to
+- Perform an update operation using these specifications
 
 Sample Document
 ~~~~~~~~~~~~~~~
 
-The following sections feature examples on how to update this sample
+The following sections feature examples that update this sample
 document: 
 
 .. code-block:: json
@@ -30,17 +33,17 @@ document:
 
 The examples on this page use the ``findOneAndUpdate()`` method of the
 ``MongoCollection`` class to retrieve and update our document. Each
-example uses an instance of ``FindOneAndUpdateOptions`` to configure the
-method to return the document  after the update occurs. For more
-information on the ``findOneAndUpdate()`` method, see our Compound
+example uses an instance of the ``FindOneAndUpdateOptions`` class to
+configure the method to return the document after the update occurs. For
+more information on the ``findOneAndUpdate()`` method, see our Compound
 Operations guide <TODO>. 
 
 Specifying an Update
 --------------------
 
-To specify an update, use an ``Updates`` builder. The ``Updates``
+To specify an update, use the ``Updates`` builder. The ``Updates``
 builder provides static utility methods to construct update
-specifications. For more information on using ``Updates`` builder with
+specifications. For more information on using the ``Updates`` builder with
 arrays, see our :doc:`guide on the Updates builder </fundamentals/builders/updates>`.
 
 The following example performs these actions: 
@@ -66,11 +69,13 @@ Specifying Array Elements
 
 You can specify which array elements to update using a positional
 operator. Positional operators can specify the first, all or certain
-embedded arrays to update. 
+array elements to update. 
 
 To specify elements in an array with positional operators, use the **dot
 notation**. Dot notation is a property access syntax for navigating JSON
-objects. For additional information, see the server manual entry on
+objects. 
+
+For additional information, see the server manual entry on
 :manual:`dot notation </core/document/#std-label-document-dot-notation>`.
 
 The First Array Element
@@ -78,9 +83,6 @@ The First Array Element
 
 To update the first element that matches your query filter, use the
 positional ``$`` operator. 
-
-The positional ``$`` operator specifies the first element of the array
-matched by your query filter.  
 
 Example
 ```````
@@ -123,7 +125,7 @@ The following example performs these actions:
 
 - Query for the sample document
 - Multiplies each value by "2"  using the ``mul()`` method of the ``Updates`` builder 
-- Updates all elements in the ``qty`` array using an all positional operator
+- Updates all elements in the ``qty`` array using an all ``$[]`` positional operator
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -141,7 +143,7 @@ The example above updates the original document to the following state:
 For additional information on the operator and method mentioned in this
 section, see the following resources: 
 
-- :manual:`Positional $[] Operator </reference/operator/update/positional-all/>` Server Manual Entry
+- :manual:`All Positional $[] Operator </reference/operator/update/positional-all/>` Server Manual Entry
 - :java-core-api:`mul() <com/mongodb/client/model/Updates.html#mul(java.lang.String,java.lang.Number)>` API Documentation
 
 Multiple Array Elements
@@ -149,11 +151,12 @@ Multiple Array Elements
 
 To update multiple array elements that match your query filter, use the
 filtered positional ``$[<identifier>]`` operator. You must include an
-array filter to specify which array elements to update.
+array filter in your update operation to specify which array elements to
+update. 
 
-The ``<identifier>`` is the placeholder value you give to represent
-elements of the array field. This value must begin with a
-lowercase letter and contain only alphanumeric characters.
+The ``<identifier>`` is the name you give your array filter. This value
+must begin with a lowercase letter and contain only alphanumeric
+characters. 
 
 Example
 ```````
@@ -161,9 +164,9 @@ Example
 The following example performs these actions:
 
 - Query for the sample document
-- Set a ``FindOneAndUpdateOptions.arrayFilters`` condition to search for values less than "15"
+- Set an array filter to search for values less than "15"
 - Increment the value by "5"  using the ``inc()`` method of the ``Updates`` builder  
-- Updates each element matched in the array using a filtered positional operator
+- Update each element matched in the array using a filtered positional operator
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
