@@ -16,7 +16,7 @@ General
 Why are there two versions of the classes? e.g. ``Mongo`` and ``MongoClient``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``MongoDatabase``, ``MongoClient``, ``MongoCollection`` are the
+``MongoDatabase``, ``MongoClient``, ``MongoCollection`` are the
 newer generation of classes and have better defaults for production use.
 
 For more information, see our blog post on `MongoClient
@@ -67,7 +67,16 @@ the driver.
 
 .. note::
 
-   You can mark any one field to encode as ``_id`` with the @BsonId annotation. 
+   You can mark any one field to encode as ``_id`` with the @BsonId
+   annotation. 
+   
+   With the entity listed above, you can mark the ``id`` field to encode
+   as ``_id``:
+
+   .. code-block:: java
+
+      @BsonId()
+      public final ObjectId id;
 
 Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,7 +152,9 @@ The class should be public and should have at least one field.
 Is it important what order I list my codecs?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes! 
+Yes if the CodecRegistry depends on one of the other codecs in your
+list. For example, if ``CodecA`` references ``CodecB``, you must add
+``CodecB`` before ``CodecA``. 
 
 How do I specify the collection name for a particular POJO class? Is there an annotation?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
