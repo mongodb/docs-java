@@ -4,12 +4,10 @@ FAQ
 
 .. default-domain:: mongodb
 
-Frequently Asked Questions
-
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 General
@@ -39,8 +37,8 @@ What's the difference between ``mongodb-driver-sync``, ``mongodb-driver`` or ``m
      - The new asynchronous driver **only**, new in 3.0. **No legacy classes.**
    * - ``mongodb-driver``
      - The synchronous driver plus the legacy driver, new in 3.0.
-   * - mongo-java-driver``
-     - ``An uber jar containing the bson library, the core library and the mongodb-driver. This artifact is a valid OSGi bundle.
+   * - ``mongo-java-driver``
+     - An uber jar containing the bson library, the core library and the mongodb-driver. This artifact is a valid OSGi bundle.
    * - ``mongodb-driver-core``
      - The core library, (new in 3.0). **No BSON included (but is a dependency), and no high-level drivers.**
 
@@ -101,9 +99,9 @@ and before the ``PojoCodecProvider``:
 
    static final CodecRegistry CODEC_REGISTRY = fromRegistries(
       CodecRegistries.fromCodecs(
-         new MyDateAsStringCodec()),
-         MongoClient.getDefaultCodecRegistry(),
-         fromProviders(pojoCodecProvider) );
+                        new MyDateAsStringCodec()),
+                        MongoClient.getDefaultCodecRegistry(),
+                        fromProviders(pojoCodecProvider));
 
 Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -129,7 +127,6 @@ For example, the following methods throws an exception during encoding:
 .. code-block:: java
    
    private String getField();
-   
    public String setField(String x); 
 
 Can I use polymorphism in a POJO accessor?
@@ -138,8 +135,8 @@ Can I use polymorphism in a POJO accessor?
 No. The codec throws an exception if the types of the accessors do not
 match with the field itself. 
 
-How do I fix ``org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X .``? 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How do I fix: org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X .? 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The class should be public and should have at least one field.
 
