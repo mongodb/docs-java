@@ -13,6 +13,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import com.mongodb.MongoGridFSException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
@@ -48,7 +49,7 @@ public final class GridFSOperations {
         String filePath = "/path/to/project.zip";
         try (InputStream streamToUploadFrom = new FileInputStream(filePath) ) {
             GridFSUploadOptions options = new GridFSUploadOptions()
-                    .chunkSizeBytes(1024)
+                    .chunkSizeBytes(1048576)
                     .metadata(new Document("type", "zip archive"));
 
             ObjectId fileId = gridFSBucket.uploadFromStream("myProject.zip", streamToUploadFrom, options);
