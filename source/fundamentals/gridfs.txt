@@ -46,8 +46,10 @@ When you create a new GridFS bucket, the driver creates the collections
 referenced above, prefixed with the default bucket name ``fs``, unless
 you specify a different name. The driver also creates an index on each
 collection to ensure efficient retrieval of the files and related
-metadata. For more information on GridFS indexes, see the server manual
-page on :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`.
+metadata. The driver only creates the GridFS bucket on the first write
+operation if it does not already exist. The driver only creates indexes if
+they do not exist and when the bucket is empty. For more information on
+GridFS indexes, see the server manual page on :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`.
 
 When storing files with GridFS, the driver splits the files into smaller
 chunks, each represented by a separate document in the ``chunks`` collection.
@@ -167,6 +169,8 @@ operations:
   "myProject.zip". The stream reads data into a buffer until it reaches the
   limit specified in the ``chunkSize`` setting, and inserts it as a new chunk
   in the ``chunks`` collection.
+- Call the ``abort()`` method if the upload throws an Exception. This
+  operation cleans up any GridFS file chunks related to the incomplete upload.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -176,6 +180,15 @@ operations:
 
 This code example prints the file id of the uploaded file after it is
 successfully saved in GridFS.
+
+If your file upload is not successful, the operation throws a
+``MongoGridFSException`` exception and any uploaded chunks become
+orphaned chunks. An **orphaned chunk** is a document in a GridFS ``chunks``
+collection that does not reference any file id in the GridFS ``files``
+collection. File chunks can become orphaned chunks when an upload or
+delete operation is interrupted. The exception handling code in the
+example above instructs the driver to remove orphaned chunks related to the
+interrupted upload.
 
 For more information, see the API documentation on
 :java-docs:`GridFSUploadStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSUploadStream.html>`.
@@ -294,7 +307,7 @@ bucket to open a ``GridFSDownloadStream``, an input stream from which you
 can read the file.
 
 The following code example shows you how to download a file referenced by
-the ``fileId`` variable into memory:
+the ``fileId`` variable into memory and print its contents as a string:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java

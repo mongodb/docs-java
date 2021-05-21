@@ -64,12 +64,17 @@ public final class GridFSOperations {
         byte[] data = Files.readAllBytes(filePath);
 
         GridFSUploadOptions options = new GridFSUploadOptions()
-                .chunkSizeBytes(1024)
+                .chunkSizeBytes(1048576)
                 .metadata(new Document("type", "zip archive"));
 
         try (GridFSUploadStream uploadStream = gridFSBucket.openUploadStream("myProject.zip", options)) {
-            uploadStream.write(data);
-            System.out.println("The file id of the uploaded file is: " + uploadStream.getObjectId().toHexString());
+            try {
+                uploadStream.write(data);
+                System.out.println("The file id of the uploaded file is: " + uploadStream.getObjectId().toHexString());
+            } catch (MongoGridFSException e) {
+                uploadStream.abort();
+                System.out.println("Upload failed: " + e.getMessage());
+            }
         }
         // end uploadFromOutputStream
     }
