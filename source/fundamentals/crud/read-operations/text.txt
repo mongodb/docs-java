@@ -1,5 +1,5 @@
 ===========
-Search text
+Search Text
 ===========
 
 .. default-domain:: mongodb
@@ -15,17 +15,17 @@ Overview
 
 In this guide, you will learn how to perform a text search in MongoDB.
 
-Text search allows you to search a string field in your collection for
-terms or phrases. This is useful for searching unstructured text such as
-transcripts, resumes, essays, or web pages. 
+Performing a text search allows you to search a string field in your
+collection for terms or phrases. This is useful for searching
+unstructured text such as transcripts, resumes, essays, or web pages. 
 
 Sample Documents
 ~~~~~~~~~~~~~~~~
 
 In the following examples, a junior year student is browsing through
-computer science courses to take at their college. The documents in the
-``junior_courses`` collection represents the courses available for the
-student to pick from: 
+computer science courses to enroll in at their college. The documents in
+the ``junior_courses`` collection represents the courses available for
+the student to select from: 
 
 .. code-block:: json
 
@@ -40,14 +40,14 @@ student to pick from:
 Text Index
 ----------
 
-Before you preform a text search, you must specify the search field in a
-text index on your collection. 
+Before you preform a text search, you must specify the field to search
+in a text index for your collection. 
 
-The text index specifies the fields to query in a text search. There can
+The text index specifies the fields to query during a text search. There can
 only be one text index per collection with a field whose value is a
 string or an array of string elements. 
 
-For the following examples, we perform text searches on the ``course``
+In the following examples, we perform text searches on the ``course``
 field in the ``junior_courses`` collection. To enable text searches on
 the ``course`` field, create a text index using the following snippet: 
 
@@ -57,9 +57,9 @@ the ``course`` field, create a text index using the following snippet:
    :start-after: begin textIndex
    :end-before: end textIndex
 
-If there was another field, ``description`` that contains a description of
-the course, you can create a compound index to perform a text search in
-both fields using the following snippet:
+If there was another string field, ``description``, you wanted to index,
+you can create a compound index to perform a text search in both fields
+using the following snippet: 
 
 .. code-block:: java
 
@@ -75,12 +75,12 @@ To perform a text search, use the ``text()`` method of the ``Filters``
 builder. 
 
 The ``text()`` method performs a text search on the fields indexed with
-a text index. The text search matches documents which contain a
+a text index. The text search matches documents which contain the
 specified search term. 
 
-You can pass in ``TextSearchOptions`` as the second parameter to specify
+You can include ``TextSearchOptions`` as the second parameter to specify
 additional text search options to handle case sensitivity, diacritic
-sensitivity and language. 
+sensitivity and the language of the text. 
 
 For more information, see the API Documentation on the
 :java-core-api:`text()
@@ -94,8 +94,8 @@ To search for a term in your text index, pass the term as a string
 to the ``text()`` method. 
 
 If you want to match multiple terms in your text index, separate your
-terms with spaces. The ``text()`` method performs a logical OR search on
-each term and returns documents that contains any of the terms. 
+terms with spaces. The ``text()`` method performs a logical OR on
+each term and returns documents that contain any of the terms. 
 
 Example 
 ```````
@@ -167,15 +167,16 @@ The following shows the output of the code above:
    { "_id": 4, "course": "Computer Science" }
    { "_id": 7, "course": "Image Processing in Computer Science" }
 
-Excluding a Term
-~~~~~~~~~~~~~~~~
+Excluding Terms
+~~~~~~~~~~~~~~~
 
 To exclude a term in your text search, prefix a minus sign, ``-``, to
 each term you want to omit. 
 
 Example 
 ```````
-The student would like to know which courses only mention "Computer".
+The student would like to know which courses mention "Computer" without
+"Science".
 
 To address this scenario, the student performs a text search on
 documents that contain the term "Computer", but not contain the term
@@ -198,10 +199,10 @@ The following shows the output of the code above:
 Sort by Relevance
 ~~~~~~~~~~~~~~~~~
 
-Text search assigns a ``metsTextScore`` to each match that represents
-the relevance of a document to the specified text search query filter.
-A high score resembles a high relevance and a low score resembles a low
-relevance. 
+You can see how relevant the documents returned by the text are by
+including a projection to calculate the ``metaTextScore``. The
+``metaTextScore`` signifies how well the document matched the search
+term.
 
 Example 
 ```````
@@ -211,7 +212,7 @@ is the most relevant.
 To address this scenario, the student performs the following actions:
 
 - A text search for the term "Computer Science"
-- A projection to calculate the ``metaTextScore``
+- A projection to calculate the ``metaTextScore`` and place the score in a field called ``score``
 - A sort to display the results in descending order
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
