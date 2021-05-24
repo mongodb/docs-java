@@ -1,0 +1,109 @@
+=============
+Versioned API
+=============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+
+.. note::
+
+   The Versioned API feature requires MongoDB Server 5.0 or later.
+
+This guide shows you how to specify the *Versioned API* when connecting to
+a MongoDB instance or replica set deployment. The Versioned API feature
+enables you to force the server to run operations with consistent behavior
+as specified by the API version. You can update the version of your driver
+or server without worrying about compatibility issues of the commands covered
+by the Versioned API.
+
+..
+   TODO: See the server manual page on Versioned API for more information
+   including the set the commands covered.
+
+The following sections describe how you can enable Versioned API and each of
+the options that you can specify.
+
+Specify the API Version
+-----------------------
+
+To enable the Versioned API, you must specify an API version in the settings
+that you use to create your MongoDB client. Once you instantiate a
+``MongoClient`` instance with a sepcified Versioned API, all commands you
+run with that client use that version of the Versioned API. If you need to
+run commands without the Versioned API or with a different version of it,
+instantiate a separate client.
+
+The example below shows how you can instantiate a ``MongoClient`` that
+specifies version "1" of the Versioned API by performing the following
+operations:
+
+- Construct a ``ServerApi`` instance using the ``ServerApi.Builder``
+  helper class.
+- Construct a ``MongoClientSettings`` instance using the
+  ``MongoClientSettings.Builder`` class.
+- Instantiate a ``MongoClient`` using the ``MongoClients.create()`` method
+  and pass your ``MongClientSettings`` instance as a parameter.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/VersionedAPI.java
+   :start-after: start serverAPIVersion
+   :end-before: end serverAPIVersion
+   :language: java
+   :dedent:
+
+.. warning::
+
+   Make sure that you are connecting to a version of MongoDB server that
+   supports Versioned API. Otherwise, your application may throw an exception
+   when attempting to perform any operation that sends a command to
+   MongoDB.
+
+For more information on the methods and classes referenced in this
+section, see the following API documentation:
+
+- :java-docs:`ServerApi <apidocs/mongodb-driver-core/com/mongodb/ServerApi.html>`
+- :java-docs:`ServerApi.Builder <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html>`
+- :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
+- :java-docs:`MongoClientSettings.Builder <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`
+- :java-docs:`MongoClients.create() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`
+- :java-docs:`MongoClient <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`
+
+Additional Options
+------------------
+
+You can set additional options to enable or disable behavior related to
+Versioned API as described in the following table.
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 25,75
+
+   * - Option Name
+     - Description
+
+   * - Strict
+     - | **Optional**. When set, if you call a command that is not part of declared API version, the driver raises an exception.
+       | Default: **false**
+       | :java-docs:`strict() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#strict(boolean)>` API documentation
+
+   * -  DeprecationErrors
+     - | **Optional**. When set, if you call a command that is deprecated in the declared API version, the driver raises an exception.
+       | Default: **false**
+       | :java-docs:`deprecationErrors() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#>` API documentation
+
+
+The following code example shows how you can set the two options on the
+``ServerApi`` by chaining the methods to the ``ServerApi.Builder``:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/VersionedAPI.java
+   :start-after: start serverAPIVersion
+   :end-before: end serverAPIVersion
+   :language: java
+   :dedent:
+
