@@ -83,6 +83,7 @@ public class JMXMonitoring {
             // Start the RMI connector server
             //
             echo("\nStart the RMI connector server");
+            // TODO: RESEARCH THIS LINE OF CODE
             LocateRegistry.createRegistry(9999);
             cs.start();
             echo("\nThe RMI connector server successfully started");
