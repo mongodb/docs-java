@@ -82,14 +82,41 @@ For more information on MongoDB database commands, see the
 Example
 ^^^^^^^
 
+In this example we make a timer for database commands. When the driver
+executes a database command on our MongoDB instance, the example code makes the
+driver print the time it took to execute the command.
+
+To make a timer, we must do the following:
+
+- Make a class with timer functionality that implements the ``CommandListener`` interface.
+- Add an instance of the class to a ``MongoSettings`` object.
+- Configure our ``MongoClient`` instance with the ``MongoSettings`` object.
+
+The following code defines the ``CommandTimer`` class which implements the
+``CommandListener`` interface:
+
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
    :dedent:
    :start-after: start command-listener-impl
    :end-before: end command-listener-impl
 
+The following code adds an instance of the ``CommandTimer`` class to a
+``MongoSettings`` object, and configures a ``MongoClient`` instance with the
+``MongoSettings`` object. The code then runs some database commands to test the
+timer.
+
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
    :dedent:
    :start-after: start monitor-command-example
    :end-before: end monitor-command-example
+
+The above code snippet should produce output that looks like this:
+
+.. code-block:: none
+   :copyable: false
+
+   Command 'find' took 22 milliseconds
+   Command 'aggregate' took 15 milliseconds
+   Command 'distinct' took 15 milliseconds
