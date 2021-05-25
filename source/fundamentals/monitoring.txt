@@ -130,3 +130,24 @@ the following API documentation.
 - :java-docs:`CommandStartedEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandStartedEvent.html>`
 - :java-docs:`CommandSucceededEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandSucceededEvent.html>`
 - :java-docs:`CommandFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandFailedEvent.html>`
+
+Cluster Events
+~~~~~~~~~~~~~~
+
+A cluster event in the driver corresponds to a change in the state of the
+MongoDB instance or cluster you have connected the driver to. Cluster events are
+also called server discovery and monitoring (SDAM) events. 
+ 
+The driver defines nine cluster events. The driver defines three seperate listener
+interfaces which each listen for three of the nine events:
+
+- ``ClusterListener``: cluster/topology related events
+- ``ServerListener``: server related events
+- ``ServerMonitorListener``: heartbeat related events
+
+For a detailed description of all cluster events in the driver, see the 
+:spec:`MongoDB SDAM monitoring specification </server-discovery-and-monitoring/server-discovery-and-monitoring-monitoring.rst#events>`.
+
+Example
+^^^^^^^
+
