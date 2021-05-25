@@ -138,10 +138,10 @@ A cluster event in the driver corresponds to a change in the state of the
 MongoDB instance or cluster you have connected the driver to. Cluster events are
 also called server discovery and monitoring (SDAM) events. 
  
-The driver defines nine cluster events. The driver defines three seperate listener
+The driver defines nine cluster events. The driver defines three separate listener
 interfaces which each listen for three of the nine events:
 
-- ``ClusterListener``: cluster/topology related events
+- ``ClusterListener``: topology related events
 - ``ServerListener``: server related events
 - ``ServerMonitorListener``: heartbeat related events
 
@@ -151,3 +151,21 @@ For a detailed description of all cluster events in the driver, see the
 Example
 ^^^^^^^
 
+.. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
+   :language: java
+   :dedent:
+   :start-after: start cluster-listener-impl
+   :end-before: end cluster-listener-impl
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
+   :language: java
+   :dedent:
+   :start-after: start monitor-cluster-example
+   :end-before: end monitor-cluster-example
+
+.. code-block:: none
+   :copyable: false
+
+   Command 'find' took 22 milliseconds
+   Command 'aggregate' took 15 milliseconds
+   Command 'distinct' took 15 milliseconds
