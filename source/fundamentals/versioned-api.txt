@@ -14,8 +14,7 @@ Versioned API
 
    The Versioned API feature requires MongoDB Server 5.0 or later. You
    should only use the Versioned API feature if you are connecting to
-   MongoDB servers that are upgraded to a version that supports the
-   Versioned API feature.
+   MongoDB servers that are upgraded to a version that supports this feature.
 
 This guide shows you how to specify the **Versioned API** when connecting to
 a MongoDB instance or replica set. You can use the Versioned API feature to
@@ -34,8 +33,8 @@ covered by the Versioned API.
 The following sections describe how you can enable Versioned API for
 your MongoDB client and each of the options that you can specify.
 
-Specify the API Version
------------------------
+Enable Versioned API
+--------------------
 
 To enable the Versioned API, you must specify an API version in the settings
 that you use to create your MongoDB client. Once you instantiate a
@@ -45,13 +44,14 @@ run commands not covered by the Versioned API or with a different version of
 it, instantiate a separate client.
 
 The example below shows how you can instantiate a ``MongoClient`` that
-specifies version "1" of the Versioned API by performing the following
-operations:
+specifies version "1" of the Versioned API and connects to a server by 
+performing the following operations:
 
 - Construct a ``ServerApi`` instance using the ``ServerApi.Builder``
   helper class.
 - Construct a ``MongoClientSettings`` instance using the
   ``MongoClientSettings.Builder`` class.
+- Specify a server to connect to using a ``ServerAddress`` instance.
 - Instantiate a ``MongoClient`` using the ``MongoClients.create()`` method
   and pass your ``MongoClientSettings`` instance as a parameter.
 
@@ -63,11 +63,11 @@ operations:
 
 .. warning::
 
-   Make sure that you are connecting to a version of MongoDB server that
-   supports Versioned API. Otherwise, your application may throw an exception
-   when attempting to perform any operation that sends a command to
-   MongoDB. For example, a query to a server could return an exception
-   message that resembles the following:
+   Make sure that when you specify an API version that you connect to a 
+   version of MongoDB server that supports Versioned API. Otherwise, your
+   application may raise an exception when attempting to perform any operation 
+   that sends a command to MongoDB. For example, a query to a server could 
+   return an exception message that resembles the following:
 
    .. code-block:: none
 
@@ -78,6 +78,7 @@ section, see the following API documentation:
 
 - :java-docs:`ServerApi <apidocs/mongodb-driver-core/com/mongodb/ServerApi.html>`
 - :java-docs:`ServerApi.Builder <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html>`
+- :java-docs:`ServerAddress <apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`
 - :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
 - :java-docs:`MongoClientSettings.Builder <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`
 - :java-docs:`MongoClients.create() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`

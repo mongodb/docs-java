@@ -22,21 +22,20 @@ public class VersionedAPIExample {
     }
 
     public static void main(String[] args) {
-
-
         // start serverAPIVersion
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
 
+        ServerAddress serverAddress = new ServerAddress("localhost", 27017);
+
         MongoClientSettings settings = MongoClientSettings.builder()
                 .serverApi(serverApi)
                 .applyToClusterSettings(builder ->
-                        builder.hosts(Arrays.asList(new ServerAddress("localhost", 27017))))
+                        builder.hosts(Arrays.asList(serverAddress)))
                 .build();
 
         MongoClient client = MongoClients.create(settings);
         // end serverAPIVersion
     }
 }
-
