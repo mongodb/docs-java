@@ -7,9 +7,8 @@ Versioned API
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 2
+   :depth: 1
    :class: singlecol
-
 
 .. note::
 
@@ -48,7 +47,7 @@ operations:
 - Construct a ``MongoClientSettings`` instance using the
   ``MongoClientSettings.Builder`` class.
 - Instantiate a ``MongoClient`` using the ``MongoClients.create()`` method
-  and pass your ``MongClientSettings`` instance as a parameter.
+  and pass your ``MongoClientSettings`` instance as a parameter.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/VersionedApiExample.java
    :start-after: start serverAPIVersion
@@ -61,7 +60,12 @@ operations:
    Make sure that you are connecting to a version of MongoDB server that
    supports Versioned API. Otherwise, your application may throw an exception
    when attempting to perform any operation that sends a command to
-   MongoDB.
+   MongoDB. For example, a query to a server could return an exception
+   message that resembles the following:
+
+   .. code-block:: none
+
+      com.mongodb.MongoQueryException: Query failed with error code 9 and error message 'Failed to parse: {...} Unrecognized field 'apiVersion'.' on server
 
 For more information on the methods and classes referenced in this
 section, see the following API documentation:
@@ -89,13 +93,15 @@ Versioned API as described in the following table.
 
    * - Strict
      - | **Optional**. When set, if you call a command that is not part of declared API version, the driver raises an exception.
+       |
        | Default: **false**
-       | :java-docs:`strict() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#strict(boolean)>` API documentation
+       | For more information, see the :java-docs:`strict() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#strict(boolean)>` API documentation.
 
    * -  DeprecationErrors
      - | **Optional**. When set, if you call a command that is deprecated in the declared API version, the driver raises an exception.
+       |
        | Default: **false**
-       | :java-docs:`deprecationErrors() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#>` API documentation
+       | For more information, see the :java-docs:`deprecationErrors() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#>` API documentation.
 
 
 The following code example shows how you can set the two options on the
@@ -107,3 +113,4 @@ The following code example shows how you can set the two options on the
    :language: java
    :dedent:
 
+.. _test@#:
