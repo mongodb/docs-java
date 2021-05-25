@@ -14,6 +14,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.TextSearchOptions;
 
 public class SearchText {
     
@@ -32,14 +33,11 @@ public class SearchText {
     public static void main(String [] args){
         SearchText searchText = new SearchText();
 
-        // searchText.setupCoursesCollection();
-        System.out.println("Matches for 'Computer'");
-        searchText.wordExample();
+        searchText.setupCoursesCollection();
+        System.out.println("Matches for 'Science' (Case Sensitive)");
+        searchText.caseSensitiveExample();
 
-        System.out.println("Matches for 'Computer or Science'");
-        searchText.multiWordExample();
-
-        System.out.println("Matches for 'Computer' without 'Science'");
+        System.out.println("Matches for 'Science' without 'Computer'");
         searchText.negateExample();
 
         System.out.println("Matches for 'Computer Science'");
@@ -49,23 +47,17 @@ public class SearchText {
         searchText.scoreExample();
     }
 
-    private void wordExample(){
-        // begin wordExample
-        Bson filter = Filters.text("Computer");
+    private void caseSensitiveExample(){
+        // begin caseSensitiveExample
+        TextSearchOptions options = new TextSearchOptions().caseSensitive(true);
+        Bson filter = Filters.text("Science", options);
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
-        // end wordExample
-    }
-
-    private void multiWordExample(){
-        // begin multiWordExample
-        Bson filter = Filters.text("Computer Science");
-        collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
-        // end multiWordExample
+        // end caseSensitiveExample
     }
     
     private void negateExample(){
         // begin negateExample
-        Bson filter = Filters.text("Computer -Science");
+        Bson filter = Filters.text("-Computer Science");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end negateExample
     }
@@ -89,16 +81,13 @@ public class SearchText {
     private void setupCoursesCollection() {
         collection.drop();
         collection.insertMany(Arrays.asList(
-            new Document("_id", 1).append("course", "Artificial Intelligence"), 
-            new Document("_id", 2).append("course", "Discrete Mathematical Structures for Computer Science"), 
-            new Document("_id", 3).append("course", "Web Database Applications"), 
-            new Document("_id", 4).append("course", "Computer Science"),
-            new Document("_id", 5).append("course", "Computer Hacking Revealed"),
-            new Document("_id", 6).append("course", "Advanced Computer Game Programming"),
-            new Document("_id", 7).append("course", "Image Processing in Computer Science")
+            new Document("_id", 1).append("name", "Forensic science").append("major", Arrays.asList("Forensic Science", "Criminal Justice")), 
+            new Document("_id", 2).append("name", "Discrete Mathematical Structures for Computer Science").append("major", Arrays.asList("Computer Science", "Mathematics")), 
+            new Document("_id", 3).append("name", "Environmental Science").append("major", Arrays.asList("Environmental Science", "Sustainable Management")), 
+            new Document("_id", 4).append("name", "Image Processing in Computer science").append("major", Arrays.asList("Artificial Intelligence", "Computer Science"))
         ));
         // begin textIndex
-        collection.createIndex(Indexes.text("course"));
+        collection.createIndex(Indexes.text("name"));
         // end textIndex
     }
 }
