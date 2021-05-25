@@ -24,20 +24,61 @@ Monitoring is the process of getting runtime information about the MongoDB
 Java driver for your application or an application performance
 management library. Monitoring helps you understand your driver's resource
 usage and performance, and can help you make informed decisions when designing
-your application.    
+and debugging your application.    
 
 .. What can you expect to see on this page?
 
-On this page you can learn how to:
+On this page you will learn how to:
 
 - Monitor different types of events in the MongoDB Java Driver
 - Remotely monitor connection pool events
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
-If you like to learn how to record events in the MongoDB Java driver
+If you would like to learn how to record events in the MongoDB Java driver
 rather than use realtime information about the driver in code, consider reading
 our :doc:`guide on Logging </fundamentals/logging>`.
 
 Monitor Events
 --------------
+
+The MongoDB Java driver organizes events into three categories:
+
+- Command Events
+- Cluster Events
+- Connection Pool Events
+
+The following sections show how to monitor each event category.
+
+For a full list of the events you can monitor in the MongoDB Java driver,
+:java-docs:`see the event package of the MongoDB Java Driver <apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`.
+
+Command Events
+~~~~~~~~~~~~~~
+
+A command event is an event related to a MongoDB database command. Here are some
+examples of database commands:
+
+- ``find``
+- ``insert``
+- ``delete``
+- ``count`` 
+
+To monitor command events, you must write a class that implements the
+``CommandListener`` interface and register an instance of that class with your
+``MongoClient`` instance.
+
+For more information on MongoDB database commands, see the
+:manual:`MongoDB manual entry on database commands <reference/command/>`.
+
+.. note:: Redacted Output
+
+   As a security measure, the driver is unable to monitor some commands. This
+   is to protect the sensitive information contained in the output of these
+   commands. For a full list of commands the driver can't monitor,
+   see the 
+   :spec:`MongoDB command monitoring specification </command-monitoring/command-monitoring.rst#security>`.
+
+Example
+^^^^^^^
+
