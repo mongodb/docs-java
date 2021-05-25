@@ -42,6 +42,7 @@ public class Monitoring {
                         .addCommandListener(new CommandTimer())
                         .build();
         MongoClient mongoClient = MongoClients.create(settings);
+        // Run some commands to test the timer
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
         collection.find().first().toJson();
@@ -69,8 +70,10 @@ class CommandTimer implements CommandListener {
     public void commandSucceeded(final CommandSucceededEvent event) {
         TimeUnit currentTimeUnit = TimeUnit.MILLISECONDS;
         this.endTime = System.nanoTime();
-        long duration = currentTimeUnit.convert((this.endTime - this.startTime), TimeUnit.NANOSECONDS);
-        System.out.println(String.format("Successfully executed command '%s' in %d %s",
+        long duration = currentTimeUnit.convert(
+                (this.endTime - this.startTime),
+                TimeUnit.NANOSECONDS);
+        System.out.println(String.format("Command '%s' took %d %s",
                 event.getCommandName(),
                 duration,
                 currentTimeUnit.toString().toLowerCase()));
@@ -78,14 +81,9 @@ class CommandTimer implements CommandListener {
 
     @Override
     public void commandFailed(final CommandFailedEvent event) {
-        System.out.println(String.format("Failed execution of command '%s' with id %s "
-                        + "on connection '%s' to server '%s' with exception %s.",
+        System.out.println(String.format("Failed execution of command '%s' with id %s",
                 event.getCommandName(),
-                event.getRequestId(),
-                event.getConnectionDescription()
-                        .getConnectionId(),
-                event.getConnectionDescription().getServerAddress(),
-                event.getThrowable()));
+                event.getRequestId()));
     }
 }
 // end command-listener-impl
