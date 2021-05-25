@@ -1,6 +1,6 @@
-=======
+==========
 Monitoring
-=======
+==========
 
 .. default-domain:: mongodb
 
@@ -89,8 +89,8 @@ driver print the time it took to execute the command.
 To make a timer, we must do the following:
 
 - Make a class with timer functionality that implements the ``CommandListener`` interface.
-- Add an instance of the class to a ``MongoSettings`` object.
-- Configure our ``MongoClient`` instance with the ``MongoSettings`` object.
+- Add an instance of the class to a ``MongoClientSettings`` object.
+- Configure a ``MongoClient`` instance with the ``MongoClientSettings`` object.
 
 The following code defines the ``CommandTimer`` class which implements the
 ``CommandListener`` interface:
@@ -102,8 +102,8 @@ The following code defines the ``CommandTimer`` class which implements the
    :end-before: end command-listener-impl
 
 The following code adds an instance of the ``CommandTimer`` class to a
-``MongoSettings`` object, and configures a ``MongoClient`` instance with the
-``MongoSettings`` object. The code then runs some database commands to test the
+``MongoClientSettings`` object, and configures a ``MongoClient`` instance with the
+``MongoClientSettings`` object. The code then runs some database commands to test the
 timer.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
@@ -120,3 +120,13 @@ The above code snippet should produce output that looks like this:
    Command 'find' took 22 milliseconds
    Command 'aggregate' took 15 milliseconds
    Command 'distinct' took 15 milliseconds
+
+For more information on the classes and methods mentioned in this section, see
+the following API documentation.
+
+- :java-docs:`CommandListener <apidocs/mongodb-driver-core/com/mongodb/event/CommandListener.html>`
+- :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
+- :java-docs:`MongoClient <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`
+- :java-docs:`CommandStartedEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandStartedEvent.html>`
+- :java-docs:`CommandSucceededEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandSucceededEvent.html>`
+- :java-docs:`CommandFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandFailedEvent.html>`
