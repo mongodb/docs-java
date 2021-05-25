@@ -65,7 +65,7 @@ public class UpdateArray {
         Bson smallerFilter = Filters.lt("smaller", 15);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions()
                                             .returnDocument(ReturnDocument.AFTER)
-                                            .arrayFilters(Arrays.asList(smallerFilter)));
+                                            .arrayFilters(Arrays.asList(smallerFilter));
         Bson update = Updates.inc("qty.$[smaller]", 5);
         
         Document result = collection.findOneAndUpdate(filter, update, options);
