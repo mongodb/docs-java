@@ -31,7 +31,7 @@ and debugging your application.
 On this page you will learn how to:
 
 - Monitor different types of events in the MongoDB Java Driver
-- Remotely monitor connection pool events
+- Remotely monitor connection pool events with Java Management Extensions (JMX)
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
@@ -165,8 +165,8 @@ The following code defines the ``IsReadAndWrite`` class which implements the
    :end-before: end cluster-listener-impl
 
 The following code adds an instance of the ``IsReadAndWrite`` class to a
-``MongoClient`` object. The code then runs some database commands to test the
-our listener class.
+``MongoClient`` object. The code then runs a find operation to test our listener
+class.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
@@ -252,7 +252,18 @@ the following API documentation.
 - :java-docs:`ConnectionCheckedOutEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckedOutEvent.html>`
 - :java-docs:`ConnectionCheckOutFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckOutFailedEvent.html>`
 
-Monitor Connection Pool Events Remotely with JMX
-------------------------------------------------
+Monitor Connection Pools with JMX
+---------------------------------
+
+You can monitor connection pool events remotely using **Java Management Extensions**
+(JMX). JMX is a technology included in the Java Platform, Standard Edition
+(J2SE) since version 5.0. JMX provides a standardized way to monitor
+applications and devices.
+
+For more information on JMX, see 
+`the official Oracle JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__. 
+
+JMX in the Driver
+~~~~~~~~~~~~~~~~~
 
 
