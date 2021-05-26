@@ -13,34 +13,28 @@ FAQ
 General
 -------
 
-Why are there two versions of the classes? e.g. ``Mongo`` and ``MongoClient``?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Are there two versions of ``MongoClient``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``MongoClient``, ``MongoDatabase``, and ``MongoCollection`` are the
-newer generation of classes and have better defaults for production use.
+Yes, one version of ``MongoClient`` is ``com.mongodb.MongoClient``.
+This is a class that has been in the driver for a long time and supports
+the following in the "modern" API:
 
-For more information, see our blog post on `MongoClient
-<https://www.mongodb.com/blog/post/introducing-mongoclient>`_. 
+- Configuration with ``MongoClientSettings`` and ``ConnectionString``
+- CRUD API via ``MongoDatabase``, and from there, ``MongoCollection``
 
-What's the difference between ``mongodb-driver-sync``, ``mongodb-driver`` or ``mongo-java-driver``?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It also supports the following in the "legacy" API:
 
-.. list-table::
-   :widths: 35 65
-   :header-rows: 1
+- Configuration with ``MongoClientOptions`` and ``MongoClientURI``
+- CRUD API via ``DB``, and from there, ``DBCollection``
 
-   * - Driver
-     - Description
-   * - ``mongodb-driver-sync``
-     - The synchronous driver **only**, new in 3.7. **No legacy classes.**
-   * - ``mongodb-driver-async``
-     - The new asynchronous driver **only**, new in 3.0. **No legacy classes.**
-   * - ``mongodb-driver``
-     - The synchronous driver plus the legacy driver, new in 3.0.
-   * - ``mongo-java-driver``
-     - An uber jar containing the bson library, the core library and the mongodb-driver. This artifact is a valid OSGi bundle.
-   * - ``mongodb-driver-core``
-     - The core library, (new in 3.0). **No BSON included (but is a dependency), and no high-level drivers.**
+The other version of ``MongoClient`` is
+``com.mongodb.client.MongoClient``. This is an interface that was
+introduced in the 3.7 driver release and only supports the "modern" API
+described above.
+
+You can create instances of this type via factory methods defined in
+the`` com.mongodb.client.MongoClients`` class. 
 
 POJOs
 -----
@@ -63,6 +57,11 @@ Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Yes. For an example of this, see `our implementation <https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java>`_
+
+Can I use polymorphism in a POJO accessor?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes, by using a discriminator.
 
 What is the discriminator?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,13 +116,6 @@ For example, the following methods throws an exception during encoding:
    
    private String getField();
    public String setField(String x); 
-
-Can I use polymorphism in a POJO accessor?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Yes if you are using a discriminator. Otherwise, the codec throws an
-exception if the types of the accessors do not match with the field
-itself. 
 
 How do I fix: org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X .? 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
