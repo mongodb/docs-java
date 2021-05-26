@@ -57,7 +57,7 @@ public class SearchText {
     
     private void negateExample(){
         // begin negateExample
-        Bson filter = Filters.text("-Computer Science");
+        Bson filter = Filters.text("Science -Computer");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end negateExample
     }

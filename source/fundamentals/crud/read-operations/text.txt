@@ -16,17 +16,19 @@ Overview
 In this guide, you will learn how to perform a **text search** in MongoDB.
 
 A text search allows you to search for partial or exact matches from a set
-of words. In MongoDB, you can search a string field in your collection.
-You can use this for searching unstructured text, which is text that
-does not have a predefined format such as resumes, and web pages. 
+of words. You can use this for searching through unstructured text, which is
+text that does not have a predefined format such as resumes and web
+pages. 
+
+In MongoDB, you can perform a text search a string field in your
+collection. 
 
 Sample Documents
 ~~~~~~~~~~~~~~~~
 
 In the following examples, a student is browsing through courses to
 enroll in at their college. The documents in the ``junior_courses``
-collection represents the courses available with their intended majors
-for the student to select from: 
+collection represents the courses available with their intended majors: 
 
 .. code-block:: json
 
@@ -38,15 +40,14 @@ for the student to select from:
 Text Index
 ----------
 
-Create a text index using the ``Indexes`` builder before you perform a
-text search. 
+Create a **text index** using the ``Indexes`` builder before you perform
+a text search. A text index specifies the string or string array field
+to query during a text search. 
 
-A text index specifies the string or string array field to query during
-a text search. There can only be one text index per collection.
-
-In the following examples, a student performs text searches on the ``name``
+In the following examples, the student performs text searches on the ``name``
 field in the ``junior_courses`` collection. To enable text searches on
-the ``name`` field, create a text index using the following snippet: 
+the ``name`` field, the student creates a text index using the following
+snippet: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -67,6 +68,11 @@ the ``name`` and ``major`` field, use the following snippet:
 After creating the compound index, text searches apply to the ``name`` and
 ``major`` field.
 
+.. note::
+
+   The student cannot create another index because there can only be one
+   text index per collection. 
+
 For more information, see the following documentation:
 
 - :manual:`Text Indexes </core/index-text/>` Server Manual Entry
@@ -78,15 +84,15 @@ Searching
 
 Use the ``Filters.text()`` method to perform a text search. 
 
-The ``Filters.text()`` method uses the :doc:`Filters builders
+The ``Filters.text()`` method uses the :doc:`Filters builder
 </fundamentals/builders/filters>` to perform the text search on the
-fields indexed with a text index. The text search matches documents
-which contain one or more search terms.
+fields indexed with the text index on the collection. The text search
+matches documents which contain one or more search terms.
 
 You can include ``TextSearchOptions`` as the second parameter to specify
-additional text search options such as case sensitivity. By default,
-there is no case sensitivity, meaning MongoDB matches documents
-regardless if their fields are in lowercase or uppercase. 
+text search options such as case sensitivity. By default, there is no
+case sensitivity, meaning MongoDB matches documents regardless if the
+value is lowercase or uppercase. 
 
 For more information, see the following API documentation:
 
@@ -114,7 +120,7 @@ same case sensitivity in their name.
 To address this scenario, the student performs the following actions:
 
 - Specify to have the search be case sensitive though ``TextSearchOptions``
-- Perform a text search on documents that contain the term "Science" with the ``text()`` method
+- Perform a text search on documents that contain the term "Science" with the ``Filters.text()`` method
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -134,16 +140,15 @@ The following shows the output of the preceding code:
 
    The output would consist of all the documents in the
    ``junior_courses`` collection if the search was not case sensitive
-   because each document contains the term "Science".
+   because each document contains the term "Science" in the ``name``
+   field. 
 
 Search Text By a Phrase
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Pass the phrase with escaped quotes to the ``Filters.text()`` method to
-search for a phrase in your text index. 
-
-If you don't add escaped quotes, the method performs a :ref:`term search
-<term_search>`. 
+search for a phrase in your text index. If you don't add escaped quotes,
+the method performs a :ref:`term search <term_search>`. 
 
 Example 
 ```````
@@ -180,8 +185,8 @@ The student would like to o find courses that include "Science" without
 "Computer" in their name.
 
 To address this scenario, the student performs a text search on
-documents that contain the term "Computer", but do not contain the term
-"Science": 
+documents that contain the term "Science", but do not contain the term
+"Computer": 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -201,15 +206,15 @@ Sorting by Relevance
 ~~~~~~~~~~~~~~~~~~~~
 
 You can retrieve a score to see how relevant the returned documents are
-in your text search. Project the ``metaTextScore`` in your query to have
-this calculation. 
+in your text search. To retrieve a score, project the ``metaTextScore``
+in your query.
 
 Example 
 ```````
 
 The student would like to find courses that include "Computer Science"
-in their name. They want to view them in order of relevance to their
-search.
+in their name and wants to view the courses in order of relevance to
+their search.
 
 To address this scenario, the student performs the following:
 
@@ -233,12 +238,12 @@ The following shows the output of the preceding code:
    
 After the student runs the query, the course with the ``_id`` value of 4
 is the most relevant to their search. Although both documents matched
-have the search phrase, MongoDB ranks the document with the ``_id``
-value of 4 higher because the ``name`` is shorter.
+have the search phrase, MongoDB ranks based on the length of string for
+the indexed field.
 
 For more information, see the following documentation:
 
 - :java-docs:`Projections.metaTextScore() <apidocs/mongodb-driver-core/com/mongodb/client/model/Projections.html#metaTextScore(java.lang.String)>` API documentation
-- :manual:`meta operator </reference/operator/aggregation/meta/#mongodb-expression-exp.-meta>` Server Manual Entry 
-- :manual:`Score of a text query </reference/operator/query/text/#return-the-text-search-score/>` Server Manual Entry 
+- :manual:`Meta operator </reference/operator/aggregation/meta/#mongodb-expression-exp.-meta>` Server Manual Entry 
+- :manual:`Text search score </reference/operator/query/text/#return-the-text-search-score/>` Server Manual Entry 
 - :java-docs:`Sorts.descending() <apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html#descending(java.lang.String...)>` API documentation
