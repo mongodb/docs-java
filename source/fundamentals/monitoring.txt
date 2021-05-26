@@ -166,6 +166,58 @@ Example
 .. code-block:: none
    :copyable: false
 
-   Command 'find' took 22 milliseconds
-   Command 'aggregate' took 15 milliseconds
-   Command 'distinct' took 15 milliseconds
+   Cluster with unique client identifier 60ad1a0df6dd956b9c19f0e0 opening
+   Readable server available!
+   Writable server available!
+   Cluster with unique client identifier 60ad1a0df6dd956b9c19f0e0 closed
+
+Connection Pool Events
+~~~~~~~~~~~~~~~~~~~~~~
+
+Connection pool events are events related to your driver's **connection pool**.
+The connection pool is the set of open TCP connections your driver maintains with
+your MongoDB instance. Connection pools help reduce the number of network handshakes
+your application needs to perform with your MongoDB instance, and can help your app run
+faster.
+
+To monitor connection pool events, you must write a class that implements the
+``ConnectionPoolListener`` interface and register an instance of that class with your
+``MongoClient`` instance.
+
+Example
+^^^^^^^
+
+In this example, we make a listener that prints a message each time we check
+out a connection from our connection pool. We name the class that represents
+this listener ``ConnectionPoolLibrarian``.
+
+The following code defines the ``ConnectionPoolLibrarian`` class which implements the
+``ConnectionPoolListener`` interface.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
+   :language: java
+   :dedent:
+   :start-after: start cp-listener-impl
+   :end-before: end cp-listener-impl
+
+The following code adds an instance of the ``ConnectionPoolLibrarian`` class to a
+``MongoClient`` object. The code then runs some database commands to test the
+librarian.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
+   :language: java
+   :dedent:
+   :start-after: start monitor-cp-example
+   :end-before: end monitor-cp-example
+
+The above code snippet should produce output that looks like this:
+
+.. code-block:: none
+   :copyable: false
+
+   Let me get you the connection with id 21...
+   Let me get you the connection with id 21...
+
+It looks like our one find command requested two connections from our pool.
+If you are curious why the driver uses two connections in one find operation, 
+`you can find the answer in this line of the MongoDB driver source code <https://github.com/mongodb/mongo-java-driver/blob/a82ce71d0aa7da9c6455f1b52ae24ed3cd4c1f62/driver-sync/src/main/com/mongodb/client/internal/FindIterableImpl.java#L203>`__.
