@@ -274,9 +274,8 @@ registers these MXBean instances with the platform MBean server.
 For more information on the topics discussed in this subsection, see the
 following resources:
 
-- `Platform MBean Server <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
-  Oracle documentation
-- `MXBean Oracle Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
+- `Oracle Platform MBean Server documentation <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
+- `Oracle MXBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
 
 Example
 ~~~~~~~
@@ -291,8 +290,8 @@ JConsole to connect to.
 .. literalinclude:: /includes/fundamentals/code-snippets/JMXMonitoring.java
    :language: java
    :dedent:
-   :start-after: start monitor-cp-example
-   :end-before: end monitor-cp-example
+   :start-after: start jmx-example
+   :end-before: end jmx-example
 
 The above code snippet should produce output that looks like this:
 
@@ -320,3 +319,19 @@ Navigate into JConsole and inspect your connection pools.
 
 .. figure:: /includes/figures/jconsole-demo.gif
    :alt: Demonstration of monitoring connection pool in JConsole.
+
+When you no longer want to inspect your connection pools in JConsole, do the
+following: 
+
+- Exit JConsole
+- Disable the JMC connection server by pressing :kbd:`Enter`.
+
+For more information on JConsole, see the official 
+`Oracle JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+
+For more information on the classes and methods mentioned in this section, see
+the following API documentation:
+
+- :java-docs:`JMXConnectionPoolListener <apidocs/mongodb-driver-core/com/mongodb/management/JMXConnectionPoolListener.html>`
+- `getPlatformMBeanServer() <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
+- `JMXConnectorServer <https://docs.oracle.com/javase/7/docs/api/javax/management/remote/JMXConnectorServer.html>`__
