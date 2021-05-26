@@ -188,5 +188,10 @@ class ConnectionPoolLibrarian implements ConnectionPoolListener {
                 event.getConnectionId().getLocalValue()));
     }
 
+    @Override
+    public void connectionCheckOutFailed(final ConnectionCheckOutFailedEvent event) {
+        System.out.println("Something went wrong! Failed to checkout.");
+    }
+
 }
 // end cp-listener-impl
