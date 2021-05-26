@@ -48,16 +48,15 @@ import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.rmi.registry.LocateRegistry;
 
-
-public class JMXMonitoring {
 /*
-  Class to demonstrate JMX server.
+  Class to demonstrate JMX server for connection pool events in MongoDB Java Driver.
   Based heavily off of this example from Oracle:
   https://docs.oracle.com/javase/8/docs/technotes/guides/jmx/examples/Basic/Server.java
 
   This is the reason the above Oracle
   copyright notice has been included
  */
+public class JMXMonitoring {
 
     private static final String COLLECTION = "compound-test";
     private static final String DATABASE = "test";
@@ -72,16 +71,18 @@ public class JMXMonitoring {
                         .applyToConnectionPoolSettings(builder -> builder.addConnectionPoolListener(connectionPoolListener))
                         .build();
         MongoClient mongoClient = MongoClients.create(settings);
+        int port = 9999;
         javax.management.MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         try {
             JMXServiceURL url = new JMXServiceURL(
-                    "service:jmx:rmi:///jndi/rmi://127.0.0.1:9999/server");
+                    String.format("service:jmx:rmi:///jndi/rmi://127.0.0.1:%d/server",
+                            port));
             JMXConnectorServer cs =
                     JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
             // Start the connector server
             System.out.println("Start the connector server...");
             // TODO: RESEARCH THIS LINE OF CODE
-            LocateRegistry.createRegistry(9999);
+            LocateRegistry.createRegistry(port);
             cs.start();
             System.out.println("The connector server started.");
             System.out.println("Press <Enter> to stop the server.");
