@@ -166,10 +166,8 @@ Example
 .. code-block:: none
    :copyable: false
 
-   Cluster with unique client identifier 60ad1a0df6dd956b9c19f0e0 opening
    Readable server available!
    Writable server available!
-   Cluster with unique client identifier 60ad1a0df6dd956b9c19f0e0 closed
 
 Connection Pool Events
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -221,3 +219,4 @@ The above code snippet should produce output that looks like this:
 It looks like our one find command requested two connections from our pool.
 If you are curious why the driver uses two connections in one find operation, 
 `you can find the answer in this line of the MongoDB driver source code <https://github.com/mongodb/mongo-java-driver/blob/a82ce71d0aa7da9c6455f1b52ae24ed3cd4c1f62/driver-sync/src/main/com/mongodb/client/internal/FindIterableImpl.java#L203>`__.
+

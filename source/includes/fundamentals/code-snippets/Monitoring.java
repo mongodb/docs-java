@@ -54,7 +54,7 @@ public class Monitoring {
 
     private void monitorClusterEvent() {
         // start monitor-cluster-example
-        TestClusterListener clusterListener = new TestClusterListener(ReadPreference.primary());
+        IsReadAndWrite clusterListener = new IsReadAndWrite();
         MongoClientSettings settings =
                 MongoClientSettings.builder()
                         .applyConnectionString(URI)
@@ -125,37 +125,16 @@ class CommandTimer implements CommandListener {
 // end command-listener-impl
 
 // start cluster-listener-impl
-class TestClusterListener implements ClusterListener {
-    private final ReadPreference readPreference;
+class IsReadAndWrite implements ClusterListener {
     private boolean isWritable;
     private boolean isReadable;
 
-    public TestClusterListener(final ReadPreference readPreference) {
-        this.readPreference = readPreference;
-    }
-
-    @Override
-    public void clusterOpening(final ClusterOpeningEvent clusterOpeningEvent) {
-        System.out.println(String.format("Cluster with unique client identifier %s opening",
-                clusterOpeningEvent.getClusterId().getValue()));
-    }
-
-    @Override
-    public void clusterClosed(final ClusterClosedEvent clusterClosedEvent) {
-        System.out.println(String.format("Cluster with unique client identifier %s closed",
-                clusterClosedEvent.getClusterId().getValue()));
-    }
-
     @Override
     public void clusterDescriptionChanged(final ClusterDescriptionChangedEvent event) {
-
-
         if (!isWritable) {
             if (event.getNewDescription().hasWritableServer()) {
                 isWritable = true;
                 System.out.println("Writable server available!");
-                event.getNewDescription()
-                        .getServerDescriptions().forEach(s -> System.out.println(s.getHosts()));
             }
         } else {
             if (!event.getNewDescription().hasWritableServer()) {
@@ -165,12 +144,12 @@ class TestClusterListener implements ClusterListener {
         }
 
         if (!isReadable) {
-            if (event.getNewDescription().hasReadableServer(readPreference)) {
+            if (event.getNewDescription().hasReadableServer(ReadPreference.primary())) {
                 isReadable = true;
                 System.out.println("Readable server available!");
             }
         } else {
-            if (!event.getNewDescription().hasReadableServer(readPreference)) {
+            if (!event.getNewDescription().hasReadableServer(ReadPreference.primary())) {
                 isReadable = false;
                 System.out.println("No readable server available!");
             }
