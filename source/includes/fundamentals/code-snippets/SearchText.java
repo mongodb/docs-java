@@ -72,8 +72,10 @@ public class SearchText {
     private void scoreExample(){
         // begin scoreExample
         Bson filter = Filters.text("\"Computer Science\"");
-        collection.find(filter).projection(Projections.metaTextScore("score"))
-                                .sort(Sorts.metaTextScore("score"))
+        Bson projection = Projections.metaTextScore("score");
+        Bson sort = Sorts.metaTextScore("score");
+        
+        collection.find(filter).projection(projection).sort(sort)
                                 .forEach(doc -> System.out.println(doc.toJson()));
         // end scoreExample
     }

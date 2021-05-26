@@ -17,10 +17,9 @@ In this guide, you will learn how to perform a **text search** in MongoDB.
 
 A text search allows you to search for partial or exact matches from a set
 of words. You can use this for searching through unstructured text, which is
-text that does not have a predefined format such as resumes and web
-pages. 
+text without a predefined format such as resumes and websites. 
 
-In MongoDB, you can perform a text search a string field in your
+In MongoDB, you can perform a text search on a string field in your
 collection. 
 
 Sample Documents
@@ -58,26 +57,24 @@ snippet:
 If the student wanted to index both the ``name`` and ``major`` field,
 the student can modify the previous index to a compound index. A
 compound index is a single index structure holds references to multiple
-fields within a collection's documents. To create a compound index for
-the ``name`` and ``major`` field, use the following snippet:
+fields within a collection's documents. To enable text searches on
+the ``name`` and ``major`` field, the student creates a compound index
+using the following snippet: 
 
 .. code-block:: java
 
     collection.createIndex(Indexes.compoundIndex(Indexes.text("name"), Indexes.text("major")));
 
-After creating the compound index, text searches apply to the ``name`` and
-``major`` field.
-
 .. note::
 
-   The student cannot create another index because there can only be one
+   The student cannot create a second index because there can only be one
    text index per collection. 
 
 For more information, see the following documentation:
 
 - :manual:`Text Indexes </core/index-text/>` Server Manual Entry
-- :ref:`Text Indexes <index-text-indexes>` in our ``Indexes`` builder guide
-- :ref:`Compound Indexes <index-compound-indexes>` in our ``Indexes`` builder guide
+- :ref:`Text Indexes <index-text-indexes>` in our Indexes builder guide
+- :ref:`Compound Indexes <index-compound-indexes>` in our Indexes builder guide
 
 Searching
 ---------
@@ -96,8 +93,8 @@ value is lowercase or uppercase.
 
 For more information, see the following API documentation:
 
-- :java-core-api:`Filters.text() <com/mongodb/client/model/Filters.html#text(java.lang.String)>` method
-- :java-core-api:`TextSearchOptions <com/mongodb/client/model/TextSearchOptions.html>`.
+- :java-core-api:`Filters.text() <com/mongodb/client/model/Filters.html#text(java.lang.String)>`
+- :java-core-api:`TextSearchOptions <com/mongodb/client/model/TextSearchOptions.html>`
 
 .. _term_search:
 
@@ -105,7 +102,7 @@ Search Text By a Term
 ~~~~~~~~~~~~~~~~~~~~~
 
 Pass the term as a string to the ``Filters.text()`` method to search for
-a term in your text index. 
+a term in your text search. 
 
 If you want to match multiple terms in your text index, separate your
 terms with spaces. The ``Filters.text()`` method performs a logical OR on
@@ -114,10 +111,10 @@ each term and returns documents that contain any of the terms.
 Example 
 ```````
 
-The student would like to find courses that include "Science" with the
-same case sensitivity in their name.
+The student wants to find Science courses with case sensitivity on
+the first letter being capital.
 
-To address this scenario, the student performs the following actions:
+To address this scenario, the student performs the following:
 
 - Specify to have the search be case sensitive though ``TextSearchOptions``
 - Perform a text search on documents that contain the term "Science" with the ``Filters.text()`` method
@@ -147,14 +144,13 @@ Search Text By a Phrase
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Pass the phrase with escaped quotes to the ``Filters.text()`` method to
-search for a phrase in your text index. If you don't add escaped quotes,
+search for a phrase in your text search. If you don't add escaped quotes,
 the method performs a :ref:`term search <term_search>`. 
 
 Example 
 ```````
 
-The student would like to find courses that include "Computer Science"
-in their name.
+The student wants to find Computer Science courses.
 
 To address this scenario, the student performs a text search on
 documents that contain the phrase "Computer Science":
@@ -181,8 +177,7 @@ search.
 
 Example 
 ```````
-The student would like to o find courses that include "Science" without
-"Computer" in their name.
+The student wants to only find Science courses.
 
 To address this scenario, the student performs a text search on
 documents that contain the term "Science", but do not contain the term
@@ -212,15 +207,14 @@ in your query.
 Example 
 ```````
 
-The student would like to find courses that include "Computer Science"
-in their name and wants to view the courses in order of relevance to
-their search.
+The student wants to find Computer Science courses and view the courses
+in order of relevance to their search.
 
 To address this scenario, the student performs the following:
 
-- A text search for the phrase "Computer Science"
-- A :doc:`Projections builder <fundamentals/builders/projections>` to calculate the ``metaTextScore`` and place the score in a field called ``score``
-- A :doc:`Sorts builder <fundamentals/builders/sort>` to display the results in descending order
+- Perform a text search for the phrase "Computer Science"
+- Specify a :doc:`Projections builder <fundamentals/builders/projections>` to calculate the ``metaTextScore`` and place the score in a field called ``score``
+- Specify a :doc:`Sorts builder <fundamentals/builders/sort>` to display the results in descending order
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -238,7 +232,7 @@ The following shows the output of the preceding code:
    
 After the student runs the query, the course with the ``_id`` value of 4
 is the most relevant to their search. Although both documents matched
-have the search phrase, MongoDB ranks based on the length of string for
+have the search phrase, MongoDB ranks based on the string length of
 the indexed field.
 
 For more information, see the following documentation:
