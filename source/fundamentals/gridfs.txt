@@ -169,8 +169,6 @@ operations:
   "myProject.zip". The stream reads data into a buffer until it reaches the
   limit specified in the ``chunkSize`` setting, and inserts it as a new chunk
   in the ``chunks`` collection.
-- Call the ``abort()`` method if the upload throws an Exception. This
-  operation cleans up any GridFS file chunks related to the incomplete upload.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/GridFSOperations.java
    :language: java
@@ -181,14 +179,15 @@ operations:
 This code example prints the file id of the uploaded file after it is
 successfully saved in GridFS.
 
-If your file upload is not successful, the operation throws a
-``MongoGridFSException`` exception and any uploaded chunks become
-orphaned chunks. An **orphaned chunk** is a document in a GridFS ``chunks``
-collection that does not reference any file id in the GridFS ``files``
-collection. File chunks can become orphaned chunks when an upload or
-delete operation is interrupted. The exception handling code in the
-example above instructs the driver to remove orphaned chunks related to the
-interrupted upload.
+.. note::
+
+   If your file upload is not successful, the operation throws an exception
+   and any uploaded chunks become orphaned chunks. An **orphaned chunk** is a
+   document in a GridFS ``chunks`` collection that does not reference any file id
+   in the GridFS ``files`` collection. File chunks can become orphaned chunks
+   when an upload or delete operation is interrupted. To remove orphaned
+   chunks, you must identify them using read operations and remove them using
+   write operations.
 
 For more information, see the API documentation on
 :java-docs:`GridFSUploadStream <apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSUploadStream.html>`.
