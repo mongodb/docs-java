@@ -72,8 +72,6 @@ public class JMXMonitoring {
                         .applyToConnectionPoolSettings(builder -> builder.addConnectionPoolListener(connectionPoolListener))
                         .build();
         MongoClient mongoClient = MongoClients.create(settings);
-        MongoDatabase database = mongoClient.getDatabase(DATABASE);
-        MongoCollection<Document> collection = database.getCollection(COLLECTION);
         javax.management.MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         try {
             JMXServiceURL url = new JMXServiceURL(
@@ -81,22 +79,19 @@ public class JMXMonitoring {
             JMXConnectorServer cs =
                     JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
             // Start the RMI connector server
-            //
-            echo("\nStart the RMI connector server");
+            System.out.println("Start the connector server...");
             // TODO: RESEARCH THIS LINE OF CODE
             LocateRegistry.createRegistry(9999);
             cs.start();
-            echo("\nThe RMI connector server successfully started");
-            echo("and is ready to handle incoming connections");
-            echo("\nStart the client on a different window and");
-            echo("press <Enter> once the client has finished");
+            System.out.println("The connector server started.");
+            System.out.println("Press <Enter> to stop the server.");
             waitForEnterPressed();
 
             // Stop the RMI connector server
             //
-            echo("\nStop the RMI connector server");
+            System.out.println("Stopping the connector server...");
             cs.stop();
-            System.out.println("\nBye! Bye!");
+            System.out.println("Bye! Bye!");
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -105,14 +100,9 @@ public class JMXMonitoring {
 
     private static void waitForEnterPressed() {
         try {
-            echo("\nPress <Enter> to continue...");
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static void echo(String msg) {
-        System.out.println(msg);
     }
 }
