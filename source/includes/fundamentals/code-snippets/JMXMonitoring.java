@@ -60,7 +60,7 @@ public class JMXMonitoring {
 
     private static final String COLLECTION = "compound-test";
     private static final String DATABASE = "test";
-    private static final ConnectionString uri = new ConnectionString(System.getenv("DRIVER_URL"));
+    private static final ConnectionString URI = new ConnectionString(System.getenv("DRIVER_URL"));
 
     public static void main(String[] args) throws InterruptedException {
         // start jmx-example
@@ -68,7 +68,7 @@ public class JMXMonitoring {
         //TODO Clean and rebuild atlas cluster before merging
         MongoClientSettings settings =
                 MongoClientSettings.builder()
-                        .applyConnectionString(uri)
+                        .applyConnectionString(URI)
                         .applyToConnectionPoolSettings(builder -> builder.addConnectionPoolListener(connectionPoolListener))
                         .build();
         MongoClient mongoClient = MongoClients.create(settings);

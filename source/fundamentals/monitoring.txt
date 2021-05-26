@@ -258,9 +258,9 @@ Monitor Connection Pools with JMX
 ---------------------------------
 
 You can monitor connection pool events remotely using **Java Management Extensions**
-(JMX). JMX is a technology included in the Java Platform, Standard Edition
-(J2SE) since version 5.0. JMX provides a standardized way to monitor
-applications and devices.
+(JMX). JMX is a technology that provides Java programs a standardized way to monitor
+applications and devices. The Java Platform, Standard Edition (J2SE) has
+included JMX since version 5.0.
 
 For more information on JMX, see 
 `the official Oracle JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__. 
@@ -283,7 +283,8 @@ Example - JMX and JConsole
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In this example, we show how to monitor the driver's connection pools using JMX
-and JConsole. J2SE has included JConsole since version 5.0.
+and **JConsole**. JConsole is a GUI application monitoring tool. J2SE has
+included JConsole since version 5.0.
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
 ``MongoClient`` instance. The code then starts a JMX connection server exposing
@@ -320,7 +321,7 @@ When you no longer want to inspect your connection pools in JConsole, do the
 following: 
 
 - Exit JConsole
-- Disable the JMC connection server by pressing :kbd:`Enter` in the shell used
+- Disable the JMX connection server by pressing :kbd:`Enter` in the shell used
   to run the above code snippet
 
 `You can find the source code for this example on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/JMXMonitoring.java>`__.
