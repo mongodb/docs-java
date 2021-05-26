@@ -30,6 +30,7 @@
  */
 
 package com.mycompany.app;
+
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
@@ -65,7 +66,6 @@ public class JMXMonitoring {
     public static void main(String[] args) throws InterruptedException {
         // start jmx-example
         JMXConnectionPoolListener connectionPoolListener = new JMXConnectionPoolListener();
-        //TODO Clean and rebuild atlas cluster before merging
         MongoClientSettings settings =
                 MongoClientSettings.builder()
                         .applyConnectionString(URI)
@@ -91,7 +91,7 @@ public class JMXMonitoring {
             cs.stop();
             System.out.println("Bye! Bye!");
         } catch (Exception e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
         // end jmx-example
     }
