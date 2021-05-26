@@ -60,12 +60,12 @@ public class JMXMonitoring {
 
     private static final String COLLECTION = "compound-test";
     private static final String DATABASE = "test";
+    private static final ConnectionString uri = new ConnectionString(System.getenv("DRIVER_URL"));
 
     public static void main(String[] args) throws InterruptedException {
-        String connect_uri = System.getenv("DRIVER_URL");
-        System.out.println(connect_uri);
-        ConnectionString uri = new ConnectionString("mongodb+srv://test:driver-test@cluster0.ewikg.mongodb.net/");
+        // start-jmx-example
         JMXConnectionPoolListener connectionPoolListener = new JMXConnectionPoolListener();
+        //TODO Clean and rebuild atlas cluster before merging
         MongoClientSettings settings =
                 MongoClientSettings.builder()
                         .applyConnectionString(uri)
@@ -100,6 +100,7 @@ public class JMXMonitoring {
         } catch (Exception e) {
           e.printStackTrace();
         }
+        // end jmx-example
     }
 
     private static void waitForEnterPressed() {

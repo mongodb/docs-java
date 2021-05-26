@@ -31,7 +31,7 @@ and debugging your application.
 On this page you will learn how to:
 
 - Monitor different types of events in the MongoDB Java Driver
-- Remotely monitor connection pool events with Java Management Extensions (JMX)
+- Monitor connection pool events with Java Management Extensions (JMX) and JConsole
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
@@ -266,4 +266,57 @@ For more information on JMX, see
 JMX in the Driver
 ~~~~~~~~~~~~~~~~~
 
+The driver supports JMX monitoring of connection pool events with the
+``JMXConnectionPoolListener`` class. This class creates MXBean
+instances for each server the driver maintains a connection pool with and
+registers these MXBean instances with the platform MBean server. 
 
+For more information on the topics discussed in this subsection, see the
+following resources:
+
+- `Platform MBean Server <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
+  Oracle documentation
+- `MXBean Oracle Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
+
+Example
+~~~~~~~
+
+In this example, we show how to monitor connection pools using JMX and
+JConsole. J2SE has included JConsole since version 5.0.
+
+The following code snippet add a ``JMXConnectionPoolListener`` to a
+``MongoClient`` instance and starts a JMX connection server on port 9999 for
+JConsole to connect to.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/JMXMonitoring.java
+   :language: java
+   :dedent:
+   :start-after: start monitor-cp-example
+   :end-before: end monitor-cp-example
+
+The above code snippet should produce output that looks like this:
+
+.. code-block:: none
+   :copyable: false
+
+   Start the RMI connector server
+
+   The RMI connector server successfully started
+   and is ready to handle incoming connections
+   
+   Start the client on a different window and
+   press <Enter> once the client has finished
+   
+   Press <Enter> to continue...
+
+Once you have started your server, open JConsole in your terminal using the
+following command:
+
+.. code-block:: shell
+   
+   jconsole
+
+Navigate into JConsole and inspect your connection pools.
+
+.. figure:: /includes/figures/jconsole-demo.gif
+   :alt: Demonstration of monitoring connection pool in JConsole.
