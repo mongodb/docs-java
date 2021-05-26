@@ -151,11 +151,22 @@ For a detailed description of all cluster events in the driver, see the
 Example
 ^^^^^^^
 
+In this example, we make a listener that lets us know if we have access to a
+readable and writeable server. We name the class that implements this functionality
+``IsReadAndWrite``.
+
+The following code defines the ``IsReadAndWrite`` class which implements the
+``ClusterListener`` interface.
+
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
    :dedent:
    :start-after: start cluster-listener-impl
    :end-before: end cluster-listener-impl
+
+The following code adds an instance of the ``IsReadAndWrite`` class to a
+``MongoClient`` object. The code then runs some database commands to test the
+our listener class.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
@@ -163,11 +174,23 @@ Example
    :start-after: start monitor-cluster-example
    :end-before: end monitor-cluster-example
 
+The above code snippet should produce output that looks like this:
+
 .. code-block:: none
    :copyable: false
 
    Readable server available!
    Writable server available!
+
+For more information on the classes and methods mentioned in this section, see
+the following API documentation.
+
+- :java-docs:`ClusterListener <apidocs/mongodb-driver-core/com/mongodb/event/ClusterListener.html>`
+- :java-docs:`ServerListener <apidocs/mongodb-driver-core/com/mongodb/event/ServerListener.html>`
+- :java-docs:`ServerMonitorListener <apidocs/mongodb-driver-core/com/mongodb/event/ServerMonitorListener.html>`
+- :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
+- :java-docs:`MongoClient <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`
+- :java-docs:`ClusterDescriptionChangedEvent <apidocs/mongodb-driver-core/com/mongodb/event/ClusterDescriptionChangedEvent.html>`
 
 Connection Pool Events
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -186,8 +209,8 @@ Example
 ^^^^^^^
 
 In this example, we make a listener that prints a message each time we check
-out a connection from our connection pool. We name the class that represents
-this listener ``ConnectionPoolLibrarian``.
+out a connection from our connection pool. We name the class that implements
+this functionality ``ConnectionPoolLibrarian``.
 
 The following code defines the ``ConnectionPoolLibrarian`` class which implements the
 ``ConnectionPoolListener`` interface.
@@ -219,4 +242,17 @@ The above code snippet should produce output that looks like this:
 It looks like our one find command requested two connections from our pool.
 If you are curious why the driver uses two connections in one find operation, 
 `you can find the answer in this line of the MongoDB driver source code <https://github.com/mongodb/mongo-java-driver/blob/a82ce71d0aa7da9c6455f1b52ae24ed3cd4c1f62/driver-sync/src/main/com/mongodb/client/internal/FindIterableImpl.java#L203>`__.
+
+For more information on the classes and methods mentioned in this section, see
+the following API documentation.
+
+- :java-docs:`ConnectionPoolListener <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionPoolListener.html>`
+- :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
+- :java-docs:`MongoClient <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`
+- :java-docs:`ConnectionCheckedOutEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckedOutEvent.html>`
+- :java-docs:`ConnectionCheckOutFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckOutFailedEvent.html>`
+
+Monitor Connection Pool Events Remotely with JMX
+------------------------------------------------
+
 
