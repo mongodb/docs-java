@@ -78,7 +78,7 @@ public class JMXMonitoring {
                     "service:jmx:rmi:///jndi/rmi://127.0.0.1:9999/server");
             JMXConnectorServer cs =
                     JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
-            // Start the RMI connector server
+            // Start the connector server
             System.out.println("Start the connector server...");
             // TODO: RESEARCH THIS LINE OF CODE
             LocateRegistry.createRegistry(9999);
@@ -86,9 +86,7 @@ public class JMXMonitoring {
             System.out.println("The connector server started.");
             System.out.println("Press <Enter> to stop the server.");
             waitForEnterPressed();
-
-            // Stop the RMI connector server
-            //
+            // Stop the connector server
             System.out.println("Stopping the connector server...");
             cs.stop();
             System.out.println("Bye! Bye!");
