@@ -279,15 +279,15 @@ following resources:
 - `Oracle Platform MBean Server documentation <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
 - `Oracle MXBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
 
-Example
-~~~~~~~
+Example - JMX and JConsole
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this example, we show how to monitor connection pools using JMX and
-JConsole. J2SE has included JConsole since version 5.0.
+In this example, we show how to monitor the driver's connection pools using JMX
+and JConsole. J2SE has included JConsole since version 5.0.
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
-``MongoClient`` instance and starts a JMX connection server on port 9999 for
-JConsole to connect to.
+``MongoClient`` instance. The code then starts a JMX connection server exposing
+the platform MBean server on port 9999 for JConsole to connect to.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/JMXMonitoring.java
    :language: java
@@ -311,7 +311,7 @@ following command:
    
    jconsole
 
-Navigate into JConsole and inspect your connection pools.
+The following gif shows how to open JConsole and inspect your connection pools.
 
 .. figure:: /includes/figures/jconsole-demo.gif
    :alt: Demonstration of monitoring connections pool in JConsole.
