@@ -68,7 +68,7 @@ Specifying Array Elements
 -------------------------
 
 You can specify which array elements to update using a positional
-operator. Positional operators can specify the first, all or certain
+operator. Positional operators can specify the first, all, or certain
 array elements to update. 
 
 To specify elements in an array with positional operators, use **dot
@@ -78,10 +78,10 @@ objects.
 For additional information, see the server manual entry on
 :manual:`dot notation </core/document/#std-label-document-dot-notation>`.
 
-The First Array Element
-~~~~~~~~~~~~~~~~~~~~~~~
+The First Matching Array Element
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To update the first element that matches your query filter, use the
+To update the first array element that matches your query filter, use the
 positional ``$`` operator. The array field must appear as part of your
 query document to use the positional ``$`` operator. 
 
@@ -92,7 +92,6 @@ The following example performs these actions:
 
 - Query for a document with a ``qty`` field containing the value "18"
 - Decrement the first array value that matches the query document by "3"  using the ``inc()`` method of the ``Updates`` builder and the positional ``$`` operator 
-- Update and retrieve the document
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -113,8 +112,8 @@ section, see the following resources:
 - :manual:`Positional $ Operator </reference/operator/update/positional>` Server Manual Entry
 - :java-core-api:`inc() <com/mongodb/client/model/Updates.html#inc(java.lang.String,java.lang.Number)>` API Documentation
 
-All Array Elements
-~~~~~~~~~~~~~~~~~~
+Matching All Array Elements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To update all elements in an array, use the all positional ``$[]`` operator. 
 
@@ -124,8 +123,7 @@ Example
 The following example performs these actions: 
 
 - Query for the sample document
-- Multiply array elements matching the filter by "2"  using the ``mul()`` method of the ``Updates`` builder and the all ``$[]`` positional operator
-- Update and retrieve the document
+- Multiply array elements matching the filter by "2"  using the ``mul()`` method of the ``Updates`` builder and the all positional ``$[]`` operator
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
@@ -146,8 +144,8 @@ section, see the following resources:
 - :manual:`All Positional $[] Operator </reference/operator/update/positional-all/>` Server Manual Entry
 - :java-core-api:`mul() <com/mongodb/client/model/Updates.html#mul(java.lang.String,java.lang.Number)>` API Documentation
 
-Multiple Array Elements
-~~~~~~~~~~~~~~~~~~~~~~~
+Matching Multiple Array Elements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To update array elements that match a filter, use the
 filtered positional ``$[<identifier>]`` operator. You must include an
@@ -166,7 +164,6 @@ The following example performs these actions:
 - Query for the sample document
 - Set an array filter to search for values less than "15"
 - Increment array elements matching the filter by "5"  using the ``inc()`` method of the ``Updates`` builder and the filtered positional operator
-- Update and retrieve the document
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
