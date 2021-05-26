@@ -45,11 +45,10 @@ public class Monitoring {
         // Run some commands to test the timer
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
-        collection.find().first().toJson();
+        collection.find().first();
         collection.countDocuments();
-        collection.distinct("music", Filters.empty(), String.class).forEach(i->{});
-        // end monitor-command-example
         mongoClient.close();
+        // end monitor-command-example
     }
 
     private void monitorClusterEvent() {
@@ -65,12 +64,11 @@ public class Monitoring {
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
         // Run a command to trigger a ClusterDescriptionChangedEvent event
-        collection.find().first().toJson();
-        mongoClient.close();
+        collection.find().first();
         // end monitor-cluster-example
+        mongoClient.close();
     }
 
-    // start monitor-cp-example
     private void monitorConnectionPoolEvent() {
         // start monitor-cp-example
         ConnectionPoolLibrarian cpListener = new ConnectionPoolLibrarian();
@@ -83,10 +81,10 @@ public class Monitoring {
         MongoClient mongoClient = MongoClients.create(settings);
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
-        // Run a command to trigger a connection pool events event
+        // Run a command to trigger a connection pool event
         collection.find().first();
-        mongoClient.close();
         // end monitor-cp-example
+        mongoClient.close();
     }
 
 }
