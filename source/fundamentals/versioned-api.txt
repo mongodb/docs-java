@@ -12,26 +12,29 @@ Versioned API
 
 .. note::
 
-   The Versioned API feature requires MongoDB Server 5.0 or later. You
-   should only use the Versioned API feature if you are connecting to
-   MongoDB servers that are upgraded to a version that supports this feature.
+   The Versioned API feature requires MongoDB Server 5.0 or later.
+
+   You should only use the Versioned API feature if all the MongoDB
+   servers you are connecting to are upgraded to a version that supports
+   this feature.
 
 This guide shows you how to specify the **Versioned API** when connecting to
 a MongoDB instance or replica set. You can use the Versioned API feature to
-force the server to run operations with consistent behavior as specified by
-an **API version**. An API version defines expected behavior of operations
-such as the information expected in the request and the response.
+force the server to run operations with behavior compatible with the
+specified **API version**. An API version defines the expected behavior of the
+operations it covers and the format of server responses. If you change to
+a different API version, the operations are not guaranteed to be
+compatible and the server responses are not guaranteed to be similar.
 
-When you use the Versioned API feature, you can update your MongoDB driver or
-server without worrying about backward compatibility issues of the commands
-covered by the Versioned API.
+When you use the Versioned API feature with an official MongoDB driver, you
+can update your driver or server without worrying about backward compatibility
+issues of the commands covered by the Versioned API.
 
-..
-   TODO: See the server manual page on `Versioned API <https://docs.mongodb.com/v5.0/reference/versioned-api/>`__
-   for more information including the set the commands covered.
+See the server manual page on `Versioned API <https://docs.mongodb.com/v5.0/reference/versioned-api/>`__
+for more information including a list of commands it covers.
 
 The following sections describe how you can enable Versioned API for
-your MongoDB client and each of the options that you can specify.
+your MongoDB client and the options that you can specify.
 
 Enable Versioned API on a MongoDB Client
 ----------------------------------------
@@ -44,11 +47,13 @@ run commands not covered by the Versioned API or with a different version of
 it, instantiate a separate client.
 
 The example below shows how you can instantiate a ``MongoClient`` that
-specifies version "1" of the Versioned API and connects to a server by
-performing the following operations:
+sets the Versioned API version and connects to a server by performing the
+following operations:
 
 - Construct a ``ServerApi`` instance using the ``ServerApi.Builder``
   helper class.
+- Specify a Versioned API version using a constant from the
+  ``ServerApiVersion`` class.
 - Construct a ``MongoClientSettings`` instance using the
   ``MongoClientSettings.Builder`` class.
 - Specify a server to connect to using a ``ServerAddress`` instance.
@@ -63,11 +68,12 @@ performing the following operations:
 
 .. warning::
 
-   Make sure that when you specify an API version that you connect to a
-   version of MongoDB server that supports Versioned API. Otherwise, your
-   application may raise an exception when attempting to perform any operation
-   that sends a command to MongoDB. For example, a query to a server could
-   return an exception message that resembles the following:
+   If you specify an API version and connect to a MongoDB server that does
+   not support Versioned API, your application may raise an exception when
+   executing a command on your MongoDB server. If you use
+   a ``MongoClient`` that specifies the API version to query a server that
+   does not support it, your query could fail with the following exception
+   message:
 
    .. code-block:: none
       :copyable: false
@@ -79,17 +85,18 @@ section, see the following API documentation:
 
 - :java-docs:`ServerApi <apidocs/mongodb-driver-core/com/mongodb/ServerApi.html>`
 - :java-docs:`ServerApi.Builder <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html>`
+- :java-docs:`ServerApiVersion </apidocs/mongodb-driver-core/com/mongodb/ServerApiVersion.html>`
 - :java-docs:`ServerAddress <apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`
 - :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
 - :java-docs:`MongoClientSettings.Builder <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`
 - :java-docs:`MongoClients.create() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`
 - :java-docs:`MongoClient <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`
 
-Additional Options
-------------------
+Versioned API Options
+---------------------
 
-You can set additional options to enable or disable behavior related to
-Versioned API as described in the following table.
+You can enable or disable optional behavior related to Versioned API as
+described in the following table.
 
 .. list-table::
    :header-rows: 1
@@ -112,8 +119,8 @@ Versioned API as described in the following table.
        | For more information, see the :java-docs:`deprecationErrors() <apidocs/mongodb-driver-core/com/mongodb/ServerApi.Builder.html#>` API documentation.
 
 
-The following code example shows how you can set the two options on an
-instance of ``ServerApi`` by chaining methods on the ``ServerApi.Builder``:
+The following example shows how you can set the two options on an instance
+of ``ServerApi`` by chaining methods on the ``ServerApi.Builder``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/VersionedApiExample.java
    :start-after: start apiVersionOptions
