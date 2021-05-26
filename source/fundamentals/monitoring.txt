@@ -141,7 +141,8 @@ also called server discovery and monitoring (SDAM) events.
 The driver defines nine cluster events. The driver defines three separate listener
 interfaces which each listen for three of the nine events:
 
-- ``ClusterListener``: topology related events
+- ``ClusterListener``: :spec:`topology </server-discovery-and-monitoring/server-discovery-and-monitoring.rst#topology>`
+  related events
 - ``ServerListener``: server related events
 - ``ServerMonitorListener``: heartbeat related events
 
@@ -222,7 +223,7 @@ The following code defines the ``ConnectionPoolLibrarian`` class which implement
    :end-before: end cp-listener-impl
 
 The following code adds an instance of the ``ConnectionPoolLibrarian`` class to a
-``MongoClient`` object. The code then runs some database commands to test the
+``MongoClient`` object. The code then runs a database command to test the
 librarian.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
