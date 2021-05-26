@@ -20,11 +20,10 @@ MongoDB Java driver.
 
 .. What do any new terms mean?
 
-Monitoring is the process of getting runtime information about the MongoDB
-Java driver for your application or an application performance
-management library. Monitoring helps you understand your driver's resource
-usage and performance, and can help you make informed decisions when designing
-and debugging your application.    
+Monitoring is the process of getting runtime information about the driver for
+your application or an application performance management library. Monitoring
+helps you understand the driver's resource usage and performance, and can help
+you make informed decisions when designing and debugging your application.    
 
 .. What can you expect to see on this page?
 
@@ -50,14 +49,16 @@ The MongoDB Java driver organizes events into three categories:
 
 The following sections show how to monitor each event category.
 
-For a full list of the events you can monitor in the MongoDB Java driver,
+For a full list of the events you can monitor,
 :java-docs:`see the event package of the MongoDB Java Driver <apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`.
+
+`You can find the source code for the examples in this section on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Monitoring.java>`__.
 
 Command Events
 ~~~~~~~~~~~~~~
 
 A command event is an event related to a MongoDB database command. Here are some
-examples of database commands:
+examples of database commands that produce command events:
 
 - ``find``
 - ``insert``
@@ -143,7 +144,7 @@ interfaces which each listen for three of the nine events:
 
 - ``ClusterListener``: :spec:`topology </server-discovery-and-monitoring/server-discovery-and-monitoring.rst#topology>`
   related events
-- ``ServerListener``: server related events
+- ``ServerListener``: events related to ``mongod`` or ``mongos`` processes
 - ``ServerMonitorListener``: heartbeat related events
 
 For a detailed description of all cluster events in the driver, see the 
@@ -196,10 +197,10 @@ the following API documentation.
 Connection Pool Events
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Connection pool events are events related to your driver's **connection pool**.
-The connection pool is the set of open TCP connections your driver maintains with
-your MongoDB instance. Connection pools help reduce the number of network handshakes
-your application needs to perform with your MongoDB instance, and can help your app run
+Connection pool events are events related to a **connection pool** held by the driver.
+A connection pool is a set of open TCP connections your driver maintains with
+a MongoDB instance. Connection pools help reduce the number of network handshakes
+your application needs to perform with a MongoDB instance, and can help your app run
 faster.
 
 To monitor connection pool events, you must write a class that implements the
@@ -240,7 +241,7 @@ The above code snippet should produce output that looks like this:
    Let me get you the connection with id 21...
    Let me get you the connection with id 21...
 
-It looks like our one find command requested two connections from our pool.
+It looks like our find operation requested two connections from the pool.
 If you are curious why the driver uses two connections in one find operation, 
 `you can find the answer in this line of the MongoDB driver source code <https://github.com/mongodb/mongo-java-driver/blob/a82ce71d0aa7da9c6455f1b52ae24ed3cd4c1f62/driver-sync/src/main/com/mongodb/client/internal/FindIterableImpl.java#L203>`__.
 
@@ -284,7 +285,7 @@ Example
 In this example, we show how to monitor connection pools using JMX and
 JConsole. J2SE has included JConsole since version 5.0.
 
-The following code snippet add a ``JMXConnectionPoolListener`` to a
+The following code snippet adds a ``JMXConnectionPoolListener`` to a
 ``MongoClient`` instance and starts a JMX connection server on port 9999 for
 JConsole to connect to.
 
@@ -321,6 +322,8 @@ following:
 - Exit JConsole
 - Disable the JMC connection server by pressing :kbd:`Enter` in the shell used
   to run the above code snippet
+
+`You can find the source code for this example on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/JMXMonitoring.java>`__.
 
 For more information on JConsole, see the official 
 `Oracle JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
