@@ -16,25 +16,25 @@ General
 Are there two versions of ``MongoClient``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes, one version of ``MongoClient`` is ``com.mongodb.MongoClient``.
+Yes. One version of ``MongoClient`` is ``com.mongodb.MongoClient``.
 This is a class that has been in the driver for a long time and supports
-the following in the "modern" API:
+the following in the modern API:
 
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``
-- CRUD API via ``MongoDatabase``, and from there, ``MongoCollection``
+- CRUD API using the ``MongoDatabase``, and from there, ``MongoCollection``
 
-It also supports the following in the "legacy" API:
+The class also supports the following in the legacy API:
 
 - Configuration with ``MongoClientOptions`` and ``MongoClientURI``
-- CRUD API via ``DB``, and from there, ``DBCollection``
+- CRUD API using the ``DB``, and from there, ``DBCollection``
 
 The other version of ``MongoClient`` is
 ``com.mongodb.client.MongoClient``. This is an interface that was
-introduced in the 3.7 driver release and only supports the "modern" API
+introduced in the 3.7 driver release and only supports the modern API
 described above.
 
-You can create instances of this type via factory methods defined in
-the`` com.mongodb.client.MongoClients`` class. 
+You can create instances of this interface with the factory methods
+defined in the ``com.mongodb.client.MongoClients`` class. 
 
 POJOs
 -----
@@ -101,7 +101,7 @@ Can I make POJOs read/write directly to the field and not use the getters/setter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can configure the PojoCodecProvider to use the
-``SET_PRIVATE_FIELDS_CONVENTION``, which sets a private field via
+``SET_PRIVATE_FIELDS_CONVENTION``, which sets a private field through
 reflection if no public setter is available.
 
 Can I mix private, protected and public setters and getters?
