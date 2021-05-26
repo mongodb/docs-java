@@ -70,7 +70,7 @@ To monitor command events, you must write a class that implements the
 ``MongoClient`` instance.
 
 For more information on MongoDB database commands, see the
-:manual:`MongoDB manual entry on database commands <reference/command/>`.
+:manual:`MongoDB manual entry on database commands </reference/command/>`.
 
 .. note:: Redacted Output
 
@@ -140,14 +140,14 @@ MongoDB instance or cluster you have connected the driver to. Cluster events are
 also called server discovery and monitoring (SDAM) events. 
  
 The driver defines nine cluster events. The driver defines three separate listener
-interfaces which each listen for three of the nine events:
+interfaces which each can listen for three of the nine events:
 
 - ``ClusterListener``: :spec:`topology </server-discovery-and-monitoring/server-discovery-and-monitoring.rst#topology>`
   related events
 - ``ServerListener``: events related to ``mongod`` or ``mongos`` processes
 - ``ServerMonitorListener``: heartbeat related events
 
-For a detailed description of all cluster events in the driver, see the 
+For a detailed description of all nine cluster events in the driver, see the 
 :spec:`MongoDB SDAM monitoring specification </server-discovery-and-monitoring/server-discovery-and-monitoring-monitoring.rst#events>`.
 
 Example
@@ -257,8 +257,8 @@ the following API documentation.
 Monitor Connection Pools with JMX
 ---------------------------------
 
-You can monitor connection pool events remotely using **Java Management Extensions**
-(JMX). JMX is a technology that provides Java programs a standardized way to monitor
+You can monitor connection pool events using **Java Management Extensions**
+(JMX). JMX is a technology that provides Java programs with tools to monitor
 applications and devices. The Java Platform, Standard Edition (J2SE) has
 included JMX since version 5.0.
 
@@ -268,22 +268,35 @@ For more information on JMX, see
 JMX in the Driver
 ~~~~~~~~~~~~~~~~~
 
-The driver supports JMX monitoring of connection pool events with the
+The driver supports JMX monitoring of connection pool events through the
 ``JMXConnectionPoolListener`` class. This class creates MXBean
 instances for each server the driver maintains a connection pool with and
 registers these MXBean instances with the platform MBean server. 
 
+MXBeans registered on the platform MBean server have the following properties:
+
+- ``clusterId``: A client-generated unique identifier. This ensures that objects
+  have unique names when an application has multiple ``MongoClient`` instances
+  connected to the same MongoDB deployment.
+- ``host``: The host name of the machine running the ``mongod`` or ``mongos`` process.
+- ``port``: The port on which the ``mongod`` or ``mongos`` process is listening.
+- ``minSize``: The minimum size of the pool, including idle and in-use members.
+- ``maxSize``: The maximum size of the pool, including idle and in-use members.
+- ``size``: The current size of the pool, including idle and in-use members.
+- ``checkedOutCount``: The current count of connections that are in use.
+
 For more information on the topics discussed in this subsection, see the
 following resources:
 
-- `Oracle Platform MBean Server documentation <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
+- `Oracle Platform MBean Server Reference documentation <https://docs.oracle.com/javase/7/docs/technotes/guides/management/overview.html#gdeuw>`__
+- `Oracle Platform MBean Server API documentation <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
 - `Oracle MXBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
 
 Example - JMX and JConsole
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In this example, we show how to monitor the driver's connection pools using JMX
-and **JConsole**. JConsole is a GUI application monitoring tool. J2SE has
+and **JConsole**. JConsole is a GUI monitoring tool. J2SE has
 included JConsole since version 5.0.
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
@@ -327,7 +340,9 @@ following:
 `You can find the source code for this example on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/JMXMonitoring.java>`__.
 
 For more information on JConsole, see the official 
-`Oracle JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+`Oracle JConsole documentation
+<https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+
 
 For more information on the classes and methods mentioned in this section, see
 the following API documentation:
