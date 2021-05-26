@@ -63,7 +63,7 @@ public class JMXMonitoring {
     private static final ConnectionString uri = new ConnectionString(System.getenv("DRIVER_URL"));
 
     public static void main(String[] args) throws InterruptedException {
-        // start-jmx-example
+        // start jmx-example
         JMXConnectionPoolListener connectionPoolListener = new JMXConnectionPoolListener();
         //TODO Clean and rebuild atlas cluster before merging
         MongoClientSettings settings =
