@@ -270,8 +270,9 @@ JMX in the Driver
 
 The driver supports JMX monitoring of connection pool events through the
 ``JMXConnectionPoolListener`` class. This class creates MXBean
-instances for each server the driver maintains a connection pool with and
-registers these MXBean instances with the platform MBean server. 
+instances for each ``mongod`` or ``mongos`` process the driver maintains a
+connection pool with and registers these MXBean instances with the platform
+MBean server. 
 
 MXBeans registered on the platform MBean server have the following properties:
 
@@ -328,7 +329,7 @@ following command:
 The following gif shows how to open JConsole and inspect your connection pools.
 
 .. figure:: /includes/figures/jconsole-demo.gif
-   :alt: Demonstration of monitoring connections pool in JConsole.
+   :alt: Gif demonstration of monitoring connection pools in JConsole GUI.
 
 When you no longer want to inspect your connection pools in JConsole, do the
 following: 
@@ -340,8 +341,7 @@ following:
 `You can find the source code for this example on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/JMXMonitoring.java>`__.
 
 For more information on JConsole, see the official 
-`Oracle JConsole documentation
-<https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+`Oracle JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
 
 
 For more information on the classes and methods mentioned in this section, see
