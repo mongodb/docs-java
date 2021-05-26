@@ -16,7 +16,7 @@ General
 Why are there two versions of the classes? e.g. ``Mongo`` and ``MongoClient``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``MongoDatabase``, ``MongoClient``, ``MongoCollection`` are the
+``MongoClient``, ``MongoDatabase``, and ``MongoCollection`` are the
 newer generation of classes and have better defaults for production use.
 
 For more information, see our blog post on `MongoClient
@@ -59,25 +59,6 @@ Imagine you have the following entity:
       public Entity(){ }
    }
 
-When inserting with ``collection.insertOne()``, the Codec will encode
-this into JSON, but skip the ``_id`` field since the value is ``null``.
-However, the server automatically generates an ``_id`` for the document
-during the insert, but the value of this ``_id`` is not passed back via
-the driver. 
-
-.. note::
-
-   You can mark any one field to encode as ``_id`` with the @BsonId
-   annotation. 
-   
-   With the entity listed above, you can mark the ``id`` field to encode
-   as ``_id``:
-
-   .. code-block:: java
-
-      @BsonId()
-      public final ObjectId id;
-
 Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -101,7 +82,12 @@ Can I control serialization of ``LocalDate``?
 Yes, the 3.7 Java driver adds native support for ``JSR-310 Instant``,
 ``LocalDate`` & ``LocalDateTime``. 
 
-Add the Codec to the top your registry before the ``DefaultCodecRegister``
+Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes, you can build your own codec for this class and add it to the registry. 
+
+Add the codec to the top your registry before the ``DefaultCodecRegister``
 and before the ``PojoCodecProvider``: 
 
 .. code-block:: java
@@ -112,23 +98,17 @@ and before the ``PojoCodecProvider``:
                         MongoClient.getDefaultCodecRegistry(),
                         fromProviders(pojoCodecProvider));
 
-Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Yes, you can build your own Codec for this class and add it to the registry. 
-
 Can I make POJOs read/write directly to the field and not use the getters/setters at all?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Not natively, but you can build your own POJO Codec.
-
-However, the ``SET_PRIVATE_FIELDS_CONVENTION`` sets a private field via
-reflection if no public setter is available. 
+You can configure the PojoCodecProvider to use the
+``SET_PRIVATE_FIELDS_CONVENTION``, which sets a private field via
+reflection if no public setter is available.
 
 Can I mix private, protected and public setters and getters?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No. The native POJO Codec assumes that getters/setters have the same
+No. The native POJO codec assumes that getters/setters have the same
 modifiers for each field.  
 
 For example, the following methods throws an exception during encoding:
@@ -141,20 +121,15 @@ For example, the following methods throws an exception during encoding:
 Can I use polymorphism in a POJO accessor?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No. The codec throws an exception if the types of the accessors do not
-match with the field itself. 
+Yes if you are using a discriminator. Otherwise, the codec throws an
+exception if the types of the accessors do not match with the field
+itself. 
 
 How do I fix: org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X .? 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The class should be public and should have at least one field.
-
-Is it important what order I list my codecs?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Yes if the CodecRegistry depends on one of the other codecs in your
-list. For example, you must add ``CodecA`` before ``CodecB`` if 
-``CodecB`` references ``CodecA``. 
+This exception means you need to register a codec for the class since
+there is none at the moment. 
 
 How do I specify the collection name for a particular POJO class? Is there an annotation?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
