@@ -56,7 +56,7 @@ API defines the events it can respond to.
 
 Each method of a listener class represents a response to a certain event. Each
 method receives one argument, an object representing the event the method
-responds to. All event object are a subclass of the ``EventObject`` class.  
+responds to. All event objects are a subclass of the ``EventObject`` class.  
 
 The MongoDB Java driver organizes events into three categories:
 
@@ -78,8 +78,8 @@ see the following API documentation:
 Command Events
 ~~~~~~~~~~~~~~
 
-A command event is an event related to a MongoDB database command. Some examples
-of database commands that produce command events:
+A command event is an event related to a MongoDB database command. Here are some
+examples of database commands that produce command events:
 
 - ``find``
 - ``insert``
@@ -392,8 +392,9 @@ following:
 - Disable the JMX connection server by pressing :kbd:`Enter` in the shell used
   to run the above code snippet
 
-For more information on JConsole, see the official 
-`Oracle JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+For more information on JMX and JConsole, see the following resources from Oracle:
+- `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+- `Monitoring and Management Guide <https://docs.oracle.com/en/java/javase/16/management/monitoring-and-management-using-jmx-technology.html>`__
 
 For more information on the classes and methods mentioned in this section, see
 the following API documentation:

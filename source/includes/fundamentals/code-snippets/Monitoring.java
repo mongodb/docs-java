@@ -118,6 +118,7 @@ class CommandTimer implements CommandListener {
 
 // start cluster-listener-impl
 class IsReadAndWrite implements ClusterListener {
+
     private boolean isWritable;
     private boolean isReadable;
 
@@ -161,7 +162,7 @@ class ConnectionPoolLibrarian implements ConnectionPoolListener {
 
     @Override
     public void connectionCheckOutFailed(final ConnectionCheckOutFailedEvent event) {
-        System.out.println("Something went wrong! Failed to checkout.");
+        System.out.println("Something went wrong! Failed to checkout connection.");
     }
 
 }

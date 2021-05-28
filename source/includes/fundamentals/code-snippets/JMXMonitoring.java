@@ -76,7 +76,7 @@ public class JMXMonitoring {
                     JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
             // Start the connector server
             System.out.println("Start the connector server...");
-            // TODO: RESEARCH THIS LINE OF CODE
+            // Creates an RMI registry
             LocateRegistry.createRegistry(port);
             cs.start();
             System.out.println("The connector server started.");
