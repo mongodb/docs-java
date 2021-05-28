@@ -84,9 +84,9 @@ public class SearchText {
         collection.drop();
         collection.insertMany(Arrays.asList(
             new Document("_id", 1).append("name", "Forensic science").append("major", Arrays.asList("Forensic Science", "Criminal Justice")), 
-            new Document("_id", 2).append("name", "Discrete Mathematical Structures for Computer Science").append("major", Arrays.asList("Computer Science", "Mathematics")), 
+            new Document("_id", 2).append("name", "Discrete Math in Computer Science").append("major", Arrays.asList("Computer Science", "Mathematics")), 
             new Document("_id", 3).append("name", "Environmental Science").append("major", Arrays.asList("Environmental Science", "Sustainable Management")), 
-            new Document("_id", 4).append("name", "Image Processing in Computer science").append("major", Arrays.asList("Artificial Intelligence", "Computer Science"))
+            new Document("_id", 4).append("name", "Computer science Seminar").append("major", Arrays.asList("Computer Science"))
         ));
         // begin textIndex
         collection.createIndex(Indexes.text("name"));

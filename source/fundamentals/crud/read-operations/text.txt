@@ -13,37 +13,43 @@ Search Text
 Overview
 --------
 
-In this guide, you will learn how to perform a **text search** in MongoDB.
+In this guide, you will learn how to run a **text search** in MongoDB.
 
-A text search allows you to search for partial or exact matches from a set
-of words. You can use this for searching through unstructured text, which is
-text without a predefined format such as resumes and websites. 
+You can use a text search to search documents for terms or phrases. A
+term is a sequence of characters that excludes whitespace characters. A
+phrase is a sequence of terms that with any number of whitespace
+characters. You can use this for searching through unstructured text,
+which is text without a predefined format such as resumes, books and
+course catalogs. 
 
-In MongoDB, you can perform a text search on a string field in your
-collection. 
+In MongoDB, you can run a text search on a string field. A text
+search retrieves documents that contain the terms or phrases in the
+specified field. 
 
 Sample Documents
 ~~~~~~~~~~~~~~~~
 
-In the following examples, a student is browsing through courses to
+In the following examples, a student browses through courses to
 enroll in at their college. The documents in the ``junior_courses``
-collection represents the courses available with their intended majors: 
+collection represent the courses available for junior year students
+with their intended majors: 
 
 .. code-block:: json
 
-    { "_id": 1, "name": "Forensic Science", "major": ["Forensic Science", "Criminal Justice"] }
-    { "_id": 2, "name": "Discrete Mathematical Structures for Computer Science", "major": ["Computer Science", "Mathematics"] }
+    { "_id": 1, "name": "Forensic science", "major": ["Forensic Science", "Criminal Justice"] }
+    { "_id": 2, "name": "Discrete Math in Computer Science", "major": ["Computer Science", "Mathematics"] }
     { "_id": 3, "name": "Environmental Science", "major": ["Environmental Science", "Sustainable Management"] }
-    { "_id": 4, "name": "Image Processing in Computer Science", "major": ["Artificial Intelligence", "Computer Science"] }
+    { "_id": 4, "name": "Computer science Seminar", "major": ["Computer Science"] }
 
 Text Index
 ----------
 
-Create a **text index** using the ``Indexes`` builder before you perform
-a text search. A text index specifies the string or string array field
-to query during a text search. 
+You must create a **text index** using the ``Indexes`` builder before
+running a text search. A text index specifies the string or string
+array field for the query to search through during a text search. There
+can only be one text index per collection.
 
-In the following examples, the student performs text searches on the ``name``
+In the following examples, the student runs text searches on the ``name``
 field in the ``junior_courses`` collection. To enable text searches on
 the ``name`` field, the student creates a text index using the following
 snippet: 
@@ -54,42 +60,49 @@ snippet:
    :start-after: begin textIndex
    :end-before: end textIndex
 
-If the student wanted to index both the ``name`` and ``major`` field,
-the student can modify the previous index to a compound index. A
-compound index is a single index structure holds references to multiple
-fields within a collection's documents. To enable text searches on
-the ``name`` and ``major`` field, the student creates a compound index
-using the following snippet: 
+If the student wanted to run text searches on both the ``name`` and
+``major`` field in the ``junior_courses`` collection, they can instead
+create a compound index. A compound index is a single index structure
+holds references to multiple fields within a collection's documents.
+This allows the student to specify multiple text indexes without
+violating the constraint for there to only be one text index per
+collection. 
+
+To enable text searches on the ``name`` and ``major`` field, the student
+creates a compound index using the following snippet: 
 
 .. code-block:: java
 
     collection.createIndex(Indexes.compoundIndex(Indexes.text("name"), Indexes.text("major")));
 
-.. note::
-
-   The student cannot create a second index because there can only be one
-   text index per collection. 
+The following subsections 
 
 For more information, see the following documentation:
 
 - :manual:`Text Indexes </core/index-text/>` Server Manual Entry
-- :ref:`Text Indexes <index-text-indexes>` in our Indexes builder guide
-- :ref:`Compound Indexes <index-compound-indexes>` in our Indexes builder guide
+- :ref:`Text Indexes <index-text-indexes>` in our Indexes Builder Guide
+- :ref:`Compound Indexes <index-compound-indexes>` in our Indexes Builder Guide
 
 Searching
 ---------
 
-Use the ``Filters.text()`` method to perform a text search. 
+Use the ``Filters.text()`` method to specify a text search. 
 
 The ``Filters.text()`` method uses the :doc:`Filters builder
-</fundamentals/builders/filters>` to perform the text search on the
-fields indexed with the text index on the collection. The text search
-matches documents which contain one or more search terms.
+</fundamentals/builders/filters>` to match documents containing a
+specified term or phrase. Upon passing this method into the ``find()``
+method, MongoDB runs a text search on the fields indexed with the text
+index on the collection. The text search returns documents that 
+contain one or more search terms. 
 
-You can include ``TextSearchOptions`` as the second parameter to specify
-text search options such as case sensitivity. By default, there is no
-case sensitivity, meaning MongoDB matches documents regardless if the
-value is lowercase or uppercase. 
+You can include ``TextSearchOptions`` as the second parameter of the
+``Filters.text()`` method to specify a text search options such as case
+sensitivity. By default, there is no case sensitivity, meaning MongoDB
+matches documents regardless of whether the value is lowercase or
+uppercase. 
+
+The following sections show you how to run a text search with a
+term and phrase, and how to sort the relevance of your text search. 
 
 For more information, see the following API documentation:
 
@@ -98,7 +111,7 @@ For more information, see the following API documentation:
 
 .. _term_search:
 
-Search Text By a Term
+Search Text by a Term
 ~~~~~~~~~~~~~~~~~~~~~
 
 Pass the term as a string to the ``Filters.text()`` method to search for
@@ -111,13 +124,12 @@ each term and returns documents that contain any of the terms.
 Example 
 ```````
 
-The student wants to find Science courses with case sensitivity on
-the first letter being capital.
+The student wants to find "Science" courses using a case-sensitive search.
 
-To address this scenario, the student performs the following:
+To address this scenario, the student performs the following actions:
 
-- Specify to have the search be case sensitive though ``TextSearchOptions``
-- Perform a text search on documents that contain the term "Science" with the ``Filters.text()`` method
+- Specify a case-sensitive search using ``TextSearchOptions``
+- Run a text search on documents that contain the term "Science" with the ``Filters.text()`` method
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -130,30 +142,30 @@ The following shows the output of the preceding code:
 .. code-block:: json
    :copyable: false
 
-   { "_id": 2, "name": "Discrete Mathematical Structures for Computer Science", "major": ["Computer Science", "Mathematics"] }
+   { "_id": 2, "name": "Discrete Math in Computer Science", "major": ["Computer Science", "Mathematics"] }
    { "_id": 3, "name": "Environmental Science", "major": ["Environmental Science", "Sustainable Management"] }
 
 .. note::
 
-   The output would consist of all the documents in the
-   ``junior_courses`` collection if the search was not case sensitive
-   because each document contains the term "Science" in the ``name``
-   field. 
+   If the search was not case sensitive, the output would consist of all
+   the documents in the ``junior_courses`` collection because every
+   document contains the term "Science" in the ``name`` field. 
 
-Search Text By a Phrase
+Search Text by a Phrase
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Pass the phrase with escaped quotes to the ``Filters.text()`` method to
 search for a phrase in your text search. If you don't add escaped quotes,
-the method performs a :ref:`term search <term_search>`. 
+the method runs a :ref:`term search <term_search>`. 
 
 Example 
 ```````
 
-The student wants to find Computer Science courses.
+The student wants to find computer science courses.
 
-To address this scenario, the student performs a text search on
-documents that contain the phrase "Computer Science":
+To address this scenario, the student runs a text search on the
+documents in the ``junior_courses`` collection that contain the phrase
+"Computer Science". 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -166,22 +178,24 @@ The following shows the output of the preceding code:
 .. code-block:: json
    :copyable: false
 
-   { "_id": 2, "name": "Discrete Mathematical Structures for Computer Science", "major": ["Computer Science", "Mathematics"], "score": 1.2 }
-   { "_id": 4, "name": "Image Processing in Computer science", "major": ["Artificial Intelligence", "Computer Science"], "score": 1.25 }
+   { "_id": 2, "name": "Discrete Math in Computer Science", "major": ["Computer Science", "Mathematics"]}
+   { "_id": 4, "name": "Computer science Seminar", "major": ["Computer Science"]}
  
-Search Text With Terms Excluded
+Search Text with Terms Excluded
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Prefix a minus sign ``-`` to each term you want to exclude in your text
-search. 
+Prefix each term you want to exclude in your text search with a minus
+sign ``-``. 
 
 Example 
 ```````
-The student wants to only find Science courses.
 
-To address this scenario, the student performs a text search on
-documents that contain the term "Science", but do not contain the term
-"Computer": 
+The student wants to find science courses that are not related to
+computer science. 
+
+To address this scenario, the student runs a text search on the
+documents in the ``junior_courses`` collection that contain the term
+"Science", but do not contain the term "Computer" in the ``name`` field.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -200,21 +214,34 @@ The following shows the output of the preceding code:
 Sorting by Relevance
 ~~~~~~~~~~~~~~~~~~~~
 
-You can retrieve a score to see how relevant the returned documents are
-in your text search. To retrieve a score, project the ``metaTextScore``
-in your query.
+The text search assigns a numerical text score to indicate how relevant
+each result matches the search string. Often, you want to know which
+results are the most relevant.  
+
+First, use the ``Projections.metaTextScore()`` method to retrieve a text
+score. This method generates a new field with the name and returns the
+metadata associated with the text score.
+
+Then, use the ``Sorts.metaTextScore()`` method to specify a sort by the
+text score. By default, MongoDB returns the results unsorted. By
+specifying the ``metaTextScore()`` method, MongoDB sorts the results
+from the most to least relevant. 
 
 Example 
 ```````
 
-The student wants to find Computer Science courses and view the courses
-in order of relevance to their search.
+The student wants to find Computer Science courses and view them in
+order of relevance to their search. 
 
-To address this scenario, the student performs the following:
+To address this scenario, the student uses the :doc:`Filters
+</fundamentals/builders/filters>`, :doc:`Indexes </fundamentals/builders/indexes>`, and
+:doc:`Projections </fundamentals/builders/projections>` builders. 
 
-- Perform a text search for the phrase "Computer Science"
-- Specify a :doc:`Projections builder <fundamentals/builders/projections>` to calculate the ``metaTextScore`` and place the score in a field called ``score``
-- Specify a :doc:`Sorts builder <fundamentals/builders/sort>` to display the results in descending order
+The student performs the following actions:
+
+- Run a text search for the phrase "Computer Science"
+- Project the text scores into the query results as the ``score`` field
+- Sort the results by text score (most relevant match first)
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -227,17 +254,17 @@ The following shows the output of the preceding code:
 .. code-block:: json
    :copyable: false
 
-   { "_id": 4, "name": "Image Processing in Computer science", "major": ["Artificial Intelligence", "Computer Science"], "score": 1.25 }
-   { "_id": 2, "name": "Discrete Mathematical Structures for Computer Science", "major": ["Computer Science", "Mathematics"], "score": 1.2 }
+   { "_id": 4, "name": "Computer science Seminar", "major": ["Computer Science"], "score": 1.3333333333333333 }
+   { "_id": 2, "name": "Discrete Math in Computer Science", "major": ["Computer Science", "Mathematics"], "score": 1.25 }
    
-After the student runs the query, the course with the ``_id`` value of 4
-is the most relevant to their search. Although both documents matched
-have the search phrase, MongoDB ranks based on the string length of
-the indexed field.
+The course with the ``_id`` value of 4 is the most relevant to their
+search. Although both documents contain what the search phrase the student
+was looking for, MongoDB then ranks based on the string length of the
+``name`` field. 
 
 For more information, see the following documentation:
 
 - :java-docs:`Projections.metaTextScore() <apidocs/mongodb-driver-core/com/mongodb/client/model/Projections.html#metaTextScore(java.lang.String)>` API documentation
-- :manual:`Meta operator </reference/operator/aggregation/meta/#mongodb-expression-exp.-meta>` Server Manual Entry 
+- :java-docs:`Sorts.metaTextScore() <apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html#metaTextScore(java.lang.String)>` API documentation
+- :manual:`Text score metadata </reference/operator/aggregation/meta/#mongodb-expression-exp.-meta>` Server Manual Entry 
 - :manual:`Text search score </reference/operator/query/text/#return-the-text-search-score/>` Server Manual Entry 
-- :java-docs:`Sorts.descending() <apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html#descending(java.lang.String...)>` API documentation
