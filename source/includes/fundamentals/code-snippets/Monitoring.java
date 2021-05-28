@@ -7,14 +7,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.*;
 import com.mongodb.event.*;
-import com.mongodb.management.JMXConnectionPoolListener;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
-import javax.print.Doc;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Monitoring {
@@ -22,7 +17,6 @@ public class Monitoring {
     private static final String COLLECTION = "compound-ops";
     private static final String DATABASE = "test";
     private static final ConnectionString URI = new ConnectionString(System.getenv("DRIVER_URL"));
-
 
     public static void main(String[] args) throws InterruptedException {
         Monitoring examples = new Monitoring();
@@ -132,24 +126,24 @@ class IsReadAndWrite implements ClusterListener {
         if (!isWritable) {
             if (event.getNewDescription().hasWritableServer()) {
                 isWritable = true;
-                System.out.println("Writable server available!");
+                System.out.println("Able to write to server");
             }
         } else {
             if (!event.getNewDescription().hasWritableServer()) {
                 isWritable = false;
-                System.out.println("No writable server available!");
+                System.out.println("Unable to write to server");
             }
         }
 
         if (!isReadable) {
             if (event.getNewDescription().hasReadableServer(ReadPreference.primary())) {
                 isReadable = true;
-                System.out.println("Readable server available!");
+                System.out.println("Able to read from server");
             }
         } else {
             if (!event.getNewDescription().hasReadableServer(ReadPreference.primary())) {
                 isReadable = false;
-                System.out.println("No readable server available!");
+                System.out.println("Unable to read from server");
             }
         }
     }
