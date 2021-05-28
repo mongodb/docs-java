@@ -34,12 +34,7 @@ package com.mycompany.app;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.model.Updates;
 import com.mongodb.management.JMXConnectionPoolListener;
-import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import javax.management.remote.JMXConnectorServer;
 import javax.management.remote.JMXConnectorServerFactory;

@@ -15,31 +15,36 @@ Overview
 
 .. What is on this page?
 
-In this guide, we show you how to set up and configure **monitoring** in the
+This guide explains how you can set up and configure **monitoring** in the
 MongoDB Java driver.
 
 .. What do any new terms mean?
 
-Monitoring is the process of getting runtime information about the driver for
-your application or an application performance management library. Monitoring
+Monitoring is the process of getting information about the activities the driver
+performs for your application or an application performance management library. Monitoring
 helps you understand the driver's resource usage and performance, and can help
 you make informed decisions when designing and debugging your application.    
 
 .. What can you expect to see on this page?
 
-On this page you will learn how to:
+On this page you will learn how to perform these tasks:
 
-- Monitor different types of events in the MongoDB Java Driver
-- Monitor connection pool events with Java Management Extensions (JMX) and JConsole
+- :ref:`Monitor different types of events in the MongoDB Java Driver <monitoring_monitor_events>`__
+- :ref:`Monitor connection pool events with Java Management Extensions (JMX) and JConsole <monitoring_jmx>`__
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
-If you would like to learn how to record events in the MongoDB Java driver
-rather than use realtime information about the driver in code, consider reading
-our :doc:`guide on Logging </fundamentals/logging>`.
+This page shows how to use information about the activity of the driver in code.
+If you would like to learn how to record events the driver performs,
+consider reading our :doc:`guide on logging </fundamentals/logging>`.
+
+.. _monitoring_monitor_events:
 
 Monitor Events
 --------------
+
+To monitor an event, you must register a **listener** on your ``MongoClient``
+instance.
 
 The MongoDB Java driver organizes events into three categories:
 
@@ -51,8 +56,6 @@ The following sections show how to monitor each event category.
 
 For a full list of the events you can monitor,
 :java-docs:`see the event package of the MongoDB Java Driver <apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`.
-
-`You can find the source code for the examples in this section on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/Monitoring.java>`__.
 
 Command Events
 ~~~~~~~~~~~~~~
@@ -83,14 +86,14 @@ For more information on MongoDB database commands, see the
 Example
 ^^^^^^^
 
-In this example we make a timer for database commands. When the driver
-executes a database command on our MongoDB instance, the example code makes the
-driver print the time it took to execute the command.
+In this example we make a timer for database commands. The timer makes it so
+that every time the driver executes a command on our MongoDB instance
+we see a message letting us know how long it took to execute the command.
 
 To make a timer, we must do the following:
 
 - Make a class with timer functionality that implements the ``CommandListener`` interface.
-- Add an instance of the class to a ``MongoClientSettings`` object.
+- Add an instance of our new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
 - Configure a ``MongoClient`` instance with the ``MongoClientSettings`` object.
 
 The following code defines the ``CommandTimer`` class which implements the
@@ -140,7 +143,7 @@ MongoDB instance or cluster you have connected the driver to. Cluster events are
 also called server discovery and monitoring (SDAM) events. 
  
 The driver defines nine cluster events. The driver defines three separate listener
-interfaces which each can listen for three of the nine events:
+interfaces which each listen for a unique subset of the nine events:
 
 - ``ClusterListener``: :spec:`topology </server-discovery-and-monitoring/server-discovery-and-monitoring.rst#topology>`
   related events
@@ -200,8 +203,8 @@ Connection Pool Events
 Connection pool events are events related to a **connection pool** held by the driver.
 A connection pool is a set of open TCP connections your driver maintains with
 a MongoDB instance. Connection pools help reduce the number of network handshakes
-your application needs to perform with a MongoDB instance, and can help your app run
-faster.
+your application needs to perform with a MongoDB instance, and can help your
+application run faster.
 
 To monitor connection pool events, you must write a class that implements the
 ``ConnectionPoolListener`` interface and register an instance of that class with your
@@ -254,51 +257,51 @@ the following API documentation.
 - :java-docs:`ConnectionCheckedOutEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckedOutEvent.html>`
 - :java-docs:`ConnectionCheckOutFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckOutFailedEvent.html>`
 
+.. _monitoring_jmx:
+
 Monitor Connection Pools with JMX
 ---------------------------------
 
-You can monitor connection pool events using **Java Management Extensions**
-(JMX). JMX is a technology that provides Java programs with tools to monitor
-applications and devices. The Java Platform, Standard Edition (J2SE) has
-included JMX since version 5.0.
+You can monitor connection pool events using **Java Management Extensions (JMX)**. 
+JMX provides tools to monitor applications and devices.
 
 For more information on JMX, see 
 `the official Oracle JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__. 
 
-JMX in the Driver
-~~~~~~~~~~~~~~~~~
+JMX Support in the MongoDB Driver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The driver supports JMX monitoring of connection pool events through the
-``JMXConnectionPoolListener`` class. This class creates MXBean
-instances for each ``mongod`` or ``mongos`` process the driver maintains a
-connection pool with and registers these MXBean instances with the platform
-MBean server. 
+``JMXConnectionPoolListener`` class. This class performs the following actions: 
+
+- Creates MXBean instances for each ``mongod`` or ``mongos`` process the driver maintains a
+  connection pool with.
+- Registers these MXBean instances with the platform MBean server. 
 
 MXBeans registered on the platform MBean server have the following properties:
 
-- ``clusterId``: A client-generated unique identifier. This ensures that objects
+- ``clusterId``: A client-generated unique identifier. This unique identifier ensures that objects
   have unique names when an application has multiple ``MongoClient`` instances
   connected to the same MongoDB deployment.
-- ``host``: The host name of the machine running the ``mongod`` or ``mongos`` process.
+- ``host``: The hostname of the machine running the ``mongod`` or ``mongos`` process.
 - ``port``: The port on which the ``mongod`` or ``mongos`` process is listening.
-- ``minSize``: The minimum size of the pool, including idle and in-use members.
-- ``maxSize``: The maximum size of the pool, including idle and in-use members.
-- ``size``: The current size of the pool, including idle and in-use members.
+- ``minSize``: The minimum size of the connection pool, including idle and in-use connections.
+- ``maxSize``: The maximum size of the connection pool, including idle and in-use connections.
+- ``size``: The current size of the connection pool, including idle and in-use connections.
 - ``checkedOutCount``: The current count of connections that are in use.
 
 For more information on the topics discussed in this subsection, see the
 following resources:
 
-- `Oracle Platform MBean Server Reference documentation <https://docs.oracle.com/javase/7/docs/technotes/guides/management/overview.html#gdeuw>`__
-- `Oracle Platform MBean Server API documentation <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
+- `Oracle Platform MBean Server Reference documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
 - `Oracle MXBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
 
-Example - JMX and JConsole
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+JMX and JConsole Example
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 In this example, we show how to monitor the driver's connection pools using JMX
-and **JConsole**. JConsole is a GUI monitoring tool. J2SE has
-included JConsole since version 5.0.
+and **JConsole**. JConsole is a JMX compliant GUI monitoring tool that comes with
+the Java Platform.
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
 ``MongoClient`` instance. The code then starts a JMX connection server exposing
@@ -338,8 +341,6 @@ following:
 - Disable the JMX connection server by pressing :kbd:`Enter` in the shell used
   to run the above code snippet
 
-`You can find the source code for this example on Github here <https://github.com/mongodb/docs-java/blob/master/source/includes/fundamentals/code-snippets/JMXMonitoring.java>`__.
-
 For more information on JConsole, see the official 
 `Oracle JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
 
@@ -348,5 +349,5 @@ For more information on the classes and methods mentioned in this section, see
 the following API documentation:
 
 - :java-docs:`JMXConnectionPoolListener <apidocs/mongodb-driver-core/com/mongodb/management/JMXConnectionPoolListener.html>`
-- `getPlatformMBeanServer() <https://docs.oracle.com/javase/7/docs/api/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
-- `JMXConnectorServer <https://docs.oracle.com/javase/7/docs/api/javax/management/remote/JMXConnectorServer.html>`__
+- `getPlatformMBeanServer() <https://docs.oracle.com/en/java/javase/16/docs/api/java.management/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()>`__
+- `JMXConnectorServer <https://docs.oracle.com/en/java/javase/16/docs/api/java.management/javax/management/remote/JMXConnectorServer.html>`__
