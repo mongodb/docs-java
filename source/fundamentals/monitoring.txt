@@ -20,10 +20,13 @@ MongoDB Java driver.
 
 .. What do any new terms mean?
 
-Monitoring is the process of getting information about the activities the driver
-performs for your application or an application performance management library. Monitoring
-helps you understand the driver's resource usage and performance, and can help
-you make informed decisions when designing and debugging your application.    
+Monitoring is the process of getting information about the activities a piece of
+software performs. You can use the information you get from monitoring in your
+application or an application performance management library. 
+
+Monitoring the MongoDB Java driver lets you understand the
+driver's resource usage and performance, and can help you make informed
+decisions when designing and debugging your application.    
 
 .. What can you expect to see on this page?
 
@@ -43,8 +46,19 @@ consider reading our :doc:`guide on logging </fundamentals/logging>`.
 Monitor Events
 --------------
 
-To monitor an event, you must register a **listener** on your ``MongoClient``
-instance.
+To monitor an **event**, you must register a **listener** on your ``MongoClient``
+instance. 
+
+An event is any action that happens in code. The driver includes functionality
+for listening to a subset of the events that occur when the driver is running.
+
+A listener is a class that performs some action when certain events occur. All
+listener classes extend the ``EventListener`` interface. A listener's
+API defines the events it can respond to.
+
+Each method of a listener class represents a response to a certain event. Each
+method receives one argument, an object representing the event the method
+responds to. All event object are a subclass of the ``EventObject`` class.  
 
 The MongoDB Java driver organizes events into three categories:
 
@@ -57,18 +71,24 @@ The following sections show how to monitor each event category.
 For a full list of the events you can monitor,
 :java-docs:`see the event package of the MongoDB Java Driver <apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`.
 
+For more information on the classes and interfaces mentioned in this section,
+see the following API documentation:
+
+- `EventListener <https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/EventListener.html>`__
+- `EventObject <https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/EventObject.html>`__
+
 Command Events
 ~~~~~~~~~~~~~~
 
-A command event is an event related to a MongoDB database command. Here are some
-examples of database commands that produce command events:
+A command event is an event related to a MongoDB database command. Some examples
+of database commands that produce command events:
 
 - ``find``
 - ``insert``
 - ``delete``
 - ``count`` 
 
-To monitor command events, you must write a class that implements the
+To monitor command events, write a class that implements the
 ``CommandListener`` interface and register an instance of that class with your
 ``MongoClient`` instance.
 
@@ -78,7 +98,7 @@ For more information on MongoDB database commands, see the
 .. note:: Redacted Output
 
    As a security measure, the driver is unable to monitor some commands. This
-   is to protect the sensitive information contained in the output of these
+   protects the sensitive information contained in the output of these
    commands. For a full list of commands the driver can't monitor,
    see the 
    :spec:`MongoDB command monitoring specification </command-monitoring/command-monitoring.rst#security>`.
@@ -90,7 +110,7 @@ In this example we make a timer for database commands. The timer makes it so
 that every time the driver executes a command on our MongoDB instance
 we see a message letting us know how long it took to execute the command.
 
-To make a timer, we must do the following:
+To make a timer, we do the following:
 
 - Make a class with timer functionality that implements the ``CommandListener`` interface.
 - Add an instance of our new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
@@ -126,7 +146,7 @@ The above code snippet should produce output that looks like this:
    Command 'endSessions' took 14 milliseconds
 
 For more information on the classes and methods mentioned in this section, see
-the following API documentation.
+the following API documentation:
 
 - :java-docs:`CommandListener <apidocs/mongodb-driver-core/com/mongodb/event/CommandListener.html>`
 - :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
@@ -142,8 +162,9 @@ A cluster event in the driver corresponds to a change in the state of the
 MongoDB instance or cluster you have connected the driver to. Cluster events are
 also called server discovery and monitoring (SDAM) events. 
  
-The driver defines nine cluster events. The driver defines three separate listener
-interfaces which each listen for a unique subset of the nine events:
+The driver defines nine cluster events. The driver divides these nine events
+between three separate listener interfaces which each listen for three of the
+nine events:
 
 - ``ClusterListener``: :spec:`topology </server-discovery-and-monitoring/server-discovery-and-monitoring.rst#topology>`
   related events
@@ -156,9 +177,8 @@ For a detailed description of all nine cluster events in the driver, see the
 Example
 ^^^^^^^
 
-In this example, we make a listener that lets us know if we have access to a
-readable and writeable server. We name the class that implements this functionality
-``IsReadAndWrite``.
+In this example, we make a listener class that lets us know if we can read
+and write to our server. We name this class ``IsReadAndWrite``.
 
 The following code defines the ``IsReadAndWrite`` class which implements the
 ``ClusterListener`` interface.
@@ -188,7 +208,7 @@ The above code snippet should produce output that looks like this:
    Writable server available!
 
 For more information on the classes and methods mentioned in this section, see
-the following API documentation.
+the following API documentation:
 
 - :java-docs:`ClusterListener <apidocs/mongodb-driver-core/com/mongodb/event/ClusterListener.html>`
 - :java-docs:`ServerListener <apidocs/mongodb-driver-core/com/mongodb/event/ServerListener.html>`
@@ -206,16 +226,16 @@ a MongoDB instance. Connection pools help reduce the number of network handshake
 your application needs to perform with a MongoDB instance, and can help your
 application run faster.
 
-To monitor connection pool events, you must write a class that implements the
+To monitor connection pool events, write a class that implements the
 ``ConnectionPoolListener`` interface and register an instance of that class with your
 ``MongoClient`` instance.
 
 Example
 ^^^^^^^
 
-In this example, we make a listener that prints a message each time we check
-out a connection from our connection pool. We name the class that implements
-this functionality ``ConnectionPoolLibrarian``.
+In this example, we make a listener class that prints a message each time we check
+out a connection from our connection pool. We name this class
+``ConnectionPoolLibrarian``.
 
 The following code defines the ``ConnectionPoolLibrarian`` class which implements the
 ``ConnectionPoolListener`` interface.
@@ -249,7 +269,7 @@ If you are curious why the driver uses two connections in one find operation,
 `you can find the answer in this line of the MongoDB driver source code <https://github.com/mongodb/mongo-java-driver/blob/a82ce71d0aa7da9c6455f1b52ae24ed3cd4c1f62/driver-sync/src/main/com/mongodb/client/internal/FindIterableImpl.java#L203>`__.
 
 For more information on the classes and methods mentioned in this section, see
-the following API documentation.
+the following API documentation:
 
 - :java-docs:`ConnectionPoolListener <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionPoolListener.html>`
 - :java-docs:`MongoClientSettings <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`
@@ -280,15 +300,36 @@ The driver supports JMX monitoring of connection pool events through the
 
 MXBeans registered on the platform MBean server have the following properties:
 
-- ``clusterId``: A client-generated unique identifier. This unique identifier ensures that objects
-  have unique names when an application has multiple ``MongoClient`` instances
-  connected to the same MongoDB deployment.
-- ``host``: The hostname of the machine running the ``mongod`` or ``mongos`` process.
-- ``port``: The port on which the ``mongod`` or ``mongos`` process is listening.
-- ``minSize``: The minimum size of the connection pool, including idle and in-use connections.
-- ``maxSize``: The maximum size of the connection pool, including idle and in-use connections.
-- ``size``: The current size of the connection pool, including idle and in-use connections.
-- ``checkedOutCount``: The current count of connections that are in use.
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Property
+     - Description
+
+   * - ``clusterId``
+     - A client-generated unique identifier. This unique identifier ensures that objects
+     have unique names when an application has multiple ``MongoClient`` instances
+     connected to the same MongoDB deployment.
+
+   * - ``host``
+     - The hostname of the machine running the ``mongod`` or ``mongos`` process.
+
+   * - ``port``
+     - The port on which the ``mongod`` or ``mongos`` process is listening.
+
+   * - ``minSize``
+     - The minimum size of the connection pool, including idle and in-use connections.
+
+   * - ``maxSize``
+     - The maximum size of the connection pool, including idle and in-use connections.
+
+   * - ``size``
+     - The current size of the connection pool, including idle and in-use connections.
+
+   * - ``checkedOutCount``
+     - The current count of connections that are in use.
 
 For more information on the topics discussed in this subsection, see the
 following resources:
