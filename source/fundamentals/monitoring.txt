@@ -32,8 +32,8 @@ decisions when designing and debugging your application.
 
 On this page you will learn how to perform these tasks:
 
-- :ref:`Monitor different types of events in the MongoDB Java Driver <monitoring_monitor_events>`__
-- :ref:`Monitor connection pool events with Java Management Extensions (JMX) and JConsole <monitoring_jmx>`__
+- :ref:`Monitor different types of events in the MongoDB Java Driver <monitoring-monitor-events>`
+- :ref:`Monitor connection pool events with Java Management Extensions (JMX) and JConsole <monitoring-jmx>`
 
 .. Who should read this? Where should I go if this isn't the page I was looking for?
 
@@ -41,7 +41,7 @@ This page shows how to use information about the activity of the driver in code.
 If you would like to learn how to record events the driver performs,
 consider reading our :doc:`guide on logging </fundamentals/logging>`.
 
-.. _monitoring_monitor_events:
+.. _monitoring-monitor-events:
 
 Monitor Events
 --------------
@@ -277,7 +277,7 @@ the following API documentation:
 - :java-docs:`ConnectionCheckedOutEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckedOutEvent.html>`
 - :java-docs:`ConnectionCheckOutFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckOutFailedEvent.html>`
 
-.. _monitoring_jmx:
+.. _monitoring-jmx:
 
 Monitor Connection Pools with JMX
 ---------------------------------
@@ -291,15 +291,16 @@ For more information on JMX, see
 JMX Support in the MongoDB Driver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The driver supports JMX monitoring of connection pool events through the
-``JMXConnectionPoolListener`` class. This class performs the following actions: 
+To enable JMX connection pool monitoring, add an instance of the
+``JMXConnectionPoolListener`` class to your ``MongoClient``.
 
-- Creates MXBean instances for each ``mongod`` or ``mongos`` process the driver maintains a
-  connection pool with.
+The ``JMXConnectionPoolListener`` class performs the following actions: 
+
+- Creates MXBean instances for each ``mongod`` or ``mongos`` process the driver
+  maintains a connection pool with.
 - Registers these MXBean instances with the platform MBean server. 
 
 MXBeans registered on the platform MBean server have the following properties:
-
 
 .. list-table::
    :header-rows: 1
@@ -309,9 +310,9 @@ MXBeans registered on the platform MBean server have the following properties:
      - Description
 
    * - ``clusterId``
-     - A client-generated unique identifier. This unique identifier ensures that objects
-     have unique names when an application has multiple ``MongoClient`` instances
-     connected to the same MongoDB deployment.
+     - A client-generated unique identifier. This identifier ensures that
+     each MXBean the driver makes has a unique name when an application has 
+     multiple ``MongoClient`` instances connected to the same MongoDB deployment.
 
    * - ``host``
      - The hostname of the machine running the ``mongod`` or ``mongos`` process.
@@ -330,6 +331,9 @@ MXBeans registered on the platform MBean server have the following properties:
 
    * - ``checkedOutCount``
      - The current count of connections that are in use.
+
+All MXBean instances created by the driver are under the domain
+``"org.mongodb.driver"``.
 
 For more information on the topics discussed in this subsection, see the
 following resources:
