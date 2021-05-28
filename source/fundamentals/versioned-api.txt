@@ -39,11 +39,10 @@ Enable Versioned API on a MongoDB Client
 ----------------------------------------
 
 To enable the Versioned API, you must specify an API version in the settings
-that you use to create your MongoDB client. Once you instantiate a
-``MongoClient`` instance with a specified Versioned API, all commands you
-run with that client use that version of the Versioned API. If you need to
-run commands not covered by the Versioned API or with a different version of
-it, instantiate a separate client.
+of your MongoDB client. Once you instantiate a ``MongoClient`` instance with
+a specified Versioned API, all commands you run with that client use that
+version of the Versioned API. If you need to run commands not covered by the
+Versioned API or with a different version of it, instantiate a separate client.
 
 The example below shows how you can instantiate a ``MongoClient`` that
 sets the Versioned API version and connects to a server by performing the
