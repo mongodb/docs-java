@@ -55,10 +55,10 @@ listener classes extend the ``EventListener`` interface. A listener's
 API defines the events it can respond to.
 
 Each method of a listener class represents a response to a certain event. Each
-method receives one argument, an object representing the event the method
+method receives one argument: an object representing the event the method
 responds to. All event objects are a subclass of the ``EventObject`` class.  
 
-The MongoDB Java driver organizes events into three categories:
+The MongoDB Java driver organizes the events it defines into three categories:
 
 - Command Events
 - Cluster Events
@@ -104,14 +104,14 @@ For more information on MongoDB database commands, see the
 Example
 ^^^^^^^
 
-In this example we make a timer for database commands. The timer makes it so
-that every time the driver executes a command on our MongoDB instance
-we see a message letting us know how long it took to execute the command.
+This example shows how to make a timer for database commands. The timer makes it so
+that every time the driver executes a command on your MongoDB instance
+you see a message letting you know how long it took to execute the command.
 
-To make a timer, we do the following:
+To make a timer, do the following:
 
 - Make a class with timer functionality that implements the ``CommandListener`` interface.
-- Add an instance of our new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
+- Add an instance of the new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
 - Configure a ``MongoClient`` instance with the ``MongoClientSettings`` object.
 
 The following code defines the ``CommandTimer`` class which implements the
@@ -175,8 +175,8 @@ For a detailed description of all nine cluster events in the driver, see the
 Example
 ^^^^^^^
 
-In this example, we make a listener class that lets us know if we can read
-and write to our server. We name this class ``IsReadAndWrite``.
+This example shows how to make a listener class that prints a message that lets
+you know if the driver can read and write to your MongoDB instance.
 
 The following code defines the ``IsReadAndWrite`` class which implements the
 ``ClusterListener`` interface.
@@ -188,8 +188,8 @@ The following code defines the ``IsReadAndWrite`` class which implements the
    :end-before: end cluster-listener-impl
 
 The following code adds an instance of the ``IsReadAndWrite`` class to a
-``MongoClient`` object. The code then runs a find operation to test our listener
-class.
+``MongoClient`` object. The code then runs a find operation to test the
+``IsReadAndWrite`` class.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
@@ -231,9 +231,8 @@ To monitor connection pool events, write a class that implements the
 Example
 ^^^^^^^
 
-In this example, we make a listener class that prints a message each time we check
-out a connection from our connection pool. We name this class
-``ConnectionPoolLibrarian``.
+This example shows how to make a listener class that prints a message each time
+you check out a connection from your connection pool.
 
 The following code defines the ``ConnectionPoolLibrarian`` class which implements the
 ``ConnectionPoolListener`` interface.
@@ -330,6 +329,7 @@ MXBeans registered on the platform MBean server have the following properties:
    * - ``checkedOutCount``
      - The current count of connections that are in use.
 
+
 All MXBean instances created by the driver are under the domain
 ``"org.mongodb.driver"``.
 
@@ -342,7 +342,7 @@ following resources:
 JMX and JConsole Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this example, we show how to monitor the driver's connection pools using JMX
+This example shows how you can monitor the driver's connection pools using JMX
 and **JConsole**. JConsole is a JMX compliant GUI monitoring tool that comes with
 the Java Platform.
 
@@ -392,7 +392,9 @@ following:
 - Disable the JMX connection server by pressing :kbd:`Enter` in the shell used
   to run the above code snippet
 
-For more information on JMX and JConsole, see the following resources from Oracle:
+For more information on JMX and JConsole, see the following resources from
+Oracle:
+
 - `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
 - `Monitoring and Management Guide <https://docs.oracle.com/en/java/javase/16/management/monitoring-and-management-using-jmx-technology.html>`__
 
