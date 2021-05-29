@@ -13,25 +13,35 @@ FAQ
 General
 -------
 
-Are there two versions of ``MongoClient``?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Why are there two types of ``MongoClient`` in the Java driver? 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes. One version of ``MongoClient`` is ``com.mongodb.MongoClient``.
-This is a class that has been in the driver for a long time and supports
-the following in the modern API:
+There are two types of ``MongoClient`` because we wanted a cleaner API
+for new users that didn't have the confusion of including multiple CRUD
+API's. We wanted to ensure that the new CRUD API was available in a Java
+package structure that would work well with Java module support
+introduced in Java 9. 
+
+Which type of ``MongoClient`` should I use?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You should use ``com.mongodb.MongoClient`` class if you want the
+following support in the modern API:
 
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``
 - CRUD API using the ``MongoDatabase``, and from there, ``MongoCollection``
 
-The class also supports the following in the legacy API:
+The ``com.mongodb.MongoClient`` class also supports the following in the
+legacy API: 
 
 - Configuration with ``MongoClientOptions`` and ``MongoClientURI``
 - CRUD API using the ``DB``, and from there, ``DBCollection``
 
-The other version of ``MongoClient`` is
-``com.mongodb.client.MongoClient``. This is an interface that was
-introduced in the 3.7 driver release and only supports the modern API
-described above.
+This is a class that has been in the driver for a long time.
+
+You should use ``com.mongodb.client.MongoClient`` interface if you only
+want support for the modern API described above. This interface
+was introduced in the 3.7 driver release. 
 
 You can create instances of this interface with the factory methods
 defined in the ``com.mongodb.client.MongoClients`` class. 
