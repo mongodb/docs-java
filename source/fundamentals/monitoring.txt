@@ -261,7 +261,7 @@ The above code snippet should produce output that looks like this:
    Let me get you the connection with id 21...
    Let me get you the connection with id 21...
 
-It looks like our find operation requested two connections from the pool.
+It looks like the above find operation requested two connections from the pool.
 If you are curious why the driver uses two connections in one find operation, 
 `you can find the answer in this line of the MongoDB driver source code <https://github.com/mongodb/mongo-java-driver/blob/a82ce71d0aa7da9c6455f1b52ae24ed3cd4c1f62/driver-sync/src/main/com/mongodb/client/internal/FindIterableImpl.java#L203>`__.
 
