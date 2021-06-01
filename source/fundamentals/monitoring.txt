@@ -293,7 +293,7 @@ JMX Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To enable JMX connection pool monitoring, add an instance of the
-``JMXConnectionPoolListener`` class to your ``MongoClient``.
+``JMXConnectionPoolListener`` class to your ``MongoClient`` object.
 
 The ``JMXConnectionPoolListener`` class performs the following actions: 
 
@@ -340,8 +340,9 @@ All MXBean instances created by the driver are under the domain
 For more information on the topics discussed in this subsection, see the
 following resources:
 
-- `Oracle Platform MBean Server Reference documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
-- `Oracle MXBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
+- `Oracle Platform MBean Server Reference Documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
+- `Oracle MXBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
+- `Oracle MBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/standard.html>`__
 
 JMX and JConsole Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -351,7 +352,7 @@ and **JConsole**. JConsole is a JMX compliant GUI monitoring tool that comes wit
 the Java Platform.
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
-``MongoClient`` instance. The code then starts a JMX connection server exposing
+``MongoClient`` instance. The code then starts a JMX connector server exposing
 the platform MBean server on port 9999 for JConsole to connect to.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/JMXMonitoring.java
@@ -392,14 +393,14 @@ Once JConsole is open, perform the following actions in the GUI:
 When you no longer want to inspect your connection pools in JConsole, do the
 following: 
 
-- Exit JConsole
-- Disable the JMX connection server by pressing :kbd:`Enter` in the shell used
+- Exit JConsole by closing the JConsole window
+- Disable the JMX connector server by pressing :kbd:`Enter` in the shell used
   to run the above code snippet
 
 For more information on JMX and JConsole, see the following resources from
 Oracle:
 
-- `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+- `JConsole Documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
 - `Monitoring and Management Guide <https://docs.oracle.com/en/java/javase/16/management/monitoring-and-management-using-jmx-technology.html>`__
 
 For more information on the classes and methods mentioned in this section, see
