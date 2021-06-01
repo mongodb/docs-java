@@ -15,15 +15,15 @@ Overview
 
 In this guide, you will learn how to run a **text search** in MongoDB.
 
-You can use a text search to search documents for terms or phrases. A
+You can use a text search to search documents for a term or a phrase. A
 term is a sequence of characters that excludes whitespace characters. A
 phrase is a sequence of terms that with any number of whitespace
 characters. You can use this for searching through unstructured text,
-which is text without a predefined format such as resumes, books and
+which is text without a predefined format such as resumes and
 course catalogs. 
 
 In MongoDB, you can run a text search on a string field. A text
-search retrieves documents that contain the terms or phrases in the
+search retrieves documents that contain the term or phrase in the
 specified field. 
 
 Sample Documents
@@ -46,8 +46,8 @@ Text Index
 
 You must create a **text index** using the ``Indexes`` builder before
 running a text search. A text index specifies the string or string
-array field for the query to search through during a text search. There
-can only be one text index per collection.
+array field for the query to run a text search. There can only be
+one text index per collection. 
 
 In the following examples, the student runs text searches on the ``name``
 field in the ``junior_courses`` collection. To enable text searches on
@@ -93,7 +93,9 @@ The ``Filters.text()`` method uses the :doc:`Filters builder
 specified term or phrase. Upon passing this method into the ``find()``
 method, MongoDB runs a text search on the fields indexed with the text
 index on the collection. The text search returns documents that 
-contain one or more search terms. 
+contain one or more of the search terms with a relevance score. For more
+information on relevance scores, see the :ref:`Sort by Relevance
+<sort_by_relevance>` section. 
 
 You can include ``TextSearchOptions`` as the second parameter of the
 ``Filters.text()`` method to specify a text search options such as case
@@ -210,13 +212,19 @@ The following shows the output of the preceding code:
 
    { "_id": 1, "name": "Forensic science", "major": ["Forensic Science", "Criminal Justice"] }
    { "_id": 3, "name": "Environmental Science", "major": ["Environmental Science", "Sustainable Management"] }
-  
+
+.. _sort_by_relevance:
+
 Sorting by Relevance
 ~~~~~~~~~~~~~~~~~~~~
 
 The text search assigns a numerical text score to indicate how relevant
 each result matches the search string. Often, you want to know which
 results are the most relevant.  
+
+To sort by relevance, you use the :doc:`Projections
+</fundamentals/builders/projections>`  and :doc:`Sorts
+</fundamentals/builders/sort>` builders.
 
 First, use the ``Projections.metaTextScore()`` method to retrieve a text
 score. This method generates a new field with the name and returns the
@@ -233,14 +241,10 @@ Example
 The student wants to find Computer Science courses and view them in
 order of relevance to their search. 
 
-To address this scenario, the student uses the :doc:`Filters
-</fundamentals/builders/filters>`, :doc:`Indexes </fundamentals/builders/indexes>`, and
-:doc:`Projections </fundamentals/builders/projections>` builders. 
-
-The student performs the following actions:
+To address this scenario, the student performs the following actions:
 
 - Run a text search for the phrase "Computer Science"
-- Project the text scores into the query results as the ``score`` field
+- Project the text scores of the query results as the ``score`` field
 - Sort the results by text score (most relevant match first)
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
