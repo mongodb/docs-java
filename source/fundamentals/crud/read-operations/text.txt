@@ -75,8 +75,6 @@ creates a compound index using the following snippet:
 
     collection.createIndex(Indexes.compoundIndex(Indexes.text("name"), Indexes.text("major")));
 
-The following subsections 
-
 For more information, see the following documentation:
 
 - :manual:`Text Indexes </core/index-text/>` Server Manual Entry
@@ -103,8 +101,9 @@ sensitivity. By default, there is no case sensitivity, meaning MongoDB
 matches documents regardless of whether the value is lowercase or
 uppercase. 
 
-The following sections show you how to run a text search with a
-term and phrase, and how to sort the relevance of your text search. 
+The following subsections show you how to run a text search with a
+term, phrase, certain terms, and how to sort the relevance of your text
+search. 
 
 For more information, see the following API documentation:
 
@@ -126,7 +125,8 @@ each term and returns documents that contain any of the terms.
 Example 
 ```````
 
-The student wants to find "Science" courses using a case-sensitive search.
+The student wants to find science courses using a case-sensitive search
+for the first letter being capital.
 
 To address this scenario, the student performs the following actions:
 
