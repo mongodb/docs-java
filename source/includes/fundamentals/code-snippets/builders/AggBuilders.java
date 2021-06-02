@@ -81,37 +81,36 @@ public class AggBuilders {
 
     private void facetStage() {
         // begin facet
-        facet(
-            new Facet("Screen Sizes", bucketAuto("$attributes.screen_size", 5,
-                new BucketAutoOptions().output(sum("count", 1)))),
-            new Facet("Manufacturer", sortByCount("$attributes.manufacturer"), limit(5)));
+        facet(new Facet("Screen Sizes",
+                bucketAuto("$attributes.screen_size", 5, new BucketAutoOptions().output(Accumulators.sum("count", 1)))),
+                new Facet("Manufacturer", sortByCount("$attributes.manufacturer"), limit(5)));
         // end facet
     }
 
     private void bucketAutoOptionsStage() {
-        // begin bucketAuto options
+        // begin bucketAutoOptions
         bucketAuto("$price", 10, new BucketAutoOptions().granularity(BucketGranularity.POWERSOF2)
                 .output(sum("count", 1), avg("avgPrice", "$price")));
-        // end bucketAuto options
+        // end bucketAutoOptions
     }
 
     private void basicBucketAutoStage() {
-        // begin basic bucketAuto
+        // begin bucketAutoBasic
         bucketAuto("$price", 10);
-        // end basic bucketAuto
+        // end bucketAutoBasic
     }
 
     private void bucketOptionsStage() {
-        // begin bucket options
-        bucket("$screenSize", asList(0, 24, 32, 50, 70),
-                new BucketOptions().defaultBucket("monster").output(sum("count", 1), push("matches", "$screenSize")));
-        // end bucket options
+        // begin bucketOptions
+        bucket("$screenSize", asList(0, 24, 32, 50, 70), new BucketOptions().defaultBucket("monster")
+                .output(Accumulators.sum("count", 1), Accumulators.push("matches", "$screenSize")));
+        // end bucketOptions
     }
 
     private void basicBucketStage() {
-        // begin basic bucket
+        // begin basicBucket
         bucket("$screenSize", asList(0, 24, 32, 50, 70, 200));
-        // end basic bucket
+        // end basicBucket
     }
 
     private void countStage() {
@@ -168,9 +167,9 @@ public class AggBuilders {
     }
 
     private void mergeStage() {
-        // begin merge
+        // begin mergeStage
         merge("authors");
-        // end merge
+        // end mergeStage
     }
 
     private void outStage() {
@@ -192,14 +191,14 @@ public class AggBuilders {
     }
 
     private void unwindStage() {
-        // begin unwind
+        // begin unwindStage
         unwind("$sizes");
-        // end unwind
+        // end unwindStage
     }
 
     private void groupStage() {
         // begin group
-        group("$customerId", sum("totalQuantity", "$quantity"));
+        group("$customerId", Accumulators.sum("totalQuantity", "$quantity"));
         // end group
     }
 
@@ -224,10 +223,10 @@ public class AggBuilders {
                 new Variable<>("order_qty", "$ordered"));
 
         List<Bson> pipeline = asList(
-                match(expr(new Document("$and",
+                match(Filters.expr(new Document("$and",
                         asList(new Document("$eq", asList("$$order_item", "$stock_item")),
                                 new Document("$gte", asList("$instock", "$$order_qty")))))),
-                project(fields(exclude("stock_item"), excludeId())));
+                project(Projections.fields(Projections.exclude("stock_item"), Projections.excludeId())));
 
         MongoCursor<Document> cursor = collection
                 .aggregate(asList(lookup("warehouses", variables, pipeline, "stockdata"))).cursor();
@@ -239,7 +238,7 @@ public class AggBuilders {
 
     private void basicLookupStage() {
         // begin basic lookup
-        lookup("comments", "_id", "movie_id", "comments");
+        lookup("comments", "_id", "movie_id", "joinedcomments");
         // end basic lookup
     }
 
@@ -256,9 +255,9 @@ public class AggBuilders {
     }
 
     private void sortStage() {
-        // begin sort
+        // begin sortStage
         sort(orderBy(descending("year"), ascending("title")));
-        // end sort
+        // end sortStage
     }
 
     private void sampleStage() {
@@ -269,19 +268,19 @@ public class AggBuilders {
 
     private void projectComputed() {
         // begin computed
-        project(fields(computed("rating", "$rated"), excludeId()));
+        project(Projections.fields(Projections.computed("rating", "$rated"), Projections.excludeId()));
         // end computed
     }
 
     private void projectStage() {
         // begin project
-        project(fields(include("title", "plot"), excludeId()));
+        project(Projections.fields(Projections.include("title", "plot"), Projections.excludeId()));
         // end project
     }
 
     private void matchStage() {
         // begin match
-        match(eq("title", "The Shawshank Redemption"));
+        match(Filters.eq("title", "The Shawshank Redemption"));
         // end match
     }
 }

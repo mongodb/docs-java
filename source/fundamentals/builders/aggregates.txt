@@ -12,9 +12,11 @@ Aggregates Builders
 
 .. _aggregates-builders:
 
-This guide provides an overview of the :java-core-api:`Aggregates </com/mongodb/client/model/Aggregates>` class
-which provides static factory methods that build :manual:`aggregation pipeline
+This guide provides an overview of the :java-core-api:`Aggregates </com/mongodb/client/model/Aggregates>`
+class which provides static factory methods that build :manual:`aggregation pipeline
 operators </reference/operator/aggregation/>`.
+
+For a more thorough introduction to Aggregation, see our :ref:`Aggregation guide <java-aggregation>`.
 
 .. tip::
 
@@ -41,7 +43,7 @@ query filter, filtering out documents that do not match.
    The filter can be an instance of any class that implements ``Bson``, but it's
    convenient to combine with use of the :ref:`Filters <filters-builders>` class.
 
-This example creates a pipeline stage that matches all documents where the
+The following example creates a pipeline stage that matches all documents where the
 ``title`` field is equal to "The Shawshank Redemption":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
@@ -63,7 +65,7 @@ pipeline stage that project specified document fields.
    Though the projection can be an instance of any class that implements ``Bson``,
    it's convenient to combine with use of :ref:`Projections <projections-builders>`.
 
-This example creates a pipeline stage that excludes the ``_id`` field but
+The following example creates a pipeline stage that excludes the ``_id`` field but
 includes the ``title`` and ``plot`` fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
@@ -77,7 +79,7 @@ Projecting Computed Fields
 
 The ``$project`` stage can project computed fields as well.
 
-This example creates a pipeline stage that projects the ``rated`` field
+The following example creates a pipeline stage that projects the ``rated`` field
 into a new field called ``rating``, effectively renaming the field.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
@@ -93,7 +95,7 @@ Sample
 Use the ``sample()`` method to create a :manual:`$sample </reference/operator/aggregation/sample/>`
 pipeline stage to randomly select documents from input.
 
-This example creates a pipeline stage that randomly selects 5 documents:
+The following example creates a pipeline stage that randomly selects 5 documents:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin sample
@@ -114,13 +116,13 @@ pipeline stage to sort by the specified criteria.
    Though the sort criteria can be an instance of any class that
    implements ``Bson``, it's convenient to combine with use of :ref:`Sorts <sorts-builders>`.
 
-This example creates a pipeline stage that sorts in descending order according
+The following example creates a pipeline stage that sorts in descending order according
 to the value of the ``year`` field and then in ascending order according to the
 value of the ``title`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin sort
-   :end-before: // end sort
+   :start-after: // begin sortStage
+   :end-before: // end sortStage
    :language: java
    :dedent:
 
@@ -129,9 +131,10 @@ Skip
 ----
 
 Use the ``skip()`` method to create a :manual:`$skip </reference/operator/aggregation/skip/>`
-pipeline stage to skip over the specified number of documents that pass into the stage.
+pipeline stage to skip over the specified number of documents before
+passing documents into the stage.
 
-This example creates a pipeline stage that skips the first ``5`` documents:
+The following example creates a pipeline stage that skips the first ``5`` documents:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin skip
@@ -145,7 +148,7 @@ Limit
 Use the :manual:`$limit </reference/operator/aggregation/limit/>` pipeline stage
 to limit the number of documents passed to the next stage.
 
-This example creates a pipeline stage that limits the number of documents to ``10``:
+The following example creates a pipeline stage that limits the number of documents to ``10``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin limit
@@ -157,15 +160,16 @@ Lookup
 ------
 
 Use the ``lookup()`` method to create a :manual:`$lookup </reference/operator/aggregation/lookup/>`
-pipeline stage to perform joins and uncorrelated sub-queries between two collections.
+pipeline stage to perform joins and uncorrelated subqueries between two collections.
 
 Left Outer Join
 +++++++++++++++
 
-This example creates a pipeline stage that performs a left outer
-join between the ``movies`` and ``comments`` collections. It joins the
-``_id`` field to the ``movie_id`` field and outputs the
-results in the ``comments`` field:
+The following example creates a pipeline stage that performs a left outer
+join between the ``movies`` and ``comments`` collections:
+
+- It joins the ``_id`` field from ``movies`` to the ``movie_id`` field in ``comments``
+- It outputs the results in the ``joined_comments`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin basic lookup
@@ -173,10 +177,10 @@ results in the ``comments`` field:
    :language: java
    :dedent:
 
-Full Join and Uncorrelated Sub-queries
+Full Join and Uncorrelated SubQueries
 ++++++++++++++++++++++++++++++++++++++
 
-This example creates a pipeline stage that joins two collections, ``orders``
+The following example creates a pipeline stage that joins two collections, ``orders``
 and ``warehouses``, by the item and whether the available quantity is enough
 to fulfill the ordered quantity:
 
@@ -198,10 +202,10 @@ for each distinct grouping.
    The driver includes the :java-core-api:`Accumulators <com/mongodb/client/model/Accumulators.html>`
    class with static factory methods for each of the supported accumulator.
 
-This example creates a pipeline stage that  groups documents by the value
+The following example creates a pipeline stage that groups documents by the value
 of the ``customerId`` field. Each group accumulates the sum and average
 of the values of the ``quantity`` field into the ``totalQuantity`` and
-``averageQuantity`` fields, respectively.
+``averageQuantity`` fields.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin group
@@ -216,11 +220,11 @@ Use the ``unwind()`` method to create an :manual:`$unwind </reference/operator/a
 pipeline stage to deconstruct an array field from input documents, creating
 an output document for each array element.
 
-This example creates a document for each element in the ``sizes`` array:
+The following example creates a document for each element in the ``sizes`` array:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin unwind
-   :end-before: // end unwind
+   :start-after: // begin unwindStage
+   :end-before: // end unwindStage
    :language: java
    :dedent:
 
@@ -246,13 +250,14 @@ Out
 ---
 
 Use the ``out()`` method to create an :manual:`$out </reference/operator/aggregation/out/>`
-pipeline stage that outputs all documents to the specified collection.
+pipeline stage that writes all documents to the specified collection in
+the same database.
 
 .. tip::
 
    The ``$out`` stage must be the last stage in any aggregation pipeline.
 
-This example writes the pipeline to the ``authors`` collection:
+The following example writes the pipeline to the ``authors`` collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin out
@@ -270,16 +275,16 @@ pipeline stage that merges all documents into the specified collection.
 
    The ``$merge`` stage must be the last stage in any aggregation pipeline.
 
-This example merges the pipeline into the ``authors`` collection using the default
+The following example merges the pipeline into the ``authors`` collection using the default
 options:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin merge
-   :end-before: // end merge
+   :start-after: // begin mergeStage
+   :end-before: // end mergeStage
    :language: java
    :dedent:
 
-This example merges the pipeline into the ``customers`` collection in the
+The following example merges the pipeline into the ``customers`` collection in the
 ``reporting`` database using some non-default options that specify to replace
 the document if both ``date`` and ``customerId`` match, otherwise insert the
 document:
@@ -297,9 +302,9 @@ Use the ``graphLookup()`` method to create a :manual:`$graphLookup </reference/o
 pipeline stage that performs a recursive search on a specified collection to match
 a specified field in one document to a specified field of another document.
 
-This example computes the social network graph for users in the
+The following example computes the social network graph for users in the
 ``contacts`` collection, recursively matching the value in the ``friends`` field
-to the ``name`` field.
+to the ``name`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin graphLookupBasic
@@ -346,8 +351,8 @@ these groups by count in descending order.
           { "$sort": { "count": -1 } }
       ]
 
-This example groups documents by the truncated value of the field ``x``
-and computes the count for each distinct value.
+The following example groups documents by the truncated value of the field ``x``
+and computes the count for each distinct value:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin sortByCount
@@ -362,8 +367,8 @@ ReplaceRoot
 Use the ``replaceRoot()`` method to create a :manual:`$replaceRoot </reference/operator/aggregation/replaceRoot/>`
 pipeline stage that replaces each input document with the specified document.
 
-This example replaces each input document with the sub-document
-in the ``spanish_translation`` field.
+The following example replaces each input document with the subdocument
+in the ``spanish_translation`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin replaceRoot
@@ -382,7 +387,7 @@ pipeline stage that adds new fields to documents.
    Use the ``$addFields`` when you do not want to project field inclusion
    or exclusion.
 
-Th following example adds two new fields, ``a`` and ``b`` to the input documents.
+Th following example adds two new fields, ``a`` and ``b`` to the input documents:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin addFields
@@ -406,7 +411,7 @@ that value to a specified field name. If you do not specify a field,
 
       { "$group":{ "_id": 0, "count": { "$sum" : 1 } } }
 
-This example creates a pipeline stage that outputs the count of incoming
+The following example creates a pipeline stage that outputs the count of incoming
 documents in a field called "total":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
@@ -420,27 +425,27 @@ Bucket
 ------
 
 Use the ``bucket()`` method to create a :manual:`$bucket </reference/operator/aggregation/bucket/>`
-pipeline stage automates the bucketing of data around predefined boundary
+pipeline stage that automates the bucketing of data around predefined boundary
 values.
 
-This example creates a pipeline stage that groups incoming documents based
+The following example creates a pipeline stage that groups incoming documents based
 on the value of their ``screenSize`` field, inclusive of the lower boundary
 and exclusive of the upper boundary.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin basic bucket
-   :end-before: // end basic bucket
+   :start-after: // begin basicBucket
+   :end-before: // end basicBucket
    :language: java
    :dedent:
 
 Use the ``BucketOptions`` class to specify a default bucket for values
 outside of the specified boundaries, and to specify additional accumulators.
 
-This example creates a pipeline stage that groups incoming documents based
+The following example creates a pipeline stage that groups incoming documents based
 on the value of their ``screenSize`` field, counting the number of documents
 that fall within each bucket, pushing the value of ``screenSize`` into a
 field called ``matches``, and capturing any screen sizes greater than "70"
-into a bucket called "monster" for monstrously large screen sizes.
+into a bucket called "monster" for monstrously large screen sizes:
 
 .. tip::
 
@@ -448,8 +453,8 @@ into a bucket called "monster" for monstrously large screen sizes.
    class with static factory methods for each of the supported accumulator.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin bucket options
-   :end-before: // end bucket options
+   :start-after: // begin bucketOptions
+   :end-before: // end bucketOptions
    :language: java
    :dedent:
 
@@ -460,12 +465,12 @@ Use the ``bucketAuto()`` method to create a :manual:`$bucketAuto </reference/ope
 pipeline stage that automatically determines the boundaries of each bucket
 in its attempt to distribute the documents evenly into a specified number of buckets.
 
-This example creates a pipeline stage that will attempt to create and evenly
+The following example creates a pipeline stage that will attempt to create and evenly
 distribute documents into *10* buckets using the value of their ``price`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin basic bucketAuto
-   :end-before: // end basic bucketAuto
+   :start-after: // begin bucketAutoBasic
+   :end-before: // end bucketAutoBasic
    :language: java
    :dedent:
 
@@ -473,7 +478,7 @@ distribute documents into *10* buckets using the value of their ``price`` field:
 Use the ``BucketAutoOptions`` class to specify a :wikipedia:`preferred number <Preferred_number>`
 based scheme to set boundary values, and specify additional accumulators.
 
-This example creates a pipeline stage that will attempt to create and evenly
+The following example creates a pipeline stage that will attempt to create and evenly
 distribute documents into *10* buckets using the value of their ``price`` field,
 setting the bucket boundaries at powers of 2 (2, 4, 8, 16, ...). It also counts
 the number of documents in each bucket, and calculates the average their ``price``
@@ -482,11 +487,11 @@ in a new field called ``avgPrice``:
 .. tip::
 
    The driver includes the :java-core-api:`Accumulators <com/mongodb/client/model/Accumulators.html>`
-   class with static factory methods for each of the supported accumulator.
+   class with static factory methods for each of the supported accumulator:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
-   :start-after: // begin bucketAuto options
-   :end-before: // end bucketAuto options
+   :start-after: // begin bucketAutoOptions
+   :end-before: // end bucketAutoOptions
    :language: java
    :dedent:
 
@@ -496,7 +501,7 @@ Facet
 Use the ``facet()`` method to create a :manual:`$facet </reference/operator/aggregation/facet/>`
 pipeline stage that allows for the definition of parallel pipelines.
 
-This example creates a pipeline stage that executes two parallel aggregations:
+The following example creates a pipeline stage that executes two parallel aggregations:
 
 - The first aggregation distributes incoming documents into 5 groups according to
   their ``attributes.screen_size`` field.
