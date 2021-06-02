@@ -61,7 +61,7 @@ responds to. All event objects are a subclass of the ``EventObject`` class.
 The MongoDB Java driver organizes the events it defines into three categories:
 
 - Command Events
-- Cluster Events
+- Server Discovery and Monitoring Events
 - Connection Pool Events
 
 The following sections show how to monitor each event category.
@@ -153,14 +153,13 @@ the following API documentation:
 - :java-docs:`CommandSucceededEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandSucceededEvent.html>`
 - :java-docs:`CommandFailedEvent <apidocs/mongodb-driver-core/com/mongodb/event/CommandFailedEvent.html>`
 
-Cluster Events
-~~~~~~~~~~~~~~
+Server Discovery and Monitoring Events
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A cluster event is an event related to a change in the state of the
-MongoDB instance or cluster you have connected the driver to. Cluster events are
-also called server discovery and monitoring (SDAM) events. 
+A server discovery and monitoring (SDAM) event is an event related to a change
+in the state of the MongoDB instance or cluster you have connected the driver to. 
  
-The driver defines nine cluster events. The driver divides these nine events
+The driver defines nine SDAM events. The driver divides these nine events
 between three separate listener interfaces which each listen for three of the
 nine events. Here are the three interfaces and the events they listen for:
 
@@ -169,11 +168,11 @@ nine events. Here are the three interfaces and the events they listen for:
 - ``ServerListener``: events related to ``mongod`` or ``mongos`` processes
 - ``ServerMonitorListener``: heartbeat related events
 
-To monitor one of the three types of cluster events, write a class that
+To monitor one of the three types of SDAM events, write a class that
 implements one of the three interfaces above and register an instance of that
 class with your ``MongoClient`` instance.
 
-For a detailed description of each cluster event in the driver, see the 
+For a detailed description of each SDAM event in the driver, see the 
 :spec:`MongoDB SDAM monitoring specification </server-discovery-and-monitoring/server-discovery-and-monitoring-monitoring.rst#events>`.
 
 Example
@@ -359,7 +358,6 @@ the Java Platform.
 
    - `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__. 
    - `JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__
-
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
 ``MongoClient`` instance. The code then starts a JMX connector server exposing
