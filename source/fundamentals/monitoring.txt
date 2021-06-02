@@ -78,13 +78,9 @@ see the following API documentation:
 Command Events
 ~~~~~~~~~~~~~~
 
-A command event is an event related to a MongoDB database command. Here are some
-examples of database commands that produce command events:
-
-- ``find``
-- ``insert``
-- ``delete``
-- ``count`` 
+A command event is an event related to a MongoDB database command. Some
+examples of database commands that produce command events are ``find``,
+``insert``, ``delete``, and ``count``. 
 
 To monitor command events, write a class that implements the
 ``CommandListener`` interface and register an instance of that class with your
