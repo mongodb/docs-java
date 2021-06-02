@@ -128,7 +128,7 @@ You can also specify multiple fields to include in your projection.
    alter the order in which they are returned.
 
 .. code-block:: java
-   :emphasize-lines: 3
+   :emphasize-lines: 2
 
    Bson filter = Filters.empty();
    Bson projection = Projections.fields(Projections.include("name", "rating"), Projections.excludeId());
