@@ -110,9 +110,9 @@ you see a message letting you know how long it took to execute the command.
 
 To make a timer, do the following:
 
-- Make a class with timer functionality that implements the ``CommandListener`` interface.
-- Add an instance of the new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
-- Configure a ``MongoClient`` instance with the ``MongoClientSettings`` object.
+#. Make a class with timer functionality that implements the ``CommandListener`` interface.
+#. Add an instance of the new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
+#. Configure a ``MongoClient`` instance with the ``MongoClientSettings`` object.
 
 The following code defines the ``CommandTimer`` class which implements the
 ``CommandListener`` interface:
