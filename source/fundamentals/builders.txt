@@ -19,27 +19,29 @@ Builders
    :depth: 2
    :class: singlecol
 
-This section includes guides on how to use each of the available builders, and demonstrates the utility the Java driver
-builder classes provide.
+This section includes guides on how to use each of the available
+builders, and demonstrates the utility the Java driver builder classes
+provide. 
 
 Overview
 --------
 
-The Java driver provides classes to make it easier to use CRUD
-operations and the Aggregation API. The static utility methods 
-allow you to build a query more efficiently.
+The Java driver provides classes to simplify the process for developers
+to use CRUD operations and the Aggregation API without having to refer
+to MongoDB reference documentation. The static utility methods allow you
+to build a query more efficiently. 
 
-Example
--------
+Scenario
+--------
 
 Imagine we want to send a marketing email to all users in our ``users``
 collection with the following criteria:
 
 - Users that identify as "female" gender 
-- Users are older than "29"
+- Users that are older than "29"
 
-We only need their email address, so we'll ensure our query doesn't return data we pay bandwidth
-costs for but don't need.
+We only want their email address, so we'll ensure our query doesn't
+return data we pay bandwidth costs for but don't need.
 
 Using the MongoDB Shell
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,7 +60,7 @@ using builders:
 
 .. code-block:: java
 
-   Bson filter = new Document().append("gender", "female").append("age", new Document().append("$gt", 28));
+   Bson filter = new Document().append("gender", "female").append("age", new Document().append("$gt", 29));
    Bson projection = new Document().append("_id", 0).append("email", 1);
    collection.find(filter).projection(projection);
 
@@ -86,17 +88,17 @@ Using the builders class, you leverage the power of:
 - The IDE to do discovery and code completion
 - The Java compiler and the IDE to find errors during development
 
-The builder classes simplify the process for Java developers to use the
-CRUD API without having to refer to MongoDB reference documentation.
-While coding, they can look at a Java API that is already loaded into
-their IDE.
+While coding, you can look at a Java API that is already loaded into
+their IDE. The IDE shows the available methods with their parameters and
+automatically completes with placeholders when you select which method
+you want to use. 
 
-Furthermore, the IDE catches errors early on. A common error we face is
-misspelling method names. When using the MongoDB shell or plain Java,
-you get no visual indication of a problem and will only find it if you
-run the code. But with the builder class, the IDE will underline and
-give you a red bar on the right telling you something is wrong.
-
+Furthermore, the IDE and compiler catches errors early on. A common
+error is misspelling method names. When using the MongoDB shell or plain
+Java, these method names are strings, so you get no visual indication of
+a problem and only find it if you run the code. But with the builder
+class, the method names are methods, so the IDE underlines and gives you
+a red bar on the right telling you something is wrong. 
 
 Available Builders
 ------------------
