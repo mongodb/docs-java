@@ -36,9 +36,9 @@ public class Monitoring {
                         .addCommandListener(new CommandTimer())
                         .build();
         MongoClient mongoClient = MongoClients.create(settings);
-        // Run some commands to test the timer
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
+        // Run some commands to test the timer
         collection.find().first();
         collection.countDocuments();
         mongoClient.close();
@@ -75,7 +75,7 @@ public class Monitoring {
         MongoClient mongoClient = MongoClients.create(settings);
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
-        // Run a command to trigger a connection pool event
+        // Run a command to trigger connection pool events
         collection.find().first();
         // end monitor-cp-example
         mongoClient.close();
@@ -121,7 +121,7 @@ class IsReadAndWrite implements ClusterListener {
 
     private boolean isWritable;
     private boolean isReadable;
-
+    
     @Override
     public void clusterDescriptionChanged(final ClusterDescriptionChangedEvent event) {
         if (!isWritable) {
