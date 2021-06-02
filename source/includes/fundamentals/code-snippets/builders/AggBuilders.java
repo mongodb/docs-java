@@ -198,7 +198,8 @@ public class AggBuilders {
 
     private void groupStage() {
         // begin group
-        group("$customerId", Accumulators.sum("totalQuantity", "$quantity"));
+        group("$customerId", Accumulators.sum("totalQuantity", "$quantity"),
+                Accumulators.avg("averageQuantity", "$quantity"));
         // end group
     }
 
@@ -238,7 +239,7 @@ public class AggBuilders {
 
     private void basicLookupStage() {
         // begin basic lookup
-        lookup("comments", "_id", "movie_id", "joinedcomments");
+        lookup("comments", "_id", "movie_id", "joined_comments");
         // end basic lookup
     }
 
