@@ -25,7 +25,7 @@ Sample Documents
 ~~~~~~~~~~~~~~~~
 
 In the following examples, we use the documents in the
-``fast_and_furious_movies`` collection which represent some of the Fast
+``fast_and_furious_movies`` collection which represent a few of the Fast
 and Furious movies: 
 
 .. code-block:: json
@@ -39,7 +39,7 @@ Text Index
 ----------
 
 You must create a **text index** before running a text search. You can
-create one using the ``Indexes`` builder.A text index specifies the
+create one using the ``Indexes`` builder. A text index specifies the
 string or string array field for the query to run a text search. A
 collection can only contain one text index.
 
@@ -56,19 +56,25 @@ snippet:
 
 If we wanted to run text searches on both the ``title`` and
 ``tags`` field in the ``fast_and_furious_movies`` collection, we would
-have to drop the index for the ``title`` field. Then, we can create a
-create a compound index. A compound index is a single index structure
-holds references to multiple fields within a collection's documents.
-This allows the student to specify multiple text indexes without
-violating the constraint for there to only be one text index per
-collection. 
+have to drop the index for the ``title`` field with the following
+snippet:
+
+.. code-block:: java
+
+   collection.dropIndex("title");
+
+Then, we can create a create a compound index. A compound index is a
+single index structure holds references to multiple fields within a
+collection's documents. This allows us to specify multiple text indexes
+without violating the constraint for a collection to contain one 
+index. 
 
 To enable text searches on the ``title`` and ``tag`` field, we
 create a compound index using the following snippet: 
 
 .. code-block:: java
 
-    collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("tags")));
+   collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("tags")));
 
 For more information, see the following documentation:
 
@@ -102,7 +108,7 @@ To specify a case sensitive search, use the following snippet:
 
    TextSearchOptions options = new TextSearchOptions().caseSensitive(true);
 
-The following subsections show you how to run a text search with a
+The following sections show you how to run a text search with a
 term, phrase, certain terms, and how to sort the relevance of your text
 search. 
 
@@ -226,8 +232,10 @@ Example
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the term
-"Fast" and views them in order of relevance to the search by performing
-the following actions: 
+"Fast". 
+
+To view them in order of relevance to the search, perform the following
+actions: 
 
 - Project the text scores of the query results as the ``score`` field
 - Sort the results by text score (most relevant match first)
