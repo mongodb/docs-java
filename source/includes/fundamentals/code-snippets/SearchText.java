@@ -34,44 +34,43 @@ public class SearchText {
         SearchText searchText = new SearchText();
 
         searchText.setupCoursesCollection();
-        System.out.println("Matches for 'Science' (Case Sensitive)");
+        System.out.println("Matches for 'Fast'");
         searchText.caseSensitiveExample();
 
-        System.out.println("Matches for 'Science' without 'Computer'");
+        System.out.println("Matches for 'Furious' without 'Fast'");
         searchText.negateExample();
 
-        System.out.println("Matches for 'Computer Science'");
+        System.out.println("Matches for 'Fate of the Furious'");
         searchText.phraseExample();
 
-        System.out.println("Scores for 'Computer Science'");
+        System.out.println("Scores for 'Fast'");
         searchText.scoreExample();
     }
 
     private void caseSensitiveExample(){
         // begin caseSensitiveExample
-        TextSearchOptions options = new TextSearchOptions().caseSensitive(true);
-        Bson filter = Filters.text("Science", options);
+        Bson filter = Filters.text("Fast");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end caseSensitiveExample
     }
     
     private void negateExample(){
         // begin negateExample
-        Bson filter = Filters.text("Science -Computer");
+        Bson filter = Filters.text("Furious -Fast");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end negateExample
     }
 
     private void phraseExample(){
         // begin phraseExample
-        Bson filter = Filters.text("\"Computer Science\"");
+        Bson filter = Filters.text("\"Fate of the Furious\"");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end phraseExample
     }
 
     private void scoreExample(){
         // begin scoreExample
-        Bson filter = Filters.text("\"Computer Science\"");
+        Bson filter = Filters.text("\"Fast\"");
         Bson projection = Projections.metaTextScore("score");
         Bson sort = Sorts.metaTextScore("score");
         
@@ -83,13 +82,13 @@ public class SearchText {
     private void setupCoursesCollection() {
         collection.drop();
         collection.insertMany(Arrays.asList(
-            new Document("_id", 1).append("name", "Forensic science").append("major", Arrays.asList("Forensic Science", "Criminal Justice")), 
-            new Document("_id", 2).append("name", "Discrete Math in Computer Science").append("major", Arrays.asList("Computer Science", "Mathematics")), 
-            new Document("_id", 3).append("name", "Environmental Science").append("major", Arrays.asList("Environmental Science", "Sustainable Management")), 
-            new Document("_id", 4).append("name", "Computer science Seminar").append("major", Arrays.asList("Computer Science"))
+            new Document("_id", 1).append("title", "2 Fast 2 Furious ").append("tags", Arrays.asList("undercover", "drug dealer")), 
+            new Document("_id", 2).append("title", "Fast 5").append("tags", Arrays.asList("bank robbery", "full team")), 
+            new Document("_id", 3).append("title", "Furious 7").append("tags", Arrays.asList("emotional")), 
+            new Document("_id", 4).append("title", "The Fate of the Furious").append("tags", Arrays.asList("betrayal"))
         ));
         // begin textIndex
-        collection.createIndex(Indexes.text("name"));
+        collection.createIndex(Indexes.text("title"));
         // end textIndex
     }
 }
