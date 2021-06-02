@@ -41,7 +41,18 @@ Enable Versioned API on a MongoDB Client
 To enable the Versioned API, you must specify an API version in the settings
 of your MongoDB client. Once you instantiate a ``MongoClient`` instance with
 a specified Versioned API, all commands you run with that client use that
-version of the Versioned API. If you need to run commands not covered by the
+version of the Versioned API.
+
+.. tip::
+
+   If you need to run commands using a more than one version of the Versioned
+   API, instantiate a separate client with that version.
+
+   If you need to run commands not covered by the Versioned API, make sure the
+   "strict" option is disabled. See the section on
+   :ref:`Versioned API Options <versioned-api-options>` for more information.
+
+If you need to run commands not covered by the
 Versioned API or with a different version of it, instantiate a separate client.
 
 The example below shows how you can instantiate a ``MongoClient`` that
@@ -68,15 +79,15 @@ following operations:
 
    If you specify an API version and connect to a MongoDB server that does
    not support Versioned API, your application may raise an exception when
-   executing a command on your MongoDB server. If you use
-   a ``MongoClient`` that specifies the API version to query a server that
-   does not support it, your query could fail with the following exception
-   message:
+   executing a command on your MongoDB server. If you use a ``MongoClient``
+   that specifies the API version to query a server that does not support it,
+   your query could fail with an exception message that includes the
+   following text:
 
    .. code-block:: none
       :copyable: false
 
-      com.mongodb.MongoQueryException: Query failed with error code 9 and error message 'Failed to parse: {...} Unrecognized field 'apiVersion'.' on server
+      'Unrecognized field 'apiVersion' on server...
 
 For more information on the methods and classes referenced in this
 section, see the following API documentation:
@@ -89,6 +100,8 @@ section, see the following API documentation:
 - :java-docs:`MongoClientSettings.Builder <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`
 - :java-docs:`MongoClients.create() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`
 - :java-docs:`MongoClient <apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`
+
+.. _versioned-api-options:
 
 Versioned API Options
 ---------------------
