@@ -25,26 +25,21 @@ introduced in Java 9.
 Which type of ``MongoClient`` should I use?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You should use ``com.mongodb.MongoClient`` class if you want the
-following support in the modern API:
+New applications should generally use the
+``com.mongodb.client.MongoClient`` interface, which supports: 
 
-- Configuration with ``MongoClientSettings`` and ``ConnectionString``
-- CRUD API using the ``MongoDatabase``, and from there, ``MongoCollection``
+- Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create instances of this interface via factory methods defined in the ``com.mongodb.client.MongoClients`` class. 
+- CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``
 
-The ``com.mongodb.MongoClient`` class also supports the following in the
-legacy API: 
+You should use ``com.mongodb.MongoClient`` class if you require support for the legacy API, which includes:
 
 - Configuration with ``MongoClientOptions`` and ``MongoClientURI``
-- CRUD API using the ``DB``, and from there, ``DBCollection``
+- CRUD API using ``DB``, and from there, ``DBCollection``.  You can access this API via the ``getDB()`` method.
 
-This is a class that has been in the driver for a long time.
+For applications that require a mix of the new and legacy APIs, ``com.mongodb.MongoClient`` also supports: 
 
-You should use ``com.mongodb.client.MongoClient`` interface if you only
-want support for the modern API described above. 
-
-This interface was introduced in the 3.7 driver release. You can create
-instances of this interface with the factory methods defined in the
-``com.mongodb.client.MongoClients`` class. 
+- Configuration with ``MongoClientSettings`` and ``ConnectionString``, the only difference being that you create instances via constructors instead of a factory class.
+- CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``.  You can access this API via the ``getDatabase()`` method.
 
 POJOs
 -----
