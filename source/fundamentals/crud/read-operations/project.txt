@@ -19,9 +19,9 @@ not all of their profile information. By default, queries in MongoDB return
 all fields in matching documents. You can use a **projection** to return
 only the data you need.
 
-A projection is a document sent that instructs MongoDB which fields of a
+A projection is a document that instructs MongoDB which fields of a
 document to return. Use the :ref:`Projections <projections-builders>` class
-to easily construct a projection document.
+to construct a projection document.
 
 Behavior
 --------
@@ -62,22 +62,22 @@ varieties of fruit:
      { "_id": 3, "name": "oranges", "qty": 6, "rating": 2 },
      { "_id": 4, "name": "avocados", "qty": 3, "rating": 5 },
 
-In the following query, pass the projection to only return the ``name``
+In the following query, pass the projection to return the ``name``
 field of each document:
 
 .. code-block:: java
+   :emphasize-lines: 3
 
    // return all documents with only* the name field
-   collection.find(Filters.empty())
-       .projection(Projections.fields(Projections.include("name")))
-       .forEach(doc -> System.out.println(doc));
-
+   Bson filter = Filters.empty();
+   Bson projection = Projections.fields(Projections.include("name"));
+   collection.find(filter).projection(projection).forEach(doc -> System.out.println(doc));
 
 The projection document specifies that the read operation result should
 *include* the ``name`` field of each returned document. As a result, this
 projection implicitly excludes the ``qty`` and ``rating`` fields. Chaining
-this projection to ``find()`` with an empty query document and no sort
-document yields the following results:
+this projection to ``find()`` with an empty query document yields the
+following results:
 
 .. code-block:: json
 
@@ -89,13 +89,13 @@ document yields the following results:
 Despite the fact that this projection only explicitly included the
 ``name`` field, the query returned the ``_id`` field as well.
 
-This happens because the ``_id`` field is a special case: it is always
-included in every query unless explicitly excluded. That's because
-the ``_id`` field is a unique identifier for each document, a property
-that can be useful when constructing queries.
+The ``_id`` field is a special case: it is always included in every query
+return unless explicitly excluded. That's because the ``_id`` field is a
+unique identifier for each document, a property that can be useful when
+constructing queries.
 
 A ``movies`` collection is a good example of why this property is useful:
-because remakes and even separate works can sometimes reuse movie titles,
+because remakes and even separate works sometimes reuse movie titles,
 you need a unique ``_id`` value to refer to any specific movie.
 
 The ``_id`` is the only exception to the mutually exclusive include-exclude
@@ -104,18 +104,18 @@ even when explicitly including other fields if you do not want ``_id``
 to be present in returned documents.
 
 .. code-block:: java
+   :emphasize-lines: 3
 
-   // return all documents with only* the name field
-   collection.find(Filters.empty())
-       .projection(Projections.fields(Projections.include("name"), Projections.excludeId()))
-       .forEach(doc -> System.out.println(doc));
+   // return all documents with only the name field
+   Bson filter = Filters.empty();
+   Bson projection = Projections.fields(Projections.include("name"), Projections.excludeId());
+   collection.find(filter).projection(projection).forEach(doc -> System.out.println(doc));
 
 The projection document specifies that the read operation result should
 *include* the ``name`` field of each returned document, and specifies to
 *exclude* the ``_id`` field. As a result, this projection implicitly
 excludes the ``qty`` and ``rating`` fields. Chaining this projection to
-``find()`` with an empty query document and no sort document yields
-the following results:
+``find()`` with an empty query document yields the following results:
 
 .. code-block:: javascript
 
@@ -132,12 +132,11 @@ You can also specify multiple fields to include in your projection.
    alter the order in which they are returned.
 
 .. code-block:: java
+   :emphasize-lines: 3
 
-   // return all documents with only* the name field
-   collection.find(Filters.empty())
-       .projection(Projections.fields(Projections.include("name", "rating"), Projections.excludeId()))
-       .forEach(doc -> System.out.println(doc));
-
+   Bson filter = Filters.empty();
+   Bson projection = Projections.fields(Projections.include("name", "rating"), Projections.excludeId());
+   collection.find(filter).projection(projection).forEach(doc -> System.out.println(doc));
 
 This example that identifies two fields to include in the projection yields
 the following results:
