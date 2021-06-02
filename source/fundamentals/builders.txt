@@ -25,21 +25,36 @@ builder classes provide.
 Overview
 --------
 
-The Java driver provides classes to make it easier to use CRUD operations and the Aggregation API. The static utility methods
-allow you to build a query more succinctly.
+The Java driver provides classes to make it easier to use CRUD
+operations and the Aggregation API. The static utility methods 
+allow you to build a query more efficiently.
 
+Example
+-------
 
-Imagine we want to send a marketing email to all users in our users collection that identify as "female" gender and are older than "29".
+Imagine we want to send a marketing email to all users in our ``users``
+collection with the following criteria:
+
+- Users that identify as "female" gender 
+- Users are older than "29"
+
 We only need their email address, so we'll ensure our query doesn't return data we pay bandwidth
 costs for but don't need.
 
-Using JSON and the MongoDB shell, the query would look something like:
+Using the MongoDB Shell
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The following query shows how to perform our criteria using JSON and the MongoDB shell:
 
 .. code-block:: js
 
    collection.find({ "gender": "female", "age" : { "$gt": 29 }}, { "_id": 0, "email": 1 })
 
-Without builders, we construct the query in Java as:
+Without Using Builders
+~~~~~~~~~~~~~~~~~~~~~~
+
+The following query shoes how to perform our criteria in Java without
+using builders:
 
 .. code-block:: java
 
@@ -47,7 +62,11 @@ Without builders, we construct the query in Java as:
    Bson projection = new Document().append("_id", 0).append("email", 1);
    collection.find(filter).projection(projection);
 
-With builders, the query becomes:
+Using Builders
+~~~~~~~~~~~~~~
+
+The following query shoes how to perform our criteria in Java using
+builders:
 
 .. code-block:: java
 
@@ -58,6 +77,26 @@ With builders, the query becomes:
    Bson filter = and(eq("gender", "female"), gt("age", 29));
    Bson projection = fields(excludeId(), include("email"));
    collection.find(filter).projection(projection);
+
+Why Use Builders?
+-----------------
+
+Using the builders class, you leverage the power of:
+
+- The IDE to do discovery and code completion
+- The Java compiler and the IDE to find errors during development
+
+The builder classes simplify the process for Java developers to use the
+CRUD API without having to refer to MongoDB reference documentation.
+While coding, they can look at a Java API that is already loaded into
+their IDE.
+
+Furthermore, the IDE catches errors early on. A common error we face is
+misspelling method names. When using the MongoDB shell or plain Java,
+you get no visual indication of a problem and will only find it if you
+run the code. But with the builder class, the IDE will underline and
+give you a red bar on the right telling you something is wrong.
+
 
 Available Builders
 ------------------
