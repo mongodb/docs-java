@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.ExplainVerbosity;
 import com.mongodb.client.*;
 
 import org.bson.conversions.Bson;
@@ -38,6 +39,9 @@ public class Cursor {
         System.out.println("First Example");
         c.firstExample();
 
+        System.out.println("Explain Example");
+        c.explainExample();
+
         System.out.println("Into Example");
         c.intoExample();
 
@@ -63,6 +67,13 @@ public class Cursor {
         FindIterable<Document> iterable = collection.find();
         System.out.println(iterable.first());
         // end firstExample
+    }
+
+    private void explainExample(){
+        // begin explainExample
+        FindIterable<Document> iterable = collection.find();
+        iterable.explain(ExplainVerbosity.EXECUTION_STATS).values().forEach(doc -> System.out.println(doc));
+        // end explainExample
     }
 
     private void intoExample(){
