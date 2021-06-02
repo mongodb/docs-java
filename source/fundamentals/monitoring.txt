@@ -351,6 +351,16 @@ This example shows how you can monitor the driver's connection pools using JMX
 and **JConsole**. JConsole is a JMX compliant GUI monitoring tool that comes with
 the Java Platform.
 
+.. note:: Consult the Official JMX and JConsole Documentation
+
+   The descriptions of JMX and JConsole in this example are illustrative
+   rather than a source of truth. For guaranteed up to date information, consult
+   the following official Oracle resources:
+
+   - `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__. 
+   - `JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__
+
+
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
 ``MongoClient`` instance. The code then starts a JMX connector server exposing
 the platform MBean server on port 9999 for JConsole to connect to.
@@ -376,12 +386,6 @@ following command:
 .. code-block:: shell
    
    jconsole
-
-.. note:: Consult the Official JConsole Documentation
-
-   The descriptions of the JConsole GUI on this page are illustrative
-   rather than a source of truth. For guaranteed up to date information, consult 
-   `the official JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__. 
 
 Once JConsole is open, perform the following actions in the GUI:
 
