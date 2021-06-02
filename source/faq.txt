@@ -31,7 +31,7 @@ New applications should generally use the
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create instances of this interface via factory methods defined in the ``com.mongodb.client.MongoClients`` class. 
 - CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``
 
-You should use ``com.mongodb.MongoClient`` class if you require support for the legacy API, which includes:
+You should use ``com.mongodb.MongoClient`` class if you require support for the legacy API, which supports:
 
 - Configuration with ``MongoClientOptions`` and ``MongoClientURI``
 - CRUD API using ``DB``, and from there, ``DBCollection``.  You can access this API via the ``getDB()`` method.
