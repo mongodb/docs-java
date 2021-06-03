@@ -24,13 +24,13 @@ Sample Documents
 ~~~~~~~~~~~~~~~~
 
 In the following sections, you run text searches on the
-``fast_and_furious_movies`` collection. Each section uses "collection"
+``fast_and_furious_movies`` collection. Each section uses ``collection``
 to refer to the ``MongoCollection`` instance of the
 ``fast_and_furious_movies`` collection. 
 
-This collection contains documents that represent one of the several
-movies that are part of the Fast and Furious movie franchise and tags
-they are mostly associated with:
+This collection contains the following documents that represent one of
+the several movies that are part of the Fast and Furious movie franchise
+and tags they are mostly associated with:
 
 .. code-block:: json
 
@@ -47,10 +47,9 @@ index specifies the string or string array field for the query to run a
 text search on. A collection can only contain one text index.
 
 In the following examples, you run text searches on the ``title``
-field in the ``fast_and_furious_movies`` collection. 
-
-To enable text searches on the ``title`` field, create a text index
-using the :ref:`Indexes <index-text-indexes>` builder with the following
+field in the ``fast_and_furious_movies`` collection. To enable text
+searches on the ``title`` field, create a text index using the
+:ref:`Indexes <index-text-indexes>` builder with the following 
 snippet: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
@@ -134,8 +133,8 @@ For more information, see the following API documentation:
 Search Text by a Term
 ~~~~~~~~~~~~~~~~~~~~~
 
-Pass the term as a string to the ``Filters.text()`` method to search for
-a term in your text search. 
+Pass the term as a string to the ``Filters.text()`` method to specify a
+term in your text search. 
 
 If you want to match multiple terms in your text index, separate your
 terms with spaces. When you pass the ``Filters.text()`` method to the
@@ -167,7 +166,7 @@ Search Text by a Phrase
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Pass the phrase with escaped quotes to the ``Filters.text()`` method to
-search for a phrase in your text search. If you don't add escaped quotes,
+specify a phrase in your text search. If you don't add escaped quotes,
 the method runs a :ref:`term search <term_search>`. 
 
 Example 
@@ -194,7 +193,7 @@ Search Text with Terms Excluded
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Pass a term prefixed with a minus sign ``-`` to the ``Filters.text()``
-method for each term you want to exclude in your text search. 
+method to specify each term you want to exclude in your text search. 
 
 Example 
 ```````
