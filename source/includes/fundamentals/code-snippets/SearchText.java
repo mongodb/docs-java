@@ -70,7 +70,7 @@ public class SearchText {
 
     private void scoreExample(){
         // begin scoreExample
-        Bson filter = Filters.text("\"Fast\"");
+        Bson filter = Filters.text("Fast");
         Bson projection = Projections.metaTextScore("score");
         Bson sort = Sorts.metaTextScore("score");
         
