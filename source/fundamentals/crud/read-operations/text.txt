@@ -24,10 +24,13 @@ Sample Documents
 ~~~~~~~~~~~~~~~~
 
 In the following sections, you run text searches on the
-``fast_and_furious_movies`` collection. This collection contains 
-documents that represent one of the several movies that are part of
-the Fast and Furious movie franchise and tags they are mostly
-associated with. 
+``fast_and_furious_movies`` collection. Each section uses "collection"
+to refer to the ``MongoCollection`` instance of the
+``fast_and_furious_movies`` collection. 
+
+This collection contains documents that represent one of the several
+movies that are part of the Fast and Furious movie franchise and tags
+they are mostly associated with:
 
 .. code-block:: json
 
@@ -41,15 +44,13 @@ Text Index
 
 You must create a **text index** before running a text search. A text
 index specifies the string or string array field for the query to run a
-text search. A collection can only contain one text index.
+text search on. A collection can only contain one text index.
 
 In the following examples, you run text searches on the ``title``
-field in the ``fast_and_furious_movies`` collection.  Each example uses
-"collection" to refer to the ``MongoCollection`` instance of the
-``fast_and_furious_movies`` collection. 
+field in the ``fast_and_furious_movies`` collection. 
 
 To enable text searches on the ``title`` field, create a text index
-using the :ref:`Indexes <index-text-indexes>` builder the following
+using the :ref:`Indexes <index-text-indexes>` builder with the following
 snippet: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
@@ -60,7 +61,7 @@ snippet:
 
 .. note::
 
-   If you wanted to run text searches on both the ``title`` and
+   If you want to run text searches on both the ``title`` and
    ``tags`` field in the ``fast_and_furious_movies`` collection, you
    need to create an text index to include them.
 
@@ -78,6 +79,9 @@ snippet:
    compound index is a single index that holds references to multiple
    fields within a collection's documents. This allows you to specify
    multiple text fields using one text index.
+
+   To enable text searches on the ``title`` and ``tag`` fields, create a
+   compound index using the following snippet:  
 
    .. code-block:: java
 
@@ -189,8 +193,8 @@ The following shows the output of the preceding code:
 Search Text with Terms Excluded
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass terms prefixed with a minus sign ``-`` to the ``Filters.text()``
-method to search for each term to exclude in your text search. 
+Pass a term prefixed with a minus sign ``-`` to the ``Filters.text()``
+method for each term you want to exclude in your text search. 
 
 Example 
 ```````
@@ -218,10 +222,11 @@ The following shows the output of the preceding code:
 Sort by Relevance
 ~~~~~~~~~~~~~~~~~
 
-You can project the field in your text search to have a **text score**.
+You can project your text index to have a **text score**.
 A text score indicates how closely the result matches the search terms
-or phrase. The higher the score, the more close the result matches your
-text search. Often, you want to know which results are the most relevant.  
+or phrase. A higher score means the result matches your text search more
+closely. Often, you want to know which results are most relevant to 
+your text search.  
 
 To sort by relevance, use the ``Projections.metaTextScore()`` and
 ``Sorts.metaTextScore()`` method. 
@@ -229,9 +234,9 @@ To sort by relevance, use the ``Projections.metaTextScore()`` and
 The ``Projections.metaTextScore()`` method uses the 
 :doc:`Projections </fundamentals/builders/projections>` builder to
 create an instance of a :ref:`Bson <bson>` type. The instance is a
-projection document that specifies to compute the relevance to your
-search for each of the results and includes it in the document it
-returns. You pass the projection document to the ``projection()`` method
+projection document that specifies to compute the text score of your
+search for each of the results and includes the score in the document
+returned. You pass the projection document to the ``projection()`` method
 appended to your query. 
 
 The ``Sorts.metaTextScore()`` method uses the :doc:`Sorts
@@ -247,11 +252,11 @@ The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the term
 "Fast". 
 
-To view the results in order of relevance to the search, perform the
-following actions: 
+To view the results in order of relevance to the search term, perform
+the following actions: 
 
 - Project the text scores of the query results as the ``score`` field.
-- Sort the results by text score (most relevant match first).
+- Sort the results by text score (closest match first).
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -267,7 +272,7 @@ The following shows the output of the preceding code:
    { "_id": 2, "title": "Fast 5", "tags": ["bank robbery", "full team"], "score": 0.75 }
    { "_id": 1, "title": "2 Fast 2 Furious ", "tags": ["undercover", "drug dealer"], "score": 0.625 }
    
-The movie "Fast 5" is the most relevant to our search. Although both
+The movie "Fast 5" is the closest to our search. Although both
 documents contain what the search phrase we were looking for, MongoDB
 ranked them based on the string length of the ``title`` field. 
 
