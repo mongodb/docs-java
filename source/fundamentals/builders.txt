@@ -31,6 +31,26 @@ to use CRUD operations and the Aggregation API without having to refer
 to MongoDB reference documentation. The static utility methods allow you
 to build a query more efficiently. 
 
+Why Use Builders?
+-----------------
+
+Using the builders class, you leverage the power of:
+
+- The IDE to do discovery and code completion
+- The Java compiler and the IDE to find errors during development
+
+While coding, you can look at a Java API that is already loaded into
+their IDE. The IDE shows the available methods with their parameters and
+automatically completes with placeholders when you select which method
+you want to use. 
+
+Furthermore, the IDE and compiler catches errors early on. A common
+error is misspelling method names. When using the MongoDB shell or plain
+Java, these method names are strings, so you get no visual indication of
+a problem and only find it if you run the code. But with the builder
+class, the method names are methods, so the IDE underlines and gives you
+a red bar on the right telling you something is wrong. 
+
 Scenario
 --------
 
@@ -79,26 +99,6 @@ builders:
    Bson filter = and(eq("gender", "female"), gt("age", 29));
    Bson projection = fields(excludeId(), include("email"));
    collection.find(filter).projection(projection);
-
-Why Use Builders?
------------------
-
-Using the builders class, you leverage the power of:
-
-- The IDE to do discovery and code completion
-- The Java compiler and the IDE to find errors during development
-
-While coding, you can look at a Java API that is already loaded into
-their IDE. The IDE shows the available methods with their parameters and
-automatically completes with placeholders when you select which method
-you want to use. 
-
-Furthermore, the IDE and compiler catches errors early on. A common
-error is misspelling method names. When using the MongoDB shell or plain
-Java, these method names are strings, so you get no visual indication of
-a problem and only find it if you run the code. But with the builder
-class, the method names are methods, so the IDE underlines and gives you
-a red bar on the right telling you something is wrong. 
 
 Available Builders
 ------------------

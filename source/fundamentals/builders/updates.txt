@@ -15,9 +15,14 @@ Updates Builders
 Overview 
 --------
 
-This guide shows you how to specify **updates** using the Java Driver
-:doc:`builders </fundamentals/builders/>`. Update builders provide
-helper methods for the following types of updates:
+In this guide we show you how to use **builders** to specify
+**updates** for your queries.
+
+Builders are classes provided by the MongoDB Java driver that help you
+construct :ref:`Bson <bson>` objects. To learn more, see our :doc:`guide
+on builders </fundamentals/builders/>`. 
+
+Update builders provide helper methods for the following types of updates:
 
 - :ref:`Field Updates <field_updates>`
 - :ref:`Array Updates <array_updates>`
@@ -31,7 +36,7 @@ Some methods that expect updates are:
 
 The :java-core-api:`Updates <com/mongodb/client/model/Updates.html>`
 class provides static factory methods for all the MongoDB update
-operators. Each method returns an instance of the :ref:`Bson <bson>`
+operators. Each method returns an instance of the :java-docs:`Bson <apidocs/bson/org/bson/conversions/Bson.html>`
 type, which you can pass to any method that expects an update argument.
 
 .. tip::
