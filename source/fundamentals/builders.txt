@@ -27,8 +27,7 @@ Overview
 --------
 
 The Java driver provides classes to simplify the process for developers
-to use CRUD operations and the Aggregation API without having to refer
-to MongoDB reference documentation. The static utility methods allow you
+to use CRUD operations and the Aggregation API. The static utility methods allow you
 to build a query more efficiently. 
 
 Why Use Builders?
@@ -36,20 +35,19 @@ Why Use Builders?
 
 Using the builders class, you leverage the power of:
 
-- The IDE to do discovery and code completion
 - The Java compiler and the IDE to find errors during development
+- The IDE for discovery and code completion
 
-While coding, you can look at a Java API that is already loaded into
-their IDE. The IDE shows the available methods with their parameters and
-automatically completes with placeholders when you select which method
-you want to use. 
+The Java compiler and the IDE catches errors such as misspelled
+operators early on. When using the MongoDB shell or plain Java, you
+write operators as strings. You get no visual indication of a problem
+and only find it when you run the code. 
 
-Furthermore, the IDE and compiler catches errors early on. A common
-error is misspelling method names. When using the MongoDB shell or plain
-Java, these method names are strings, so you get no visual indication of
-a problem and only find it if you run the code. But with the builder
-class, the method names are methods, so the IDE underlines and gives you
-a red bar on the right telling you something is wrong. 
+But with the builder class, you write operators as methods. The IDE
+instantly underlines and gives you a red bar on the right indicating
+something is wrong. The IDE can also automatically complete your code
+with placeholder parameters when you select which method you want to
+use, which further reduces errors.
 
 Scenario
 --------
@@ -66,17 +64,12 @@ return data we pay bandwidth costs for but don't need.
 Using the MongoDB Shell
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The following query shows how to perform our criteria using JSON and the MongoDB shell:
-
 .. code-block:: js
 
    collection.find({ "gender": "female", "age" : { "$gt": 29 }}, { "_id": 0, "email": 1 })
 
 Without Using Builders
 ~~~~~~~~~~~~~~~~~~~~~~
-
-The following query shoes how to perform our criteria in Java without
-using builders:
 
 .. code-block:: java
 
@@ -86,9 +79,6 @@ using builders:
 
 Using Builders
 ~~~~~~~~~~~~~~
-
-The following query shoes how to perform our criteria in Java using
-builders:
 
 .. code-block:: java
 
