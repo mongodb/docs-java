@@ -7,6 +7,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.net.URL;
 
@@ -20,8 +21,9 @@ public class CurrentAPI {
         // start current-api-example
         MongoClient client = MongoClients.create(URI);
         MongoDatabase db = client.getDatabase(DATABASE);
-        MongoCollection col = db.getCollection(COLLECTION);
-        System.out.println(col.find().first().toString());
+        MongoCollection<Document> col = db.getCollection(COLLECTION);
+        Document doc = col.find().first();
+        System.out.println(doc.toJson());
         // end current-api-example
 
     }

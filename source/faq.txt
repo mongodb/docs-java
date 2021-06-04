@@ -43,11 +43,17 @@ For applications that require a mix of the new and legacy APIs, ``com.mongodb.Mo
 
 .. _faq-legacy-connection:
 
-How do I connect with the legacy API?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How do I connect to my MongoDB instance with the legacy API?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following example shows how to connect to a MongoDB instance with the
 legacy API and the current API.
+
+Imagine we are connecting to a collection that contains only this document:
+
+.. code-block:: json
+   
+   {"_id": 1, "val": 1}
 
 .. tabs::
 
@@ -68,6 +74,12 @@ legacy API and the current API.
          :dedent:
          :start-after: start current-api-example
          :end-before: end current-api-example
+   
+   The output of the above code snippet should look like this:
+
+   .. code-block:: json
+
+      {"_id": 1, "val": 1}
 
 
 POJOs
