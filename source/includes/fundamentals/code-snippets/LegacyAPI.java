@@ -10,8 +10,8 @@ public class LegacyAPI {
 
     public static void main(String[] args) {
         // start legacy-api-example
-        MongoClient mongoClient = new MongoClient(URI);
-        DB db = mongoClient.getDB(DATABASE);
+        MongoClient client = new MongoClient(URI);
+        DB db = client.getDB(DATABASE);
         DBCollection col = db.getCollection(COLLECTION);
         DBObject doc = col.find().one();
         System.out.println(doc.toString());
