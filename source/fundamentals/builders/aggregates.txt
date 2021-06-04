@@ -14,14 +14,20 @@ Aggregates Builders
 
 This guide provides an overview of the :java-core-api:`Aggregates </com/mongodb/client/model/Aggregates>`
 class which provides static factory methods that build :manual:`aggregation pipeline
-operators </reference/operator/aggregation/>`.
+stages </reference/operator/aggregation/>`.
 
 For a more thorough introduction to Aggregation, see our :ref:`Aggregation guide <java-aggregation>`.
 
 .. tip::
 
-   For brevity, you may choose to import the methods of the ``Aggregates`` class
-   statically:
+   For brevity, you may choose to import the methods of the following
+   classes statically to make your queries more succinct:
+
+   - ``Aggregates``
+   - ``Filters``
+   - ``Projections``
+   - ``Sorts``
+   - ``Accumulators``
 
    .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
       :start-after: begin static import
@@ -29,7 +35,18 @@ For a more thorough introduction to Aggregation, see our :ref:`Aggregation guide
       :language: java
       :dedent:
 
-   The examples on this page assume this static import.
+   The examples on this page assume these static imports, in addition to
+   statically importing the ``asList()`` method.
+
+Use these methods to construct pipeline stages and specify them in your
+aggregation as a list:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
+   :start-after: begin sampleAggregation
+   :end-before: end sampleAggregation
+   :language: java
+   :dedent:
+
 
 Match
 -----

@@ -77,12 +77,21 @@ public class AggBuilders {
         page.basicBucketAutoStage();
         page.bucketAutoOptionsStage();
         page.facetStage();
+        page.aggregationExample();
+    }
+
+    private void aggregationExample() {
+        // begin sampleAggregation
+        Bson matchStage = match(eq("some_field", "some_criteria"));
+        Bson sortByCountStage = sortByCount("some_field");
+        collection.aggregate(asList(matchStage, sortByCountStage)).forEach(doc -> System.out.println(doc));
+        // end sampleAggregation
     }
 
     private void facetStage() {
         // begin facet
         facet(new Facet("Screen Sizes",
-                bucketAuto("$attributes.screen_size", 5, new BucketAutoOptions().output(Accumulators.sum("count", 1)))),
+                bucketAuto("$attributes.screen_size", 5, new BucketAutoOptions().output(sum("count", 1)))),
                 new Facet("Manufacturer", sortByCount("$attributes.manufacturer"), limit(5)));
         // end facet
     }
@@ -102,8 +111,8 @@ public class AggBuilders {
 
     private void bucketOptionsStage() {
         // begin bucketOptions
-        bucket("$screenSize", asList(0, 24, 32, 50, 70), new BucketOptions().defaultBucket("monster")
-                .output(Accumulators.sum("count", 1), Accumulators.push("matches", "$screenSize")));
+        bucket("$screenSize", asList(0, 24, 32, 50, 70),
+                new BucketOptions().defaultBucket("monster").output(sum("count", 1), push("matches", "$screenSize")));
         // end bucketOptions
     }
 
@@ -198,8 +207,7 @@ public class AggBuilders {
 
     private void groupStage() {
         // begin group
-        group("$customerId", Accumulators.sum("totalQuantity", "$quantity"),
-                Accumulators.avg("averageQuantity", "$quantity"));
+        group("$customerId", sum("totalQuantity", "$quantity"), avg("averageQuantity", "$quantity"));
         // end group
     }
 
@@ -224,14 +232,14 @@ public class AggBuilders {
                 new Variable<>("order_qty", "$ordered"));
 
         List<Bson> pipeline = asList(
-                match(Filters.expr(new Document("$and",
+                match(expr(new Document("$and",
                         asList(new Document("$eq", asList("$$order_item", "$stock_item")),
                                 new Document("$gte", asList("$instock", "$$order_qty")))))),
-                project(Projections.fields(Projections.exclude("stock_item"), Projections.excludeId())));
+                project(fields(exclude("stock_item"), excludeId())));
 
-        MongoCursor<Document> cursor = collection
-                .aggregate(asList(lookup("warehouses", variables, pipeline, "stockdata"))).cursor();
+        List<Bson> innerJoinLookup = lookup("warehouses", variables, pipeline, "stockdata");
         // end advanced lookup
+        MongoCursor<Document> cursor = collection.aggregate(asList(advancedLookup)).cursor();
         cursor.forEachRemaining(doc -> System.out.println(doc.toJson()));
         database = mongoClient.getDatabase("sample_mflix");
         collection = database.getCollection("movies");
@@ -269,19 +277,19 @@ public class AggBuilders {
 
     private void projectComputed() {
         // begin computed
-        project(Projections.fields(Projections.computed("rating", "$rated"), Projections.excludeId()));
+        project(fields(computed("rating", "$rated"), excludeId()));
         // end computed
     }
 
     private void projectStage() {
         // begin project
-        project(Projections.fields(Projections.include("title", "plot"), Projections.excludeId()));
+        project(fields(include("title", "plot"), excludeId()));
         // end project
     }
 
     private void matchStage() {
         // begin match
-        match(Filters.eq("title", "The Shawshank Redemption"));
+        match(eq("title", "The Shawshank Redemption"));
         // end match
     }
 }
