@@ -41,7 +41,7 @@ vice versa.
 .. important::
 
    The ``_id`` field is **not** subject to these mechanics. You must
-   explicitly exlude the ``_id`` field if you do not want it returned.
+   explicitly exclude the ``_id`` field if you do not want it returned.
    You can exclude the ``_id`` field even if you have specified certain
    fields to include.
 
@@ -64,7 +64,7 @@ field of each document:
 .. code-block:: java
    :emphasize-lines: 3
 
-   // return all documents with only* the name field
+   // return all documents with *only* the name field
    Bson filter = Filters.empty();
    Bson projection = Projections.fields(Projections.include("name"));
    collection.find(filter).projection(projection).forEach(doc -> System.out.println(doc));
@@ -86,7 +86,7 @@ Despite the fact that this projection only explicitly included the
 ``name`` field, the query returned the ``_id`` field as well.
 
 The ``_id`` field is a special case: it is always included in every query
-return unless explicitly excluded. That's because the ``_id`` field is a
+result unless explicitly excluded. That's because the ``_id`` field is a
 unique identifier for each document, a property that can be useful when
 constructing queries.
 
