@@ -185,7 +185,7 @@ Explain Aggregation Example
 To explain the execution plan of the operation, append the
 :java-docs:`explain()
 <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
-method with a verbosity level to the ``aggregates()`` method.
+method containing a verbosity level to the ``aggregates()`` method.
 
 The following table shows the verbosity levels you can give an
 operation, what they do, and what their intended use case is:
@@ -193,6 +193,7 @@ operation, what they do, and what their intended use case is:
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
+   :widths: 40 30 30
 
    * - Verbosity Level
      - Description
@@ -224,10 +225,26 @@ The above aggregation should produce the following result:
 .. code-block:: none
    :copyable: false
 
-   [Document{{$cursor=Document{{queryPlanner=Document{{plannerVersion=1, namespace=5ffcf1e14df44c38543cf151_test.restaurants, indexFilterSet=false, parsedQuery=Document{{categories=Document{{$eq=Bakery}}}}, queryHash=5FCC69F9, planCacheKey=5FCC69F9, winningPlan=Document{{stage=PROJECTION_SIMPLE, transformBy=Document{{stars=1, _id=0}}, inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, direction=forward}}}}, rejectedPlans=[]}}, executionStats=Document{{executionSuccess=true, nReturned=3, executionTimeMillis=0, totalKeysExamined=0, totalDocsExamined=10, executionStages=Document{{stage=PROJECTION_SIMPLE, nReturned=3, executionTimeMillisEstimate=0, works=12, advanced=3, needTime=8, needYield=0, saveState=1, restoreState=1, isEOF=1, transformBy=Document{{stars=1, _id=0}}, inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, nReturned=3, executionTimeMillisEstimate=0, works=12, advanced=3, needTime=8, needYield=0, saveState=1, restoreState=1, isEOF=1, direction=forward, docsExamined=10}}}}}}}}, nReturned=3, executionTimeMillisEstimate=0}}, Document{{$group=Document{{_id=$stars, count=Document{{$sum=Document{{$const=1}}}}}}, nReturned=2, executionTimeMillisEstimate=0}}]
-   Document{{host=driver-ref-shard-00-01.pw0q4.mongodb.net, port=27017, version=4.4.6, gitVersion=72e66213c2c3eab37d9358d5e78ad7f5c1d0d0d7}}
-   1.0
-   Document{{clusterTime=Timestamp{value=6970004044710412305, seconds=1622830528, inc=17}, signature=Document{{hash=org.bson.types.Binary@a131cd5a, keyId=6915265386602561540}}}}
+   [Document{{$cursor=Document{{queryPlanner=Document{{plannerVersion=1,
+   namespace=5ffcf1e14df44c38543cf151_test.restaurants, indexFilterSet=false, 
+   parsedQuery=Document{{categories=Document{{$eq=Bakery}}}}, queryHash=5FCC69F9, 
+   planCacheKey=5FCC69F9, winningPlan=Document{{stage=PROJECTION_SIMPLE, 
+   transformBy=Document{{stars=1, _id=0}}, inputStage=Document{{stage=COLLSCAN, 
+   filter=Document{{categories=Document{{$eq=Bakery}}}}, direction=forward}}}}, 
+   rejectedPlans=[]}}, executionStats=Document{{executionSuccess=true, nReturned=3, 
+   executionTimeMillis=0, totalKeysExamined=0, totalDocsExamined=10, 
+   executionStages=Document{{stage=PROJECTION_SIMPLE, nReturned=3, 
+   executionTimeMillisEstimate=0, works=12, advanced=3, needTime=8, needYield=0, 
+   saveState=1, restoreState=1, isEOF=1, transformBy=Document{{stars=1, _id=0}}, 
+   inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, 
+   nReturned=3, executionTimeMillisEstimate=0, works=12, advanced=3, needTime=8, needYield=0, 
+   saveState=1, restoreState=1, isEOF=1, direction=forward, docsExamined=10}}}}}}}}, 
+   nReturned=3, executionTimeMillisEstimate=0}},Document{{$group=Document{{_id=$stars, 
+   count=Document{{$sum=Document{{$const=1}}}}}}, nReturned=2, executionTimeMillisEstimate=0}}]
+   Document{{host=driver-ref-shard-00-01.pw0q4.mongodb.net, port=27017, version=4.4.6, 
+   gitVersion=72e66213c2c3eab37d9358d5e78ad7f5c1d0d0d7}} 1.0
+   Document{{clusterTime=Timestamp{value=6970004044710412305,seconds=1622830528, inc=17}, 
+   signature=Document{{hash=org.bson.types.Binary@a131cd5a, keyId=6915265386602561540}}}}
    Timestamp{value=6970004044710412305, seconds=1622830528, inc=17}
 
 Aggregation Expression Example
