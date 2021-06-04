@@ -27,10 +27,10 @@ public class LegacyAPI {
 
     private void example2() {
         // start legacy-api-mongoclientoptions-example
-        MongoClientOptions options = MongoClientOptions.builder()
-                .writeConcern(WriteConcern.W1)
-                .build();
-        MongoClient client = new MongoClient(URI, options);
+        MongoClientURI mongoURI = new MongoClientURI(URI,
+                MongoClientOptions.builder()
+                        .writeConcern(WriteConcern.W1));
+        MongoClient client = new MongoClient(mongoURI);
         // end legacy-api-mongoclientoptions-example
         client.close();
     }
