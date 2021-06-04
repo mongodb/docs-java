@@ -6,9 +6,15 @@ public class LegacyAPI {
 
     private static final String COLLECTION = "test";
     private static final String DATABASE = "test";
-    private static final ConnectionString URI = new ConnectionString(System.getenv("DRIVER_URL"));
+    private static final String URI = System.getenv("DRIVER_URL");
 
     public static void main(String[] args) {
+        LegacyAPI l = new LegacyAPI();
+        l.example1();
+        l.example2();
+    }
+
+    private void example1() {
         // start legacy-api-example
         MongoClient client = new MongoClient(URI);
         DB db = client.getDB(DATABASE);
@@ -16,6 +22,18 @@ public class LegacyAPI {
         DBObject doc = col.find().one();
         System.out.println(doc.toString());
         // end legacy-api-example
+        client.close();
     }
+
+    private void example2() {
+        // start legacy-api-mongoclientoptions-example
+        MongoClientOptions options = MongoClientOptions.builder()
+                .writeConcern(WriteConcern.W1)
+                .build();
+        MongoClient client = new MongoClient(URI, options);
+        // end legacy-api-mongoclientoptions-example
+        client.close();
+    }
+
 
 }
