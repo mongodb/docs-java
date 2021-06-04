@@ -41,6 +41,33 @@ For applications that require a mix of the new and legacy APIs, ``com.mongodb.Mo
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``, the only difference being that you create instances via constructors instead of a factory class.
 - CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``.  You can access this API via the ``getDatabase()`` method.
 
+How do I connect with the legacy API?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following example shows how to connect to a MongoDB instance with the
+legacy API and the current API.
+
+.. tabs::
+
+   .. tab:: Legacy API
+      :tabid: legacy
+
+      .. literalinclude:: /includes/fundamentals/code-snippets/LegacyAPI.java
+         :language: java
+         :dedent:
+         :start-after: start legacy-api-example
+         :end-before: end legacy-api-example
+
+   .. tab:: Current API
+      :tabid: current
+
+      .. literalinclude:: /includes/fundamentals/code-snippets/CurrentAPI.java
+         :language: java
+         :dedent:
+         :start-after: start current-api-example
+         :end-before: end current-api-example
+
+
 POJOs
 -----
 
