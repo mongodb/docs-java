@@ -41,7 +41,7 @@ public class CurrentAPI {
                 .applyConnectionString(new ConnectionString(URI))
                 .writeConcern(WriteConcern.W1).build();
         MongoClient client = MongoClients.create(options);
-        // end legacy-api-mongoclientsettings-example
+        // end current-api-mongoclientsettings-example
         client.close();
     }
 
