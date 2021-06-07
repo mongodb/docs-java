@@ -89,6 +89,13 @@ To monitor command events, write a class that implements the
 For more information on MongoDB database commands, see the
 :manual:`MongoDB manual entry on database commands </reference/command/>`.
 
+.. note:: Internal Commands
+
+   The driver does not publish events for commands it calls internally. This
+   includes database commands the driver uses to monitor your cluster and
+   commands related to connection establishment (such as the initial ``hello``
+   command). 
+
 .. note:: Redacted Output
 
    As a security measure, the driver redacts the contents of some command events. This
