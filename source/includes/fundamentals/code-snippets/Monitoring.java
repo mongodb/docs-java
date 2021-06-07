@@ -1,5 +1,8 @@
 package com.mycompany.app;
 
+
+import java.util.HashMap;
+
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ReadPreference;
@@ -10,6 +13,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.event.*;
 import org.bson.Document;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class Monitoring {
@@ -33,14 +37,14 @@ public class Monitoring {
         MongoClientSettings settings =
                 MongoClientSettings.builder()
                         .applyConnectionString(URI)
-                        .addCommandListener(new CommandTimer())
+                        .addCommandListener(new CommandCounter())
                         .build();
         MongoClient mongoClient = MongoClients.create(settings);
         MongoDatabase database = mongoClient.getDatabase(DATABASE);
         MongoCollection<Document> collection = database.getCollection(COLLECTION);
         // Run some commands to test the timer
         collection.find().first();
-        collection.countDocuments();
+        collection.find().first();
         mongoClient.close();
         // end monitor-command-example
     }
@@ -86,27 +90,16 @@ public class Monitoring {
 }
 
 // start command-listener-impl
-class CommandTimer implements CommandListener {
+class CommandCounter implements CommandListener {
 
-    private long startTime;
-    private long endTime;
-
-    @Override
-    public void commandStarted(final CommandStartedEvent event) {
-        this.startTime = System.nanoTime();
-    }
+    private Map<String, Integer> commands = new HashMap<String, Integer>();
 
     @Override
     public void commandSucceeded(final CommandSucceededEvent event) {
-        TimeUnit currentTimeUnit = TimeUnit.MILLISECONDS;
-        this.endTime = System.nanoTime();
-        long duration = currentTimeUnit.convert(
-                (this.endTime - this.startTime),
-                TimeUnit.NANOSECONDS);
-        System.out.println(String.format("Command '%s' took %d %s",
-                event.getCommandName(),
-                duration,
-                currentTimeUnit.toString().toLowerCase()));
+        String commandName = event.getCommandName();
+        int count = commands.containsKey(commandName) ? commands.get(commandName) : 0;
+        commands.put(commandName, count + 1);
+        System.out.println(commands.toString());
     }
 
     @Override

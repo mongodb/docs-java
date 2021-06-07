@@ -100,17 +100,17 @@ For more information on MongoDB database commands, see the
 Example
 ^^^^^^^
 
-This example shows how to make a timer for database commands. The timer makes it so
-that every time the driver executes a command on your MongoDB instance
-you see a message letting you know how long it took to execute the command.
+This example shows how to make a counter for database commands. The counter
+keeps track of the number of times the driver successfully executes each database
+command, and prints this information every time a database command finishes.
 
-To make a timer, do the following:
+To make a counter, do the following:
 
-#. Make a class with timer functionality that implements the ``CommandListener`` interface.
+#. Make a class with counter functionality that implements the ``CommandListener`` interface.
 #. Add an instance of the new class that implements ``CommandListener`` to a ``MongoClientSettings`` object.
 #. Configure a ``MongoClient`` instance with the ``MongoClientSettings`` object.
 
-The following code defines the ``CommandTimer`` class which implements the
+The following code defines the ``CommandCounter`` class which implements the
 ``CommandListener`` interface:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
@@ -119,10 +119,10 @@ The following code defines the ``CommandTimer`` class which implements the
    :start-after: start command-listener-impl
    :end-before: end command-listener-impl
 
-The following code adds an instance of the ``CommandTimer`` class to a
+The following code adds an instance of the ``CommandCounter`` class to a
 ``MongoClientSettings`` object, and configures a ``MongoClient`` instance with the
 ``MongoClientSettings`` object. The code then runs some database commands to test the
-timer.
+counter.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
@@ -135,9 +135,9 @@ The above code snippet should produce output that looks like this:
 .. code-block:: none
    :copyable: false
 
-   Command 'find' took 19 milliseconds
-   Command 'aggregate' took 15 milliseconds
-   Command 'endSessions' took 14 milliseconds
+   {find=1}
+   {find=2}
+   {find=2, endSessions=1}
 
 For more information on the classes and methods mentioned in this section, see
 the following API documentation:
