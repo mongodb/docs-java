@@ -78,7 +78,9 @@ public class Monitoring {
         // Run a command to trigger connection pool events
         collection.find().first();
         // end monitor-cp-example
-        mongoClient.close();
+        /* We do not close this connection in order to prevent the driver from requesting two connections, giving
+        the example unintuitive output. Uncomment the following line of code and see how it effects this example*/
+        //mongoClient.close();
     }
 
 }
@@ -121,7 +123,7 @@ class IsReadAndWrite implements ClusterListener {
 
     private boolean isWritable;
     private boolean isReadable;
-    
+
     @Override
     public void clusterDescriptionChanged(final ClusterDescriptionChangedEvent event) {
         if (!isWritable) {
