@@ -36,7 +36,7 @@ In this guide you will learn how to perform these tasks:
 - :ref:`Monitor connection pool events with Java Management Extensions (JMX) and JConsole <monitoring-jmx>`
 
 This guide shows how to use information about the activity of the driver in code.
-If you would like to learn how to record events the driver performs,
+If you would like to learn how to record events in the driver,
 consider reading our :doc:`guide on logging </fundamentals/logging>`.
 
 .. _monitoring-monitor-events:
@@ -67,9 +67,6 @@ The following sections show how to monitor each event category.
 
 For a full list of the events you can monitor,
 :java-docs:`see the event package of the MongoDB Java Driver <apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`.
-
-For more information on the classes and interfaces mentioned in this section,
-see the following API documentation:
 
 Command Events
 ~~~~~~~~~~~~~~
@@ -329,11 +326,11 @@ All MXBean instances created by the driver are under the domain
 ``"org.mongodb.driver"``.
 
 For more information on the topics discussed in this subsection, see the
-following resources:
+following resources from Oracle:
 
-- `Oracle Platform MBean Server Reference Documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
-- `Oracle MXBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
-- `Oracle MBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/standard.html>`__
+- `Platform MBean Server Reference Documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
+- `MXBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
+- `MBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/standard.html>`__
 
 JMX and JConsole Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -352,8 +349,8 @@ the Java Platform.
    - `JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
-``MongoClient`` instance. The code then starts a JMX connector server exposing
-the platform MBean server on port 9999 for JConsole to connect to.
+``MongoClient`` instance. The code then pauses execution so you can
+navigate to JConsole and inspect your connection pools. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/JMXMonitoring.java
    :language: java
@@ -386,8 +383,7 @@ When you no longer want to inspect your connection pools in JConsole, do the
 following: 
 
 - Exit JConsole by closing the JConsole window
-- Disable the JMX connector server by pressing :kbd:`Enter` in the shell used
-  to run the above code snippet
+- Stop the Java program running the above code snippet
 
 For more information on JMX and JConsole, see the following resources from
 Oracle:
