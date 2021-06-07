@@ -14,7 +14,6 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
-import com.mongodb.client.model.TextSearchOptions;
 
 public class SearchText {
     
@@ -34,24 +33,31 @@ public class SearchText {
         SearchText searchText = new SearchText();
 
         searchText.setupCoursesCollection();
-        System.out.println("Matches for 'Fast'");
-        searchText.caseSensitiveExample();
+        // System.out.println("Matches for 'Fast'");
+        // searchText.termExample();
+
+        // System.out.println("Matches for 'Fate 7'");
+        // searchText.multipleTermExample();
 
         System.out.println("Matches for 'Furious' without 'Fast'");
         searchText.negateExample();
 
-        System.out.println("Matches for 'Fate of the Furious'");
-        searchText.phraseExample();
-
-        System.out.println("Scores for 'Fast'");
-        searchText.scoreExample();
+        // System.out.println("Matches for 'Fate of the Furious'");
+        // searchText.phraseExample();
     }
 
-    private void caseSensitiveExample(){
-        // begin caseSensitiveExample
+    private void termExample(){
+        // begin termExample
         Bson filter = Filters.text("Fast");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
-        // end caseSensitiveExample
+        // end termExample
+    }
+
+    private void multipleTermExample(){
+        // begin multipleTermExample
+        Bson filter = Filters.text("Fate 7");
+        collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
+        // end multipleTermExample
     }
     
     private void negateExample(){
@@ -66,17 +72,6 @@ public class SearchText {
         Bson filter = Filters.text("\"Fate of the Furious\"");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end phraseExample
-    }
-
-    private void scoreExample(){
-        // begin scoreExample
-        Bson filter = Filters.text("Fast");
-        Bson projection = Projections.metaTextScore("score");
-        Bson sort = Sorts.metaTextScore("score");
-        
-        collection.find(filter).projection(projection).sort(sort)
-                                .forEach(doc -> System.out.println(doc.toJson()));
-        // end scoreExample
     }
 
     private void setupCoursesCollection() {

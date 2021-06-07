@@ -16,21 +16,33 @@ Overview
 In this guide, you will learn how to run a **text search** in MongoDB.
 
 In MongoDB, you can use a text search to retrieve documents that
-contain a term or a phrase in a specified field. A term is a sequence of
-characters that excludes whitespace characters. A phrase is a sequence
-of terms that with any number of whitespace characters.
+contain a **term** or a **phrase** in a specified field. 
+
+A term is a sequence of characters that excludes whitespace characters.
+A phrase is a sequence of terms that with any number of whitespace
+characters. 
+
+The following sections show you how to perform the following types of
+text searches:
+
+- Search Text by a Term
+- Search Text by a Phrase
+- Search Text with Terms Excluded
+
+If you want to sort by relevance, see our :doc:`Sorts
+<sorts-crud-text-search>` page.
 
 Sample Documents
 ~~~~~~~~~~~~~~~~
 
-In the following sections, you run text searches on the
-``fast_and_furious_movies`` collection. Each section uses ``collection``
-to refer to the ``MongoCollection`` instance of the
+The following sections feature examples that run text searches on the
+``fast_and_furious_movies`` collection. Each section uses a variable
+named "collection" to refer to the ``MongoCollection`` instance of the
 ``fast_and_furious_movies`` collection. 
 
-This collection contains the following documents that represent one of
-the several movies that are part of the Fast and Furious movie franchise
-and tags they are mostly associated with:
+The collection contains documents with the title and tags associated
+with one of the several movies that are part of the Fast and Furious
+movie franchise: 
 
 .. code-block:: json
 
@@ -43,8 +55,8 @@ Text Index
 ----------
 
 You must create a **text index** before running a text search. A text
-index specifies the string or string array field for the query to run a
-text search on. A collection can only contain one text index.
+index specifies the string or string array field on which to run a text
+search. A collection can only contain one text index.
 
 In the following examples, you run text searches on the ``title``
 field in the ``fast_and_furious_movies`` collection. To enable text
@@ -58,33 +70,38 @@ snippet:
    :start-after: begin textIndex
    :end-before: end textIndex
 
+Multiple Indexes
+~~~~~~~~~~~~~~~~
+
+If you want to run text searches on both the ``title`` and
+``tags`` field in the ``fast_and_furious_movies`` collection, you
+need to create an text index to include them.
+
+You can create a :ref:`compound index <index-compound-indexes>`. A
+compound index is a single index that refers to multiple
+fields within a collection's documents. This allows you to specify
+multiple text fields using one text index.
+
+To enable text searches on the ``title`` and ``tag`` fields, create a
+compound index using the following snippet:  
+
+.. code-block:: java
+
+   collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("tags")));
+
 .. note::
 
-   If you want to run text searches on both the ``title`` and
-   ``tags`` field in the ``fast_and_furious_movies`` collection, you
-   need to create an text index to include them.
-
-   If you already have an existing text index, you need to drop the
-   index by specifying the existing text index field name with the
-   following snippet: 
+   If you have an existing text index on the collection, you need to drop
+   it. You can drop an index by calling the ``dropIndex()`` method,
+   specifying name of the text index as shown in the following snippet:
 
    .. code-block:: java
 
       collection.dropIndex("field_name");
    
-   If you want to delete all existing indexes except ``_id``, specify "*". 
-
-   Then, you can create a :ref:`compound index <index-compound-indexes>`. A
-   compound index is a single index that holds references to multiple
-   fields within a collection's documents. This allows you to specify
-   multiple text fields using one text index.
-
-   To enable text searches on the ``title`` and ``tag`` fields, create a
-   compound index using the following snippet:  
-
-   .. code-block:: java
-
-      collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("tags")));
+   If you want to delete all existing indexes, specify "*" instead of
+   the name. Note that this does not delete the required index on the
+   ``_id`` field. 
 
 Text Search
 -----------
@@ -96,17 +113,16 @@ The ``Filters.text()`` method uses the :doc:`Filters builder
 <bson>` type. The instance is a query filter that specifies how the text
 search should operate, which you pass to the ``find()`` method. 
 
-When the ``find()`` method executes, MongoDB runs a text search on the
-fields indexed with the text index on the collection. The text search
-returns documents that contain one or more of the search terms and a
-relevance score for each result. For more information on relevance
+When you execute the ``find()`` method, MongoDB runs a text search on
+the fields indexed with the text index on the collection. The text
+search returns documents that contain one or more of the search terms
+and a relevance score for each result. For more information on relevance
 scores, see the :ref:`Sort by Relevance <sort_by_relevance>` section. 
 
 You can include ``TextSearchOptions`` as the second parameter of the
 ``Filters.text()`` method to specify text search options such as case
 sensitivity. By default, text searches run without case sensitivity
-which means MongoDB matches documents regardless of whether the value is
-lowercase or uppercase. 
+which means the search matches lowercase and uppercase values.
 
 To specify a case sensitive search, use the following snippet:
 
@@ -114,14 +130,6 @@ To specify a case sensitive search, use the following snippet:
 
    TextSearchOptions options = new TextSearchOptions().caseSensitive(true);
    Bson filter = Filters.text("SomeText", options);
-
-The following sections show you how to perform the following types of
-text searches:
-
-- Search Text by a Term
-- Search Text by a Phrase
-- Search Text with Terms Excluded
-- Sort by Relevance
 
 For more information, see the following API documentation:
 
@@ -136,11 +144,6 @@ Search Text by a Term
 Pass the term as a string to the ``Filters.text()`` method to specify a
 term in your text search. 
 
-If you want to match multiple terms in your text index, separate your
-terms with spaces. When you pass the ``Filters.text()`` method to the
-``find()`` method, the text search performs a logical OR on each term
-and returns documents that contain any of the terms. 
-
 Example 
 ```````
 
@@ -151,8 +154,8 @@ term "Fast".
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
    :dedent:
-   :start-after: begin caseSensitiveExample
-   :end-before: end caseSensitiveExample
+   :start-after: begin termExample
+   :end-before: end termExample
 
 The following shows the output of the preceding code:
 
@@ -162,11 +165,34 @@ The following shows the output of the preceding code:
    { "_id": 1, "title": "2 Fast 2 Furious ", "tags": ["undercover", "drug dealer"] }
    { "_id": 2, "title": "Fast 5", "tags": ["bank robbery", "full team"] }
 
+If you want to match multiple terms in your text search, separate them
+with spaces in the ``Filters.text()`` builder method. When you pass the 
+text search query returned by the builder method to the
+``find()`` method, it returns documents that match any of the terms. 
+
+The following example runs a text search on the documents in the
+``fast_and_furious_movies`` collection for titles that contain the
+terms "Fate" or "7".
+
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
+   :language: java
+   :dedent:
+   :start-after: begin multipleTermExample
+   :end-before: end multipleTermExample
+
+The following shows the output of the preceding code:
+
+.. code-block:: json
+   :copyable: false
+
+   { "_id": 3, "title": "Furious 7", "tags": ["emotional"] }
+   { "_id": 4, "title": "The Fate of the Furious", "tags": ["betrayal"] }
+
 Search Text by a Phrase
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass the phrase with escaped quotes to the ``Filters.text()`` method to
-specify a phrase in your text search. If you don't add escaped quotes,
+Pass a phrase with escaped quotes to the ``Filters.text()`` method to
+specify the phrase in your text search. If you don't add escaped quotes,
 the method runs a :ref:`term search <term_search>`. 
 
 Example 
@@ -193,7 +219,10 @@ Search Text with Terms Excluded
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Pass a term prefixed with a minus sign ``-`` to the ``Filters.text()``
-method to specify each term you want to exclude in your text search. 
+method to specify each term you want to exclude in your text search.
+
+You must have at least one term to include to specify terms to exclude.
+If you have multiple text indexes, the search applies to all indexes.
 
 Example 
 ```````
@@ -216,69 +245,5 @@ The following shows the output of the preceding code:
    { "_id": 3, "title": "Furious 7", "tags": ["emotional"] }
    { "_id": 4, "title": "The Fate of the Furious", "tags": ["betrayal"] }
 
-.. _sort_by_relevance:
-
-Sort by Relevance
-~~~~~~~~~~~~~~~~~
-
-You can project your text index to have a **text score**.
-A text score indicates how closely the result matches the search terms
-or phrase. A higher score means the result matches your text search more
-closely. Often, you want to know which results are most relevant to 
-your text search.  
-
-To sort by relevance, use the ``Projections.metaTextScore()`` and
-``Sorts.metaTextScore()`` method. 
-
-The ``Projections.metaTextScore()`` method uses the 
-:doc:`Projections </fundamentals/builders/projections>` builder to
-create an instance of a :ref:`Bson <bson>` type. The instance is a
-projection document that specifies to compute the text score of your
-search for each of the results and includes the score in the document
-returned. You pass the projection document to the ``projection()`` method
-appended to your query. 
-
-The ``Sorts.metaTextScore()`` method uses the :doc:`Sorts
-</fundamentals/builders/sort>` builder to create an instance of a
-:ref:`Bson <bson>` type. The instance specifies a descending sort on 
-the text scores. By default, the method returns the results unsorted.
-You pass the instance to the ``sorts()`` method appended to your query. 
-
-Example 
-```````
-
-The following example runs a text search on the documents in the
-``fast_and_furious_movies`` collection for titles that contain the term
-"Fast". 
-
-To view the results in order of relevance to the search term, perform
-the following actions: 
-
-- Project the text scores of the query results as the ``score`` field.
-- Sort the results by text score (closest match first).
-
-.. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
-   :language: java
-   :dedent:
-   :start-after: begin scoreExample
-   :end-before: end scoreExample
-
-The following shows the output of the preceding code:
-
-.. code-block:: json
-   :copyable: false
-
-   { "_id": 2, "title": "Fast 5", "tags": ["bank robbery", "full team"], "score": 0.75 }
-   { "_id": 1, "title": "2 Fast 2 Furious ", "tags": ["undercover", "drug dealer"], "score": 0.625 }
-   
-The movie "Fast 5" is the closest to our search. Although both
-documents contain what the search phrase we were looking for, MongoDB
-ranked them based on the string length of the ``title`` field. 
-
-For more information, see the following documentation:
-
-- :manual:`Text Indexes </core/index-text/>` Server Manual Entry
-- :java-docs:`Projections.metaTextScore() <apidocs/mongodb-driver-core/com/mongodb/client/model/Projections.html#metaTextScore(java.lang.String)>` API documentation
-- :java-docs:`Sorts.metaTextScore() <apidocs/mongodb-driver-core/com/mongodb/client/model/Sorts.html#metaTextScore(java.lang.String)>` API documentation
-- :manual:`Text Score Metadata </reference/operator/aggregation/meta/#mongodb-expression-exp.-meta>` Server Manual Entry 
-- :manual:`Text Search Score </reference/operator/query/text/#return-the-text-search-score/>` Server Manual Entry 
+For more information, see the server manual entry on :manual:`Text
+Indexes </core/index-text/>`. 
