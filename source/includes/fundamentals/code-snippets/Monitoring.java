@@ -51,7 +51,7 @@ public class Monitoring {
 
     private void monitorClusterEvent() {
         // start monitor-cluster-example
-        IsReadAndWrite clusterListener = new IsReadAndWrite();
+        IsWriteable clusterListener = new IsWriteable();
         MongoClientSettings settings =
                 MongoClientSettings.builder()
                         .applyConnectionString(URI)
@@ -112,10 +112,9 @@ class CommandCounter implements CommandListener {
 // end command-listener-impl
 
 // start cluster-listener-impl
-class IsReadAndWrite implements ClusterListener {
+class IsWriteable implements ClusterListener {
 
     private boolean isWritable;
-    private boolean isReadable;
 
     @Override
     public void clusterDescriptionChanged(final ClusterDescriptionChangedEvent event) {
@@ -128,18 +127,6 @@ class IsReadAndWrite implements ClusterListener {
             if (!event.getNewDescription().hasWritableServer()) {
                 isWritable = false;
                 System.out.println("Unable to write to server");
-            }
-        }
-
-        if (!isReadable) {
-            if (event.getNewDescription().hasReadableServer(ReadPreference.primary())) {
-                isReadable = true;
-                System.out.println("Able to read from server");
-            }
-        } else {
-            if (!event.getNewDescription().hasReadableServer(ReadPreference.primary())) {
-                isReadable = false;
-                System.out.println("Unable to read from server");
             }
         }
     }

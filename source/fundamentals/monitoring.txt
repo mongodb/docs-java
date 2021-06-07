@@ -181,9 +181,9 @@ Example
 ^^^^^^^
 
 This example shows how to make a listener class that prints a message that lets
-you know if the driver can read and write to your MongoDB instance.
+you know if the driver can write to your MongoDB instance.
 
-The following code defines the ``IsReadAndWrite`` class which implements the
+The following code defines the ``IsWritable`` class which implements the
 ``ClusterListener`` interface.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
@@ -192,9 +192,9 @@ The following code defines the ``IsReadAndWrite`` class which implements the
    :start-after: start cluster-listener-impl
    :end-before: end cluster-listener-impl
 
-The following code adds an instance of the ``IsReadAndWrite`` class to a
+The following code adds an instance of the ``IsWritable`` class to a
 ``MongoClient`` object. The code then runs a find operation to test the
-``IsReadAndWrite`` class.
+``IsWritable`` class.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Monitoring.java
    :language: java
@@ -208,7 +208,6 @@ The above code snippet should produce output that looks like this:
    :copyable: false
 
    Able to write to server
-   Able to read from server
 
 For more information on the classes and methods mentioned in this section, see
 the following API documentation:
