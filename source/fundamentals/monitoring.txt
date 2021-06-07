@@ -50,13 +50,12 @@ instance.
 An event is any action that happens in a running program. The driver includes functionality
 for listening to a subset of the events that occur when the driver is running.
 
-A listener is a class that performs some action when certain events occur. All
-listener classes extend the ``EventListener`` interface. A listener's
-API defines the events it can respond to.
+A listener is a class that performs some action when certain events occur.
+A listener's API defines the events it can respond to.
 
 Each method of a listener class represents a response to a certain event. Each
 method receives one argument: an object representing the event the method
-responds to. All event objects are a subclass of the ``EventObject`` class.  
+responds to.
 
 The MongoDB Java driver organizes the events it defines into three categories:
 
@@ -71,9 +70,6 @@ For a full list of the events you can monitor,
 
 For more information on the classes and interfaces mentioned in this section,
 see the following API documentation:
-
-- `EventListener <https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/EventListener.html>`__
-- `EventObject <https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/EventObject.html>`__
 
 Command Events
 ~~~~~~~~~~~~~~
