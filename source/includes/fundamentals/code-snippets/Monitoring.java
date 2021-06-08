@@ -99,7 +99,7 @@ class CommandCounter implements CommandListener {
         String commandName = event.getCommandName();
         int count = commands.containsKey(commandName) ? commands.get(commandName) : 0;
         commands.put(commandName, count + 1);
-        System.out.println(new Document((Map) commands).toJson());
+        System.out.println(commands.toString());;
     }
 
     @Override
