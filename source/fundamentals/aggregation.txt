@@ -182,35 +182,14 @@ The above aggregation should produce the following results:
 Explain Aggregation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To explain the execution plan of the operation, append the :java-docs:`explain()
-<apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
-method containing a :java-core-api:`verbosity level <com/mongodb/ExplainVerbosity>` to the ``aggregates()`` method.
+To determine the **execution plan** of the operation, pass a
+verbosity level to the ``explain()`` method of the ``FindIterable``
+class. An execution plan analyzes the ways your query can execute and
+then describes the way your query chooses.  
 
-The following table shows the verbosity levels you can give an
-operation, what they do, and what their intended use case is:
+.. include:: /includes/fundamentals/explain-verbosity.rst
 
-.. list-table::
-   :header-rows: 1
-   :stub-columns: 1
-   :widths: 30 40 30
-
-   * - Verbosity Level
-     - Description
-     - Use Case
-
-   * - ALL_PLANS_EXECUTIONS
-     - Runs the query optimizer and chooses the winning plan, but then runs all generated plans to completion.
-     - Which plan will MongoDB choose to run my query?
-
-   * - EXECUTION_STATS
-     - Runs the query optimizer, and then runs the winning plan to completion.
-     - Is my query performing well?
-
-   * - QUERY_PLANNER
-     - Runs the query planner and chooses the winning plan, but does not actually execute it.
-     - I have a problem with this query, and I want as much information as possible to diagnose why it might be slow.
-
-In the following example, we have our previous example explain the
+In the following example, we use our previous example to determine the
 execution plan using ``EXECUTION_STATS``: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
@@ -231,7 +210,11 @@ The above aggregation should produce the following result:
    direction=forward}}}}, rejectedPlans=[]}}, executionStats=Document{{executionSuccess=true, 
    nReturned=3, executionTimeMillis=0, 
    ...
-   
+
+For more information, see the API documentation on the
+:java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
+method.
+
 Aggregation Expression Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

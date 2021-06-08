@@ -87,9 +87,8 @@ For more information on how to ensure a cursor closes, see the :ref:`cursor clea
 Explain
 ~~~~~~~
 
-Use the :java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
-method to explain the execution plan of the operation with the given
-:java-core-api:`verbosity level <com/mongodb/ExplainVerbosity>`: 
+Use the ``explain()`` method to determine the execution plan of the
+operation with the given verbosity level: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -97,29 +96,24 @@ method to explain the execution plan of the operation with the given
    :start-after: begin explainExample
    :end-before: end explainExample
 
-The following table shows the verbosity levels you can give an
-operation, what they do, and what their intended use case is:
+Your output should look something like the following:
 
-.. list-table::
-   :header-rows: 1
-   :stub-columns: 1
-   :widths: 30 40 30
+.. code-block:: none
+   :copyable: false
 
-   * - Verbosity Level
-     - Description
-     - Use Case
+   [Document{{$cursor=Document{{queryPlanner=Document{{plannerVersion=1,
+   ...
+   winningPlan=Document{{stage=PROJECTION_SIMPLE, transformBy=Document{{stars=1, _id=0}}, 
+   inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, 
+   direction=forward}}}}, rejectedPlans=[]}}, executionStats=Document{{executionSuccess=true, 
+   nReturned=3, executionTimeMillis=0, 
+   ...
 
-   * - ALL_PLANS_EXECUTIONS
-     - Runs the query optimizer and chooses the winning plan, but then runs all generated plans to completion.
-     - Which plan will MongoDB choose to run my query?
+.. include:: /includes/fundamentals/explain-verbosity.rst
 
-   * - EXECUTION_STATS
-     - Runs the query optimizer, and then runs the winning plan to completion.
-     - Is my query performing well?
-
-   * - QUERY_PLANNER
-     - Runs the query planner and chooses the winning plan, but does not actually execute it.
-     - I have a problem with this query, and I want as much information as possible to diagnose why it might be slow.
+For more information, see the API documentation on the
+:java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
+method.
 
 Usage Patterns
 --------------
