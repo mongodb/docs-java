@@ -114,10 +114,10 @@ class CommandCounter implements CommandListener {
 // start cluster-listener-impl
 class IsWriteable implements ClusterListener {
 
-    private volatile boolean isWritable;
+    private boolean isWritable;
 
     @Override
-    public void clusterDescriptionChanged(final ClusterDescriptionChangedEvent event) {
+    public synchronized void clusterDescriptionChanged(final ClusterDescriptionChangedEvent event) {
         if (!isWritable) {
             if (event.getNewDescription().hasWritableServer()) {
                 isWritable = true;
