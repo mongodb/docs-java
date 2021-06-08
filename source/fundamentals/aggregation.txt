@@ -182,8 +182,8 @@ The above aggregation should produce the following results:
 Explain Aggregation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To determine the **execution plan** of the operation, pass a
-verbosity level to the ``explain()`` method of the ``FindIterable``
+To determine the **execution plan** of an operation, pass a
+verbosity level to the ``explain()`` method of the ``AggregateIterable``
 class. An execution plan analyzes the ways your query can execute and
 then describes the way your query chooses.  
 
@@ -211,9 +211,10 @@ The above aggregation should produce the following result:
    nReturned=3, executionTimeMillis=0, 
    ...
 
-For more information, see the API documentation on the
-:java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
-method.
+For more information, see the following API documentation:
+
+- :java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
+- :java-docs:`AggregateIterable <apidocs/mongodb-driver-sync/com/mongodb/client/AggregateIterable.html>`
 
 Aggregation Expression Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -19,5 +19,5 @@ operation and their intended use cases:
      - You have a problem with your query and you want as much information
      as possible to diagnose why it might be slow.
      
-For information of what each verbosity level does, see the API
+For information on what each verbosity level does, see the API
 Documentation on :java-core-api:`ExplainVerbosity <com/mongodb/ExplainVerbosity>`.
