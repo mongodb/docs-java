@@ -17,7 +17,8 @@ operation and their intended use cases:
 
    * - QUERY_PLANNER
      - You have a problem with your query and you want as much information
-     as possible to diagnose why it might be slow.
+       as possible to diagnose the issue.
      
 For information on what each verbosity level does, see the API
-Documentation on :java-core-api:`ExplainVerbosity <com/mongodb/ExplainVerbosity>`.
+Documentation on the :java-core-api:`ExplainVerbosity
+<com/mongodb/ExplainVerbosity>` enumeration.

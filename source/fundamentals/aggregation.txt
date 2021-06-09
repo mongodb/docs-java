@@ -184,13 +184,14 @@ Explain Aggregation Example
 
 To determine the **execution plan** of an operation, pass a
 verbosity level to the ``explain()`` method of the ``AggregateIterable``
-class. An execution plan analyzes the ways your query can execute and
-then describes the way your query chooses.  
+class. An execution plan contains the results of the analysis on the
+ways your query can execute and a description on the way the server
+chooses. 
 
 .. include:: /includes/fundamentals/explain-verbosity.rst
 
-In the following example, we use our previous example to determine the
-execution plan using ``EXECUTION_STATS``: 
+In the following example, we print the execution plan for an aggregation
+operation:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
    :language: java
@@ -198,7 +199,7 @@ execution plan using ``EXECUTION_STATS``:
    :start-after: begin aggregation three
    :end-before: end aggregation three
 
-The above aggregation should produce the following result:
+The above code snippet should produce the following result:
 
 .. code-block:: none
    :copyable: false

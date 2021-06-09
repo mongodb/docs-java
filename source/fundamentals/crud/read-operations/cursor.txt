@@ -43,8 +43,8 @@ operation.
 First
 ~~~~~
 
-Use the :java-docs:`first() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`
-method to retireve the first document in your query results:
+Use the ``first() `` method to retireve the first document in your query
+results: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -58,8 +58,7 @@ document, such as when filtering by a unique index.
 Into
 ~~~~
 
-Use the :java-docs:`into() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#into(A)>`
-method to store your query results in a ``List``: 
+Use the ``into()`` method to store your query results in a ``List``: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -73,9 +72,8 @@ of documents that can fit into available memory.
 Cursor
 ~~~~~~
 
-Use the :java-docs:`cursor() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#cursor()>`
-method to iterate through fetched documents and ensure that the cursor
-closes if there is an early termination:
+Use the ``cursor()`` method to iterate through fetched documents and
+ensure that the cursor closes if there is an early termination:
 
 .. code-block:: java
    :copyable: true
@@ -87,8 +85,10 @@ For more information on how to ensure a cursor closes, see the :ref:`cursor clea
 Explain
 ~~~~~~~
 
-Use the ``explain()`` method to determine the execution plan of an
-operation with the given verbosity level: 
+Pass a verbosity level to the ``explain()`` method to determine the
+**execution plan** of an operation. An execution plan contains the
+results of the analysis on the ways your query can execute and a
+description on the way the server chooses. 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -96,24 +96,15 @@ operation with the given verbosity level:
    :start-after: begin explainExample
    :end-before: end explainExample
 
-Your output should look something like the following:
-
-.. code-block:: none
-   :copyable: false
-
-   [Document{{$cursor=Document{{queryPlanner=Document{{plannerVersion=1,
-   ...
-   winningPlan=Document{{stage=PROJECTION_SIMPLE, transformBy=Document{{stars=1, _id=0}}, 
-   inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, 
-   direction=forward}}}}, rejectedPlans=[]}}, executionStats=Document{{executionSuccess=true, 
-   nReturned=3, executionTimeMillis=0, 
-   ...
-
 .. include:: /includes/fundamentals/explain-verbosity.rst
 
-For more information about this section, see the
-:java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
-method API documentation.
+For more information about any of the terminal methods, see the
+following API documentation:
+
+- :java-docs:`first() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`
+- :java-docs:`into() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#into(A)>`
+- :java-docs:`cursor() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#cursor()>`
+- :java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
 
 Usage Patterns
 --------------
