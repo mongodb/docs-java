@@ -109,6 +109,46 @@ After completing this step, you should have a working application that uses
 the Java driver to connect to your MongoDB cluster, run a query on the
 sample data, and print out the result.
 
+Working with POJOs
+------------------
+
+You can use your own Plain Old Java Object (POJO) to store and retrieve
+data from MongoDB. Create a file called ``Movie.java`` in the base package
+directory of your project and add the following code for a class that includes 
+the following fields, setters, and getters:
+
+.. literalinclude:: /includes/quick-start/code-snippets/Movie.java
+   :start-after: begin moviePojo
+   :end-before: end moviePojo
+   :language: java
+   :dedent:
+
+With a few modifications to the code example that retrieved ``Document``
+instances from MongoDB, 
+You can specify a custom POJO class to store each
+result from our query. 
+
+Create a new file ``QuickStartPojoExample.java`` in the same package
+directory as your ``Movie`` file in your project. Run the following sample
+code to run a query on your sample dataset in MongoDB Atlas, replacing the
+value of the ``uri`` variable with your MongoDB Atlas connection string.
+Make sure to replace the "<password>" section of the connection string with
+the password you created for your user that has **atlasAdmin** permissions:
+
+.. literalinclude:: /includes/quick-start/code-snippets/QuickStartPojoExample.java
+   :start-after: begin moviePojo
+   :end-before: end moviePojo
+   :language: java
+   :dedent:
+
+
+.. include:: /includes/quick-start/pojo-query-output.rst
+
+See the following links for more information on using POJOs to store and
+retrieve data:
+
+- :doc:`Step-by-step guide </fundamentals/data-formats/document-data-format-pojo>` on using POJOs to store and retrieve data
+- :doc:`Guide on custom serialization of POJOs </fundamentals/data-formats/pojo-customization>`
 
 Next steps
 ----------
