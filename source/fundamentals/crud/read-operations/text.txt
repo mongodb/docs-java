@@ -75,17 +75,17 @@ Text Search
 Use the ``Filters.text()`` method to specify a text search. 
 
 The ``Filters.text()`` method uses the :doc:`Filters builder
-</fundamentals/builders/filters>` to define a query filter based on
-the search that you pass it. You represent the query filter by a 
-:ref:`Bson <bson>` instance. Pass the query filter to the ``find()``
-method to  run your text search.
+</fundamentals/builders/filters>` to define a query filter specifying
+what to search for during the text search. You represent the query filter
+with a :ref:`Bson <bson>` instance and pass it to the ``find()`` method
+to  run your text search. 
 
 When you execute the ``find()`` method, MongoDB runs a text search on
 the fields indexed with the text index on the collection. MongoDB
 returns documents that contain one or more of the search terms and a
-relevance score for each result. For more information, see the
-:ref:`Text Search <sorts-crud-text-search>` section of our Sort Results
-guide. 
+relevance score for each result. For more information on relevance
+scores, see the :ref:`Text Search <sorts-crud-text-search>` section of
+our Sort Results guide. 
 
 Specify Options
 ~~~~~~~~~~~~~~~
@@ -196,10 +196,12 @@ For each term you want to exclude from your text search, prefix the term
 with a minus sign in string you pass to the ``Filters.text()`` builder
 method. 
 
-Each document matched does not contain the excluded terms in
-your text index field. You must have at least one text search term if
-you want to exclude terms from your search. If you have multiple text
-indexes, the search applies to all indexes. 
+You must have at least one text search term if you want to
+exclude terms from your search. If you have multiple text indexes, the
+search applies to all indexes. 
+
+Each document matched does not contain the excluded term in
+your text index field. 
 
 Example 
 ```````
