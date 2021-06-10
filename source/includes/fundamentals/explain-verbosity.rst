@@ -1,5 +1,8 @@
-The following table shows the verbosity levels for the explain
-operation and their intended use cases:
+You can pass a verbosity level to the ``explain()`` method. The
+verbosity level specifies the level of detail for the explanation. 
+
+The following table shows the verbosity levels for the
+explain operation and their intended use cases:
 
 .. list-table::
    :header-rows: 1
@@ -21,4 +24,4 @@ operation and their intended use cases:
      
 For information on what each verbosity level does, see the API
 Documentation on the :java-core-api:`ExplainVerbosity
-<com/mongodb/ExplainVerbosity>` enumeration.
+<com/mongodb/ExplainVerbosity>` enum type.

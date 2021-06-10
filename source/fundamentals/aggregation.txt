@@ -182,16 +182,17 @@ The above aggregation should produce the following results:
 Explain Aggregation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To determine the **execution plan** of an operation, pass a
-verbosity level to the ``explain()`` method of the ``AggregateIterable``
-class. An execution plan contains the results of the analysis on the
-ways your query can execute and a description on the way the server
-chooses. 
+To view information about how MongoDB executed your operation, use the
+``explain()`` method of the ``AggregateIterable`` class. The ``explain()``
+method returns **execution plans** and performance statistics. An execution
+plan is a potential way your MongoDB instance can complete an operation. 
+The ``explain()`` method provides both the winning plan (the plan MongoDB
+executed) and rejected plans. 
 
 .. include:: /includes/fundamentals/explain-verbosity.rst
 
-In the following example, we print the execution plan for an aggregation
-operation:
+In the following example, we print output of the ``explain()`` method
+for an aggregation operation:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
    :language: java
@@ -199,7 +200,7 @@ operation:
    :start-after: begin aggregation three
    :end-before: end aggregation three
 
-The above code snippet should produce the following result:
+The above code snippet should produce the following output:
 
 .. code-block:: none
    :copyable: false
@@ -212,10 +213,12 @@ The above code snippet should produce the following result:
    nReturned=3, executionTimeMillis=0, 
    ...
 
-For more information, see the following API documentation:
+For more information about this section, see the following:
 
-- :java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`
-- :java-docs:`AggregateIterable <apidocs/mongodb-driver-sync/com/mongodb/client/AggregateIterable.html>`
+- :manual:`Explain Output</reference/explain-results/>` Server Manual Entry
+- :manual:`Query Plans </core/query-plans/>` Server Manual Entry
+- :java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>` API Documentation
+- :java-docs:`AggregateIterable <apidocs/mongodb-driver-sync/com/mongodb/client/AggregateIterable.html>` API Documentation
 
 Aggregation Expression Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

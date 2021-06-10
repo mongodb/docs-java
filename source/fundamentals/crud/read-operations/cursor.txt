@@ -85,10 +85,15 @@ For more information on how to ensure a cursor closes, see the :ref:`cursor clea
 Explain
 ~~~~~~~
 
-Pass a verbosity level to the ``explain()`` method to determine the
-**execution plan** of an operation. An execution plan contains the
-results of the analysis on the ways your query can execute and a
-description on the way the server chooses. 
+Use the ``explain()`` method to view information about how MongoDB
+executed your operation. 
+
+The ``explain()`` method returns **execution plans** and performance
+statistics. An execution plan is a potential way your MongoDB instance
+can complete an operation. The ``explain()`` method provides both the
+winning plan (the plan MongoDB executed) and rejected plans. 
+
+.. include:: /includes/fundamentals/explain-verbosity.rst
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -96,7 +101,11 @@ description on the way the server chooses.
    :start-after: begin explainExample
    :end-before: end explainExample
 
-.. include:: /includes/fundamentals/explain-verbosity.rst
+For more information on the topics in this section, see the following
+server manual entries:
+
+- :manual:`Explain Output</reference/explain-results/>` 
+- :manual:`Query Plans </core/query-plans/>`
 
 For more information about any of the terminal methods, see the
 following API documentation:
