@@ -76,12 +76,12 @@ Use the ``Filters.text()`` method to specify a text search.
 
 The ``Filters.text()`` method uses the :doc:`Filters builder
 </fundamentals/builders/filters>` to define a query filter specifying
-what to search for during the text search. You represent the query filter
-with a :ref:`Bson <bson>` instance and pass it to the ``find()`` method
-to  run your text search. 
+what to search for during the text search. The query filter is
+represented by :ref:`Bson <bson>` instance and you pass it to the
+``find()`` method to  run your text search. 
 
 When you execute the ``find()`` method, MongoDB runs a text search on
-the fields indexed with the text index on the collection. MongoDB
+all the fields indexed with the text index on the collection. MongoDB
 returns documents that contain one or more of the search terms and a
 relevance score for each result. For more information on relevance
 scores, see the :ref:`Text Search <sorts-crud-text-search>` section of
@@ -146,7 +146,7 @@ Example
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-terms "Fate" or "7".
+terms "fate" or "7".
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -174,7 +174,7 @@ Example
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-phrase "Fate of the Furious". 
+phrase "fate of the furious". 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -193,22 +193,23 @@ Search Text with Terms Excluded
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For each term you want to exclude from your text search, prefix the term
-with a minus sign in string you pass to the ``Filters.text()`` builder
-method. 
-
-You must have at least one text search term if you want to
-exclude terms from your search. If you have multiple text indexes, the
-search applies to all indexes. 
+with a minus sign in the string that you pass to the ``Filters.text()``
+builder method. 
 
 Each document matched does not contain the excluded term in
 your text index field. 
+
+.. note::
+
+   You must have at least one text search term if you want to
+   exclude terms from your search. 
 
 Example 
 ```````
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-term "Furious", but do not contain the term "Fast".
+term "furious", but do not contain the term "fast".
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java

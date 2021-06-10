@@ -244,9 +244,20 @@ language as an option when creating the index.
    Text indexes differ from the more powerful :atlas:`Atlas full text search indexes </atlas-search/>` Atlas users
    should use Atlas search.
 
-.. warning::
+.. warning:: Collections are limited to one text index. 
 
-   Collections are limited to one text index. Keep in mind that a text index can cover multiple fields.
+   If you want to create a text index for multiple text fields, you need
+   to create an compound index to include them. 
+
+   The following creates a compound text index for the ``title`` and ``genre``
+   fields:
+
+   .. code-block:: java
+   
+      collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("genre")));
+   
+   For information on the compound text index restrictions, see the
+   server manual entry on :manual:`Compound Text Indexes <core/index-text/#std-label-text-index-compound>`.
 
 .. common-content-end
 
@@ -373,3 +384,45 @@ The following example creates a unique, descending index on the ``theaterId`` fi
 
 Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB server manual for more information.
 .. driver-content-end
+
+Remove an Index
+---------------
+
+Pass the indexed ``name`` field to the ``dropIndex()`` method to remove
+an index from a collection. 
+
+To see the indexed ``name`` fields in your collection, use the
+``listIndexes()`` method:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
+   :language: java
+   :dedent:
+   :start-after: begin listIndex
+   :end-before: end listIndex
+
+Your output should look something like the following:
+
+.. code-block:: json
+
+   { "v": 2, "key": {"_id": 1}, "name": "_id_" }
+   { "v": 2, "key": {"_fts": "text", "_ftsx": 1}, "name": "title_text", "weights": {"title": 1}, 
+   "default_language": "english", "language_override": "language", "textIndexVersion": 3 }
+
+The following drops the ``title`` field in the collection:
+
+.. code-block:: java
+
+   collection.dropIndex("title_text");
+
+.. note:: 
+
+   You must drop all the indexes in a compound index.
+
+Starting with MongoDB 4.2, you can drop all non-``_id`` indexes in a
+collection using the ``dropIndexes()`` method on your collection. For
+previous MongoDB versions, use ``dropIndex("*")`` on your collection.
+
+For more information, see the following API documentation:
+
+- :java-docs:`dropIndex() <apidocs/mongodb-driver-sync//com/mongodb/client/MongoCollection.html#dropIndex(java.lang.String)>`
+- :java-docs:`dropIndexes() <apidocs/mongodb-driver-sync//com/mongodb/client/MongoCollection.html#dropIndexes()>`

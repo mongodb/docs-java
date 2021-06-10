@@ -48,28 +48,28 @@ public class SearchText {
 
     private void termExample(){
         // begin termExample
-        Bson filter = Filters.text("Fast");
+        Bson filter = Filters.text("fast");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end termExample
     }
 
     private void multipleTermExample(){
         // begin multipleTermExample
-        Bson filter = Filters.text("Fate 7");
+        Bson filter = Filters.text("fate 7");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end multipleTermExample
     }
     
     private void negateExample(){
         // begin negateExample
-        Bson filter = Filters.text("Furious -Fast");
+        Bson filter = Filters.text("furious -fast");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end negateExample
     }
 
     private void phraseExample(){
         // begin phraseExample
-        Bson filter = Filters.text("\"Fate of the Furious\"");
+        Bson filter = Filters.text("\"fate of the furious\"");
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end phraseExample
     }
@@ -85,5 +85,8 @@ public class SearchText {
         // begin textIndex
         collection.createIndex(Indexes.text("title"));
         // end textIndex
+        // begin listIndex
+        collection.listIndexes().forEach(doc -> System.out.println(doc.toJson()));
+        // end listIndex
     }
 }
