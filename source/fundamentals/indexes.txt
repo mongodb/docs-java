@@ -256,7 +256,7 @@ language as an option when creating the index.
    
       collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("genre")));
    
-   For information on the compound text index restrictions, see the
+   For more information on compound text index restrictions, see the
    server manual entry on :manual:`Compound Text Indexes <core/index-text/#std-label-text-index-compound>`.
 
 .. common-content-end
@@ -394,7 +394,7 @@ an index from a collection.
 Use the ``listIndexes()`` method to see the indexed ``name`` fields in
 your collection. 
 
-The following snippet retrieves all the indexes on your collection:
+The following snippet retrieves all the indexes in your collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -412,7 +412,7 @@ Your output should look something like the following:
 
 The output preceding tells us there is a text index with the name "title_text".
 
-The following drops the ``title_text`` field in the collection:
+The following removes the ``title_text`` index in the collection:
 
 .. code-block:: java
 
