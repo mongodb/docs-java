@@ -244,7 +244,7 @@ language as an option when creating the index.
    Text indexes differ from the more powerful :atlas:`Atlas full text search indexes </atlas-search/>` Atlas users
    should use Atlas search.
 
-.. warning:: Collections are limited to one text index. 
+.. warning:: Restriction on one text index per collection. 
 
    If you want to create a text index for multiple text fields, you need
    to create an compound index to include them. 
@@ -391,8 +391,10 @@ Remove an Index
 Pass the indexed ``name`` field to the ``dropIndex()`` method to remove
 an index from a collection. 
 
-To see the indexed ``name`` fields in your collection, use the
-``listIndexes()`` method:
+Use the ``listIndexes()`` method to see the indexed ``name`` fields in
+your collection. 
+
+The following snippet retrieves all the indexes on your collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -408,7 +410,9 @@ Your output should look something like the following:
    { "v": 2, "key": {"_fts": "text", "_ftsx": 1}, "name": "title_text", "weights": {"title": 1}, 
    "default_language": "english", "language_override": "language", "textIndexVersion": 3 }
 
-The following drops the ``title`` field in the collection:
+The output preceding tells us there is a text index with the name "title_text".
+
+The following drops the ``title_text`` field in the collection:
 
 .. code-block:: java
 
@@ -416,13 +420,17 @@ The following drops the ``title`` field in the collection:
 
 .. note:: 
 
-   You must drop all the indexes in a compound index.
+   You cannot remove a single index from a compound index. You must remove
+   all the indexes in your compound index.
+
+Removing All Indexes
+~~~~~~~~~~~~~~~~~~~~
 
 Starting with MongoDB 4.2, you can drop all non-``_id`` indexes in a
 collection using the ``dropIndexes()`` method on your collection. For
-previous MongoDB versions, use ``dropIndex("*")`` on your collection.
+MongoDB versions prior, use ``dropIndex("*")`` on your collection.
 
-For more information, see the following API documentation:
+For more information on the methods in this section, see the following API documentation:
 
 - :java-docs:`dropIndex() <apidocs/mongodb-driver-sync//com/mongodb/client/MongoCollection.html#dropIndex(java.lang.String)>`
 - :java-docs:`dropIndexes() <apidocs/mongodb-driver-sync//com/mongodb/client/MongoCollection.html#dropIndexes()>`

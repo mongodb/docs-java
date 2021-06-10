@@ -54,8 +54,7 @@ Text Index
 
 You must create a **text index** before running a text search. A text
 index specifies the string or string array field on which to run a text
-search. For more information, see the :ref:`Text Indexes <textIndexes>`
-section of our Indexes guide.
+search.
 
 In the following examples, you run text searches on the ``title``
 field in the ``fast_and_furious_movies`` collection. To enable text
@@ -69,6 +68,9 @@ snippet:
    :start-after: begin textIndex
    :end-before: end textIndex
 
+For more information, see the :ref:`Text Indexes <textIndexes>` section
+of our Indexes guide. 
+
 Text Search
 -----------
 
@@ -77,8 +79,8 @@ Use the ``Filters.text()`` method to specify a text search.
 The ``Filters.text()`` method uses the :doc:`Filters builder
 </fundamentals/builders/filters>` to define a query filter specifying
 what to search for during the text search. The query filter is
-represented by :ref:`Bson <bson>` instance and you pass it to the
-``find()`` method to  run your text search. 
+represented by :ref:`Bson <bson>` instance. Pass the query filter to the
+``find()`` method to  run a text search. 
 
 When you execute the ``find()`` method, MongoDB runs a text search on
 all the fields indexed with the text index on the collection. MongoDB
@@ -102,7 +104,7 @@ To specify a case sensitive search, use the following snippet:
    TextSearchOptions options = new TextSearchOptions().caseSensitive(true);
    Bson filter = Filters.text("SomeText", options);
 
-For more information, see the following API documentation:
+For more information on the method and class in this section, see the following API documentation:
 
 - :java-core-api:`Filters.text() <com/mongodb/client/model/Filters.html#text(java.lang.String)>`
 - :java-core-api:`TextSearchOptions <com/mongodb/client/model/TextSearchOptions.html>`
@@ -225,5 +227,5 @@ The following shows the output of the preceding code:
    { "_id": 3, "title": "Furious 7", "tags": ["emotional"] }
    { "_id": 4, "title": "The Fate of the Furious", "tags": ["betrayal"] }
 
-For more information, see the Server Manual Entry on :manual:`Text
+For more information on text indexes, see our Server Manual Entry on :manual:`Text
 Indexes </core/index-text/>`. 
