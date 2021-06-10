@@ -63,8 +63,8 @@ To address the scenario, the paint store needs to query the
 ``paint_inventory`` collection with an empty filter, sort the documents
 by ``qty`` field and omit the first five results.
 
-Using the ``skip()`` method:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using a FindIterable
+~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Skip.java
    :language: java
@@ -76,8 +76,8 @@ Using the ``skip()`` method:
 - The ``sort()`` method specifies documents to display from highest to lowest based on the ``qty`` field.
 - The ``skip()`` method specifies to omit the first five documents. 
 
-Using ``Aggregates.skip()``:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using Aggregation
+~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Skip.java
    :language: java
