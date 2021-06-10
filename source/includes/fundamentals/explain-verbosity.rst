@@ -22,6 +22,3 @@ explain operation and their intended use cases:
      - You have a problem with your query and you want as much information
        as possible to diagnose the issue.
      
-For information on what each verbosity level does, see the API
-Documentation on the :java-core-api:`ExplainVerbosity
-<com/mongodb/ExplainVerbosity>` enum type.
