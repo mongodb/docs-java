@@ -43,13 +43,50 @@ to any method that expects a projection.
 
    The examples below assume this static import.
 
-The collection is set up with the following documents:
+Sample Documents
+----------------
 
-.. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
-   :start-after: begin collection setup
-   :end-before: end collection setup
-   :language: java
-   :dedent:
+The collection is set up with the following documents, representing
+the years 2018 and 2019 and the monthly average temperatures in Celsius:
+
+.. code-block:: json
+
+   {
+     "year" : 2018,
+     "type" : "even number but not a leap year",
+     "temperatures" : [
+       { "month" : "January", "avg" : 9.765 },
+       { "month" : "February", "avg" : 9.675 },
+       { "month" : "March", "avg" : 10.004 },
+       { "month" : "April", "avg" : 9.983 },
+       { "month" : "May", "avg" : 9.747 },
+       { "month" : "June", "avg" : 9.65 },
+       { "month" : "July", "avg" : 9.786 },
+       { "month" : "August", "avg" : 9.617 },
+       { "month" : "September", "avg" : 9.51 },
+       { "month" : "October", "avg" : 10.042 },
+       { "month" : "November", "avg" : 9.452 },
+       { "month" : "December", "avg" : 9.86 }
+     ]
+   },
+   {
+     "year" : 2019,
+     "type" : "odd number, can't be a leap year",
+     "temperatures" : [
+       { "month" : "January", "avg" : 10.023 },
+       { "month" : "February", "avg" : 9.808 },
+       { "month" : "March", "avg" : 10.43 },
+       { "month" : "April", "avg" : 10.175 },
+       { "month" : "May", "avg" : 9.648 },
+       { "month" : "June", "avg" : 9.686 },
+       { "month" : "July", "avg" : 9.794 },
+       { "month" : "August", "avg" : 9.741 },
+       { "month" : "September", "avg" : 9.84 },
+       { "month" : "October", "avg" : 10.15 },
+       { "month" : "November", "avg" : 9.84 },
+       { "month" : "December", "avg" : 10.366 }
+     ]
+   }
 
 Inclusion
 ---------
