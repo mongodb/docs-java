@@ -78,30 +78,11 @@ value of the ``uri`` variable with your MongoDB Atlas connection string.
 Ensure you replace the "<password>" section of the connection string with
 the password you created for your user that has **atlasAdmin** permissions:
 
-.. code-block:: java
-
-   import static com.mongodb.client.model.Filters.eq;
-
-   import org.bson.Document;
-
-   import com.mongodb.client.MongoClient;
-   import com.mongodb.client.MongoClients;
-   import com.mongodb.client.MongoCollection;
-   import com.mongodb.client.MongoDatabase;
-
-   public static void main( String[] args ) {
-
-       String uri = "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
-       MongoClient mongoClient = MongoClients.create(uri);
-
-       MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-       MongoCollection<Document> collection = database.getCollection("movies");
-
-       Document doc = collection.find(eq("title", "Back to the Future")).first();
-       System.out.println(doc.toJson());
-
-       mongoClient.close();
-   }
+.. literalinclude:: /includes/quick-start/code-snippets/QuickStart.java
+   :start-after: begin Quickstart
+   :end-before: end Quickstart
+   :language: java
+   :dedent:
 
 .. include:: /includes/quick-start/query-output.rst
 
@@ -109,13 +90,17 @@ After completing this step, you should have a working application that uses
 the Java driver to connect to your MongoDB cluster, run a query on the
 sample data, and print out the result.
 
-Working with POJOs
-------------------
+Working with POJOs (Optional)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can use your own Plain Old Java Object (POJO) to store and retrieve
-data from MongoDB. Create a file called ``Movie.java`` in the base package
-directory of your project and add the following code for a class that includes 
-the following fields, setters, and getters:
+In the previous section, you ran a query on a sample collection to retrieve
+data in the map-like class ``Document``. In this section, you can learn to
+use your own Plain Old Java Object (POJO) to store and retrieve data from
+MongoDB.
+
+Create a file called ``Movie.java`` in the base package directory of your
+project and add the following code for a class that includes the following
+fields, setters, and getters:
 
 .. literalinclude:: /includes/quick-start/code-snippets/Movie.java
    :start-after: begin moviePojo
