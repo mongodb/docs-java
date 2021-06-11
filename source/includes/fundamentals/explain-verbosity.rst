@@ -1,8 +1,8 @@
-You can pass a verbosity level to the ``explain()`` method. The
-verbosity level specifies the level of detail for the explanation. 
+You can specify the level of detail of your explanation by passing a
+verbosity level to the ``explain()`` method.  
 
-The following table shows the verbosity levels for the
-explain operation and their intended use cases:
+The following table shows all verbosity levels for explanations and
+their intended use cases: 
 
 .. list-table::
    :header-rows: 1

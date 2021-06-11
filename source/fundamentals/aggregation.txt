@@ -182,16 +182,16 @@ The above aggregation should produce the following results:
 Explain Aggregation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To view information about how MongoDB executed your operation, use the
+To view information about how MongoDB executes your operation, use the
 ``explain()`` method of the ``AggregateIterable`` class. The ``explain()``
 method returns **execution plans** and performance statistics. An execution
-plan is a potential way your MongoDB instance can complete an operation. 
+plan is a potential way MongoDB can complete an operation. 
 The ``explain()`` method provides both the winning plan (the plan MongoDB
 executed) and rejected plans. 
 
 .. include:: /includes/fundamentals/explain-verbosity.rst
 
-In the following example, we print output of the ``explain()`` method
+In the following example, we print the output of the ``explain()`` method
 for an aggregation operation:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
@@ -209,14 +209,13 @@ The above code snippet should produce the following output:
    ...
    winningPlan=Document{{stage=PROJECTION_SIMPLE, transformBy=Document{{stars=1, _id=0}}, 
    inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, 
-   direction=forward}}}}, rejectedPlans=[]}}, executionStats=Document{{executionSuccess=true, 
-   nReturned=3, executionTimeMillis=0, 
+   direction=forward}}}}, 
    ...
 
 For more information about the topics mentioned in this section, see the
 following resources:
 
-- :manual:`Explain Output</reference/explain-results/>` Server Manual Entry
+- :manual:`Explain Output </reference/explain-results/>` Server Manual Entry
 - :manual:`Query Plans </core/query-plans/>` Server Manual Entry
 - :java-core-api:`ExplainVerbosity <com/mongodb/ExplainVerbosity>` API Documentation
 - :java-docs:`explain() <apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>` API Documentation

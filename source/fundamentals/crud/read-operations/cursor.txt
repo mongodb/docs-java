@@ -86,14 +86,17 @@ Explain
 ~~~~~~~
 
 Use the ``explain()`` method to view information about how MongoDB
-executed your operation. 
+executes your operation. 
 
 The ``explain()`` method returns **execution plans** and performance
-statistics. An execution plan is a potential way your MongoDB instance
+statistics. An execution plan is a potential way MongoDB
 can complete an operation. The ``explain()`` method provides both the
 winning plan (the plan MongoDB executed) and rejected plans. 
 
 .. include:: /includes/fundamentals/explain-verbosity.rst
+
+The following snippet prints information about how MongoDB executes a
+find operation using the ``EXECUTION_STATS`` verbosity level:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -101,13 +104,13 @@ winning plan (the plan MongoDB executed) and rejected plans.
    :start-after: begin explainExample
    :end-before: end explainExample
 
-For more information on the terms related to the ``explain()`` method,
-see the following Server Manual Entries:
+For more information on the explain operation, see the following
+Server Manual Entries: 
 
 - :manual:`Explain Output </reference/explain-results/>` 
 - :manual:`Query Plans </core/query-plans/>`
 
-For more information about the methods or enum mentioned in this
+For more information about the methods and classes mentioned in this
 section, see the following API documentation:
 
 - :java-docs:`first() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`
