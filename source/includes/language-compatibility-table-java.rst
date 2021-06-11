@@ -2,6 +2,7 @@
    :header-rows: 1
    :stub-columns: 1
    :class: compatibility-large
+   :widths: 20 10 10 10 10 10
 
    * - Java Driver Version
      - Java 5
