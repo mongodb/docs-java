@@ -248,6 +248,9 @@ language as an option when creating the index.
 
 .. driver-content-begin
 
+Single Field
+````````````
+
 The following example creates a text index on the ``plot`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
@@ -268,11 +271,14 @@ omitted because text indexes do not contain sort order.
 .. driver-content-end
 .. common-content-begin
 
-.. note:: A collection can only contain one text index. 
+Multiple Fields
+```````````````
 
-   If you want to create a text index for multiple text fields, you need
-   to create an compound index. A compound text index
-   includes all of it's text index fields on which to run a text search. 
+If you want to create a text index for multiple text fields, you need
+to create a compound index. A text serch runs on all the text fields
+within the compound index.
+
+A collection can only contain one text index. 
 
 The following snippet creates a compound text index for the ``title`` and ``genre``
 fields:
@@ -388,10 +394,10 @@ Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB s
 Remove an Index
 ---------------
 
-You can remove any unused index that isn't a :ref:`unique index
-<unique-indexes>`. 
+You can remove any unused index except the default unique index on the
+``_id`` field. 
 
-The following sections show the three ways to remove indexes:
+The following sections show the ways to remove indexes:
 
 - Using an index specification document
 - Using an indexed name field
@@ -428,8 +434,7 @@ remove an index from a collection.
 If you need to find the name of your index, use the ``listIndexes()``
 method to see the value of the ``name`` fields in your indexes. 
 
-The following snippet retrieves all the indexes in a collection, which
-has a text index on the ``title`` field:
+The following snippet retrieves all the indexes in a collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -437,7 +442,7 @@ has a text index on the ``title`` field:
    :start-after: begin listIndex
    :end-before: end listIndex
 
-Your output should look something like the following:
+Your output should resemble something like the following:
 
 .. code-block:: json
 
@@ -445,9 +450,10 @@ Your output should look something like the following:
    { "v": 2, "key": {"_fts": "text", "_ftsx": 1}, "name": "title_text", "weights": {"title": 1}, 
    "default_language": "english", "language_override": "language", "textIndexVersion": 3 }
 
-You can see a text index with the ``name`` "title_text" in the preceding output.
+This output tells us the name of the existing indexes are ``_id``  and
+"title_text". 
 
-The following snippet removes the "title_text" index in the collection:
+The following snippet removes the "title_text" index from the collection:
 
 .. code-block:: java
 
@@ -462,8 +468,8 @@ The following snippet removes the "title_text" index in the collection:
 Remove an Index Using a Wildcard Character
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Starting with MongoDB 4.2, you can drop all non-``_id`` indexes by
-calling the ``dropIndexes()`` method on your collection: 
+Starting with MongoDB 4.2, you can drop all indexes by calling the
+``dropIndexes()`` method on your collection: 
 
 .. code-block:: java
 
