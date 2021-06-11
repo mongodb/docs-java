@@ -230,15 +230,15 @@ them for your application.
    The Java driver uses the OCSP variation that you specify for your
    application and cannot be overridden for a specific ``MongoClient``
    instance.
-   Option 2 rather than enabling the default variation enabled by the TLS library.
 
 Client-Driven OCSP
 ~~~~~~~~~~~~~~~~~~
 
 In client-driven OCSP, the client sends the certificate in an OCSP request to
 an OCSP responder after receiving the certificate from the server. The OCSP
-responder checks the status of the certificate with a CA and reports
-whether it is valid in a response sent to the client.
+responder checks the status of the certificate with a certificate
+authority (CA) and reports whether it is valid in a response sent to the
+client.
 
 To enable client-driven OCSP for your application, set the following JVM
 system properties:
@@ -259,15 +259,15 @@ system properties:
 .. warning::
 
    If the OCSP responder is unavailable, the TLS support provided by the
-   JDK reports a "hard fail". This behavior differs from the "soft fail"
-   behavior of the mongo shell and certain drivers.
+   JDK reports a "hard fail". This differs from the "soft fail" behavior of
+   the MongoDB Shell and certain drivers.
 
 OCSP Stapling
 ~~~~~~~~~~~~~
 
 OCSP Stapling is a variation of OCSP in which a server is responsible
-for obtaining the signed certificate from the CA and providing it in
-a time-stamped OCSP response to the client.
+for obtaining the signed certificate from the certificate authority (CA)
+and including it in a time-stamped OCSP response to the client.
 
 To enable OCSP stapling for your application, set the following JVM system
 properties:
@@ -283,7 +283,7 @@ properties:
      - Set this property to ``true`` to enable revocation checking.
 
    * - ``jdk.tls.client.enableStatusRequestExtension``
-     - | Set this property to ``true`` to enable OCSP stapling. 
+     - | Set this property to ``true`` to enable OCSP stapling.
        |
        | If unset or set to ``false``, the connection can proceed regardless of the presence or status of the certificate revocation response.
 
