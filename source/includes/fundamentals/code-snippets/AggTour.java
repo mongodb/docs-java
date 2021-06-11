@@ -61,12 +61,16 @@ public class AggTour {
                     Aggregates.group("$stars", Accumulators.sum("count", 1))
             )
         ).explain(ExplainVerbosity.EXECUTION_STATS);
+
         List<Document> stages = explanation.get("stages", List.class);
         List<String> keys = Arrays.asList("queryPlanner", "winningPlan");
+
         for (Document stage : stages) {
             Document cursorStage = stage.get("$cursor", Document.class);
             if (cursorStage != null) {
                 System.out.println(cursorStage.getEmbedded(keys, Document.class).toJson());
+            }
+        }
         // end aggregation three
         // begin aggregation two
         collection.aggregate(
