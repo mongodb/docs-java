@@ -55,13 +55,18 @@ public class AggTour {
         ).forEach(doc -> System.out.println(doc.toJson()));
         // end aggregation one
         // begin aggregation three
-        collection.aggregate(
+        Document explanation = collection.aggregate(
             Arrays.asList(
-                Aggregates.match(Filters.eq("categories", "Bakery")),
-                Aggregates.group("$stars", Accumulators.sum("count", 1))
+                    Aggregates.match(Filters.eq("categories", "bakery")),
+                    Aggregates.group("$stars", Accumulators.sum("count", 1))
             )
-        ).explain(ExplainVerbosity.EXECUTION_STATS)
-        .values().forEach(doc -> System.out.println(doc));
+        ).explain(ExplainVerbosity.EXECUTION_STATS);
+        List<Document> stages = explanation.get("stages", List.class);
+        List<String> keys = Arrays.asList("queryPlanner", "winningPlan");
+        for (Document stage : stages) {
+            Document cursorStage = stage.get("$cursor", Document.class);
+            if (cursorStage != null) {
+                System.out.println(cursorStage.getEmbedded(keys, Document.class).toJson());
         // end aggregation three
         // begin aggregation two
         collection.aggregate(

@@ -162,8 +162,8 @@ executed) and rejected plans.
 
 .. include:: /includes/fundamentals/explain-verbosity.rst
 
-In the following example, we print the output of the ``explain()`` method
-for an aggregation operation:
+In the following example, we print the JSON representation of the
+winning plan for aggregation stages that produce execution plans: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/AggTour.java
    :language: java
@@ -176,12 +176,13 @@ The above code snippet should produce the following output:
 .. code-block:: none
    :copyable: false
 
-   [Document{{$cursor=Document{{queryPlanner=Document{{plannerVersion=1,
-   ...
-   winningPlan=Document{{stage=PROJECTION_SIMPLE, transformBy=Document{{stars=1, _id=0}}, 
-   inputStage=Document{{stage=COLLSCAN, filter=Document{{categories=Document{{$eq=Bakery}}}}, 
-   direction=forward}}}}, 
-   ...
+   { "stage": "PROJECTION_SIMPLE", 
+     "transformBy": {"stars": 1, "_id": 0},
+     "inputStage": {
+      "stage": "COLLSCAN", 
+      "filter": {
+         "categories": {"$eq":"bakery"}}, 
+     "direction": "forward"}} 
 
 For more information about the topics mentioned in this section, see the
 following resources:

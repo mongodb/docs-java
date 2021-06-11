@@ -72,7 +72,9 @@ public class Cursor {
     private void explainExample(){
         // begin explainExample
         FindIterable<Document> iterable = collection.find();
-        iterable.explain(ExplainVerbosity.EXECUTION_STATS).values().forEach(doc -> System.out.println(doc));
+        iterable.explain(ExplainVerbosity.EXECUTION_STATS)
+            .values()
+            .forEach(doc -> System.out.println(doc));
         // end explainExample
     }
 
