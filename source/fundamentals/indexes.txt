@@ -272,8 +272,7 @@ omitted because text indexes do not contain sort order.
 
    If you want to create a text index for multiple text fields, you need
    to create an compound index to include them. A compound text index
-   specifies all the string or string array fields on which to run a
-   text search. 
+   specifies for all the text fields on which to run a text search. 
 
 The following create a compound text index for the ``title`` and ``genre``
 fields:
@@ -284,7 +283,7 @@ fields:
    
 For more information, see the following Server Manual Entries:
 
-- :manual:`Compound Text Indexes Restrictions <core/index-text/#std-label-text-index-compound>`.
+- :manual:`Compound Text Index Restrictions <core/index-text/#std-label-text-index-compound>`
 - :manual:`Text Indexes </core/index-text>` 
 
 Geospatial Indexes
@@ -389,17 +388,20 @@ Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB s
 Remove an Index
 ---------------
 
-There are three ways to remove indexes:
+You can remove any unused index that isn't a :ref:`unique index
+<unique-indexes>`. 
 
-- Passing in the index specification document
-- Passing in the indexed field name
+The following sections show the three ways to remove indexes:
+
+- Using an index specification document
+- Using an indexed name field
 - Removing all indexes
 
 Index Specification Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass the index specification documenent to the
-``dropIndex()`` method to remove an index from a collection.
+Pass the index specification documenent to the ``dropIndex()`` method to
+remove an index from a collection. 
 
 The following snippet removes an ascending index on the ``title`` field
 in a collection:
