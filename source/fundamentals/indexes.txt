@@ -274,7 +274,7 @@ omitted because text indexes do not contain sort order.
    to create an compound index to include them. A compound text index
    specifies for all the text fields on which to run a text search. 
 
-The following create a compound text index for the ``title`` and ``genre``
+The following snippet creates a compound text index for the ``title`` and ``genre``
 fields:
 
 .. code-block:: java
@@ -413,7 +413,7 @@ in a collection:
 .. important::
 
    This does not work for a text index. To remove a text index, see the
-   :ref:`Field Name <name_field>` section.
+   :ref:`Name Field <name_field>` section.
 
 .. _name_field:
 
@@ -443,9 +443,9 @@ Your output should look something like the following:
    { "v": 2, "key": {"_fts": "text", "_ftsx": 1}, "name": "title_text", "weights": {"title": 1}, 
    "default_language": "english", "language_override": "language", "textIndexVersion": 3 }
 
-You can see a text index with the name "title_text" in the preceding output.
+You can see a text index with the ``name`` "title_text" in the preceding output.
 
-The following removes the ``title_text`` index in the collection:
+The following snippet removes the "title_text" index in the collection:
 
 .. code-block:: java
 
