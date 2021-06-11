@@ -219,10 +219,11 @@ OCSP is a standard used to check whether X.509 certificates are valid or
 have been revoked during the TLS handshake. The driver supports the following
 variations of OCSP:
 
-- Client-Driven OCSP
-- OCSP Stapling
+- **Client-Driven OCSP**
+- **OCSP Stapling**
 
-The following sections show how to enable the variations for your application.
+The following sections describe the differences between them and how to enable
+them for your application.
 
 .. note::
 
@@ -244,11 +245,12 @@ system properties:
 
 .. list-table::
    :header-rows: 1
+   :widths: 35 65
 
    * - Property
      - Value
 
-   * - com.sun.net.ssl.checkRevocation
+   * - ``com.sun.net.ssl.checkRevocation``
      - Set this property to ``true`` to enable revocation checking.
 
    * - ocsp.enable
@@ -260,9 +262,8 @@ system properties:
    JDK reports a "hard fail". This behavior differs from the "soft fail"
    behavior of the mongo shell and certain drivers.
 
-
 OCSP Stapling
--------------
+~~~~~~~~~~~~~
 
 OCSP Stapling is a variation of OCSP in which a server is responsible
 for obtaining the signed certificate from the CA and providing it in
@@ -273,14 +274,15 @@ properties:
 
 .. list-table::
    :header-rows: 1
+   :widths: 35 65
 
    * - Property
      - Description
 
-   * - com.sun.net.ssl.checkRevocation
+   * - ``com.sun.net.ssl.checkRevocation``
      - Set this property to ``true`` to enable revocation checking.
 
-   * - jdk.tls.client.enableStatusRequestExtension
+   * - ``jdk.tls.client.enableStatusRequestExtension``
      - Set this property to ``true`` to enable OCSP stapling. If unset or
        set to ``false``, the connection can proceed regardless of the
        presence or status of the certificate revocation response.
@@ -288,4 +290,4 @@ properties:
 For additional information about OCSP, check out the following resources:
 
 - Java SE 8 Documentation on `how to enable OCSP for an application <https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ocsp.html>`__
-- rfc:`Official IETF specification for OCSP (RFC 6960) <6960>`
+- :rfc:`Official IETF specification for OCSP (RFC 6960) <6960>`
