@@ -211,3 +211,42 @@ object to the builder in the ``applyToSslSettings()`` lambda:
                 })
         .build();
    MongoClient client = MongoClients.create(settings);
+
+Online Certificate Status Protocol (OCSP)
+-----------------------------------------
+
+OCSP is a standard used to check whether X.509 certificates are valid or
+have been revoked. The driver supports the following variations of OCSP:
+
+- Client-Driven OCSP
+- OCSP Stapling
+
+The following sections show how you can enable each of the variations for
+your application.
+
+.. note::
+
+   The Java driver 
+Client-Driven OCSP
+~~~~~~~~~~~~~~~~~~
+
+In Client-Driven OCSP, the client sends the certificate in an OCSP request to 
+an OCSP responder after receiving the certificate from the server. The OCSP
+responder checks the status of the certificate with a CA and reports
+whether it is valid in a response sent to the client.
+
+
+OCSP Stapling
+-------------
+
+OCSP Stapling is a variation of OCSP which is used to check whether X.509 
+certificates are valid or have been revoked. In this variation, the server
+is responsible for performing the 
+
+
+To enable OCSP stapling, 
+
+
+For more information on OCSP, see the rfc:`official IETF specification
+<6960>`.
+

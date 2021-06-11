@@ -5,6 +5,7 @@
    later, you may need to force your application to use the TLS 1.2 protocol:
 
    .. code-block:: none
+      :copyable: false
 
       javax.net.ssl.SSLHandshakeException: extension (5) should not be presented in certificate_request
 
@@ -19,6 +20,8 @@
 
    If you run your application from the command line or your IDE, you can
    specify this property as a VM argument using the following syntax:
+
+   .. code-block:: properties
 
       -Djdk.tls.client.protocols=TLSv1.2
 
