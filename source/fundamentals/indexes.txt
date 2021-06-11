@@ -230,7 +230,7 @@ Multikey indexes behave differently from non-multikey indexes in terms of query 
 sort behavior. For a full explanation of multikey indexes, including a discussion of their behavior and limitations,
 refer to the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB manual.
 
-.. _textIndexes:
+.. _text-indexes:
 
 Text Indexes
 ~~~~~~~~~~~~
@@ -271,8 +271,8 @@ omitted because text indexes do not contain sort order.
 .. note:: A collection can only contain one text index. 
 
    If you want to create a text index for multiple text fields, you need
-   to create an compound index to include them. A compound text index
-   specifies for all the text fields on which to run a text search. 
+   to create an compound index. A compound text index
+   includes all of it's text index fields on which to run a text search. 
 
 The following snippet creates a compound text index for the ``title`` and ``genre``
 fields:
@@ -395,13 +395,15 @@ The following sections show the three ways to remove indexes:
 
 - Using an index specification document
 - Using an indexed name field
-- Removing all indexes
+- Using a wildcard character to remove all indexes
 
-Index Specification Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Remove an Index Using an Index Specification Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass the index specification documenent to the ``dropIndex()`` method to
-remove an index from a collection. 
+Pass the **index specification document** to the ``dropIndex()`` method to
+remove an index from a collection. An index specification document is
+a ``Bson`` instance that specifies the type of index you want on a
+specified field. 
 
 The following snippet removes an ascending index on the ``title`` field
 in a collection:
@@ -412,19 +414,19 @@ in a collection:
 
 .. important::
 
-   This does not work for a text index. To remove a text index, see the
-   :ref:`Name Field <name_field>` section.
+   If you want to drop a text index, you must use the name of the index
+   instead. See the :ref:`Name Field <name_field>` section for details.
 
 .. _name_field:
 
-Name Field
-~~~~~~~~~~
+Remove an Index Using a Name Field
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass the indexed ``name`` field to the ``dropIndex()`` method to remove
-an index from a collection. You must do this to remove a text index.
+Pass the ``name`` field of the index to the ``dropIndex()`` method to
+remove an index from a collection.
 
-Use the ``listIndexes()`` method to see the indexed ``name`` fields in
-your collection. 
+If you need to find the name of your index, use the ``listIndexes()``
+method to see the value of the ``name`` fields in your indexes. 
 
 The following snippet retrieves all the indexes in a collection, which
 has a text index on the ``title`` field:
@@ -455,19 +457,19 @@ The following snippet removes the "title_text" index in the collection:
 
    You cannot remove a single field from a compound text index. You must
    drop the entire index and create a new one to update the indexed
-   fields 
+   fields.
 
-Removing All Indexes
-~~~~~~~~~~~~~~~~~~~~
+Remove an Index Using a Wildcard Character
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Starting with MongoDB 4.2, you can drop all non-``_id`` indexes in a
-collection by calling the ``dropIndexes()`` method on your collection:
+Starting with MongoDB 4.2, you can drop all non-``_id`` indexes by
+calling the ``dropIndexes()`` method on your collection: 
 
 .. code-block:: java
 
    collection.dropIndexes();
 
-For MongoDB versions prior, pass the "*" as a parameter to your call to
+For prior versions of MongoDB, pass "*" as a parameter to your call to
 ``dropIndex()`` on your collection:
 
 .. code-block:: java

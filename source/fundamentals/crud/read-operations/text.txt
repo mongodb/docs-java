@@ -33,14 +33,14 @@ If you want to sort your text search results, see the :ref:`Text Search
 Sample Documents
 ~~~~~~~~~~~~~~~~
 
-The following sections feature examples that run text searches on the
+The following sections feature examples of text searches on the
 ``fast_and_furious_movies`` collection. Each section uses a variable
 named ``collection`` to refer to the ``MongoCollection`` instance of the
 ``fast_and_furious_movies`` collection. 
 
-The collection contains documents with a title and tags associated
-with one of the several movies that are part of the Fast and Furious
-movie franchise: 
+The fast_and_furious_movies collection contains documents that each
+describe one of the several movies that are part of the Fast and Furious
+move franchise. Each document contains a title field and a tags field.
 
 .. code-block:: json
 
@@ -68,7 +68,7 @@ snippet:
    :start-after: begin textIndex
    :end-before: end textIndex
 
-For more information, see the :ref:`Text Indexes <textIndexes>` section
+For more information, see the :ref:`Text Indexes <text-indexes>` section
 of our Indexes guide. 
 
 Text Search
@@ -80,12 +80,14 @@ The ``Filters.text()`` method uses the :doc:`Filters builder
 </fundamentals/builders/filters>` to define a query filter specifying
 what to search for during the text search. The query filter is
 represented by a :ref:`Bson <bson>` instance. Pass the query filter to the
-``find()`` method to  run a text search. 
+``find()`` method to run a text search. 
 
 When you execute the ``find()`` method, MongoDB runs a text search on
 all the fields indexed with the text index on the collection. MongoDB
 returns documents that contain one or more of the search terms and a
-:ref:`relevance score for each result <sorts-crud-text-search>`. 
+relevance score for each result. For more information on relevance
+scores, see the :ref:`Text Search <sorts-crud-text-search>` section in
+our Sort Results guide.  
 
 Specify Options
 ~~~~~~~~~~~~~~~
@@ -102,7 +104,7 @@ To specify a case sensitive search, use the following snippet:
    TextSearchOptions options = new TextSearchOptions().caseSensitive(true);
    Bson filter = Filters.text("SomeText", options);
 
-For more information on the method and class in this section, see the following API documentation:
+See the following API documentation for more information:
 
 - :java-core-api:`Filters.text() <com/mongodb/client/model/Filters.html#text(java.lang.String)>`
 - :java-core-api:`TextSearchOptions <com/mongodb/client/model/TextSearchOptions.html>`
@@ -120,7 +122,7 @@ Example
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-term "fast".
+term "fast":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -137,16 +139,17 @@ The following shows the output of the preceding code:
    { "_id": 2, "title": "Fast 5", "tags": ["bank robbery", "full team"] }
 
 To match multiple terms in your text search, separate each term
-with spaces in the ``Filters.text()`` builder method. When you pass the 
-text search query returned by the builder method to the
-``find()`` method, it returns documents that match any of the terms. 
+with spaces in the ``Filters.text()`` builder method. The builder method
+returns the text search query as a ``Bson`` instance. When you pass
+this to the ``find()`` method, it returns documents that match any of
+the terms.
 
 Example 
 ```````
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-terms "fate" or "7".
+terms "fate" or "7":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -165,16 +168,18 @@ The following shows the output of the preceding code:
 Search Text by a Phrase
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass a phrase with escaped quotes to the ``Filters.text()`` method to
-specify the phrase in your text search. If you don't add escaped quotes,
-the method runs a :ref:`term search <term_search>`. 
+Pass a phrase with **escaped quotes** to the ``Filters.text()`` method to
+specify the phrase in your text search. Escaped quotes are double quote
+characters preceded by a backslash character. If you don't add escaped
+quotes around the phrase, the method runs a :ref:`term search
+<term_search>`. 
 
 Example 
 ```````
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-phrase "fate of the furious". 
+phrase "fate of the furious":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -196,8 +201,8 @@ For each term you want to exclude from your text search, prefix the term
 with a minus sign in the string that you pass to the ``Filters.text()``
 builder method. 
 
-Each document matched does not contain the excluded term in
-your text index field. 
+None of the documents returned from the search contain the excluded term
+in your text index field. 
 
 .. note::
 
@@ -209,7 +214,7 @@ Example
 
 The following example runs a text search on the documents in the
 ``fast_and_furious_movies`` collection for titles that contain the
-term "furious", but do not contain the term "fast".
+term "furious", but do not contain the term "fast":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -227,3 +232,6 @@ The following shows the output of the preceding code:
 
 For more information on text indexes, see our Server Manual Entry on :manual:`Text
 Indexes </core/index-text/>`. 
+
+For more information, see the :ref:`Text Indexes <text-indexes>` section
+of our Indexes guide.
