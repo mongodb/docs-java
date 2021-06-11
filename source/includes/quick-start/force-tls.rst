@@ -19,7 +19,7 @@
       jdk.tls.client.protocols=TLSv1.2
 
    If you run your application from the command line or your IDE, you can
-   specify this property as a VM argument using the following syntax:
+   specify this property as a JVM argument using the following syntax:
 
    .. code-block:: properties
 

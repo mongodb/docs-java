@@ -253,7 +253,7 @@ system properties:
    * - ``com.sun.net.ssl.checkRevocation``
      - Set this property to ``true`` to enable revocation checking.
 
-   * - ocsp.enable
+   * - ``ocsp.enable``
      - Set this property to ``true`` to enable client-driven OCSP.
 
 .. warning::
@@ -274,7 +274,7 @@ properties:
 
 .. list-table::
    :header-rows: 1
-   :widths: 35 65
+   :widths: 50 50
 
    * - Property
      - Description
@@ -283,9 +283,9 @@ properties:
      - Set this property to ``true`` to enable revocation checking.
 
    * - ``jdk.tls.client.enableStatusRequestExtension``
-     - Set this property to ``true`` to enable OCSP stapling. If unset or
-       set to ``false``, the connection can proceed regardless of the
-       presence or status of the certificate revocation response.
+     - | Set this property to ``true`` to enable OCSP stapling. 
+       |
+       | If unset or set to ``false``, the connection can proceed regardless of the presence or status of the certificate revocation response.
 
 For additional information about OCSP, check out the following resources:
 
