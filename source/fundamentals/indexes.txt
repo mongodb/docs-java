@@ -244,21 +244,6 @@ language as an option when creating the index.
    Text indexes differ from the more powerful :atlas:`Atlas full text search indexes </atlas-search/>` Atlas users
    should use Atlas search.
 
-.. warning:: Restriction on one text index per collection. 
-
-   If you want to create a text index for multiple text fields, you need
-   to create an compound index to include them. 
-
-   The following creates a compound text index for the ``title`` and ``genre``
-   fields:
-
-   .. code-block:: java
-   
-      collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("genre")));
-   
-   For more information on compound text index restrictions, see the
-   server manual entry on :manual:`Compound Text Indexes <core/index-text/#std-label-text-index-compound>`.
-
 .. common-content-end
 
 .. driver-content-begin
@@ -283,8 +268,24 @@ omitted because text indexes do not contain sort order.
 .. driver-content-end
 .. common-content-begin
 
-For a full explanation of text search with MongoDB, refer to :manual:`Text Indexes </core/index-text>` in the MongoDB
-manual.
+.. note:: A collection can only contain one text index. 
+
+   If you want to create a text index for multiple text fields, you need
+   to create an compound index to include them. A compound text index
+   specifies all the string or string array fields on which to run a
+   text search. 
+
+The following create a compound text index for the ``title`` and ``genre``
+fields:
+
+.. code-block:: java
+   
+   collection.createIndex(Indexes.compoundIndex(Indexes.text("title"), Indexes.text("genre")));
+   
+For more information, see the following Server Manual Entries:
+
+- :manual:`Compound Text Indexes Restrictions <core/index-text/#std-label-text-index-compound>`.
+- :manual:`Text Indexes </core/index-text>` 
 
 Geospatial Indexes
 ~~~~~~~~~~~~~~~~~~
@@ -388,13 +389,43 @@ Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB s
 Remove an Index
 ---------------
 
+There are three ways to remove indexes:
+
+- Passing in the index specification document
+- Passing in the indexed field name
+- Removing all indexes
+
+Index Specification Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pass the index specification documenent to the
+``dropIndex()`` method to remove an index from a collection.
+
+The following snippet removes an ascending index on the ``title`` field
+in a collection:
+
+.. code-block:: java
+
+   collection.dropIndex(Indexes.ascending("title"));
+
+.. important::
+
+   This does not work for a text index. To remove a text index, see the
+   :ref:`Field Name <name_field>` section.
+
+.. _name_field:
+
+Name Field
+~~~~~~~~~~
+
 Pass the indexed ``name`` field to the ``dropIndex()`` method to remove
-an index from a collection. 
+an index from a collection. You must do this to remove a text index.
 
 Use the ``listIndexes()`` method to see the indexed ``name`` fields in
 your collection. 
 
-The following snippet retrieves all the indexes in your collection:
+The following snippet retrieves all the indexes in a collection, which
+has a text index on the ``title`` field:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchText.java
    :language: java
@@ -410,7 +441,7 @@ Your output should look something like the following:
    { "v": 2, "key": {"_fts": "text", "_ftsx": 1}, "name": "title_text", "weights": {"title": 1}, 
    "default_language": "english", "language_override": "language", "textIndexVersion": 3 }
 
-The output preceding tells us there is a text index with the name "title_text".
+You can see a text index with the name "title_text" in the preceding output.
 
 The following removes the ``title_text`` index in the collection:
 
@@ -420,15 +451,26 @@ The following removes the ``title_text`` index in the collection:
 
 .. note:: 
 
-   You cannot remove a single index from a compound index. You must remove
-   all the indexes in your compound index.
+   You cannot remove a single field from a compound text index. You must
+   drop the entire index and create a new one to update the indexed
+   fields 
 
 Removing All Indexes
 ~~~~~~~~~~~~~~~~~~~~
 
 Starting with MongoDB 4.2, you can drop all non-``_id`` indexes in a
-collection using the ``dropIndexes()`` method on your collection. For
-MongoDB versions prior, use ``dropIndex("*")`` on your collection.
+collection by calling the ``dropIndexes()`` method on your collection:
+
+.. code-block:: java
+
+   collection.dropIndexes();
+
+For MongoDB versions prior, pass the "*" as a parameter to your call to
+``dropIndex()`` on your collection:
+
+.. code-block:: java
+
+   collection.dropIndex("*");
 
 For more information on the methods in this section, see the following API documentation:
 
