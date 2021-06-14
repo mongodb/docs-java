@@ -95,14 +95,21 @@ winning plan (the plan MongoDB executed) and rejected plans.
 
 .. include:: /includes/fundamentals/explain-verbosity.rst
 
-The following snippet prints information about how MongoDB executes a
-find operation using the ``EXECUTION_STATS`` verbosity level:
+The following example prints the JSON representation of the
+winning plan for aggregation stages that produce execution plans: 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
    :dedent:
    :start-after: begin explainExample
    :end-before: end explainExample
+
+The above code snippet should produce the following output:
+
+.. code-block:: none
+   :copyable: false
+
+   { "stage": "COLLSCAN", "direction": "forward" }
 
 For more information on the explain operation, see the following
 Server Manual Entries: 

@@ -71,10 +71,9 @@ public class Cursor {
 
     private void explainExample(){
         // begin explainExample
-        FindIterable<Document> iterable = collection.find();
-        iterable.explain(ExplainVerbosity.EXECUTION_STATS)
-            .values()
-            .forEach(doc -> System.out.println(doc));
+        Document explanation = collection.find().explain(ExplainVerbosity.EXECUTION_STATS);
+        List<String> keys = Arrays.asList("queryPlanner", "winningPlan");
+        System.out.println(explanation.getEmbedded(keys, Document.class).toJson());
         // end explainExample
     }
 
