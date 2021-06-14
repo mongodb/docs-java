@@ -216,8 +216,8 @@ Online Certificate Status Protocol (OCSP)
 -----------------------------------------
 
 OCSP is a standard used to check whether X.509 certificates are valid or
-have been revoked during the TLS handshake. The driver supports the following
-variations of OCSP:
+revoked during the TLS handshake. The driver supports the following variations
+of OCSP:
 
 - **Client-Driven OCSP**
 - **OCSP Stapling**
@@ -227,9 +227,8 @@ them for your application.
 
 .. note::
 
-   The Java driver uses the OCSP variation that you specify for your
-   application and cannot be overridden for a specific ``MongoClient``
-   instance.
+   The Java driver uses the JVM arguments configured for the application
+   and cannot be overridden for a specific ``MongoClient`` instance.
 
 Client-Driven OCSP
 ~~~~~~~~~~~~~~~~~~
@@ -237,7 +236,7 @@ Client-Driven OCSP
 In client-driven OCSP, the client sends the certificate in an OCSP request to
 an OCSP responder after receiving the certificate from the server. The OCSP
 responder checks the status of the certificate with a certificate
-authority (CA) and reports whether it is valid in a response sent to the
+authority (CA) and reports whether it's valid in a response sent to the
 client.
 
 To enable client-driven OCSP for your application, set the following JVM
@@ -265,9 +264,9 @@ system properties:
 OCSP Stapling
 ~~~~~~~~~~~~~
 
-OCSP Stapling is a variation of OCSP in which a server is responsible
-for obtaining the signed certificate from the certificate authority (CA)
-and including it in a time-stamped OCSP response to the client.
+OCSP Stapling is a type of OCSP in which the server must obtain the signed
+certificate from the certificate authority (CA) and including it in a
+time-stamped OCSP response to the client.
 
 To enable OCSP stapling for your application, set the following JVM system
 properties:
