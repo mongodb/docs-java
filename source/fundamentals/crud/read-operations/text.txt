@@ -40,7 +40,7 @@ named ``collection`` to refer to the ``MongoCollection`` instance of the
 
 The ``fast_and_furious_movies`` collection contains documents that
 describe one of the several movies that are part of the Fast and Furious
-move franchise. Each document contains a title field and a tags field.
+movie franchise. Each document contains a title field and a tags field.
 
 .. code-block:: json
 
@@ -174,7 +174,7 @@ Search Text by a Phrase
 Pass a phrase with **escaped quotes** to the ``Filters.text()`` method to
 specify the phrase in your text search. Escaped quotes are double quote
 characters preceded by a backslash character. If you don't add escaped
-quotes around the phrase, the method runs a :ref:`term search
+quotes around the phrase, the ``find()`` method runs a :ref:`term search
 <term_search>`. 
 
 Example 

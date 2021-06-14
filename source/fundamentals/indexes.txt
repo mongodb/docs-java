@@ -405,9 +405,9 @@ The following sections show the ways to remove indexes:
 Remove an Index Using an Index Specification Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pass the **index specification document** to the ``dropIndex()`` method to
+Pass an **index specification document** to the ``dropIndex()`` method to
 remove an index from a collection. An index specification document is
-a ``Bson`` instance that specifies the type of index you want on the
+a ``Bson`` instance that specifies the type of index on a
 specified field. 
 
 The following snippet removes an ascending index on the ``title`` field
@@ -420,7 +420,8 @@ in a collection:
 .. important::
 
    If you want to drop a text index, you must use the name of the index
-   instead. See the :ref:`Name Field <name_field>` section for details.
+   instead. See the :ref:`Remove an Index Using a Name Field
+   <name_field>` section for details. 
 
 .. _name_field:
 
@@ -442,7 +443,8 @@ collection:
    :start-after: begin listIndex
    :end-before: end listIndex
 
-Your output should resemble something like the following:
+If you call ``listIndex()`` on a collection that contains a text index,
+the output might resemble the following: 
 
 .. code-block:: json
 
@@ -450,7 +452,7 @@ Your output should resemble something like the following:
    { "v": 2, "key": {"_fts": "text", "_ftsx": 1}, "name": "title_text", "weights": {"title": 1}, 
    "default_language": "english", "language_override": "language", "textIndexVersion": 3 }
 
-This output tells us the names of the existing indexes are "_id"  and
+This output tells us the names of the existing indexes are "_id" and
 "title_text". 
 
 The following snippet removes the "title_text" index from the collection:
