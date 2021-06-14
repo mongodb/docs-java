@@ -13,10 +13,10 @@ MongoDB matches all documents in the collection and deletes them. While
 you can use ``deleteMany()`` to delete all documents in a collection,
 consider using the ``drop()`` method instead for better performance.
 
-Upon successful delete, this method returns an instance of
+Upon successful deletion, this method returns an instance of
 ``DeleteResult``. You can retrieve information such as the number of
-documents deleted by calling the ``getDeletedCount()`` method on the
-``DeleteResult``.
+documents deleted by calling the ``getDeletedCount()`` method on your
+``DeleteResult`` instance.
 
 If your delete operation fails, the driver raises an exception. For more
 information on the types of exceptions raised under specific conditions,
@@ -29,7 +29,7 @@ Example
 The following snippet deletes multiple documents from the ``movies``
 collection in the ``sample_mflix`` database. 
 
-The query filter passed tothe ``deleteMany()`` method matches all
+The query filter passed to the ``deleteMany()`` method matches all
 movie documents that contain a ``rating`` of less than **1.9** in the ``imdb``
 sub-document.
 
