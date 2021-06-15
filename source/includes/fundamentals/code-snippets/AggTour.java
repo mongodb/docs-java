@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.ExplainVerbosity;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
@@ -22,15 +23,14 @@ public class AggTour {
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string
         final String uri = "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
-
+        
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("aggregation");
         MongoCollection<Document> collection = database.getCollection("restaurants");
         // end connection
 
-        // begin insert
         collection.drop();
-
+        // begin insert
         collection.insertMany(Arrays.asList(
             new Document("name", "Sun Bakery Trattoria").append("contact", new Document().append("phone", "386-555-0189").append("email", "SunBakeryTrattoria@example.org").append("location", Arrays.asList(-74.0056649, 40.7452371))).append("stars", 4).append("categories", Arrays.asList("Pizza", "Pasta", "Italian", "Coffee", "Sandwiches")),
             new Document("name", "Blue Bagels Grill").append("contact", new Document().append("phone", "786-555-0102").append("email", "BlueBagelsGrill@example.com").append("location", Arrays.asList(-73.92506, 40.8275556))).append("stars", 3).append("categories", Arrays.asList("Bagels", "Cookies", "Sandwiches")),
@@ -53,6 +53,24 @@ public class AggTour {
             )
         ).forEach(doc -> System.out.println(doc.toJson()));
         // end aggregation one
+        // begin aggregation three
+        Document explanation = collection.aggregate(
+            Arrays.asList(
+                    Aggregates.match(Filters.eq("categories", "bakery")),
+                    Aggregates.group("$stars", Accumulators.sum("count", 1))
+            )
+        ).explain(ExplainVerbosity.EXECUTION_STATS);
+
+        List<Document> stages = explanation.get("stages", List.class);
+        List<String> keys = Arrays.asList("queryPlanner", "winningPlan");
+
+        for (Document stage : stages) {
+            Document cursorStage = stage.get("$cursor", Document.class);
+            if (cursorStage != null) {
+                System.out.println(cursorStage.getEmbedded(keys, Document.class).toJson());
+            }
+        }
+        // end aggregation three
         // begin aggregation two
         collection.aggregate(
             Arrays.asList(

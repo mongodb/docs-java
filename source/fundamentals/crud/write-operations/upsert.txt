@@ -2,6 +2,14 @@
 Insert or Update in a Single Operation
 ======================================
 
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
 In this guide, you can learn how to perform an **upsert** in the MongoDB
 Java driver.
 
@@ -15,8 +23,8 @@ An ``upsert``:
 - Updates documents that match your query filter 
 - Inserts a document if there are no matches to your query filter
 
-Specify an Upsert:
-------------------
+Specify an Upsert
+-----------------
 
 To specify an upsert with the ``updateOne()`` or ``updateMany()``
 methods, pass ``true`` to :java-docs:`UpdateOptions.upsert()
