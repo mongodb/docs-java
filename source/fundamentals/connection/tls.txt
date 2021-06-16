@@ -264,12 +264,12 @@ system properties:
 
    If the OCSP responder is unavailable, the TLS support provided by the
    JDK reports a "hard fail". This differs from the "soft fail" behavior of
-   the MongoDB Shell and certain drivers.
+   the MongoDB Shell and some other drivers.
 
 OCSP Stapling
 ~~~~~~~~~~~~~
 
-OCSP stapling is a type of OCSP in which the server must obtain the signed
+OCSP stapling is a mechanism in which the server must obtain the signed
 certificate from the certificate authority (CA) and include it in a
 time-stamped OCSP response to the client.
 
