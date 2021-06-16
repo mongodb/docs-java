@@ -8,6 +8,9 @@ Enable TLS/SSL on a Connection
    :depth: 2
    :class: singlecol
 
+Overview
+--------
+
 In this guide, you can learn how connect to MongoDB instances with the
 `TLS/SSL <https://en.wikipedia.org/wiki/Transport_Layer_Security>`__
 security protocol using the underlying TLS/SSL support in the JDK. To
@@ -50,8 +53,8 @@ using a method in the ``MongoClientSettings.Builder`` class.
       :tabid: mongoclientsettings
 
       To configure your ``MongoClient``'s TLS/SSL connection options using the
-      ``MongoClientSettings.Builder`` class, call the :java-sync-api:`applyToSslSettings()
-      <com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
+      ``MongoClientSettings.Builder`` class, call the 
+      :java-docs:`applyToSslSettings() <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
       method. Set the ``enabled`` property to ``true`` in the ``SslSettings.Builder``
       block to enable TLS/SSL:
 

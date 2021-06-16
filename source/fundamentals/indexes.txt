@@ -68,7 +68,7 @@ from the index, also called a **covered query**.
    descending would require an in-memory sort.
 
 For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
-articles on :manual:`query coverage </core/query-optimization/#read-operations-covered-query>`.
+articles on :manual:`query coverage </core/query-optimization/#covered-query>`.
 
 Operational Considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +84,7 @@ Wildcard indexes are not designed to replace workload-based index planning.
 
 For more information on designing your data model and choosing indexes appropriate for your application, see the MongoDB
 server documentation on :manual:`Indexing Strategies </applications/indexes>` and
-:manual:`Data Modeling and Indexes </core/data-model-operations/#data-model-indexes>`.
+:manual:`Data Modeling and Indexes </core/data-model-operations/#indexes>`.
 
 Index Types
 -----------
@@ -206,7 +206,7 @@ Multikey Indexes (Indexes on Array Fields)
 **Multikey indexes** are indexes that improve performance for queries that specify a field with an index that contains
 an array value. You can define a multikey index using the same syntax as a single field or compound index.
 
-The following example creates a compound, multikey index on the ``rated`, ``genres`` (an array of
+The following example creates a compound, multikey index on the ``rated``, ``genres`` (an array of
 Strings), and ``title`` fields:
 
 .. common-content-end
@@ -305,7 +305,7 @@ the geospatial data for inclusion, intersection, and proximity. For more informa
 To create a 2dsphere index, you must specify a field that contains only **GeoJSON objects**. For more details on this
 type, see the MongoDB server manual page on :manual:`GeoJSON objects </reference/geojson>`.
 
-The ``location.geo` field in following sample document from the ``theaters`` collection in the ``sample_mflix```
+The ``location.geo`` field in following sample document from the ``theaters`` collection in the ``sample_mflix``
 database is a GeoJSON Point object that describes the coordinates of the theater:
 
 .. code-block:: javascript
