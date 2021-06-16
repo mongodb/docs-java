@@ -30,14 +30,13 @@ Some methods that expect updates are:
 - updateMany()
 - bulkWrite()
 
-The :java-docs:`Updates <apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html>`
-class provides static factory methods for all the MongoDB update
+The ``Updates`` class provides static factory methods for all the MongoDB update
 operators. Each method returns an instance of the :ref:`Bson <bson>`
 type, which you can pass to any method that expects an update argument.
 
 .. tip::
 
-   For brevity, you may choose to import the methods of the ``Updates`` class statically:
+   For brevity, you may choose to import the methods of the :java-docs:`Updates <apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html>` class statically:
 
    .. code-block:: java
 
