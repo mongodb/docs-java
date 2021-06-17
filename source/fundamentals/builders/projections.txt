@@ -27,13 +27,15 @@ query. Projection in MongoDB follows some basic rules:
 
 Find more information about projection mechanics :manual:`here </tutorial/project-fields-from-query-results/>`.
 
-The :java-core-api:`Projections <com/mongodb/client/model/Projections.html>` class provides static factory methods for
+The ``Projections`` class provides static factory methods for
 all the MongoDB projection operators. Each method returns an instance of the :ref:`Bson <bson>` type which you can pass
 to any method that expects a projection.
 
 .. tip::
 
-   For brevity, you may choose to import the methods of the ``Projections`` class statically:
+   For brevity, you may choose to import the methods of the
+   :java-docs:`Projections <apidocs/mongodb-driver-core/com/mongodb/client/model/Projections.html>`
+   class statically:
 
    .. literalinclude:: /includes/fundamentals/code-snippets/builders/Projections.java
       :start-after: begin static import
@@ -249,7 +251,7 @@ The following code shows the output from this projection:
 
 
 When you've specified matching criteria in the **query** portion of your operation, use the ``elemMatch(String)`` method
-variant to specify a :manual:`positional projection </reference/operator/projection/positional/#projection/>` to include
+variant to specify a :manual:`positional projection </reference/operator/projection/positional/#sorts-and-the-positional-operator>` to include
 the first element of an array. Only documents that match the query filter will be retrieved.
 
 .. warning::
@@ -350,7 +352,7 @@ Project a Text Score
 ~~~~~~~~~~~~~~~~~~~~
 
 Use the ``metaTextScore()`` method to specify a projection of
-:manual:`score of a text query </reference/operator/query/text/#return-the-text-search-score/>`
+:manual:`score of a text query </reference/operator/query/text/#text-score>`
 
 The following example projects the text score as the value of the ``score`` field:
 

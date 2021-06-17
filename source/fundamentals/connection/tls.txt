@@ -8,6 +8,9 @@ Enable TLS/SSL on a Connection
    :depth: 2
    :class: singlecol
 
+Overview
+--------
+
 You can connect to MongoDB instances with the
 `TLS/SSL <https://en.wikipedia.org/wiki/Transport_Layer_Security>`__
 security protocol using the underlying TLS/SSL support in the JDK. To
@@ -37,8 +40,8 @@ using a method in the ``MongoClientSettings.Builder`` class.
    .. tab:: ConnectionString
       :tabid: connectionstring
 
-      To enable TLS/SSL on a connection with a :java-sync-api:`ConnectionString
-      <com/mongodb/ConnectionString.html>`, assign the connection string
+      To enable TLS/SSL on a connection with a :java-docs:`ConnectionString
+      <apidocs/mongodb-driver-sync/com/mongodb/ConnectionString.html>`, assign the connection string
       parameter ``tls`` a value of ``true`` in the connection string passed to
       ``MongoClients.create()``:
 
@@ -50,8 +53,8 @@ using a method in the ``MongoClientSettings.Builder`` class.
       :tabid: mongoclientsettings
 
       To configure your ``MongoClient``'s TLS/SSL connection options using the
-      ``MongoClientSettings.Builder`` class, call the :java-sync-api:`applyToSslSettings()
-      <com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
+      ``MongoClientSettings.Builder`` class, call the 
+      :java-docs:`applyToSslSettings() <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`
       method. Set the ``enabled`` property to ``true`` in the ``SslSettings.Builder``
       block to enable TLS/SSL:
 
@@ -211,3 +214,87 @@ object to the builder in the ``applyToSslSettings()`` lambda:
                 })
         .build();
    MongoClient client = MongoClients.create(settings);
+
+Online Certificate Status Protocol (OCSP)
+-----------------------------------------
+
+OCSP is a standard used to check whether X.509 certificates have been
+revoked. A certificate authority can add an X.509 certificate to the
+Certificate Revocation List (CRL) prior to the expiry time to invalidate
+the certificate. When a client sends an X.509 certificate during the TLS
+handshake, the CA's revocation server checks the CRL and returns a status
+of "good", "revoked", or "unknown".
+
+The driver supports the following variations of OCSP:
+
+- **Client-Driven OCSP**
+- **OCSP Stapling**
+
+The following sections describe the differences between them and how to enable
+them for your application.
+
+.. note::
+
+   The Java driver uses the JVM arguments configured for the application
+   and cannot be overridden for a specific ``MongoClient`` instance.
+
+Client-Driven OCSP
+~~~~~~~~~~~~~~~~~~
+
+In client-driven OCSP, the client sends the certificate in an OCSP request to
+an OCSP responder after receiving the certificate from the server. The OCSP
+responder checks the status of the certificate with a certificate
+authority (CA) and reports whether it's valid in a response sent to the
+client.
+
+To enable client-driven OCSP for your application, set the following JVM
+system properties:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35 65
+
+   * - Property
+     - Value
+
+   * - ``com.sun.net.ssl.checkRevocation``
+     - Set this property to ``true`` to enable revocation checking.
+
+   * - ``ocsp.enable``
+     - Set this property to ``true`` to enable client-driven OCSP.
+
+.. warning::
+
+   If the OCSP responder is unavailable, the TLS support provided by the
+   JDK reports a "hard fail". This differs from the "soft fail" behavior of
+   the MongoDB Shell and some other drivers.
+
+OCSP Stapling
+~~~~~~~~~~~~~
+
+OCSP stapling is a mechanism in which the server must obtain the signed
+certificate from the certificate authority (CA) and include it in a
+time-stamped OCSP response to the client.
+
+To enable OCSP stapling for your application, set the following JVM system
+properties:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - Property
+     - Description
+
+   * - ``com.sun.net.ssl.checkRevocation``
+     - Set this property to ``true`` to enable revocation checking.
+
+   * - ``jdk.tls.client.enableStatusRequestExtension``
+     - | Set this property to ``true`` to enable OCSP stapling.
+       |
+       | If unset or set to ``false``, the connection can proceed regardless of the presence or status of the certificate revocation response.
+
+For additional information about OCSP, check out the following resources:
+
+- Java SE 8 Documentation on `how to enable OCSP for an application <https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ocsp.html>`__
+- :rfc:`Official IETF specification for OCSP (RFC 6960) <6960>`

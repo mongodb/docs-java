@@ -4,13 +4,17 @@ Delete a Document
 
 .. default-domain:: mongodb
 
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
 Overview
 --------
 
 You can remove documents by passing a query filter to the
-:java-docs:`deleteOne() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`, 
-:java-docs:`deleteMany() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` 
-or :java-docs:`findOneAndDelete() </apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>` methods.
+``deleteOne()``, ``deleteMany()`` or ``findOneAndDelete()`` methods. 
 
 The ``deleteOne()`` method deletes a single document. If the query
 filter matches more than one document, the method will remove the first
@@ -22,17 +26,15 @@ filter.
 The ``findOneAndDelete()`` method atomically finds and deletes the first
 occurrence of a match in the collection.
 
-To specify a collation or hint an index, use
-:java-docs:`DeleteOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html>`
+To specify a collation or hint an index, use ``DeleteOptions``
 as a second parameter to the ``deleteOne()`` and ``deleteMany()`` methods. 
 
 To specify a collation, hint an index, specify sort order, or specify a
-projection on the returned document, use
-:java-docs:`FindOneAndDeleteOptions </apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`
+projection on the returned document, use ``FindOneAndDeleteOptions`` 
 as the second parameter to the ``findOneAndDelete()`` method.
 
-Examples
---------
+Sample Documents
+~~~~~~~~~~~~~~~~
 
 The following examples are about a paint store that sells eight different
 colors of paint. The store had their annual online sale resulting in the
@@ -49,8 +51,8 @@ following documents in their ``paint_inventory`` collection:
     { "_id": 7, "color": "green", "qty": 0 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-``deleteMany()``
-````````````````
+Delete Many Documents
+---------------------
 
 The paint store website displays all documents in the
 ``paint_inventory`` collection. To reduce customer confusion, the store
@@ -76,8 +78,8 @@ collection:
     { "_id": 5, "color": "yellow", "qty": 6 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-``deleteOne()``
-```````````````
+Delete a Document
+-----------------
 
 The store is donating the remaining quantity of their yellow paint. This
 means that the ``qty`` for yellow is now ``0`` and we need to remove yellow
@@ -102,8 +104,8 @@ collection:
     { "_id": 2, "color": "purple", "qty": 8 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-``findOneAndDelete()``
-``````````````````````
+Find and Delete a Document
+--------------------------
 
 The store would like to raffle the remaining quantity of purple paint
 and remove purple from the ``paint_inventory`` collection. 
@@ -138,9 +140,14 @@ collection:
     { "_id": 1, "color": "red", "qty": 5 }
     { "_id": 8, "color": "black", "qty": 8 }
 
-See the following documentation for more information about the deleting
-a document:
+For more information about the methods and classes mentioned in this guide,
+see the following resources:
 
-- :manual:`db.collection.deleteOne() </reference/method/db.collection.deleteMany/>`
-- :manual:`db.collection.deleteMany() </reference/method/db.collection.deleteOne/>`
-- :manual:`db.collection.findOneAndDelete() </reference/method/db.collection.findOneAndDelete/>`
+- :java-docs:`deleteOne() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>` API Documentation 
+- :java-docs:`deleteMany() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>` API Documentation
+- :java-docs:`findOneAndDelete() <apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>` API Documentation
+- :java-docs:`DeleteOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html>` API Documentation
+- :java-docs:`FindOneAndDeleteOptions <apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>` API Documentation
+- :manual:`db.collection.deleteOne() </reference/method/db.collection.deleteMany/>` Server Manual Entry
+- :manual:`db.collection.deleteMany() </reference/method/db.collection.deleteOne/>` Server Manual Entry
+- :manual:`db.collection.findOneAndDelete() </reference/method/db.collection.findOneAndDelete/>` Server Manual Entry
