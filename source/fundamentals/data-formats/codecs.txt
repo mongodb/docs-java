@@ -164,7 +164,7 @@ the ``fromCodecs()`` method:
 In the example above, we assign the ``CodecRegistry`` the following ``Codec``
 implementations:
 
-- ``IntegerCodec``, a ``Codec`` that converts integers and is part of the BSON package.
+- ``IntegerCodec``, a ``Codec`` that converts ``Integers`` and is part of the BSON package.
 - :ref:`PowerStatusCodec <codecs-powerstatus-codec>`, our sample ``Codec``
   that converts certain Java strings to BSON booleans.
 
@@ -369,4 +369,3 @@ see the following API Documentation:
 - :java-docs:`MongoClientSettings.getDefaultCodecRegistry() <apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getDefaultCodecRegistry()>`
 - :java-docs:`Codec <apidocs/bson/org/bson/codecs/Codec.html>`
 - :java-docs:`CodecProvider <apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`
-
