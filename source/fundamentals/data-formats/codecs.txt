@@ -20,7 +20,7 @@ In this guide, you can learn about **Codecs** and the supporting classes that
 handle the encoding and decoding of Java objects to and from BSON data in
 MongoDB. The ``Codec`` abstraction allows you to map any Java type to
 a corresponding BSON type. You can use this to map your domain objects
-directly to and from BSON instead of using an intermediate map-based one such
+directly to and from BSON instead of using an intermediate map-based object such
 as ``Document`` or ``BsonDocument``.
 
 You can learn how to specify custom encoding and decoding logic using
@@ -165,7 +165,7 @@ In the example above, we assign the ``CodecRegistry`` the following ``Codec``
 implementations:
 
 - :java-docs:`IntegerCodec </apidocs/bson/org/bson/codecs/IntegerCodec.html>`,
-  a ``Codec`` that converts Integers and is part of the BSON package.
+  a ``Codec`` that converts integers and is part of the BSON package.
 - :ref:`PowerStatusCodec <codecs-powerstatus-codec>`, our sample ``Codec``
   that converts certain Java strings to BSON booleans.
 
@@ -222,7 +222,7 @@ section of this guide.
 
 When working with POJOs, consider using the  ``PojoCodecProvider`` to
 minimize duplicate code to convert commonly-used data types and customize
-the behavior. See our
+their behavior. See our
 :doc:`POJO Customization guide </fundamentals/data-formats/pojo-customization>`
 for more information.
 
@@ -348,7 +348,7 @@ After defining the conversion logic, we can perform the following:
 The following example class contains code that assigns the
 ``MonolightCodecProvider`` to the ``MongoCollection`` instance by passing it
 to the ``withCodecRegistry()`` method. The example class also inserts and
-retrieves data using the ``Monolight`` class and associated ``Codecs``:
+retrieves data using the ``Monolight`` class and associated codecs:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MonolightCodecExample.java
    :start-after: start class
