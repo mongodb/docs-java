@@ -451,13 +451,13 @@ The geospatial operator methods include:
      - geometries containing a geospatial data value (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
 
    * - :java-docs:`geoIntersects() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoIntersects(java.lang.String,org.bson.conversions.Bson)>`
-     - geometries that intersect with a GeoJSON geometry. The 2dsphere index supports ``$geoIntersects``.
+     - geometries that intersect with a GeoJSON geometry. The ``2dsphere`` index supports ``$geoIntersects``.
 
    * - :java-docs:`near() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#near(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
-     - geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support ``$near``.
+     - geospatial objects in proximity to a point. Requires a geospatial index. The ``2dsphere`` and ``2d`` indexes support ``$near``.
 
    * - :java-docs:`nearSphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nearSphere(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
-     - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support ``$nearSphere``.
+     - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The ``2dsphere`` and ``2d`` indexes support ``$nearSphere``.
 
 The following example creates a filter that matches documents in which
 the ``point`` field contains a GeoJSON geometry that falls within
