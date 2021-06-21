@@ -47,16 +47,7 @@ POJOs
 Do I have to specify an ID field value myself?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Imagine you have the following entity:
-
-.. code-block:: java
-
-   public class Entity {
-      public final ObjectId id;
-      public String value;
-
-      public Entity(){ }
-   }
+No, the PojoCodec automatically generates an ``ObjectId``.
 
 Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
