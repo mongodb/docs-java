@@ -11,7 +11,7 @@ Enable TLS/SSL on a Connection
 Overview
 --------
 
-You can connect to MongoDB instances with the
+In this guide, you can learn how to connect to MongoDB instances with the
 `TLS/SSL <https://en.wikipedia.org/wiki/Transport_Layer_Security>`__
 security protocol using the underlying TLS/SSL support in the JDK. To
 configure your connection to use TLS/SSL, enable the TLS/SSL settings in
@@ -156,7 +156,7 @@ Disable Hostname Verification
 -----------------------------
 
 By default, the driver ensures that the hostname included in the server's
-TLS/SSL certificate(s) matches the hostname(s) provided when constructing
+TLS/SSL certificates matches the hostnames provided when constructing
 a ``MongoClient``. If you need to disable hostname verification for your
 application, you can explicitly disable this by setting the
 ``invalidHostNameAllowed`` property of the builder to ``true`` in the
