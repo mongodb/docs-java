@@ -41,6 +41,20 @@ For applications that require a mix of the new and legacy APIs, ``com.mongodb.Mo
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``, the only difference being that you create instances via constructors instead of a factory class.
 - CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``.  You can access this API via the ``getDatabase()`` method.
 
+How do I use ``MongoClientSettings``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``MongoClientSettings`` class lets you specify configurations for
+``MongoClient`` instances. The ``MongoClientSettings`` class is immutable. To
+construct ``MongoClientSettings`` instances, use the
+``MongoClientSettings.Builder`` class. Here are the sections of our
+documentation that discuss different aspect of the ``MongoClientSettings`` class:
+
+- :ref:`Enable Compression <enable-compression>`
+- :ref:`Enable TLS/SSL on <tls-enable>`
+
+
+
 POJOs
 -----
 
