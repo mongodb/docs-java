@@ -33,30 +33,25 @@ in the field names of documents:
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
-   :widths: 20 20 20 40
+   :widths: 25 25 50
 
    * - Character
-     - Restriction
      - Operation
      - Description
 
    * - **.**
-     - Removed 
      - Insert and Replace
      - Removed restrictions on field names containing this character.
 
    * - **$**
-     - Removed 
      - Insert
      - Removed restrictions on field names starting with this character.
 
    * - **$**
-     - Removed 
      - Replace
      - Removed restrictions in nested documents on field names containing this character.
      
    * - **$**
-     - Remains 
      - Replace
      - Kept restrictions in top-level documents on field names starting with this character. This prevents accidental use of a replace operation when the intention was to use an update operation.
      
