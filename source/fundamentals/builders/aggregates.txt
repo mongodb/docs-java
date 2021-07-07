@@ -537,3 +537,22 @@ The following example creates a pipeline stage that executes two parallel aggreg
    :end-before: // end facet
    :language: java
    :dedent:
+
+SetWindowFields
+---------------
+
+Use the ``setWindowFields()`` method to create a :manual:`$setWindowFields </reference/operator/aggregation/setWindowFields/>`
+pipeline stage that allows using window operators to perform operations
+on a specified span of documents in a collection.
+
+The following example creates a pipeline stage that that computes the
+accumulated rainfall and the average temperature over the past month per
+each locality from more fine-grained measurements presente in the ``rainfall``
+and ``temperature`` fields:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
+   :start-after: // begin setWindowFields
+   :end-before: // end setWindowFields
+   :language: java
+   :dedent:
+
