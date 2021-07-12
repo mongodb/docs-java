@@ -25,9 +25,9 @@ What's New in 4.3
 New features of the 4.3 Java driver release include:
 
 - MongoDB Versioned API. For more information, see our :doc:`Versioned API guide </fundamentals/versioned-api>`. 
-- Added a ``setWindowFields`` pipeline stage to allow the use of window operators 
+- Added a builder API for the ``setWindowFields`` pipeline stage to allow the use of window operators 
 - Added support for setting Netty `io.netty.handler.ssl.SslContext <https://netty.io/4.1/api/io/netty/handler/ssl/SslContext.html>`__
-- Added support for ``atClusterTime`` for the read concern in ``ClientSessionOption``
+- Added support for snapshot reads to ``ClientSession``
 - Limited the rate of establishing new connections per connection pool
 - Removed most restrictions on allowed characters in the field names of documents you insert or replace. This is a behavioral change for any application that is relying on client-side enforcement of these restrictions.
 
@@ -63,7 +63,7 @@ in the field names of documents:
 
    Unacknowledged writes using dollar-prefixed or dotted keys may
    be silently rejected by pre-5.0 servers, where some restrictions on
-   field names are still enforced in the serve.
+   field names are still enforced in the server.
 
 .. _version-4.2:
 
