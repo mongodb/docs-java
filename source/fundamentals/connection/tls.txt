@@ -74,11 +74,11 @@ Configure Certificates
 Java applications that initiate TLS/SSL requests require access to
 cryptographic certificates that prove identity for the application
 itself as well as other applications with which the application
-interacts. You can configure access to these certificates in your application in
-two ways:
+interacts. You can configure access to these certificates in your application with
+two mechanisms:
 
-- Through the JVM Trust Store and JVM Key Store.
-- Through a client-specific Trust Store and Key Store
+- The JVM Trust Store and JVM Key Store
+- A Client-Specific Trust Store and Key Store
 
 .. _tls-configure-jvm-truststore:
 
@@ -158,27 +158,28 @@ please refer to the `JSSE Reference Guide
 Configure a Client Specific Trust Store and Key Store
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also configure a trust store and key store specific to a client using an
-instance of the ``SSLContext`` class.
+You can configure a client specific trust store and key store using the
+``SSLContext`` class.
 
 The following code snippet configures a client specific trust store and key
 store:
 
 .. code-block:: java
 
+   String algorithm = "TLS";
    try {
-     final SSLContext sslContext = SSLContext.getInstance("TLS");
-     sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Nummber Generator>);
-     MongoClientSettings settings = MongoClientSettings.builder()
-           .applyToSslSettings(builder ->
-                    builder.enabled(true).
-                             context(sslContext)
-                             .build())
-           .build();
-     MongoClient client = MongoClients.create(settings);
+      final SSLContext sslContext = SSLContext.getInstance(algorithm);
+      sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Nummber Generator>);
+      MongoClientSettings settings = MongoClientSettings.builder()
+               .applyToSslSettings(builder ->
+                     builder.enabled(true).
+                              context(sslContext)
+                              .build())
+               .build();
+      MongoClient client = MongoClients.create(settings);
    }
    catch (NoSuchAlgorithmException e) {
-     System.err.println("I'm sorry, but TLS is not a valid message digest algorithm");
+      System.err.println("I'm sorry, but " + algorithm + " is not a valid message digest algorithm");
    }
 
 For more information on the ``SSLContext`` class, see the official Oracle API
