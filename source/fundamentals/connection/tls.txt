@@ -172,8 +172,8 @@ store:
       sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Number Generator>);
       MongoClientSettings settings = MongoClientSettings.builder()
                .applyToSslSettings(builder ->
-                     builder.enabled(true).
-                              context(sslContext)
+                     builder.enabled(true)
+                              .context(sslContext)
                               .build())
                .build();
       MongoClient client = MongoClients.create(settings);
