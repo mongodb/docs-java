@@ -74,8 +74,11 @@ Configure Certificates
 Java applications that initiate TLS/SSL requests require access to
 cryptographic certificates that prove identity for the application
 itself as well as other applications with which the application
-interacts. To configure access to these certificates in your application,
-you should use the JVM Trust Store and the JVM Key Store.
+interacts. You can configure access to these certificates in your application in
+two ways:
+
+- Through the JVM Trust Store and JVM Key Store.
+- Through a client-specific Trust Store or Keystore
 
 .. _tls-configure-jvm-truststore:
 
@@ -151,6 +154,11 @@ please refer to the `JSSE Reference Guide
 <http://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html>`__.
 
 .. _tls-disable-hostname-verification:
+
+Configure a Client Specific Trust Store and Key Store
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 Disable Hostname Verification
 -----------------------------
