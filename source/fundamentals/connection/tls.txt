@@ -171,15 +171,15 @@ store:
       final SSLContext sslContext = SSLContext.getInstance(algorithm);
       sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Number Generator>);
       MongoClientSettings settings = MongoClientSettings.builder()
-               .applyToSslSettings(builder ->
-                     builder.enabled(true)
-                              .context(sslContext)
-                              .build())
+               .applyToSslSettings(builder -> {
+                     builder.enabled(true);
+                     builder.context(sslContext);
+               })
                .build();
       MongoClient client = MongoClients.create(settings);
    }
    catch (NoSuchAlgorithmException e) {
-      System.err.println("I'm sorry, but " + algorithm + " is not a valid message digest algorithm");
+      System.err.println(algorithm + " is not a valid message digest algorithm");
    }
 
 For more information on the ``SSLContext`` class, see the official Oracle API
