@@ -78,7 +78,7 @@ interacts. You can configure access to these certificates in your application in
 two ways:
 
 - Through the JVM Trust Store and JVM Key Store.
-- Through a client-specific Trust Store or Keystore
+- Through a client-specific Trust Store and Key Store
 
 .. _tls-configure-jvm-truststore:
 
@@ -158,7 +158,31 @@ please refer to the `JSSE Reference Guide
 Configure a Client Specific Trust Store and Key Store
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+You can also configure a trust store and key store specific to a client using an
+instance of the ``SSLContext`` class.
 
+The following code snippet configures a client specific trust store and key
+store:
+
+.. code-block:: java
+
+   try {
+     final SSLContext sslContext = SSLContext.getInstance("TLS");
+     sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Nummber Generator>);
+     MongoClientSettings settings = MongoClientSettings.builder()
+           .applyToSslSettings(builder ->
+                    builder.enabled(true).
+                             context(sslContext)
+                             .build())
+           .build();
+     MongoClient client = MongoClients.create(settings);
+   }
+   catch (NoSuchAlgorithmException e) {
+     System.err.println("I'm sorry, but TLS is not a valid message digest algorithm");
+   }
+
+For more information on the ``SSLContext`` class, see the official Oracle API
+documentation for `SSL Context <https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html>`__. 
 
 Disable Hostname Verification
 -----------------------------
