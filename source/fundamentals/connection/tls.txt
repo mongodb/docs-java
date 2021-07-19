@@ -74,8 +74,11 @@ Configure Certificates
 Java applications that initiate TLS/SSL requests require access to
 cryptographic certificates that prove identity for the application
 itself as well as other applications with which the application
-interacts. To configure access to these certificates in your application,
-you should use the JVM Trust Store and the JVM Key Store.
+interacts. You can configure access to these certificates in your application with
+the following mechanisms:
+
+- The JVM Trust Store and JVM Key Store
+- A Client-Specific Trust Store and Key Store
 
 .. note::
 
@@ -157,6 +160,36 @@ please refer to the `JSSE Reference Guide
 <http://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html>`__.
 
 .. _tls-disable-hostname-verification:
+
+Configure a Client-Specific Trust Store and Key Store
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can configure a client-specific trust store and key store using the
+``init()`` method of the ``SSLContext`` class.
+
+The following code snippet configures a client-specific trust store and key
+store:
+
+.. code-block:: java
+
+   String algorithm = "TLS";
+   try {
+      final SSLContext sslContext = SSLContext.getInstance(algorithm);
+      sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Number Generator>);
+      MongoClientSettings settings = MongoClientSettings.builder()
+               .applyToSslSettings(builder -> {
+                     builder.enabled(true);
+                     builder.context(sslContext);
+               })
+               .build();
+      MongoClient client = MongoClients.create(settings);
+   }
+   catch (NoSuchAlgorithmException e) {
+      System.err.println(algorithm + " is not a valid message digest algorithm");
+   }
+
+For more information on the ``SSLContext`` class, see the official Oracle API
+documentation for `SSL Context <https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html>`__. 
 
 Disable Hostname Verification
 -----------------------------
