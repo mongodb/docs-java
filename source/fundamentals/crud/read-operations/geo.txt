@@ -267,11 +267,7 @@ To search for geospatial data within a specified shape use the ``geoWithin()``
 static utility method of the ``Filters`` builder class. The ``geoWithin()``
 method constructs a query with the ``$geoWithin`` query operator. 
 
-.. figure:: /includes/figures/geo_geometry.png
-   :alt: Area of Long Island we are searching for movie theaters
-
-The following example searches for movie theaters in the section of Long Island
-described in the figure above.
+The following example searches for movie theaters in the section of Long Island.
 
 .. _example_range_query:
 
@@ -280,6 +276,11 @@ described in the figure above.
    :dedent:
    :start-after: begin rangeExample
    :end-before: end rangeExample
+
+The following figure shows the ``longIslandTriangle`` created.
+
+.. figure:: /includes/figures/geo_geometry.png
+   :alt: Area of Long Island we are searching for movie theaters
 
 The output of the code snippet should look something like this:
 
