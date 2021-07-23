@@ -161,26 +161,9 @@ Configure a Client-Specific Trust Store and Key Store
 You can configure a client-specific trust store and key store using the
 ``init()`` method of the ``SSLContext`` class.
 
-The following code snippet configures a client-specific trust store and key
-store:
-
-.. code-block:: java
-
-   String algorithm = "TLS";
-   try {
-      final SSLContext sslContext = SSLContext.getInstance(algorithm);
-      sslContext.init(<Your Key Managers>, <Your Trust Managers>, <A Secure Random Number Generator>);
-      MongoClientSettings settings = MongoClientSettings.builder()
-               .applyToSslSettings(builder -> {
-                     builder.enabled(true);
-                     builder.context(sslContext);
-               })
-               .build();
-      MongoClient client = MongoClients.create(settings);
-   }
-   catch (NoSuchAlgorithmException e) {
-      System.err.println(algorithm + " is not a valid message digest algorithm");
-   }
+You can find an example showing how to configure a client with an ``SSLContext``
+instance in the 
+`Customize TLS/SSL Configuration with an SSLContext section of this guide <https://docs.mongodb.com/drivers/java/sync/current/fundamentals/connection/tls/#customize-tls-ssl-configuration-with-an-sslcontext>`__.
 
 For more information on the ``SSLContext`` class, see the API
 documentation for `SSL Context <https://cr.openjdk.java.net/~iris/se/16/spec/fr/java-se-16-fr-spec/api/java.base/javax/net/ssl/SSLContext.html>`__. 
