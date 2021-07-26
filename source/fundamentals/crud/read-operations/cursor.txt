@@ -13,13 +13,19 @@ Access Data From a Cursor
 Overview
 --------
 
-In this guide, you can learn how to access data using a cursor with the
+In this guide, you can learn how to access data using a **cursor** with the
 MongoDB Java driver. 
 
-Read operations that return multiple documents do not immediately return
-all values matching the query. Because a query can potentially match
-a large number of documents, we need to be able to access or store the
-matched documents. 
+A cursor is a tool for iterating over database results while only holding a
+subset of them in memory at a given time.
+
+Read operations that match a large number of documents do not return
+all matched documents at once. Instead, the driver uses a cursor to retrieve the
+matched documents in batches. This has the following advantages over retrieving
+all documents at once:
+
+- Uses less memory on the client application
+- Reduces latency for retrieving a subset of records from large queries
 
 This page uses an initiating method, ``find()`` to show how to access
 data from a :java-docs:`FindIterable
