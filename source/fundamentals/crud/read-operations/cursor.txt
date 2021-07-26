@@ -21,11 +21,7 @@ subset of them in memory at a given time.
 
 Read operations that match a large number of documents do not return
 all matched documents at once. Instead, the driver uses a cursor to retrieve the
-matched documents in batches. This has the following advantages over retrieving
-all documents at once:
-
-- Uses less memory on the client application
-- Reduces latency for retrieving a subset of records from large queries
+matched documents in batches.
 
 This page uses an initiating method, ``find()`` to show how to access
 data from a :java-docs:`FindIterable
