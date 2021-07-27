@@ -84,7 +84,7 @@ The First Matching Array Element
 
 To update the first array element that matches your query filter, use the
 positional ``$`` operator. The array field must appear as part of your
-query document to use the positional ``$`` operator. 
+query filter to use the positional ``$`` operator. 
 
 Example
 ```````
@@ -92,7 +92,7 @@ Example
 The following example performs these actions:
 
 - Query for a document with a ``qty`` field containing the value "18"
-- Decrement the first array value that matches the query document by "3"  using the ``inc()`` method of the ``Updates`` builder and the positional ``$`` operator 
+- Decrement the first array value that matches the query filter by "3"  using the ``inc()`` method of the ``Updates`` builder and the positional ``$`` operator 
 
 .. literalinclude:: /includes/fundamentals/code-snippets/UpdateArray.java
    :language: java
