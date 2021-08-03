@@ -1,6 +1,6 @@
 .. code-block:: java
 
-   LoginContext loginContext = new LoginContext("something.from.jaas.config");
+   LoginContext loginContext = new LoginContext("<LoginModule implementation from JAAS config>");
    loginContext.login();
    Subject subject = loginContext.getSubject();
 
