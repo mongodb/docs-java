@@ -163,12 +163,16 @@ You may need to specify one or more of the following additional
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-gssapi-properties.rst
 
+      Your code to specify a ``JAVA_SUBJECT_KEY`` might look something like
+      this:
+      
+      .. include:: /includes/fundamentals/code-snippets/auth-credentials-gssapi-subject-key.rst
 
 By default, the Java driver caches Kerberos tickets by ``MongoClient`` instance.
 If your deployment needs to frequently create and destroy ``MongoClient`` instances, 
 you can change the default Kerberos ticket caching behavior to cache by process
 to improve performance.
-
+      
 .. tabs::
    :hidden:
 
