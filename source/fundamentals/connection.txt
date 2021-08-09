@@ -88,6 +88,8 @@ options as parameters. In the following example, we set two connection options:
 ``retryWrites=true`` and ``w=majority``. For more information on connection
 options, skip to the :ref:`connection options <connection-options>` section.
 
+.. _connect-atlas-java-driver:
+
 The following code shows how you can use the sample connection URI in a client to
 connect to MongoDB.
 
@@ -99,7 +101,11 @@ connect to MongoDB.
 Connect to ``localhost``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. include:: /includes/localhost-connection.rst
+.. include:: /includes/fundamentals/localhost-connection.rst
+
+To test whether you can connect to your server, replace the connection
+string in the :ref:`Connect to MongoDB Atlas <connect-atlas-java-driver>` code
+example and run it.
 
 Connect to a Replica Set
 ------------------------
