@@ -96,7 +96,14 @@ connect to MongoDB.
 .. literalinclude:: /includes/fundamentals/code-snippets/srv.java
    :language: java
 
-.. _connect-replica-set:
+.. _java-other-ways-to-connect:
+
+Other Ways to Connect to MongoDB
+--------------------------------
+
+If you are connecting to a single MongoDB server instance or replica set
+that is not hosted on Atlas, see the following sections to find out how to
+connect.
 
 Connect to a MongoDB Server on Your Local Machine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,8 +114,10 @@ To test whether you can connect to your server, replace the connection
 string in the :ref:`Connect to MongoDB Atlas <connect-atlas-java-driver>` code
 example and run it.
 
+.. _connect-replica-set:
+
 Connect to a Replica Set
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 A MongoDB replica set deployment is a group of connected instances that
 store the same set of data. This configuration of instances provides data

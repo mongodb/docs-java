@@ -24,9 +24,9 @@ includes information on the hostname or IP address and port of your
 cluster, authentication mechanism, user credentials when applicable, and
 other connection options.
 
-If you are connecting to a cluster that is not hosted by Atlas, see the
-:doc:`Connection Guide </fundamentals/connection>` for instructions on how
-to format your connection string.
+If you are connecting to an instance or cluster that is not hosted by Atlas,
+see :ref:`Other Ways to Connect to MongoDB <java-other-ways-to-connect>` for
+instructions on how to format your connection string.
 
 To retrieve your connection string for the cluster and user you created in
 the previous step, log into your Atlas account and navigate to the
