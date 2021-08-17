@@ -56,7 +56,7 @@ type, which you can pass to any method that expects a query filter.
 .. tip::
 
    For brevity, you may choose to import all methods of the
-   :java-docs:`Filters <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`
+   :java-docs-4.3:`Filters <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`
    class statically: 
 
    .. code-block:: java
@@ -115,31 +115,31 @@ The comparison operator methods include:
    * - Comparison Method
      - Matches
       
-   * - :java-docs:`eq() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#eq(java.lang.String,TItem)>`
+   * - :java-docs-4.3:`eq() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#eq(java.lang.String,TItem)>`
      - values equal to a specified value.
 
-   * - :java-docs:`gt() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#gt(java.lang.String,TItem)>`
+   * - :java-docs-4.3:`gt() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#gt(java.lang.String,TItem)>`
      - values greater than a specified value.
       
-   * - :java-docs:`gte() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#gte(java.lang.String,TItem)>`
+   * - :java-docs-4.3:`gte() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#gte(java.lang.String,TItem)>`
      - values greater than or equal to a specified value.
 
-   * - :java-docs:`lt() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#lt(java.lang.String,TItem)>`
+   * - :java-docs-4.3:`lt() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#lt(java.lang.String,TItem)>`
      - values less than a specified value.
 
-   * - :java-docs:`lte() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#lte(java.lang.String,TItem)>`
+   * - :java-docs-4.3:`lte() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#lte(java.lang.String,TItem)>`
      - values less than or equal to a specified value.
 
-   * - :java-docs:`ne() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#ne(java.lang.String,TItem)>`
+   * - :java-docs-4.3:`ne() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#ne(java.lang.String,TItem)>`
      - values not equal to a specified value.
 
-   * - :java-docs:`in() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#in(java.lang.String,java.lang.Iterable)>`
+   * - :java-docs-4.3:`in() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#in(java.lang.String,java.lang.Iterable)>`
      - any of the values specified in an array.
 
-   * - :java-docs:`nin() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nin(java.lang.String,java.lang.Iterable)>`
+   * - :java-docs-4.3:`nin() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nin(java.lang.String,java.lang.Iterable)>`
      - none of the values specified in an array.
 
-   * - :java-docs:`empty() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#empty()>`
+   * - :java-docs-4.3:`empty() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#empty()>`
      - all the documents.
 
 The following example creates a filter that matches all documents where
@@ -212,16 +212,16 @@ The logical operator methods include:
    * - Logical Method
      - Matches
       
-   * - :java-docs:`and() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#and(java.lang.Iterable)>`
+   * - :java-docs-4.3:`and() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#and(java.lang.Iterable)>`
      - documents with the conditions of all the filters. This operator joins filters with a logical ``AND``.
 
-   * - :java-docs:`or() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#or(org.bson.conversions.Bson...)>`
+   * - :java-docs-4.3:`or() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#or(org.bson.conversions.Bson...)>`
      - documents with the conditions of either filter. This operator joins filters with a logical ``OR``.
       
-   * - :java-docs:`not() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#not(org.bson.conversions.Bson)>`
+   * - :java-docs-4.3:`not() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#not(org.bson.conversions.Bson)>`
      - documents that do not match the filter.
      
-   * - :java-docs:`nor() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nor(org.bson.conversions.Bson...)>`
+   * - :java-docs-4.3:`nor() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nor(org.bson.conversions.Bson...)>`
      - documents that fail to match both filters. This operator joins filters with a logical ``NOR``.
 
 The following example creates a filter that matches documents where
@@ -259,13 +259,13 @@ The array operator methods include:
    * - Array Method
      - Matches
       
-   * - :java-docs:`all() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#all(java.lang.String,java.lang.Iterable)>`
+   * - :java-docs-4.3:`all() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#all(java.lang.String,java.lang.Iterable)>`
      - documents if the array field contains every element specified in the query.
 
-   * - :java-docs:`elemMatch() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#elemMatch(java.lang.String,org.bson.conversions.Bson)>`
+   * - :java-docs-4.3:`elemMatch() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#elemMatch(java.lang.String,org.bson.conversions.Bson)>`
      - documents if an element in the array field matches all the specified conditions.
       
-   * - :java-docs:`size() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#size(java.lang.String,int)>`
+   * - :java-docs-4.3:`size() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#size(java.lang.String,int)>`
      - documents if the array field is a specified number of elements.
 
 The following example matches documents with a ``vendors`` array
@@ -300,10 +300,10 @@ The elements operator methods include:
    * - Elements Method
      - Matches
       
-   * - :java-docs:`exists() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#exists(java.lang.String)>`
+   * - :java-docs-4.3:`exists() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#exists(java.lang.String)>`
      - documents that have the specified field.
 
-   * - :java-docs:`type() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#type(java.lang.String,java.lang.String)>`
+   * - :java-docs-4.3:`type() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#type(java.lang.String,java.lang.String)>`
      - documents if a field is of the specified type.
 
 The following example matches documents that have a ``qty`` field and
@@ -341,16 +341,16 @@ The evaluation operator methods include:
    * - Evaluation Method
      - Matches
       
-   * - :java-docs:`mod() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#mod(java.lang.String,long,long)>`
+   * - :java-docs-4.3:`mod() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#mod(java.lang.String,long,long)>`
      - documents where a modulo operation on the value of a field contain a specified result.
 
-   * - :java-docs:`regex() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#regex(java.lang.String,java.lang.String)>`
+   * - :java-docs-4.3:`regex() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#regex(java.lang.String,java.lang.String)>`
      - documents where values contain a specified regular expression.
       
-   * - :java-docs:`text() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#text(java.lang.String)>`
+   * - :java-docs-4.3:`text() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#text(java.lang.String)>`
      - documents which contain a specified full-text search expression.
      
-   * - :java-docs:`where() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#where(java.lang.String)>`
+   * - :java-docs-4.3:`where() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#where(java.lang.String)>`
      - documents which contain a specified JavaScript expression.
 
 The following example matches documents that have a ``color`` field
@@ -387,16 +387,16 @@ The bitwise operator methods include:
    * - Bitwise Method
      - Matches
       
-   * - :java-docs:`bitsAllSet() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAllSet(java.lang.String,long)>`
+   * - :java-docs-4.3:`bitsAllSet() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAllSet(java.lang.String,long)>`
      - documents where the specified bits of a field are set (i.e. "1").
 
-   * - :java-docs:`bitsAllClear() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAllClear(java.lang.String,long)>`
+   * - :java-docs-4.3:`bitsAllClear() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAllClear(java.lang.String,long)>`
      - documents where the specified bits of a field are clear (i.e. "0").
       
-   * - :java-docs:`bitsAnySet() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAnySet(java.lang.String,long)>`
+   * - :java-docs-4.3:`bitsAnySet() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAnySet(java.lang.String,long)>`
      - documents where at least one of the specified bits of a field are set (i.e. "1").
      
-   * - :java-docs:`bitsAnyClear() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAnyClear(java.lang.String,long)>`
+   * - :java-docs-4.3:`bitsAnyClear() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#bitsAnyClear(java.lang.String,long)>`
      - documents where at least one of the specified bits of a field are clear (i.e. "0").
 
 The following example matches documents that have a ``bitField`` field
@@ -435,28 +435,28 @@ The geospatial operator methods include:
    * - Geospatial Method 
      - Matches
       
-   * - :java-docs:`geoWithin() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithin(java.lang.String,org.bson.conversions.Bson)>`
+   * - :java-docs-4.3:`geoWithin() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithin(java.lang.String,org.bson.conversions.Bson)>`
      - documents containing a GeoJSON geometry value that falls within a bounding GeoJSON geometry.
 
-   * - :java-docs:`geoWithinBox() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinBox(java.lang.String,double,double,double,double)>`
+   * - :java-docs-4.3:`geoWithinBox() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinBox(java.lang.String,double,double,double,double)>`
      - documents containing a coordinates value that exist within the specified box.
       
-   * - :java-docs:`geoWithinPolygon() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinPolygon(java.lang.String,java.util.List)>`
+   * - :java-docs-4.3:`geoWithinPolygon() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinPolygon(java.lang.String,java.util.List)>`
      - documents containing a coordinates value that exist within the specified polygon.
 
-   * - :java-docs:`geoWithinCenter() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinCenter(java.lang.String,double,double,double)>`
+   * - :java-docs-4.3:`geoWithinCenter() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinCenter(java.lang.String,double,double,double)>`
      - documents containing a coordinates value that exist within the specified circle.
 
-   * - :java-docs:`geoWithinCenterSphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinCenterSphere(java.lang.String,double,double,double)>`
+   * - :java-docs-4.3:`geoWithinCenterSphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoWithinCenterSphere(java.lang.String,double,double,double)>`
      - geometries containing a geospatial data value (GeoJSON or legacy coordinate pairs) that exist within the specified circle, using spherical geometry.
 
-   * - :java-docs:`geoIntersects() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoIntersects(java.lang.String,org.bson.conversions.Bson)>`
+   * - :java-docs-4.3:`geoIntersects() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#geoIntersects(java.lang.String,org.bson.conversions.Bson)>`
      - geometries that intersect with a GeoJSON geometry. The ``2dsphere`` index supports ``$geoIntersects``.
 
-   * - :java-docs:`near() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#near(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
+   * - :java-docs-4.3:`near() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#near(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
      - geospatial objects in proximity to a point. Requires a geospatial index. The ``2dsphere`` and ``2d`` indexes support ``$near``.
 
-   * - :java-docs:`nearSphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nearSphere(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
+   * - :java-docs-4.3:`nearSphere() <apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#nearSphere(java.lang.String,org.bson.conversions.Bson,java.lang.Double,java.lang.Double)>`
      - geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The ``2dsphere`` and ``2d`` indexes support ``$nearSphere``.
 
 The following example creates a filter that matches documents in which
