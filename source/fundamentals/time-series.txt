@@ -30,7 +30,7 @@ To create a time series collection, use :manual:`the MongoDB Shell
 To check if you successfully created the collection, run the
 following snippet in the driver:
 
-.. _code-block:: java
+.. code-block:: java
 
     Document commandResult = database.runCommand(new Document("listCollections", new BsonInt64(1)));
     System.out.println("listCollections: " + commandResult.toJson());
@@ -55,13 +55,15 @@ Your output should look similar to the following:
             ...
          },
          ...
-        ]}}
+        ]
+     }
+    }
 
 Query a Time Series Collection
 ------------------------------
 
 To query in a time series collection, use the same conventions as you
-would for :doc:`retrieving data </fundamentals/crud/read-operations/retrieve>`
+would for :doc:`retrieving </fundamentals/crud/read-operations/retrieve>`
 and :doc:`aggregating data <fundamentals/aggregation>`. 
 
 .. note:: Window Functions
