@@ -1,0 +1,60 @@
+=======================
+Time Series Collections
+=======================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn about **time series collections** in the
+MongoDB Java driver. 
+
+Time series collections efficiently store sequences of measurements over
+a period of time. Time series data consists of any data collected over
+time, metadata that describes the measurement, and the time of the
+measurement.
+
+Create a Time Series Collection
+-------------------------------
+
+You can create a time series collection using the MongoDB Shell. For
+instructions on how to create a time series collection, see our
+:manual:`MongoDB Manual entry on time series collections 
+</core/timeseries-collections/#create-a-time-series-collection>`. 
+
+.. important:: Use the MongoDB Shell For Administrative Commands
+
+   You should not use the Java driver to perform administrative commands on
+   your MongoDB deployment. Use the MongoDB Shell to perform administrative
+   commands, such as:
+
+   - :manual:`Create a collection </reference/method/db.createCollection/#mongodb-method-db.createCollection>`
+   - :manual:`Create a user </reference/method/db.createUser/#mongodb-method-db.createUser>`
+   - :manual:`Manage access </reference/method/db.grantRolesToUser/#mongodb-method-db.grantRolesToUser>`
+
+Query a Time Series Collection
+------------------------------
+
+You can query a time series collection in the same way you query other
+collection types in MongoDB.
+
+For more information on querying data in the MongoDB Java driver, see the
+following resources:
+
+- :doc:`Guide on Retrieving Data </fundamentals/crud/read-operations/retrieve>`
+- :doc:`Guide on Aggregation </fundamentals/aggregation>`
+
+.. note:: Window Functions
+
+   MongoDB version 5.0 introduces window functions into the MongoDB aggregation
+   framework. You can use window functions to perform operations on a
+   contiguous span of time series data. For more information, see our
+   :ref:`Builders Aggregates guide <builders-aggregates-setWindowFields>`.
+   
