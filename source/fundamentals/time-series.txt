@@ -38,7 +38,7 @@ following snippet in the driver:
 Your output should look similar to the following:
 
 .. code-block:: json
-   :emphasize-lines: 8
+   :emphasize-lines: 8, 11
 
    {
      "cursor": {
@@ -46,7 +46,7 @@ Your output should look similar to the following:
        "ns": "<db_name>.$cmd.listCollections",
        "firstBatch": [
          {
-            "name": <string>,
+            "name": <time series collection name>,
             "type": "timeseries",
             "options": {
                "expireAfterSeconds": <some number>,
