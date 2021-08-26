@@ -13,13 +13,30 @@ Time Series Collections
 Overview
 --------
 
-In this guide, you can learn about **time series collections** in the
-MongoDB Java driver. 
+In this guide, you can learn about **time series collections** in
+MongoDB, and how to interact with them in the MongoDB Java driver. 
 
 Time series collections efficiently store sequences of measurements over
 a period of time. Time series data consists of any data collected over
 time, metadata that describes the measurement, and the time of the
 measurement.
+
+.. list-table::
+   :widths: 33, 33, 33
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Example 
+     - Measurement
+     - Metadata
+
+   * - Sales Data
+     - Revenue
+     - Company
+
+   * - Infection Rates
+     - Amount of People Infected
+     - Location
 
 Create a Time Series Collection
 -------------------------------
@@ -28,12 +45,11 @@ To create a time series collection, use :manual:`the MongoDB Shell
 </core/timeseries-collections/#create-a-time-series-collection>`. 
 
 To check if you successfully created the collection, run the
-following snippet in the driver:
+following command:
 
-.. code-block:: java
+.. code-block:: 
 
-    Document commandResult = database.runCommand(new Document("listCollections", new BsonInt64(1)));
-    System.out.println("listCollections: " + commandResult.toJson());
+    db.runCommand({listCollections: 1.0})
 
 Your output should look similar to the following:
 
@@ -41,16 +57,16 @@ Your output should look similar to the following:
    :emphasize-lines: 8, 11
 
    {
-     "cursor": {
-       "id": <some number>,
-       "ns": "<db_name>.$cmd.listCollections",
-       "firstBatch": [
+     cursor: {
+       id: <some number>,
+       ns: "<db name>.$cmd.listCollections",
+       firstBatch: [
          {
-            "name": <time series collection name>,
-            "type": "timeseries",
-            "options": {
-               "expireAfterSeconds": <some number>,
-               "timeseries": { ... }
+            name: <time series collection name>,
+            type: "timeseries",
+            options: {
+               expireAfterSeconds: <some number>,
+               timeseries: { ... }
             },
             ...
          },
