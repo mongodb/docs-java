@@ -47,46 +47,48 @@ usage limits, such as max connections, apply to individual
 
 .. _connection-uri:
 
-Connection String
------------------
+Connection URI
+--------------
 
-The **connection string** (also known as a **connection uri**) provides
-instructions on how to connect to a MongoDB deployment. The driver
-URL interprets the connection string to determine where and how
-it should connect to MongoDB as well as how to behave while
-connected. The following example shows each part of the connection URI:
+The **connection URI** provides a set of instructions that the driver uses to
+connect to a MongoDB deployment. It instructs the driver on how it should
+connect to MongoDB and how it should behave while connected. The following
+example explains each part of a sample connection URI:
 
-.. figure:: /includes/figures/connection_string_parts.png
+.. figure:: /includes/figures/connection_uri_parts.png
    :alt: Connection String parts figure
 
-In this example, for the protocol, we use ``mongodb+srv`` which specifies the
-:manual:`DNS Seedlist Connection Format </reference/connection-string/#std-label-connections-dns-seedlist>`.
-This indicates that the hostname following it corresponds to the DNS SRV record of your
-MongoDB instance or deployment. If your instance or deployment does not have a
-DNS SRV record, use ``mongodb`` to specify the :manual:`Standard Connection
-Format </reference/connection-string/#standard-connection-string-format>`.
+In this example, we use ``mongodb`` for the protocol, which specifies the
+:manual:`Standard Connection String Format
+</reference/connection-string/#std-label-connections-standard-connection-string-format>`.
+
+You can also use ``mongodb+srv`` which specifies the :manual:`DNS Seed
+List Connection Format
+</reference/connection-string/#dns-seed-list-connection-format>` 
+if you want more flexibility of deployment and the ability to change
+the servers in rotation without reconfiguring clients.
 
 .. note::
 
-   If your deployment is on MongoDB Atlas, follow the
+   If your deployment is on MongoDB Atlas, see the
    :atlas:`Atlas driver connection guide </driver-connection?jmp=docs_driver_java>`
-   to retrieve your connection string.
+   and select Java from the language dropdown to retrieve your connection string.
 
-The next part of the connection string contains your username and password
+The next part of the connection URI contains your username and password
 if you are using password-based authentication. Replace the value of ``user``
 with your username and ``pass`` with your password. If you are using an
 authentication mechanism that does not require a username and password, omit
 this part of the connection URI.
 
-The next part of the connection string specifies the hostname or IP address and
-port of your MongoDB instance. In the following example, we use ``sample-hostname``
+The next part of the connection URI specifies the hostname or IP address and
+port of your MongoDB instance. In the sample connection URI, we use ``sample.host``
 as the hostname and ``27017`` as the port. Replace these values to point to
 your MongoDB instance.
 
-The last part of the connection string contains connection and authentication
-options as parameters. In the following example, we set two connection options:
-``retryWrites=true`` and ``w=majority``. For more information on connection
-options, skip to the :ref:`connection options <connection-options>` section.
+The last part of the connection URI specifies connection and authentication
+options. In the sample connection URI, we set two connection options:
+``maxPoolSize=20`` and ``w=majority``. For more information on connection
+options, skip to the :ref:`connection-options` section of this guide.
 
 .. _connect-atlas-java-driver:
 
@@ -350,12 +352,6 @@ parameters of the connection URI to specify the behavior of the client.
        constraints in other ways, use a
        :ref:`custom SSLContext <tls-custom-sslContext>`.
 
-   * - **sslInvalidHostNameAllowed**
-     - boolean
-     - Specifies that the driver should allow invalid hostnames in the
-       certificate for TLS/SSL connections. Superseded by
-       **tlsAllowInvalidHostnames**.
-
    * - **tlsAllowInvalidHostnames**
      - boolean
      - Specifies that the driver should allow invalid hostnames in the
@@ -376,12 +372,6 @@ parameters of the connection URI to specify the behavior of the client.
      - integer
      - Specifies the maximum amount of time, in milliseconds, the Java
        driver will allow a pooled connection to idle before closing the
-       connection.
-
-   * - **maxLifeTimeMS**
-     - integer
-     - Specifies the maximum amount of time, in milliseconds, the Java
-       driver will continue to use a pooled connection before closing the
        connection.
 
    * - **journal**
@@ -446,7 +436,7 @@ parameters of the connection URI to specify the behavior of the client.
        the :manual:`authMechanismProperties option
        </reference/connection-string/#urioption.authMechanismProperties>`.
 
-   * - **appName**
+   * - **appname**
      - string
      - Specifies the name of the application provided to MongoDB instances
        during the connection handshake. Can be used for server logs and
@@ -477,14 +467,7 @@ parameters of the connection URI to specify the behavior of the client.
      - boolean
      - Specifies that the driver must retry supported read operations
        if they fail due to a network error. Defaults to ``true``.
-
-   * - **uuidRepresentation**
-     - string
-     - Specifies the UUID representation to use for read and write
-       operations. For more information, see the the driver documentation
-       for the
-       `MongoClientSettings.getUuidRepresentation() method <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getUuidRepresentation()>`__.
-
+       
    * - **directConnection**
      - boolean
      - Specifies that the driver must connect to the host directly.
