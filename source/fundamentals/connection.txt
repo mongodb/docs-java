@@ -62,11 +62,11 @@ In this example, we use ``mongodb`` for the protocol, which specifies the
 :manual:`Standard Connection String Format
 </reference/connection-string/#std-label-connections-standard-connection-string-format>`.
 
-You can also use ``mongodb+srv`` which specifies the :manual:`DNS Seed
-List Connection Format
-</reference/connection-string/#dns-seed-list-connection-format>` 
-if you want more flexibility of deployment and the ability to change
-the servers in rotation without reconfiguring clients.
+You can also use the :manual:`DNS Seed List Connection Format
+</reference/connection-string/#dns-seed-list-connection-format>`,
+``mongodb+srv``, for the protocol if you want more flexibility of
+deployment and the ability to change the servers in rotation without
+reconfiguring clients. 
 
 .. note::
 
@@ -81,12 +81,12 @@ authentication mechanism that does not require a username and password, omit
 this part of the connection URI.
 
 The next part of the connection URI specifies the hostname or IP address and
-port of your MongoDB instance. In the sample connection URI, we use ``sample.host``
+port of your MongoDB instance. In the example, we use ``sample.host``
 as the hostname and ``27017`` as the port. Replace these values to point to
 your MongoDB instance.
 
 The last part of the connection URI specifies connection and authentication
-options. In the sample connection URI, we set two connection options:
+options. In the example, we set two connection options:
 ``maxPoolSize=20`` and ``w=majority``. For more information on connection
 options, skip to the :ref:`connection-options` section of this guide.
 
@@ -97,6 +97,7 @@ connect to MongoDB.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/srv.java
    :language: java
+   :emphasize-lines: 17
 
 .. _java-other-ways-to-connect:
 
@@ -467,7 +468,7 @@ parameters of the connection URI to specify the behavior of the client.
      - boolean
      - Specifies that the driver must retry supported read operations
        if they fail due to a network error. Defaults to ``true``.
-       
+
    * - **directConnection**
      - boolean
      - Specifies that the driver must connect to the host directly.
