@@ -41,15 +41,29 @@ measurement.
 Create a Time Series Collection
 -------------------------------
 
-To create a time series collection, use :manual:`the MongoDB Shell
-</core/timeseries-collections/#create-a-time-series-collection>`. 
+To create a time series collection, pass the following parameters to the
+`createCollection() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#createCollection(java.lang.String,com.mongodb.client.model.CreateCollectionOptions)>`__
+method: 
+
+- The name of the new collection to create
+- The `TimeSeriesOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/TimeSeriesOptions.html>`__  for creating the collection in a `CreateCollectionOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/CreateCollectionOptions.html>`__ object
+
+.. literalinclude:: /includes/fundamentals/code-snippets/TimeSeries.java
+   :start-after: begin time series
+   :end-before: end time series
+   :emphasize-lines: 5
+   :language: java
+   :dedent:
 
 To check if you successfully created the collection, run the
-following command:
+following snippet:
 
-.. code-block:: 
-
-    db.runCommand({listCollections: 1.0})
+.. literalinclude:: /includes/fundamentals/code-snippets/TimeSeries.java
+   :start-after: begin check collection type
+   :end-before: end check collection type
+   :emphasize-lines: 1
+   :language: java
+   :dedent:
 
 Your output should look similar to the following:
 
@@ -57,16 +71,16 @@ Your output should look similar to the following:
    :emphasize-lines: 8, 11
 
    {
-     cursor: {
-       id: <some number>,
-       ns: "<db name>.$cmd.listCollections",
-       firstBatch: [
+     "cursor": {
+       "id": <some number>,
+       "ns": "<db name>.$cmd.listCollections",
+       "firstBatch": [
          {
-            name: <time series collection name>,
-            type: "timeseries",
-            options: {
-               expireAfterSeconds: <some number>,
-               timeseries: { ... }
+            "name": <time series collection name>,
+            "type": "timeseries",
+            "options": {
+               "expireAfterSeconds": <some number>,
+               "timeseries": { ... }
             },
             ...
          },
@@ -80,7 +94,7 @@ Query a Time Series Collection
 
 To query in a time series collection, use the same conventions as you
 would for :doc:`retrieving </fundamentals/crud/read-operations/retrieve>`
-and :ref:`aggregating data <java-aggregation>`. 
+and :doc:`aggregating data <java-aggregation>`. 
 
 .. note:: Window Functions
 
