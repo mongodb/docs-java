@@ -55,8 +55,12 @@ method:
    :language: java
    :dedent:
 
-To check if you successfully created the collection, run the
-following snippet:
+.. important::
+
+   Versions prior to MongoDB 5.0 cannot create a time series collection.
+
+To check if you successfully created the collection, send the
+``"listCollections"`` command to the `runCommand() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#runCommand(org.bson.conversions.Bson)>`__ method.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/TimeSeries.java
    :start-after: begin check collection type
@@ -71,30 +75,28 @@ Your output should look similar to the following:
    :emphasize-lines: 8, 11
 
    {
-     "cursor": {
-       "id": <some number>,
-       "ns": "<db name>.$cmd.listCollections",
-       "firstBatch": [
-         {
-            "name": <time series collection name>,
-            "type": "timeseries",
-            "options": {
-               "expireAfterSeconds": <some number>,
-               "timeseries": { ... }
-            },
-            ...
-         },
-         ...
-        ]
-     }
-    }
+    "id": <some number>,
+    "ns": "<db name>.$cmd.listCollections",
+    "firstBatch": [
+     {
+       "name": <time series collection name>,
+       "type": "timeseries",
+       "options": {
+        "expireAfterSeconds": <some number>,
+          "timeseries": { ... }
+        },
+        ...
+      },
+      ...
+    ]
+   }
 
 Query a Time Series Collection
 ------------------------------
 
 To query in a time series collection, use the same conventions as you
 would for :doc:`retrieving </fundamentals/crud/read-operations/retrieve>`
-and :doc:`aggregating data <java-aggregation>`. 
+and :ref:`aggregating data <java-aggregation>`. 
 
 .. note:: Window Functions
 

@@ -23,17 +23,17 @@ public class TimeSeriesCollection {
 
             // begin time series
             MongoDatabase database = mongoClient.getDatabase("fall_weather");
-            TimeSeriesOptions tOptions = new TimeSeriesOptions("temperature");
-            CreateCollectionOptions coptions = new CreateCollectionOptions().timeSeriesOptions(tOptions);
+            TimeSeriesOptions tsOptions = new TimeSeriesOptions("temperature");
+            CreateCollectionOptions collOptions = new CreateCollectionOptions().timeSeriesOptions(tsOptions);
             
-            database.createCollection("september2021", coptions);
+            database.createCollection("september2021", collOptions);
             // end time series
             try {
                 // begin check collection type
                 Document commandResult = database.runCommand(new Document("listCollections", new BsonInt64(1)));
                 
                 List<String> keys = Arrays.asList("cursor");
-                System.out.println("listCollections: " + commandResult.getEmbedded(keys, Document.class));
+                System.out.println("listCollections: " + commandResult.getEmbedded(keys, Document.class).toJson());
                 // end check collection type
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
