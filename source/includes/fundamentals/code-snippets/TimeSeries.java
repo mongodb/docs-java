@@ -41,6 +41,3 @@ public class TimeSeriesCollection {
         }     
     }
 }
-class TimeSeries {
-    
-}

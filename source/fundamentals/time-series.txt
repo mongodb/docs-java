@@ -72,18 +72,18 @@ To check if you successfully created the collection, send the
 Your output should look similar to the following:
 
 .. code-block:: json
-   :emphasize-lines: 8, 11
+   :emphasize-lines: 7, 10
 
    {
     "id": <some number>,
     "ns": "<db name>.$cmd.listCollections",
     "firstBatch": [
      {
-       "name": <time series collection name>,
+       "name": "<time series collection name>",
        "type": "timeseries",
        "options": {
         "expireAfterSeconds": <some number>,
-          "timeseries": { ... }
+         "timeseries": { ... }
         },
         ...
       },
