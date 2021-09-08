@@ -4,7 +4,7 @@
        <dependency>
            <groupId>org.mongodb</groupId>
            <artifactId>mongodb-driver-sync</artifactId>
-           <version>{+minor-version+}</version>
+           <version>{+full-version+}</version>
        </dependency>
    </dependencies>
 
