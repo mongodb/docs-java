@@ -159,7 +159,7 @@ Select the tab corresponding to the code snippet you would like to see:
 
       .. code-block:: java
 
-         ConnectionString connectionString = new ConnectionString("mongodb://host1:27017,host2:27017,host3:27017");
+         ConnectionString connectionString = new ConnectionString("mongodb://host1:27017,host2:27017,host3:27017/");
          MongoClient mongoClient = MongoClients.create(connectionString);
 
    .. tab:: MongoClientSettings
@@ -230,14 +230,14 @@ using a method in the ``MongoClientSettings.Builder`` class.
       :tabid: connectionstring
 
       To enable compression with a `ConnectionString
-      <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/ConnectionString.html>`__, use the parameter ``compressors``
+      <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__, use the parameter ``compressors``
       in the connection string passed to
       ``MongoClients.create()``. You can specify one or more compression
       algorithms, separating multiple algorithms with commas:
 
       .. code-block:: java
 
-         ConnectionString connectionString = new ConnectionString("mongodb+srv://<user>:<password>@<cluster-url>?compressors=snappy,zlib,zstd");
+         ConnectionString connectionString = new ConnectionString("mongodb+srv://<user>:<password>@<cluster-url>/?compressors=snappy,zlib,zstd");
          MongoClient mongoClient = MongoClients.create(connectionString);
 
       Specify compression algorithms using the following strings:
