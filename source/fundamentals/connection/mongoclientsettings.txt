@@ -12,26 +12,21 @@ MongoClient Settings
 Overview
 --------
 
-In this guide, you can learn how to use the different settings to
+In this guide, you can learn how to use different settings to
 control the behavior of your ``MongoClient``.
 
-You can control the behavior of your ``MongoClient`` by passing in a
+To control the behavior of your ``MongoClient``, pass in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
 
-In your ``MongoClientSettings``, you can specify the following settings:
+To create your ``MongoClientSettings`` use the
+``MongoClientSettings.builder()`` method. The builder makes your
+``MongoClientSettings`` immutable and supports a simpler construction
+through chaining.
 
-- :ref:`Cluster Settings <mcs-cluster-settings>`
-- :ref:`Socket Settings <mcs-socket-settings>`
-- :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
-- :ref:`Server Settings <mcs-server-settings>`
-- :ref:`SSL Settings <mcs-ssl-settings>`
-
-To specify any of the preceding settings, use the ``MongoClientSettings.builder()``
-method. This builder makes your ``MongoClientSettings`` immutable and to support
-a simpler construction through chaining. You must use their ``build()``
-method to create the setting to apply to ``MongoClient``.
+After chaining all the settings you want, use the ``build()`` method to
+create the ``MongoClientSettings`` to apply to ``MongoClient``.
 
 Example
 ~~~~~~~
@@ -47,16 +42,24 @@ embedded in the ``ConnectionString``:
 See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__
 for a full list of methods you can use to set your ``MongoClient`` settings.
 
-The following sections describe the builder and method to use with an
-example on how to construct your ``MongoClient`` for specific settings
-to apply.
+In your ``MongoClientSettings``, you can further specify the following
+settings:
+
+- :ref:`Cluster Settings <mcs-cluster-settings>`
+- :ref:`Socket Settings <mcs-socket-settings>`
+- :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
+- :ref:`Server Settings <mcs-server-settings>`
+- :ref:`SSL Settings <mcs-ssl-settings>`
+
+The following sections describe the method to use with an example on how
+to construct your ``MongoClient`` for any of the preceding settings to apply.
 
 .. _mcs-cluster-settings:
 
 Cluster Settings
 ----------------
 
-Pass a ``ClusterSettings.Builder`` object to the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToClusterSettings(com.mongodb.Block)>`__
+Use the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToClusterSettings(com.mongodb.Block)>`__
 to specify settings on how to connect to a MongoDB cluster. 
 
 Example
@@ -73,8 +76,7 @@ The following example specifies the following settings for the cluster:
    :end-before: end clusterSettings
    :language: java
 
-See the `API Documentation
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__
+See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__
 for a full list of methods you can use to set your cluster settings.
 
 .. _mcs-socket-settings:
@@ -82,7 +84,7 @@ for a full list of methods you can use to set your cluster settings.
 Socket Settings
 ---------------
 
-Pass a ``SocketSettings.Builder`` object to the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
+Use the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
 to specify settings on how to connect to a MongoDB server.
 
 Example
@@ -98,8 +100,7 @@ The following example specifies the following settings for the socket:
    :end-before: end SocketSettings
    :language: java
 
-See the `API Documentation
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__
+See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__
 for a full list of methods you can use to set your socket settings.
 
 .. _mcs-connectionpool-settings:
@@ -107,7 +108,7 @@ for a full list of methods you can use to set your socket settings.
 Connection Pool Settings
 ------------------------
 
-Pass a ``ConnectionPoolSettings.Builder`` object to the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
+Use the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
 to specify settings related to a pool of connections to a MongoDB server.
 
 Example
@@ -125,8 +126,7 @@ connection pool:
    :end-before: end ConnectionPoolSettings
    :language: java
 
-See the `API Documentation
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html>`__
+See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html>`__
 for a full list of methods you can use to set your connection pool settings.
 
 .. _mcs-server-settings:
@@ -134,7 +134,7 @@ for a full list of methods you can use to set your connection pool settings.
 Server Settings
 ---------------
 
-Pass a ``ServerSettings.Builder`` object to the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
+Use the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
 to specify settings on how to monitor each server.
 
 Example
@@ -151,8 +151,7 @@ server:
    :end-before: end ServerSettings
    :language: java
 
-See the `API Documentation
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ServerSettings.Builder.html>`__
+See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ServerSettings.Builder.html>`__
 for a full list of methods you can use to set your server settings.
 
 .. _mcs-ssl-settings:
@@ -160,7 +159,7 @@ for a full list of methods you can use to set your server settings.
 SSL Settings
 ------------
 
-Pass a ``SslSettings.Builder`` object to the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
+Use the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
 to specify settings on how to connect to MongoDB though SSL.
 
 Example
@@ -176,6 +175,5 @@ The following example specifies the following settings for the SSL:
    :end-before: end SslSettings
    :language: java
 
-See the `API Documentation
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__
+See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__
 for a full list of methods you can use to set your SSL settings.
