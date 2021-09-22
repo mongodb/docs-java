@@ -6,6 +6,7 @@ Connection Guide
 
 .. toctree::
 
+   /fundamentals/connection/mongoclientsettings
    /fundamentals/connection/tls
    /fundamentals/connection/jndi
 
@@ -39,6 +40,10 @@ connections to the database, most applications only require a single
 instance of a ``MongoClient``, even across multiple threads. All resource
 usage limits, such as max connections, apply to individual
 ``MongoClient`` instances.
+
+To learn about the different settings you can use to control the
+behavior of your ``MongoClient``, see the :doc:`MongoClient Settings
+</fundamentals/connection/mongoclientsettings>` guide.
 
 .. tip::
 
