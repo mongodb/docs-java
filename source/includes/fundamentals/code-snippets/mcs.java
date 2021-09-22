@@ -129,7 +129,7 @@ public class MCSettings {
     private static void createSslSettings() {
 
         try {
-            ////begin SslSettings
+            //begin SslSettings
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                 .applyToSslSettings(builder ->

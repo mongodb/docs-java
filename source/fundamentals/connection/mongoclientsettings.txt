@@ -15,7 +15,7 @@ Overview
 In this guide, you can learn how to use different settings to
 control the behavior of your ``MongoClient``.
 
-To control the behavior of your ``MongoClient``, pass in a 
+To control the behavior of your ``MongoClient``, create and pass in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
@@ -23,10 +23,9 @@ method.
 To create your ``MongoClientSettings`` use the
 ``MongoClientSettings.builder()`` method. The builder makes your
 ``MongoClientSettings`` immutable and supports a simpler construction
-through chaining.
-
-After chaining all the settings you want, use the ``build()`` method to
-create the ``MongoClientSettings`` to apply to ``MongoClient``.
+through chaining. After chaining all the settings you want, use the
+``build()`` method to create the ``MongoClientSettings`` to apply to
+``MongoClient``.
 
 Example
 ~~~~~~~
@@ -75,6 +74,7 @@ The following example specifies the following settings for the cluster:
    :start-after: begin clusterSettings
    :end-before: end clusterSettings
    :language: java
+   :dedent:
 
 See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__
 for a full list of methods you can use to set your cluster settings.
@@ -99,6 +99,7 @@ The following example specifies the following settings for the socket:
    :start-after: begin SocketSettings
    :end-before: end SocketSettings
    :language: java
+   :dedent:
 
 See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__
 for a full list of methods you can use to set your socket settings.
@@ -125,6 +126,7 @@ connection pool:
    :start-after: begin ConnectionPoolSettings
    :end-before: end ConnectionPoolSettings
    :language: java
+   :dedent:
 
 See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html>`__
 for a full list of methods you can use to set your connection pool settings.
@@ -150,6 +152,7 @@ server:
    :start-after: begin ServerSettings
    :end-before: end ServerSettings
    :language: java
+   :dedent:
 
 See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ServerSettings.Builder.html>`__
 for a full list of methods you can use to set your server settings.
@@ -174,6 +177,7 @@ The following example specifies the following settings for the SSL:
    :start-after: begin SslSettings
    :end-before: end SslSettings
    :language: java
+   :dedent:
 
 See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__
 for a full list of methods you can use to set your SSL settings.
