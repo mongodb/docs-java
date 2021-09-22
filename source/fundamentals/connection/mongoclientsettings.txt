@@ -12,19 +12,20 @@ MongoClient Settings
 Overview
 --------
 
-In this guide, you can learn how to configure a connection in your ``MongoClient``. 
+In this guide, you can learn how to configure your connections' behavior
+in a ``MongoClient``.
 
-You can configure your connection's behavior by specifying settings in your
+You can configure your connections' behavior by specifying settings in your
 ``MongoClient``. You can specify the settings by creating and passing in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
 
-To create your ``MongoClientSettings``, use the
-``MongoClientSettings.builder()`` method. The builder makes your
-``MongoClientSettings`` immutable and supports a simpler construction
-through chaining. After chaining all the settings you want, use the
-``build()`` method to create the ``MongoClientSettings``.
+To create a ``MongoClientSettings`` object, use the
+``MongoClientSettings.builder()`` method. The builder makes the
+settings immutable and supports a simpler construction through chaining.
+After chaining all the settings you want, use the ``build()`` method to
+create the ``MongoClientSettings`` object.
 
 Example
 ~~~~~~~
@@ -39,11 +40,11 @@ in the ``ConnectionString``:
    :emphasize-lines: 3
    :dedent:
 
-For a full list of methods you can use to set your ``MongoClient``
+For a full list of methods you can use to specify your ``MongoClient``
 settings, see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
 
-In your ``MongoClientSettings``, you can further specify how to
-configure a connection using the following settings:
+In your ``MongoClientSettings``, you can further specify your
+connections' behavior by using the following settings:
 
 - :ref:`Cluster Settings <mcs-cluster-settings>`
 - :ref:`Socket Settings <mcs-socket-settings>`
@@ -52,7 +53,7 @@ configure a connection using the following settings:
 - :ref:`SSL Settings <mcs-ssl-settings>`
 
 The following sections describe the method to use and show an example on
-how to configure your ``MongoClient`` for any of the preceding settings.
+how to configure your ``MongoClient`` for the preceding settings.
 
 .. _mcs-cluster-settings:
 
@@ -78,7 +79,7 @@ This example specifies the following settings for the cluster:
    :emphasize-lines: 4-6
    :dedent:
 
-For a full list of methods you can use to set your cluster settings, see
+For a full list of methods you can use to specify your cluster settings, see
 the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__.
 
 .. _mcs-socket-settings:
@@ -104,8 +105,8 @@ This example specifies the following settings for the socket:
    :emphasize-lines: 4-5
    :dedent:
 
-See the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__
-for a full list of methods you can use to set your socket settings.
+For a full list of methods you can use to specify your socket settings, see
+the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__.
 
 .. _mcs-connectionpool-settings:
 
@@ -131,7 +132,7 @@ This example specifies the following settings for the connection pool:
    :emphasize-lines: 4-6
    :dedent:
 
-For a full list of methods you can use to set your connection pool
+For a full list of methods you can use to specify your connection pool
 settings, see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html>`__.
 
 .. _mcs-server-settings:
@@ -157,7 +158,7 @@ This example specifies the following settings for the server:
    :emphasize-lines: 4-5
    :dedent:
 
-For a full list of methods you can use to set your server settings, see
+For a full list of methods you can use to specify your server settings, see
 the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ServerSettings.Builder.html>`__.
 
 .. _mcs-ssl-settings:
@@ -183,5 +184,5 @@ This example specifies the following settings to secure the connection using SSL
    :emphasize-lines: 4-5
    :dedent:
 
-For a full list of methods you can use to set your SSL settings, see the
+For a full list of methods you can use to specify your SSL settings, see the
 `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__.
