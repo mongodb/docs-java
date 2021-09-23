@@ -12,11 +12,10 @@ MongoClient Settings
 Overview
 --------
 
-In this guide, you can learn how to configure your connections' behavior
+In this guide, you can learn how to control your connections' behavior
 in a ``MongoClient``.
 
-You can configure your connections' behavior by specifying settings in your
-``MongoClient``. You can specify the settings by creating and passing in a 
+You can control your connections' behavior by creating and passing in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
@@ -30,30 +29,26 @@ create the ``MongoClientSettings`` object.
 Example
 ~~~~~~~
 
-This example specifies the ``MongoClient`` to use the settings embedded
-in the ``ConnectionString``:
+This example demonstrates specifying a ``ConnectionString`` in a
+``MongoClientSettings``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
-   :start-after: begin connectionString
-   :end-before: end connectionString
+   :start-after: begin ConnectionString
+   :end-before: end ConnectionString
    :language: java
    :emphasize-lines: 3
    :dedent:
 
-For a full list of methods you can use to specify your ``MongoClient``
-settings, see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
+For a full list of methods available in ``MongoClientSettings``, 
+see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
 
-In your ``MongoClientSettings``, you can further specify your
-connections' behavior by using the following settings:
+The following sections describe the commonly used ``MongoClientSettings``:
 
 - :ref:`Cluster Settings <mcs-cluster-settings>`
 - :ref:`Socket Settings <mcs-socket-settings>`
 - :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
 - :ref:`Server Settings <mcs-server-settings>`
 - :ref:`SSL Settings <mcs-ssl-settings>`
-
-The following sections describe the method to use and show an example on
-how to configure your ``MongoClient`` for the preceding settings.
 
 .. _mcs-cluster-settings:
 
@@ -66,17 +61,18 @@ method to specify settings on how to connect to a MongoDB cluster.
 Example
 ~~~~~~~
 
-This example specifies the following settings for the cluster:
+This example specifies the following settings for connecting to a
+MongoDB cluster:
 
-- The selection to take at most five ``MILLISECONDS``
-- To operate in a ``LOAD_BALANCED`` mode
-- To use ``host1`` as the host on port ``27017``
+- To use the settings from your ``ConnectionString``
+- To connect to ``MULTIPLE`` servers in your cluster
+- The server selection to take at most ``5 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
-   :start-after: begin clusterSettings
-   :end-before: end clusterSettings
+   :start-after: begin ClusterSettings
+   :end-before: end ClusterSettings
    :language: java
-   :emphasize-lines: 4-6
+   :emphasize-lines: 3-6
    :dedent:
 
 For a full list of methods you can use to specify your cluster settings, see
@@ -93,10 +89,11 @@ method to specify settings on how to connect to a MongoDB server.
 Example
 ~~~~~~~
 
-This example specifies the following settings for the socket:
+This example specifies the following settings for connecting locally to
+a socket:
 
-- The time to connect to take at most 1000 ``MILLISECONDS``
-- The time to read from the socket to take at most 10 ``SECONDS``
+- The connect to the socket within ``1000 MILLISECONDS``
+- To read from the socket within ``10 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SocketSettings
@@ -119,11 +116,12 @@ method to specify settings related to a pool of connections to a MongoDB server.
 Example
 ~~~~~~~
 
-This example specifies the following settings for the connection pool:
+This example specifies the following settings for connecting locally to
+a connection pool:
 
-- The time for a thread to wait for an available connection to take at most five ``SECONDS``
-- There should be at most one connection
-- The time a pooled connection to live for to be at most 20 ``MILLISECONDS``
+- The thread to wait at most ``5 SECONDS`` for an available connection
+- To have at most one connection associated with the pool
+- The pooled connection to live for at most ``100 MILLISECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ConnectionPoolSettings
@@ -146,10 +144,11 @@ method to specify settings on how to monitor each server.
 Example
 ~~~~~~~
 
-This example specifies the following settings for the server:
+This example specifies the following settings for connecting locally to
+a server:
 
-- The heartbeat frequency to be at least 10 ``MILLISECONDS``
-- The cluster monitor to attempt reaching a server every three ``SECONDS``
+- The heartbeat frequency to be at least ``10 MILLISECONDS``
+- The cluster monitor to attempt reaching a server every ``3 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ServerSettings
@@ -167,15 +166,16 @@ SSL Settings
 ------------
 
 Use the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
-method to specify settings on how to securly connect to MongoDB using SSL.
+method to specify settings on how to securely connect to MongoDB using SSL.
 
 Example
 ~~~~~~~
 
-This example specifies the following settings to secure the connection using SSL:
+This example specifies the following settings for connecting locally
+with SSL:
 
-- To enable SSL
-- To not allow invalid host names
+- To disable SSL
+- To allow invalid host names
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SslSettings
@@ -183,6 +183,7 @@ This example specifies the following settings to secure the connection using SSL
    :language: java
    :emphasize-lines: 4-5
    :dedent:
+
 
 For a full list of methods you can use to specify your SSL settings, see the
 `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__.

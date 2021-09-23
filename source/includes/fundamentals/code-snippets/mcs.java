@@ -4,13 +4,9 @@ import static java.util.concurrent.TimeUnit.*;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-
 import com.mongodb.connection.ClusterConnectionMode;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.ServerAddress;
-
-import java.util.Collections;
 
 public class MCSettings {
 
@@ -43,13 +39,13 @@ public class MCSettings {
 
     private static void createViaConnectionString() {
         try {
-            //begin connectionString
+            //begin ConnectionString
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString("<your connection uri>"))
                 .build());
-            //end connectionString
-            System.out.println(mongoClient.getClusterDescription());
+            //end ConnectionString
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
             mongoClient.close();
         } finally {
             System.out.println("---------------------------------------");
@@ -58,16 +54,16 @@ public class MCSettings {
 
     private static void createClusterSettings() {
         try {
-            //begin clusterSettings
+            //begin ClusterSettings
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString("<your connection uri>"))
                 .applyToClusterSettings(builder ->
-                    builder.serverSelectionTimeout(5, MILLISECONDS)
-                    .mode(ClusterConnectionMode.LOAD_BALANCED)
-                    .hosts(Collections.singletonList(new ServerAddress("host1", 27017))))
+                    builder.mode(ClusterConnectionMode.MULTIPLE)
+                    .serverSelectionTimeout(5, SECONDS))
                 .build());
-            //end clusterSettings
-            System.out.println(mongoClient.getClusterDescription().getClusterSettings());
+            //end ClusterSettings
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
             mongoClient.close();
         } finally {
             System.out.println("---------------------------------------");
@@ -84,7 +80,7 @@ public class MCSettings {
                     .heartbeatFrequency(3, SECONDS))
                 .build());
             //end ServerSettings
-            System.out.println(mongoClient.getClusterDescription().getServerSettings());
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
             mongoClient.close();
         } finally {
             System.out.print("---------------------------------------");
@@ -101,7 +97,7 @@ public class MCSettings {
                     .readTimeout(10, SECONDS))
                 .build());
             //end SocketSettings
-            System.out.println(mongoClient.getClusterDescription());
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
             mongoClient.close();
         } finally {
             System.out.print("---------------------------------------");
@@ -116,10 +112,10 @@ public class MCSettings {
                 .applyToConnectionPoolSettings(builder ->
                     builder.maxWaitTime(5, SECONDS)
                     .maxSize(1)
-                    .maxConnectionLifeTime(20, MILLISECONDS))
+                    .maxConnectionLifeTime(100, MILLISECONDS))
                 .build());
             //end ConnectionPoolSettings
-            System.out.println(mongoClient.getClusterDescription());
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
             mongoClient.close();
         } finally {
             System.out.print("---------------------------------------");
@@ -127,17 +123,16 @@ public class MCSettings {
     }
 
     private static void createSslSettings() {
-
         try {
-            //begin SslSettings
+            ////begin SslSettings
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                 .applyToSslSettings(builder ->
-                    builder.enabled(true)
-                    .invalidHostNameAllowed(false))
+                    builder.enabled(false)
+                    .invalidHostNameAllowed(true))
                 .build());
             //end SslSettings
-            System.out.println(mongoClient.getClusterDescription());
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
             mongoClient.close();
         } finally {
             System.out.print("---------------------------------------");
