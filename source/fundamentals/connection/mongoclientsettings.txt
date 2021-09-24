@@ -39,7 +39,12 @@ This example demonstrates specifying a ``ConnectionString`` in a
    :emphasize-lines: 3
    :dedent:
 
-For a full list of methods available in ``MongoClientSettings``, 
+.. tip::
+
+   If you omit the ``applyConnectionString()`` method, you connect to
+   your localhost.
+
+For a list of methods available in ``MongoClientSettings``, 
 see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
 
 The following sections describe the commonly used ``MongoClientSettings``:
@@ -75,7 +80,7 @@ MongoDB cluster:
    :emphasize-lines: 3-6
    :dedent:
 
-For a full list of methods you can use to specify your cluster settings, see
+For a list of methods you can use to specify your cluster settings, see
 the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__.
 
 .. _mcs-socket-settings:
@@ -89,8 +94,8 @@ method to specify settings on how to connect to a MongoDB server.
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting locally to
-a socket:
+This example specifies the following settings for connecting to a
+MongoDB socket:
 
 - The connect to the socket within ``1000 MILLISECONDS``
 - To read from the socket within ``10 SECONDS``
@@ -102,7 +107,7 @@ a socket:
    :emphasize-lines: 4-5
    :dedent:
 
-For a full list of methods you can use to specify your socket settings, see
+For a list of methods you can use to specify your socket settings, see
 the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__.
 
 .. _mcs-connectionpool-settings:
@@ -116,8 +121,8 @@ method to specify settings related to a pool of connections to a MongoDB server.
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting locally to
-a connection pool:
+This example specifies the following settings for connecting to a
+MongoDB connection pool:
 
 - The thread to wait at most ``5 SECONDS`` for an available connection
 - To have at most one connection associated with the pool
@@ -130,7 +135,7 @@ a connection pool:
    :emphasize-lines: 4-6
    :dedent:
 
-For a full list of methods you can use to specify your connection pool
+For a list of methods you can use to specify your connection pool
 settings, see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html>`__.
 
 .. _mcs-server-settings:
@@ -144,8 +149,8 @@ method to specify settings on how to monitor each server.
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting locally to
-a server:
+This example specifies the following settings for connecting to a
+MongoDB server:
 
 - The heartbeat frequency to be at least ``10 MILLISECONDS``
 - The cluster monitor to attempt reaching a server every ``3 SECONDS``
@@ -157,7 +162,7 @@ a server:
    :emphasize-lines: 4-5
    :dedent:
 
-For a full list of methods you can use to specify your server settings, see
+For a list of methods you can use to specify your server settings, see
 the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ServerSettings.Builder.html>`__.
 
 .. _mcs-ssl-settings:
@@ -171,11 +176,11 @@ method to specify settings on how to securely connect to MongoDB using SSL.
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting locally
+This example specifies the following settings for connecting to MongoDB
 with SSL:
 
-- To disable SSL
-- To allow invalid host names
+- To enable SSL
+- To not allow invalid host names
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SslSettings
@@ -184,6 +189,9 @@ with SSL:
    :emphasize-lines: 4-5
    :dedent:
 
+.. tip::
 
-For a full list of methods you can use to specify your SSL settings, see the
+   If you connect to localhost, you must disable SSL because there is no certificate.
+
+For a list of methods you can use to specify your SSL settings, see the
 `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__.

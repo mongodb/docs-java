@@ -42,7 +42,7 @@ public class MCSettings {
             //begin ConnectionString
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString("<your connection uri>"))
+                .applyConnectionString(new ConnectionString("<your connection string>"))
                 .build());
             //end ConnectionString
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
@@ -56,8 +56,7 @@ public class MCSettings {
         try {
             //begin ClusterSettings
             MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString("<your connection uri>"))
+                MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToClusterSettings(builder ->
                     builder.mode(ClusterConnectionMode.MULTIPLE)
                     .serverSelectionTimeout(5, SECONDS))
@@ -74,7 +73,7 @@ public class MCSettings {
         try {
             //begin ServerSettings
             MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
+                MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToServerSettings(builder ->
                     builder.minHeartbeatFrequency(10, MILLISECONDS)
                     .heartbeatFrequency(3, SECONDS))
@@ -91,7 +90,7 @@ public class MCSettings {
         try {
             //begin SocketSettings
             MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
+                MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToSocketSettings(builder ->
                     builder.connectTimeout(1000, MILLISECONDS)
                     .readTimeout(10, SECONDS))
@@ -108,7 +107,7 @@ public class MCSettings {
         try {
             //begin ConnectionPoolSettings
             MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
+                MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToConnectionPoolSettings(builder ->
                     builder.maxWaitTime(5, SECONDS)
                     .maxSize(1)
@@ -126,10 +125,10 @@ public class MCSettings {
         try {
             ////begin SslSettings
             MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
+                MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToSslSettings(builder ->
-                    builder.enabled(false)
-                    .invalidHostNameAllowed(true))
+                    builder.enabled(true)
+                    .invalidHostNameAllowed(false))
                 .build());
             //end SslSettings
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
