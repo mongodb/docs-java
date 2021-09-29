@@ -1,5 +1,5 @@
 ====================
-MongoClient Settings
+MongoClient Behavior
 ====================
 
 .. contents:: On this page
@@ -12,19 +12,23 @@ MongoClient Settings
 Overview
 --------
 
-In this guide, you can learn how to control your connections' behavior
-in a ``MongoClient``.
+In this guide, you can learn about the different settings to control
+the behavior of your ``MongoClient``.
 
-You can control your connections' behavior by creating and passing in a 
+You can control the behavior of your ``MongoCleint`` by creating and passing in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
 
 To create a ``MongoClientSettings`` object, use the
-``MongoClientSettings.builder()`` method. The builder makes the
-settings immutable and supports a simpler construction through chaining.
-After chaining all the settings you want, use the ``build()`` method to
-create the ``MongoClientSettings`` object.
+``MongoClientSettings.builder()`` method and chain methods to specify
+your desired settings. After chaining all the settings you want, use the
+``build()`` method to create the ``MongoClientSettings`` object.
+
+.. tip:: Builder Pattern
+
+   The builder pattern makes the settings immutable and supports 
+   a simpler construction through chaining.
 
 Example
 ~~~~~~~
@@ -41,13 +45,13 @@ This example demonstrates specifying a ``ConnectionString`` in a
 
 .. tip::
 
-   If you omit the ``applyConnectionString()`` method, you connect to
-   your localhost.
+   If you omit the ``applyConnectionString()`` method, the driver
+   attempts to connect to ``localhost``.
 
 For a list of methods available in ``MongoClientSettings``, 
 see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
 
-The following sections describe the commonly used ``MongoClientSettings``:
+The following sections describe commonly used settings:
 
 - :ref:`Cluster Settings <mcs-cluster-settings>`
 - :ref:`Socket Settings <mcs-socket-settings>`
@@ -97,7 +101,7 @@ Example
 This example specifies the following settings for connecting to a
 MongoDB socket:
 
-- The connect to the socket within ``1000 MILLISECONDS``
+- The connect to the socket within ``1 SECOND``
 - To read from the socket within ``10 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
@@ -126,7 +130,7 @@ MongoDB connection pool:
 
 - The thread to wait at most ``5 SECONDS`` for an available connection
 - To have at most one connection associated with the pool
-- The pooled connection to live for at most ``100 MILLISECONDS``
+- The pooled connection to live for at most ``10c0 MILLISECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ConnectionPoolSettings

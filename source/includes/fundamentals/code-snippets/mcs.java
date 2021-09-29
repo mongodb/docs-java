@@ -92,7 +92,7 @@ public class MCSettings {
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToSocketSettings(builder ->
-                    builder.connectTimeout(1000, MILLISECONDS)
+                    builder.connectTimeout(1, SECONDS)
                     .readTimeout(10, SECONDS))
                 .build());
             //end SocketSettings
