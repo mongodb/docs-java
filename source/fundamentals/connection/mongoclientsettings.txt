@@ -65,23 +65,22 @@ Cluster Settings
 ----------------
 
 Use the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToClusterSettings(com.mongodb.Block)>`__
-method to specify settings on how to connect to a MongoDB cluster. 
+method to modify the driver's behavior when interacting with your
+MongoDB cluster.
 
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting to a
-MongoDB cluster:
+This example specifies the following behavior for a MongoDB cluster:
 
-- To use the settings from your ``ConnectionString``
-- To connect to ``MULTIPLE`` servers in your cluster
-- The server selection to take at most ``5 SECONDS``
+- To connect directly to a server, regardless of the type of cluster it is a part of
+- The primary node election to take at most ``6 HOURS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ClusterSettings
    :end-before: end ClusterSettings
    :language: java
-   :emphasize-lines: 3-6
+   :emphasize-lines: 3-5
    :dedent:
 
 For a list of methods you can use to specify your cluster settings, see
@@ -93,22 +92,22 @@ Socket Settings
 ---------------
 
 Use the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
-method to specify settings on how to connect to a MongoDB server.
+method to modify the driver's behavior when connecting and communicating
+with your MongoDB server.
 
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting to a
-MongoDB socket:
+This example specifies the following behavior for a MongoDB socket:
 
-- The connect to the socket within ``1 SECOND``
-- To read from the socket within ``10 SECONDS``
+- To connect to an available socket within ``15 SECONDS``
+- To read from an available socket within ``10 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SocketSettings
    :end-before: end SocketSettings
    :language: java
-   :emphasize-lines: 4-5
+   :emphasize-lines: 3-5
    :dedent:
 
 For a list of methods you can use to specify your socket settings, see
@@ -120,23 +119,23 @@ Connection Pool Settings
 ------------------------
 
 Use the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
-method to specify settings related to a pool of connections to a MongoDB server.
+method to modify the driver's behavior when interacting with a pool of
+``Connection`` types.
 
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting to a
-MongoDB connection pool:
+This example specifies the following behavior for a pool of
+``Connection`` types:
 
-- The thread to wait at most ``5 SECONDS`` for an available connection
-- To have at most one connection associated with the pool
-- The pooled connection to live for at most ``10c0 MILLISECONDS``
+- The thread to wait at most ``5 MINUTES`` for an available connection
+- To have at most ``200`` connections associated with the pool
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ConnectionPoolSettings
    :end-before: end ConnectionPoolSettings
    :language: java
-   :emphasize-lines: 4-6
+   :emphasize-lines: 3-5
    :dedent:
 
 For a list of methods you can use to specify your connection pool
@@ -148,22 +147,22 @@ Server Settings
 ---------------
 
 Use the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
-method to specify settings on how to monitor each server.
+method to modify the driver's behavior when monitoring each MongoDB
+server.
 
 Example
 ~~~~~~~
 
-This example specifies the following settings for connecting to a
-MongoDB server:
+This example specifies the following behavior for a MongoDB server:
 
-- The heartbeat frequency to be at least ``10 MILLISECONDS``
-- The cluster monitor to attempt reaching a server every ``3 SECONDS``
+- To interval between server monitoring checks to be at least ``700 MILLISECONDS`` 
+- The cluster monitor to attempt reaching a server every ``15 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ServerSettings
    :end-before: end ServerSettings
    :language: java
-   :emphasize-lines: 4-5
+   :emphasize-lines: 3-5
    :dedent:
 
 For a list of methods you can use to specify your server settings, see
@@ -175,7 +174,8 @@ SSL Settings
 ------------
 
 Use the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
-method to specify settings on how to securely connect to MongoDB using SSL.
+method to modify the driver's behavior when using SSL to secure a
+connection from  your application to MongoDB.
 
 Example
 ~~~~~~~
@@ -183,14 +183,14 @@ Example
 This example specifies the following settings for connecting to MongoDB
 with SSL:
 
-- To enable SSL
-- To not allow invalid host names
+- To ensure your Atlas connection string works
+- To not allow mismatches for the hostname in the server and certificate
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SslSettings
    :end-before: end SslSettings
    :language: java
-   :emphasize-lines: 4-5
+   :emphasize-lines: 3-5
    :dedent:
 
 .. tip::
