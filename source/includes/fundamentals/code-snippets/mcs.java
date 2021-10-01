@@ -59,7 +59,7 @@ public class MCSettings {
                 MongoClientSettings.builder()
                 .applyToClusterSettings(builder ->
                     builder.mode(ClusterConnectionMode.SINGLE)
-                    .serverSelectionTimeout(6, HOURS))
+                    .serverSelectionTimeout(35, SECONDS))
                 .build());
             //end ClusterSettings
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
@@ -92,8 +92,8 @@ public class MCSettings {
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToSocketSettings(builder ->
-                    builder.connectTimeout(15, SECONDS)
-                    .readTimeout(10, SECONDS))
+                    builder.connectTimeout(10, SECONDS)
+                    .readTimeout(15, SECONDS))
                 .build());
             //end SocketSettings
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
@@ -109,7 +109,7 @@ public class MCSettings {
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToConnectionPoolSettings(builder ->
-                    builder.maxWaitTime(5, MINUTES)
+                    builder.maxWaitTime(3, MINUTES)
                     .maxSize(200)
                 .build());
             //end ConnectionPoolSettings
