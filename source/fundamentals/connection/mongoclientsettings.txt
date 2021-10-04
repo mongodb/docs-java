@@ -25,16 +25,10 @@ To create a ``MongoClientSettings`` object, use the
 your desired settings. After chaining all the settings you want, use the
 ``build()`` method to create the ``MongoClientSettings`` object.
 
-.. tip:: Builder Pattern
-
-   The builder pattern makes the settings immutable and supports 
-   a simpler construction through chaining.
-
 Example
 ~~~~~~~
 
-This example demonstrates specifying a ``ConnectionString`` in a
-``MongoClientSettings``:
+This example demonstrates specifying a ``ConnectionString``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ConnectionString
@@ -57,7 +51,7 @@ The following sections describe commonly used settings:
 - :ref:`Socket Settings <mcs-socket-settings>`
 - :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
 - :ref:`Server Settings <mcs-server-settings>`
-- :ref:`SSL Settings <mcs-ssl-settings>`
+- :ref:`TLS/SSL Settings <mcs-ssl-settings>`
 
 .. _mcs-cluster-settings:
 
@@ -71,17 +65,21 @@ MongoDB cluster.
 Example
 ~~~~~~~
 
-This example specifies the following driver behavior in a MongoDB cluster:
-
-- To connect directly to a server, regardless of the type of cluster it is a part of
-- The primary node election to take at most ``35 SECONDS``
+This example specifies the driver to connect directly to a server,
+regardless of the type of MongoDB cluster its' a part of:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ClusterSettings
    :end-before: end ClusterSettings
    :language: java
-   :emphasize-lines: 3-5
+   :emphasize-lines: 3-4
    :dedent:
+
+.. tip::
+
+   This is analogous to the :ref:`directConnection
+   <direct-connection-option>` parameter you can specify in your connection
+   URI.
 
 For a list of methods you can use to specify your cluster settings, see
 the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__.
@@ -119,8 +117,7 @@ Connection Pool Settings
 ------------------------
 
 Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
-method to modify the driver's behavior when interacting with a pool of
-``Connection`` types.
+method to modify the way the driver manages its' connection pool.
 
 Example
 ~~~~~~~
@@ -170,18 +167,18 @@ the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connecti
 
 .. _mcs-ssl-settings:
 
-SSL Settings
-------------
+TLS/SSL Settings
+----------------
 
 Chain the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
-method to modify the driver's behavior when using SSL to secure a
+method to modify the driver's behavior when using TLS/SSL to secure a
 connection between your application and MongoDB.
 
 Example
 ~~~~~~~
 
 This example specifies the following driver behavior for connecting to
-MongoDB with SSL:
+MongoDB with TLS/SSL:
 
 - To ensure your Atlas connection string works
 - To not allow a mismatched ``hostname`` in the server and certificate
@@ -195,7 +192,7 @@ MongoDB with SSL:
 
 .. tip::
 
-   If you connect to localhost, you must disable SSL because there is no certificate.
+   If you connect to localhost, you must disable TLS/SSL because there is no certificate.
 
-For a list of methods you can use to specify your SSL settings, see the
+For a list of methods you can use to specify your TLS/SSL settings, see the
 `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__.

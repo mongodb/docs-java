@@ -59,7 +59,6 @@ public class MCSettings {
                 MongoClientSettings.builder()
                 .applyToClusterSettings(builder ->
                     builder.mode(ClusterConnectionMode.SINGLE)
-                    .serverSelectionTimeout(35, SECONDS))
                 .build());
             //end ClusterSettings
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
