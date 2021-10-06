@@ -125,8 +125,7 @@ public class MCSettings {
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToSslSettings(builder ->
-                    builder.enabled(true)
-                    .invalidHostNameAllowed(false))
+                    builder.enabled(true))
                 .build());
             //end SslSettings
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));

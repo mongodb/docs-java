@@ -181,18 +181,43 @@ This example specifies the following driver behavior for connecting to
 MongoDB with TLS/SSL:
 
 - To ensure your Atlas connection string works
-- To not allow a mismatched ``hostname`` in the server and certificate
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SslSettings
    :end-before: end SslSettings
    :language: java
-   :emphasize-lines: 3-5
+   :emphasize-lines: 3-4
    :dedent:
-
-.. tip::
-
-   If you connect to localhost, you must disable TLS/SSL because there is no certificate.
 
 For a list of methods you can use to specify your TLS/SSL settings, see the
 `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__.
+
+Chain Order
+-----------
+
+If you have the same options specified in you settings and connection
+string, the order you chain them determines which option the driver
+uses. In this scenario, the driver implements the last setting it reads.
+
+Example
+~~~~~~~
+
+This example contains the following settings with the time for the
+driver to connect to an available socket:
+
+- The socket settings specifies within ``5 SECONDS`` 
+- The connection string specifies within ``2 SECONDS``
+
+.. code-block:: java
+   :emphasize-lines: 4-5
+
+   MongoClient mongoClient = MongoClients.create(
+      MongoClientSettings.builder()
+         .applyToSocketSettings(builder ->
+         builder.connectTimeout(5, SECONDS))
+         .applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
+      .build());
+
+Since the driver reads the connection string options last, the driver
+expects to connect to an available socket within ``2 SECONDS`` before
+timing out.
