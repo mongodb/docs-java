@@ -45,37 +45,6 @@ This example demonstrates specifying a ``ConnectionString``:
 For a list of methods available in ``MongoClientSettings``, 
 see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
 
-Chain Order
-~~~~~~~~~~~
-
-Some options in the settings map to a connection string option.
-If you specify the same options in your settings and connection
-string, the order you chain them determines which option the driver
-uses. The driver uses the **last** setting it reads.
-
-Example
-```````
-
-This example contains the following times for the driver to connect to
-an available socket:
-
-- The :ref:`socket settings <mcs-socket-settings>` specifies within ``5 SECONDS`` 
-- The connection string specifies within ``2 SECONDS``
-
-.. code-block:: java
-   :emphasize-lines: 4-5
-
-   MongoClient mongoClient = MongoClients.create(
-      MongoClientSettings.builder()
-         .applyToSocketSettings(builder ->
-         builder.connectTimeout(5, SECONDS))
-         .applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
-      .build());
-
-Since the driver reads the connection string options last, the driver
-expects to connect to an available socket within ``2 SECONDS`` before
-timing out.
-
 The following sections describe commonly used settings:
 
 - :ref:`Cluster Settings <mcs-cluster-settings>`
@@ -83,6 +52,33 @@ The following sections describe commonly used settings:
 - :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
 - :ref:`Server Settings <mcs-server-settings>`
 - :ref:`TLS/SSL Settings <mcs-ssl-settings>`
+
+.. note:: Chain Order
+
+   Some options in the settings map to a connection string option.
+   If you specify the same options in your settings and connection
+   string, the order you chain them determines which option the driver
+   uses. The driver uses the **last** setting it reads.
+
+   For example, this snippet contains settings with the following times
+   for the driver to connect to an available socket:
+
+   - The :ref:`socket settings <mcs-socket-settings>` specifies within ``5 SECONDS`` 
+   - The connection string specifies within ``2 SECONDS``
+
+   .. code-block:: java
+      :emphasize-lines: 4-5
+
+      MongoClient mongoClient = MongoClients.create(
+         MongoClientSettings.builder()
+            .applyToSocketSettings(builder ->
+            builder.connectTimeout(5, SECONDS))
+            .applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
+         .build());
+
+   Since the driver reads the connection string options last, the driver
+   expects to connect to an available socket within ``2 SECONDS`` before
+   timing out.
 
 .. _mcs-cluster-settings:
 
@@ -360,10 +356,8 @@ settings to modify the driver's behavior:
 Example
 ~~~~~~~
 
-This example specifies the following driver behavior for connecting to
-MongoDB with TLS/SSL:
-
-- To ensure your Atlas connection string works
+This example specifies the driver to ensure your Atlas connection string
+works when connecting to MongoDB with TLS/SSL:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SslSettings
