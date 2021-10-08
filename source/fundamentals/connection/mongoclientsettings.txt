@@ -62,6 +62,49 @@ Chain the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mon
 method to modify the driver's behavior when interacting with your
 MongoDB cluster.
 
+The following table describes all the methods you can chain to modify
+the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``addClusterListener​()``
+     - Adds a listener for cluster-related events.
+
+   * - ``applyConnectionString​()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the cluster settings specified in a ``ClusterSettings`` object.
+
+   * - ``hosts​()``
+     - Sets all the specified locations of a Mongo server.
+
+   * - ``localThreshold()``
+     - Sets the amount of time that a server’s round trip can take and still be eligible for server selection.
+
+   * - ``mode​()``
+     - Sets how to connect to a MongoDB server.
+
+   * - ``requiredClusterType()``
+     - Sets the type of cluster required for the cluster.
+
+   * - ``requiredReplicaSetName()``
+     - Sets the replica set name required for the cluster.
+
+   * - ``serverSelectionTimeout()``
+     - Description
+
+   * - ``serverSelector()``
+     - Adds a server selector to apply before server selection.
+
+   * - ``srvHost()``
+     - Sets the host name to use to look up an SRV DNS record to find the MongoDB hosts.
+
 Example
 ~~~~~~~
 
@@ -81,9 +124,6 @@ regardless of the type of MongoDB cluster its' a part of:
    <direct-connection-option>` parameter you can specify in your connection
    URI.
 
-For a list of methods you can use to specify your cluster settings, see
-the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ClusterSettings.Builder.html>`__.
-
 .. _mcs-socket-settings:
 
 Socket Settings
@@ -92,6 +132,34 @@ Socket Settings
 Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
 method to modify the driver's behavior when connecting and communicating
 with your MongoDB server.
+
+The following table describes all the methods you can chain to modify
+the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``applyConnectionString​()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the socket settings specified in a ``SocketSettings`` object.
+
+   * - ``connectTimeout()``
+     - Sets the maximum time to connect to an available socket before throwing a timeout error.
+
+   * - ``readTimeout()``
+     - Sets the maximum time to read to an available socket before throwing a timeout error.
+
+   * - ``receiveBufferSize()``
+     - Sets the buffer size when receiving.
+
+   * - ``sendBufferSize()``
+     - Sets the buffer size when sending.
 
 Example
 ~~~~~~~
@@ -108,9 +176,6 @@ This example specifies the following driver behavior in a MongoDB socket:
    :emphasize-lines: 3-5
    :dedent:
 
-For a list of methods you can use to specify your socket settings, see
-the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html>`__.
-
 .. _mcs-connectionpool-settings:
 
 Connection Pool Settings
@@ -118,6 +183,46 @@ Connection Pool Settings
 
 Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
 method to modify the way the driver manages its' connection pool.
+
+The following table describes all the methods you can chain to modify
+the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``addConnectionPoolListener​()``
+     - Adds a listener for connection pool-related events.
+
+   * - ``applyConnectionString​()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the connection pool settings specified in a ``ConnectionPoolSettings`` object.
+
+   * - ``maintenanceFrequency()``
+     - Sets the frequency for running a maintenance job.
+
+   * - ``maintenanceInitialDelay()``
+     - Sets the time to wait before running the first maintenance job.
+
+   * - ``maxConnectionIdleTime()``
+     - Sets the amount of time a connection can be idle before it's closed.
+
+   * - ``maxConnectionLifeTime()``
+     - Sets the maximum time a pooled connection can live for.
+
+   * - ``maxSize()``
+     - Sets the maximum amount of connections associated with a connection pool.
+
+   * - ``maxWaitTime()``
+     - Sets the maximum time to wait for an available connection.
+
+   * - ``minSize()``
+     - Sets the minimum amount of connections associated with a connection pool.
 
 Example
 ~~~~~~~
@@ -135,9 +240,6 @@ This example specifies the following driver behavior in a pool of
    :emphasize-lines: 3-5
    :dedent:
 
-For a list of methods you can use to specify your connection pool
-settings, see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html>`__.
-
 .. _mcs-server-settings:
 
 Server Settings
@@ -146,6 +248,34 @@ Server Settings
 Chain the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
 method to modify the driver's behavior when monitoring each MongoDB
 server.
+
+The following table describes all the methods you can chain to modify
+the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``addServerListener()``
+     - Adds a listener for server-related events.
+
+   * - ``addServerMonitorListener​()``
+     - Adds a listener for server monitor-related events.
+
+   * - ``applyConnectionString​()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the server settings specified in a ``ServerSettings`` object.
+
+   * - ``heartbeatFrequency()``
+     - Sets the interval for a cluster monitor to attempt reaching a server.
+
+   * - ``minHeartbeatFrequency()``
+     - Sets the interval for server monitoring checks.
 
 Example
 ~~~~~~~
@@ -162,9 +292,6 @@ This example specifies the following driver behavior in a MongoDB server:
    :emphasize-lines: 3-5
    :dedent:
 
-For a list of methods you can use to specify your server settings, see
-the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ServerSettings.Builder.html>`__.
-
 .. _mcs-ssl-settings:
 
 TLS/SSL Settings
@@ -173,6 +300,31 @@ TLS/SSL Settings
 Chain the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
 method to modify the driver's behavior when using TLS/SSL to secure a
 connection between your application and MongoDB.
+
+The following table describes all the methods you can chain to modify
+the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``applyConnectionString​()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the TLS/SSL settings specified in a ``SslSettings`` object.
+
+   * - ``context()``
+     -  Sets the secure socket protocol implementation to use when you enable TLS/SSL.
+
+   * - ``enabled()``
+     - Whether to ensure your Atlas connection string works.
+
+   * - ``invalidHostNameAllowed()``
+     - Whether to allow a mismatch between the server’s hostname and the hostname specified by the TLS certificate.
 
 Example
 ~~~~~~~
@@ -189,21 +341,18 @@ MongoDB with TLS/SSL:
    :emphasize-lines: 3-4
    :dedent:
 
-For a list of methods you can use to specify your TLS/SSL settings, see the
-`API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__.
-
 Chain Order
 -----------
 
-If you have the same options specified in you settings and connection
+If you specify the same options in your settings and connection
 string, the order you chain them determines which option the driver
-uses. In this scenario, the driver implements the last setting it reads.
+uses. The driver implements the last setting it reads.
 
 Example
 ~~~~~~~
 
-This example contains the following settings with the time for the
-driver to connect to an available socket:
+This example contains the following times for the driver to connect to
+an available socket:
 
 - The socket settings specifies within ``5 SECONDS`` 
 - The connection string specifies within ``2 SECONDS``
