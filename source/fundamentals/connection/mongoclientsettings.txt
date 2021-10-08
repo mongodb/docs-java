@@ -45,6 +45,37 @@ This example demonstrates specifying a ``ConnectionString``:
 For a list of methods available in ``MongoClientSettings``, 
 see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
 
+Chain Order
+~~~~~~~~~~~
+
+Some options in the settings map to a connection string option.
+If you specify the same options in your settings and connection
+string, the order you chain them determines which option the driver
+uses. The driver uses the **last** setting it reads.
+
+Example
+```````
+
+This example contains the following times for the driver to connect to
+an available socket:
+
+- The :ref:`socket settings <mcs-socket-settings>` specifies within ``5 SECONDS`` 
+- The connection string specifies within ``2 SECONDS``
+
+.. code-block:: java
+   :emphasize-lines: 4-5
+
+   MongoClient mongoClient = MongoClients.create(
+      MongoClientSettings.builder()
+         .applyToSocketSettings(builder ->
+         builder.connectTimeout(5, SECONDS))
+         .applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
+      .build());
+
+Since the driver reads the connection string options last, the driver
+expects to connect to an available socket within ``2 SECONDS`` before
+timing out.
+
 The following sections describe commonly used settings:
 
 - :ref:`Cluster Settings <mcs-cluster-settings>`
@@ -62,8 +93,8 @@ Chain the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mon
 method to modify the driver's behavior when interacting with your
 MongoDB cluster.
 
-The following table describes all the methods you can chain to modify
-the driver's behavior:
+The following table describes all the methods you can chain to your
+settings to modify the driver's behavior:
 
 .. list-table::
    :widths: 40 60
@@ -97,7 +128,7 @@ the driver's behavior:
      - Sets the replica set name required for the cluster.
 
    * - ``serverSelectionTimeout()``
-     - Description
+     - Sets the maximum time to select a primary node before throwing a timeout error.
 
    * - ``serverSelector()``
      - Adds a server selector to apply before server selection.
@@ -133,8 +164,8 @@ Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mong
 method to modify the driver's behavior when connecting and communicating
 with your MongoDB server.
 
-The following table describes all the methods you can chain to modify
-the driver's behavior:
+The following table describes all the methods you can chain to your
+settings to modify the driver's behavior:
 
 .. list-table::
    :widths: 40 60
@@ -156,10 +187,10 @@ the driver's behavior:
      - Sets the maximum time to read to an available socket before throwing a timeout error.
 
    * - ``receiveBufferSize()``
-     - Sets the buffer size when receiving.
+     - Sets the socket's buffer size when receiving.
 
    * - ``sendBufferSize()``
-     - Sets the buffer size when sending.
+     - Sets the socket's buffer size when sending.
 
 Example
 ~~~~~~~
@@ -184,8 +215,8 @@ Connection Pool Settings
 Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
 method to modify the way the driver manages its' connection pool.
 
-The following table describes all the methods you can chain to modify
-the driver's behavior:
+The following table describes all the methods you can chain to your
+settings to modify the driver's behavior:
 
 .. list-table::
    :widths: 40 60
@@ -249,8 +280,8 @@ Chain the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mong
 method to modify the driver's behavior when monitoring each MongoDB
 server.
 
-The following table describes all the methods you can chain to modify
-the driver's behavior:
+The following table describes all the methods you can chain to your
+settings to modify the driver's behavior:
 
 .. list-table::
    :widths: 40 60
@@ -301,8 +332,8 @@ Chain the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb
 method to modify the driver's behavior when using TLS/SSL to secure a
 connection between your application and MongoDB.
 
-The following table describes all the methods you can chain to modify
-the driver's behavior:
+The following table describes all the methods you can chain to your
+settings to modify the driver's behavior:
 
 .. list-table::
    :widths: 40 60
@@ -340,33 +371,3 @@ MongoDB with TLS/SSL:
    :language: java
    :emphasize-lines: 3-4
    :dedent:
-
-Chain Order
------------
-
-If you specify the same options in your settings and connection
-string, the order you chain them determines which option the driver
-uses. The driver implements the last setting it reads.
-
-Example
-~~~~~~~
-
-This example contains the following times for the driver to connect to
-an available socket:
-
-- The socket settings specifies within ``5 SECONDS`` 
-- The connection string specifies within ``2 SECONDS``
-
-.. code-block:: java
-   :emphasize-lines: 4-5
-
-   MongoClient mongoClient = MongoClients.create(
-      MongoClientSettings.builder()
-         .applyToSocketSettings(builder ->
-         builder.connectTimeout(5, SECONDS))
-         .applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
-      .build());
-
-Since the driver reads the connection string options last, the driver
-expects to connect to an available socket within ``2 SECONDS`` before
-timing out.
