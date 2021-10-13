@@ -15,7 +15,7 @@ Overview
 In this guide, you can learn about the different settings to control
 the behavior of your ``MongoClient``.
 
-You can control the behavior of your ``MongoCleint`` by creating and passing in a 
+You can control the behavior of your ``MongoClient`` by creating and passing in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
@@ -24,6 +24,8 @@ To create a ``MongoClientSettings`` object, use the
 ``MongoClientSettings.builder()`` method and chain methods to specify
 your desired settings. After chaining all the settings you want, use the
 ``build()`` method to create the ``MongoClientSettings`` object.
+
+.. _connection-string-example:
 
 Example
 ~~~~~~~
@@ -53,6 +55,12 @@ The following sections describe commonly used settings:
 - :ref:`Server Settings <mcs-server-settings>`
 - :ref:`TLS/SSL Settings <mcs-ssl-settings>`
 
+.. tip::
+
+   Each setting has an ``applyConnectionString()`` method. They are
+   rarely needed. You should use this method as shown in :ref:`the
+   preceding example <connection-string-example>`.
+
 .. note:: Chain Order
 
    Some options in the settings map to a connection string option.
@@ -63,21 +71,20 @@ The following sections describe commonly used settings:
    For example, this snippet contains settings with the following times
    for the driver to connect to an available socket:
 
-   - The :ref:`socket settings <mcs-socket-settings>` specifies within ``5 SECONDS`` 
    - The connection string specifies within ``2 SECONDS``
+   - The :ref:`socket settings <mcs-socket-settings>` specifies within ``5 SECONDS``
 
    .. code-block:: java
       :emphasize-lines: 4-5
 
       MongoClient mongoClient = MongoClients.create(
-         MongoClientSettings.builder()
+         MongoClientSettings.builder().applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
             .applyToSocketSettings(builder ->
             builder.connectTimeout(5, SECONDS))
-            .applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
-         .build());
+            .build());
 
-   Since the driver reads the connection string options last, the driver
-   expects to connect to an available socket within ``2 SECONDS`` before
+   Since the driver reads the socket settings options last, the driver
+   expects to connect to an available socket within ``5 SECONDS`` before
    timing out.
 
 .. _mcs-cluster-settings:
@@ -124,18 +131,33 @@ settings to modify the driver's behavior:
      - Sets the replica set name required for the cluster.
 
    * - ``serverSelectionTimeout()``
-     - Sets the maximum time to select a primary node before throwing a timeout error.
+     - Sets the maximum time to select a primary node before throwing a timeout exception.
 
    * - ``serverSelector()``
      - Adds a server selector to apply before server selection.
 
    * - ``srvHost()``
      - Sets the host name to use to look up an SRV DNS record to find the MongoDB hosts.
+     
+     .. note::
+        
+        When setting ``srvHost``, the driver does not process any
+        associated TXT records associated with the host. 
+
+        If you want to enable the processing of TXT records, you must
+        specify the SRV host in the connection string use the 
+        ``applyConnectionString()`` method.
+
+        .. code-block:: java
+        
+            MongoClient mongoClient = MongoClients.create(
+               MongoClientSettings.builder()
+                  .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
 
 Example
 ~~~~~~~
 
-This example specifies the driver to connect directly to a server,
+This example specifies for the driver to connect directly to a server,
 regardless of the type of MongoDB cluster its' a part of:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
@@ -177,10 +199,10 @@ settings to modify the driver's behavior:
      - Uses the socket settings specified in a ``SocketSettings`` object.
 
    * - ``connectTimeout()``
-     - Sets the maximum time to connect to an available socket before throwing a timeout error.
+     - Sets the maximum time to connect to an available socket before throwing a timeout exception.
 
    * - ``readTimeout()``
-     - Sets the maximum time to read to an available socket before throwing a timeout error.
+     - Sets the maximum time to read to an available socket before throwing a timeout exception.
 
    * - ``receiveBufferSize()``
      - Sets the socket's buffer size when receiving.
@@ -240,16 +262,35 @@ settings to modify the driver's behavior:
      - Sets the amount of time a connection can be idle before it's closed.
 
    * - ``maxConnectionLifeTime()``
-     - Sets the maximum time a pooled connection can live for.
-
-   * - ``maxSize()``
-     - Sets the maximum amount of connections associated with a connection pool.
+     - Sets the maximum time a pooled connection can be alive before it's closed.
 
    * - ``maxWaitTime()``
      - Sets the maximum time to wait for an available connection.
 
+   * - ``maxSize()``
+     - Sets the maximum amount of connections associated with a connection pool.
+
+        .. note::
+
+            This ``maxSize`` setting applies to each server
+            in the cluster that you connect the driver to.
+
+            For example, if you connect the driver to a cluster with three
+            ``mongos`` servers, there can be at most ``maxSize`` connections to each
+            ``mongos`` server.
+
    * - ``minSize()``
      - Sets the minimum amount of connections associated with a connection pool.
+
+        .. note::
+
+            This ``minSize`` setting applies to each server
+            in the cluster that you connect the driver to.
+
+            For example, if you connect the driver to a cluster with three
+            ``mongos`` servers, there has to be at least ``minSize`` connections to each
+            ``mongos`` server.
+
 
 Example
 ~~~~~~~
@@ -257,7 +298,7 @@ Example
 This example specifies the following driver behavior in a pool of
 ``Connection`` types:
 
-- The thread to wait at most ``3 MINUTES`` for an available connection
+- The thread to wait at most ``10 SECONDS`` for an available connection
 - To have at most ``200`` connections associated with the pool
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
@@ -302,14 +343,14 @@ settings to modify the driver's behavior:
      - Sets the interval for a cluster monitor to attempt reaching a server.
 
    * - ``minHeartbeatFrequency()``
-     - Sets the interval for server monitoring checks.
+     - Sets the minimum interval for server monitoring checks.
 
 Example
 ~~~~~~~
 
 This example specifies the following driver behavior in a MongoDB server:
 
-- To interval between server monitoring checks to be at least ``700 MILLISECONDS`` 
+- The minimum interval for server monitoring checks to be at least ``700 MILLISECONDS`` 
 - The cluster monitor to attempt reaching a server every ``15 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
@@ -345,10 +386,10 @@ settings to modify the driver's behavior:
      - Uses the TLS/SSL settings specified in a ``SslSettings`` object.
 
    * - ``context()``
-     -  Sets the secure socket protocol implementation to use when you enable TLS/SSL.
+     - Sets the ``SSLContext`` for use when you enable TLS/SSL.
 
    * - ``enabled()``
-     - Whether to ensure your Atlas connection string works.
+     - Whether to enable TLS/SSL. (You must enable this for Atlas clusters.)
 
    * - ``invalidHostNameAllowed()``
      - Whether to allow a mismatch between the server’s hostname and the hostname specified by the TLS certificate.
@@ -356,8 +397,8 @@ settings to modify the driver's behavior:
 Example
 ~~~~~~~
 
-This example specifies the driver to ensure your Atlas connection string
-works when connecting to MongoDB with TLS/SSL:
+This example specifies for the driver to enable TLS/SSL when connecting
+to MongoDB:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin SslSettings

@@ -108,7 +108,7 @@ public class MCSettings {
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToConnectionPoolSettings(builder ->
-                    builder.maxWaitTime(3, MINUTES)
+                    builder.maxWaitTime(10, SECONDS)
                     .maxSize(200)
                 .build());
             //end ConnectionPoolSettings
