@@ -58,8 +58,8 @@ The following sections describe commonly used settings:
 .. tip::
 
    Each setting has an ``applyConnectionString()`` method. They are
-   rarely needed. You should use this method as shown in :ref:`the
-   preceding example <connection-string-example>`.
+   rarely needed within the settings, so you should use this method as shown
+   in :ref:`the preceding example <connection-string-example>`.
 
 .. note:: Chain Order
 
@@ -75,7 +75,7 @@ The following sections describe commonly used settings:
    - The :ref:`socket settings <mcs-socket-settings>` specifies within ``5 SECONDS``
 
    .. code-block:: java
-      :emphasize-lines: 4-5
+      :emphasize-lines: 2,4
 
       MongoClient mongoClient = MongoClients.create(
          MongoClientSettings.builder().applyConnectionString(new ConnectionString("mongodb+srv:/<username>:<password>@<hostname>:<port>?connectTimeoutMS(2000)"))
@@ -139,20 +139,20 @@ settings to modify the driver's behavior:
    * - ``srvHost()``
      - Sets the host name to use to look up an SRV DNS record to find the MongoDB hosts.
      
-     .. note::
+        .. note::
         
-        When setting ``srvHost``, the driver does not process any
-        associated TXT records associated with the host. 
+           When setting ``srvHost``, the driver does not process any
+           associated TXT records associated with the host. 
 
-        If you want to enable the processing of TXT records, you must
-        specify the SRV host in the connection string use the 
-        ``applyConnectionString()`` method.
+           If you want to enable the processing of TXT records, you must
+           specify the SRV host in the connection string use the 
+          ``applyConnectionString()`` method.
 
-        .. code-block:: java
+           .. code-block:: java
         
-            MongoClient mongoClient = MongoClients.create(
-               MongoClientSettings.builder()
-                  .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
+               MongoClient mongoClient = MongoClients.create(
+                  MongoClientSettings.builder()
+                     .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
 
 Example
 ~~~~~~~
@@ -259,7 +259,7 @@ settings to modify the driver's behavior:
      - Sets the time to wait before running the first maintenance job.
 
    * - ``maxConnectionIdleTime()``
-     - Sets the amount of time a connection can be idle before it's closed.
+     - Sets the maximum time a connection can be idle before it's closed.
 
    * - ``maxConnectionLifeTime()``
      - Sets the maximum time a pooled connection can be alive before it's closed.
@@ -270,27 +270,17 @@ settings to modify the driver's behavior:
    * - ``maxSize()``
      - Sets the maximum amount of connections associated with a connection pool.
 
-        .. note::
-
-            This ``maxSize`` setting applies to each server
-            in the cluster that you connect the driver to.
-
-            For example, if you connect the driver to a cluster with three
-            ``mongos`` servers, there can be at most ``maxSize`` connections to each
-            ``mongos`` server.
-
    * - ``minSize()``
      - Sets the minimum amount of connections associated with a connection pool.
 
-        .. note::
+.. note::
 
-            This ``minSize`` setting applies to each server
-            in the cluster that you connect the driver to.
+   This ``maxSize`` and ``minSize`` setting applies to each server in
+   the cluster that you connect the driver to.
 
-            For example, if you connect the driver to a cluster with three
-            ``mongos`` servers, there has to be at least ``minSize`` connections to each
-            ``mongos`` server.
-
+   For example, assume you connect the driver to a cluster with three
+   ``mongos`` servers. There can be at most ``maxSize`` connections and
+   at least ``minSize`` connections to each ``mongos`` server.
 
 Example
 ~~~~~~~
