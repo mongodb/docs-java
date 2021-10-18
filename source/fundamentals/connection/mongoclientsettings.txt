@@ -53,37 +53,37 @@ settings to modify the driver's behavior:
      - Adds a listener for command events.
 
    * - ``applicationName​()``
-     - Sets the logical name of the application using this ``MongoClient``.
+     - Sets the logical name of the application using the ``MongoClient``.
 
    * - ``applyConnectionString()``
      - Applies the settings from the given ``ConnectionString`` to the builder. If you omit this method, the driver attempts to connect to ``localhost``.
 
    * - ``applyToClusterSettings()``
-     - Applies the ``ClusterSettings.Builder`` block and then sets the clusterSettings.
+     - Applies the ``ClusterSettings.Builder`` block and then sets the cluster settings.
 
    * - ``applyToConnectionPoolSettings()``
-     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the connectionPoolSettings.
+     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the connection pool settings.
 
-   * - ``	applyToServerSettings()``
-     - Applies the ``ServerSettings.Builder`` block and then sets the serverSettings.
+   * - ``applyToServerSettings()``
+     - Applies the ``ServerSettings.Builder`` block and then sets the server settings.
 
    * - ``applyToSocketSettings()``
-     - Applies the ``SocketSettings.Builder`` block and then sets the socketSettings.
+     - Applies the ``SocketSettings.Builder`` block and then sets the socket settings.
 
    * - ``applyToSslSettings()``
-     - Applies the ``SslSettings.Builder`` block and then sets the sslSettings.
+     - Applies the ``SslSettings.Builder`` block and then sets the TLS/SSL settings.
 
    * - ``autoEncryptionSettings()``
      - | Sets the auto-encryption settings. 
        |
-       | If any of the following are true, the driver creates
-       | a separate, internal ``MongoClient``:
-       | - ``AutoEncryptionSettings.keyVaultClient`` is not passed
-       | - ``AutoEncryptionSettings.bypassAutomaticEncryption`` is false
+       | If you omit ``keyVaultClient`` or set
+       | ``bypassAutomaticEncryption`` to false in your
+       | ``AutoEncryptionSettings``, the driver creates a separate,
+       | internal ``MongoClient``.
        |
-       | The internal ``MongoClient`` configuration has the
-       | ``minPoolSize`` as  0 and omits ``AutoEncryptionSettings``. Other
-       | than that, it is the same as the parent ``MongoClient``.
+       | The internal ``MongoClient`` configuration differs from the
+       | parent ``MongoClient` by setting the ``minPoolSize`` to  0 and
+       | omitting the ``AutoEncryptionSettings``.
 
    * - ``codecRegistry()``
      - Sets the codec registry.
@@ -104,10 +104,10 @@ settings to modify the driver's behavior:
      - Sets the read preference.
 
    * - ``retryReads()``
-     - Whether the driver should retire reads if they fail due to a network error.
+     - Whether the driver should retire reads if a network error occurs.
 
    * - ``retryWrites​()``
-     - Whether the driver should retire writes if they fail due to a network error.
+     - Whether the driver should retire writes if a network error occurs.
 
    * - ``serverApi​()``
      - Sets the server API to use when sending commands to the server.
