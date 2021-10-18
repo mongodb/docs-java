@@ -15,6 +15,20 @@ Overview
 In this guide, you can learn about the different settings to control
 the behavior of your ``MongoClient``.
 
+The following sections describe commonly used settings:
+
+- :ref:`MongoClient Settings <mcs-settings>`
+- :ref:`Cluster Settings <mcs-cluster-settings>`
+- :ref:`Socket Settings <mcs-socket-settings>`
+- :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
+- :ref:`Server Settings <mcs-server-settings>`
+- :ref:`TLS/SSL Settings <mcs-ssl-settings>`
+
+.. _mcs-settings:
+
+MongoClient Settings
+--------------------
+
 You can control the behavior of your ``MongoClient`` by creating and passing in a 
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
@@ -24,6 +38,88 @@ To create a ``MongoClientSettings`` object, use the
 ``MongoClientSettings.builder()`` method and chain methods to specify
 your desired settings. After chaining all the settings you want, use the
 ``build()`` method to create the ``MongoClientSettings`` object.
+
+The following table describes all the methods you can chain to your
+settings to modify the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``addCommandListener()``
+     - Adds a listener for command events.
+
+   * - ``applicationName​()``
+     - Sets the logical name of the application using this ``MongoClient``.
+
+   * - ``applyConnectionString()``
+     - Applies the settings from the given ``ConnectionString`` to the builder. If you omit this method, the driver attempts to connect to ``localhost``.
+
+   * - ``applyToClusterSettings()``
+     - Applies the ``ClusterSettings.Builder`` block and then sets the clusterSettings.
+
+   * - ``applyToConnectionPoolSettings()``
+     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the connectionPoolSettings.
+
+   * - ``	applyToServerSettings()``
+     - Applies the ``ServerSettings.Builder`` block and then sets the serverSettings.
+
+   * - ``applyToSocketSettings()``
+     - Applies the ``SocketSettings.Builder`` block and then sets the socketSettings.
+
+   * - ``applyToSslSettings()``
+     - Applies the ``SslSettings.Builder`` block and then sets the sslSettings.
+
+   * - ``autoEncryptionSettings()``
+     - | Sets the auto-encryption settings. 
+       |
+       | If any of the following are true, the driver creates
+       | a separate, internal ``MongoClient``:
+       | - ``AutoEncryptionSettings.keyVaultClient`` is not passed
+       | - ``AutoEncryptionSettings.bypassAutomaticEncryption`` is false
+       |
+       | The internal ``MongoClient`` configuration has the
+       | ``minPoolSize`` as  0 and omits ``AutoEncryptionSettings``. Other
+       | than that, it is the same as the parent ``MongoClient``.
+
+   * - ``codecRegistry()``
+     - Sets the codec registry.
+
+   * - ``commandListenerList()``
+     - Sets the command listeners.
+
+   * - ``compressorList()``
+     - Sets the compressors to use for compressing messages to the server.
+
+   * - ``credential()``
+     - Sets the credential.
+
+   * - ``readConcern​()``
+     - Sets the read concern.
+
+   * - ``readPreference()``
+     - Sets the read preference.
+
+   * - ``retryReads()``
+     - Whether the driver should retire reads if they fail due to a network error.
+
+   * - ``retryWrites​()``
+     - Whether the driver should retire writes if they fail due to a network error.
+
+   * - ``serverApi​()``
+     - Sets the server API to use when sending commands to the server.
+
+   * - ``streamFactoryFactory()``
+     - Sets the factory to use to create a ``StreamFactory``.
+
+   * - ``uuidRepresentation()``
+     - Sets the UUID representation to use when encoding instances of UUID and decoding BSON binary values with subtype of 3.
+
+   * - ``writeConcern​()``
+     - Sets the write concern.
 
 .. _connection-string-example:
 
@@ -38,22 +134,6 @@ This example demonstrates specifying a ``ConnectionString``:
    :language: java
    :emphasize-lines: 3
    :dedent:
-
-.. tip::
-
-   If you omit the ``applyConnectionString()`` method, the driver
-   attempts to connect to ``localhost``.
-
-For a list of methods available in ``MongoClientSettings``, 
-see the `API Documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__.
-
-The following sections describe commonly used settings:
-
-- :ref:`Cluster Settings <mcs-cluster-settings>`
-- :ref:`Socket Settings <mcs-socket-settings>`
-- :ref:`Connection Pool Settings <mcs-connectionpool-settings>`
-- :ref:`Server Settings <mcs-server-settings>`
-- :ref:`TLS/SSL Settings <mcs-ssl-settings>`
 
 .. tip::
 
