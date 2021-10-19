@@ -50,7 +50,7 @@ settings to modify the driver's behavior:
      - Description
 
    * - ``addCommandListener()``
-     - Adds a listener for command events.
+     - Adds a listener for :ref:`command events <command-events-java>`.
 
    * - ``applicationName​()``
      - Sets the logical name of the application using the ``MongoClient``.
@@ -59,22 +59,22 @@ settings to modify the driver's behavior:
      - Applies the settings from the given ``ConnectionString`` to the builder. If you omit this method, the driver attempts to connect to ``localhost``.
 
    * - ``applyToClusterSettings()``
-     - Applies the ``ClusterSettings.Builder`` block and then sets the cluster settings.
+     - Applies the ``ClusterSettings.Builder`` block and then sets the :ref:`cluster settings <mcs-cluster-settings>`.
 
    * - ``applyToConnectionPoolSettings()``
-     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the connection pool settings.
+     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the :ref:`connection pool settings <mcs-connectionpool-settings>`.
 
    * - ``applyToServerSettings()``
-     - Applies the ``ServerSettings.Builder`` block and then sets the server settings.
+     - Applies the ``ServerSettings.Builder`` block and then sets the :ref:`server settings <mcs-server-settings>`.
 
    * - ``applyToSocketSettings()``
-     - Applies the ``SocketSettings.Builder`` block and then sets the socket settings.
+     - Applies the ``SocketSettings.Builder`` block and then sets the :ref:`socket settings <mcs-socket-settings>`.
 
    * - ``applyToSslSettings()``
-     - Applies the ``SslSettings.Builder`` block and then sets the TLS/SSL settings.
+     - Applies the ``SslSettings.Builder`` block and then sets the :ref:`TLS/SSL settings <mcs-ssl-settings>`.
 
    * - ``autoEncryptionSettings()``
-     - | Sets the auto-encryption settings. 
+     - | Sets the :ref:`auto-encryption settings <auto-encryption-decryption-java>`. 
        |
        | If you omit ``keyVaultClient`` or set
        | ``bypassAutomaticEncryption`` to false in your
@@ -86,31 +86,31 @@ settings to modify the driver's behavior:
        | omitting the ``AutoEncryptionSettings``.
 
    * - ``codecRegistry()``
-     - Sets the codec registry.
+     - Sets the :ref:`codec registry <codecs-codecregistry>`.
 
    * - ``commandListenerList()``
-     - Sets the command listeners.
+     - Sets the :ref:`command listeners <command-events-java>`.
 
    * - ``compressorList()``
-     - Sets the compressors to use for compressing messages to the server.
+     - Sets the :ref:`compressors <compression>` to use for compressing messages to the server.
 
    * - ``credential()``
-     - Sets the credential.
+     - Sets the :ref:`credential <authentication-mechanisms-java>`.
 
    * - ``readConcern​()``
-     - Sets the read concern.
+     - Sets the :manual:`read concern </reference/read-concern/>`.
 
    * - ``readPreference()``
-     - Sets the read preference.
+     - Sets the :manual:`read preference </core/read-preference/>`.
 
    * - ``retryReads()``
-     - Whether the driver should retry reads if a network error occurs.
+     - Whether the driver should :manual:`retry reads </core/retryable-reads/>` if a network error occurs.
 
    * - ``retryWrites​()``
-     - Whether the driver should retry writes if a network error occurs.
+     - Whether the driver should :manual:`retry writes </core/retryable-writes/>` if a network error occurs.
 
    * - ``serverApi​()``
-     - Sets the server API to use when sending commands to the server.
+     - Sets the :ref:`server API <versioned-api-java>` to use when sending commands to the server.
 
    * - ``streamFactoryFactory()``
      - Sets the factory to use to create a ``StreamFactory``.
@@ -119,7 +119,7 @@ settings to modify the driver's behavior:
      - Sets the UUID representation to use when encoding instances of UUID and decoding BSON binary values with subtype of 3.
 
    * - ``writeConcern​()``
-     - Sets the write concern.
+     - Sets the :manual:`write concern </reference/write-concern/>`.
 
 .. _connection-string-example:
 
