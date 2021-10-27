@@ -240,7 +240,7 @@ using the following placeholders:
 
 * ``username`` - value of your ``AWS_ACCESS_KEY_ID``.
 * ``password`` - value of your ``AWS_SECRET_ACCESS_KEY``.
-* ``atlas-uri`` - network address of your MongoDB Atlas instance.
+* ``atlasUri`` - network address of your MongoDB Atlas instance.
 * ``awsSessionToken`` - value of your ``AWS_SESSION_TOKEN``. *(optional)*
 
 Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
@@ -259,11 +259,6 @@ mechanism:
    .. tab::
       :tabid: Connection String
 
-      .. important:: URI encoding required
-
-         Ensure you URI encode your credentials.
-
-
       To specify the ``MONGODB-AWS`` authentication mechanism using a
       connection string, assign the ``authMechanism`` parameter the value
       ``MONGODB-AWS`` in your connection string. Your code to instantiate
@@ -271,7 +266,7 @@ mechanism:
 
       .. code-block:: java
 
-         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<atlas-uri>?authMechanism=MONGODB-AWS");
+         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<atlasUri>?authMechanism=MONGODB-AWS");
 
       If you need to specify an AWS session token, include it in the
       ``authMechanismProperties`` parameter as follows using the format
@@ -280,7 +275,7 @@ mechanism:
 
       .. code-block:: java
 
-         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<atlas-uri>?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
+         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<atlasUri>?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
 
 
    .. tab::
@@ -326,20 +321,23 @@ mechanism:
         automatically picked up by your MongoClient when you specify the
         ``MONGODB-AWS`` authentication mechanism.
 
-Credential Refreshing
-+++++++++++++++++++++
+Refresh Credentials
++++++++++++++++++++
 
-The driver supports credential refreshing for cases such as assuming roles
+The driver supports refreshing credentials for cases such as assuming roles
 or using `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html>`__.
 
+.. note::
+
+   Applications may need to cache ``AwsCredential`` instances for some time, and
+   regularly replace the cached object with a new ``AwsCredential`` with a fresh
+   ``accessKeyId``, ``secretAccessKey``, and ``sessionToken``.
 
 .. code-block:: java
-   :emphasize-lines: 9
+   :emphasize-lines: 7
 
    Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
-       /* A real application may need to cache `AwsCredential` instances for some time
-        * and regularly replace the cached object with a new `AwsCredential` created with fresh
-        * `accessKeyId`/`secretAccessKey`/`sessionToken`. */
+       // code to fetch fresh credentials, such as assuming a role using the AWS SDK
        return new AwsCredential("<accessKeyId>", "<secretAccessKey>", "<sessionToken>");
    };
 
