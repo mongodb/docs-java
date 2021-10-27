@@ -228,8 +228,8 @@ connect using ``MONGODB-CR``.
 ~~~~~~~~~~~~~~~
 
 .. note::
-   The MONGODB-AWS authentication mechanism is only available in MongoDB
-   versions 4.4 and later.
+   The MONGODB-AWS authentication mechanism is available in MongoDB
+   Atlas with versions 4.4 and later.
 
 The ``MONGODB-AWS`` authentication mechanism uses your Amazon Web Services
 Identity and Access Management (AWS IAM) credentials to authenticate your
@@ -240,21 +240,29 @@ using the following placeholders:
 
 * ``username`` - value of your ``AWS_ACCESS_KEY_ID``.
 * ``password`` - value of your ``AWS_SECRET_ACCESS_KEY``.
-* ``hostname`` - network address of your MongoDB server, accessible by your client.
-* ``port`` - port number of your MongoDB server.
-* ``authenticationDb`` - MongoDB database that contains your user's
-  authentication data. If you omit this parameter, the driver uses the
-  default value ``admin``.
+* ``atlas-uri`` - network address of your MongoDB Atlas instance.
 * ``awsSessionToken`` - value of your ``AWS_SESSION_TOKEN``. *(optional)*
 
 Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
 tab below for instructions and sample code for specifying this authentication
 mechanism:
 
+.. tip:: Use Environment Variables
+
+   The following examples specify the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY,
+   and AWS_SESSION_TOKEN manually. If not specified, the driver reads these values
+   from the environment.
+
+
 .. tabs::
 
    .. tab::
       :tabid: Connection String
+
+      .. important:: URI encoding required
+
+         Ensure you URI encode your credentials.
+
 
       To specify the ``MONGODB-AWS`` authentication mechanism using a
       connection string, assign the ``authMechanism`` parameter the value
@@ -263,7 +271,7 @@ mechanism:
 
       .. code-block:: java
 
-         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<hostname>:<port>/?authSource=<authenticationDb>&authMechanism=MONGODB-AWS");
+         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<atlas-uri>?authMechanism=MONGODB-AWS");
 
       If you need to specify an AWS session token, include it in the
       ``authMechanismProperties`` parameter as follows using the format
@@ -272,7 +280,7 @@ mechanism:
 
       .. code-block:: java
 
-         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<hostname>:<port>/?authSource=<authenticationDb>&authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
+         MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<atlas-uri>?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
 
 
    .. tab::
@@ -291,10 +299,10 @@ mechanism:
       - **Specify your AWS session token in a connection string.**
 
         If you prefer to pass the AWS session token in the connection string
-        alongside your MongoCredential specify your authentication mechanism 
-        in the ``authMechanism`` parameter and your session token in the 
+        alongside your MongoCredential specify your authentication mechanism
+        in the ``authMechanism`` parameter and your session token in the
         ``authMechanismProperties`` parameter. Then, add it to your
-        ``MongoClientSettings`` by calling the 
+        ``MongoClientSettings`` by calling the
         `applyConnectionString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyConnectionString(com.mongodb.ConnectionString)>`__
         method as follows:
 
@@ -317,6 +325,32 @@ mechanism:
         called ``AWS_SESSION_TOKEN`` and assign your token to it. The value is
         automatically picked up by your MongoClient when you specify the
         ``MONGODB-AWS`` authentication mechanism.
+
+Credential Refreshing
++++++++++++++++++++++
+
+The driver supports credential refreshing for cases such as assuming roles
+or using `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html>`__.
+
+
+.. code-block:: java
+   :emphasize-lines: 8
+
+   Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
+       /* A real application may need to cache `AwsCredential` instances for some time
+        * and regularly replace the cached object with a new `AwsCredential` created with fresh
+        * `accessKeyId`/`secretAccessKey`/`sessionToken`. */
+       return new AwsCredential("<accessKeyId>", "<secretAccessKey>", "<sessionToken>");
+   };
+
+   MongoCredential credential = MongoCredential.createAwsCredential(null, null)
+                   .withMechanismProperty(MongoCredential.AWS_CREDENTIAL_PROVIDER_KEY, awsFreshCredentialSupplier);
+   MongoClient mongoClient = MongoClients.create(
+           MongoClientSettings.builder()
+                   .applyToClusterSettings(builder ->
+                           builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", 27017))))
+                   .credential(credential)
+                   .build());
 
 .. _x509-auth-mechanism:
 
