@@ -235,6 +235,20 @@ The ``MONGODB-AWS`` authentication mechanism uses your Amazon Web Services
 Identity and Access Management (AWS IAM) credentials to authenticate your
 user.
 
+You can store your AWS credentials as environment variables, or insert
+them inline in the examples below. The driver checks for your credentials
+in the following sources, in order:
+
+1. Supplied values in a ``MongoCredential`` object.
+2. The provided connection string.
+3. Your environment variables. (``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``,
+   and optionally ``AWS_SESSION_TOKEN``)
+4. The AWS EC2 endpoint specified in ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI``
+   environment variable.
+5. The default AWS EC2 endpoint. For more information, see `IAM Roles for Tasks
+   <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html>`__
+
+
 The following code snippets show how to specify the authentication mechanism,
 using the following placeholders:
 
@@ -246,13 +260,6 @@ using the following placeholders:
 Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
 tab below for instructions and sample code for specifying this authentication
 mechanism:
-
-.. tip:: Use Environment Variables
-
-   The following examples specify the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY,
-   and AWS_SESSION_TOKEN manually. If not specified, the driver reads these values
-   from the environment.
-
 
 .. tabs::
 
@@ -327,17 +334,13 @@ Refresh Credentials
 The driver supports refreshing credentials for cases such as assuming roles
 or using `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html>`__.
 
-.. note::
-
-   Applications may need to cache ``AwsCredential`` instances for some time, and
-   regularly replace the cached object with a new ``AwsCredential`` with a fresh
-   ``accessKeyId``, ``secretAccessKey``, and ``sessionToken``.
 
 .. code-block:: java
-   :emphasize-lines: 7
+   :emphasize-lines: 3, 7
 
    Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
        // code to fetch fresh credentials, such as assuming a role using the AWS SDK
+       // ensure you return the returned, temporary credentials, not the ones you passed in
        return new AwsCredential("<accessKeyId>", "<secretAccessKey>", "<sessionToken>");
    };
 
