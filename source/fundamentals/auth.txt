@@ -240,13 +240,12 @@ You can store your AWS credentials as environment variables, or insert
 them inline like the examples below. The driver checks for your credentials
 in the following order:
 
-1. Supplied values in a ``MongoCredential`` object.
-2. The provided connection string.
-3. Your environment variables. (``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``,
+1. Supplied values in a ``MongoCredential`` object or the provided connection string.
+2. Your environment variables. (``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``,
    and optionally ``AWS_SESSION_TOKEN``)
-4. The AWS EC2 endpoint specified in the ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI``
+3. The AWS EC2 endpoint specified in the ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI``
    environment variable.
-5. The default AWS EC2 endpoint. For more information, see `IAM Roles for Tasks
+4. The default AWS EC2 endpoint. For more information, see `IAM Roles for Tasks
    <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html>`__
 
 
@@ -340,8 +339,8 @@ or using `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/use
    :emphasize-lines: 3, 7
 
    Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
-       // code to fetch fresh credentials, such as assuming a role using the AWS SDK
-       // ensure you return the temporary credentials
+       // Code to fetch fresh credentials, such as assuming a role using the AWS SDK.
+       // Ensure you return the temporary credentials.
        return new AwsCredential("<accessKeyId>", "<secretAccessKey>", "<sessionToken>");
    };
 
