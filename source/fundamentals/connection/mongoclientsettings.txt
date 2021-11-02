@@ -29,7 +29,7 @@ The following sections describe commonly used settings:
 MongoClient Settings
 --------------------
 
-You can control the behavior of your ``MongoClient`` by creating and passing in a 
+You can control the behavior of your ``MongoClient`` by creating and passing in a
 `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
 object to the `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 method.
@@ -74,7 +74,7 @@ settings to modify the driver's behavior:
      - Applies the ``SslSettings.Builder`` block and then sets the :ref:`TLS/SSL settings <mcs-ssl-settings>`.
 
    * - ``autoEncryptionSettings()``
-     - | Sets the :ref:`auto-encryption settings <auto-encryption-decryption-java>`. 
+     - | Sets the :ref:`auto-encryption settings <auto-encryption-decryption-java>`.
        |
        | If you omit ``keyVaultClient`` or set
        | ``bypassAutomaticEncryption`` to false in your
@@ -218,19 +218,19 @@ settings to modify the driver's behavior:
 
    * - ``srvHost()``
      - Sets the host name to use to look up an SRV DNS record to find the MongoDB hosts.
-     
+
        .. note::
-        
+
           When setting ``srvHost``, the driver does not process any
-          associated TXT records associated with the host. 
+          associated TXT records associated with the host.
 
           If you want to enable the processing of TXT records, you must
-          specify the SRV host in the connection string using the 
+          specify the SRV host in the connection string using the
           ``applyConnectionString()`` method.
 
           .. code-block:: java
              :emphasize-lines: 3
-        
+
              MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                    .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
@@ -354,6 +354,12 @@ settings to modify the driver's behavior:
    * - ``minSize()``
      - Sets the minimum amount of connections associated with a connection pool.
 
+   * - ``srvMaxHosts()``
+     - Sets the maximum number of connections the driver maintains to
+       ``mongos`` servers when using the DNS seedlist (SRV) connection
+       protocol, identified by the ``mongodb+srv`` connection string prefix.
+       Throws an exception if you are not using the SRV connection protocol.
+
 .. note::
 
    This ``maxSize`` and ``minSize`` settings apply to each server
@@ -421,7 +427,7 @@ Example
 
 This example specifies the following driver behavior in a MongoDB server:
 
-- The minimum interval for server monitoring checks to be at least ``700 MILLISECONDS`` 
+- The minimum interval for server monitoring checks to be at least ``700 MILLISECONDS``
 - The cluster monitor to attempt reaching a server every ``15 SECONDS``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
