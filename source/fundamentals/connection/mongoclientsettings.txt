@@ -355,10 +355,11 @@ settings to modify the driver's behavior:
      - Sets the minimum amount of connections associated with a connection pool.
 
    * - ``srvMaxHosts()``
-     - Sets the maximum number of connections the driver maintains to
-       ``mongos`` servers when using the DNS seedlist (SRV) connection
-       protocol, identified by the ``mongodb+srv`` connection string prefix.
-       Throws an exception if you are not using the SRV connection protocol.
+     - | Sets the maximum number of hosts the driver can connect to when using 
+         the DNS seedlist (SRV) connection protocol, identified by the 
+         ``mongodb+srv`` connection string prefix. 
+       |
+       | Throws an exception if you are not using the SRV connection protocol.
 
 .. note::
 
