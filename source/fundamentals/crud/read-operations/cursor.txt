@@ -58,11 +58,11 @@ results:
 This method is often used when your query filter will match one
 document, such as when filtering by a unique index.
 
-Available
-~~~~~~~~~
+Number of Results
+~~~~~~~~~~~~~~~~~
 
-Use the ``available()`` method to retrieve the amount of results
-available locally without blocking:
+Use the ``available()`` method to retrieve the number of results
+locally present without blocking:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Cursor.java
    :language: java
@@ -70,8 +70,8 @@ available locally without blocking:
    :start-after: begin availableExample
    :end-before: end availableExample
 
-The method returns ``0`` when the ``MongoClient`` exhausts the cursor or
-if the cursor is closed.
+The method returns ``0`` if the ``MongoClient`` iterates though all
+the documents in the cursor or if the cursor is closed.
 
 Into
 ~~~~
@@ -139,7 +139,7 @@ For more information about the methods and classes mentioned in this section,
 see the following API Documentation:
 
 - `first() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`__
-- `avaiable() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#avaiable()>`__
+- `available() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#available()>`__
 - `into() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#into(A)>`__
 - `cursor() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#cursor()>`__
 - `explain() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`__
