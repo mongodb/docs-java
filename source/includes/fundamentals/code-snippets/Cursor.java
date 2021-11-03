@@ -74,8 +74,8 @@ public class Cursor {
 
     private void availableExample(){
         // begin availableExample
-        FindIterable<Document> iterable = collection.find();
-        System.out.println(iterable.available());
+        MongoCursor<Document> cursor = collection.find().cursor();
+        System.out.println(cursor.available());
         // end availableExample
     }
 
