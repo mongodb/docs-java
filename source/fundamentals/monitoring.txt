@@ -402,18 +402,20 @@ the API Documentation for
 Construct Distributed Traces
 ----------------------------
 
-If you use a **distributed trace system**, you can include event data from the
-driver in your system. A distributed trace system is a software
-architecture that tracks metadata about a request throughout different services.
+If you use a **distributed tracing system**, you can include event data from the
+driver in your system. A distributed tracing system is an application and software
+architecture that tracks metadata about a request as it propogates throughout
+different services.
 
-Use Spring Cloud Sleuth to include MongoDB event data in the
-`Zipkin <https://zipkin.io/>`__ distributed trace system.
+Use `Spring Cloud Sleuth <https://spring.io/projects/spring-cloud-sleuth>`__ to
+include MongoDB event data in the
+`Zipkin <https://zipkin.io/>`__ distributed tracing system.
 
-.. note:: Other Distributed Trace Systems
+.. note:: Other Distributed Tracing Systems
 
    If you need to include driver event data in a distributed trace system other
-   than Zipkin, you must create a :ref:`command event listener <command-events-java>`
-   that manages spans for your desired system. To see an implementation of such a
-   listener, see the 
-   :github:`TraceMongoCommandListener class implementation <spring-cloud/spring-cloud-sleuth/blob/main/spring-cloud-sleuth-instrumentation/src/main/java/org/springframework/cloud/sleuth/instrument/mongodb/TraceMongoCommandListener.java>`
-   in the Spring Cloud Sleuth source code.
+   than Zipkin, you must write a command event listener that manages spans for
+   your desired system. To see an implementation of such a listener, see the
+   implementation for the
+   :github:`TraceMongoCommandListener <spring-cloud/spring-cloud-sleuth/blob/main/spring-cloud-sleuth-instrumentation/src/main/java/org/springframework/cloud/sleuth/instrument/mongodb/TraceMongoCommandListener.java>`
+   class in the Spring Cloud Sleuth source code.
