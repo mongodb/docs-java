@@ -407,15 +407,14 @@ driver in your system. A distributed tracing system is an application and softwa
 architecture that tracks metadata about a request as it propogates throughout
 different services.
 
-Use `Spring Cloud Sleuth <https://spring.io/projects/spring-cloud-sleuth>`__ to
+If you use the driver in a Spring Cloud application, use
+`Spring Cloud Sleuth <https://spring.io/projects/spring-cloud-sleuth>`__ to
 include MongoDB event data in the
 `Zipkin <https://zipkin.io/>`__ distributed tracing system.
 
-.. note:: Other Distributed Tracing Systems
-
-   If you need to include driver event data in a distributed trace system other
-   than Zipkin, you must write a command event listener that manages spans for
-   your desired system. To see an implementation of such a listener, see the
-   implementation for the
-   :github:`TraceMongoCommandListener <spring-cloud/spring-cloud-sleuth/blob/main/spring-cloud-sleuth-instrumentation/src/main/java/org/springframework/cloud/sleuth/instrument/mongodb/TraceMongoCommandListener.java>`
-   class in the Spring Cloud Sleuth source code.
+If you need to include driver event data in a distributed tracing system other
+than Zipkin, you must write a command event listener that manages spans for
+your desired system. To see an implementation of such a listener, see the
+implementation for the
+:github:`TraceMongoCommandListener <spring-cloud/spring-cloud-sleuth/blob/main/spring-cloud-sleuth-instrumentation/src/main/java/org/springframework/cloud/sleuth/instrument/mongodb/TraceMongoCommandListener.java>`
+class in the Spring Cloud Sleuth source code.
