@@ -398,3 +398,22 @@ Oracle:
 For more information on the ``JMXConnectionPoolListener`` class, see
 the API Documentation for
 `JMXConnectionPoolListener <{+api+}/apidocs/mongodb-driver-core/com/mongodb/management/JMXConnectionPoolListener.html>`__.
+
+Construct Distributed Traces
+----------------------------
+
+If you use a **distributed trace system**, you can include event data from the
+driver in your system. A distributed trace system is a software
+architecture that tracks metadata about a request throughout different services.
+
+Use Spring Cloud Sleuth to include MongoDB event data in the
+`Zipkin <https://zipkin.io/>`__ distributed trace system.
+
+.. note:: Other Distributed Trace Systems
+
+   If you need to include driver event data in a distributed trace system other
+   than Zipkin, you must create a :ref:`command event listener <command-events-java>`
+   that manages spans for your desired system. To see an implementation of such a
+   listener, see the 
+   :github:`TraceMongoCommandListener class implementation <spring-cloud/spring-cloud-sleuth/blob/main/spring-cloud-sleuth-instrumentation/src/main/java/org/springframework/cloud/sleuth/instrument/mongodb/TraceMongoCommandListener.java>`
+   in the Spring Cloud Sleuth source code.
