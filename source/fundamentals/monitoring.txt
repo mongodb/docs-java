@@ -403,7 +403,7 @@ Include the Driver in Your Distributed Tracing System
 -----------------------------------------------------
 
 If you use a **distributed tracing system**, you can include event data from the
-driver in your system. A distributed tracing system is an application that
+driver. A distributed tracing system is an application that
 tracks requests as they propagate throughout different services in a
 service-oriented architecture.
 
@@ -415,8 +415,9 @@ include MongoDB event data in the
 
 If you do not use Spring Cloud or need to include driver event data in a distributed
 tracing system other than Zipkin, you must write a command event listener that
-manages spans for your desired distributed tracing system. To see an
-implementation of such a listener, see the
+manages `spans <https://docs.spring.io/spring-cloud-sleuth/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-terminology>`__
+for your desired distributed tracing system. To see an implementation of such a
+listener, see the
 :github:`TraceMongoCommandListener <spring-cloud/spring-cloud-sleuth/blob/main/spring-cloud-sleuth-instrumentation/src/main/java/org/springframework/cloud/sleuth/instrument/mongodb/TraceMongoCommandListener.java>`
 class in the Spring Cloud Sleuth source code.
 
