@@ -25,9 +25,11 @@ What's New in 4.4
 
 New features of the 4.4 Java driver release include:
 
-- Added support for Java 17 
+- Compatibility with MongoDB 5.1 and support for Java 17
 - Added support for index hints in an ``AggregateIterable``
-- Added support for ``$merge`` and ``$out`` 
+- Added support for the ``$merge`` and ``$out`` aggregation stages on secondaries
+- Use of the ``mergeObjects()`` method in the ``Updates`` builder
+- ``DocumentCodec`` does not ignore a :ref:`CodecRegistry <codecs-codecregistry>` when writing to an ``Iterable`` or a ``Map`` instance
 
 .. _version-4.3:
 
