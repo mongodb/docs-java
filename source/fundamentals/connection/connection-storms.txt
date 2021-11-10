@@ -16,7 +16,7 @@ Overview
 In this guide, you can learn about **connection storms**, common causes,
 and how to avoid them.
 
-A **connection storm** is a race condition in which application servers
+A **connection storm** is an event in which application servers
 start an increasing number of connection requests, but the host server
 CPU is unable to schedule them.
 
@@ -40,15 +40,20 @@ Common causes for connection storms in MongoDB include:
 In MongoDB, connection storms can have a cascading effect. For example:
 
 #. The high volume of connection requests leads to latency in processing.
+
 #. Replication connections between nodes are blocked or slowed, so replication
 operations cannot proceed.
+
 #. Administrative connections to the database are blocked, preventing
 a user from logging in.
+
 #. Monitoring connections to the database are blocked, degrading visibility
 into the problem.
+
 #. CPU or memory oversubscription due to connection management can lead
 to a ``mongod`` crashing and restarting. This extra workload on the server
 can be exclusively attributed to connection handling.
+
 #. In Atlas, connection requests can exceed instance class limits, causing
 refusal of new connections.
 
@@ -109,7 +114,7 @@ connection is initiated.
 +++++++++++++
 
 ``maxTimeMS`` specifies the *cumulative* time limit for processing operations
-in MongoDB. If an operation exceeds this limit, MongoDB will terminate the
+in MongoDB. If an operation exceeds this limit, MongoDB terminates the
 operation.
 
 .. tip:: Use ``maxTimeMS``
