@@ -60,46 +60,53 @@ refusal of new connections.
 Avoiding Connection Storms
 --------------------------
 
-A combination of settings can help to mitigate connection storms. These
-include:
+A combination of settings and methods can help to mitigate connection storms.
+These include:
 
-- **maxConnecting**: The maximum number of connections that can be
-  established concurrently.
+- **maxConnecting**: The maximum number of connections a Pool may be
+establishing concurrently.
 
-- **socketTimeoutMS**: The maximum time, in milliseconds, that a socket
-  can remain idle before being closed.
+- **socketTimeoutMS**: The maximum time the driver will wait for socket
+reads.
 
-- **maxTimeMS**: The *cumulative* time limit for processing operations on
-  a cursor.
+- **maxTime()**: The *cumulative* time limit for processing operations on
+  a MongoDB server.
 
 **maxConnecting**
 +++++++++++++++++
 
-``maxConnecting`` specifies the number of concurrent connection requests
-the driver can initiate. The default is 2.
+``maxConnecting`` specifies the maximum number of connections a Pool may be establishing
+concurrently. The default is 2.
 
 This is not to be confused with ``maxPoolSize``, which specifies the maximum
 number of connections that the driver maintains in the connection pool.
 
 .. example::
 
-   Consider a new application instance connecting to a MongoDB server, using
+   Consider a new application instance connecting to a single MongoDB server, using
    the default values of **2** for ``maxConnecting`` and **100** for ``maxPoolSize``.
    If it takes ~50 milliseconds to establish a connection, the connection pool
    would take 2.5 seconds (50 milliseconds [latency] * 100 [``maxPoolSize``] / 2 [``maxConnecting``])
-   to fill. This example is simplified and assumes that the latency is constant.
+   to fill.
+
+   In another scenario, consider an application servers connecting to a 3 member
+   replica set, using the default values for ``maxConnecting`` and ``maxPoolSize``.
+   The application server creates a connection pool to each member of the replica set.
+   If it takes ~50 milliseconds to establish a connection, the connection pools
+   would still take 2.5 seconds to fill.
 
 
 **socketTimeoutMS**
 +++++++++++++++++++
 
-``socketTimeoutMS`` specifies the maximum time, in milliseconds, that a
-socket stays inactive before being closed. The default is **0**, meaning
-no timeout and relying on the underlying system default for socket timeout.
+``socketTimeoutMS`` specifies the maximum time the driver will wait for socket reads.
+The default is **0**, meaning no timeout and relying on the underlying system default for socket timeout.
 
 Setting this to a value that is too low results in **connection thrashing**,
 where the socket is closed and removed from the connection pool, and a new
-connection is initiated.
+connection is initiated. For example, setting a timeout of 200 milliseconds
+and issues a query that takes 300 milliseconds to complete would result in
+the socket being closed and a new connection being initiated.
 
 .. warning:: Not for Aborting Operations
 
@@ -110,18 +117,28 @@ connection is initiated.
    to process the operation, potentially causing errors if the driver attempts to
    retry the operation.
 
-**maxTimeMS**
+**maxTime()**
 +++++++++++++
 
-``maxTimeMS`` specifies the *cumulative* time limit for processing operations
+``maxTime()`` specifies the *cumulative* time limit for processing operations
 in MongoDB. If an operation exceeds this limit, MongoDB terminates the
 operation.
 
-.. tip:: Use ``maxTimeMS``
+``maxTime()`` is available on the following classes:
+
+- `AggregateIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/AggregateIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `DistinctIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/DistinctIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `FindIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `ListCollectionsIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/ListCollectionsIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `ListDatabasesIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/ListDatabasesIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `ListIndexesIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/ListIndexesIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `MapReduceIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `GridFSFindIterable <{+api}/apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+
+.. tip:: Use ``maxTime``
 
    Use ``maxTimeMS`` to limit operation execution time. Do not use ``socketTimeoutMS``.
 
-   Tip content
 
 
 
