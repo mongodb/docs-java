@@ -1,6 +1,6 @@
-=================
-Connection Storms
-=================
+==================
+Tuning Connections
+==================
 
 .. contents:: On this page
    :local:
@@ -13,8 +13,8 @@ Connection Storms
 Overview
 --------
 
-In this guide, you can learn about **connection storms**, common causes,
-and how to avoid them.
+In this guide, you can learn about tuning connections to prevent **connection storms**,
+what connection storms are, common causes, and how to avoid them.
 
 A **connection storm** is an event in which application servers
 start an increasing number of connection requests, but the host server
@@ -22,13 +22,11 @@ CPU is unable to schedule them.
 
 .. example::
 
-   Consider popular streaming events such as the World Cup or the Super
-   Bowl. Should the stream become unresponsive and all connected clients
-   (viewers) refresh their browser, the streaming host would receive a
-   new connection request for every connected client. This could
-   result in millions of requests per second, overloading the host
-   server's CPU.
-
+   Consider an application that uses MongoDB, and is served from an
+   auto scaling service. A sudden spike in traffic could cause the scaling
+   service to stand up many new application instances. This sudden burst
+   in application instances attempting to establish connections to MongoDB
+   is one example of a connection storm.
 
 Common causes for connection storms in MongoDB include:
 
@@ -90,6 +88,9 @@ number of connections that the driver maintains in the connection pool.
    If it takes ~50 milliseconds to establish a connection, the connection pools
    would still take 2.5 seconds to fill.
 
+Specify ``maxConnecting`` in your connection URI or with the
+`ConnectionPoolSettings.Builder maxConnecting() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxConnecting(int)>`__ method.
+
 
 **socketTimeoutMS**
 +++++++++++++++++++
@@ -100,10 +101,10 @@ The default is **0**, meaning no timeout.
 Setting this to a value that is too low results in **connection thrashing**,
 where the socket is closed and removed from the connection pool, and a new
 connection is initiated. For example, setting a timeout of 200 milliseconds
-and issues a query that takes 300 milliseconds to complete would result in
+and issuing a query that takes 300 milliseconds to complete would result in
 the socket being closed and a new connection being initiated.
 
-.. warning:: Do Not Use ``socketTimeoutMS`` to Abort Operations
+.. warning:: Do not use ``socketTimeoutMS`` to abort operations.
 
    Some users have incorrectly used this option to try to abort operations
    which run for too long and slow down other operations. Closing a socket
@@ -112,10 +113,12 @@ the socket being closed and a new connection being initiated.
    to process the operation, potentially causing errors if the driver attempts to
    retry the operation.
 
+Specify ``socketTimeoutMS`` in your connection URI or with the
+`SocketSettings.Builder readTimeout() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SocketSettings.Builder.html#readTimeout(int,java.util.concurrent.TimeUnit)>`__ method.
 **maxTime()**
 +++++++++++++
 
-.. tip:: Use ``maxTime()``
+.. tip::
 
    Use ``maxTime()`` to limit operation execution time. Do not use ``socketTimeoutMS``.
 
