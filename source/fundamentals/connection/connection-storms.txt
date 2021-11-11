@@ -82,11 +82,12 @@ number of connections that the driver maintains in the connection pool.
    would take 2.5 seconds (50 milliseconds [latency] * 100 [``maxPoolSize``] / 2 [``maxConnecting``])
    to fill.
 
-   In another scenario, consider an application servers connecting to a 3 member
+   In another scenario, consider an application server connecting to a 3 member
    replica set, using the default values for ``maxConnecting`` and ``maxPoolSize``.
    The application server creates a connection pool to each member of the replica set.
    If it takes ~50 milliseconds to establish a connection, the connection pools
-   would still take 2.5 seconds to fill.
+   would still take 2.5 seconds to fill, even though a total of 300 connections will
+   be created across three connection pools.
 
 Specify ``maxConnecting`` in your connection URI or with the
 `ConnectionPoolSettings.Builder maxConnecting() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxConnecting(int)>`__ method.
