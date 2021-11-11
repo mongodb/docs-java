@@ -40,22 +40,17 @@ Common causes for connection storms in MongoDB include:
 In MongoDB, connection storms can have a cascading effect. For example:
 
 #. The high volume of connection requests leads to latency in processing.
-
 #. Replication connections between nodes are blocked or slowed, so replication
-operations cannot proceed.
-
+   operations cannot proceed.
 #. Administrative connections to the database are blocked, preventing
-a user from logging in.
-
+   a user from logging in.
 #. Monitoring connections to the database are blocked, degrading visibility
-into the problem.
-
+   into the problem.
 #. CPU or memory oversubscription due to connection management can lead
-to a ``mongod`` crashing and restarting. This extra workload on the server
-can be exclusively attributed to connection handling.
-
+   to a ``mongod`` crashing and restarting. This extra workload on the server
+   can be exclusively attributed to connection handling.
 #. In Atlas, connection requests can exceed instance class limits, causing
-refusal of new connections.
+   refusal of new connections.
 
 Avoiding Connection Storms
 --------------------------
@@ -64,10 +59,10 @@ A combination of settings and methods can help to mitigate connection storms.
 These include:
 
 - **maxConnecting**: The maximum number of connections a Pool may be
-establishing concurrently.
+  establishing concurrently.
 
 - **socketTimeoutMS**: The maximum time the driver will wait for socket
-reads.
+  reads.
 
 - **maxTime()**: The *cumulative* time limit for processing operations on
   a MongoDB server.
@@ -100,7 +95,7 @@ number of connections that the driver maintains in the connection pool.
 +++++++++++++++++++
 
 ``socketTimeoutMS`` specifies the maximum time the driver will wait for socket reads.
-The default is **0**, meaning no timeout and relying on the underlying system default for socket timeout.
+The default is **0**, meaning no timeout.
 
 Setting this to a value that is too low results in **connection thrashing**,
 where the socket is closed and removed from the connection pool, and a new
@@ -108,7 +103,7 @@ connection is initiated. For example, setting a timeout of 200 milliseconds
 and issues a query that takes 300 milliseconds to complete would result in
 the socket being closed and a new connection being initiated.
 
-.. warning:: Not for Aborting Operations
+.. warning:: Do Not Use ``socketTimeoutMS`` to Abort Operations
 
    Some users have incorrectly used this option to try to abort operations
    which run for too long and slow down other operations. Closing a socket
