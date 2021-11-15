@@ -14,7 +14,7 @@ Overview
 --------
 
 In this guide, you can learn about tuning connections to prevent **connection storms**,
-what connection storms are, common causes, and how to avoid them.
+what connection storms are, and common causes.
 
 A **connection storm** is an event in which application servers
 start an increasing number of connection requests, but the host server
@@ -50,8 +50,8 @@ In MongoDB, connection storms can have a cascading effect. For example:
 #. In Atlas, connection requests can exceed instance class limits, causing
    refusal of new connections.
 
-Avoiding Connection Storms
---------------------------
+Avoid Connection Storms
+-----------------------
 
 A combination of settings and methods can help to mitigate connection storms.
 These include:
