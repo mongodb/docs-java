@@ -35,20 +35,20 @@ Common causes for connection storms in MongoDB include:
 - Insufficient hardware for the workload
 - Failover events
 
-In MongoDB, connection storms can have a cascading effect. For example:
+In MongoDB, connection storms can have a multiple effects. For example:
 
-#. The high volume of connection requests leads to latency in processing.
-#. Replication connections between nodes are blocked or slowed, so replication
-   operations cannot proceed.
-#. Administrative connections to the database are blocked, preventing
-   a user from logging in.
-#. Monitoring connections to the database are blocked, degrading visibility
-   into the problem.
-#. CPU or memory oversubscription due to connection management can lead
-   to a ``mongod`` crashing and restarting. This extra workload on the server
-   can be exclusively attributed to connection handling.
-#. In Atlas, connection requests can exceed instance class limits, causing
-   refusal of new connections.
+- The high volume of connection requests leads to latency in processing.
+- Replication connections between nodes are blocked or slowed, so replication
+  operations cannot proceed.
+- Administrative connections to the database are blocked, preventing
+  a user from logging in.
+- Monitoring connections to the database are blocked, degrading visibility
+  into the problem.
+- CPU or memory oversubscription due to connection management can lead
+  to a ``mongod`` crashing and restarting. This extra workload on the server
+  can be exclusively attributed to connection handling.
+- In Atlas, connection requests can exceed instance class limits, causing
+  refusal of new connections.
 
 Avoid Connection Storms
 -----------------------
@@ -56,8 +56,9 @@ Avoid Connection Storms
 A combination of settings and methods can help to mitigate connection storms.
 These include:
 
-- **maxConnecting**: The maximum number of connections a Pool may be
-  establishing concurrently.
+- **maxConnecting**: The maximum number of connections to each server that
+  the driver will concurrently establish before making them available in
+  the connection pool.
 
 - **socketTimeoutMS**: The maximum time the driver will wait for socket
   reads.
@@ -68,8 +69,9 @@ These include:
 **maxConnecting**
 +++++++++++++++++
 
-``maxConnecting`` specifies the maximum number of connections a Pool may be establishing
-concurrently. The default is 2.
+``maxConnecting`` specifies the maximum number of connections to each server that
+  the driver will concurrently establish before making them available in
+  the connection pool. The default is 2.
 
 This is not to be confused with ``maxPoolSize``, which specifies the maximum
 number of connections that the driver maintains in the connection pool.
