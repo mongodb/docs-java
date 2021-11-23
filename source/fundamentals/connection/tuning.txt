@@ -58,21 +58,21 @@ Basics
 ++++++
 
 Connection pools are **per connected server**. This means in a three member replica set,
-the driver will maintain three connection pools, one for each member of the
-replica set. In a sharded deployment, the driver will maintain one connection
+the driver maintains three connection pools, one for each member of the
+replica set. In a sharded deployment, the driver maintains one connection
 per ``mongos``.
 
-The amount of connections in the pool is determined by the ``minPoolSize``,
-``maxPoolSize`` and ``maxIdleTimeMS`` options.
+The amount of connections in the pool depends on the ``minPoolSize``,
+``maxPoolSize`` and ``maxIdleTimeMS`` values.
 
 The driver establishes ``minPoolSize`` connections to each ``mongod/mongos``
-when the driver is first started. These connections are created ``maxPoolSize``
+when the driver first starts. The drivers creates these connections ``maxPoolSize``
 connections at a time.
 
 .. example::
 
-   With a ``minPoolSize`` of **10**, the driver will establish ten connections.
-   If each connection takes ~50ms to establish, the driver will establish
+   With a ``minPoolSize`` of **10**, the driver establishes 10 connections.
+   If each connection takes ~50ms to establish, the driver establishes
    all connections after ~250ms. That is, 50ms * 10 (the ``minPoolSize``)
    / 2 (``maxConnecting``).
 
@@ -81,13 +81,13 @@ Growth
 
 .. note:: Server Monitoring
 
-   The driver establishes monitoring connections to continuously evaluate
+   The driver establishes monitoring connections to continuously check
    deployment health. These connections are not managed by the connection
    pool.
 
 The driver establishes connections until ``minPoolSize`` connections are
 available in the connection pool. As the driver processes operations,
-connections are checked out and checked in. Operations that are not immediately
+connections are checked out and checked in. Operations that aren't immediately
 assigned a connection from the connection pool enter a wait queue, and
 will be processed when a connection becomes available.
 
@@ -189,14 +189,14 @@ to spin and no spindle to move. Additionally, they can parallelize reads and
 writes.
 
 If using HDDs, it may be beneficial to increase the ``maxPoolSize`` by
-the number of spindles available if using a :wikipedia:`RAID </RAID>`
+the number of spindles available if using a :wikipedia:`RAID <RAID>`
 array.
 
 Perhaps counterintuitively, if using SSDs it is often best to **not** increase
 the number of threads in the connection pool. Because there will often be
-less wait time to read and write data, more threads will often not be able to
+less wait time to read and write data, more threads are often unable to
 perform more work and the cost of creating, scheduling, and destroying those
-threads will outweigh any gains.
+threads outweigh any gains.
 
 Network Latency
 +++++++++++++++
