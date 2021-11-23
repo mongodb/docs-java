@@ -109,8 +109,17 @@ to process queued operations, up to the ``maxPoolSize``.
 If the drivers returns a connection to the pool while a new connection is
 establishing, the driver discards the establishing connection.
 
-Connection Pool Sizing
-----------------------
+Reduction
++++++++++
+
+Use ``maxIdleTimeMS`` to reduce the number of connections in the pool to
+reduce resource requirements both on the application and on the database
+machines. The driver has no default, but 30 minutes is a good starting point.
+
+Connection Pool Considerations
+------------------------------
+
+.. _connection-pool-considerations-java:
 
 Properly sizing your connection pool is critical to your application's
 performance. You need to consider three key factors:
@@ -136,32 +145,80 @@ result in the underlying operating system scheduling operations and
    concurrently takes more time than executing them sequentially. This is
    because the cost of pausing and resuming operations isn't free.
 
-.. tip:: Concurrency vs. Parallelism
+Concurrency vs. Parallelism
+```````````````````````````
 
-   The terms "concurrency" and "parallelism" are often used interchangeably,
-   but they mean different things.
+The terms "concurrency" and "parallelism" are often used interchangeably,
+but they mean different things.
 
-   Concurrency is the coordination and execution of multiple tasks and is
-   achievable on a single core by sharing time between tasks.
+Concurrency is the coordination and execution of multiple tasks and is
+achievable on a single core by sharing time between tasks.
 
-   Parallelism is the execution of multiple tasks **simultaneously** and
-   requires multiple cores.
+Parallelism is the execution of multiple tasks **simultaneously** and
+requires multiple cores.
 
-   An example of concurrency vs. parallelism is birds in a nest waiting
-   to be fed.
+An example of concurrency vs. parallelism is birds in a nest waiting
+to be fed.
 
-   A parent bird brings back food but can only feed one baby at a time.
-   The parent repeatedly brings food back to the nest, ensuring all babies
-   are fed. This is (very slow!) concurrency.
+A parent bird brings back food but can only feed one baby at a time.
+The parent repeatedly brings food back to the nest, ensuring all babies
+are fed. This is (very slow!) concurrency.
 
-   If there are two parent birds bringing food back, two babies can be fed
-   at the same time. This is parallelism.
+If there are two parent birds bringing food back, two babies can be fed
+at the same time. This is parallelism.
 
 One last note about concurrent operations. When all we need is the **final result**
-of two tasks, processing them concurrently isn't as efficient as processing them
-sequentially. In other scenarios, such as having a messaging application
-open and listening to music from a streaming service, executing these tasks
-concurrently is more desireable.
+of two tasks, processing them concurrently usually isn't as efficient as
+processing them sequentially. In other scenarios, such as such as playing
+chess against a bot while listening to music, concurrency is highly desireable.
+
+Disk I/O
+++++++++
+
+The two general disk types in use are hard disk drives (HDD) and
+solid-state drives (SSD).
+
+HDDs have spinning disks, called "platters", and a read/write head called
+a "spindle". Locations on disk are accessed by the platters spinning and
+the spindle moving to the correct location. During read and write operations
+from disk, HDDs can only perform operations sequentially.
+
+SSDs are made up of physical circuits, similar to standard computer memory.
+They offer much faster read and write times because there are no platters
+to spin and no spindle to move. Additionally, they can parallelize reads and
+writes.
+
+If using HDDs, it may be beneficial to increase the ``maxPoolSize`` by
+the number of spindles available if using a :wikipedia:`RAID </RAID>`
+array.
+
+Perhaps counterintuitively, if using SSDs it is often best to **not** increase
+the number of threads in the connection pool. Because there will often be
+less wait time to read and write data, more threads will often not be able to
+perform more work and the cost of creating, scheduling, and destroying those
+threads will outweigh any gains.
+
+Network Latency
++++++++++++++++
+
+Network latency should be taken into account when the average latency
+between your application and the database has a noticeable impact on
+operation time.
+
+Connection Pool Sizing
+----------------------
+
+The rough guideline for sizing the connection pool is to set the ``minPoolSize``
+to the number of available CPU cores, and to set the ``maxPoolSize`` to double
+the number of CPU cores plus spindles (if using HDDs).
+
+.. example::
+
+   Your application has 4 available cores, and the servers hosting your database
+   have SSDs. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
+   is a good starting point for connection pool size.
+
+
 
 .. _connection-storms-java:
 
@@ -215,6 +272,8 @@ These include:
   the driver will concurrently establish before making them available in
   the connection pool.
 
+- **maxPoolSize**: The maximum number of connections in the connection pool.
+
 - **maxTime()**: The *cumulative* time limit for processing operations on
   a MongoDB server.
 
@@ -231,12 +290,23 @@ Read more about ``maxPoolSize`` in the :ref:`java-connection-pool-tuning` sectio
 
 .. example::
 
-   Consider a failover scenario in a 3 member replica set. With the default
-   values
+   Consider a failover scenario in a 3 member replica set with applications under
+   heavy load. Without ``maxConnecting``, ``maxPoolSize * application servers``
+   connections would be established. With default settings for ``maxPoolSize``
+   and 3 application servers, that would be 300 new connections, concurrently.
 
+   With ``maxConnecting`` set to 3, the new primary will receive
+   ``maxConnecting * application servers`` connections concurrently, or 9.
 
 Specify ``maxConnecting`` in your connection URI or with the
 `ConnectionPoolSettings.Builder maxConnecting() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxConnecting(int)>`__ method.
+
+**maxPoolSize**
++++++++++++++++
+
+:ref:`Properly sizing your connection pool <connection-pool-considerations-java>`
+helps you avoid the risk of connection storms by limiting the amount of
+connections any application can establish.
 
 **maxTime()**
 +++++++++++++
