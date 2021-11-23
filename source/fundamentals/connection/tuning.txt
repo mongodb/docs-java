@@ -157,20 +157,21 @@ achievable on a single core by sharing time between tasks.
 Parallelism is the execution of multiple tasks **simultaneously** and
 requires multiple cores.
 
-An example of concurrency vs. parallelism is birds in a nest waiting
-to be fed.
+.. example::
 
-A parent bird brings back food but can only feed one baby at a time.
-The parent repeatedly brings food back to the nest, ensuring all babies
-are fed. This is (very slow!) concurrency.
+   Consider birds in a nest waiting to be fed.
 
-If there are two parent birds bringing food back, two babies can be fed
-at the same time. This is parallelism.
+   A parent bird brings back food but can only feed one baby at a time.
+   The parent repeatedly brings food back to the nest, ensuring all babies
+   are fed. This is (very slow!) concurrency.
 
-One last note about concurrent operations. When all we need is the **final result**
-of two tasks, processing them concurrently usually isn't as efficient as
-processing them sequentially. In other scenarios, such as such as playing
-chess against a bot while listening to music, concurrency is highly desireable.
+   If there are two parent birds bringing food back, two babies can be fed
+   at the same time. This is parallelism.
+
+   One last note about concurrent operations. When all we need is the **final result**
+   of two tasks, processing them concurrently usually isn't as efficient as
+   processing them sequentially. In other scenarios, such as such as playing
+   chess against a bot while listening to music, concurrency is highly desireable.
 
 Disk I/O
 ++++++++
