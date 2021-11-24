@@ -13,8 +13,7 @@ Tuning Connections
 Overview
 --------
 
-In this guide, you can learn about tuning **connection pool** your and **connection storms**;
-what connection storms are, common causes, and ways to avoid them.
+In this guide, you can learn about **connection pool** and **connection storms**.
 
 Connection Pools
 ----------------
@@ -66,7 +65,7 @@ The amount of connections in the pool depends on the ``minPoolSize``,
 ``maxPoolSize`` and ``maxIdleTimeMS`` values.
 
 The driver establishes ``minPoolSize`` connections to each ``mongod/mongos``
-when the driver first starts. The drivers creates these connections ``maxPoolSize``
+when the driver first starts.  creates these connections ``maxConnecting``
 connections at a time.
 
 .. example::
@@ -122,14 +121,14 @@ Connection Pool Considerations
 .. _connection-pool-considerations-java:
 
 Properly sizing your connection pool is critical to your application's
-performance. You need to consider three key factors:
+performance. Consider the following factors:
 
-- CPU
-- Disk I/O
-- Network latency
+- Application Server CPU
+- Database Server CPU
+- Database Server Disk I/O
 
-CPU
-+++
+Application Server CPU
+++++++++++++++++++++++
 
 A CPU can process one operation at a time per core. If your CPU has eight
 cores, it can process eight operations in parallel. More operations will
@@ -173,8 +172,15 @@ requires multiple cores.
    processing them sequentially. In other scenarios, such as such as playing
    chess against a bot while listening to music, concurrency is highly desireable.
 
-Disk I/O
-++++++++
+Database Server CPU
++++++++++++++++++++
+
+You should have the same considerations as above, but also keep in mind
+that each database server accepts connections from **every** application
+server.
+
+Database Server Disk I/O
+++++++++++++++++++++++++
 
 The two general disk types in use are hard disk drives (HDD) and
 solid-state drives (SSD).
@@ -198,13 +204,6 @@ the number of threads in the connection pool. Because there will often be
 less wait time to read and write data, more threads are often unable to
 perform more work and the cost of creating, scheduling, and destroying those
 threads outweigh any gains.
-
-Network Latency
-+++++++++++++++
-
-Network latency should be taken into account when the average latency
-between your application and the database has a noticeable impact on
-operation time.
 
 Connection Pool Sizing
 ----------------------
