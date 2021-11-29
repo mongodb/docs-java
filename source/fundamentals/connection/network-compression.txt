@@ -5,9 +5,9 @@
 Network Compression
 ===================
 
-You can enable a driver option to compress messages passed over the network 
-between MongoDB and your application. This can reduce the amount of data
-passed through the network the driver and MongoDB generate when communicating.
+You can enable a driver option to compress messages and therefore reduce
+the amount of data passed over the network between MongoDB and your
+application.
 
 The driver supports the following algorithms:
 
@@ -29,19 +29,20 @@ connected.
 
 .. _enable-compression:
 
-Enable Compression
-~~~~~~~~~~~~~~~~~~
+Specify Compression Algorithms
+------------~~~~~~~~~~~~~~~~~~
 
 You can enable compression for the connection to your MongoDB instance
-two different ways: adding the parameter to your connection string or
-calling the method in the ``MongoClientSettings.Builder`` class.
+by specifying the algorithms in one of two ways: adding the parameter to your
+connection string using ``ConnectionString`` or by calling the method in the
+``MongoClientSettings.Builder`` class.
 
 .. tabs::
 
    .. tab:: ConnectionString
       :tabid: connectionstring
 
-      To enable compression using the `ConnectionString <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__, 
+      To enable compression using the `ConnectionString <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__,
       add the parameter ``compressors`` in the connection string passed to
       ``MongoClients.create()``. You can specify one or more compression
       algorithms, separating them with commas:

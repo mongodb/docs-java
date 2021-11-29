@@ -6,8 +6,10 @@ Connection Guide
 
 .. toctree::
 
+   /fundamentals/connection/connect
    /fundamentals/connection/connection-options
    /fundamentals/connection/mongoclientsettings
+   /fundamentals/connection/network-compression
    /fundamentals/connection/tls
    /fundamentals/connection/jndi
 
@@ -20,192 +22,19 @@ Connection Guide
 Overview
 --------
 
-The first step to accessing MongoDB with the Java driver is to establish
-a connection between your application and MongoDB.
+In this section, you can learn how to set up a connection and specify
+connection behavior from your application to a MongoDB deployment using the
+driver.
 
-Learn how to connect and specify connection behavior in the following pages in
-this section:
+.. TODO: reorganize and link
 
-- Specify a Connection URI: Learn how to and include options
-- Specify Connection Behavior with the MongoClient class
-- Enable TLS/SSL on a Connection
-
-.. TODO: reorganize
-- Connect to MongoDB using a JNDI Datasource
-
-In this section, you can learn how to set up a connection from your
-application to a MongoDB deployment using the MongoDB Java driver.
+- :ref:`Connect to MongoDB <connect-to-mongodb>`
+- :ref:`View a list of connection options <connection-options>`
+- :ref:`Specify Connection Behavior with the MongoClient class <specify-mongoclient-settings>`
+- :ref:`Enable Network Compression <network-compression>`
+- :ref:`Enable TLS/SSL on a Connection <tls-ssl>`
+- :ref:`Connect to MongoDB using a JNDI Datasource <jndi>`
 
 For information about authenticating with a MongoDB instance,
-see :doc:`Authentication </fundamentals/auth>`. To learn more about using
-the driver with the Java Naming and Directory Interface (JNDI), see
-:doc:`JNDI </fundamentals/connection/jndi>`. To configure TLS/SSL security
-for connections to your MongoDB instance, see :doc:`TLS/SSL
-</fundamentals/connection/tls>`.
-
-.. _mongoclient:
-
-MongoClient
------------
-
-Use the ``MongoClients.create()`` method to construct a
-``MongoClient``. As each ``MongoClient`` represents a threadsafe pool of
-connections to the database, most applications only require a single
-instance of a ``MongoClient``, even across multiple threads. All resource
-usage limits, such as max connections, apply to individual
-``MongoClient`` instances.
-
-To learn about the different settings you can use to control the
-behavior of your ``MongoClient``, see the guide on
-:ref:`<mongoclientsettings>`.
-
-.. tip::
-
-   Always call ``MongoClient.close()`` to clean up resources when an
-   instance is no longer needed.
-
-.. _connection-uri:
-
-Connection URI
---------------
-
-The **connection URI** provides a set of instructions that the driver uses to
-connect to a MongoDB deployment. It instructs the driver on how it should
-connect to MongoDB and how it should behave while connected. The following
-example explains each part of a sample connection URI:
-
-.. figure:: /includes/figures/connection_uri_parts.png
-   :alt: Connection String parts figure
-
-In this example, we use the :manual:`Standard Connection String Format
-</reference/connection-string/#std-label-connections-standard-connection-string-format>`,
-``mongodb`` for the protocol. You can also use the :manual:`DNS Seed
-List Connection Format </reference/connection-string/#dns-seed-list-connection-format>`,
-``mongodb+srv``, if you want more flexibility of deployment and the
-ability to change the servers in rotation without reconfiguring clients.
-
-.. note::
-
-   If your deployment is on MongoDB Atlas, see the
-   :atlas:`Atlas driver connection guide </driver-connection?jmp=docs_driver_java>`
-   and select Java from the language dropdown to retrieve your connection string.
-
-The next part of the connection URI contains your credentials if you are
-using a password-based authentication mechanism. Replace the value of ``user``
-with your username and ``pass`` with your password. If your
-authentication mechanism does not require credentials, omit this part of
-the connection URI.
-
-The next part of the connection URI specifies the hostname or IP
-address, followed by the port of your MongoDB instance. In the example,
-we use ``sample.host`` as the hostname and ``27017`` as the port.
-Replace these values to refer to your MongoDB instance.
-
-The last part of the connection URI contains connection options as parameters. In the
-example, we set two connection options: ``maxPoolSize=20`` and
-``w=majority``. For more information on connection options, skip to the
-:ref:`connection-options` section of this guide.
-
-.. _connect-atlas-java-driver:
-
-The following code shows how you can use the sample connection URI in a client to
-connect to MongoDB.
-
-.. literalinclude:: /includes/fundamentals/code-snippets/srv.java
-   :language: java
-   :emphasize-lines: 17
-
-.. _java-other-ways-to-connect:
-
-Other Ways to Connect to MongoDB
---------------------------------
-
-If you are connecting to a single MongoDB server instance or replica set
-that is not hosted on Atlas, see the following sections to find out how to
-connect.
-
-Connect to a MongoDB Server on Your Local Machine
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. include:: /includes/fundamentals/localhost-connection.rst
-
-To test whether you can connect to your server, replace the connection
-string in the :ref:`Connect to MongoDB Atlas <connect-atlas-java-driver>` code
-example and run it.
-
-.. _connect-replica-set:
-
-Connect to a Replica Set
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-A MongoDB replica set deployment is a group of connected instances that
-store the same set of data. This configuration of instances provides data
-redundancy and high data availability.
-
-To connect to a replica set deployment, specify the hostname (or IP address)
-and port numbers of one or more members of the replica set separated by commas.
-By default, specifying the hostname and port number of a single MongoDB
-instance only connects to the specified member of the replica set.
-However, you can automatically discover and connect to all members of the
-replica set in several different ways. To create a replica set connection:
-
-- specify the name of the replica set using the ``replicaSet`` parameter
-
-- specify the ``directConnection`` parameter with a value of ``false``
-
-- specify multiple hosts, instead of a single host
-
-Each of these methods causes the driver to discover any unspecified
-hosts in the replica set.
-
-The following connection string specifies three hosts in the cluster and
-replica set named "myRs".
-
-.. code-block:: none
-
-   mongodb://host1:27017,host2:27017,host3:27017
-
-.. _mongo-client-settings-multiple-hosts:
-
-The following examples show how to specify multiple hosts to a ``MongoClient``
-instance using either the ``ConnectionString`` or ``MongoClientSettings`` class.
-Select the tab corresponding to the code snippet you would like to see:
-
-.. tabs::
-
-   .. tab:: ConnectionString
-      :tabid: connectionstring
-
-      .. code-block:: java
-
-         ConnectionString connectionString = new ConnectionString("mongodb://host1:27017,host2:27017,host3:27017/");
-         MongoClient mongoClient = MongoClients.create(connectionString);
-
-   .. tab:: MongoClientSettings
-      :tabid: mongoclientsettings
-
-      .. code-block:: java
-
-         ServerAddress seed1 = new ServerAddress("host1", 27017);
-         ServerAddress seed2 = new ServerAddress("host2", 27017);
-         ServerAddress seed3 = new ServerAddress("host3", 27017);
-         MongoClientSettings settings = MongoClientSettings.builder()
-                 .applyToClusterSettings(builder ->
-                        builder.hosts(Arrays.asList(seed1, seed2, seed3)))
-                 .build();
-         MongoClient mongoClient = MongoClients.create(settings);
-
-
-.. tip::
-
-   Although it is possible to connect to a replica set deployment by
-   providing only a single host, you should provide the driver with the
-   full list to ensure that it is able to connect even if one host fails.
-
-.. note::
-
-   The :manual:`replicaSet option </reference/connection-string/#replica-set-option>`
-   is not necessary to connect to a replica set, since the driver automatically
-   detects and handles multiple hosts in the connection string as a
-   replica set.
+see :doc:`Authentication </fundamentals/auth>`.
 
