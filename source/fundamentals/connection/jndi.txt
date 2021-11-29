@@ -61,7 +61,7 @@ JNDI Datasource.
             Replace the placeholder connection value in the ``property`` tag
             with a value that points to your MongoDB installation.
 
-      This will make a MongoClient instance accessible via the JNDI name
+      This makes a MongoClient instance accessible via the JNDI name
       ``MyMongoClient`` in the ``java:global`` context.
 
    .. tab:: Tomcat
@@ -106,7 +106,7 @@ JNDI Datasource.
               </res-auth>
             </resource-ref>
 
-      This will make a ``MongoClient`` instance accessible via the JNDI name
+      This makes a ``MongoClient`` instance accessible via the JNDI name
       ``mongodb/MyMongoClient`` in the ``java:comp/env`` context.
 
 .. seealso::
