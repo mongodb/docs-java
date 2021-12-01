@@ -301,8 +301,8 @@ maxPoolSize
 helps you avoid the risk of connection storms by limiting the amount of
 connections any application can establish.
 
-TODO: How to specify?
-
+Specify ``maxPoolSize`` in your connection URI or with the
+`ConnectionPoolSettings.Builder maxSize() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxSize(int)>`__ method.
 
 maxTime()
 +++++++++
@@ -355,5 +355,5 @@ storms, free up resources, and CPU oversaturation by allowing the driver to clos
 unused connections. When setting a value, 30 minutes (1800000 milliseconds) is the recommended value
 to start with.
 
-TODO: How to specify?
-
+Specify ``maxIdleTimeMS`` in your connection URI or with the
+`ConnectionPoolSettings.Builder maxConnectionIdleTime() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxConnectionIdleTime(long,java.util.concurrent.TimeUnit)>`__ method.
