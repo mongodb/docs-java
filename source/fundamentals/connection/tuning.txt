@@ -120,6 +120,8 @@ machines. The driver has no default, but 30 minutes is a good starting point.
 Connection Pool Sizing
 ----------------------
 
+.. _connection-pool-sizing-java:
+
 Properly sizing your connection pool is critical to your application's
 performance.
 
@@ -207,14 +209,8 @@ available if using a :wikipedia:`RAID <RAID>` array.
 SSDs are made up of physical circuits, similar to standard computer memory.
 They offer much faster read and write times because there are no platters
 to spin and no spindle to move. Additionally, they can parallelize reads and
-writes.
-
-Perhaps counterintuitively, if using SSDs it is often best to **not** increase
-the number of threads in the connection pool with both ``minPoolSize`` and ``maxPoolSize``.
-Because there will often be less wait time to read and write data and many SSDs can
-parallelize reads, more threads are often unable to perform more work and the
-cost of creating, scheduling, and destroying those threads outweigh any gains.
-
+writes. Because SSDs have much faster read and write times and can parallelize operations,
+you should generally **not** consider them when tuning your connection pool size.
 
 .. _connection-storms-java:
 
@@ -243,7 +239,7 @@ Common causes for connection storms in MongoDB include:
 - Insufficient hardware for the workload
 - Failover events
 
-In MongoDB, connection storms can have a multiple effects. For example:
+In MongoDB, connection storms can have multiple effects. For example:
 
 - The high volume of connection requests leads to latency in processing.
 - Replication connections between nodes may be blocked or slowed, so replication
@@ -302,7 +298,7 @@ Specify ``maxConnecting`` in your connection URI or with the
 maxPoolSize
 +++++++++++
 
-:ref:`Properly sizing your connection pool <connection-pool-considerations-java>`
+:ref:`Properly sizing your connection pool <connection-pool-sizing-java>`
 helps you avoid the risk of connection storms by limiting the amount of
 connections any application can establish.
 
@@ -356,7 +352,7 @@ maxIdleTimeMS
 idle in the connection pool. The default is ``0``, meaning no timeout.
 
 Setting an appropriate value for ``maxIdleTimeMS`` can help avoid connection
-storms and CPU oversaturation by allowing the driver to close unused connections.
-When setting a value, 30 minutes (1800000 milliseconds) is the recommended value
+storms, free up resources, and CPU oversaturation by allowing the driver to close
+unused connections. When setting a value, 30 minutes (1800000 milliseconds) is the recommended value
 to start with.
 
