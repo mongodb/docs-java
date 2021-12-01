@@ -290,8 +290,11 @@ These include:
 - **maxTime()**: The *cumulative* time limit for processing operations on
   a MongoDB server.
 
-**maxConnecting**
-+++++++++++++++++
+- **maxIdleTimeMS**: The maximum amount of time a connection can remain
+  idle in the connection pool.
+
+maxConnecting
++++++++++++++
 
 ``maxConnecting`` specifies the maximum number of connections to each server that
   the driver will concurrently establish before making them available in
@@ -343,7 +346,7 @@ operation.
 - `GridFSFindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
 
 socketTimeoutMS
-+++++++++++++++
+```````````````
 
 .. warning:: Do not use ``socketTimeoutMS`` to abort operations.
 
@@ -355,7 +358,7 @@ socketTimeoutMS
    retry the operation.
 
 ``socketTimeoutMS`` specifies the maximum time the driver will wait for socket reads.
-The default is **0**, meaning no timeout.
+The default is ``0``, meaning no timeout.
 
 Setting this to a value that is too low results in **connection thrashing**,
 where the socket is closed and removed from the connection pool, and a new
@@ -363,6 +366,14 @@ connection is initiated. For example, setting a timeout of 200 milliseconds
 and issuing a query that takes 300 milliseconds to complete would result in
 the socket being closed and a new connection being initiated.
 
+maxIdleTimeMS
++++++++++++++
 
+``maxIdleTimeMS`` specifies the maximum amount of time a connection can remain
+idle in the connection pool. The default is ``0``, meaning no timeout.
 
+Setting an appropriate value for ``maxIdleTimeMS`` can help avoid connection
+storms and CPU oversaturation by allowing the driver to close unused connections.
+When setting a value, 30 minutes (1800000 milliseconds) is the recommended to start
+with.
 
