@@ -303,6 +303,7 @@ maxPoolSize
 helps you avoid the risk of connection storms by limiting the amount of
 connections any application can establish.
 
+
 maxTime()
 +++++++++
 
@@ -337,14 +338,14 @@ socketTimeoutMS
    to process the operation, potentially causing errors if the driver attempts to
    retry the operation.
 
-``socketTimeoutMS`` specifies the maximum time the driver will wait for socket reads.
-The default is ``0``, meaning no timeout.
+   ``socketTimeoutMS`` specifies the maximum time the driver will wait for socket reads.
+   The default is ``0``, meaning no timeout.
 
-Setting this to a value that is too low results in **connection thrashing**,
-where the socket is closed and removed from the connection pool, and a new
-connection is initiated. For example, setting a timeout of 200 milliseconds
-and issuing a query that takes 300 milliseconds to complete would result in
-the socket being closed and a new connection being initiated.
+   Setting this to a value that is too low results in **connection thrashing**,
+   where the socket is closed and removed from the connection pool, and a new
+   connection is initiated. For example, setting a timeout of 200 milliseconds
+   and issuing a query that takes 300 milliseconds to complete would result in
+   the socket being closed and a new connection being initiated.
 
 maxIdleTimeMS
 +++++++++++++
