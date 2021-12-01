@@ -257,8 +257,9 @@ In MongoDB, connection storms can have multiple effects. For example:
 Avoid Connection Storms
 -----------------------
 
-A combination of settings and methods can help to mitigate connection storms.
-These include:
+While no universal solution exists as each problem is unique to a deployment,
+you can use a combination of settings and methods to help you avoid connection
+storms. These include:
 
 - **maxConnecting**: The maximum number of connections to each server that
   the driver will concurrently establish before making them available in
@@ -276,8 +277,8 @@ maxConnecting
 +++++++++++++
 
 ``maxConnecting`` specifies the maximum number of connections to each server that
-  the driver will concurrently establish before making them available in
-  the connection pool. The default is 2.
+the driver will concurrently establish before making them available in
+the connection pool. The default is 2.
 
 Do not confuse ``maxConnecting`` with ``maxPoolSize``, which specifies the
 maximum number of connections the driver can maintain in the connection pool.
@@ -325,7 +326,7 @@ operation.
 - `GridFSFindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
 
 socketTimeoutMS
-```````````````
+~~~~~~~~~~~~~~~
 
 .. warning:: Do not use ``socketTimeoutMS`` to abort operations.
 
