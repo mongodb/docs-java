@@ -13,14 +13,14 @@ Tuning Connections
 Overview
 --------
 
-In this guide, you can learn about **connection pool** and **connection storms**.
+In this guide, you can learn about **connection pools** and **connection storms**.
 
 Connection Pools
 ----------------
 
 Connection pools are fundamental to the performance of your application.
 A connection pool is a cache of database connections maintained by the driver
-so that connections can be reused when future requests to MongoDB are made.
+so that future requests ran reuse connections.
 
 .. example::
 
@@ -56,17 +56,17 @@ In MongoDB drivers, there are 4 key connection pool options:
 Basics
 ++++++
 
-Connection pools are **per connected server**. This means in a three member replica set,
-the driver maintains three connection pools, one for each member of the
-replica set. In a sharded deployment, the driver maintains one connection
-per ``mongos``.
+The driver establishes a connection pool **per connected server**. This means
+in a three member replica set, the driver maintains three connection pools,
+one for each member of the replica set. In a sharded deployment, the driver
+maintains one connection per ``mongos``.
 
 The amount of connections in the pool depends on the ``minPoolSize``,
 ``maxPoolSize`` and ``maxIdleTimeMS`` values.
 
-The driver establishes ``minPoolSize`` connections to each ``mongod/mongos``
-when the driver first starts.  creates these connections ``maxConnecting``
-connections at a time.
+The driver begins to establish ``minPoolSize`` connections to each ``mongod/mongos``
+when the driver first starts. The driver creates these connections ``maxConnecting``
+connections at a time. This happens in the background and is not blocking.
 
 .. example::
 
@@ -86,9 +86,9 @@ Growth
 
 The driver establishes connections until ``minPoolSize`` connections are
 available in the connection pool. As the driver processes operations,
-connections are checked out and checked in. Operations that aren't immediately
+connections are checked in and out. Operations that aren't immediately
 assigned a connection from the connection pool enter a wait queue, and
-will be processed when a connection becomes available.
+are processed when a connection becomes available.
 
 If there are operations in the wait queue **and** the number of connections
 in the pool is less than the ``maxPoolSize``, the driver establishes connections
@@ -105,8 +105,10 @@ to process queued operations, up to the ``maxPoolSize``.
    connections to process operations, ``maxConnecting`` at a time until the
    connection pool reaches ``maxPoolSize`` connections.
 
-If the drivers returns a connection to the pool while a new connection is
-establishing, the driver discards the establishing connection.
+Operations that cause the driver to create a new connection will be processed
+on that new connection, once established. If the driver returns a connection
+to the connection to the pool during connection creation, the returned connection
+is available for other operations in the wait queue.
 
 Reduction
 +++++++++
@@ -115,8 +117,33 @@ Use ``maxIdleTimeMS`` to reduce the number of connections in the pool to
 reduce resource requirements both on the application and on the database
 machines. The driver has no default, but 30 minutes is a good starting point.
 
+Connection Pool Sizing
+----------------------
+
+The rough guideline for sizing the connection pool is to set the ``minPoolSize``
+to the number of available CPU cores, and to set the ``maxPoolSize`` to double
+the number of CPU cores plus spindles (if using HDDs).
+
+.. example::
+
+   Your application has 4 available cores, and the servers hosting your database
+   have SSDs. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
+   is a good starting point for connection pool size.
+
+.. important:: Don't Oversaturate the CPU
+
+   Remember that each application server will form connections. If each
+   application server has 4 CPU cores and there are 2 application servers
+   each configured with a ``minPoolSize`` of 4, a database server with
+   4 CPU cores may already be close to it's maximum number of performant
+   connections.
+
+   Read the below section on :ref:`connection pool considerations <connection-pool-considerations-java>`
+   for more information.
+
+
 Connection Pool Considerations
-------------------------------
+++++++++++++++++++++++++++++++
 
 .. _connection-pool-considerations-java:
 
@@ -128,7 +155,7 @@ performance. Consider the following factors:
 - Database Server Disk I/O
 
 Application Server CPU
-++++++++++++++++++++++
+``````````````````````
 
 A CPU can process one operation at a time per core. If your CPU has eight
 cores, it can process eight operations in parallel. More operations will
@@ -145,7 +172,7 @@ result in the underlying operating system scheduling operations and
    because the cost of pausing and resuming operations isn't free.
 
 Concurrency vs. Parallelism
-```````````````````````````
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The terms "concurrency" and "parallelism" are often used interchangeably,
 but they mean different things.
@@ -162,7 +189,7 @@ requires multiple cores.
 
    A parent bird brings back food but can only feed one baby at a time.
    The parent repeatedly brings food back to the nest, ensuring all babies
-   are fed. This is (very slow!) concurrency.
+   are fed. This is (slow!) concurrency.
 
    If there are two parent birds bringing food back, two babies can be fed
    at the same time. This is parallelism.
@@ -173,14 +200,14 @@ requires multiple cores.
    chess against a bot while listening to music, concurrency is highly desireable.
 
 Database Server CPU
-+++++++++++++++++++
+```````````````````
 
 You should have the same considerations as above, but also keep in mind
 that each database server accepts connections from **every** application
 server.
 
 Database Server Disk I/O
-++++++++++++++++++++++++
+````````````````````````
 
 The two general disk types in use are hard disk drives (HDD) and
 solid-state drives (SSD).
@@ -200,24 +227,10 @@ the number of spindles available if using a :wikipedia:`RAID <RAID>`
 array.
 
 Perhaps counterintuitively, if using SSDs it is often best to **not** increase
-the number of threads in the connection pool. Because there will often be
-less wait time to read and write data, more threads are often unable to
-perform more work and the cost of creating, scheduling, and destroying those
-threads outweigh any gains.
-
-Connection Pool Sizing
-----------------------
-
-The rough guideline for sizing the connection pool is to set the ``minPoolSize``
-to the number of available CPU cores, and to set the ``maxPoolSize`` to double
-the number of CPU cores plus spindles (if using HDDs).
-
-.. example::
-
-   Your application has 4 available cores, and the servers hosting your database
-   have SSDs. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
-   is a good starting point for connection pool size.
-
+the number of threads in the connection pool with both ``minPoolSize`` and ``maxPoolSize``.
+Because there will often be less wait time to read and write data and many SSDs can
+parallelize reads, more threads are often unable to perform more work and the
+cost of creating, scheduling, and destroying those threads outweigh any gains.
 
 
 .. _connection-storms-java:
@@ -284,9 +297,8 @@ These include:
   the driver will concurrently establish before making them available in
   the connection pool. The default is 2.
 
-This is not to be confused with ``maxPoolSize``, which specifies the maximum
-number of connections the driver can maintain in the connection pool.
-Read more about ``maxPoolSize`` in the :ref:`java-connection-pool-tuning` section.
+Do not to be confuse ``maxConnecting`` with ``maxPoolSize``, which specifies the
+maximum number of connections the driver can maintain in the connection pool.
 
 .. example::
 
@@ -301,15 +313,15 @@ Read more about ``maxPoolSize`` in the :ref:`java-connection-pool-tuning` sectio
 Specify ``maxConnecting`` in your connection URI or with the
 `ConnectionPoolSettings.Builder maxConnecting() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxConnecting(int)>`__ method.
 
-**maxPoolSize**
-+++++++++++++++
+maxPoolSize
++++++++++++
 
 :ref:`Properly sizing your connection pool <connection-pool-considerations-java>`
 helps you avoid the risk of connection storms by limiting the amount of
 connections any application can establish.
 
-**maxTime()**
-+++++++++++++
+maxTime()
++++++++++
 
 .. tip::
 
@@ -330,8 +342,8 @@ operation.
 - `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
 - `GridFSFindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
 
-About **socketTimeoutMS**
-+++++++++++++++++++++++++
+socketTimeoutMS
++++++++++++++++
 
 .. warning:: Do not use ``socketTimeoutMS`` to abort operations.
 
