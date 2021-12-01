@@ -5,7 +5,7 @@ Tuning Connections
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 3
+   :depth: 2
    :class: singlecol
 
 .. _connection-tuning-java:
@@ -127,7 +127,7 @@ the number of CPU cores plus spindles (if using HDDs).
 .. example::
 
    Your application has 4 available cores, and the servers hosting your database
-   have SSDs. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
+   have 8 CPU cores and SSDs. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
    is a good starting point for connection pool size.
 
 .. important:: Don't Oversaturate the CPU
@@ -138,24 +138,14 @@ the number of CPU cores plus spindles (if using HDDs).
    4 CPU cores may already be close to it's maximum number of performant
    connections.
 
-   Read the below section on :ref:`connection pool considerations <connection-pool-considerations-java>`
-   for more information.
-
-
-Connection Pool Considerations
-++++++++++++++++++++++++++++++
-
-.. _connection-pool-considerations-java:
-
 Properly sizing your connection pool is critical to your application's
 performance. Consider the following factors:
 
-- Application Server CPU
-- Database Server CPU
+- CPU
 - Database Server Disk I/O
 
-Application Server CPU
-``````````````````````
+CPU
++++
 
 A CPU can process one operation at a time per core. If your CPU has eight
 cores, it can process eight operations in parallel. More operations will
@@ -199,15 +189,8 @@ requires multiple cores.
    processing them sequentially. In other scenarios, such as such as playing
    chess against a bot while listening to music, concurrency is highly desireable.
 
-Database Server CPU
-```````````````````
-
-You should have the same considerations as above, but also keep in mind
-that each database server accepts connections from **every** application
-server.
-
 Database Server Disk I/O
-````````````````````````
+++++++++++++++++++++++++
 
 The two general disk types in use are hard disk drives (HDD) and
 solid-state drives (SSD).
