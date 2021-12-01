@@ -120,6 +120,9 @@ machines. The driver has no default, but 30 minutes is a good starting point.
 Connection Pool Sizing
 ----------------------
 
+Properly sizing your connection pool is critical to your application's
+performance.
+
 The rough guideline for sizing the connection pool is to set the ``minPoolSize``
 to the number of available CPU cores, and to set the ``maxPoolSize`` to double
 the number of CPU cores plus spindles (if using HDDs).
@@ -127,7 +130,7 @@ the number of CPU cores plus spindles (if using HDDs).
 .. example::
 
    Your application has 4 available cores, and the servers hosting your database
-   have 8 CPU cores and SSDs. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
+   have 8 CPU cores. Beginning with a ``minPoolSize`` of 4 and a ``maxPoolSize`` of 8
    is a good starting point for connection pool size.
 
 .. important:: Don't Oversaturate the CPU
@@ -138,8 +141,7 @@ the number of CPU cores plus spindles (if using HDDs).
    4 CPU cores may already be close to it's maximum number of performant
    connections.
 
-Properly sizing your connection pool is critical to your application's
-performance. Consider the following factors:
+For fine tuning your connection pool size, consider the following factors:
 
 - CPU
 - Database Server Disk I/O
@@ -198,16 +200,14 @@ solid-state drives (SSD).
 HDDs have spinning disks, called "platters", and a read/write head called
 a "spindle". Locations on disk are accessed by the platters spinning and
 the spindle moving to the correct location. During read and write operations
-from disk, HDDs can only perform operations sequentially.
+from disk, HDDs can only perform operations sequentially. If using HDDs,
+it may be beneficial to increase the ``maxPoolSize`` by the number of spindles
+available if using a :wikipedia:`RAID <RAID>` array.
 
 SSDs are made up of physical circuits, similar to standard computer memory.
 They offer much faster read and write times because there are no platters
 to spin and no spindle to move. Additionally, they can parallelize reads and
 writes.
-
-If using HDDs, it may be beneficial to increase the ``maxPoolSize`` by
-the number of spindles available if using a :wikipedia:`RAID <RAID>`
-array.
 
 Perhaps counterintuitively, if using SSDs it is often best to **not** increase
 the number of threads in the connection pool with both ``minPoolSize`` and ``maxPoolSize``.
