@@ -7,7 +7,7 @@ Connect to MongoDB
 In this guide, you can learn how to connect to a MongoDB instance or
 replica set using the Java driver.
 
-You can view sample code to :ref:`connection Atlas cluster <connect-atlas-java-driver>`
+You can view sample code to :ref:`connect to an Atlas cluster <connect-atlas-java-driver>`
 or continue reading to learn more about the ``MongoClient`` class and
 connection URIs.
 
@@ -42,12 +42,12 @@ Connection URI
 The **connection URI** provides a set of instructions that the driver uses to
 connect to a MongoDB deployment. It instructs the driver on how it should
 connect to MongoDB and how it should behave while connected. The following
-example explains each part of a sample connection URI:
+figure explains each part of a sample connection URI:
 
 .. figure:: /includes/figures/connection_uri_parts.png
    :alt: Connection String parts figure
 
-This example uses the :manual:`Standard Connection String Format </reference/connection-string/#std-label-connections-standard-connection-string-format>`,
+This figure uses the :manual:`Standard Connection String Format </reference/connection-string/#std-label-connections-standard-connection-string-format>`,
 ``mongodb`` for the protocol. You can also use the :manual:`DNS Seed List Connection Format </reference/connection-string/#dns-seed-list-connection-format>`,
 ``mongodb+srv``, if you want more flexibility of deployment and the ability
 to change the servers in rotation without reconfiguring clients.
@@ -113,34 +113,30 @@ A MongoDB replica set deployment is a group of connected instances that
 store the same set of data. This configuration of instances provides data
 redundancy and high data availability.
 
-To connect to a replica set deployment, specify the hostname (or IP address)
-and port numbers of one or more members of the replica set separated by commas.
-By default, specifying the hostname and port number of a single MongoDB
-instance only connects to the specified member of the replica set.
-However, you can automatically discover and connect to all members of the
-replica set in several different ways. To create a replica set connection:
+To connect to a replica set deployment, specify the hostnames (or IP
+addresses) and port numbers of the members of the replica set. 
 
-- specify the name of the replica set using the ``replicaSet`` parameter
+If you are not able to provide a full list of hosts in the replica set,
+you can specify a single or subset of the hosts in the replica and
+instruct the driver to perform automatic discovery in one of the following
+ways:
 
-- specify the ``directConnection`` parameter with a value of ``false``
+- Specify the name of the replica set as the value of the ``replicaSet``
+  parameter
+- Specify ``false`` as the value of the ``directConnection`` parameter
+- Specify more than one host in the replica set
 
-- specify multiple hosts, instead of a single host
+.. tip::
 
-Each of these methods causes the driver to discover any unspecified
-hosts in the replica set.
-
-The following connection string specifies three hosts in the cluster and
-replica set named "myRs".
-
-.. code-block:: none
-
-   mongodb://host1:27017,host2:27017,host3:27017
-
+   Although you can specify a subset of the hosts in a replica set,
+   include all the hosts in the replica set to ensure the driver is able to 
+   establish the connection if one of the hosts are unreachable.
+   
 .. _mongo-client-settings-multiple-hosts:
 
 The following examples show how to specify multiple hosts to a ``MongoClient``
-instance using either the ``ConnectionString`` or ``MongoClientSettings`` class.
-Select the tab corresponding to the code snippet you would like to see:
+instance using either the ``ConnectionString`` or ``MongoClientSettings`` 
+class. Select the tab that corresponds to your preferred class.
 
 .. tabs::
 
@@ -165,18 +161,4 @@ Select the tab corresponding to the code snippet you would like to see:
                         builder.hosts(Arrays.asList(seed1, seed2, seed3)))
                  .build();
          MongoClient mongoClient = MongoClients.create(settings);
-
-
-.. tip::
-
-   Although it is possible to connect to a replica set deployment by
-   providing only a single host, you should provide the driver with the
-   full list to ensure that it is able to connect even if one host fails.
-
-.. note::
-
-   The :manual:`replicaSet option </reference/connection-string/#replica-set-option>`
-   is not necessary to connect to a replica set, since the driver automatically
-   detects and handles multiple hosts in the connection string as a
-   replica set.
 
