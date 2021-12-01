@@ -33,28 +33,10 @@ so that future requests can reuse already established connections.
 
 Basics
 ++++++
-
 The driver establishes a connection pool **per connected server**. This means
 in a three member replica set, the driver maintains three connection pools,
 one for each member of the replica set. In a sharded deployment, the driver
 maintains one connection per ``mongos``.
-
-The amount of connections in the pool depends on the ``minPoolSize``,
-``maxPoolSize`` and ``maxIdleTimeMS`` values.
-
-The driver begins to establish ``minPoolSize`` connections to each ``mongod/mongos``
-when the driver first starts. The driver creates these connections ``maxConnecting``
-connections at a time. This happens in the background and is not blocking.
-
-.. example::
-
-   With a ``minPoolSize`` of **10**, the driver establishes 10 connections.
-   If each connection takes ~50ms to establish, the driver establishes
-   all connections after ~250ms. That is, 50ms * 10 (the ``minPoolSize``)
-   / 2 (``maxConnecting``).
-
-Options
-+++++++
 
 In MongoDB drivers, there are 4 key connection pool options:
 
@@ -74,6 +56,22 @@ In MongoDB drivers, there are 4 key connection pool options:
 - ``maxConnecting``: The maximum number of connections to each server that
   the driver will concurrently establish before making them available in
   the connection pool. The default is ``2``.
+
+
+The amount of connections in each pool depends on the ``minPoolSize``,
+``maxPoolSize`` and ``maxIdleTimeMS`` values.
+
+The driver begins to establish ``minPoolSize`` connections to each ``mongod/mongos``
+when the driver first starts. The driver creates these connections ``maxConnecting``
+connections at a time. This happens in the background and is not blocking.
+
+.. example::
+
+   With a ``minPoolSize`` of **10**, the driver establishes 10 connections.
+   If each connection takes ~50ms to establish, the driver establishes
+   all connections after ~250ms. That is, 50ms * 10 (the ``minPoolSize``)
+   / 2 (``maxConnecting``).
+
 
 Growth
 ++++++
@@ -303,6 +301,8 @@ maxPoolSize
 helps you avoid the risk of connection storms by limiting the amount of
 connections any application can establish.
 
+TODO: How to specify?
+
 
 maxTime()
 +++++++++
@@ -357,4 +357,6 @@ Setting an appropriate value for ``maxIdleTimeMS`` can help avoid connection
 storms, free up resources, and CPU oversaturation by allowing the driver to close
 unused connections. When setting a value, 30 minutes (1800000 milliseconds) is the recommended value
 to start with.
+
+TODO: How to specify?
 
