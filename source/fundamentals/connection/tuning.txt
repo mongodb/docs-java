@@ -5,7 +5,7 @@ Tuning Connections
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 2
+   :depth: 3
    :class: singlecol
 
 .. _connection-tuning-java:
@@ -374,6 +374,6 @@ idle in the connection pool. The default is ``0``, meaning no timeout.
 
 Setting an appropriate value for ``maxIdleTimeMS`` can help avoid connection
 storms and CPU oversaturation by allowing the driver to close unused connections.
-When setting a value, 30 minutes (1800000 milliseconds) is the recommended to start
-with.
+When setting a value, 30 minutes (1800000 milliseconds) is the recommended value
+to start with.
 
