@@ -68,8 +68,8 @@ connections at a time. This happens in the background and is not blocking.
 .. example::
 
    With a ``minPoolSize`` of **10**, the driver establishes 10 connections.
-   If each connection takes ~50ms to establish, the driver establishes
-   all connections after ~250ms. That is, 50ms * 10 (the ``minPoolSize``)
+   If each connection takes ~50 ms to establish, the driver establishes
+   all connections after ~250 ms. That is, 50 ms * 10 (the ``minPoolSize``)
    / 2 (``maxConnecting``).
 
 
@@ -159,7 +159,7 @@ result in the underlying operating system scheduling operations and
    The driver is processing two queries at the same time, and the underlying
    operating system is scheduling these operations on the same CPU core.
 
-   If each operations takes ~100ms to process, executing these operations
+   If each operations takes ~100 ms to process, executing these operations
    concurrently takes more time than executing them sequentially. This is
    because the cost of pausing and resuming operations isn't free.
 
@@ -186,7 +186,7 @@ requires multiple cores.
    If there are two parent birds bringing food back, two babies can be fed
    at the same time. This is parallelism.
 
-   One last note about concurrent operations: when all we need is the **final result**
+   One last note about concurrent operations: when all we need is the **result**
    of two tasks, processing them concurrently usually isn't as efficient as
    processing them sequentially. In other scenarios, such as such as playing
    chess against a bot while listening to music, concurrency is highly desireable.
