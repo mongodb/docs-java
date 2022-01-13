@@ -208,8 +208,18 @@ parameters of the connection URI to specify the behavior of the client.
 
    * - **maxConnecting**
      - integer
-     - Specifies the number of connections the driver will driver concurrently
-       establish before making them available in the connection pool.
+     - Specifies the number of connections the driver concurrently
+       establishes before making them available in the connection pool.
+
+   * - **srvServiceName**
+     - string
+     - Specifies the service name the driver queries for within your SRV record to
+       construct your 
+       :manual:`seed list </reference/glossary/#std-term-seed-list>`.
+       You must use the 
+       :manual:`DNS Seed List Connection Format </reference/connection-string/#dns-seed-list-connection-format>`
+       to use this option. Defaults to ``mongodb``.
+
 
 For a complete list of options, see the
 `ConnectionString <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__
