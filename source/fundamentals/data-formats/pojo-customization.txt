@@ -274,9 +274,9 @@ package:
 
    * - ``BsonCreator``
      - Marks a public constructor or a public static method as the creator for
-       new instances of the class. All parameters in the constructor must
-       be annotated with a ``BsonProperty``. You must use the annotation
-       values that you defined in the corresponding field declarations.
+       new instances of the class. You must annotate all parameters in the
+       constructor with ``BsonProperty`` with values that you defined in
+       the corresponding field declarations.
 
    * - ``BsonDiscriminator``
      - Specifies that a class uses a discriminator. You can set a custom
@@ -294,8 +294,8 @@ package:
 
    * - ``BsonProperty``
      - Specifies a custom document field name when converting the POJO
-       field to BSON. You can include a discriminator if you need one for
-       serializing nested POJOs.
+       field to BSON. You can include a discriminator to serialize POJOs
+       nested within the field.
 
 The following code snippet shows a sample POJO called ``Product`` that uses
 the preceding annotations.
