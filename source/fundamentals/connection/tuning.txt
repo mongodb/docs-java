@@ -160,20 +160,20 @@ storms. These include:
 - **maxConnecting**: The maximum number of connections to each server that
   the driver will concurrently establish before making them available in
   the connection pool.
-
+  |
   By keeping this option low, you reduce the risk temporary load spikes
   from  overwhelming the database.
 
 - **maxPoolSize**: The maximum number of connections in the connection pool. Beginning
   with a lower value is recommended to reduce the maximum pressure each server
   may experience from each connected client applications.
-
+  |
   Fewer overall connections in the pool means the database server has
   is using less resources maintaining connections.
 
 - **maxTime()**: The *cumulative* time limit for processing operations on
   a MongoDB server.
-
+  |
   Terminating long-running operations frees up resources on the server and
   hints that there may be underlying performance issues (like a lack of appropriate indexes).
 
