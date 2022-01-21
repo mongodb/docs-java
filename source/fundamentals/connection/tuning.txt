@@ -1,0 +1,254 @@
+==================
+Tuning Connections
+==================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+.. _connection-tuning-java:
+
+Overview
+--------
+
+In this guide, you can learn about **connection pools** and **connection storms**.
+
+Connection Pools
+----------------
+
+Connection pools are fundamental to the performance of your application.
+A **connection pool** is a cache of database connections maintained by the driver
+so that future requests can reuse already established connections.
+
+.. example::
+
+   Imagine you're with a group of friends at an event and make a phone
+   call to a friend that was unable to attend due to an illness. Each
+   person in the group would like to send their well-wishes. It is much
+   more efficient for you to make the phone call and then pass your phone
+   around to each friend instead of each individual making a separate
+   call one after the other.
+
+Basics
+++++++
+The driver establishes a connection pool **per connected server**. This means
+in a three member replica set, the driver maintains three connection pools,
+one for each member of the replica set. In a sharded deployment, the driver
+maintains one connection per ``mongos``.
+
+In MongoDB drivers, there are 4 key connection pool options:
+
+- ``minPoolSize``: The minimum number of connections that may be
+  associated with a pool at a given time, including in use and available
+  connections. The default is ``0``.
+
+- ``maxPoolSize``: The maximum number of connections that may be
+  associated with a pool at a given time, including in use and available
+  connections. The default is ``100``.
+
+- ``maxIdleTimeMS``: The maximum number of milliseconds that a connection
+  associated with a pool may be idle before being removed from the pool.
+  The default is ``0``, which indicates that idle connections are not
+  removed.
+
+- ``maxConnecting``: The maximum number of connections to each server that
+  the driver will concurrently establish before making them available in
+  the connection pool. The default is ``2``.
+
+
+The amount of connections in each pool depends on the ``minPoolSize``,
+``maxPoolSize`` and ``maxIdleTimeMS`` values.
+
+The driver begins to establish ``minPoolSize`` connections to each ``mongod/mongos``
+after it completes a successful monitoring check. The driver creates these connections ``maxConnecting``
+connections at a time. This happens in the background and is not blocking.
+
+.. example::
+
+   With a ``minPoolSize`` of **10**, the driver establishes 10 connections.
+   If each connection takes ~50 ms to establish, the driver establishes
+   all connections after ~250 ms. That is, 50 ms * 10 (the ``minPoolSize``)
+   / 2 (``maxConnecting``).
+
+
+Growth
+++++++
+
+.. note:: Server Monitoring
+
+   The driver establishes monitoring connections to continuously check
+   deployment health. These connections are not managed by the connection
+   pool.
+
+The driver establishes connections until ``minPoolSize`` connections are
+available in the connection pool. As the driver processes operations,
+connections are checked in and out. Operations that aren't immediately
+assigned a connection from the connection pool enter a wait queue, and
+are processed when a connection becomes available.
+
+If there are operations in the wait queue **and** the number of connections
+in the pool is less than the ``maxPoolSize``, the driver establishes connections
+to process queued operations, up to the ``maxPoolSize``.
+
+.. example::
+
+   Your ``minPoolSize`` is **4** and your ``maxPoolSize`` is **10**. In
+   response to a successful email campaign, thousands of users log in to
+   your application. The driver uses the four connections in the pool,
+   and places other operations in the wait queue.
+
+   In response to the wait queue growth, the driver establishes more
+   connections to process operations, ``maxConnecting`` at a time until the
+   connection pool reaches ``maxPoolSize`` connections.
+
+Operations that cause the driver to create a new connection will be processed
+on that new connection, once established. If the driver returns a connection
+to the connection to the pool during connection creation, the returned connection
+is available for other operations in the wait queue.
+
+Reduction
++++++++++
+
+Use ``maxIdleTimeMS`` to reduce the number of connections in the pool to
+reduce resource requirements both on the application and on the database
+machines. The driver has no default, but 30 minutes is a good starting point.
+
+Connection Storms
+-----------------
+
+A **connection storm** is an event in which application servers
+start an increasing number of connection requests, but the host server
+CPU is unable to schedule them.
+
+.. example::
+
+   Consider an application that uses MongoDB, and is served from an
+   auto scaling service. A sudden spike in traffic could cause the scaling
+   service to stand up many new application instances. This sudden burst
+   in application instances attempting to establish connections to MongoDB
+   is one example of a connection storm.
+
+Common Causes
++++++++++++++
+
+Common causes for connection storms in MongoDB include:
+
+- Incorrect application behavior
+- Network latency
+- Insufficient hardware for the workload
+- Failover events
+
+In MongoDB, connection storms can have multiple effects. For example:
+
+- The high volume of connection requests leads to latency in processing.
+- Replication connections between nodes may be blocked or slowed, so replication
+  operations cannot proceed.
+- Administrative connections to the database are blocked, preventing
+  a user from logging in.
+- Monitoring connections to the database are blocked, degrading visibility
+  into the problem.
+- CPU or memory oversubscription due to connection management can lead
+  to a ``mongod`` crashing and restarting. This extra workload on the server
+  can be exclusively attributed to connection handling.
+- In Atlas, connection requests can exceed instance class limits, causing
+  refusal of new connections.
+
+Avoid Connection Storms
+-----------------------
+
+While no universal solution exists as each problem is unique to a deployment,
+you can use a combination of settings and methods to help you avoid connection
+storms. These include:
+
+- **maxConnecting**: The maximum number of connections to each server that
+  the driver will concurrently establish before making them available in
+  the connection pool.
+
+- **maxPoolSize**: The maximum number of connections in the connection pool. Beginning
+  with a lower value is recommended to reduce the maximum pressure each server
+  may experience from each connected client applications.
+
+- **maxTime()**: The *cumulative* time limit for processing operations on
+  a MongoDB server.
+
+maxConnecting
++++++++++++++
+
+``maxConnecting`` specifies the maximum number of connections to each server that
+the driver will concurrently establish before making them available in
+the connection pool. The default is 2.
+
+.. important:: Start with Lower Values
+
+   Start with lower values for ``maxConnecting``. This helps to avoid bursts
+   in connections in response to a temporary increase in traffic.
+
+
+Do not confuse ``maxConnecting`` with ``maxPoolSize``, which specifies the
+maximum number of connections the driver can maintain in the connection pool.
+
+.. example::
+
+   Consider a failover scenario in a 3 member replica set with applications under
+   heavy load. Without ``maxConnecting``, ``maxPoolSize * application servers``
+   connections would be established. With default settings for ``maxPoolSize``
+   and 3 application servers, that would be 300 new connections, concurrently.
+
+   With ``maxConnecting`` set to 3, the new primary will receive
+   ``maxConnecting * application servers`` connections concurrently, or 9.
+
+Specify ``maxConnecting`` in your connection URI or with the
+`ConnectionPoolSettings.Builder maxConnecting() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxConnecting(int)>`__ method.
+
+maxPoolSize
++++++++++++
+
+:ref:`Properly sizing your connection pool <connection-pool-sizing-java>`
+helps you avoid the risk of connection storms by limiting the amount of
+connections any application can establish.
+
+Specify ``maxPoolSize`` in your connection URI or with the
+`ConnectionPoolSettings.Builder maxSize() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ConnectionPoolSettings.Builder.html#maxSize(int)>`__ method.
+
+maxTime()
++++++++++
+
+.. tip::
+
+   Use ``maxTime()`` to limit operation execution time. Do not use ``socketTimeoutMS``.
+
+``maxTime()`` specifies the *cumulative* time limit for processing operations
+in MongoDB. If an operation exceeds this limit, MongoDB terminates the
+operation.
+
+``maxTime()`` is available on the following classes:
+
+- `AggregateIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/AggregateIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `DistinctIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/DistinctIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `FindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `ListCollectionsIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ListCollectionsIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `ListDatabasesIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ListDatabasesIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `ListIndexesIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ListIndexesIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+- `GridFSFindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/gridfs/GridFSFindIterable.html#maxTime(long,java.util.concurrent.TimeUnit)>`__
+
+.. warning:: Do not use ``socketTimeoutMS`` to abort operations.
+
+   Some users have incorrectly used this option to try to abort operations
+   which run for too long and slow down other operations. Closing a socket
+   forces a reconnect, which slows all operations, and does not have any
+   impact on the operation that the developer is attempting to abort. MongoDB will continue
+   to process the operation, potentially causing errors if the driver attempts to
+   retry the operation.
+
+   ``socketTimeoutMS`` specifies the maximum time the driver will wait for socket reads.
+   The default is ``0``, meaning no timeout.
+
+   Setting this to a value that is too low results in **connection thrashing**,
+   where the socket is closed and removed from the connection pool, and a new
+   connection is initiated. For example, setting a timeout of 200 milliseconds
+   and issuing a query that takes 300 milliseconds to complete would result in
+   the socket being closed and a new connection being initiated.
+
