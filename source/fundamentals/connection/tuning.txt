@@ -53,10 +53,8 @@ In MongoDB drivers, there are 4 key connection pool options:
   The default is ``0``, which indicates that idle connections are not
   removed.
 
-- ``maxConnecting``: The maximum number of connections to each server that
-  the driver will concurrently establish before making them available in
-  the connection pool. The default is ``2``.
-
+- ``maxConnecting``: The maximum number of connections the driver can concurrently establish
+  to an individual server. The default is ``2``.
 
 The amount of connections in each pool depends on the ``minPoolSize``,
 ``maxPoolSize`` and ``maxIdleTimeMS`` values.
@@ -157,9 +155,8 @@ While no universal solution exists as each problem is unique to a deployment,
 you can use a combination of settings and methods to help you avoid connection
 storms. These include:
 
-- **maxConnecting**: The maximum number of connections to each server that
-  the driver will concurrently establish before making them available in
-  the connection pool.
+- **maxConnecting**: The maximum number of connections the driver can concurrently
+  establish to an individual server before making them available in the connection pool.
   |
   By keeping this option low, you reduce the risk temporary load spikes
   from  overwhelming the database.
