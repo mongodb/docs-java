@@ -18,9 +18,9 @@ In this guide, you can learn about **connection pools** and **connection storms*
 Connection Pools
 ----------------
 
-Connection pools are fundamental to the performance of your application.
-A **connection pool** is a cache of database connections maintained by the driver
-so that future requests can reuse already established connections.
+A **connection pool** is a cache of active database connections maintained by the
+driver. The driver uses connection pools to improve yoru application's performance
+by running your MongoDB operations on one of its already-established connections.
 
 .. example::
 
@@ -33,12 +33,13 @@ so that future requests can reuse already established connections.
 
 Basics
 ++++++
-The driver establishes a connection pool **per connected server**. This means
+
+The driver establishes one connection pool for each *connected server*. This means
 in a three member replica set, the driver maintains three connection pools,
 one for each member of the replica set. In a sharded deployment, the driver
 maintains one connection per ``mongos``.
 
-In MongoDB drivers, there are 4 key connection pool options:
+You can set the following connection pool options with the driver:
 
 - ``minPoolSize``: The minimum number of connections that may be
   associated with a pool at a given time, including in use and available
@@ -65,7 +66,7 @@ connections at a time. This happens in the background and is not blocking.
 
 .. example::
 
-   With a ``minPoolSize`` of **10**, the driver establishes 10 connections.
+   With a ``minPoolSize`` of :samp:`0`, and a value of :kbd:`100`, the driver establishes 10 connections.
    If each connection takes ~50 ms to establish, the driver establishes
    all connections after ~250 ms. That is, 50 ms * 10 (the ``minPoolSize``)
    / 2 (``maxConnecting``).
