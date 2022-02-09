@@ -4,7 +4,7 @@
        <dependency>
            <groupId>org.mongodb</groupId>
            <artifactId>bson</artifactId>
-           <version>{+bson-version+}</version>
+           <version>{+full-version+}</version>
        </dependency>
    </dependencies>
 

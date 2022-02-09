@@ -1,6 +1,6 @@
 .. code-block:: groovy
 
    dependencies {
-      compile 'org.mongodb:bson:{+bson-version+}'
+      compile 'org.mongodb:bson:{+full-version+}'
    }
 
