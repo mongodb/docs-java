@@ -29,10 +29,18 @@ New features of the 4.5 Java driver release include:
 - Added support for specifying custom service names of SRV resource
   records. See the ``srvServiceName`` setting in the :ref:`Connection
   Options <connection-options>` guide for more information.
-- Added support to customize UUID representation to in a registry using
+- Added support to customize UUID representation in a codec registry using
   the ``CodecRegistries.withUuidRepresentation()`` method.
 - Added support for overriding listener settings in ``ClusterSettings``,
-  ``ServerSettings`` and ``ConnectionPoolSettings`` builders.
+  ``ServerSettings`` and ``ConnectionPoolSettings`` builders. 
+- All events received by ``ClusterListener``, ``ServerListener``, and
+  ``ServerMonitorListener`` are now ordered when they are not shared across 
+  different instances of ``MongoClient``. 
+- Added ``EnumCodec``, ``EnumCodecProvider``, and
+  ``EnumPropertyCodecProvider`` classes to separate codec support for enum 
+  types from the ``PojoCodec`` class.
+- Resolved performance issues that impacted versions 4.4 and 4.3 of the
+  driver. Performance in this version should be similar to performance in 4.2.
 
 .. _version-4.4:
 
