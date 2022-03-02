@@ -60,10 +60,12 @@ The following example shows how you can specify the POJOs in a package named
 
 .. code-block:: java
    :copyable: true
-   :emphasize-lines: 7-8
+   :emphasize-lines: 9-10
 
    import org.bson.codecs.configuration.CodecProvider;
    import org.bson.codecs.configuration.CodecRegistry;
+   import org.bson.codecs.pojo.PojoCodecProvider;
+
    import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
    import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
    import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
@@ -648,42 +650,45 @@ see the following API Documentation:
 - `TypeWithTypeParameters <{+api+}/apidocs/bson/org/bson/codecs/pojo/TypeWithTypeParameters.html>`__
 
 For more information on generics and type parameters, see the
-:`Oracle documentation on Invoking and Instantiating a Generic Type <https://docs.oracle.com/javase/tutorial/java/generics/types.html#instantiation>`__.
+`Java language guide on Invoking and Instantiating a Generic Type <https://docs.oracle.com/javase/tutorial/java/generics/types.html#instantiation>`__.
 
 Enum Type Support
 ^^^^^^^^^^^^^^^^^
 
-The POJO ``Codec`` uses the ``enum`` constant name as the property value by
-default. The following code snippet shows a POJO that contains an ``enum``
-field:
+The ``PojoCodecProvder`` includes a codec to convert the ``enum`` property
+type field in your POJO. The codec uses the name of the ``enum`` as the
+property value by default.
 
-.. code-block:: java
+.. note::
 
-   public enum Family {
-       ADELIE,
-       EMPEROR,
-       GENTOO,
-       ROCKHOPPER
-   }
+   When using driver versions 4.5 and later, you can include the ``EnumCodec``
+   without the ``PojoCodecProvider``.
 
-   public class Penguin {
+The following code snippets show an example ``enum`` and POJO that contains
+that ``enum`` field:
 
-       private String name;
-       private Integer height;
-       private Family family;
+.. literalinclude:: /includes/fundamentals/code-snippets/codecs/Family.java
+   :language: java
+   :dedent:
+   :start-after: start familyEnum
+   :end-before: end familyEnum
 
-       // ...
-  }
+.. literalinclude:: /includes/fundamentals/code-snippets/codecs/Penguin.java
+   :language: java
+   :dedent:
+   :start-after: start penguinClass
+   :end-before: end penguinClass
 
-The following snippets show an example instantiation of the ``Penguin``
-class and the resulting document when using the default behavior of the
-``EnumCodec`` included in the ``PojoCodecProvider``:
+The following code example shows how you can set the registry and insert
+an instance of the ``Penguin`` POJO with an ``enum`` field:
 
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/codecs/EnumFieldPojo.java
+   :language: java
+   :dedent:
+   :start-after: start createPenguin
+   :end-before: end createPenguin
 
-   Penguin penguin = new Penguin("Robin", 51, ADELIE);
-
-The resulting document should look something like this:
+The resulting document should contain the following data:
 
 .. code-block:: json
    :copyable: false

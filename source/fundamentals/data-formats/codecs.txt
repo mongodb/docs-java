@@ -225,8 +225,46 @@ their behavior. See our
 :doc:`POJO Customization guide </fundamentals/data-formats/pojo-customization>`
 for more information.
 
-For more information about the classes and interfaces in this section, see the
-`CodecProvider <{+api+}/apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`__ API Documentation.
+.. _codecs-default-codec-registry:
+
+Default Codec Registry
+~~~~~~~~~~~~~~~~~~~~~~
+
+The default codec registry is a set of ``CodecProvider`` classes that
+specify conversion between commonly-used Java and MongoDB types.
+You can configure a ``CodecRegistry`` to use this set of ``CodecProvider``
+classes as shown in the following example:
+
+.. code-block:: java
+
+   // static imports
+   import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
+   import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
+   // Codec registry code
+   CodecRegistry myCodecRegistry = fromRegistries(getDefaultCodecRegistry());
+   MongoDatabase database = mongoClient.getDatabase("myDb").withCodecRegistry(myCodecRegistry);
+
+.. _codecs-overrride:
+
+If you need to override the behavior of a ``Codec`` for a type defined in
+the default codec registry, ensure that you place your custom ``Codec``
+registry after it or any other registry that contains a ``Codec`` for the same
+type. The following example shows a custom registry ordered after the default
+codec registry:
+
+.. code-block:: java
+
+   CodecRegistry newRegistry = CodecRegistries.fromRegistries(
+       MongoClientSettings.getDefaultCodecRegistry(),
+       new MyCodecRegistry());
+
+For more information about the classes and interfaces in this section, see
+the following API documentation sections:
+
+- `CodecProvider <{+api+}/apidocs/bson/org/bson/codecs/configuration/CodecProvider.html>`__
+- `DefaultCodecRegistry <{+api+}/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getDefaultCodecRegistry()>`__
+
 
 BsonTypeClassMap
 ----------------
