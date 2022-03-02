@@ -3,12 +3,13 @@ package fundamentals;
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
+// start penguinClass
 public class Penguin {
     private String name;
     private Integer height;
     private Family family;
     // ...
-
+// end penguinClass
     @BsonCreator
     public Penguin(@BsonProperty("name") String name, @BsonProperty("height") Integer height, @BsonProperty("family") Family family) {
         this.name = name;

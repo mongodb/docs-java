@@ -245,7 +245,7 @@ classes as shown in the following example:
    CodecRegistry myCodecRegistry = fromRegistries(getDefaultCodecRegistry());
    MongoDatabase database = mongoClient.getDatabase("myDb").withCodecRegistry(myCodecRegistry);
 
-.. _codecs-overrride:
+.. _codecs-override:
 
 If you need to override the behavior of a ``Codec`` for a type defined in
 the default codec registry, ensure that you place your custom ``Codec``
