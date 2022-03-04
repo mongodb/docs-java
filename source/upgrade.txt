@@ -1,0 +1,106 @@
+.. _java-upgrade-driver-api:
+
+==================================
+Upgrade from Older Driver Versions
+==================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+
+Overview
+--------
+
+You can use the information on this page to identify the changes you need
+to make to your application to transition from the Legacy API to the current 
+API.
+
+TODO: explain sections
+
+.. _java-breaking-changes:
+
+Breaking Changes
+----------------
+
+TODO:
+
+.. _java-upgrade-from-legacy:
+
+Upgrade from Legacy Versions
+----------------------------
+
+In order to upgrade from the Legacy driver, you must use the 
+
+to the Sync driver
+
+The following conventions changed
+
+.. list-table::
+   :header-rows: 1
+
+   * - Legacy
+     - Current
+
+   * - `MongoClientOptions <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
+     - `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
+
+   * - `new MongoClient() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
+     - `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create()>`__
+       
+   * - `MongoClient.getDB() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html#getDB(java.lang.String)>`__
+     - `MongoClient.getDatabase() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html#getDatabase(java.lang.String)>`__
+
+   * - `DB <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DB.html>`__
+     - `MongoDatabase <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html>`__
+
+   * - `DBCollection <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html>`__
+     - `MongoCollection<> <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html>`__
+
+   * - `DBCursor <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCursor.html>`__ 
+     - `MongoCursor <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html>`__
+       
+   * - `DBCollection.findOne() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#findOne()>`__
+     - | ``MongoCollection.find().first()``
+       |
+       | API documentation for the aforementioned methods:
+       |
+       | - `find() <{+api+}/apidocs/>mongodb-driver-sync/com/mongodb/client/MongoCollection.html#find()>`__
+       | - `first() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`__
+       
+   * - `DBCollection.insert() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#insert(com.mongodb.DBObject...)>`__
+     - | Use one of the following methods:
+       |
+       | - `MongoCollection.insertOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertOne(TDocument)>`__
+       | - `MongoCollection.insertMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertMany(java.util.List)>`__
+        
+   * - `DBCollection.update() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#update(com.mongodb.DBObject,com.mongodb.DBObject)>`__
+
+     - | Use one of the following methods:
+       |
+       | - `MongoCollection.updateOne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
+       | - `MongoCollection.updateMany() <{+api+}/apidocs/>mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
+
+   * - `DBCollection.remove() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#remove(com.mongodb.DBObject)>`__
+     - | Use one of the following methods:
+       |
+       | - `MongoCollection.deleteOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__ 
+       | - `MongoCollection.deleteMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__
+
+   * - `DBCollection.count() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#count()>`__
+     - | Use one of the following methods:
+       |
+       | - `MongoCollection.countDocuments() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#countDocuments()>`__
+       | - `MongoCollection.estimatedDocumentCount() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#estimatedDocumentCount()>`__
+
+   * - `DBCollection.findAndModify() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#findAndModify(com.mongodb.DBObject,com.mongodb.client.model.DBCollectionFindAndModifyOptions)>`__
+     - | Use one of the following methods:
+       |
+       | - `MongoCollection.findOneAndUpdate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
+       | - `MongoCollection.findOneAndReplace() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndReplace(org.bson.conversions.Bson,TDocument)>`__
+       | - `MongoCollection.findOneAndDelete() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>`__
+
