@@ -94,7 +94,6 @@ parameters of the connection URI to specify the behavior of the client.
 
        | **Default**: ``false``
 
-
    * - **tlsAllowInvalidHostnames**
      - boolean
      - Specifies that the driver should allow invalid hostnames in the
@@ -182,7 +181,6 @@ parameters of the connection URI to specify the behavior of the client.
 
        | **Default**: ``null``
 
-
    * - **maxStalenessSeconds**
      - integer
      - Specifies, in seconds, how stale a secondary can be before the
@@ -193,8 +191,7 @@ parameters of the connection URI to specify the behavior of the client.
        is greater. For more information, see the server documentation for the
        :manual:`maxStalenessSeconds option </reference/connection-string/#urioption.maxStalenessSeconds>`.
 
-       | **Default**: ``-1``
-
+       | **Default**: ``-1`` (no staleness check)
 
    * - **authMechanism**
      - string
@@ -225,7 +222,6 @@ parameters of the connection URI to specify the behavior of the client.
 
        | **Default**: ``null``
 
-
    * - **appName**
      - string
      - Specifies the name of the application provided to MongoDB instances
@@ -233,7 +229,6 @@ parameters of the connection URI to specify the behavior of the client.
        profiling.
 
        | **Default**: ``null``
-
 
    * - **compressors**
      - string
@@ -244,7 +239,6 @@ parameters of the connection URI to specify the behavior of the client.
 
        | **Default**: ``null``
 
-
    * - **zlibCompressionLevel**
      - integer
      - Specifies the degree of compression that `Zlib <https://zlib.net/>`__
@@ -254,7 +248,6 @@ parameters of the connection URI to specify the behavior of the client.
        compressing slower (but resulting in smaller requests).
 
        | **Default**: ``null``
-
 
    * - **retryWrites**
      - boolean
@@ -271,7 +264,6 @@ parameters of the connection URI to specify the behavior of the client.
 
        | **Default**: ``true``
 
-
    * - **uuidRepresentation**
      - string
      - Specifies the UUID representation to use for read and write
@@ -286,7 +278,6 @@ parameters of the connection URI to specify the behavior of the client.
      - Specifies that the driver must connect to the host directly.
 
        | **Default**: ``false``
-
 
    * - **maxConnecting**
      - integer
