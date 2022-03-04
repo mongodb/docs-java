@@ -119,7 +119,7 @@ parameters of the connection URI to specify the behavior of the client.
        A value of ``0`` instructs the driver to never time out while waiting
        to send or receive a request.
 
-       | **Default**: ``0``
+       | **Default**: ``0`` (never times out)
 
 
    * - **maxIdleTimeMS**
@@ -129,7 +129,7 @@ parameters of the connection URI to specify the behavior of the client.
        connection. A value of ``0`` indicates that there is no upper bound
        on how long the driver can allow a pooled collection to be idle.
 
-       | **Default**: ``0``
+       | **Default**: ``0`` (no limit)
 
 
    * - **maxLifeTimeMS**
@@ -139,7 +139,7 @@ parameters of the connection URI to specify the behavior of the client.
        connection. A value of ``0`` indicates that there is no upper bound
        on how long the driver can keep a pooled connection open.
 
-       | **Default**: ``0``
+       | **Default**: ``0`` (no limit)
 
    * - **journal**
      - boolean
@@ -163,7 +163,7 @@ parameters of the connection URI to specify the behavior of the client.
        :manual:`wtimeoutMS option </reference/connection-string/#write-concern-options>`.
        A value of ``0`` instructs the driver to never time out write operations.
 
-       | **Default**: ``0``
+       | **Default**: ``0`` (never times out)
 
 
    * - **readPreference**
