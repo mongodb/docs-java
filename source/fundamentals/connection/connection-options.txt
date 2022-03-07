@@ -35,7 +35,7 @@ parameters of the connection URI to specify the behavior of the client.
      - Specifies the maximum amount of time, in milliseconds that a
        thread may wait for a connection to become available.
 
-       | **Default**: ``120000`` (2 minutes)
+       | **Default**: ``120000`` (120 seconds)
 
    * - **serverSelectionTimeoutMS**
      - integer
@@ -52,7 +52,7 @@ parameters of the connection URI to specify the behavior of the client.
        response time is less than or equal to the server with the fastest
        response time plus the local threshold, in milliseconds.
 
-       | **Default**: ``15`` (15 milliseconds)
+       | **Default**: ``15``
 
    * - **heartbeatFrequencyMS**
      - integer
@@ -118,8 +118,7 @@ parameters of the connection URI to specify the behavior of the client.
        A value of ``0`` instructs the driver to never time out while waiting
        to send or receive a request.
 
-       | **Default**: ``0`` (never times out)
-
+       | **Default**: ``0``
 
    * - **maxIdleTimeMS**
      - integer
@@ -128,8 +127,7 @@ parameters of the connection URI to specify the behavior of the client.
        connection. A value of ``0`` indicates that there is no upper bound
        on how long the driver can allow a pooled collection to be idle.
 
-       | **Default**: ``0`` (no limit)
-
+       | **Default**: ``0``
 
    * - **maxLifeTimeMS**
      - integer
@@ -138,7 +136,7 @@ parameters of the connection URI to specify the behavior of the client.
        connection. A value of ``0`` indicates that there is no upper bound
        on how long the driver can keep a pooled connection open.
 
-       | **Default**: ``0`` (no limit)
+       | **Default**: ``0``
 
    * - **journal**
      - boolean
@@ -162,8 +160,7 @@ parameters of the connection URI to specify the behavior of the client.
        :manual:`wtimeoutMS option </reference/connection-string/#write-concern-options>`.
        A value of ``0`` instructs the driver to never time out write operations.
 
-       | **Default**: ``0`` (never times out)
-
+       | **Default**: ``0``
 
    * - **readPreference**
      - string
@@ -184,14 +181,14 @@ parameters of the connection URI to specify the behavior of the client.
    * - **maxStalenessSeconds**
      - integer
      - Specifies, in seconds, how stale a secondary can be before the
-       driver stops communicating with that secondary. Not providing
-       a parameter or explicitly setting it to ``-1`` indicates that there
-       should be no staleness check for secondaries. The minimum value is
+       driver stops communicating with that secondary. The minimum value is
        either 90 seconds or the heartbeat frequency plus 10 seconds, whichever
        is greater. For more information, see the server documentation for the
        :manual:`maxStalenessSeconds option </reference/connection-string/#urioption.maxStalenessSeconds>`.
+       Not providing a parameter or explicitly specifying ``-1`` indicates
+       that there should be no staleness check for secondaries.
 
-       | **Default**: ``-1`` (no staleness check)
+       | **Default**: ``-1``
 
    * - **authMechanism**
      - string
