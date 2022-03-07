@@ -235,10 +235,12 @@ specify conversion between commonly-used Java and MongoDB types. The
 driver automatically uses the default codec registry unless you specify
 a different one.
 
+.. _codecs-override:
+
 If you need to override the behavior of one or more ``Codec`` classes, but
 keep the behavior from the default codec registry for the other classes,
 you can specify all of the registries in order of precedence. For example,
-if you wanted to override the default provider behavior of a ``Codec`` for
+suppose you wanted to override the default provider behavior of a ``Codec`` for
 enum types with your custom ``MyEnumCodec``, you must add it to the registry
 list prior to the default codec registry as shown in the example below:
 
