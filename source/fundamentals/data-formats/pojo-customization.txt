@@ -656,9 +656,10 @@ Enum Type Support
 ^^^^^^^^^^^^^^^^^
 
 In driver versions 4.5 and later, the ``PojoCodecProvider`` no longer
-includes a codec to convert ``enum`` types. Use the default codec registry
-or another registry that includes a codec for ``enum`` types.
+includes a codec to convert ``enum`` types. Ensure that you register
+a codec for ``enum`` types if you need one, such as the one in the default
+codec registry.
 
 See the documentation on the :ref:`default codec registry <codecs-default-codec-registry>`
-for more information on how to use it.
+for more information on how to register the codecs it includes.
 
