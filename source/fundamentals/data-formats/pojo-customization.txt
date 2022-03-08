@@ -655,47 +655,10 @@ For more information on generics and type parameters, see the
 Enum Type Support
 ^^^^^^^^^^^^^^^^^
 
-The ``PojoCodecProvider`` includes a codec to convert the ``enum`` property
-type field in your POJO. The codec uses the name of the ``enum`` as the
-property value by default.
+In driver versions 4.5 and later, the ``PojoCodecProvider`` no longer
+includes a codec to convert ``enum`` types. Use the default codec registry
+or another registry that includes a codec for ``enum`` types.
 
-.. note::
+See the documentation on the :ref:`default codec registry <codecs-default-codec-registry>`
+for more information on how to use it.
 
-   When using driver versions 4.5 and later, you can include the ``EnumCodec``
-   without the ``PojoCodecProvider``.
-
-The following code snippets show an example ``enum`` and POJO that contains
-that ``enum`` field:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/codecs/Family.java
-   :language: java
-   :dedent:
-   :start-after: start familyEnum
-   :end-before: end familyEnum
-
-.. literalinclude:: /includes/fundamentals/code-snippets/codecs/Penguin.java
-   :language: java
-   :dedent:
-   :emphasize-lines: 4
-   :start-after: start penguinClass
-   :end-before: end penguinClass
-
-The following code example shows how you can set the registry and insert
-an instance of the ``Penguin`` POJO with an ``enum`` field:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/codecs/EnumFieldPojo.java
-   :language: java
-   :dedent:
-   :start-after: start createPenguin
-   :end-before: end createPenguin
-
-The resulting document should contain the following data:
-
-.. code-block:: json
-   :copyable: false
-
-   { name: "Robin", height: 51, Family: "ADELIE" }
-
-If you need to customize the data conversion, create your own class that
-implements the ``Codec`` interface and its methods. Remember to register
-your custom ``Codec`` class in your ``CodecRegistry``.
