@@ -18,8 +18,7 @@ Overview
 
 In this section, you can identify the changes you need to make to your
 application to upgrade your driver to a new version or to transition from
-the Legacy API to the current API.
-
+the legacy API to the current API.
 
 When you upgrade your driver version or use multiple versions of the
 driver, if there are any breaking changes between the two versions that you
@@ -37,10 +36,10 @@ section, you may encounter one or more of the following issues:
    well as the version of the Java Runtime Environment (JRE) your application
    runs on.
 
-When you transition from the Legacy API to the current API, if you use any
+When you transition from the legacy API to the current API, if you use any
 of the methods or classes listed in the :ref:`Upgrade from the Legacy API <java-upgrade-from-legacy>`
 section, you need to update them to use the current methods or classes before
-removing the Legacy API from your dependencies.
+removing the legacy API from your dependencies.
 
 In addition to updating your application to handle any necessary changes,
 always check for any other differences in options and return values before
@@ -85,7 +84,7 @@ Version 4.2 Breaking Changes
 Upgrade from the Legacy API
 ---------------------------
 
-In order to upgrade from the Legacy API, packaged as the ``driver-legacy``
+In order to upgrade from the legacy API, packaged as the ``driver-legacy``
 JAR, to the current API, packaged as the ``driver-sync`` JAR, you must
 update the following references to classes and methods:
 
