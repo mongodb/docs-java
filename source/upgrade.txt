@@ -16,14 +16,14 @@ Upgrade Driver Versions
 Overview
 --------
 
-In this section, you can identify the changes you need to make to your 
-application to upgrade your driver to a new version or to transition from 
+In this section, you can identify the changes you need to make to your
+application to upgrade your driver to a new version or to transition from
 the Legacy API to the current API.
 
 
 When you upgrade your driver version or use multiple versions of the
-driver, if there are any breaking changes between the two versions that you 
-have not addressed in the :ref:`Breaking Changes <java-breaking-changes>` 
+driver, if there are any breaking changes between the two versions that you
+have not addressed in the :ref:`Breaking Changes <java-breaking-changes>`
 section, you may encounter one or more of the following issues:
 
 - Your application may not compile.
@@ -33,23 +33,23 @@ section, you may encounter one or more of the following issues:
 .. note::
 
    Before upgrading driver versions, check the :ref:`Java Compatibility <java-compatibility-tables>`
-   page to ensure the new version is compatible with the version of MongoDB as 
-   well as the version of the Java Runtime Enviroment (JRE) your application
-   runs on. 
+   page to ensure the new version is compatible with the version of MongoDB as
+   well as the version of the Java Runtime Environment (JRE) your application
+   runs on.
 
 When you transition from the Legacy API to the current API, if you use any
-of the methods or classes listed in the :ref:`Upgrade from the Legacy API <java-upgrade-from-legacy>` 
-section, you need to update them to use the current methods or classes before 
-removing the Legacy API from your dependencies. 
+of the methods or classes listed in the :ref:`Upgrade from the Legacy API <java-upgrade-from-legacy>`
+section, you need to update them to use the current methods or classes before
+removing the Legacy API from your dependencies.
 
-In addition to updating your application to handle any necessary changes, 
-always check for any other differences in options and return values before 
+In addition to updating your application to handle any necessary changes,
+always check for any other differences in options and return values before
 moving it to production.
 
 .. note::
 
    To minimize the amount of changes your application may need when
-   upgrading driver versions in the future, use the 
+   upgrading driver versions in the future, use the
    :ref:`{+stable-api+} <stable-api-java>`.
 
 .. _java-breaking-changes:
@@ -57,13 +57,13 @@ moving it to production.
 Breaking Changes
 ----------------
 
-The breaking changes in this section are categorized by the driver version that 
-introduced them. 
+The breaking changes in this section are categorized by the driver version that
+introduced them.
 
-If you are upgrading or have multiple applications that share data that use 
-different driver versions, address any of the breaking changes between the two 
-versions, including ones in the later version. For example, if you are 
-upgrading the driver from v4.0 to v4.5, address all breaking changes from 
+If you are upgrading or have multiple applications that share data that use
+different driver versions, address any of the breaking changes between the two
+versions, including ones in the later version. For example, if you are
+upgrading the driver from v4.0 to v4.5, address all breaking changes from
 the version after v4.0 including any listed under v4.5.
 
 .. _java-breaking-changes-v4.2:
@@ -74,11 +74,11 @@ Version 4.2 Breaking Changes
 - The ``ObjectId`` class and associated ``serialVersionUID`` was updated
   to use new format that minimizes serialization compatibility issues
   across different versions of the driver.
-  
+
   Any objects that include the ``ObjectId``, serialized with an older version
   of the driver are not compatible and the driver throws an exception when
   it encounters them.
-  
+
 
 .. _java-upgrade-from-legacy:
 
