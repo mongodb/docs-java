@@ -50,7 +50,7 @@ public class MongoDbAwsAuth {
     private static void mongoCredentialSessionTokenConnString() {
         // start mongoCredentialSessionTokenConnString
         MongoCredential credential = MongoCredential.createAwsCredential("<awsKeyId>", "<awsSecretKey>".toCharArray());
-        ConnectionString connectionString = new ConnectionString("mongodb://<hostname>:<port>/?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
+        ConnectionString connectionString = new ConnectionString("mongodb://<atlasUri>/?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
 
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
@@ -63,7 +63,7 @@ public class MongoDbAwsAuth {
     private static void mongoCredentialSessionTokenCredential() {
         // start mongoCredentialSessionTokenCredential
         MongoCredential credential = MongoCredential.createAwsCredential("<awsKeyId>", "<awsSecretKey>".toCharArray()).withMechanismProperty("AWS_SESSION_TOKEN",  "<awsSessionToken>");
-        ConnectionString connectionString = new ConnectionString("mongodb://<hostname>:<port>/?authMechanism=MONGODB-AWS");
+        ConnectionString connectionString = new ConnectionString("mongodb://<atlasUri>/?authMechanism=MONGODB-AWS");
 
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
