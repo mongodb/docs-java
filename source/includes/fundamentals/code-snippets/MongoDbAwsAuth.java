@@ -15,9 +15,9 @@ public class MongoDbAwsAuth {
     // Placeholder functions
 
     private static void encodeText() throws UnsupportedEncodingException {
-        // start uriEncode
+        // start urlEncode
         String encodedField = java.net.URLEncoder.encode("<fieldValue>".toString(), "ISO-8859-1");
-        // start uriEncode
+        // end urlEncode
     }
     private static void connectionString() {
         // start connectionString

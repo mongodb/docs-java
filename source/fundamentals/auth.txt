@@ -269,8 +269,8 @@ using the following placeholders:
    .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
       :language: java
       :dedent:
-      :start-after: start uriEncode
-      :end-before: end uriEncode
+      :start-after: start urlEncode
+      :end-before: end urlEncode
 
 Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
 tab below for instructions and sample code for specifying this authentication
@@ -285,7 +285,6 @@ mechanism:
       connection string, assign the ``authMechanism`` parameter the value
       ``"MONGODB-AWS"`` in your connection string. Your code to instantiate
       a ``MongoClient`` should look something like this:
-
 
       .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
          :language: java
@@ -365,24 +364,12 @@ Refresh Credentials
 The driver supports refreshing credentials for cases such as assuming roles
 or using `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html>`__.
 
-
-.. code-block:: java
+.. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
+   :language: java
+   :dedent:
+   :start-after: start refreshCredentials
+   :end-before: end refreshCredentials
    :emphasize-lines: 3-4, 8
-
-   Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
-       // Code to fetch fresh credentials, such as assuming a role using the AWS SDK.
-       // Ensure you return the temporary credentials.
-       return new AwsCredential("<accessKeyId>", "<secretAccessKey>", "<sessionToken>");
-   };
-
-   MongoCredential credential = MongoCredential.createAwsCredential(null, null)
-                   .withMechanismProperty(MongoCredential.AWS_CREDENTIAL_PROVIDER_KEY, awsFreshCredentialSupplier);
-   MongoClient mongoClient = MongoClients.create(
-           MongoClientSettings.builder()
-                   .applyToClusterSettings(builder ->
-                           builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", 27017))))
-                   .credential(credential)
-                   .build());
 
 .. _x509-auth-mechanism:
 
