@@ -6,7 +6,7 @@ FAQ
 
 .. contents:: On this page
    :local:
-   :backlinks: none
+   :clunks: none
    :depth: 2
    :class: singlecol
 
@@ -120,7 +120,7 @@ Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
 
 Yes, you can build your own codec for this class and add it to the registry. 
 
-Add the codec to the top your registry before the ``DefaultCodecRegister``
+Add the codec to the top your registry before the default codec registry
 and before the ``PojoCodecProvider``: 
 
 .. code-block:: java
