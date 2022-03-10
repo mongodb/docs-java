@@ -2,7 +2,10 @@ package other;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.function.Supplier;
 
+import com.mongodb.AwsCredential;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
@@ -69,7 +72,27 @@ public class MongoDbAwsAuth {
                 .build());
         // end mongoCredentialSessionTokenCredential
     }
-    
-    
+
+    private static void refreshCredentials() {
+        
+        // start refreshCredentials
+        Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
+            // Add your code to fetch new credentials, such as assuming a role using the AWS SDK.
+            
+            // Ensure you return the temporary credentials.
+            return new AwsCredential("<awsKeyId>", "<awsSecretKey>", "<awsSessionToken>");
+        };
+
+        MongoCredential credential = MongoCredential.createAwsCredential(null, null)
+                .withMechanismProperty(MongoCredential.AWS_CREDENTIAL_PROVIDER_KEY, awsFreshCredentialSupplier);
+        MongoClient mongoClient = MongoClients.create(
+                MongoClientSettings.builder()
+                .applyToClusterSettings(builder ->
+                builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", 27017))))
+                .credential(credential)
+                .build());
+        // end refreshCredentials
+
+    }
     public static void main(String[] args) { }
 }
