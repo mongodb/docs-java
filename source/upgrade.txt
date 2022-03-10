@@ -45,7 +45,7 @@ In addition to updating your application to handle any necessary changes,
 always check for any other differences in options and return values before
 moving it to production.
 
-.. note::
+.. tip::
 
    To minimize the amount of changes your application may need when
    upgrading driver versions in the future, use the
@@ -59,10 +59,10 @@ Breaking Changes
 The breaking changes in this section are categorized by the driver version that
 introduced them.
 
-If you are upgrading or have multiple applications that share data that use
-different driver versions, address any of the breaking changes between the two
-versions, including ones in the later version. For example, if you are
-upgrading the driver from v4.0 to v4.5, address all breaking changes from
+If you are either upgrading the driver versin in your application or plan
+to run multiple applciations that use different driver versions, address
+any of the breaking changes between the two versions. For example, if you
+are upgrading the driver from v4.0 to v4.5, address all breaking changes from
 the version after v4.0 including any listed under v4.5.
 
 .. _java-breaking-changes-v4.2:
@@ -70,14 +70,14 @@ the version after v4.0 including any listed under v4.5.
 Version 4.2 Breaking Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- The ``ObjectId`` class and associated ``serialVersionUID`` was updated
-  to use new format that minimizes serialization compatibility issues
+- The ``ObjectId`` class and associated ``serialVersionUID`` were updated
+  to use a new format that minimizes serialization compatibility issues
   across different versions of the driver.
 
-  Any objects that include the ``ObjectId``, serialized with an older version
-  of the driver are not compatible and the driver throws an exception when
-  it encounters them.
-
+  Any objects that include an ``ObjectId`` field that were serialized with an
+  older version of the driver are not deserializable by this driver version
+  and later. When the driver encounters an incompatible format, it throws an
+  exception.
 
 .. _java-upgrade-from-legacy:
 
