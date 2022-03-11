@@ -17,37 +17,22 @@ Overview
 --------
 
 In this section, you can identify the changes you need to make to your
-application to upgrade your driver to a new version or to transition from
-the legacy API to the current API.
+application to upgrade your driver to a new version.
 
-When you upgrade your driver version or use multiple versions of the
-driver, if there are any breaking changes between them that you have not
-addressed in the :ref:`Breaking Changes <java-breaking-changes>` section,
-you may encounter one or more of the following issues:
+Before you upgrade, perform the following actions:
 
-- Your application may not compile.
-- Your application may not be compatible with data that originated from an
-  application that uses another version of the driver.
-
-.. note::
-
-   Before upgrading driver versions, check the :ref:`Java Compatibility <java-compatibility-tables>`
-   page to ensure the new version is compatible with the version of MongoDB as
-   well as the version of the Java Runtime Environment (JRE) your application
-   runs on.
-
-When you transition from the legacy API to the current API, if you use any
-of the methods or classes listed in the :ref:`Upgrade from the Legacy API <java-upgrade-from-legacy>`
-section, you need to update them to use the current methods or classes before
-removing the legacy API from your dependencies.
-
-In addition to updating your application to handle any necessary changes,
-always check for any other differences in options and return values before
-moving it to production.
+- Ensure the new version is compatible of with the MongoDB server versions
+  your application connects to and the Java Runtime Environment (JRE) your
+  application runs on. See the :ref:`Java Compatibility <java-compatibility-tables>`
+  page for this information.
+- Address any breaking changes between the current version of the driver
+  your application is using and your planned upgrade version. See the
+  section on :ref:`Breaking Changes <java-breaking-changes>` for a list of
+  breaking changes by driver version.
 
 .. tip::
 
-   To minimize the amount of changes your application may need when
+   To minimize the amount of changes your application may require when
    upgrading driver versions in the future, use the
    :ref:`{+stable-api+} <stable-api-java>`.
 
@@ -56,12 +41,13 @@ moving it to production.
 Breaking Changes
 ----------------
 
-The breaking changes in this section are categorized by the driver version that
-introduced them.
+A breaking change is a modification in a convention or behavior in
+a specific version of the driver that may prevent your application from
+working properly if not addressed before upgrading.
 
-If you are either upgrading the driver version in your application or plan
-to run multiple applications that use different driver versions, address
-any of the breaking changes between the two versions. For example, if you
+The breaking changes in this section are categorized by the driver version that
+introduced them. When upgrading driver versions, address all the breaking
+changes between the current and upgrade versions. For example, if you
 are upgrading the driver from v4.0 to v4.5, address all breaking changes from
 the version after v4.0 including any listed under v4.5.
 
@@ -79,78 +65,45 @@ Version 4.2 Breaking Changes
   and later. When the driver encounters an incompatible format, it throws an
   exception.
 
-.. _java-upgrade-from-legacy:
+.. _java-breaking-changes-v4.0:
 
-Upgrade from the Legacy API
----------------------------
+Version 4.0 Breaking Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In order to upgrade from the legacy API, packaged as the ``driver-legacy``
-JAR, to the current API, packaged as the ``driver-sync`` JAR, you must
-update the following references to classes and methods:
-
-.. list-table::
-   :header-rows: 1
-   :widths: 50 50
-   :class: compatibility-large
-
-   * - Legacy
-     - Current
-
-   * - `MongoClientOptions <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
-     - `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
-
-   * - `new MongoClient() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
-     - `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create()>`__
-
-   * - `MongoClient.getDB() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html#getDB(java.lang.String)>`__
-     - `MongoClient.getDatabase() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html#getDatabase(java.lang.String)>`__
-
-   * - `DB <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DB.html>`__
-     - `MongoDatabase <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html>`__
-
-   * - `DBCollection <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html>`__
-     - `MongoCollection<> <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html>`__
-
-   * - `DBCursor <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCursor.html>`__
-     - `MongoCursor <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCursor.html>`__
-
-   * - `DBCollection.findOne() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#findOne()>`__
-     - | ``MongoCollection.find().first()``
-       |
-       | See the following API documentation pages for these methods:
-
-       - `find() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#find()>`__
-       - `first() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`__
-
-   * - `DBCollection.insert() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#insert(com.mongodb.DBObject...)>`__
-     - Use one of the following methods:
-
-       - `MongoCollection.insertOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertOne(TDocument)>`__
-       - `MongoCollection.insertMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertMany(java.util.List)>`__
-
-   * - `DBCollection.update() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#update(com.mongodb.DBObject,com.mongodb.DBObject)>`__
-     - Use one of the following methods:
-
-       - `MongoCollection.updateOne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
-       - `MongoCollection.updateMany() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
-
-   * - `DBCollection.remove() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#remove(com.mongodb.DBObject)>`__
-     - Use one of the following methods:
-
-       - `MongoCollection.deleteOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__
-       - `MongoCollection.deleteMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__
-
-   * - `DBCollection.count() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#count()>`__
-     - Use one of the following methods:
-
-       - `MongoCollection.countDocuments() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#countDocuments()>`__
-       - `MongoCollection.estimatedDocumentCount() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#estimatedDocumentCount()>`__
-
-   * - `DBCollection.findAndModify() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#findAndModify(com.mongodb.DBObject,com.mongodb.client.model.DBCollectionFindAndModifyOptions)>`__
-     - Use one of the following methods:
-
-       - `MongoCollection.findOneAndUpdate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
-       - `MongoCollection.findOneAndReplace() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndReplace(org.bson.conversions.Bson,TDocument)>`__
-       - `MongoCollection.findOneAndDelete() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>`__
-
+- Several classes and methods marked as deprecated in the 3.12 release
+  were removed in this version.
+- The insert helper methods return an insert result object instead of
+  ``void``.
+- The ``toJson()`` methods on ``BsonDocument``, ``Document``, and
+  ``DbObject`` return a relaxed JSON format instead of a strict JSON
+  format. This makes the JSON documents more readable, but can make it more
+  difficult to identify the BSON type information, such as the difference
+  between a 32-bit and 64-bit integer.
+- The default BSON representation of ``java.util.UUID`` value was changed
+  from ``JAVA_LEGACY`` to ``UNSPECIFIED``. Applications that store or retrieve
+  UUID values must explicitly specify which representation to use. You can
+  specify the representation in the ``uidRepresentation`` property of
+  ``MongoClientSettings``.
+- The connection pool no longer restricts the number of wait queue threads
+  or asynchronous tasks that require a connection to MongoDB. The
+  application should throttle requests as necessary rather than depend on
+  the driver to throw a ``MongoWaitQueueFullException``.
+- The driver no longer logs using the ``java.util.logging`` (JUL) package
+  and only supports the SLF4J logging framework.
+- The embedded and Android drivers were removed. If your application
+  relies on these drivers, you must continue to use a 3.x Java driver
+  version.
+- The uber JARs, ``mongo-java-driver`` and ``mongodb-driver``, are no
+  longer published. If your application relies on one of these, you must
+  switch to either ``mongodb-driver-sync`` or ``mongodb-driver-legacy``
+  depending on which API the application uses. Make sure you remove the
+  uber JARs from your dependencies.
+- The mongo-java-driver and mongodb-driver “uber-jars” are no longer published.
+  Applications that reference either of these artifacts must switch to either
+  mongodb-driver-sync or mongodb-driver-legacy, depending on which API is
+  being used. Care should be taken to ensure that neither of the uber-jars are included via a transitive dependency, as that could introduce versioning conflicts.
+- Updates to several classes introduced binary compatibility breaks, such
+  as the method signature change to the insert helper methods. Recompile
+  any classes that link to the driver against this version or later to ensure
+  that they continue to work.
 
