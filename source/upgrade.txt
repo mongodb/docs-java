@@ -26,9 +26,8 @@ Before you upgrade, perform the following actions:
   application runs on. See the :ref:`Java Compatibility <java-compatibility-tables>`
   page for this information.
 - Address any breaking changes between the current version of the driver
-  your application is using and your planned upgrade version. See the
-  section on :ref:`Breaking Changes <java-breaking-changes>` for a list of
-  breaking changes by driver version.
+  your application is using and your planned upgrade version in the
+  section on :ref:`Breaking Changes <java-breaking-changes>` below.
 
 .. tip::
 
@@ -98,10 +97,6 @@ Version 4.0 Breaking Changes
   switch to either ``mongodb-driver-sync`` or ``mongodb-driver-legacy``
   depending on which API the application uses. Make sure you remove the
   uber JARs from your dependencies.
-- The mongo-java-driver and mongodb-driver “uber-jars” are no longer published.
-  Applications that reference either of these artifacts must switch to either
-  mongodb-driver-sync or mongodb-driver-legacy, depending on which API is
-  being used. Care should be taken to ensure that neither of the uber-jars are included via a transitive dependency, as that could introduce versioning conflicts.
 - Updates to several classes introduced binary compatibility breaks, such
   as the method signature change to the insert helper methods. Recompile
   any classes that link to the driver against this version or later to ensure
