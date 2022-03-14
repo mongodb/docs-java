@@ -28,17 +28,14 @@ current synchronous Java driver. It features the ``MongoCollection``
 interface as an entry point to CRUD operations. It does not contain the
 legacy API.
 
-To perform a migration from the legacy API to the current one, replace all
-references to legacy API methods and
-classes with the equivalent ones in the current API. Then, replace the
-legacy API and any uber JAR that contains it from your application
-dependencies.
+To perform a migration from the legacy API to the current API, ensure your
+code no longer references the legacy API, updating your code when necessary.
+Then, replace the legacy API and any uber JAR that contains it with the
+current API JAR in your application dependencies.
 
 In addition to updating your application to handle any necessary changes,
 always check for any other differences in options and return values before
 moving it to production.
-
-You can migrate from the legacy API to the current API without If you plan to upgrade versions of your driver,
 
 API Changes
 -----------
