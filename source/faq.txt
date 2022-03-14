@@ -13,22 +13,22 @@ FAQ
 General
 -------
 
-Why are there two types of ``MongoClient`` in the Java driver? 
+Why are there two types of ``MongoClient`` in the Java driver?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are two types of ``MongoClient`` because we wanted a cleaner API
 for new users that didn't have the confusion of including multiple CRUD
 APIs. We wanted to ensure that the new CRUD API was available in a Java
 package structure that would work well with Java module support
-introduced in Java 9. 
+introduced in Java 9.
 
 Which type of ``MongoClient`` should I use?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 New applications should generally use the
-``com.mongodb.client.MongoClient`` interface, which supports: 
+``com.mongodb.client.MongoClient`` interface, which supports:
 
-- Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create instances of this interface via factory methods defined in the ``com.mongodb.client.MongoClients`` class. 
+- Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create instances of this interface via factory methods defined in the ``com.mongodb.client.MongoClients`` class.
 - CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``
 
 You should use the ``com.mongodb.MongoClient`` class if you require support for the legacy API, which supports:
@@ -36,7 +36,7 @@ You should use the ``com.mongodb.MongoClient`` class if you require support for 
 - Configuration with ``MongoClientOptions`` and ``MongoClientURI``
 - CRUD API using ``DB``, and from there, ``DBCollection``.  You can access this API via the ``getDB()`` method.
 
-For applications that require a mix of the new and legacy APIs, ``com.mongodb.MongoClient`` also supports: 
+For applications that require a mix of the new and legacy APIs, ``com.mongodb.MongoClient`` also supports:
 
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``, the only difference being that you create instances via constructors instead of a factory class.
 - CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``.  You can access this API via the ``getDatabase()`` method.
@@ -46,7 +46,7 @@ How do I use the ``MongoClientSettings`` class?
 
 You can use the ``MongoClientSettings`` class to specify configurations for
 ``MongoClient`` instances. To construct ``MongoClientSettings`` instances, use the
-``MongoClientSettings.Builder`` class. 
+``MongoClientSettings.Builder`` class.
 
 Here are the sections of our documentation that show how to perform different
 tasks with the ``MongoClientSettings`` class:
@@ -58,7 +58,7 @@ tasks with the ``MongoClientSettings`` class:
 - :ref:`Add Listeners For Driver and Database Events <listener-mongo-client-settings-example>`
 - :ref:`Get the Default Codec Registry <get-default-codec-registry-example>`
 
-For more information on the ``MongoClientSettings`` class, see the 
+For more information on the ``MongoClientSettings`` class, see the
 `API Documentation for MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__.
 
 How do I fix: "javax.net.ssl.SSLHandshakeException: extension (5) should not be presented in certificate_request"?
@@ -99,29 +99,29 @@ What is a discriminator?
 A discriminator is a property that identifies a specific document
 schema. You can use it for inheritance and storing multiple types of
 documents within the same collection or parent document (if you embed
-sub-documents). 
+sub-documents).
 
 For example, if you have an ``Event`` class that you extend in Java (e.g.
 ``MachineEvent`` or ``NetworkEvent``), using a discriminator identifies
 which class the ``PojoCodecProvider`` should use to serialize/deserialize the
-document. 
+document.
 
 For more information, see our :ref:`POJO Customization guide
-<pojo-discriminators>`. 
+<pojo-discriminators>`.
 
 Can I control serialization of ``LocalDate``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Yes, the 3.7 Java driver adds native support for ``JSR-310 Instant``,
-``LocalDate`` & ``LocalDateTime``. 
+``LocalDate`` & ``LocalDateTime``.
 
 Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes, you can build your own codec for this class and add it to the registry. 
+Yes, you can build your own codec for this class and add it to the registry.
 
 Add the codec to the top your registry before the default codec registry
-and before the ``PojoCodecProvider``: 
+and before the ``PojoCodecProvider``:
 
 .. code-block:: java
 
@@ -142,20 +142,20 @@ Can I mix private, protected, and public setters and getters?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 No. The native POJO codec assumes that getters/setters have the same
-modifiers for each field.  
+modifiers for each field.
 
 For example, the following methods throws an exception during encoding:
 
 .. code-block:: java
-   
-   private String getField();
-   public String setField(String x); 
 
-How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X."? 
+   private String getField();
+   public String setField(String x);
+
+How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X."?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This exception means you need to register a codec for the class since
-there is none at the moment. 
+there is none at the moment.
 
 How do I specify the collection name for a particular POJO class? Is there an annotation?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,11 +165,11 @@ There is no annotation. We recommend adding a static string in your class as sho
 .. code-block:: java
 
    public class Person {
-      public static final String COLLECTION_NAME = "people"; 
+      public static final String COLLECTION_NAME = "people";
    }
 
 The following snippet specifies the collection name for a particular
-POJO class: 
+POJO class:
 
 .. code-block:: java
 
@@ -190,7 +190,7 @@ Imagine we are connecting to a collection that contains only this document:
 
 .. code-block:: json
    :copyable: false
-   
+
    {"_id": 1, "val": 1}
 
 .. tabs::
@@ -212,7 +212,7 @@ Imagine we are connecting to a collection that contains only this document:
          :dedent:
          :start-after: start current-api-example
          :end-before: end current-api-example
-   
+
 The output of the preceding code snippet should look like this:
 
 .. code-block:: json
@@ -232,7 +232,7 @@ see the following API documentation pages:
 - `find() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#find()>`__
 - `one() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCursor.html#one()>`__
 
-See the :ref:`Upgrade from the Legacy API <java-upgrade-from-legacy>` page
+See the :ref:`Mgigrate from the Legacy API <java-legacy-api>` page
 for a list of differences between the legacy and current API.
 
 How do I use the legacy ``MongoClientOptions`` and ``MongoClientURI`` Classes?
@@ -269,8 +269,8 @@ see the following API Documentation pages:
 - `MongoClientOptions <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
 - `MongoClientURI <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientURI.html>`__
 
-See the :ref:`Upgrade from the Legacy API <java-upgrade-from-legacy>` page
-for a list of differences between the legacy and current API.
+See the :ref:`Migrate from the Legacy API <java-legacy-api>` page for a list
+of differences between the legacy and current API.
 
 Support
 -------
