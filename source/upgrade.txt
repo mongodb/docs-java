@@ -72,7 +72,10 @@ Version 4.0 Breaking Changes
   ``DbObject`` return a relaxed JSON format instead of a strict JSON
   format. This makes the JSON documents more readable, but can make it more
   difficult to identify the BSON type information, such as the difference
-  between a 32-bit and 64-bit integer.
+  between a 32-bit and 64-bit integer. If your application relies on the
+  strict JSON format, use the strict mode when reading or writing data.
+  Learn how to specify the JSON format in the current API in the
+  :ref:`Document Data Format: Extended JSON <java-extended-json>` guide.
 - The default BSON representation of ``java.util.UUID`` value was changed
   from ``JAVA_LEGACY`` to ``UNSPECIFIED``. Applications that store or retrieve
   UUID values must explicitly specify which representation to use. You can
