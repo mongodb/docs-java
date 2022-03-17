@@ -120,16 +120,15 @@ Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
 
 Yes, you can build your own codec for this class and add it to the registry.
 
-Add the codec to the top your registry before the default codec registry
-and before the ``PojoCodecProvider``:
+Add the codec to the first in the list of providers, before the default codec
+registry and before the ``PojoCodecProvider``:
 
-.. code-block:: java
-
-   static final CodecRegistry CODEC_REGISTRY = fromRegistries(
-      CodecRegistries.fromCodecs(
-                        new MyDateAsStringCodec()),
-                        MongoClient.getDefaultCodecRegistry(),
-                        fromProviders(pojoCodecProvider));
+.. literalinclude:: /includes/faq/code-snippets/FaqExample.java
+   :language: java
+   :emphasize-lines: 3
+   :dedent:
+   :start-after: myDateAsStringCodec
+   :end-before: myDateAsStringCodec
 
 Can I make POJOs read/write directly to the field and not use the getters/setters at all?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -232,7 +231,7 @@ see the following API documentation pages:
 - `find() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#find()>`__
 - `one() <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCursor.html#one()>`__
 
-See the :ref:`Mgigrate from the Legacy API <java-legacy-api>` page
+See the :ref:`Migrate from the Legacy API <java-legacy-api>` page
 for a list of differences between the legacy and current API.
 
 How do I use the legacy ``MongoClientOptions`` and ``MongoClientURI`` Classes?
