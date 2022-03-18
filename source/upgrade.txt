@@ -59,7 +59,15 @@ Version 4.2 Breaking Changes
   to use a new format that minimizes serialization compatibility issues
   across different versions of the driver.
 
-.. _java-breaking-changes-v4.0:
+  If an application using this version or later of the driver attempts to
+  perform Java Object Serialization on any objects that contain an
+  ``ObjectId`` and were serialized by a prior version of the driver, Java
+  throws an ``InvalidClassException``.
+
+  To learn more about Java Object Serialization, see the Java
+  Documentation on `Serializable Objects <https://docs.oracle.com/javase/tutorial/jndi/objects/serial.html>`__.
+
+. _java-breaking-changes-v4.0:
 
 Version 4.0 Breaking Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
