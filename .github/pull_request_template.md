@@ -13,4 +13,5 @@
 - [ ] Did you run a spell-check?
 - [ ] Did you run a grammar check?
 - [ ] Are all the links working?
-- [ ] Does it render on staging correctly?
+- [ ] (Employees) Does it render on staging correctly?
+- [ ] (Employees) Is the build log free of errors?
