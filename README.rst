@@ -11,10 +11,6 @@ File JIRA Tickets
 Please file issue reports or requests at the `Documentation Jira Project
 <https://jira.mongodb.org/browse/DOCS>`_.
 
-Contribute
-++++++++++
-Please file a JIRA ticket with contribution suggestions.
-
 Licenses
 --------
 
