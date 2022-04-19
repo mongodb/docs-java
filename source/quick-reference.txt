@@ -81,7 +81,7 @@ their related reference and API documentation.
           coll.insertMany(
               Arrays.asList(
                       new Document("title", "Dangal").append("rating", "Not Rated"),
-                      new Document("title", "The Boss Baby").append("rating",  "PG")));
+                      new Document("title", "The Boss Baby").append("rating", "PG")));
 
    * - | **Update a Document**
        |
@@ -162,8 +162,8 @@ their related reference and API documentation.
              :language: java
 
              coll.replaceOne(
-                     Filters.and(Filters.eq("name",  "Deli Llama"), Filters.eq("address", "2 Nassau St")),
-                     new Document("name", "Lord of the Wings").append("zipcode",  10001));
+                     Filters.and(Filters.eq("name", "Deli Llama"), Filters.eq("address", "2 Nassau St")),
+                     new Document("name", "Lord of the Wings").append("zipcode", 10001));
 
           .. output::
              :language: json
@@ -179,7 +179,7 @@ their related reference and API documentation.
      - .. code-block:: java
           :copyable: true
 
-          coll.deleteOne(Filters.eq("title",  "Congo"));
+          coll.deleteOne(Filters.eq("title", "Congo"));
 
    * - | **Delete Multiple Documents**
        |
@@ -198,27 +198,15 @@ their related reference and API documentation.
        | :ref:`Usage Example <java-usage-bulkwrite>`
        | :ref:`Fundamentals <java-fundamentals-bulkwrite>`
 
-     - .. io-code-block::
+     - .. code-block:: java
           :copyable: true
 
-          .. input::
-             :language: java
-
-             coll.bulkWrite(
-                     Arrays.asList(
-                            new InsertOneModel<Document>(
-                                    new Document().append("title", "A New Movie").append("year",  2022)),
-                            new DeleteManyModel<Document>(
-                                    Filters.lt("year",  1970))));
-
-          .. output::
-             :language: json
-
-             AcknowledgedBulkWriteResult {
-               insertedCount: 1,
-               removedCount: ...,
-               ...
-             }
+          coll.bulkWrite(
+                  Arrays.asList(
+                         new InsertOneModel<Document>(
+                                 new Document().append("title", "A New Movie").append("year", 2022)),
+                         new DeleteManyModel<Document>(
+                                 Filters.lt("year", 1970))));
 
    * - | **Watch for Changes**
        |
@@ -354,7 +342,7 @@ their related reference and API documentation.
              [
                { title: 'Rocky III', ... },
                { title: 'Rocky IV', ... },
-               { title: 'Rocky V'}, ... }
+               { title: 'Rocky V', ... }
              ]
 
    * - | **Sort the Documents When Retrieving Them**
