@@ -34,7 +34,7 @@ JSON
              coll.find(Filters.eq("title", "Hamlet")).first();
 
           .. output::
-             :language: js
+             :language: json
 
              { title: 'Hamlet', type: 'movie', ... }
 
@@ -53,7 +53,7 @@ JSON
              coll.find(Filters.eq("year", 2005))
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: 'Christmas in Boston', year: 2005, ... },
@@ -103,7 +103,7 @@ JSON
                      Updates.set("imdb.rating", 9.5));
                 
           .. output::
-             :language: js
+             :language: json
 
              { title: 'Amadeus', imdb: { rating: 9.5, ... } }
 
@@ -124,7 +124,7 @@ JSON
                      Updates.inc("imdb.votes", 100));
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: 'A Beautiful Mind', year: 2001, imdb: { votes: 826257, ... },
@@ -148,7 +148,7 @@ JSON
                      Updates.push("genres", "Educational"));
                 
           .. output::
-             :language: js
+             :language: json
 
              { title: 'Cosmos', genres: [ 'Documentary', 'Educational' ], ...}
 
@@ -169,7 +169,7 @@ JSON
                      new Document("name", "Lord of the Wings").append("zipcode",  10001));
 
           .. output::
-             :language: js
+             :language: json
 
              { name: 'Lord of the Wings', zipcode: 10001 }
 
@@ -215,7 +215,7 @@ JSON
                                     Filters.lt("year",  1970))));
 
           .. output::
-             :language: js
+             :language: json
 
              AcknowledgedBulkWriteResult {
                insertedCount: 1,
@@ -252,7 +252,7 @@ JSON
              }
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: '2001: A Space Odyssey', ... },
@@ -268,13 +268,13 @@ JSON
           :copyable: true
 
           .. input::
-             :language: js
+             :language: java
 
              List<Document> resultList = new ArrayList<Document>();
              coll.find().into(resultList);
         
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: '2001: A Space Odyssey', ... },
@@ -296,7 +296,7 @@ JSON
              coll.countDocuments(Filters.eq("year", 2000));
 
           .. output::
-             :language: js
+             :language: none
 
              618
 
@@ -313,7 +313,7 @@ JSON
              coll.distinct("year", Integer.class);
              
           .. output::
-             :language: js
+             :language: none
 
              [ 1891, 1893, 1894, 1896, 1903, ... ]
 
@@ -331,7 +331,7 @@ JSON
              coll.find().limit(2);
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: 'My Neighbor Totoro', ... },
@@ -352,7 +352,7 @@ JSON
              coll.find(Filters.regex("title", "^Rocky")).skip(2);
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: 'Rocky III', ... },
@@ -369,12 +369,12 @@ JSON
           :copyable: true
 
           .. input::
-             :language: js
+             :language: java
 
              coll.find().sort(Sorts.ascending("year"));
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: 'Newark Athlete', year: 1891, ... },
@@ -400,7 +400,7 @@ JSON
                     Projections.include("year", "imdb")));
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { year: 2012, imdb: { rating: 5.8, votes: 230, id: 8256 }},
@@ -430,19 +430,19 @@ JSON
           :copyable: true
 
           .. input::
-             :language: js
+             :language: java
 
              // only searches fields with text indexes
              coll.find(Filters.text("zissou"));
 
           .. output::
-             :language: js
+             :language: json
 
              [
                { title: 'The Life Aquatic with Steve Zissou', ... }
              ]
 
-   * - | **Install the Driver Dependency with Maven **
+   * - | **Install the Driver Dependency with Maven**
 
      - .. code-block:: xml
           :caption: pom.xml
@@ -456,7 +456,7 @@ JSON
             </dependency>
           </dependencies>
 
-   * - | **Install the Driver Dependency with Gradle **
+   * - | **Install the Driver Dependency with Gradle**
     
      - .. code-block:: groovy
           :caption: build.gradle
