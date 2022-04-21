@@ -51,8 +51,8 @@ New features of the 4.5 Java driver release include:
   description weren't passed to the ``onError`` Subscriber callback
 - Resolved an issue with releasing ``ByteBuf`` instances when you connect
   with compression enabled.
-- Removed an unnecessary gradle dependency ``com.google.code.findbugs::annotations``
-  from OSGi imports.
+- Removed an unnecessary dependency on the ``javax.annotation.*`` packages
+  from the ``org.mongodb.driver-core`` OSGi bundle.
 
 .. _version-4.4:
 
