@@ -12,12 +12,30 @@ What's New
 
 Learn what's new in:
 
+* :ref:`Version 4.6 <version-4.6>`
 * :ref:`Version 4.5 <version-4.5>`
 * :ref:`Version 4.4 <version-4.4>`
 * :ref:`Version 4.3 <version-4.3>`
 * :ref:`Version 4.2 <version-4.2>`
 * :ref:`Version 4.1 <version-4.1>`
 * :ref:`Version 4.0 <version-4.0>`
+
+
+.. _version-4.6:
+
+What's New in 4.6
+-----------------
+
+New features of the 4.6 Java driver release include:
+
+- The buffer pool is now shared across all ``MongoClient`` instances. By
+  default, the buffer pool prunes buffers that have been idle for one
+  minute.
+- Added an API to specify AWS credentials for Client-Side Field Level 
+  Encryption (CSFLE) the same way as specifying authentication credentials 
+  using :ref:`MONGODB-AWS <mongodb-aws-auth-mechanism>`.
+.. TODO: link to tutorial content created for DOCSP-21561 and DOCSP-21562 once created
+- Added CSFLE library support for Apple M1 ARM-based hardware.
 
 .. _version-4.5:
 
