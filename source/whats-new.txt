@@ -35,6 +35,10 @@ New features of the 4.6 Java driver release include:
   Encryption (CSFLE) the same way as specifying authentication credentials
   using :ref:`MONGODB-AWS <mongodb-aws-auth-mechanism>`.
 - Added CSFLE library support for Apple M1 ARM-based hardware.
+- Added the ``DnsClient`` and ``DnsClientProvider`` interfaces to allow
+  custom DNS client implementations. Added a service provider interface (SPI)
+  to specify the custom DNS client using ``java.util.ServiceLoader``. The
+  driver uses a default implementation if the application doesn't specify one.
 
 .. _version-4.5:
 
