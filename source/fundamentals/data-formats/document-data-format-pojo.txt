@@ -22,9 +22,6 @@ In the following sections we show an example on how to configure the
 driver to serialize and deserialize POJOs and how to read and write to
 documents using POJOs. 
 
-If you would like learn how to read and write to documents, see
-:ref:`java-read-operations` and :ref:`java-write-operations`.
-
 .. _fundamentals-example-pojo:
 
 Example POJO
@@ -216,15 +213,14 @@ When you run this code, your output should look something like this:
 
    [Flower [id=5f7f87659ed5b07cf3480a06, name=rose, colors=[green, red], isBlooming=false, height=25.4]]
 
-
-To learn more about the read and write operations you can perform, see
-:ref:`java-read-operations` and :ref:`java-write-operations`. 
-
 .. note::
 
    By default, the ``PojoCodecProvider`` omits fields in your POJO that are
    set to ``null``. For more information on how to specify this behavior, see
    our guide on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
+
+To learn more on how to read and write to documents, see
+:ref:`java-crud-operations`.
 
 For more information about the methods and classes mentioned in this section,
 see the following API Documentation:
