@@ -18,11 +18,12 @@ MongoDB Java driver using plain old Java objects (`POJOs <https://en.wikipedia.o
 POJOs are often used for data encapsulation, separating business logic from
 data representation.
 
-In the following sections we show:
+In the following sections we show an example on how to configure the
+driver to serialize and deserialize POJOs and how to read and write to
+documents using POJOs. 
 
-- A POJO example
-- How to configure the driver to serialize and deserialize POJOs
-- Sample code to read and write documents to MongoDB using POJOs
+If you would like learn how to read and write to documents, see
+:ref:`java-read-operations` and :ref:`java-write-operations`.
 
 .. _fundamentals-example-pojo:
 
@@ -137,13 +138,12 @@ requirements:
 
       CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
 
-.. note::
+   .. note::
 
-   Codec providers also contain other objects such as ``ClassModel`` and
-   ``Convention`` instances that further define serialization behavior.
-   For more information on codec providers and customization, see our guide
-   on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
-
+      Codec providers also contain other objects such as ``ClassModel`` and
+      ``Convention`` instances that further define serialization behavior.
+      For more information on codec providers and customization, see our guide
+      on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
 
 #. Add the ``PojoCodecProvider`` instance to a ``CodecRegistry``. The
    ``CodecRegistry`` allows you to specify one or more codec providers to
@@ -215,6 +215,10 @@ When you run this code, your output should look something like this:
    :copyable: false
 
    [Flower [id=5f7f87659ed5b07cf3480a06, name=rose, colors=[green, red], isBlooming=false, height=25.4]]
+
+
+To learn more about the read and write operations you can perform, see
+:ref:`java-read-operations` and :ref:`java-write-operations`. 
 
 .. note::
 
