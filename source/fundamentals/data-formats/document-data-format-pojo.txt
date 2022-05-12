@@ -19,7 +19,7 @@ POJOs are often used for data encapsulation, separating business logic from
 data representation.
 
 In the following sections we show an example on how to configure the
-driver to serialize and deserialize POJOs and how to read and write to
+driver to serialize and deserialize POJOs, and how to read and write to
 documents using POJOs. 
 
 .. _fundamentals-example-pojo:
@@ -27,8 +27,8 @@ documents using POJOs.
 Example POJO
 ------------
 
-To follow the steps in this guide, you can create your own class or use the
-following sample POJO class which describes some characteristics of a flower:
+To follow the steps in this guide, use the following sample POJO class
+which describes some characteristics of a flower:
 
 .. code-block:: java
 
@@ -186,12 +186,14 @@ requirements:
 
       MongoCollection<Flower> collection = database.getCollection("flowers", Flower.class);
 
-Once you have configured the preceding ``MongoCollection`` instance, you can:
+Once you have configured the preceding ``MongoCollection`` instance, you
+can perform :ref:`CRUD operations <java-crud-operations>` with the POJO
+such as:
 
-- save an instance of the POJO to the collection
-- retrieve instances of the POJO from a query on the collection
+- Saving an instance of the POJO to the collection
+- Retrieving instances of the POJO from a query on the collection
 
-The following code shows how you can insert an instance of ``Flower`` into
+The following snippet shows how you can insert an instance of ``Flower`` into
 the collection and then retrieve it as a ``List`` of your POJO class objects:
 
 .. code-block:: java
@@ -218,9 +220,6 @@ When you run this code, your output should look something like this:
    By default, the ``PojoCodecProvider`` omits fields in your POJO that are
    set to ``null``. For more information on how to specify this behavior, see
    our guide on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
-
-To learn more on how to read and write to documents, see
-:ref:`java-crud-operations`.
 
 For more information about the methods and classes mentioned in this section,
 see the following API Documentation:
