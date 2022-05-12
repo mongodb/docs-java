@@ -18,9 +18,10 @@ MongoDB Java driver using plain old Java objects (`POJOs <https://en.wikipedia.o
 POJOs are often used for data encapsulation, separating business logic from
 data representation.
 
-In the following sections we show an example on how to configure the
-driver to serialize and deserialize POJOs, and how to read and write to
-documents using POJOs. 
+The example in this guide shows how to perform the following:
+
+- Configure the driver to serialize and deserialize POJOs
+- How to read and write to documents using POJOs 
 
 .. _fundamentals-example-pojo:
 
@@ -28,7 +29,7 @@ Example POJO
 ------------
 
 To follow the steps in this guide, use the following sample POJO class
-which describes some characteristics of a flower:
+which describes characteristics of a flower:
 
 .. code-block:: java
 
@@ -187,13 +188,13 @@ requirements:
       MongoCollection<Flower> collection = database.getCollection("flowers", Flower.class);
 
 Once you have configured the preceding ``MongoCollection`` instance, you
-can perform :ref:`CRUD operations <java-crud-operations>` with the POJO
-such as:
+can perform the following :ref:`CRUD operations <java-crud-operations>`
+with the POJOs:
 
-- Saving an instance of the POJO to the collection
-- Retrieving instances of the POJO from a query on the collection
+- Create a document from a POJO
+- Retrieve data in a POJO instance
 
-The following snippet shows how you can insert an instance of ``Flower`` into
+The following code snippet shows how you can insert an instance of ``Flower`` into
 the collection and then retrieve it as a ``List`` of your POJO class objects:
 
 .. code-block:: java
