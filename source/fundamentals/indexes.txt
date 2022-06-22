@@ -397,6 +397,34 @@ Refer to the :manual:`Unique Indexes page </core/index-unique>` in the MongoDB s
 
 .. driver-content-end
 
+Clustered Indexes
+~~~~~~~~~~~~~~~~~
+
+**Clustered indexes** are indexes that improve the performance of
+insert, update, and delete operations on **clustered collections**.
+Clustered collections store documents ordered by the clustered index key
+value.
+
+To create a clustered index, specify the ``ClusteredIndexOptions`` in
+the ``CreateCollectionOptions``. The ``ClusteredIndexOptions`` must
+specify the ``_id`` field as the key, and the unique field as ``true``.
+
+The following example creates a clustered index on the ``_id`` field in
+the ``tea.vendors`` collection:
+
+.. code-block:: java
+   
+   MongoDatabase database = mongoClient.getDatabase("tea");
+   ClusteredIndexOptions cioptions = new ClusteredIndexOptions(Filters.eq("_id", 1), true);
+   CreateCollectionOptions coptions = new CreateCollectionOptions().clusteredIndexOptions(cioptions);
+
+   database.createCollection("vendors", coptions);
+
+See the MongoDB server manual sections on :v5.3:`Clustered Indexes
+</reference/method/db.createCollection/#std-label-db.createCollection.clusteredIndex>`
+and :v5.3:`Clustered Collections </core/clustered-collections/#std-label-clustered-collections>`
+for more information.
+
 Remove an Index
 ---------------
 
