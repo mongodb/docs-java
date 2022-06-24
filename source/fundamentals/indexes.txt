@@ -405,12 +405,12 @@ insert, update, and delete operations on **clustered collections**.
 Clustered collections store documents ordered by the clustered index key
 value.
 
-To create a clustered index, specify a ``ClusteredIndexOptions`` in
-your ``CreateCollectionOptions``. The ``ClusteredIndexOptions`` must
-specify the ``_id`` field as the key and the unique field as ``true``.
+To create a clustered index, specify the clustered index option when you
+create your collection. The clustered index option must specify the
+``_id`` field as the key and the unique field as ``true``.
 
 The following example creates a clustered index on the ``_id`` field in
-the ``tea.vendors`` collection:
+the ``vendors`` collection:
 
 .. code-block:: java
    
@@ -420,10 +420,10 @@ the ``tea.vendors`` collection:
 
    database.createCollection("vendors", createCollectionOptions);
 
-See the MongoDB server manual sections on 
-:ref:`Clustered Indexes <db.createCollection.clusteredIndex>` and 
-:ref:`Clustered Collections <clustered-collections>`
-for more information.
+See the MongoDB server manual sections for more information:
+
+- :ref:`Clustered Indexes <db.createCollection.clusteredIndex>`
+- :ref:`Clustered Collections <clustered-collections>`
 
 Remove an Index
 ---------------
