@@ -1,4 +1,4 @@
-package githubdocs;
+package org.example.pojos;
 
 public class Address {
     private String street;

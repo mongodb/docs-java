@@ -1,4 +1,4 @@
-package githubdocs;
+package org.example.pojos;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 
