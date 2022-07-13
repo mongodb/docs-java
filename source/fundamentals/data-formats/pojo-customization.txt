@@ -300,7 +300,13 @@ package:
        nested within the field.
 
    * - ``BsonExtraElements``
-     - Specifies any extra elements that aren't already mapped to a field.
+     - Specifies the POJO field on which to deserialize any elements that are
+       not mapped to a field. The POJO field must be one of the following
+       types:
+
+       - Document
+       - BsonDocument
+       - Map<String, Object>
 
 The following code snippet shows a sample POJO called ``Product`` that uses
 the preceding annotations.
