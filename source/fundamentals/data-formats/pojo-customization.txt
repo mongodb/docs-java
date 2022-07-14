@@ -370,6 +370,53 @@ The annotations in the example POJO specify the following behavior:
 - Omit the ``relatedItems`` field and value when converting data
 - Use the ``Product(String name)`` constructor when instantiating the POJO
 
+
+.. _bsonextraelements-annotation-code-example:
+
+BsonExtraElements Example
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``@BsonExtraElements`` annotation allows you to specify a field to
+deserialize data from a MongoDB document that lacks a corresponding POJO
+field mapping. Consider a situation in which your application needs to handle
+data that conforms to different data schema versions. When your POJO fields
+change to accommodate the schema, you can continue to read, but not
+update, the remainder of the MongoDB document data from the field that uses
+this annotation.
+
+Suppose you need to update the ``Product`` POJO from the
+:ref:`previous example <bson-annotation-code-example>` to accommodate the
+following changes to your data schema:
+
+- The ``name`` field is no longer needed, but should remain for legacy support
+- The stock keeping unit (SKU) needs to be added
+
+The updated version of the ``Product`` POJO should resemble the following code
+example:
+
+.. code-block:: java
+   :emphasize-lines: 6-7,9-10
+
+   public class Product {
+       @BsonId()
+       @BsonRepresentation(BsonType.OBJECT_ID)
+       private String serialNumber;
+
+       @BsonProperty("sku")
+       private String sku;
+
+       @BsonExtraElements
+       private Document legacyInfo;
+
+       // ...
+
+Once you update the product records with SKU values in MongoDB, the data you
+retrieve with the ``Product`` POJO should resemble the following:
+
+.. code-block:: none
+
+   [NewProduct [sku=MDB0..., serialNumber=62cf..., legacyInfo=Document{{ name=file cabinet }]]
+
 .. _pojo-discriminators:
 
 Discriminators
