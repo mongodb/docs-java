@@ -304,12 +304,16 @@ package:
        not mapped to a field. The POJO field must be one of the following
        types:
 
-       - Document
-       - BsonDocument
+       - `Document <{+api+}/apidocs/bson/org/bson/Document.html>`__
+       - `BsonDocument <{+api+}/apidocs/bson/org/bson/BsonDocument.html>`__
        - Map<String, Object>
 
+       .. seealso::
+
+          :ref:`BsonExtraElements Annotation Example <bsonextraelements-annotation-code-example>`
+
 The following code snippet shows a sample POJO called ``Product`` that uses
-the preceding annotations.
+several of the preceding annotations.
 
 .. _bson-annotation-code-example:
 
@@ -384,12 +388,13 @@ change to accommodate the schema, you can continue to read, but not
 update, the remainder of the MongoDB document data from the field that uses
 this annotation.
 
-Suppose you need to update the ``Product`` POJO from the
+Consider a situation in which you need to update the ``Product`` POJO from the
 :ref:`previous example <bson-annotation-code-example>` to accommodate the
 following changes to your data schema:
 
-- The ``name`` field is no longer needed, but should remain for legacy support
-- The stock keeping unit (SKU) needs to be added
+- The ``name`` field is no longer needed, but must the data must remain for
+  legacy support.
+- The stock keeping unit (SKU) needs to be added.
 
 The updated version of the ``Product`` POJO should resemble the following code
 example:
@@ -415,7 +420,7 @@ retrieve with the ``Product`` POJO should resemble the following:
 
 .. code-block:: none
 
-   [NewProduct [sku=MDB0..., serialNumber=62cf..., legacyInfo=Document{{ name=file cabinet }]]
+   [Product [sku=MDB0..., serialNumber=62cf..., legacyInfo=Document{{ name=file cabinet }]]
 
 .. _pojo-discriminators:
 
