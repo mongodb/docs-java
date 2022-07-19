@@ -33,7 +33,7 @@ New features of the 4.7 driver release include:
   - Enhanced pre-image and post-image support for :ref:`change streams <java-usage-watch>`.
     Change stream watch helpers now accept ``whenAvailable`` and ``required``
     for the fullDocument option.
-  - A new ``fullDocumentBeforeChange`` option is introduced, which accepts
+  - Added a new ``fullDocumentBeforeChange`` option, which accepts
     ``whenAvailable`` and ``required``.
   - Change events may now include a ``fullDocumentBeforeChange`` response field.
   - Added ``showExpandedEvents`` support for change streams.
@@ -46,7 +46,7 @@ New features of the 4.7 driver release include:
 - A new API for key management
 - Support for the new Queryable Encryption shared library, which removes the need
   for the ``mongocryptd`` process. Queryable Encryption support requires
-  `mongodb-crypt <https://mvnrepository.com/artifact/org.mongodb/mongodb-crypt>`__
+  `org.mongodb:mongodb-crypt <https://mvnrepository.com/artifact/org.mongodb/mongodb-crypt>`__
   version ``1.5.1.1`` or later, which is an optional driver dependency.
 
 - The driver includes builder API support for a more aggregation stages,
