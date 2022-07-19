@@ -12,6 +12,7 @@ What's New
 
 Learn what's new in:
 
+* :ref:`Version 4.7 <version-4.7>`
 * :ref:`Version 4.6 <version-4.6>`
 * :ref:`Version 4.5 <version-4.5>`
 * :ref:`Version 4.4 <version-4.4>`
@@ -19,6 +20,47 @@ Learn what's new in:
 * :ref:`Version 4.2 <version-4.2>`
 * :ref:`Version 4.1 <version-4.1>`
 * :ref:`Version 4.0 <version-4.0>`
+
+.. _version-4.7:
+
+What's New in 4.7
+-----------------
+
+New features of the 4.7 driver release include:
+
+- Improved change stream support
+
+  - Enhanced pre-image and post-image support for :ref:`change streams <java-usage-watch>`.
+    Change stream watch helpers now accept ``whenAvailable`` and ``required``
+    for the fullDocument option.
+  - A new ``fullDocumentBeforeChange`` option is introduced, which accepts
+    ``whenAvailable`` and ``required``.
+  - Change events may now include a ``fullDocumentBeforeChange`` response field.
+  - Added ``showExpandedEvents`` support for change streams.
+  - Added ``wallTime`` support in ``ChangeStreamDocument`` class.
+
+- Clustered index creation support
+- The driver supports several new features related to :v6.0:`Queryable Encryption </core/queryable-encryption/>`,
+  including support for automatic encryption (enterprise license required)
+  and manual encryption.
+- A new API for key management
+- Support for the new Queryable Encryption shared library, which removes the need
+  for the ``mongocryptd`` process. Queryable Encryption support requires
+  `mongodb-crypt <https://mvnrepository.com/artifact/org.mongodb/mongodb-crypt>`__
+  version ``1.5.1.1`` or later, which is an optional driver dependency.
+
+- The driver includes builder API support for a more aggregation stages,
+  including ``$search/$searchMeta`` (Atlas only), ``$densify``, and ``$fill``.
+- The driver includes support for a new annotation, ``BsonExtraElements``,
+  that can be used with POJO encoding and decoding. ``BsonExtraElements``
+  is added to enable decoding objects that may receive new fields in the future,
+  without needing to explicitly map those new fields.
+- The driver includes several performance optimizations, including:
+
+  - The driver includes a new lock-free implementations of the server session pool
+    and the buffer pool.
+  - The driver includes a new implementation of ``DBCursor`` cleanup that uses Java's
+    Cleaner API instead of finalization, available in Java 9 or later.
 
 
 .. _version-4.6:
