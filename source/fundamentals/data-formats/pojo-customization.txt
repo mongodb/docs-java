@@ -300,13 +300,17 @@ package:
        nested within the field.
 
    * - ``BsonExtraElements``
-     - Specifies the POJO field on which to deserialize any elements that are
+     - Specifies the POJO field on which to deserialize all elements that are
        not mapped to a field. The POJO field must be one of the following
        types:
 
        - `Document <{+api+}/apidocs/bson/org/bson/Document.html>`__
        - `BsonDocument <{+api+}/apidocs/bson/org/bson/BsonDocument.html>`__
        - Map<String, Object>
+
+       When serializing a POJO through an insert or replace operation, the
+       driver stores the value of the annotated field as a subdocument in
+       MongoDB.
 
        .. seealso::
 
@@ -382,45 +386,56 @@ BsonExtraElements Example
 
 The ``@BsonExtraElements`` annotation allows you to specify a field to
 deserialize data from a MongoDB document that lacks a corresponding POJO
-field mapping. Consider a situation in which your application needs to handle
-data that conforms to different data schema versions. When your POJO fields
-change to accommodate the schema, you can continue to read, but not
-update, the remainder of the MongoDB document data from the field that uses
-this annotation.
+field mapping. This is useful when your application needs to work with data in
+a partially-defined schema. You can use this annotation to access data from
+any fields that do not correspond to the fields on your POJO.
 
-Consider a situation in which you need to update the ``Product`` POJO from the
-:ref:`previous example <bson-annotation-code-example>` to accommodate the
-following changes to your data schema:
-
-- The ``name`` field is no longer needed, but must the data must remain for
-  legacy support.
-- The stock keeping unit (SKU) needs to be added.
-
-The updated version of the ``Product`` POJO should resemble the following code
-example:
+Consider a situation in which you store and retrieve data for an online store
+using the :ref:`Product POJO <bson-annotation-code-example>` from the previous
+example. As you offer a greater variety of products for the store, you
+discover that you need additional fields to describe them. Instead of
+mapping each additional field to the POJO, you can access them from a
+single field annotated with ``@BsonExtraElements`` as shown in the following
+code example:
 
 .. code-block:: java
-   :emphasize-lines: 6-7,9-10
+   :emphasize-lines: 12-13
 
    public class Product {
+       @BsonProperty("modelName")
+       private String name;
+
        @BsonId()
        @BsonRepresentation(BsonType.OBJECT_ID)
        private String serialNumber;
 
-       @BsonProperty("sku")
-       private String sku;
+       @BsonIgnore
+       private List<Product> relatedItems;
 
        @BsonExtraElements
-       private Document legacyInfo;
+       private Document additionalInfo;
 
        // ...
 
-Once you update the product records with SKU values in MongoDB, the data you
-retrieve with the ``Product`` POJO should resemble the following:
+If a database client updated the documents in the collection to include
+additional fields that describe the products such as ``dimensions`` and
+``weight``, a document retrieved using the ``Product`` POJO might resemble
+the following JSON object:
 
-.. code-block:: none
+.. code-block:: json
+   :copyable: false
 
-   [Product [sku=MDB0..., serialNumber=62cf..., legacyInfo=Document{{ name=file cabinet }]]
+   {
+     "name": "MDB0123,
+     "serialNumber": "62e2...",
+     "relatedItems": null,
+     "additionalInfo": {
+       {
+         "dimensions": "3x4x5",
+         "weight": "256g"
+       }
+   }
+
 
 .. _pojo-discriminators:
 
