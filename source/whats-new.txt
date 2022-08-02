@@ -59,21 +59,20 @@ New features of the 4.7 driver release include:
   including :pipeline:`$search`/:pipeline:`$searchMeta` (Atlas only),
   :pipeline:`$densify`, and :pipeline:`$fill`.
 
-- The :ref:`setWindowFields <builders-aggregates-setWindowFields>` builder API
-  is no longer a beta feature. Changes in the API break both binary and source
-  compatibility. If you used the beta API with a previous version of the
-  driver, update your source and rebuild your binaries.
-
 - Added the ``BsonExtraElements`` annotation that can be used with POJO encoding
   and decoding. ``BsonExtraElements`` enables decoding objects that may receive
   new fields in the future without requiring developers to explicitly map
   those new fields.
+
 - Performance optimizations including:
 
   - Lock-free implementations of the server session pool and the buffer pool.
   - A new cleanup implementation of ``DBCursor`` that uses Java's
     Cleaner API instead of finalization, available in Java 9 or later.
 
+- The :ref:`setWindowFields <builders-aggregates-setWindowFields>` builder API
+  is no longer a beta feature. Changes in the API break both binary and source
+  compatibility. See :ref:`<java-breaking-changes-v4.7>` for more information.
 
 .. _version-4.6:
 
