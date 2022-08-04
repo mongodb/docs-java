@@ -27,16 +27,13 @@ Learn what's new in:
 What's New in 4.7.1
 -------------------
 
-The 4.7.1 driver patches a potential data corruption bug in
-Client-Side Field Level Encryption (CSFLE) and Queryable Encryption (QE)
-that occurs when rotating :ref:`Data Encryption Keys <csfle-key-architecture>`
+The 4.7.1 driver patches a bug that effects
+Client-Side Field Level Encryption (CSFLE) and Queryable Encryption (QE).
+The bug can cause data corruption when rotating :ref:`Data Encryption Keys <csfle-key-architecture>`
 (DEKs) encrypted with a :ref:`Customer Master Key <csfle-key-architecture>` (CMK)
 hosted on Google Cloud Key Management Service (GCP KMS) or Azure
-Key Vault.
-
-To avoid potential data corruption when rotating DEKs encrypted with a CMK
-hosted on GCP KMS or Azure Key Vault, upgrade to version 4.7.1 or later of the
-driver before using the ``RewrapManyDataKey`` method.
+Key Vault. The bug is present in the ``RewrapManyDataKey`` method
+and causes the loss of your DEKs.
 
 .. important:: Back Up your Key Vault Collection
 
