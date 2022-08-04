@@ -415,24 +415,19 @@ code example:
 
 If a database client updated the documents in the collection to include
 additional fields that describe the products such as ``dimensions`` and
-``weight``, a document retrieved using the ``Product`` POJO might resemble
-the following JSON object:
+``weight``, the document retrieved using the ``Product`` POJO might resemble
+the following:
 
-.. code-block:: json
+.. code-block::
    :copyable: false
-   :emphasize-lines: 5-9
+   :emphasize-lines: 5
 
-   {
-     "name": "MDB0123",
-     "serialNumber": "62e2...",
-     "relatedItems": null,
-     "additionalInfo": {
-       {
-         "dimensions": "3x4x5",
-         "weight": "256g"
-       }
-   }
-
+   ProductWithBsonExtraElements [
+     name=MDB0123,
+     serialNumber=62eb...,
+     relatedItems=null,
+     additionalInfo=Document{{dimensions=3x4x5, weight=256g}}
+   ]
 
 .. _pojo-discriminators:
 
