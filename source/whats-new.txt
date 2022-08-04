@@ -32,8 +32,9 @@ Client-Side Field Level Encryption and Queryable Encryption.
 The bug can cause data corruption when rotating :ref:`Data Encryption Keys <csfle-key-architecture>`
 (DEKs) encrypted with a :ref:`Customer Master Key <csfle-key-architecture>`
 hosted on Google Cloud Key Management Service or Azure
-Key Vault. The bug is present in the ``RewrapManyDataKey`` method
-and causes the loss of your DEKs.
+Key Vault. The bug was present in version 4.7.0 of the driver 
+in the ``RewrapManyDataKey`` method and causes the
+loss of your DEKs.
 
 .. important:: Back Up your Key Vault Collection
 
