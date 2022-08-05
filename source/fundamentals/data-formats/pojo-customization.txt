@@ -413,10 +413,22 @@ code example:
 
        // ...
 
-If a database client updated the documents in the collection to include
-additional fields that describe the products such as ``dimensions`` and
-``weight``, the document retrieved using the ``Product`` POJO might resemble
-the following:
+Suppose someone added additional fields for ``dimensions`` and ``weight`` to
+the product data such that the documents contained the following information:
+
+.. code-block:: json
+   :copyable: false
+   :emphasize-lines: 4-5
+
+   {
+     "name": "MDB0123",
+     "serialNumber": "62e2...",
+     "dimensions": "3x4x5",
+     "weight": "256g"
+   }
+
+The preceding document retrieved using the ``Product`` POJO contains the
+following data:
 
 .. code-block::
    :copyable: false

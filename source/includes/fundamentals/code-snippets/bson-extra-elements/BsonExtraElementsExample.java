@@ -5,12 +5,10 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.ClassModel;
-import org.bson.codecs.pojo.Conventions;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import com.mongodb.client.MongoClient;
@@ -23,52 +21,50 @@ import com.mongodb.client.result.UpdateResult;
 
 public class BsonExtraElementsExample {
 
-	private static String DOC_NAME_VALUE = "MDB0123";
+	private static final String DOC_NAME_VALUE = "MDB0123";
 
-    private static CodecRegistry getCodecRegistry() {
-        ClassModel<ProductWithBsonExtraElements> classModel = ClassModel.builder(ProductWithBsonExtraElements.class).
-                conventions(Arrays.asList(Conventions.ANNOTATION_CONVENTION)).build();
-        PojoCodecProvider pojoCodecProvider = PojoCodecProvider.builder().register(classModel).build();
-        return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
+	private static CodecRegistry getCodecRegistry() {
+		PojoCodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
+		return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
-    }
+	}
 
-    private static <T> void setup(MongoCollection<T> collection) {
-    	collection.drop();
+	private static void setup(MongoCollection<ProductWithBsonExtraElements> collection) {
+		collection.drop();
 
-    	ProductWithBsonExtraElements doc = new ProductWithBsonExtraElements(DOC_NAME_VALUE);
-    	collection.insertOne((T) doc);
-    }
+		ProductWithBsonExtraElements doc = new ProductWithBsonExtraElements(DOC_NAME_VALUE);
+		collection.insertOne(doc);
+	}
 
-    // Update without the POJO; match the annotations for field names
-    private static void addOtherFields(MongoClient client) {
-    	MongoCollection collection = client.getDatabase("sample_pojo").getCollection("ProductsWithMoreInfo");
+	// Update without the POJO; match the annotations for field names
+	private static void addOtherFields(MongoClient client) {
+		MongoCollection<Document> collection = client.getDatabase("sample_pojo").getCollection("ProductsWithMoreInfo");
 
-    	UpdateResult result = collection.updateOne(
-    			Filters.eq("modelName", DOC_NAME_VALUE),
-    			Updates.combine(
-    					Updates.set("dimensions", "3x4x5"),
-    					Updates.set("weight", "256g")));
-    	System.out.println(result);
+		UpdateResult result = collection.updateOne(
+				Filters.eq("modelName", DOC_NAME_VALUE),
+				Updates.combine(
+						Updates.set("dimensions", "3x4x5"),
+						Updates.set("weight", "256g")));
+		System.out.println(result);
 
-    }
+	}
 
-    private static <T> void printDocuments(MongoCollection<T> collection) {
-    	 List<T> products = new ArrayList<T>();
-         collection.find().into(products);
-         products.forEach(doc -> System.out.println(doc));
-    }
+	private static <T> void printDocuments(MongoCollection<T> collection) {
+		List<T> products = new ArrayList<T>();
+		collection.find().into(products);
+		products.forEach(doc -> System.out.println(doc));
+	}
 
-    public static void main(String[] args) {
-        String uri = "mongodb://localhost:27017";
+	public static void main(String[] args) {
+		String uri = "mongodb://localhost:27017";
 
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("sample_pojo").withCodecRegistry(getCodecRegistry());
-            MongoCollection<ProductWithBsonExtraElements> collection = database.getCollection("ProductsWithMoreInfo", ProductWithBsonExtraElements.class);
+		try (MongoClient mongoClient = MongoClients.create(uri)) {
+			MongoDatabase database = mongoClient.getDatabase("sample_pojo").withCodecRegistry(getCodecRegistry());
+			MongoCollection<ProductWithBsonExtraElements> collection = database.getCollection("ProductsWithMoreInfo", ProductWithBsonExtraElements.class);
 
-            setup(collection);
-            addOtherFields(mongoClient);
-            printDocuments(collection);
-        }
-    }
+			setup(collection);
+			addOtherFields(mongoClient);
+			printDocuments(collection);
+		}
+	}
 }
