@@ -26,7 +26,6 @@ public class BsonExtraElementsExample {
     private static CodecRegistry getCodecRegistry() {
         PojoCodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
-
     }
 
     private static void setup(MongoCollection<ProductWithBsonExtraElements> collection) {
@@ -46,7 +45,6 @@ public class BsonExtraElementsExample {
                         Updates.set("dimensions", "3x4x5"),
                         Updates.set("weight", "256g")));
         System.out.println(result);
-
     }
 
     private static <T> void printDocuments(MongoCollection<T> collection) {
