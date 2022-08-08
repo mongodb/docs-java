@@ -22,6 +22,13 @@ Learn what's new in:
 * :ref:`Version 4.1 <version-4.1>`
 * :ref:`Version 4.0 <version-4.0>`
 
+.. _upcoming-breaking-chages:
+
+Upcoming Breaking Changes
+-------------------------
+
+- (Example) MapReduceIterable<TResult> was deprecated in v4.4 and will be replaced by the aggregation framework.
+
 .. _version-4.7.1:
 
 What's New in 4.7.1
@@ -32,7 +39,7 @@ Client-Side Field Level Encryption and Queryable Encryption.
 The bug can cause data corruption when rotating :ref:`Data Encryption Keys <csfle-key-architecture>`
 (DEKs) encrypted with a :ref:`Customer Master Key <csfle-key-architecture>`
 hosted on Google Cloud Key Management Service or Azure
-Key Vault. The bug was present in version 4.7.0 of the driver 
+Key Vault. The bug was present in version 4.7.0 of the driver
 in the ``RewrapManyDataKey`` method and causes the
 loss of your DEKs.
 
@@ -46,6 +53,11 @@ loss of your DEKs.
 
 What's New in 4.7
 -----------------
+
+.. warning:: Breaking changes in v4.7
+
+   The v4.7 driver contains breaking changes. See :ref:`<java-breaking-changes-v4.7>`
+   for more information.
 
 New features of the 4.7 driver release include:
 
@@ -90,10 +102,6 @@ New features of the 4.7 driver release include:
   - Lock-free implementations of the server session pool and the buffer pool.
   - A new cleanup implementation of ``DBCursor`` that uses Java's
     Cleaner API instead of finalization, available in Java 9 or later.
-
-- The :ref:`setWindowFields <builders-aggregates-setWindowFields>` builder API
-  is no longer a beta feature. Changes in the API break both binary and source
-  compatibility. See :ref:`<java-breaking-changes-v4.7>` for more information.
 
 .. _version-4.6:
 
@@ -231,6 +239,11 @@ in the field names of documents:
 What's New in 4.2
 -----------------
 
+.. warning:: Breaking changes in v4.2
+
+   The v4.2 driver contains breaking changes. See :ref:`<java-breaking-changes-v4.2>`
+   for more information.
+
 New features of the 4.2 Java driver release include:
 
 - Added Azure and GCP key stores to client-side field level encryption
@@ -239,12 +252,6 @@ New features of the 4.2 Java driver release include:
 - Added a `JsonObject <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/bson/org/bson/json/JsonObject.html>`_ class to make encoding from and decoding to JSON more efficient by avoiding an intermediate Map representation
 - Added a `BsonRepresentation <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/bson/org/bson/codecs/pojo/annotations/BsonRepresentation.html>`_ annotation that allows you to represent the ``ObjectId`` BSON values as a ``String`` in `POJO <https://en.wikipedia.org/wiki/Plain_old_Java_object>`_ classes
 - Added a `Filters.empty() <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#empty()>`_ method
-
-.. important::
-
-   There are breaking changes that may affect your application. See the
-   `Upgrading Guide <https://mongodb.github.io/mongo-java-driver/4.2/upgrading/>`_
-   for more information.
 
 .. _version-4.1:
 
