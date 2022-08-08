@@ -25,7 +25,7 @@ public class BsonExtraElementsExample {
 
     private static CodecRegistry getCodecRegistry() {
         PojoCodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
-        return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
+        return fromRegistries(getDefaultCodecRegistry(), pojoCodecProvider);
     }
 
     private static void setup(MongoCollection<ProductWithBsonExtraElements> collection) {
