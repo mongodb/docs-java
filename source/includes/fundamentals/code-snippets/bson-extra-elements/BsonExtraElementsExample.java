@@ -21,50 +21,50 @@ import com.mongodb.client.result.UpdateResult;
 
 public class BsonExtraElementsExample {
 
-	private static final String DOC_NAME_VALUE = "MDB0123";
+    private static final String DOC_NAME_VALUE = "MDB0123";
 
-	private static CodecRegistry getCodecRegistry() {
-		PojoCodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
-		return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
+    private static CodecRegistry getCodecRegistry() {
+        PojoCodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
+        return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
-	}
+    }
 
-	private static void setup(MongoCollection<ProductWithBsonExtraElements> collection) {
-		collection.drop();
+    private static void setup(MongoCollection<ProductWithBsonExtraElements> collection) {
+        collection.drop();
 
-		ProductWithBsonExtraElements doc = new ProductWithBsonExtraElements(DOC_NAME_VALUE);
-		collection.insertOne(doc);
-	}
+        ProductWithBsonExtraElements doc = new ProductWithBsonExtraElements(DOC_NAME_VALUE);
+        collection.insertOne(doc);
+    }
 
-	// Update without the POJO; match the annotations for field names
-	private static void addOtherFields(MongoClient client) {
-		MongoCollection<Document> collection = client.getDatabase("sample_pojo").getCollection("ProductsWithMoreInfo");
+    // Update without the POJO; match the annotations for field names
+    private static void addOtherFields(MongoClient client) {
+        MongoCollection<Document> collection = client.getDatabase("sample_pojo").getCollection("ProductsWithMoreInfo");
 
-		UpdateResult result = collection.updateOne(
-				Filters.eq("modelName", DOC_NAME_VALUE),
-				Updates.combine(
-						Updates.set("dimensions", "3x4x5"),
-						Updates.set("weight", "256g")));
-		System.out.println(result);
+        UpdateResult result = collection.updateOne(
+                Filters.eq("modelName", DOC_NAME_VALUE),
+                Updates.combine(
+                        Updates.set("dimensions", "3x4x5"),
+                        Updates.set("weight", "256g")));
+        System.out.println(result);
 
-	}
+    }
 
-	private static <T> void printDocuments(MongoCollection<T> collection) {
-		List<T> products = new ArrayList<T>();
-		collection.find().into(products);
-		products.forEach(doc -> System.out.println(doc));
-	}
+    private static <T> void printDocuments(MongoCollection<T> collection) {
+        List<T> products = new ArrayList<T>();
+        collection.find().into(products);
+        products.forEach(doc -> System.out.println(doc));
+    }
 
-	public static void main(String[] args) {
-		String uri = "mongodb://localhost:27017";
+    public static void main(String[] args) {
+        String uri = "mongodb://localhost:27017";
 
-		try (MongoClient mongoClient = MongoClients.create(uri)) {
-			MongoDatabase database = mongoClient.getDatabase("sample_pojo").withCodecRegistry(getCodecRegistry());
-			MongoCollection<ProductWithBsonExtraElements> collection = database.getCollection("ProductsWithMoreInfo", ProductWithBsonExtraElements.class);
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("sample_pojo").withCodecRegistry(getCodecRegistry());
+            MongoCollection<ProductWithBsonExtraElements> collection = database.getCollection("ProductsWithMoreInfo", ProductWithBsonExtraElements.class);
 
-			setup(collection);
-			addOtherFields(mongoClient);
-			printDocuments(collection);
-		}
-	}
+            setup(collection);
+            addOtherFields(mongoClient);
+            printDocuments(collection);
+        }
+    }
 }

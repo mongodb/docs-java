@@ -34,42 +34,42 @@ public class ProductWithBsonExtraElements {
         this.name = name;
     }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getSerialNumber() {
-		return serialNumber;
-	}
+    public String getSerialNumber() {
+        return serialNumber;
+    }
 
-	public void setSerialNumber(String serialNumber) {
-		this.serialNumber = serialNumber;
-	}
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
-	public List<ProductPojo> getRelatedItems() {
-		return relatedItems;
-	}
+    public List<ProductPojo> getRelatedItems() {
+        return relatedItems;
+    }
 
-	public void setRelatedItems(List<ProductPojo> relatedItems) {
-		this.relatedItems = relatedItems;
-	}
+    public void setRelatedItems(List<ProductPojo> relatedItems) {
+        this.relatedItems = relatedItems;
+    }
 
-	public Document getAdditionalInfo() {
-		return additionalInfo;
-	}
+    public Document getAdditionalInfo() {
+        return additionalInfo;
+    }
 
-	public void setAdditionalInfo(Document additionalInfo) {
-		this.additionalInfo = additionalInfo;
-	}
+    public void setAdditionalInfo(Document additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
 
-	@Override
-	public String toString() {
-		return "ProductWithBsonExtraElements [name=" + name + ", serialNumber=" + serialNumber + ", relatedItems="
-				+ relatedItems + ", additionalInfo=" + additionalInfo + "]";
-	}
+    @Override
+    public String toString() {
+        return "ProductWithBsonExtraElements [name=" + name + ", serialNumber=" + serialNumber + ", relatedItems="
+                + relatedItems + ", additionalInfo=" + additionalInfo + "]";
+    }
 
 }
