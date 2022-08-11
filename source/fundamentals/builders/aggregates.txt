@@ -574,6 +574,8 @@ pipeline stage that specifies a full-text search of one or more fields.
    This aggregation pipeline operator is only available for collections hosted
    on :atlas:`MongoDB Atlas </>` clusters running v4.2 or later that are
    covered by an :atlas:`Atlas search index </reference/atlas-search/index-definitions/>`.
+   Learn more about the required setup and the functionality of this operator
+   from the :ref:`Atlas Search <fts-top-ref>` documentation.
 
 The following example creates a pipeline stage that searches the ``title``
 field for text that contains the word "Future":
@@ -584,6 +586,5 @@ field for text that contains the word "Future":
    :language: java
    :dedent:
 
-Learn more about the required setup and the functionality of this operator
-from the :ref:`Atlas Search <fts-top-ref>` documentation. Learn more about the
-builders from the `search package API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/search/package-summary.html>`__.
+Learn more about the builders from the
+`search package API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/search/package-summary.html>`__.
