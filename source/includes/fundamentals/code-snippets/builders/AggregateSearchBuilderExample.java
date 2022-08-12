@@ -53,8 +53,9 @@ public class AggregateSearchBuilderExample {
     }
 
     private static void runAtlasTextSearchMeta(MongoCollection<Document> collection) {
+        Bson textSearchMeta =
         // begin atlasSearchMeta
-        Bson textSearchMeta = Aggregates.searchMeta(
+        Aggregates.searchMeta(
                 SearchOperator.near(2010, 1, SearchPath.fieldPath("year")));
         // end atlasSearchMeta
 
