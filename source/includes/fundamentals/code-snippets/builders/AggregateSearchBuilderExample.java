@@ -73,6 +73,7 @@ public class AggregateSearchBuilderExample {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
+
             // Uncomment the methods that correspond to what you're testing
             // runMatch(collection);
             // runAtlasTextSearch(collection);
