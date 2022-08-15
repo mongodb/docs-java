@@ -43,6 +43,7 @@ public class AggregateSearchBuilderExample {
                         SearchPath.fieldPath("title"), "Future"));
         // end atlasTextSearch
 
+        // To condense result data, add this projection into the pipeline
         // Bson projection = Aggregates.project(Projections.fields(Projections.include("title", "released")));
 
         List<Bson> aggregateStages = Arrays.asList(textSearch);
@@ -72,6 +73,7 @@ public class AggregateSearchBuilderExample {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
+            // Uncomment the methods that correspond to what you're testing
             // runMatch(collection);
             // runAtlasTextSearch(collection);
             runAtlasTextSearchMeta(collection);
