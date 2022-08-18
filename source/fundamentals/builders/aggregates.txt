@@ -198,7 +198,7 @@ join between the ``movies`` and ``comments`` collections:
    :language: java
    :dedent:
 
-Full Join and Uncorrelated SubQueries
+Full Join and Uncorrelated Subqueries
 ++++++++++++++++++++++++++++++++++++++
 
 The following example creates a pipeline stage that joins two collections, ``orders``
@@ -231,6 +231,139 @@ of the values of the ``quantity`` field into the ``totalQuantity`` and
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin group
    :end-before: // end group
+   :language: java
+   :dedent:
+
+.. _java_aggregates_pick_n:
+
+Pick-N Accumulators
+-------------------
+
+The pick-n accumulators are aggregation operators that compute the top and
+bottom elements given a specific ordering. Use one of the following
+builders to create an aggregation pipeline stage:
+
+- :ref:`minN() <java_aggregates_min_n>`
+- :ref:`maxN() <java_aggregates_max_n>`
+- :ref:`firstN() <java_aggregates_first_n>`
+- :ref:`lastN() <java_aggregates_last_n>`
+- :ref:`top() <java_aggregates_top>`
+- :ref:`topN() <java_aggregates_top_n>`
+- :ref:`bottom() <java_aggregates_bottom>`
+- :ref:`bottomN() <java_aggregates_bottom_n>`
+
+You can use these accumulators within a group stage
+
+.. _java_aggregates_min_n:
+
+MinN
+~~~~
+
+The ``minN()`` accumulator returns data from documents that contain the ``n``
+lowest values of a grouping.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin minN accumulator
+   :end-before: // end minN accumulator
+   :language: java
+   :dedent:
+
+.. _java_aggregates_max_n:
+
+MaxN
+~~~~
+
+The ``maxN()`` accumulator returns data from documents that contain the ``n``
+highest values of a grouping.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin maxN accumulator
+   :end-before: // end maxN accumulator
+   :language: java
+   :dedent:
+
+.. _java_aggregates_first_n:
+
+FirstN
+~~~~~~
+
+The ``firstN()`` accumulator returns data from documents that are the first
+``n`` documents in a grouping for the specified sort order.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin firstN accumulator
+   :end-before: // end firstN accumulator
+   :language: java
+   :dedent:
+
+
+.. _java_aggregates_last_n:
+
+LastN
+~~~~~
+
+The ``firstN()`` accumulator returns data from documents that are the last
+``n`` documents in a grouping for the specified sort order.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin lastN accumulator
+   :end-before: // end lastN accumulator
+   :language: java
+   :dedent:
+
+.. _java_aggregates_top:
+
+Top
+~~~
+
+The ``top()`` accumulator returns data from documents that are contain the
+highest value for the specified field.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin top accumulator
+   :end-before: // end top accumulator
+   :language: java
+   :dedent:
+
+.. _java_aggregates_top_n:
+
+TopN
+~~~~
+
+The ``topN()`` accumulator returns data from documents that are contain the
+highest ``n`` values for the specified field.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin topN accumulator
+   :end-before: // end topN accumulator
+   :language: java
+   :dedent:
+
+.. _java_aggregates_bottom:
+
+Bottom
+~~~~~~
+
+The ``bottom()`` accumulator returns data from documents that are contain the
+lowest value for the specified field.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin bottom accumulator
+   :end-before: // end bottom accumulator
+   :language: java
+   :dedent:
+
+.. _java_aggregates_bottom_n:
+
+BottomN
+~~~~~~~
+
+The ``bottomN()`` accumulator returns data from documents that are contain the
+lowest ``n`` values for the specified field.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
+   :start-after: // begin bottomN accumulator
+   :end-before: // end bottomN accumulator
    :language: java
    :dedent:
 
@@ -410,7 +543,7 @@ pipeline stage that adds new fields to documents.
    Use ``$addFields`` when you do not want to project field inclusion
    or exclusion.
 
-Th following example adds two new fields, ``a`` and ``b`` to the input documents:
+The following example adds two new fields, ``a`` and ``b`` to the input documents:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
    :start-after: // begin addFields
@@ -563,6 +696,7 @@ and ``temperature`` fields:
    :language: java
    :dedent:
 
+
 Atlas Full-Text Search
 ----------------------
 
@@ -601,7 +735,7 @@ Atlas full-text search queries.
 
    This aggregation pipeline operator is only available
    on :atlas:`MongoDB Atlas </>` clusters running v4.4.11 and later. For a
-   detailed list of version availability, see the MongoDB Atlas documentation 
+   detailed list of version availability, see the MongoDB Atlas documentation
    on :atlas:`$searchMeta </atlas-search/query-syntax/#-searchmeta>`.
 
 The following example shows the ``count`` metadata for an Atlas search
