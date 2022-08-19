@@ -242,7 +242,7 @@ on :manual:`Accumulators <https://www.mongodb.com/docs/manual/reference/operator
 Pick-N Accumulators
 -------------------
 
-The pick-n accumulators are aggregation accumulation operators that compute
+The pick-n accumulators are aggregation accumulation operators that return
 the top and bottom elements given a specific ordering. Use one of the
 following builders to create an aggregation accumulation operator:
 
@@ -275,7 +275,8 @@ values of a grouping.
 
 .. tip::
 
-   The ``$minN`` and ``$bottomN`` accumulators can perform similar tasks. See
+   The ``$minN`` and ``$bottomN`` accumulators can perform similar tasks.
+   See
    :manual:`Comparison of $minN and $bottomN Accumulators </reference/operator/aggregation/minN/#comparison-of--minn-and--bottomn-accumulators>`
    for recommended usage of each.
 
@@ -321,7 +322,8 @@ each grouping for the specified sort order.
 
 .. tip::
 
-   The ``$firstN`` and ``$topN`` accumulators can perform similar tasks. See
+   The ``$firstN`` and ``$topN`` accumulators can perform similar tasks.
+   See
    :manual:`Comparison of $firstN and $topN Accumulators </reference/operator/aggregation/firstN/#comparison-of--firstn-and--topn-accumulators>`
    for recommended usage of each.
 
@@ -367,7 +369,7 @@ Top
 The ``top()`` accumulator returns data from the first document in a group
 based on the specified sort order.
 
-The following example demonstrates how to use the ``top()`` method to return 
+The following example demonstrates how to use the ``top()`` method to return
 the ``title`` and ``imdb.rating`` values for the top rated movies based on the
 ``imdb.rating``, grouped by year.
 
@@ -390,11 +392,12 @@ highest ``n`` values for the specified field.
 
 .. tip::
 
-   The ``$firstN`` and ``$topN`` accumulators can perform similar tasks. See
+   The ``$firstN`` and ``$topN`` accumulators can perform similar tasks.
+   See
    :manual:`Comparison of $firstN and $topN Accumulators </reference/operator/aggregation/firstN/#comparison-of--firstn-and--topn-accumulators>`
    for recommended usage of each.
 
-The following example demonstrates how to use the ``topN()`` method to return 
+The following example demonstrates how to use the ``topN()`` method to return
 the ``title`` and ``runtime`` values of the three longest movies based on the
 ``runtime`` values, grouped by year.
 
@@ -438,13 +441,13 @@ lowest ``n`` values for the specified field.
 
 .. tip::
 
-   The ``$minN`` and ``$bottomN`` accumulators can perform similar tasks. See
-   :manual:`Comparison of $minN and $bottomN Accumulators </reference/operator/aggregation/minN/#comparison-of--minn-and--bottomn-accumulators>`
+   The ``$minN`` and ``$bottomN`` accumulators can perform similar tasks.
+   See :manual:`Comparison of $minN and $bottomN Accumulators </reference/operator/aggregation/minN/#comparison-of--minn-and--bottomn-accumulators>`
    for recommended usage of each.
 
 The following example demonstrates how to use the ``bottomN()`` method to
-return the ``title`` and ``imdb.rating`` of the two lowest rated movies based
-on the ``imdb.rating`` value, grouped by year:
+return the ``title`` and ``imdb.rating`` values of the two lowest rated movies
+based on the ``imdb.rating`` value, grouped by year:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin bottomN accumulator
@@ -452,7 +455,7 @@ on the ``imdb.rating`` value, grouped by year:
    :language: java
    :dedent:
 
-See the `bottom API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Accumulators.html#bottomN(java.lang.String,org.bson.conversions.Bson,OutExpression,NExpression)>`__
+See the `bottomN API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Accumulators.html#bottomN(java.lang.String,org.bson.conversions.Bson,OutExpression,NExpression)>`__
 for more information.
 
 Unwind
