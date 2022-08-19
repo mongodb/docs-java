@@ -281,7 +281,7 @@ values of a grouping.
    for recommended usage of each.
 
 The following example demonstrates how to use the ``minN()`` method to return
-the lowest three ``imdb.rating`` values for movies, grouped by year:
+the lowest three ``imdb.rating`` values for movies, grouped by ``year``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin minN accumulator
@@ -301,7 +301,7 @@ The ``maxN()`` accumulator returns data from documents that contain the ``n``
 highest values of a grouping.
 
 The following example demonstrates how to use the ``maxN()`` method to
-return the highest two ``imdb.rating`` values for movies, grouped by year:
+return the highest two ``imdb.rating`` values for movies, grouped by ``year``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin maxN accumulator
@@ -328,8 +328,8 @@ each grouping for the specified sort order.
    for recommended usage of each.
 
 The following example demonstrates how to use the ``firstN()`` method to
-return  the first four ``title`` values, based on the order they came into the
-stage, for movies, grouped by year:
+return the first four ``title`` values, based on the order they came into the
+stage, for movies, grouped by ``year``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin firstN accumulator
@@ -349,8 +349,8 @@ The ``lastN()`` accumulator returns data from the last ``n`` documents in
 each grouping for the specified sort order.
 
 The following example demonstrates how to use the ``lastN()`` method to show
-the last three ``title`` values, based on the the order they came into the
-stage, for movies, grouped by year:
+the last three movie ``title`` values, based on the the order they came into
+the stage, grouped by ``year``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin lastN accumulator
@@ -371,7 +371,7 @@ based on the specified sort order.
 
 The following example demonstrates how to use the ``top()`` method to return
 the ``title`` and ``imdb.rating`` values for the top rated movies based on the
-``imdb.rating``, grouped by year.
+``imdb.rating``, grouped by ``year``.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin top accumulator
@@ -399,7 +399,7 @@ highest ``n`` values for the specified field.
 
 The following example demonstrates how to use the ``topN()`` method to return
 the ``title`` and ``runtime`` values of the three longest movies based on the
-``runtime`` values, grouped by year.
+``runtime`` values, grouped by ``year``.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin topN accumulator
@@ -420,7 +420,7 @@ based on the specified sort order.
 
 The following example demonstrates how to use the ``bottom()`` method to
 return the ``title`` and ``runtime`` values of the shortest movie based on the
-``runtime`` value, grouped by year.
+``runtime`` value, grouped by ``year``.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin bottom accumulator
@@ -447,7 +447,7 @@ lowest ``n`` values for the specified field.
 
 The following example demonstrates how to use the ``bottomN()`` method to
 return the ``title`` and ``imdb.rating`` values of the two lowest rated movies
-based on the ``imdb.rating`` value, grouped by year:
+based on the ``imdb.rating`` value, grouped by ``year``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin bottomN accumulator
