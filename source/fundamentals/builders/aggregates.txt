@@ -235,7 +235,7 @@ of the values of the ``quantity`` field into the ``totalQuantity`` and
    :dedent:
 
 Learn more about accumulator operators from the Server manual section
-on :manual:`Accumulators <https://www.mongodb.com/docs/manual/reference/operator/aggregation/#std-label-agg-operators-group-accumulators>`.
+on :manual:`Accumulators </reference/operator/aggregation/#std-label-agg-operators-group-accumulators>`.
 
 .. _java_aggregates_pick_n:
 
@@ -262,7 +262,7 @@ following builders to create an aggregation accumulation operator:
 
 Learn which aggregation pipeline stages you can use accumulator operators with
 from the Server manual section on
-:manual:`Accumulators <https://www.mongodb.com/docs/manual/reference/operator/aggregation/#std-label-agg-operators-group-accumulators>`.
+:manual:`Accumulators </reference/operator/aggregation/#std-label-agg-operators-group-accumulators>`.
 
 .. _java_aggregates_min_n:
 
@@ -328,8 +328,8 @@ each grouping for the specified sort order.
    for recommended usage of each.
 
 The following example demonstrates how to use the ``firstN()`` method to
-return  the first four ``title`` values, based on their :term:`natural order`,
-for movies, grouped by year:
+return  the first four ``title`` values, based on the order they came into the
+stage, for movies, grouped by year:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin firstN accumulator
@@ -349,8 +349,8 @@ The ``lastN()`` accumulator returns data from the last ``n`` documents in
 each grouping for the specified sort order.
 
 The following example demonstrates how to use the ``lastN()`` method to show
-the last three ``title`` values, based on their :term:`natural order`, for
-movies, grouped by year:
+the last three ``title`` values, based on the the order they came into the
+stage, for movies, grouped by year:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AccumulatorsPickN.java
    :start-after: // begin lastN accumulator
