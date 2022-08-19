@@ -49,7 +49,7 @@ public class AccumulatorsPickN {
     }
     private static Bson createFirstNStage() {
         return
-                // begin FirstN accumulator
+                // begin firstN accumulator
                 Aggregates.group(
                         "$year",
                         Accumulators.firstN(
@@ -57,7 +57,7 @@ public class AccumulatorsPickN {
                                 new BsonString("$title"),
                                 4
                                 ));
-                // end FirstN accumulator
+                // end firstN accumulator
     }
     private static Bson createLastNStage() {
         return
@@ -125,8 +125,7 @@ public class AccumulatorsPickN {
     
     public static void main(String[] args) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_URI)) {
-            MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-            MongoCollection<Document> collection = database.getCollection("movies");
+            MongoCollection<Document> collection = mongoClient.getDatabase("sample_mflix").getCollection("movies");
 
             // Uncomment the example aggregations you want to run below
             // runAggregation(collection, createMinNStage());
