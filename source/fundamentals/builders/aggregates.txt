@@ -787,6 +787,46 @@ and ``temperature`` fields:
    :language: java
    :dedent:
 
+Densify
+-------
+
+Use the ``densify()`` method to create a
+`$densify https://www.mongodb.com/docs/rapid/reference/operator/aggregation/densify/#-densify--aggregation-`__
+pipeline stage that generates a sequence of documents to span a specified
+interval
+
+.. tip::
+
+   You can only use the ``$densify()`` aggregation stage when running
+   MongoDB v5.1 or later.
+
+The following example creates a pipeline stage that adds documents every
+15 minutes for which ``ts`` values do not already exist. The partition option
+specifies that the stage should group the documents using the ``position``
+field.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AggregateDensify.java
+   :start-after: // begin densify aggregate
+   :end-before: // end densify aggregate
+   :language: java
+   :dedent:
+
+The following output highlights the documents added by the aggregate stage
+which contain``ts`` values every 15 minutes between the existing documents:
+
+.. code-block:: java
+   :emphasize-lines: 2-4
+
+   Document{{ _id=5553a..., position=Document{{type=Point, coordinates=[-47.9, 47.6]}}, ts=Mon Mar 05 08:00:00 EST 1984, ... }}
+   Document{{ position=Document{{coordinates=[-47.9, 47.6]}}, ts=Mon Mar 05 08:15:00 EST 1984 }}
+   Document{{ position=Document{{coordinates=[-47.9, 47.6]}}, ts=Mon Mar 05 08:30:00 EST 1984 }}
+   Document{{ position=Document{{coordinates=[-47.9, 47.6]}}, ts=Mon Mar 05 08:45:00 EST 1984 }}
+   Document{{ _id=5553b..., position=Document{{type=Point, coordinates=[-47.9, 47.6]}}, ts=Mon Mar 05 09:00:00 EST 1984, ... }}
+
+
+See the `densify() API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#densify(java.lang.String,com.mongodb.client.model.densify.DensifyRange)>`
+for more information.
+
 Atlas Full-Text Search
 ----------------------
 
