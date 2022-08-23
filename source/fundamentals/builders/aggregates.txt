@@ -800,7 +800,9 @@ interval.
    You can use the ``$densify()`` aggregation stage only when running
    MongoDB v5.1 or later.
 
-Consider the following documents retrieved from the :atlas:`Atlas sample weather dataset </sample-data/sample-weather>`:
+Consider the following documents retrieved from the :atlas:`Atlas sample weather dataset </sample-data/sample-weather>`
+that contain measurements for a similar ``position`` field, spaced one hour
+apart:
 
 .. code-block:: none
    :copyable: false
@@ -815,7 +817,8 @@ actions on these documents:
   already exist.
 - Group the documents by the ``position`` field.
 
-The ``densify()`` call should resemble the following method call:
+The call to the ``densify()`` aggregation stage builder that accomplishes
+these actions should resemble the following:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/builders/AggregateDensify.java
    :start-after: // begin densify aggregate
