@@ -9,16 +9,21 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.fill.FillOptions;
 import com.mongodb.client.model.fill.FillOutputField;
+import static com.mongodb.client.model.Aggregates.*;
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Projections.*;
+import static com.mongodb.client.model.Sorts.*;
+import static com.mongodb.client.model.Accumulators.*;
+import static java.util.Arrays.asList;
 
 public class AggregateFill {
 
     private static final String CONNECTION_URI = "<your connection URI>";
 
     private static void setup(MongoCollection<Document> collection) {
-        collection.insertMany(Arrays.asList(
+        collection.insertMany(asList(
                 new Document("hour", 1).append("temperature",  "23C").append("air_pressure", 29.74),
                 new Document("hour", 2).append("temperature", "23.5C"),
                 new Document("hour", 3).append("temperature", null).append("air_pressure",  29.76)
@@ -34,7 +39,7 @@ public class AggregateFill {
         return Aggregates.
                 // begin fill aggregate
                 fill(
-                        FillOptions.fillOptions().sortBy(Sorts.ascending("hour")),
+                        FillOptions.fillOptions().sortBy(ascending("hour")),
                         FillOutputField.value("temperature", "23.6C"),
                         FillOutputField.linear("air_pressure")
                         );
