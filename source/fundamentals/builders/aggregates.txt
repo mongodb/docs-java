@@ -867,8 +867,9 @@ measurements at an hourly interval:
 Suppose you needed to populate missing temperature and air pressure
 data points in the documents as follows:
 
-- Linearly interpolate the value of the ``air_pressure`` field for hour "2".
-- Set the missing temperature value to "23.6C" for hour "3".
+- Populate the ``air_pressure`` field for hour "2" using linear interpolation
+  to calculate the value.
+- Set the missing ``temperature`` value to "23.6C" for hour "3".
 
 The call to the ``fill()`` aggregation stage builder that accomplishes
 these actions should resemble the following:
