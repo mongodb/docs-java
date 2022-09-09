@@ -4,7 +4,7 @@
      <dependency>
        <groupId>ch.qos.logback</groupId>
        <artifactId>logback-classic</artifactId>
-       <version>{+logbackVersion}</version>
+       <version>{+logbackVersion+}</version>
      </dependency>
    </dependencies>
 
