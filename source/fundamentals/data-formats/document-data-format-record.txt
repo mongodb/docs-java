@@ -100,7 +100,7 @@ After you specify the appropriate codec registry, you can insert a
 
    MongoCollection<DataStorageRecord> collection = database.getCollection("data_storage_devices", DataStorageRecord.class);
 
-   // insert the document
+   // insert the record
    collection.insertOne(new DataStorageRecord("1GB SSD", 8.56));
 
 Retrieve a Record
@@ -116,10 +116,9 @@ code below:
    .. input::
       :language: java
 
-      // insert the document
-      collection.insertOne(new DataStorageRecord("1GB SSD", 8.56));
+      MongoCollection<DataStorageRecord> collection = database.getCollection("data_storage_devices", DataStorageRecord.class);
 
-      // return all documents in the collection as records
+      // retrieve and print the records
       List<DataStorageRecord> records = new ArrayList<DataStorageRecord>();
       collection.find().into(records);
       records.forEach(System.out::println);
@@ -130,9 +129,8 @@ code below:
       DataStorageRecord[productName=1GB SSD, capacity=8.56]
 
 For more information about the methods and classes mentioned in this section,
-see the following API Documentation:
+see the following API documentation:
 
 - `CodecRegistry <{+api+}/apidocs/bson/org/bson/codecs/configuration/CodecRegistry.html>`__
-- `getDefaultCodecRegistry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html?is-external=true#getDefaultCodecRegistry()>`__
-- `MongoClientSettings.getDefaultCodecRegistry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getDefaultCodecRegistry()>`__
+- `getDefaultCodecRegistry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getDefaultCodecRegistry()>`__
 
