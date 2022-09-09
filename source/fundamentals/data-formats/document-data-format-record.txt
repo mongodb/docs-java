@@ -1,0 +1,139 @@
+.. _fundamentals-records:
+
+=============================
+Document Data Format: Records
+=============================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn how to store and retrieve data in the {+driver-long+}
+using **Java records**. Java records are a type of Java class that are often
+used to model data and separate business logic from data representation.
+
+.. tip::
+
+   You can declare Java records in Java 14 or later. Learn more about the
+   functionality and restrictions of records from `Java 14 Language Updates: Records <https://docs.oracle.com/en/java/javase/14/language/records.html>`__.
+
+   If you are using an earlier version of Java, you can use plain old Java
+   objects instead. See the :ref:`<fundamentals-pojos>` guide for
+   implementation details.
+
+The following sections show how you can perform the following tasks:
+
+- Configure the driver to serialize and deserialize a record.
+- Read data from MongoDB into records.
+- Write data from records into MongoDB.
+
+.. _fundamentals-example-record:
+
+Example Record
+--------------
+
+The code examples in this guide reference the following sample record which
+describes a data storage device:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/records/DataStorageRecord.java
+   :language: java
+   :start-after: start dataStorageRecord
+   :end-before: end dataStorageRecord
+
+Serialize and Deserialize a Record
+----------------------------------
+
+To set up the driver to serialize and deserialize a record, you need to
+provide it with logic on how to convert between Java and MongoDB types using
+**codecs**. Codecs define how to encode and decode the data between the
+record and MongoDB document and to which record classes or packages the codecs
+they apply. The driver defines methods for the encoding and decoding logic an
+interface called ``Codec``.
+
+In order to identify which codec to use, the driver uses a registry called
+the ``CodecRegistry``. The ``CodecRegistry`` is an immutable collection of
+``Codec`` implementations that identify which object type they can convert.
+
+To specify the scope in which to apply the codecs in the registry, call
+the ``withCodecRegistry`` method on an instance of either a ``MongoDatabase``
+or ``MongoCollection``.
+
+The driver provides the ``DefaultCodecRegistry``, a codec registry that
+includes several ``CodecRegistry`` classes that contain commonly-used
+``Codec`` implementations.
+
+See the code below for an example of how to set the
+``DefaultCodecRegistry`` on the ``MongoDatabase`` instance:
+
+.. code-block:: java
+   :emphasize-lines: 7,8
+
+   import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
+   import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
+   // ...
+
+   try (MongoClient mongoClient = MongoClients.create(uri)) {
+       CodecRegistry codecRegistry = fromRegistries(getDefaultCodecRegistry());
+       MongoDatabase database = mongoClient.getDatabase("sample_data").withCodecRegistry(codecRegistry);
+
+       // ...
+   }
+
+The ``DefaultCodecRegistry`` includes a codec that handles record types and
+the fields in a ``DataStorageRecord``.
+
+Insert a Record
+~~~~~~~~~~~~~~~
+
+After you specify the appropriate codec registry, you can insert a
+``DataStorageRecord`` instance as shown in the code below:
+
+.. code-block:: java
+
+   MongoCollection<DataStorageRecord> collection = database.getCollection("data_storage_devices", DataStorageRecord.class);
+
+   // insert the document
+   collection.insertOne(new DataStorageRecord("1GB SSD", 8.56));
+
+Retrieve a Record
+~~~~~~~~~~~~~~~~~
+
+After you specify the appropriate codec registry, you can retrieve
+documents as a ``DataStorageRecord`` instances and print them as shown in the
+code below:
+
+.. io-code-block::
+
+   .. input::
+      :language: java
+      :copyable: true
+
+      // insert the document
+      collection.insertOne(new DataStorageRecord("1GB SSD", 8.56));
+
+      // return all documents in the collection as records
+      List<DataStorageRecord> records = new ArrayList<DataStorageRecord>();
+      collection.find().into(records);
+      records.forEach(System.out::println);
+
+   .. output::
+      :language: none
+      :copyable: false
+
+      DataStorageRecord[productName=1GB SSD, capacity=8.56]
+
+For more information about the methods and classes mentioned in this section,
+see the following API Documentation:
+
+- `CodecRegistry <{+api+}/apidocs/bson/org/bson/codecs/configuration/CodecRegistry.html>`__
+- `getDefaultCodecRegistry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html?is-external=true#getDefaultCodecRegistry()>`__
+- `MongoClientSettings.getDefaultCodecRegistry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getDefaultCodecRegistry()>`__
+
