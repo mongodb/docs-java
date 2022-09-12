@@ -50,10 +50,10 @@ describes a data storage device:
 Serialize and Deserialize a Record
 ----------------------------------
 
-To set up the driver to serialize and deserialize a record, you must provide
-it with logic on how to convert between Java and MongoDB types using
-**codecs**. Codecs define how to encode and decode data between records and
-MongoDB documents, and to which classes or packages the codecs they apply.
+You can provide the driver with instructions on how to serialize and
+deserialize Java and MongoDB types using **codecs**. Codecs define how to
+encode and decode data between records and MongoDB documents, and to which
+classes or packages the codecs apply.
 
 The driver defines methods for the encoding and decoding logic in an interface
 called ``Codec``. It automatically includes the ``DefaultCodecRegistry`` which
