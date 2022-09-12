@@ -1,12 +1,7 @@
 package fundamentals.codecs.records;
 
-import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bson.codecs.configuration.CodecRegistry;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -16,13 +11,11 @@ import com.mongodb.client.MongoDatabase;
 
 public class CodecRecordExample {
     public static void main(String args[]) {
-        CodecRegistry codecRegistry = fromRegistries(getDefaultCodecRegistry());
-
         // Replace the uri string with your MongoDB deployment's connection string
         String uri = "<connection uri>";
         try (MongoClient mongoClient = MongoClients.create(uri)) {
 
-            MongoDatabase database = mongoClient.getDatabase("sample_data").withCodecRegistry(codecRegistry);
+            MongoDatabase database = mongoClient.getDatabase("sample_data");
             MongoCollection<DataStorageRecord> collection = database.getCollection("data_storage_devices", DataStorageRecord.class);
 
             // insert the document

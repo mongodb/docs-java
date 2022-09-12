@@ -6,3 +6,4 @@ public record DataStorageRecord(
         Double capacity
 ) {}
 // end dataStorageRecord
+
