@@ -44,8 +44,8 @@ encode and decode data between records and MongoDB documents, and to which
 classes or packages the codecs apply.
 
 The driver defines methods for the encoding and decoding logic in an interface
-called ``Codec``. It automatically includes the ``DefaultCodecRegistry`` which
-contains codecs for records and other commonly-used types.
+called ``Codec``. By default, the driver includes codecs for several
+commonly-used types.
 
 .. tip::
 
