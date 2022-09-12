@@ -54,8 +54,13 @@ To set up the driver to serialize and deserialize a record, you must provide
 it with logic on how to convert between Java and MongoDB types using
 **codecs**. Codecs define how to encode and decode data between records and
 MongoDB documents, and to which classes or packages the codecs they apply.
-The driver defines methods for the encoding and decoding logic an interface
+The driver defines methods for the encoding and decoding logic in an interface
 called ``Codec``.
+
+.. tip::
+
+   Learn more about how to create and manage custom codecs from the guide on
+   :ref:<fundamentals-codecs>`.
 
 To identify which codec to use, the driver uses a registry called the
 ``CodecRegistry``. The ``CodecRegistry`` is an immutable collection of
@@ -66,7 +71,7 @@ the ``withCodecRegistry`` method on an instance of either a ``MongoDatabase``
 or ``MongoCollection``.
 
 The driver provides the ``DefaultCodecRegistry``, a codec registry that
-includes ``CodecRegistry`` classes that contain commonly-used ``Codec`` 
+includes ``CodecRegistry`` classes that contain commonly-used ``Codec``
 implementations.
 
 See the following code for an example of how to set the
