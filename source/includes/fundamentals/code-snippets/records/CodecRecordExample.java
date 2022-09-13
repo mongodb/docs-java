@@ -19,7 +19,7 @@ public class CodecRecordExample {
             MongoCollection<DataStorageRecord> collection = database.getCollection("data_storage_devices", DataStorageRecord.class);
 
             // insert the document
-            collection.insertOne(new DataStorageRecord("1GB SSD", 8.56));
+            collection.insertOne(new DataStorageRecord("2TB SSD", 1.71));
 
             // return all documents in the collection as records
             List<DataStorageRecord> records = new ArrayList<DataStorageRecord>();

@@ -65,7 +65,7 @@ You can insert a ``DataStorageRecord`` instance as shown in the following code:
    MongoCollection<DataStorageRecord> collection = database.getCollection("data_storage_devices", DataStorageRecord.class);
 
    // insert the record
-   collection.insertOne(new DataStorageRecord("1GB SSD", 8.56));
+   collection.insertOne(new DataStorageRecord("2TB SSD", 1.71));
 
 Retrieve a Record
 ~~~~~~~~~~~~~~~~~
@@ -89,5 +89,5 @@ as shown in the following code:
    .. output::
       :language: none
 
-      DataStorageRecord[productName=1GB SSD, capacity=8.56]
+      DataStorageRecord[productName=1TB SSD, capacity=1.71]
 
