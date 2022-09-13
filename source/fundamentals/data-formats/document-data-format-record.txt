@@ -21,8 +21,8 @@ model data and separate business logic from data representation.
 
 .. tip::
 
-   You can declare Java records in Java 14 or later. Learn more about the
-   functionality and restrictions of records from `Java 14 Language Updates: Records <https://docs.oracle.com/en/java/javase/14/language/records.html>`__.
+   You can declare Java records in Java 16 or later. Learn more about the
+   functionality and restrictions of records from `Java 17 Language Updates: Record Classes <https://docs.oracle.com/en/java/javase/17/language/records.html>`__.
 
    If you are using an earlier version of Java, you can use plain old Java
    objects instead. See the :ref:`<fundamentals-pojos>` guide for
@@ -38,19 +38,11 @@ In this guide, you can learn how to perform the following tasks:
 Serialize and Deserialize a Record
 ----------------------------------
 
-You can provide the driver with instructions on how to serialize and
-deserialize Java and MongoDB types using **codecs**. Codecs define how to
-encode and decode data between records and MongoDB documents, and to which
-classes or packages the codecs apply.
-
-The driver defines methods for the encoding and decoding logic in an interface
-called ``Codec``. By default, the driver includes codecs for several
-commonly-used types.
-
-.. tip::
-
-   Learn more about how to create and manage codecs from the guide on
-   :ref:`<fundamentals-codecs>`.
+The driver natively supports encoding and decoding Java records for
+MongoDB read and write operations using the **default codec registry**. The
+default codec registry is a collection of classes called **codecs** that
+define how to convert encode and decode Java types.  Learn more about
+codecs and the default codec registry in the guide on :ref:`<fundamentals-codecs>`.
 
 Example Record
 ~~~~~~~~~~~~~~
