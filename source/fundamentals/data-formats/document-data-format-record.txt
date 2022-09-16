@@ -34,7 +34,7 @@ Serialize and Deserialize a Record
 The driver natively supports encoding and decoding Java records for
 MongoDB read and write operations using the **default codec registry**. The
 default codec registry is a collection of classes called **codecs** that
-define how to convert encode and decode Java types.  Learn more about
+define how to convert encode and decode Java types. Learn more about
 codecs and the default codec registry in the guide on :ref:`<fundamentals-codecs>`.
 
 .. _fundamentals-example-record:
@@ -120,8 +120,8 @@ You can use the following annotations on record fields:
        field to BSON. Accepts the field name as the parameter.
 
    * - ``BsonRepresentation``
-     - Specify a BSON type to store when different from the record field type.
-       Accepts the BSON type as the parameter.
+     - Specifies a BSON type to store when different from the record field 
+       type. Accepts the BSON type as the parameter.
 
 Example Annotated Record
 ~~~~~~~~~~~~~~~~~~~~~~~~
