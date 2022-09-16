@@ -146,6 +146,18 @@ You can insert a ``DataStorageRecord`` instance as shown in the following code:
    // insert the record
    collection.insertOne(new NetworkDeviceRecord("fedcba09876543210abcdef0", "Enterprise Wi-fi", "router"));
 
+The inserted document in MongoDB should resemble the following:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+     _id: ObjectId("fedcba09876543210abcdef0"),
+     name: 'Enterprise Wi-fi',
+     type: 'router'
+   }
+
+
 Retrieve an Annotated Record
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
