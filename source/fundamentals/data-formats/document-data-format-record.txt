@@ -160,8 +160,8 @@ as shown in the following code:
 
       MongoCollection<NetworkDeviceRecord> collection = database.getCollection("network_devices", NetworkDeviceRecord.class);
 
-      // retrieve and print the records
-      List<DataStorageRecord> records = new ArrayList<DataStorageRecord>();
+      // return all documents in the collection as records
+      List<NetworkDeviceRecord> records = new ArrayList<NetworkDeviceRecord>();
       collection.find().into(records);
       records.forEach(System.out::println);
 
