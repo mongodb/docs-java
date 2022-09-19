@@ -19,7 +19,8 @@ public class RecordAnnotationExample {
             MongoCollection<NetworkDeviceRecord> collection = database.getCollection("network_devices", NetworkDeviceRecord.class);
 
             // insert the document
-            collection.insertOne(new NetworkDeviceRecord("fedcba09876543210abcdef0", "Enterprise Wi-fi", "router"));
+            String deviceId = new ObjectId().toHexString();
+            collection.insertOne(new NetworkDeviceRecord(deviceId, "Enterprise Wi-fi", "router"));
 
             // return all documents in the collection as records
             List<NetworkDeviceRecord> records = new ArrayList<NetworkDeviceRecord>();

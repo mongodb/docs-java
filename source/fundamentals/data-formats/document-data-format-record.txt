@@ -89,12 +89,12 @@ as shown in the following code:
 
 .. _fundamentals-records-annotations:
 
-Specify Field Conversion Using Annotations
-------------------------------------------
+Specify Component Conversion Using Annotations
+----------------------------------------------
 
 This section describes the annotations you can use to configure the
-serialization behavior of record fields and provides an example to demonstrate
-the annotation behavior.
+serialization behavior of record components and provides an example to
+demonstrate the annotation behavior.
 
 .. tip::
 
@@ -102,7 +102,7 @@ the annotation behavior.
    equivalent ones from the `org.bson.codecs.pojo.annotations <{+api+}/apidocs/bson/org/bson/codecs/pojo/annotations/package-summary.html>`__
    package instead.
 
-You can use the following annotations on record fields:
+You can use the following annotations on record components:
 
 .. list-table::
    :header-rows: 1
@@ -113,14 +113,14 @@ You can use the following annotations on record fields:
      - Description
 
    * - ``BsonId``
-     - Specifies the field to serialize as the _id property.
+     - Specifies the component to serialize as the _id property.
 
    * - ``BsonProperty``
      - Specifies a custom document field name when converting the record
-       field to BSON. Accepts the field name as the parameter.
+       component to BSON. Accepts the field name as the parameter.
 
    * - ``BsonRepresentation``
-     - Specifies a BSON type to store when different from the record field 
+     - Specifies a BSON type to store when different from the record component
        type. Accepts the BSON type as the parameter.
 
 Example Annotated Record
@@ -144,7 +144,8 @@ You can insert a ``DataStorageRecord`` instance as shown in the following code:
    MongoCollection<NetworkDeviceRecord> collection = database.getCollection("network_devices", NetworkDeviceRecord.class);
 
    // insert the record
-   collection.insertOne(new NetworkDeviceRecord("fedcba09876543210abcdef0", "Enterprise Wi-fi", "router"));
+   String deviceId = new ObjectId().toHexString();
+   collection.insertOne(new NetworkDeviceRecord(deviceId, "Enterprise Wi-fi", "router"));
 
 The inserted document in MongoDB should resemble the following:
 
@@ -152,7 +153,7 @@ The inserted document in MongoDB should resemble the following:
    :copyable: false
 
    {
-     _id: ObjectId("fedcba09876543210abcdef0"),
+     _id: ObjectId("fedc..."),
      name: 'Enterprise Wi-fi',
      type: 'router'
    }
@@ -180,5 +181,5 @@ as shown in the following code:
    .. output::
       :language: none
 
-      NetworkDeviceRecord[deviceId=fedcba09876543210abcdef0, name=Enterprise Wi-fi, deviceType=router]
+      NetworkDeviceRecord[deviceId=fedc..., name=Enterprise Wi-fi, deviceType=router]
 
