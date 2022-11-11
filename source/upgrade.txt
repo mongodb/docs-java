@@ -21,15 +21,15 @@ application to upgrade your driver to a new version.
 
 Before you upgrade, perform the following actions:
 
-- Ensure the new version is compatible with the MongoDB server versions
+- Ensure the new version is compatible with the {+mdb-server} versions
   your application connects to and the Java Runtime Environment (JRE) your
   application runs on. See the :ref:`Java Compatibility <java-compatibility-tables>`
   page for this information.
 - Address any breaking changes between the current version of the driver
   your application is using and your planned upgrade version in the
-  section on :ref:`Breaking Changes <java-breaking-changes>` below. To learn
-  more about the MongoDB server release compatibility changes, see the
-  section on :ref:`<java-server-release-changes>`.
+  :ref:`Breaking Changes <java-breaking-changes>` section. To learn
+  more about the {+mdb-server+} release compatibility changes, see the
+  :ref:`<java-server-release-changes>` section.
 
 .. tip::
 
@@ -57,7 +57,7 @@ the version after v4.0 including any listed under v4.5.
 Version 4.8 Breaking Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- The driver ends support for connecting to MongoDB Server versions v3.4 and
+- The driver ends support for connecting to {+mdb-server+} versions v3.4 and
   earlier. To learn more about this change, see the :ref:`<java-server-release-change-v4.8>`
   section.
 
@@ -139,9 +139,9 @@ Server Release Compatibility Changes
 
 A server release compatibility change is a modification
 to the {+driver-long+} that discontinues support for a set of
-MongoDB server versions.
+{+mdb-server+} versions.
 
-The driver discontinues support for a MongoDB server version after it reaches
+The driver discontinues support for a {+mdb-server+} version after it reaches
 end-of-life (EOL).
 
 To learn more about the MongoDB support for EOL products,
@@ -152,9 +152,9 @@ see the `Legacy Support Policy <https://www.mongodb.com/support-policy/legacy>`_
 Version 4.8 Server Release Support Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- The v4.8 driver drops support for MongoDB server v3.4 and earlier.
-  To use the v4.8 driver, your MongoDB server must be v3.6 or later. To learn
-  how to upgrade your MongoDB server to v3.6, follow the link that corresponds 
+- The v4.8 driver drops support for {+mdb-server+} v3.4 and earlier.
+  To use the v4.8 driver, your {+mdb-server+} must be v3.6 or later. To learn
+  how to upgrade your {+mdb-server+} to v3.6, follow the link that corresponds 
   to your MongoDB deployment configuration:
 
   - :ref:`<3.6-upgrade-replica-set>`
