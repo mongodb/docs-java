@@ -88,7 +88,7 @@ public class MongoDbAwsAuth {
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                 .applyToClusterSettings(builder ->
-                builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", 27017))))
+                builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", <port>))))
                 .credential(credential)
                 .build());
         // end refreshCredentials
