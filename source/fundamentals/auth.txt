@@ -236,20 +236,20 @@ connect using ``MONGODB-CR``.
 
 The ``MONGODB-AWS`` authentication mechanism uses your Amazon Web Services
 Identity and Access Management (AWS IAM) credentials to authenticate your
-user. For more information on how to set up your MongoDB deployment on
-MongoDB Atlas, see the :atlas:`Set Up Passwordless Authentication with AWS IAM Roles <security/passwordless-authentication/#set-up-passwordless-authentication-with-aws-iam-roles>`
+user. To learn more about setting up MongoDB Atlas, see the
+:atlas:`Set Up Passwordless Authentication with AWS IAM Roles <security/passwordless-authentication/#set-up-passwordless-authentication-with-aws-iam-roles>`
 guide.
 
 You can authenticate to a MongoDB deployment using AWS credentials using one
 of the following methods:
 
-- Use the AWS SDK (v1 or v2) to authenticate an IAM role.
-- Store your AWS credentials as environment variables.
+- The AWS SDK (v1 or v2) to authenticate an IAM role.
+- Specify your AWS credentials in environment variables.
 - Specify your AWS credentials in a ``MongoCredential`` object or connection
   string.
 
-The driver checks the methods for providing your AWS credentials in the
-following order:
+The driver uses the first method it finds for providing your AWS credentials
+in the following order:
 
 1. The AWS SDK (v1 or v2)
 #. Your ``MongoCredential`` object or the connection string
@@ -276,6 +276,10 @@ class to specify the credentials.
 
 If your project includes AWS SDK for Java ``v2``, the driver uses the `DefaultCredentialsProvider <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html>`__
 class to specify the credentials.
+
+To learn more about the AWS SDK for Java, see the
+`AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`__ Amazon
+documentation.
 
 
 AWS IAM Credentials
@@ -408,9 +412,19 @@ To authenticate, specify the ECS or EC2 container relative URI in an
 environment variable called ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI`` and assign the
 value of your container relative URI to it.
 
-.. TODO: source code example
+.. note::
 
-Learn more about the AWS container credential provider and container
+   Your client execution environment may vary.
+
+When using bash or a similar shell in your client execution environment, you
+can set the environment variable, replacing the value of the placeholder
+with your relative URI:
+
+.. code-block:: bash
+
+   export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=<your ECS/EC2 endpoint>
+
+To learn more about the AWS container credential provider and container
 credentials, see the AWS documentation on `Container credentials <https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html>`__.
 
 .. _x509-auth-mechanism:
