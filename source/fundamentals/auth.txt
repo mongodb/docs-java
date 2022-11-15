@@ -262,7 +262,8 @@ Authenticate using the AWS SDK
 +++++++++++++++++++++++++++++++
 
 You can authenticate with your AWS IAM role using the `AWS SDK for Java <https://docs.aws.amazon.com/sdk-for-java/index.html>`__
-versions 1 or 2.
+versions 1 or 2 by including it in your project and authenticating with
+the SDK..
 
 If your project includes AWS SDK for Java **v1**, the driver uses the `DefaultAWSCredentialsProviderChain <https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html>`__
 class to specify the credentials.
@@ -270,9 +271,8 @@ class to specify the credentials.
 If your project includes AWS SDK for Java **v2**, the driver uses the `DefaultCredentialsProvider <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html>`__
 class to specify the credentials.
 
-To learn more about the AWS SDK, see the
-`AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`__ Amazon
-documentation.
+To learn more about the AWS SDK, see the `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`__
+Amazon documentation.
 
 Authenticate using AWS IAM Credentials
 ++++++++++++++++++++++++++++++++++++++
