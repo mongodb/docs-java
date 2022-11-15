@@ -371,7 +371,12 @@ following ways:
   environment, set an environment variable called ``AWS_SESSION_TOKEN`` and
   assign the value of your token to it. This value is automatically discovered
   by your ``MongoClient`` when you specify the ``MONGODB-AWS`` authentication
-  mechanism.
+  mechanism. The following example shows how you can set it in a bash or
+  similar shell:
+
+  .. code-block:: bash
+
+     export AWS_SESSION_TOKEN=<awsSessionToken>
 
 .. _mongodb-aws-environment-vars-example:
 
