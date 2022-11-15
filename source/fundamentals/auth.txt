@@ -240,33 +240,24 @@ user. To learn more about configuring MongoDB Atlas, see the
 :atlas:`Set Up Passwordless Authentication with AWS IAM Roles <security/passwordless-authentication/#set-up-passwordless-authentication-with-aws-iam-roles>`
 guide.
 
-You can use one of the following methods to authenticate to a MongoDB
-deployment using this mechanism:
+You can authenticate using the ``MONGODB-AWS`` mechanism by providing
+your AWS IAM credentials in one of the following ways:
 
-- Use the AWS SDK (v1 or v2) to authenticate an IAM role.
-- Specify your AWS credentials in environment variables.
-- Specify your AWS credentials in a ``MongoCredential`` object or connection
+1.  Use the AWS SDK (v1 or v2) to authenticate an IAM role.
+#. Specify your AWS credentials in a ``MongoCredential`` instance or connection
   string.
+#. Specify your AWS credentials in environment variables.
 
-The driver uses the following order to check for your AWS credentials and
-uses the first method it finds:
+The driver uses the preceding order to check for your credentials and uses
+the first method that it finds.
 
-1. The AWS SDK (v1 or v2)
-#. Your ``MongoCredential`` object or the connection string
-#. Environment variables in the following order:
+To learn how to refresh your AWS IAM credentials, see the
+:ref:`<java-mongodb-aws-refresh-credentials>` section.
 
-      #. The AWS IAM role credentials specified in ``AWS_ACCESS_KEY_ID``,
-         ``AWS_SECRET_ACCESS_KEY``, and optionally ``AWS_SESSION_TOKEN``
-         environment variables
+.. _java-mongodb-aws-sdk:
 
-      #. The ECS or EC2 container credential endpoint specified in the
-         ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI`` environment variable
-
-The following sections demonstrate how you can specify your ``MONGODB-AWS``
-credentials for each of these methods.
-
-AWS SDK
-+++++++
+Authenticate using the AWS SDK
++++++++++++++++++++++++++++++++
 
 You can authenticate with your AWS IAM role using the `AWS SDK for Java <https://docs.aws.amazon.com/sdk-for-java/index.html>`__
 versions 1 or 2.
@@ -277,48 +268,63 @@ class to specify the credentials.
 If your project includes AWS SDK for Java ``v2``, the driver uses the `DefaultCredentialsProvider <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html>`__
 class to specify the credentials.
 
-To learn more about the AWS SDK for Java, see the
+To learn more about the AWS SDK, see the
 `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`__ Amazon
 documentation.
 
-AWS IAM Credentials
-+++++++++++++++++++
+Authenticate using AWS IAM Credentials
+++++++++++++++++++++++++++++++++++++++
 
-You can authenticate using the ``MONGODB-AWS`` authentication mechanism
-by specifying the AWS IAM role credentials in your connection string or in a
-``MongoCredential`` instance.
+You authenticate with your AWS IAM role by specifying your credentials in
+environment variables, a connection string, or a ``MongoCredential``
+instance.
 
-The code examples in this section use the following placeholders:
+The examples in this section use the following placeholders:
 
-* ``awsKeyId`` - value of your ``AWS_ACCESS_KEY_ID``
-* ``awsSecretKey`` - value of your ``AWS_SECRET_ACCESS_KEY``
+* ``awsKeyId`` - value of your AWS access key ID
+* ``awsSecretKey`` - value of your AWS secret access key
 * ``atlasUri`` - network address of your MongoDB Atlas deployment
 * ``hostname`` - hostname of your MongoDB Atlas deployment
 * ``port`` - port of your MongoDB Atlas deployment
-* ``awsSessionToken`` - value of your ``AWS_SESSION_TOKEN`` *(optional)*
+* ``awsSessionToken`` - value of your AWS session token *(optional)*
 
-.. important:: URL-encode Your Credentials
+.. _mongodb-aws-environment-vars-example:
 
-   Make sure to URL-encode your credentials to prevent backslash or other
-   characters from causing parsing errors. The following code example
-   shows you how to URL-encode a sample string, represented by the placeholder
-   ``fieldValue``:
+Environment Variables Example
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
-      :language: java
-      :dedent:
-      :start-after: start urlEncode
-      :end-before: end urlEncode
+To authenticate using environment variables, specify the following
+information:
+
+- Specify the ``MONGODB-AWS`` authentication mechanism in your connection
+  string as shown in the following example:
+
+  .. code-block:: none
+
+     mongodb://<atlasUri>/?authMechanism=MONGODB-AWS
+
+- Set your AWS IAM role credentials in environment variables in your
+  client execution environment. The following example shows how you can set
+  them in a bash or similar shell:
+
+  .. code-block:: bash
+
+     export AWS_ACCESS_KEY_ID=<awsKeyId>
+     export AWS_SECRET_ACCESS_KEY=<awsSecretKey>
+     export AWS_SECRET_TOKEN=<awsSessionToken>
+
+  You can omit the line containing ``AWS_SECRET_TOKEN`` if you do not use
+  an AWS session token for that role.
 
 .. _mongodb-aws-connection-string-example:
 
 Connection String Example
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To authenticate, assign the ``authMechanism`` parameter the value
-``"MONGODB-AWS"`` and replace the placeholders with your credentials in your
-connection string. The following code example shows how you can instantiate
-a ``MongoClient`` using your connection string:
+To authenticate using a connection string, assign the ``authMechanism``
+parameter the value ``"MONGODB-AWS"`` and replace the placeholders with your
+credentials in your connection string. The following code example shows how
+you can instantiate a ``MongoClient`` using your connection string:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
    :language: java
@@ -338,15 +344,30 @@ using your connection string:
    :start-after: start connectionStringSessionToken
    :end-before: end connectionStringSessionToken
 
+.. important:: URL-encode Your Credentials
+
+   Make sure to URL-encode your credentials to prevent backslash or other
+   characters from causing parsing errors. The following code example
+   shows you how to URL-encode a sample string, represented by the placeholder
+   ``fieldValue``:
+
+   .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
+      :language: java
+      :dedent:
+      :start-after: start urlEncode
+      :end-before: end urlEncode
+
+.. _mongodb-aws-mongocredential-example:
+
 MongoCredential Example
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-To authenticate, specify your credentials in the
-`createAwsCredential() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#createAwsCredential(java.lang.String,char%5B%5D)>`__
+To authenticate using a ``MongoCredential`` instance, specify your
+credentials in the `createAwsCredential() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#createAwsCredential(java.lang.String,char%5B%5D)>`__
 method of the ``MongoCredential`` class.
 
 The following code example shows how you can specify your credentials
-using a ``MongoCredential`` instance to instantiate a ``MongoClient``:
+using a ``MongoCredential`` instance:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
    :language: java
@@ -360,10 +381,9 @@ following ways:
 - Append the session token to your connection string parameters as shown in
   the :ref:`previous example <mongodb-aws-connection-string-example>`.
 
-- Add the session token to your ``MongoCredential``
-
-  Specify your AWS session token in your ``MongoCredential`` instance by
-  passing it to the `withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#withMechanismProperty(java.lang.String,T)>`__
+- Add the session token to your ``MongoCredential``. Specify your AWS session
+  token in your ``MongoCredential`` instance by passing it to the
+  `withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#withMechanismProperty(java.lang.String,T)>`__
   method as shown below:
 
   .. literalinclude:: /includes/fundamentals/code-snippets/MongoDbAwsAuth.java
@@ -373,15 +393,45 @@ following ways:
      :end-before: end mongoCredentialSessionTokenCredential
      :emphasize-lines: 1,2,6,7
 
-- Add the session token to an environment variable
+- Add the session token to an environment variable. In your client execution
+  environment, set an environment variable called ``AWS_SESSION_TOKEN`` and
+  assign the value of your token to it. This value is automatically discovered
+  by your ``MongoClient`` when you specify the ``MONGODB-AWS`` authentication
+  mechanism.
 
-  In your client execution environment, set an environment variable
-  called ``AWS_SESSION_TOKEN`` and assign the value of your token to it. This
-  value is automatically discovered by your ``MongoClient`` when you specify
-  the ``MONGODB-AWS`` authentication mechanism.
 
-Refresh Credentials
-+++++++++++++++++++
+AWS ECS/EC2 Endpoint Example
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To authenticate, specify the ECS or EC2 container relative URI in an
+environment variable called ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI`` and
+assign the value of your container relative URI to it.
+
+When using bash or a similar shell in your client execution environment, you
+can set the environment variable, replacing the value of the placeholder
+with your relative URI:
+
+.. code-block:: bash
+
+   export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=<your ECS/EC2 endpoint>
+
+.. important::
+
+   To authenticate using an ECS/EC2 endpoint, you must unset the following
+   environment variables because the driver otherwise attempts to authenticate
+   using them:
+
+   - ``AWS_ACCESS_KEY_ID``
+   - ``AWS_SECRET_ACCESS_KEY``
+   - ``AWS_SESSION_TOKEN``
+
+To learn more about the AWS container credential provider and container
+credentials, see the AWS documentation on `Container credentials <https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html>`__.
+
+.. _java-mongodb-aws-refresh-credentials:
+
+Refresh your Credentials
+++++++++++++++++++++++++
 
 The driver supports refreshing credentials to support assuming roles
 or using the `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html>`__.
@@ -394,28 +444,6 @@ that refreshes your credentials.
    :start-after: start refreshCredentials
    :end-before: end refreshCredentials
    :emphasize-lines: 5,9
-
-AWS ECS/EC2 Endpoint Example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To authenticate, specify the ECS or EC2 container relative URI in an
-environment variable called ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI`` and assign the
-value of your container relative URI to it.
-
-.. note::
-
-   Your client execution environment may vary.
-
-When using bash or a similar shell in your client execution environment, you
-can set the environment variable, replacing the value of the placeholder
-with your relative URI:
-
-.. code-block:: bash
-
-   export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=<your ECS/EC2 endpoint>
-
-To learn more about the AWS container credential provider and container
-credentials, see the AWS documentation on `Container credentials <https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html>`__.
 
 .. _x509-auth-mechanism:
 
