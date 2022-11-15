@@ -83,12 +83,13 @@ public class MongoDbAwsAuth {
             return new AwsCredential("<awsKeyId>", "<awsSecretKey>", "<awsSessionToken>");
         };
 
-        MongoCredential credential = MongoCredential.createAwsCredential(null, null)
+
+        MongoCredential credential = MongoCredential.createAwsCredential("<awsKeyId>", "<awsSecretKey>".toCharArray())
                 .withMechanismProperty(MongoCredential.AWS_CREDENTIAL_PROVIDER_KEY, awsFreshCredentialSupplier);
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                 .applyToClusterSettings(builder ->
-                builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", <port>))))
+                    builder.hosts(Collections.singletonList(new ServerAddress("<hostname>", <port>))))
                 .credential(credential)
                 .build());
         // end refreshCredentials
