@@ -209,7 +209,6 @@ mechanism:
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-sha1.rst
 
-
 .. _mongodb-cr-auth-mechanism:
 
 ``MONGODB-CR``
@@ -245,11 +244,14 @@ your AWS IAM credentials in one of the following ways:
 
 1.  Use the AWS SDK (v1 or v2) to authenticate an IAM role.
 #. Specify your AWS credentials in a ``MongoCredential`` instance or connection
-  string.
+   string.
 #. Specify your AWS credentials in environment variables.
+#. Specify an ECS/EC2 endpoint that hosts your container credentials.
 
-The driver uses the preceding order to check for your credentials and uses
-the first method that it finds.
+.. important::
+
+   The driver uses the preceding order to check for your credentials and uses
+   the first method that it finds.
 
 To learn how to refresh your AWS IAM credentials, see the
 :ref:`<java-mongodb-aws-refresh-credentials>` section.
@@ -262,10 +264,10 @@ Authenticate using the AWS SDK
 You can authenticate with your AWS IAM role using the `AWS SDK for Java <https://docs.aws.amazon.com/sdk-for-java/index.html>`__
 versions 1 or 2.
 
-If your project includes AWS SDK for Java ``v1``, the driver uses the `DefaultAWSCredentialsProviderChain <https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html>`__
+If your project includes AWS SDK for Java **v1**, the driver uses the `DefaultAWSCredentialsProviderChain <https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html>`__
 class to specify the credentials.
 
-If your project includes AWS SDK for Java ``v2``, the driver uses the `DefaultCredentialsProvider <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html>`__
+If your project includes AWS SDK for Java **v2**, the driver uses the `DefaultCredentialsProvider <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html>`__
 class to specify the credentials.
 
 To learn more about the AWS SDK, see the
@@ -276,8 +278,8 @@ Authenticate using AWS IAM Credentials
 ++++++++++++++++++++++++++++++++++++++
 
 You authenticate with your AWS IAM role by specifying your credentials in
-environment variables, a connection string, or a ``MongoCredential``
-instance.
+a connection string, a ``MongoCredential`` instance, or in environment
+variables.
 
 The examples in this section use the following placeholders:
 
@@ -287,34 +289,6 @@ The examples in this section use the following placeholders:
 * ``hostname`` - hostname of your MongoDB Atlas deployment
 * ``port`` - port of your MongoDB Atlas deployment
 * ``awsSessionToken`` - value of your AWS session token *(optional)*
-
-.. _mongodb-aws-environment-vars-example:
-
-Environment Variables Example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To authenticate using environment variables, specify the following
-information:
-
-- Specify the ``MONGODB-AWS`` authentication mechanism in your connection
-  string as shown in the following example:
-
-  .. code-block:: none
-
-     mongodb://<atlasUri>/?authMechanism=MONGODB-AWS
-
-- Set your AWS IAM role credentials in environment variables in your
-  client execution environment. The following example shows how you can set
-  them in a bash or similar shell:
-
-  .. code-block:: bash
-
-     export AWS_ACCESS_KEY_ID=<awsKeyId>
-     export AWS_SECRET_ACCESS_KEY=<awsSecretKey>
-     export AWS_SECRET_TOKEN=<awsSessionToken>
-
-  You can omit the line containing ``AWS_SECRET_TOKEN`` if you do not use
-  an AWS session token for that role.
 
 .. _mongodb-aws-connection-string-example:
 
@@ -379,7 +353,7 @@ If you need to specify an AWS session token, you can add it using one of the
 following ways:
 
 - Append the session token to your connection string parameters as shown in
-  the :ref:`previous example <mongodb-aws-connection-string-example>`.
+  the :ref:`Connection String Example <mongodb-aws-connection-string-example>`.
 
 - Add the session token to your ``MongoCredential``. Specify your AWS session
   token in your ``MongoCredential`` instance by passing it to the
@@ -399,6 +373,33 @@ following ways:
   by your ``MongoClient`` when you specify the ``MONGODB-AWS`` authentication
   mechanism.
 
+.. _mongodb-aws-environment-vars-example:
+
+Environment Variables Example
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To authenticate using environment variables, specify the following
+information:
+
+- Specify the ``MONGODB-AWS`` authentication mechanism in your connection
+  string as shown in the following example:
+
+  .. code-block:: none
+
+     mongodb://<atlasUri>/?authMechanism=MONGODB-AWS
+
+- Set your AWS IAM role credentials in environment variables in your
+  client execution environment. The following example shows how you can set
+  them in a bash or similar shell:
+
+  .. code-block:: bash
+
+     export AWS_ACCESS_KEY_ID=<awsKeyId>
+     export AWS_SECRET_ACCESS_KEY=<awsSecretKey>
+     export AWS_SECRET_TOKEN=<awsSessionToken>
+
+  You can omit the line containing ``AWS_SECRET_TOKEN`` if you do not use
+  an AWS session token for that role.
 
 AWS ECS/EC2 Endpoint Example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
