@@ -166,7 +166,6 @@ The inserted document in MongoDB should resemble the following:
      type: 'router'
    }
 
-
 Retrieve an Annotated Record
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -191,3 +190,17 @@ as shown in the following code:
 
       NetworkDeviceRecord[deviceId=fedc..., name=Enterprise Wi-fi, deviceType=router]
 
+Operations with Recursive Types
+-------------------------------
+
+The driver natively supports encoding and decoding cyclical
+references without causing runtime recursion. The following code
+provides an example of a recursive class design:
+
+.. code-block:: java
+
+   public record RecordTree<T>(
+           T content,
+           RecordTree<T> left,
+           RecordTree<T> right
+   ) {}
