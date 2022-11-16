@@ -199,8 +199,29 @@ provides an example of a recursive class design:
 
 .. code-block:: java
 
-   public record RecordTree<T>(
-           T content,
-           RecordTree<T> left,
-           RecordTree<T> right
+   public record RecordTree(
+           String content,
+           RecordTree left,
+           RecordTree right
    ) {}
+
+You can perform read and write operations on recursive records the same
+way you would for other records. The following code shows how you can
+execute a find operation on a collection of cyclical ``RecordTree`` types:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: java
+
+      MongoDatabase database = mongoClient.getDatabase("myDB");
+      MongoCollection<RecordTree> collection = database.getCollection("myCollection", RecordTree.class);
+      
+      Bson filter = Filters.eq("left.left.right.content", "Ikatere");
+      collection.find(filter).forEach(doc -> System.out.println(doc));
+
+   .. output::
+      :language: sh
+
+      RecordTree[content=Ranginui, left=RecordTree[content=..., left=RecordTree[content=..., right=RecordTree[content=Ikatere...]]
