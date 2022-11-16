@@ -193,9 +193,10 @@ as shown in the following code:
 Operations with Recursive Types
 -------------------------------
 
-The driver natively supports encoding and decoding cyclical
-references without causing runtime recursion. The following code
-provides an example of a recursive class design:
+The driver natively supports encoding and decoding of recursively
+defined records without causing runtime recursion. This support extends
+to cycles of multiple record types in type definitions. The following
+code provides an example of a recursive record design:
 
 .. code-block:: java
 
@@ -205,9 +206,9 @@ provides an example of a recursive class design:
            RecordTree right
    ) {}
 
-You can perform read and write operations on recursive records the same
+You can perform read and write operations on recursively defined records the same
 way you would for other records. The following code shows how you can
-execute a find operation on a collection of cyclical ``RecordTree`` types:
+execute a find operation on a collection of ``RecordTree`` types:
 
 .. io-code-block::
    :copyable: true
