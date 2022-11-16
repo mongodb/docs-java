@@ -61,6 +61,11 @@ Version 4.8 Breaking Changes
   earlier. To learn more about this change, see the :ref:`<java-server-release-change-v4.8>`
   section.
 
+- The ``RecordCodec``, implemented in v4.6, decoded ``List`` and ``Map``
+  fields as ``Document`` values instead of instances their corresponding POJO
+  or record classes. In this version, the ``RecordCodec`` decodes them to
+  their corresponding POJO or records.
+
 .. _java-breaking-changes-v4.7:
 
 Version 4.7 Breaking Changes
@@ -154,7 +159,7 @@ Version 4.8 Server Release Support Changes
 
 - The v4.8 driver drops support for {+mdb-server+} v3.4 and earlier.
   To use the v4.8 driver, your {+mdb-server+} must be v3.6 or later. To learn
-  how to upgrade your {+mdb-server+} to v3.6, follow the link that corresponds 
+  how to upgrade your {+mdb-server+} to v3.6, follow the link that corresponds
   to your MongoDB deployment configuration:
 
   - :ref:`<3.6-upgrade-replica-set>`
