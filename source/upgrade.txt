@@ -61,10 +61,11 @@ Version 4.8 Breaking Changes
   earlier. To learn more about this change, see the :ref:`<java-server-release-change-v4.8>`
   section.
 
-- The ``RecordCodec``, implemented in v4.6, decoded ``List`` and ``Map``
-  fields as ``Document`` values instead of instances their corresponding POJO
-  or record classes. In this version, the ``RecordCodec`` decodes them to
-  their corresponding POJO or records.
+- The ``RecordCodec``, implemented in v4.6, deserialized POJOs and record
+  classes that were specified as type parameters in ``List`` or ``Map`` fields
+  of a record as ``Document`` values instead of their respective classes. This
+  version now deserializes them to the proper types which matches the behavior
+  of how the POJO codec deserializes POJOs.
 
 .. _java-breaking-changes-v4.7:
 
