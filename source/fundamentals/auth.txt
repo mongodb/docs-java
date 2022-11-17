@@ -271,7 +271,8 @@ features:
 - Credential provider management for use with the `Elastic Kubernetes Service <https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html>`__.
 
 To use the AWS SDK, you must include the dependencies for it in your project
-and call the appropriate authentication methods.
+and set the credentials for one of the authentication methods in the provider 
+chain.
 
 If your project includes AWS SDK for Java **v2**, the driver uses the `DefaultCredentialsProvider <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html>`__
 class to obtain the credentials.
