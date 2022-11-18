@@ -62,10 +62,20 @@ Version 4.8 Breaking Changes
   section.
 
 - The ``RecordCodec``, implemented in v4.6, deserialized POJOs and record
-  classes that were specified as type parameters in ``List`` or ``Map`` fields
+  classes that are specified as type parameters of ``List`` or ``Map`` fields
   of a record as ``Document`` values instead of their respective classes. This
-  version now deserializes them to the proper types which matches the behavior
-  of how the POJO codec deserializes POJOs.
+  version now deserializes them to the proper record and POJO types.
+
+  For example, the following record class definitions show a ``Book`` record
+  that contains a ``List`` that receives a ``Chapter`` type parameter:
+
+  .. code-block:: java
+
+     public record Book(String title, List<Chapter> chapters) {}
+     public record Chapter(Integer number, String text) {}
+
+  Starting in this version, the codec deserializes data in the ``List`` into
+  ``Chapter`` record classes instead of ``Document`` values.
 
 .. _java-breaking-changes-v4.7:
 
