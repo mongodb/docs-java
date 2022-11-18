@@ -28,6 +28,12 @@ public class MongoDbAwsAuth {
         // end connectionString
     }
 
+    private static void mechOnlyConnectionString() {
+        // start mechOnlyConnectionString
+        MongoClient mongoClient = MongoClients.create("mongodb://<atlasUri>?authMechanism=MONGODB-AWS");
+        // end mechOnlyConnectionString
+    }
+
     private static void connectionStringSessionToken() {
         // start connectionStringSessionToken
         MongoClient mongoClient = MongoClients.create("mongodb://<awsKeyId>:<awsSecretKey>@<atlasUri>?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
@@ -45,6 +51,19 @@ public class MongoDbAwsAuth {
                 .credential(credential)
                 .build());
         // end mongoCredential
+    }
+
+    private static void mechOnlyMongoCredential() {
+        // start mechOnlyMongoCredential
+        MongoCredential credential = MongoCredential.createAwsCredential(null, null);
+
+        MongoClient mongoClient = MongoClients.create(
+                MongoClientSettings.builder()
+                .applyToClusterSettings(builder ->
+                builder.hosts(Arrays.asList(new ServerAddress("<atlasUri>"))))
+                .credential(credential)
+                .build());
+        // end mechOnlyMongoCredential
     }
 
     private static void mongoCredentialSessionTokenConnString() {
@@ -73,12 +92,24 @@ public class MongoDbAwsAuth {
         // end mongoCredentialSessionTokenCredential
     }
 
+    private static void mongoCredentialECS() {
+        // start mongoCredentialECS
+        MongoCredential credential = MongoCredential.createAwsCredential(null, null).withMechanismProperty("AWS_CONTAINER_CREDENTIALS_RELATIVE_URI", "<your ECS endpoint>");
+        // end mongoCredentialECS
+    }
+
+    private static void mongoCredentialEC2() {
+        // start mongoCredentialEC2
+        MongoCredential credential = MongoCredential.createAwsCredential(null, null);
+        // end mongoCredentialEC2
+    }
+
     private static void refreshCredentials() {
-        
+
         // start refreshCredentials
         Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
             // Add your code to fetch new credentials, such as assuming a role using the AWS SDK.
-            
+
             // Ensure you return the temporary credentials.
             return new AwsCredential("<awsKeyId>", "<awsSecretKey>", "<awsSessionToken>");
         };
