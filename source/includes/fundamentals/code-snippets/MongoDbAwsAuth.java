@@ -82,11 +82,11 @@ public class MongoDbAwsAuth {
     private static void mongoCredentialSessionTokenCredential() {
         // start mongoCredentialSessionTokenCredential
         MongoCredential credential = MongoCredential.createAwsCredential("<awsKeyId>", "<awsSecretKey>".toCharArray()).withMechanismProperty("AWS_SESSION_TOKEN",  "<awsSessionToken>");
-        ConnectionString connectionString = new ConnectionString("mongodb://<atlasUri>/?authMechanism=MONGODB-AWS");
 
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
+                .applyToClusterSettings(builder ->
+                builder.hosts(Arrays.asList(new ServerAddress("<atlasUri>"))))
                 .credential(credential)
                 .build());
         // end mongoCredentialSessionTokenCredential

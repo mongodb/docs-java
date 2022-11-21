@@ -448,6 +448,7 @@ in the following example:
    :dedent:
    :start-after: start mongoCredential
    :end-before: end mongoCredential
+   :emphasize-lines: 1
 
 If you need to specify an AWS session token, pass it to the
 `withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#withMechanismProperty(java.lang.String,T)>`__
@@ -458,7 +459,7 @@ method as shown in the following example:
    :dedent:
    :start-after: start mongoCredentialSessionTokenCredential
    :end-before: end mongoCredentialSessionTokenCredential
-   :emphasize-lines: 1,2,6,7
+   :emphasize-lines: 1,7
 
 To refresh your credentials, you can declare a ``Supplier`` lambda expression
 that returns new credentials as shown in the following example:
