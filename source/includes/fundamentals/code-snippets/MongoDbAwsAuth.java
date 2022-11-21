@@ -92,28 +92,21 @@ public class MongoDbAwsAuth {
         // end mongoCredentialSessionTokenCredential
     }
 
-    private static void mongoCredentialECS() {
-        // start mongoCredentialECS
-        MongoCredential credential = MongoCredential.createAwsCredential(null, null).withMechanismProperty("AWS_CONTAINER_CREDENTIALS_RELATIVE_URI", "<your ECS endpoint>");
-        // end mongoCredentialECS
-    }
-
-    private static void mongoCredentialEC2() {
-        // start mongoCredentialEC2
+    private static void mongoCredentialECSorEC2() {
+        // start mongoCredentialECSorEC2
         MongoCredential credential = MongoCredential.createAwsCredential(null, null);
-        // end mongoCredentialEC2
+        // end mongoCredentialECSorEC2
     }
 
     private static void refreshCredentials() {
 
         // start refreshCredentials
         Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
-            // Add your code to fetch new credentials, such as assuming a role using the AWS SDK.
+            // Add your code here to fetch new credentials here
 
-            // Ensure you return the temporary credentials.
+            // Return the new credentials
             return new AwsCredential("<awsKeyId>", "<awsSecretKey>", "<awsSessionToken>");
         };
-
 
         MongoCredential credential = MongoCredential.createAwsCredential("<awsKeyId>", "<awsSecretKey>".toCharArray())
                 .withMechanismProperty(MongoCredential.AWS_CREDENTIAL_PROVIDER_KEY, awsFreshCredentialSupplier);
