@@ -1,0 +1,224 @@
+.. _java-fundamentals-change-streams:
+.. _retrieve-watch:
+
+==============
+Change Streams
+==============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn how to use a **change stream** to monitor
+real-time changes to your database. A change stream is a {+mdb-server+}
+feature that allows your application to subscribe to data changes on a single
+collection, database, or deployment. You can specify a set of aggregation
+operators to filter and transform the data your application receives. When
+connecting to a MongoDB deployment  v6.0 or later, you can configure the
+events to include the document data before and after the change.
+
+Learn how to open and configure your change streams in the following
+sections:
+
+- :ref:`<java-change-stream-open>`
+- :ref:`<java-change-stream-aggregation>`
+- :ref:`<java-change-stream-configure-pre-post>`
+
+.. _java-change-stream-open:
+
+Open a Change Stream
+--------------------
+
+You can open a change stream to subscribe to specific types of data changes
+and immediately produce change events in your application.
+
+To open a change stream, call the ``watch()`` method on an instance of a
+``MongoCollection``, ``MongoDatabase``, or ``MongoClient``.
+
+.. important::
+
+   Standalone MongoDB deployments don't support change streams because
+   the feature requires a replica set oplog. To learn more about the oplog,
+   see the :ref:`<replica-set-oplog>` server manual page.
+
+The object on which you call the ``watch()`` method on determines the scope of
+events that the change stream listens for. If you call ``watch()`` on a
+``MongoCollection``, the method monitors a collection. If you call
+``watch()`` on a ``MongoDatabase``, the method monitors all collections in
+that database. If you call ``watch()`` on a ``MongoClient``, the method
+monitors all changes in the connected MongoDB deployment.
+
+Example
+~~~~~~~
+
+The following code example shows how to open a change stream and print
+change stream events whenever the data in the collection changes.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+   :language: java
+   :dedent:
+   :start-after: begin openChangeStreamExample
+   :end-before: end openChangeStreamExample
+
+An insert operation on the collection should produce output similar to the
+following text:
+
+.. code-block::
+   :copyable: false
+
+   Received a change: ChangeStreamDocument{
+      operationType='insert',
+      resumeToken={"_data": "825EC..."},
+      namespace=myDb.myCollection,
+      ...
+   }
+
+For a runnable ``watch()`` example, see our :doc:`Watch For
+Changes </usage-examples/watch>` page.
+
+To learn more about the ``watch()`` method, see the following API
+documentation:
+
+- `MongoCollection.watch() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#watch()>`__
+- `MongoDatabase.watch() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#watch()>`__
+- `MongoClient.watch() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html#watch()>`__
+
+.. _java-change-stream-aggregation:
+
+Apply Aggregation Operators to your Change Stream
+-------------------------------------------------
+
+..
+   TODO
+
+You can use an aggregation pipeline to modify the change stream event output.
+
+
+
+Example
+~~~~~~~
+
+..
+   TODO
+
+
+To learn which aggregation operators your {+mdb-server+} version supports, see
+:ref:`<change-stream-modify-output>`.
+
+.. _java-change-stream-configure-pre-post:
+
+Include Pre-images and Post-images
+----------------------------------
+
+You can configure the change event to contain or omit the following data:
+
+- The **pre-image** which is a document that represents the version of the
+  document before the operation if it exists
+- The **post-image** which is a document that represents the version of the
+  document after the operation if it exists
+
+To receive change stream events that include a pre-image or post-image, you
+ must connect to a MongoDB v6.0 or later deployment and set up the following:
+
+- Enable pre-images and post-images for the collection on your MongoDB
+  deployment. To learn how to enable these on your deployment, see the
+  :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
+  MongoDB server manual page.  To learn how to instruct the driver to create a collection with pre-images 
+  and post-images enabled, see the :ref:`<java-change-stream-pre-post-collection>`
+  section.
+
+- Configure your change stream to retrieve either or both the pre-images and
+  post-images. To configure your change stream to include the pre-image, see 
+  the :ref:`<pre-image-example>`. To configure your change stream to include 
+  the post-image, see the :ref:`<post-image-example>`.
+
+.. _java-change-stream-pre-post-collection:
+
+Create a Collection with Pre-Image and Post-Images Enabled
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To create a collection with the pre-image and post-image option using the
+driver, specify and instance of  ``ChangeStreamPreAndPostImagesOptions``
+and call the ``createCollection()`` method as shown in the following example:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+   :language: java
+   :dedent:
+   :start-after: begin createCollection
+   :end-before: end createCollection
+
+.. warning::
+
+   You can modify the collection in your MongoDB deployment using :manual:`collMod </reference/command/collMod>`
+   while your application has open change streams. However, any open
+   change streams that listen for events on that collection and use the
+   ``REQUIRED`` option for the ``fullDocument`` or ``fullDocumentBeforeChange``
+   setting may fail.
+
+.. _java-pre-image-example:
+
+Pre-image Configuration Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following code example shows how you can configure a change stream to
+include the pre-image and output the results:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+   :language: java
+   :dedent:
+   :start-after: begin fullDocumentBeforeChangeExample
+   :end-before: end fullDocumentBeforeChangeExample
+
+Suppose an application updated the ``latestVersion`` field of a document in a
+collection of software library dependencies from the value of ``2.0.0`` to
+``2.1.0``. The corresponding change event output by the preceding code example
+should resemble the following text:
+
+.. code-block:: text
+   :emphasize-lines: 3
+
+   Received a change: ChangeStreamDocument{ operationType=update, resumeToken={...}
+   namespace=software.libraries, destinationNamespace=null, fullDocument=null,
+   fullDocumentBeforeChange=Document{{_id=6388..., latestVersion=2.0.0, ...}},
+   ...
+
+For a list of settings, see the `FullDocumentBeforeChange <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ChangeStreamPreAndPostImagesOptions.html>`__
+API documentation.
+
+.. _java-post-image-example:
+
+Post-image Configuration Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following code example shows how you can configure a change stream to
+include the post-image and output the results:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+   :language: java
+   :dedent:
+   :start-after: begin fullDocumentExample
+   :end-before: end fullDocumentExample
+
+Suppose an application updated the ``population`` field of a document from
+the value of ``800`` to ``950`` in a collection of city census data. The
+corresponding change event output by the preceding code example should
+resemble the following text:
+
+.. code-block:: text
+   :emphasize-lines: 3
+
+   Received a change: ChangeStreamDocument{ operationType=update, resumeToken={...},
+   namespace=censusData.cities, destinationNamespace=null,
+   fullDocument=Document{{_id=6388..., population=950, ...}},
+   ...
+
+For a list of settings, see the `FullDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/changestream/FullDocument.html>`__
+API documentation.
+
