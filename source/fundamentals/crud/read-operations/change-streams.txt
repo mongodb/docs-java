@@ -61,7 +61,7 @@ Example
 The following code example shows how to open a change stream and print
 change stream events whenever the data in the collection changes:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
    :dedent:
    :start-after: begin openChangeStreamExample
@@ -105,7 +105,7 @@ The following code example shows how you can apply an aggregation pipeline to
 your change stream receive change events for insert and update operators
 only:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
    :dedent:
    :start-after: begin aggregationExample
@@ -151,7 +151,7 @@ To create a collection with the pre-image and post-image option using the
 driver, specify and instance of  ``ChangeStreamPreAndPostImagesOptions``
 and call the ``createCollection()`` method as shown in the following example:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
    :dedent:
    :start-after: begin createCollection
@@ -173,7 +173,7 @@ Pre-image Configuration Example
 The following code example shows how you can configure a change stream to
 include the pre-image and output the results:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
    :dedent:
    :start-after: begin fullDocumentBeforeChangeExample
@@ -203,7 +203,7 @@ Post-image Configuration Example
 The following code example shows how you can configure a change stream to
 include the post-image and output the results:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
    :dedent:
    :start-after: begin fullDocumentExample
