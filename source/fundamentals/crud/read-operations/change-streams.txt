@@ -21,7 +21,7 @@ real-time changes to your database. A change stream is a {+mdb-server+}
 feature that allows your application to subscribe to data changes on a single
 collection, database, or deployment. You can specify a set of aggregation
 operators to filter and transform the data your application receives. When
-connecting to a MongoDB deployment  v6.0 or later, you can configure the
+connecting to a MongoDB deployment v6.0 or later, you can configure the
 events to include the document data before and after the change.
 
 Learn how to open and configure your change streams in the following
@@ -37,7 +37,7 @@ Open a Change Stream
 --------------------
 
 You can open a change stream to subscribe to specific types of data changes
-and immediately produce change events in your application.
+and produce change events in your application.
 
 To open a change stream, call the ``watch()`` method on an instance of a
 ``MongoCollection``, ``MongoDatabase``, or ``MongoClient``.
@@ -59,7 +59,7 @@ Example
 ~~~~~~~
 
 The following code example shows how to open a change stream and print
-change stream events whenever the data in the collection changes.
+change stream events whenever the data in the collection changes:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
    :language: java
@@ -95,18 +95,21 @@ documentation:
 Apply Aggregation Operators to your Change Stream
 -------------------------------------------------
 
-..
-   TODO
-
-You can use an aggregation pipeline to modify the change stream event output.
-
-
+You can pass an aggregation pipeline as a parameter to the ``watch()``
+method to specify which change events the change stream receives.
 
 Example
 ~~~~~~~
 
-..
-   TODO
+The following code example shows how you can apply an aggregation pipeline to
+your change stream receive change events for insert and update operators
+only:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/ChangeStreams.java
+   :language: java
+   :dedent:
+   :start-after: begin aggregationExample
+   :end-before: end aggregationExample
 
 
 To learn which aggregation operators your {+mdb-server+} version supports, see
@@ -130,13 +133,13 @@ To receive change stream events that include a pre-image or post-image, you
 - Enable pre-images and post-images for the collection on your MongoDB
   deployment. To learn how to enable these on your deployment, see the
   :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
-  MongoDB server manual page.  To learn how to instruct the driver to create a collection with pre-images 
+  MongoDB server manual page.  To learn how to instruct the driver to create a collection with pre-images
   and post-images enabled, see the :ref:`<java-change-stream-pre-post-collection>`
   section.
 
 - Configure your change stream to retrieve either or both the pre-images and
-  post-images. To configure your change stream to include the pre-image, see 
-  the :ref:`<pre-image-example>`. To configure your change stream to include 
+  post-images. To configure your change stream to include the pre-image, see
+  the :ref:`<pre-image-example>`. To configure your change stream to include
   the post-image, see the :ref:`<post-image-example>`.
 
 .. _java-change-stream-pre-post-collection:
