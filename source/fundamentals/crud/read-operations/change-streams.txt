@@ -95,8 +95,12 @@ documentation:
 Apply Aggregation Operators to your Change Stream
 -------------------------------------------------
 
-You can pass an aggregation pipeline as a parameter to the ``watch()``
-method to specify which change events the change stream receives.
+You can pass an aggregation pipeline as a parameter to the ``watch()`` method
+to specify which change events the change stream receives.
+
+To learn which aggregation operators your {+mdb-server+} version supports, see
+:ref:`<change-stream-modify-output>`.
+
 
 Example
 ~~~~~~~
@@ -111,9 +115,15 @@ only:
    :start-after: begin aggregationExample
    :end-before: end aggregationExample
 
+The output of the preceding code example
+after receiving a
 
-To learn which aggregation operators your {+mdb-server+} version supports, see
-:ref:`<change-stream-modify-output>`.
+.. code-block:: text
+   :copyable: false
+
+   Received a change to the collection: ChangeStreamDocument{
+   operationType=update, resumeToken={...},
+   ...
 
 .. _java-change-stream-configure-pre-post:
 
@@ -139,7 +149,7 @@ To receive change stream events that include a pre-image or post-image, you
 
 - Configure your change stream to retrieve either or both the pre-images and
   post-images. To configure your change stream to include the pre-image, see
-  the :ref:`<java-pre-image-example>`. To configure your change stream to 
+  the :ref:`<java-pre-image-example>`. To configure your change stream to
   include the post-image, see the :ref:`<java-post-image-example>`.
 
 .. _java-change-stream-pre-post-collection:
@@ -186,6 +196,7 @@ should resemble the following text:
 
 .. code-block:: text
    :emphasize-lines: 3
+   :copyable: false
 
    Received a change: ChangeStreamDocument{ operationType=update, resumeToken={...}
    namespace=software.libraries, destinationNamespace=null, fullDocument=null,
@@ -216,6 +227,7 @@ resemble the following text:
 
 .. code-block:: text
    :emphasize-lines: 3
+   :copyable: false
 
    Received a change: ChangeStreamDocument{ operationType=update, resumeToken={...},
    namespace=censusData.cities, destinationNamespace=null,
