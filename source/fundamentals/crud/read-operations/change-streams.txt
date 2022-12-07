@@ -49,11 +49,16 @@ To open a change stream, call the ``watch()`` method on an instance of a
    see the :ref:`<replica-set-oplog>` server manual page.
 
 The object on which you call the ``watch()`` method on determines the scope of
-events that the change stream listens for. If you call ``watch()`` on a
-``MongoCollection``, the method monitors a collection. If you call
-``watch()`` on a ``MongoDatabase``, the method monitors all collections in
-that database. If you call ``watch()`` on a ``MongoClient``, the method
-monitors all changes in the connected MongoDB deployment.
+events that the change stream listens for.
+
+If you call ``watch()`` on a ``MongoCollection``, the change stream monitors
+a collection.
+
+If you call ``watch()`` on a ``MongoDatabase``, the change stream monitors all
+collections in that database.
+
+If you call ``watch()`` on a ``MongoClient``, the change stream monitors all
+changes in the connected MongoDB deployment.
 
 Example
 ~~~~~~~
@@ -80,8 +85,7 @@ following text:
       ...
    }
 
-For a runnable ``watch()`` example, see our :doc:`Watch For
-Changes </usage-examples/watch>` page.
+For a runnable example, see the :ref:`<java-usage-watch>` usage example page.
 
 To learn more about the ``watch()`` method, see the following API
 documentation:
@@ -155,7 +159,6 @@ must connect to a MongoDB v6.0 or later deployment and set up the following:
 
 - Configure your change stream to retrieve either or both the pre-images and
   post-images.
-
 
   .. see::
 
