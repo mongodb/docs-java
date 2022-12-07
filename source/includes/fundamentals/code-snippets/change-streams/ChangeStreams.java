@@ -40,7 +40,7 @@ public class ChangeStreams {
 //        ChangeStreams.fullDocumentBeforeChangeExample(collection);
 //        ChangeStreams.allFullDocumentBeforeChangeOptions(collection);
 //        ChangeStreams.allFullDocumentOptions(collection);
-        ChangeStreams.aggregationExample(collection);
+//        ChangeStreams.aggregationExample(collection);
     }
     private static void openExample(MongoCollection<Document> collection) {
         // begin openChangeStreamExample
