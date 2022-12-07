@@ -76,7 +76,7 @@ following text:
    Received a change: ChangeStreamDocument{
       operationType='insert',
       resumeToken={"_data": "825EC..."},
-      namespace=myDb.myCollection,
+      namespace=myDb.myChangeStreamCollection,
       ...
    }
 
@@ -138,19 +138,32 @@ You can configure the change event to contain or omit the following data:
   document after the operation if it exists
 
 To receive change stream events that include a pre-image or post-image, you
- must connect to a MongoDB v6.0 or later deployment and set up the following:
+must connect to a MongoDB v6.0 or later deployment and set up the following:
 
 - Enable pre-images and post-images for the collection on your MongoDB
-  deployment. To learn how to enable these on your deployment, see the
-  :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
-  MongoDB server manual page.  To learn how to instruct the driver to create a collection with pre-images
-  and post-images enabled, see the :ref:`<java-change-stream-pre-post-collection>`
-  section.
+  deployment.
+
+  .. see::
+
+     To learn how to enable these on your deployment, see the
+     :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
+     MongoDB server manual page.
+
+     To learn how to instruct the driver to create a collection with pre-images
+     and post-images enabled, see the :ref:`<java-change-stream-pre-post-collection>`
+     section.
 
 - Configure your change stream to retrieve either or both the pre-images and
-  post-images. To configure your change stream to include the pre-image, see
-  the :ref:`<java-pre-image-example>`. To configure your change stream to
-  include the post-image, see the :ref:`<java-post-image-example>`.
+  post-images.
+
+
+  .. see::
+
+     To configure your change stream to include the pre-image, see
+     the :ref:`<java-pre-image-example>`.
+
+     To configure your change stream to include the post-image, see the
+     :ref:`<java-post-image-example>`.
 
 .. _java-change-stream-pre-post-collection:
 
@@ -189,6 +202,11 @@ include the pre-image and output the results:
    :start-after: begin fullDocumentBeforeChangeExample
    :end-before: end fullDocumentBeforeChangeExample
 
+The preceding example configures the change stream to use the
+``FullDocumentBeforeChange.REQUIRED`` option. This configures the change
+stream to return pre-images for replace, update, and delete change events and
+for the server to raise an error if the pre-image is unavailable.
+
 Suppose an application updated the ``latestVersion`` field of a document in a
 collection of software library dependencies from the value of ``2.0.0`` to
 ``2.1.0``. The corresponding change event output by the preceding code example
@@ -203,7 +221,7 @@ should resemble the following text:
    fullDocumentBeforeChange=Document{{_id=6388..., latestVersion=2.0.0, ...}},
    ...
 
-For a list of settings, see the `FullDocumentBeforeChange <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ChangeStreamPreAndPostImagesOptions.html>`__
+For a list of options, see the `FullDocumentBeforeChange <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/changestream/FullDocumentBeforeChange.html>`__
 API documentation.
 
 .. _java-post-image-example:
@@ -220,6 +238,11 @@ include the post-image and output the results:
    :start-after: begin fullDocumentExample
    :end-before: end fullDocumentExample
 
+The preceding example configures the change stream to use the
+``FullDocument.UPDATE_LOOKUP`` option. This configures the change
+stream to return both the deltas between the original and changed document
+and a copy of the document at some point in time after the change occurred.
+
 Suppose an application updated the ``population`` field of a document from
 the value of ``800`` to ``950`` in a collection of city census data. The
 corresponding change event output by the preceding code example should
@@ -231,9 +254,10 @@ resemble the following text:
 
    Received a change: ChangeStreamDocument{ operationType=update, resumeToken={...},
    namespace=censusData.cities, destinationNamespace=null,
-   fullDocument=Document{{_id=6388..., population=950, ...}},
+   fullDocument=Document{{_id=6388..., city=Springfield, population=950, ...}},
+   updatedFields={"population": 950}, ...
    ...
 
-For a list of settings, see the `FullDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/changestream/FullDocument.html>`__
+For a list of options, see the `FullDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/changestream/FullDocument.html>`__
 API documentation.
 

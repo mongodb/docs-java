@@ -19,9 +19,8 @@ import com.mongodb.client.model.changestream.FullDocument;
 public class ChangeStreams {
 
     public static void main(String [] args){
-        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoClient mongoClient = MongoClients.create("<connection uri>");
         MongoDatabase database = mongoClient.getDatabase("myDb");
-        MongoCollection<Document> collection = database.getCollection("myCollection");
 
         // Prevent errors from the following createCollection snippet
         MongoCollection createCollectionColl = database.getCollection("myChangeStreamCollection");
@@ -29,8 +28,11 @@ public class ChangeStreams {
         // begin createCollection
         CreateCollectionOptions collectionOptions = new CreateCollectionOptions();
         collectionOptions.changeStreamPreAndPostImagesOptions(new ChangeStreamPreAndPostImagesOptions(true));
+
         database.createCollection("myChangeStreamCollection", collectionOptions);
         // end createCollection
+
+        MongoCollection<Document> collection = database.getCollection("myChangeStreamCollection");
 
         // Uncomment one of the following methods before running to test it
 //        ChangeStreams.openExample(collection);
