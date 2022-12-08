@@ -13,7 +13,7 @@ import com.mongodb.client.MongoDatabase;
 public class QuickStart {
     public static void main( String[] args ) {
 
-        // Replace the uri string with your MongoDB deployment's connection string
+        // Replace the placeholder with your MongoDB deployment's connection string
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
