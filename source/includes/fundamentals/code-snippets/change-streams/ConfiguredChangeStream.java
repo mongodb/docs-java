@@ -22,7 +22,7 @@ public class ConfiguredChangeStream extends Thread {
     }
     public void run() {
         ChangeStreamIterable<Document> changeStream = this.collection.watch();
-//                .fullDocumentBeforeChange(this.fullDocumentBeforeChange);
+                .fullDocumentBeforeChange(this.fullDocumentBeforeChange);
 
         String name = "UNNAMED";
 

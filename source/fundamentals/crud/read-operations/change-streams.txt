@@ -110,8 +110,8 @@ Example
 ~~~~~~~
 
 The following code example shows how you can apply an aggregation pipeline to
-your change stream receive change events for insert and update operators
-only:
+configure your change stream to receive change events for only insert and
+update operations:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
@@ -147,7 +147,7 @@ must connect to a MongoDB v6.0 or later deployment and set up the following:
 - Enable pre-images and post-images for the collection on your MongoDB
   deployment.
 
-  .. see::
+  .. tip::
 
      To learn how to enable these on your deployment, see the
      :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
@@ -160,7 +160,7 @@ must connect to a MongoDB v6.0 or later deployment and set up the following:
 - Configure your change stream to retrieve either or both the pre-images and
   post-images.
 
-  .. see::
+  .. tip::
 
      To configure your change stream to include the pre-image, see
      the :ref:`<java-pre-image-example>`.
@@ -174,7 +174,7 @@ Create a Collection with Pre-Image and Post-Images Enabled
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To create a collection with the pre-image and post-image option using the
-driver, specify and instance of  ``ChangeStreamPreAndPostImagesOptions``
+driver, specify an instance of  ``ChangeStreamPreAndPostImagesOptions``
 and call the ``createCollection()`` method as shown in the following example:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
@@ -183,13 +183,16 @@ and call the ``createCollection()`` method as shown in the following example:
    :start-after: begin createCollection
    :end-before: end createCollection
 
+You can change the pre-image and post-image option in an existing collection
+by running the ``collMod`` command from the MongoDB Shell. To learn how to
+perform this operation, see the :manual:`collMod </reference/command/collMod#change-streams-with-document-pre--and-post-images>`
+server manual documentation.
+
 .. warning::
 
-   You can modify the collection in your MongoDB deployment using :manual:`collMod </reference/command/collMod>`
-   while your application has open change streams. However, any open
-   change streams that listen for events on that collection and use the
-   ``REQUIRED`` option for the ``fullDocument`` or ``fullDocumentBeforeChange``
-   setting may fail.
+   When you modify this option on a collection, any change streams open on
+   that collection in your application may fail if configured to require
+   receiving the pre-image or post-image.
 
 .. _java-pre-image-example:
 
