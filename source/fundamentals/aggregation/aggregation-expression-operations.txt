@@ -37,30 +37,22 @@ The operations are categorized by purpose and functionality.
    from the Query API expression provided in each example. However,
    the expressions are equivalent when evaluated.
 
-Boolean Expressions
-~~~~~~~~~~~~~~~~~~~
+Boolean Operations
+~~~~~~~~~~~~~~~~~~
 
-You can construct a boolean expression from values of type
-``MqlBoolean`` and boolean aggregation operations. These 
-expressions evaluate to ``true`` or ``false``.
+You can construct a boolean operation from at least one value of type
+``MqlBoolean`` and one or more boolean aggregation methods.
 
 The following table describes boolean aggregation expression operators
 available in the driver and equivalent expressions in the
 Query API. The methods link to API documentation and the Query API
 expressions link to Server manual documentation.
 
-.. note::
-
-   Some aggregation methods share a name with other methods available in
-   the driver. Check the parameter types and the type of
-   the object that the method is called on to confirm that that you are
-   referencing the correct documentation.
-
 .. list-table::
    :header-rows: 1
    :widths: 40 60
 
-   * - Java Aggregation Expression Operator
+   * - Java Aggregation Operation
      - Query API Expression
 
    * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
@@ -91,7 +83,7 @@ to ``false`` otherwise:
    import static com.mongodb.client.model.Projections.*;
    import static com.mongodb.client.model.mql.MqlValues.*;
 
-   // <class definition, main method, and setup code here>
+   // ...
 
    var pipeline = Arrays.asList(project(fields(
            computed("extreme",
@@ -105,12 +97,8 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   {
-     $project:
-        {
-          extreme: { $or: [ { $lt: [ "$temperature", 10 ] }, { $gt: [ "$temperature", 95 ] } ] }
-        }
-   }
+   { $project: { extreme: { $or: [ { $lt: [ "$temperature", 10 ] },
+                                   { $gt: [ "$temperature", 95 ] } ] } } }
 
 More Information
 ----------------
