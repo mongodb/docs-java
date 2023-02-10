@@ -24,6 +24,62 @@ that is both more compact and more naturally readable.
    :manual:`Aggregation Pipeline Operators </reference/operator/aggregation/>` 
    page in the Server manual.
 
+How to Use Operations
+---------------------
+
+The operations in this guide are static methods available in the
+``com.mongodb.client.model.mql`` package. To run the examples in this
+guide, consider importing the following classes in your program:
+
+.. code-block:: java
+   :copyable: true
+
+   import static com.mongodb.client.model.Aggregates.*;
+   import static com.mongodb.client.model.Projections.*;
+   import static com.mongodb.client.model.Filters.*;
+   import static com.mongodb.client.model.mql.MqlValues.*;
+   import static java.util.Arrays.asList;
+
+The examples use the ``Arrays.asList()`` method to create a list of
+aggregation operations that can be passed as a pipeline to the
+``aggregate()`` method.
+
+To construct an operation, first select a method that takes a value of
+type ``TExpression`` as a parameter, such as ``Projections.computed()``
+or ``Filters.expr()``. To reference document fields in an aggregation
+expression, obtain the "current" document being processed
+in the pipeline stage by calling the ``current()`` method. 
+
+Since the aggregation operations are typed, you must specify the type of each
+field you reference using a typed variation of the ``getField()``
+method, such as ``getString()`` or ``getDate()``. The following code
+shows how to reference an integer field called ``quantity``:
+
+.. code-block:: java
+   :copyable: true
+
+   var myField = current().getInteger("quantity");
+
+To reference a constant value, use the ``of()`` method, which converts
+primitive types to types that can be used in aggregation operations. The
+following code shows how to reference a constant of value ``1.0``:
+
+.. code-block:: java
+   :copyable: true
+
+   var myNum = of(1.0);
+
+When you finish composing an aggregation operation, you can pass it to
+an aggregation builder method, such as ``match()`` or ``project()`` to
+complete an aggregation pipeline stage. To learn more about these methods,
+see :ref:`Aggregates Builders <aggregates-builders>`.
+
+.. note::
+   
+   While these new operations can be used within existing aggregation
+   methods that take ``TExpression`` values, methods that return
+   ``Bson`` values are not usable with this feature.
+
 Operations
 ----------
 
