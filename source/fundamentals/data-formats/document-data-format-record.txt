@@ -226,3 +226,29 @@ execute a find operation on a collection of ``RecordTree`` types:
       :language: sh
 
       RecordTree[content=Ranginui, left=RecordTree[content=..., left=RecordTree[content=..., right=RecordTree[content=Ikatere...]]
+
+.. _fundamentals-records-get-codec:
+
+Retrieve the Record Codec
+-------------------------
+
+When working with records, consider using the ``RecordCodecProvider`` to get the
+record codec for Java records. For more information about codecs and why you might want
+to use them, see :ref:`Codecs <fundamentals-codecs>`. In summary, you use codecs
+to encode and decode Java objects to and from corresponding BSON types while
+minimizing duplicate code.
+
+.. tip::
+
+   When using the record codec, the annotations listed under
+   :ref:`Specify Component Conversion Using Annotations <fundamentals-records-annotations>`
+   are only supported on the record component.
+
+Be aware that you do not create a record codec directly. Instead,
+use the ``RecordCodecProvider`` to get the record codec. See the 
+`RecordCodecProvider API page <{+api+}/apidocs/bson-record-codec/org/bson/codecs/record/RecordCodecProvider.html>`__
+for more information.
+
+The record codec supports nested generic records. These are used the same way as
+other custom codecs as described on :ref:`Codecs <fundamentals-codecs>`. To see
+a complete example with custom codecs, see :ref: `Custom Codecs Example <codecs-custom-example>`.
