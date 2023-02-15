@@ -54,7 +54,7 @@ Boolean Expressions
 
 Boolean expressions evaluate arguments as booleans and return ``true`` or
 ``false``. These expressions evaluate ``false``, ``null``, ``0``, and
-undefined values as ``false``, and all other values as ``true``.
+``undefined`` values as ``false``, and all other values as ``true``.
 
 The following table describes the boolean aggregation expression methods
 available in the {+driver-short+} and the equivalent expressions in the
@@ -83,34 +83,36 @@ Query API:
    
    The following code determines whether a temperature reading
    is extreme depending on if the ``temp`` field is greater
-   than 90 **or** less than 10, given by the value of the
-   ``extremeTemp`` field. The code outputs documents that
-   include the original ``location`` field and the computed
-   ``extremeTemp`` field:
+   than 90 *or* less than 10, given by the value of the
+   ``extremeTemp`` field. The output documents include only the original
+   ``location`` field and the computed ``extremeTemp`` field:
 
    .. io-code-block::
       :copyable: true
    
       .. input::
          :language: java
+         :emphasize-lines: 5-6
 
          var pipeline = Arrays.asList(project(
                  fields(
+                         exclude("_id"),
                          include("location"),
                          computed("extremeTemp",
                                  current().getInteger("temp").lt(of(10)).or(current().getInteger("temp").gt(of(90))))
                  )
          ));
+
          myColl.aggregate(pipeline).forEach(doc -> System.out.println(doc.toJson()));
          
       .. output::
          :language: none
          :visible: false
       
-         {"_id": {"$oid": "..."}, "location": "New York, NY", "extremeTemp": false}
-         {"_id": {"$oid": "..."}, "location": "Duluth, MN", "extremeTemp": true}
-         {"_id": {"$oid": "..."}, "location": "Riverside, CA", "extremeTemp": true}
-         {"_id": {"$oid": "..."}, "location": "Tucson, AZ", "extremeTemp": true}
+         {"location": "New York, NY", "extremeTemp": false}
+         {"location": "Duluth, MN", "extremeTemp": true}
+         {"location": "Riverside, CA", "extremeTemp": true}
+         {"location": "Tucson, AZ", "extremeTemp": true}
          
    The following snippet provides the equivalent expression in
    the Query API:
@@ -118,17 +120,14 @@ Query API:
    .. code-block:: javascript
       :copyable: true
    
-      db.inventory.aggregate(
-         [
+      {
+        $project:
            {
-             $project:
-                {
-                  location: 1,
-                  extremeTemp: { $or: [ { $lt: [ "$temp", 10 ] }, { $gt: [ "$temp", 90 ] } ] }
-                }
+             _id: 0,
+             location: 1,
+             extremeTemp: { $or: [ { $lt: [ "$temp", 10 ] }, { $gt: [ "$temp", 90 ] } ] }
            }
-         ]
-      )
+      }
 
 More Information
 ----------------
