@@ -115,33 +115,21 @@ Query API:
    .. code-block:: javascript
       :copyable: true
    
-      [
-        {
-          $project:
-            {
-              month: {
-                $month: "$date",
+      {
+        $match: {
+          $expr: {
+            $lte: [
+              {
+                $month: {
+                  date: "$date",
+                  timezone: "UTC",
+                },
               },
-              location: 1,
-              temp: 1,
-              date: 1,
-            },
+              4,
+            ],
+          },
         },
-        {
-          $match:
-            {
-              month: {
-                $lte: 4,
-              },
-            },
-        },
-        {
-          $project:
-            {
-              month: 0,
-            },
-        },
-      ]
+      }
 
 More Information
 ----------------
