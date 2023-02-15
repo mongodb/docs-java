@@ -25,8 +25,110 @@ more naturally readable.
    :manual:`Aggregation Pipeline Operators </reference/operator/aggregation/>` 
    page in the Server manual.
 
+Sample Data
+-----------
+
+To run the examples in this guide, insert documents describing locations
+and temperature readings into the ``db.tempReadings`` collection with the following
+snippet:
+
+.. code-block:: java
+   :copyable: true
+
+   MongoDatabase database = client.getDatabase("db");
+   MongoCollection<Document> myColl = database.getCollection("tempReadings");
+   
+   List<Document> docs = Arrays.asList(
+           new Document().append("location", "New York, NY").append("temp", 54),
+           new Document().append("location", "Duluth, MN").append("temp", 4),
+           new Document().append("location", "Riverside, CA").append("temp", 101),
+           new Document().append("location", "Tucson, AZ").append("temp", 92));
+
+   InsertManyResult result = myColl.insertMany(docs);
+
 Operations
 ----------
+
+Boolean Expressions
+~~~~~~~~~~~~~~~~~~~
+
+Boolean expressions evaluate arguments as booleans and return ``true`` or
+``false``. These expressions evaluate ``false``, ``null``, ``0``, and
+undefined values as ``false``, and all other values as ``true``.
+
+The following table describes the boolean aggregation expression methods
+available in the {+driver-short+} and the equivalent expressions in the
+Query API:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Aggregation Expression
+     - Query API Expression
+
+   * - ``and()``
+     - :manual:`$and </reference/operator/aggregation/and/>`
+       
+   * - ``not()``
+     - :manual:`$not </reference/operator/aggregation/not/>`
+
+   * - ``or()``
+     - :manual:`$or </reference/operator/aggregation/or/>`
+
+   * - ``cond()``
+     - :manual:`$cond </reference/operator/aggregation/cond/>`
+
+.. example::
+   
+   The following code determines whether a temperature reading
+   is extreme depending on if the ``temp`` field is greater
+   than 90 **or** less than 10, given by the value of the
+   ``extremeTemp`` field. The code outputs documents that
+   include the original ``location`` field and the computed
+   ``extremeTemp`` field:
+
+   .. io-code-block::
+      :copyable: true
+   
+      .. input::
+         :language: java
+
+         var pipeline = Arrays.asList(project(
+                 fields(
+                         include("location"),
+                         computed("extremeTemp",
+                                 current().getInteger("temp").lt(of(10)).or(current().getInteger("temp").gt(of(90))))
+                 )
+         ));
+         myColl.aggregate(pipeline).forEach(doc -> System.out.println(doc.toJson()));
+         
+      .. output::
+         :language: none
+         :visible: false
+      
+         {"_id": {"$oid": "..."}, "location": "New York, NY", "extremeTemp": false}
+         {"_id": {"$oid": "..."}, "location": "Duluth, MN", "extremeTemp": true}
+         {"_id": {"$oid": "..."}, "location": "Riverside, CA", "extremeTemp": true}
+         {"_id": {"$oid": "..."}, "location": "Tucson, AZ", "extremeTemp": true}
+         
+   The following snippet provides the equivalent expression in
+   the Query API:
+   
+   .. code-block:: javascript
+      :copyable: true
+   
+      db.inventory.aggregate(
+         [
+           {
+             $project:
+                {
+                  location: 1,
+                  extremeTemp: { $or: [ { $lt: [ "$temp", 10 ] }, { $gt: [ "$temp", 90 ] } ] }
+                }
+           }
+         ]
+      )
 
 More Information
 ----------------
