@@ -28,5 +28,120 @@ more naturally readable.
 Operations
 ----------
 
+Date Expressions
+~~~~~~~~~~~~~~~~
+
+Date expressions return date objects or components of date objects.
+
+The following table describes the date aggregation expression methods
+available in the {+driver-short+} and the equivalent expressions in the
+Query API:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Aggregation Expression
+     - Query API Expression
+
+   * - ``asString()``
+     - :manual:`$dateToString </reference/operator/aggregation/dateToString/>`
+
+   * - ``millisecondsAsDate()``
+     - :manual:`$toDate </reference/operator/aggregation/toDate/>`     
+
+   * - ``parseDate()``
+     - :manual:`$dateFromString </reference/operator/aggregation/dateFromString/>`
+
+   * - ``dayOfWeek()``
+     - :manual:`$dayOfWeek </reference/operator/aggregation/dayOfWeek/>`
+
+   * - ``dayOfMonth()``
+     - :manual:`$dayOfMonth </reference/operator/aggregation/dayOfMonth/>`
+
+   * - ``dayOfYear()``
+     - :manual:`$dayOfYear </reference/operator/aggregation/dayOfYear/>`
+
+   * - ``year()``
+     - :manual:`$year </reference/operator/aggregation/year/>`
+
+   * - ``month()``
+     - :manual:`$month </reference/operator/aggregation/month/>`
+   
+   * - ``week()``
+     - :manual:`$week </reference/operator/aggregation/week/>`
+
+   * - ``hour()``
+     - :manual:`$hour </reference/operator/aggregation/hour/>`
+
+   * - ``minute()``
+     - :manual:`$minute </reference/operator/aggregation/minute/>`
+
+   * - ``second()``
+     - :manual:`$second </reference/operator/aggregation/second/>`
+
+   * - ``millisecond()``
+     - :manual:`$millisecond </reference/operator/aggregation/millisecond/>`
+
+.. example::
+   
+   The following code extracts the month value from the ``date`` field
+   in each document and matches documents where the month is one of the
+   first four months of the year:
+
+   .. io-code-block::
+      :copyable: true
+   
+      .. input::
+         :language: java
+         :emphasize-lines: 2
+
+         var pipeline = Arrays.asList(match(
+                 expr(current().getDate("date").month(of("UTC")).lte(of(4)))
+         ));
+
+         myColl.aggregate(pipeline).forEach(doc -> System.out.println(doc.toJson()));
+         
+      .. output::
+         :language: none
+         :visible: false
+      
+         {"_id": ..., "location": "New York, NY", "temp": 54, "date": {"$date": "2018-02-10T06:56:02Z"}}
+         {"_id": ..., "location": "Duluth, MN", "temp": 4, "date": {"$date": "2018-04-13T03:06:17.018Z"}}
+         
+   The following snippet provides the equivalent expression in
+   the Query API:
+   
+   .. code-block:: javascript
+      :copyable: true
+   
+      [
+        {
+          $project:
+            {
+              month: {
+                $month: "$date",
+              },
+              location: 1,
+              temp: 1,
+              date: 1,
+            },
+        },
+        {
+          $match:
+            {
+              month: {
+                $lte: 4,
+              },
+            },
+        },
+        {
+          $project:
+            {
+              month: 0,
+            },
+        },
+      ]
+
 More Information
 ----------------
