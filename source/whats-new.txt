@@ -37,6 +37,11 @@ What's New in 4.9
   ``BsonProperty`` or ``BsonId``.
 - Changed the log message format for command monitoring messages reported
   by the ``org.mongodb.driver.protocol.command`` package.
+- Added support for the ``$documents`` aggregation pipeline stage to the 
+  ``Aggregates`` helper class.
+- Added ``MongoClientSettings.applyToLoggerSettings()`` and 
+  ``LoggerSettings.Builder.maxDocumentLength()`` methods that let you specify a 
+  maximum length for the extended JSON representation of a BSON document in a log message. 
 
 .. _version-4.8:
 
