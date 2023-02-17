@@ -134,13 +134,6 @@ to ``false`` otherwise:
 .. code-block:: java
    :copyable: true
 
-   import java.util.Arrays;
-   import static com.mongodb.client.model.Aggregates.*;
-   import static com.mongodb.client.model.Projections.*;
-   import static com.mongodb.client.model.mql.MqlValues.*;
-
-   // ...
-
    var pipeline = Arrays.asList(project(fields(
            computed("extreme",
                    current().getInteger("temperature").lt(of(10))
