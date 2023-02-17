@@ -25,38 +25,27 @@ more naturally readable.
    :manual:`Aggregation Pipeline Operators </reference/operator/aggregation/>` 
    page in the Server manual.
 
-Sample Data
------------
-
-To run the examples in this guide, insert documents describing locations
-and temperature readings into the ``db.tempReadings`` collection with the following
-snippet:
-
-.. code-block:: java
-   :copyable: true
-
-   MongoDatabase database = client.getDatabase("db");
-   MongoCollection<Document> myColl = database.getCollection("tempReadings");
-   
-   List<Document> docs = Arrays.asList(
-           new Document().append("location", "New York, NY").append("temp", 54),
-           new Document().append("location", "Duluth, MN").append("temp", 4),
-           new Document().append("location", "Riverside, CA").append("temp", 101),
-           new Document().append("location", "Tucson, AZ").append("temp", 92));
-
-   InsertManyResult result = myColl.insertMany(docs);
-
 Operations
 ----------
+
+Each of the following sections provides information and examples for
+aggregation expression operations available in the {+driver-short+}.
+This guide sorts these operations into categories based on general
+purpose and functionality.
+
+.. important::
+
+   The Query API expression that the driver generates from each
+   aggregation expression operation might not be
+   identical to the Query API expression provided in each example.
+   However, they are functionally equivalent.
 
 Boolean Expressions
 ~~~~~~~~~~~~~~~~~~~
 
-Boolean expressions evaluate arguments as booleans and return ``true`` or
-``false``. These expressions evaluate ``false``, ``null``, ``0``, and
-``undefined`` values as ``false``, and all other values as ``true``.
+You can invoke boolean operations on boolean values of type ``MqlBoolean``.
 
-The following table describes the boolean aggregation expression methods
+The following table describes the boolean aggregation operation methods
 available in the {+driver-short+} and the equivalent expressions in the
 Query API:
 
@@ -67,67 +56,48 @@ Query API:
    * - Java Aggregation Expression
      - Query API Expression
 
-   * - ``and()``
+   * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
      - :manual:`$and </reference/operator/aggregation/and/>`
        
-   * - ``not()``
+   * - `not() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#not()>`__
      - :manual:`$not </reference/operator/aggregation/not/>`
 
-   * - ``or()``
+   * - `or() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#or(com.mongodb.client.model.mql.MqlBoolean)>`__
      - :manual:`$or </reference/operator/aggregation/or/>`
 
-   * - ``cond()``
+   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
      - :manual:`$cond </reference/operator/aggregation/cond/>`
 
-.. example::
+.. note::
+
+   While each Java method is functionally equivalent to the
+   corresponding Query API expression, they may differ in expected
+   parameters and implementation.
    
-   The following code determines whether a temperature reading
-   is extreme depending on if the ``temp`` field is greater
-   than 90 *or* less than 10, given by the value of the
-   ``extremeTemp`` field. The output documents include only the original
-   ``location`` field and the computed ``extremeTemp`` field:
+The following code computes the ``result`` field based on if the value
+of ``field1`` is less than ``0`` *or* greater than ``10``:
 
-   .. io-code-block::
-      :copyable: true
-   
-      .. input::
-         :language: java
-         :emphasize-lines: 5-6
+.. code-block:: java
+   :copyable: true
 
-         var pipeline = Arrays.asList(project(
-                 fields(
-                         exclude("_id"),
-                         include("location"),
-                         computed("extremeTemp",
-                                 current().getInteger("temp").lt(of(10)).or(current().getInteger("temp").gt(of(90))))
-                 )
-         ));
-
-         myColl.aggregate(pipeline).forEach(doc -> System.out.println(doc.toJson()));
-         
-      .. output::
-         :language: none
-         :visible: false
+   var pipeline = Arrays.asList(project(fields(
+           computed("result",
+                   current().getInteger("field1").lt(of(0))
+                       .or(current().getInteger("field1").gt(of(10))))
+   )));
       
-         {"location": "New York, NY", "extremeTemp": false}
-         {"location": "Duluth, MN", "extremeTemp": true}
-         {"location": "Riverside, CA", "extremeTemp": true}
-         {"location": "Tucson, AZ", "extremeTemp": true}
-         
-   The following snippet provides the equivalent expression in
-   the Query API:
-   
-   .. code-block:: javascript
-      :copyable: true
-   
-      {
-        $project:
-           {
-             _id: 0,
-             location: 1,
-             extremeTemp: { $or: [ { $lt: [ "$temp", 10 ] }, { $gt: [ "$temp", 90 ] } ] }
-           }
-      }
+The following snippet provides an equivalent expression in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   {
+     $project:
+        {
+          result: { $or: [ { $lt: [ "$field1", 0 ] }, { $gt: [ "$field1", 10 ] } ] }
+        }
+   }
 
 More Information
 ----------------
