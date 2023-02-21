@@ -12,8 +12,8 @@ Overview
 --------
 
 In this guide, you can learn how to use the {+driver-long+} to construct expressions 
-for use in the aggregation pipeline. 
-With the {+driver-short+}, you can perform expression operations with
+for use in the aggregation pipeline.
+You can perform expression operations with
 discoverable, typesafe Java methods rather than BSON documents.
 Because these methods follow the fluent interface pattern, you can chain 
 aggregation operations together to create code that is both more compact and 
@@ -28,32 +28,40 @@ more naturally readable.
 Operations
 ----------
 
-Each of the following sections provides information and examples for
-aggregation expression operations available in the {+driver-short+}.
-This guide sorts these operations into categories based on general
-purpose and functionality.
+The following sections provide information and examples for
+aggregation expression operations available in the driver.
+The operations are categorized by purpose and functionality.
 
 .. important::
 
-   The Query API expression that the driver generates from each
-   aggregation expression operation might not be
-   identical to the Query API expression provided in each example.
-   However, they are functionally equivalent.
+   The driver generates a Query API expression that may be different
+   from the Query API expression provided in each example. However,
+   the expressions are equivalent when evaluated.
 
 Boolean Expressions
 ~~~~~~~~~~~~~~~~~~~
 
-You can invoke boolean operations on boolean values of type ``MqlBoolean``.
+You can construct a boolean expression from values of type
+``MqlBoolean`` and boolean aggregation operations. These 
+expressions evaluate to ``true`` or ``false``.
 
-The following table describes the boolean aggregation operation methods
-available in the {+driver-short+} and the equivalent expressions in the
-Query API:
+The following table describes boolean aggregation methods
+available in the driver and equivalent expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. note::
+
+   Some aggregation methods share a name with other methods available in
+   the driver. Check the parameter types and the type of
+   the object that the method is called on to confirm that that you are
+   referencing the correct documentation.
 
 .. list-table::
    :header-rows: 1
    :widths: 40 60
 
-   * - Java Aggregation Expression
+   * - Aggregation Method
      - Query API Expression
 
    * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
@@ -68,14 +76,11 @@ Query API:
    * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
      - :manual:`$cond </reference/operator/aggregation/cond/>`
 
-.. note::
-
-   While each Java method is functionally equivalent to the
-   corresponding Query API expression, they may differ in expected
-   parameters and implementation.
+.. include:: /includes/fundamentals/agg-mql-diff.rst
    
-The following code computes the ``result`` field based on if the value
-of ``field1`` is less than ``0`` *or* greater than ``10``:
+The following code uses the ``or()`` method to set the ``result``
+field to ``true`` if the value of ``field1`` is less than ``0`` or
+greater than ``10`` and ``false`` otherwise:
 
 .. code-block:: java
    :copyable: true
@@ -86,7 +91,7 @@ of ``field1`` is less than ``0`` *or* greater than ``10``:
                        .or(current().getInteger("field1").gt(of(10))))
    )));
       
-The following snippet provides an equivalent expression in
+The following code provides an equivalent expression in
 the Query API:
 
 .. code-block:: javascript
