@@ -2,8 +2,6 @@
 Aggregates Builders
 ===================
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -50,6 +48,32 @@ aggregation as a list:
    :language: java
    :dedent:
 
+Documents
+---------
+
+Use the ``documents()`` method to create a
+:manual:`$documents </reference/operator/aggregation/documents/>`
+pipeline stage that returns literal documents from query values.
+
+.. important::
+
+   If you use the ``$documents`` stage in an aggregation pipeline, it must be the first 
+   stage in the pipeline.
+
+The following example creates a pipeline stage that creates 
+sample documents, each with a ``"title"`` field: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AggBuilders.java
+   :start-after: // begin documents
+   :end-before: // end documents
+   :language: java
+   :dedent:
+
+.. tip::
+
+   If you use the ``documents()`` method to provide the input to an aggregation pipeline, 
+   you can call the ``aggregate()`` method on a database object rather than on a 
+   collection.
 
 Match
 -----
@@ -71,7 +95,6 @@ The following example creates a pipeline stage that matches all documents where 
    :end-before: end match
    :language: java
    :dedent:
-
 
 
 Project
@@ -946,3 +969,4 @@ aggregation stage:
 
 Learn more about this helper from the
 `searchMeta() API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#searchMeta(com.mongodb.client.model.search.SearchCollector)>`__.
+
