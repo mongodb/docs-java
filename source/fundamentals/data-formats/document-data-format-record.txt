@@ -133,9 +133,9 @@ You can use the following annotations on record components:
 
 .. note::
 
-   The driver supports annotations for Java recrods, but only if you use them
-   when you define the component as shown in the example annotated record. You
-   cannot use the annotations inside the constructor.
+   The driver supports annotations for Java records, but only if you include them
+   when you define the component as shown in the following example record. You
+   cannot use the annotations inside the record constructor.
 
 Example Annotated Record
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,12 +239,12 @@ Retrieve the Record Codec
 -------------------------
 
 You can use the ``RecordCodecProvider`` to retrieve the
-record codec. You should use this when you want to customize the codec to encode
+record codec. You should use this interface when you want to customize the codec to encode
 and decode Java record objects to and from corresponding BSON types while
 minimizing duplicate code. To learn more about codecs and their usage,
 see :ref:`Codecs <fundamentals-codecs>`.
 
 You can't create a record codec directly, but you can use the
 ``RecordCodecProvider`` to implement the record codec in your code. Learn more
-about the ``RecordCodecProvider`` in the
+about the ``RecordCodecProvider``, see the
 `API documentation <{+api+}/apidocs/bson-record-codec/org/bson/codecs/record/RecordCodecProvider.html>`__.
