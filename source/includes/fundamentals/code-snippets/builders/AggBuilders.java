@@ -305,7 +305,7 @@ public class AggBuilders {
 
     private void documents() {
         // begin documents
-        documents(Arrays.asList(
+        documents(asList(
                 new Document("title", "The Shawshank Redemption"),
                 new Document("title", "Back to the Future"),
                 new Document("title", "Jurassic Park")));
