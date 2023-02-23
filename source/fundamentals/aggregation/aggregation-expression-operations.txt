@@ -11,13 +11,12 @@ Aggregation Expression Operations
 Overview
 --------
 
-In this guide, you can learn how to use the {+driver-long+} to construct expressions 
-for use in the aggregation pipeline.
-You can perform expression operations with
-discoverable, typesafe Java methods rather than BSON documents.
-Because these methods follow the fluent interface pattern, you can chain 
-aggregation operations together to create code that is both more compact and 
-more naturally readable.  
+In this guide, you can learn how to use the {+driver-long+} to construct
+expressions for use in the aggregation pipeline. You can perform
+expression operations with discoverable, typesafe Java methods rather
+than BSON documents. Because these methods follow the fluent interface
+pattern, you can chain aggregation operations together to create code
+that is both more compact and more naturally readable.
 
 .. tip:: 
 
@@ -45,7 +44,7 @@ You can construct a boolean expression from values of type
 ``MqlBoolean`` and boolean aggregation operations. These 
 expressions evaluate to ``true`` or ``false``.
 
-The following table describes boolean aggregation methods
+The following table describes boolean aggregation expression operators
 available in the driver and equivalent expressions in the
 Query API. The methods link to API documentation and the Query API
 expressions link to Server manual documentation.
@@ -61,7 +60,7 @@ expressions link to Server manual documentation.
    :header-rows: 1
    :widths: 40 60
 
-   * - Aggregation Method
+   * - Java Aggregation Expression Operator
      - Query API Expression
 
    * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
@@ -78,17 +77,24 @@ expressions link to Server manual documentation.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
    
-The following code uses the ``or()`` method to set the ``result``
-field to ``true`` if the value of ``field1`` is less than ``0`` or
-greater than ``10`` and ``false`` otherwise:
+The following code uses the ``or()`` method to set the ``extreme``
+field to ``true`` if the value of ``temperature`` is less than ``10`` or
+greater than ``95`` and ``false`` otherwise:
 
 .. code-block:: java
    :copyable: true
 
+   import java.util.Arrays;
+   import static com.mongodb.client.model.Aggregates.*;
+   import static com.mongodb.client.model.Projections.*;
+   import static com.mongodb.client.model.mql.MqlValues.*;
+
+   // <class definition, main method, and setup code here>
+
    var pipeline = Arrays.asList(project(fields(
-           computed("result",
-                   current().getInteger("field1").lt(of(0))
-                       .or(current().getInteger("field1").gt(of(10))))
+           computed("extreme",
+                   current().getInteger("temperature").lt(of(10))
+                       .or(current().getInteger("temperature").gt(of(95))))
    )));
       
 The following code provides an equivalent expression in
@@ -100,7 +106,7 @@ the Query API:
    {
      $project:
         {
-          result: { $or: [ { $lt: [ "$field1", 0 ] }, { $gt: [ "$field1", 10 ] } ] }
+          extreme: { $or: [ { $lt: [ "$temperature", 10 ] }, { $gt: [ "$temperature", 95 ] } ] }
         }
    }
 
