@@ -11,13 +11,12 @@ Aggregation Expression Operations
 Overview
 --------
 
-In this guide, you can learn how to use the {+driver-long+} to construct expressions 
-for use in the aggregation pipeline. 
-With the {+driver-short+}, you can perform expression operations with
-discoverable, typesafe Java methods rather than BSON documents.
-Because these methods follow the fluent interface pattern, you can chain 
-aggregation operations together to create code that is both more compact and 
-more naturally readable.  
+In this guide, you can learn how to use the {+driver-long+} to construct
+expressions for use in the aggregation pipeline. You can perform
+expression operations with discoverable, typesafe Java methods rather
+than BSON documents. Because these methods follow the fluent interface
+pattern, you can chain aggregation operations together to create code
+that is both more compact and more naturally readable.
 
 .. tip:: 
 
@@ -27,6 +26,91 @@ more naturally readable.
 
 Operations
 ----------
+
+The following sections provide information and examples for
+aggregation expression operations available in the driver.
+The operations are categorized by purpose and functionality.
+
+.. important::
+
+   The driver generates a Query API expression that may be different
+   from the Query API expression provided in each example. However,
+   the expressions are equivalent when evaluated.
+
+Boolean Expressions
+~~~~~~~~~~~~~~~~~~~
+
+You can construct a boolean expression from values of type
+``MqlBoolean`` and boolean aggregation operations. These 
+expressions evaluate to ``true`` or ``false``.
+
+The following table describes boolean aggregation expression operators
+available in the driver and equivalent expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. note::
+
+   Some aggregation methods share a name with other methods available in
+   the driver. Check the parameter types and the type of
+   the object that the method is called on to confirm that that you are
+   referencing the correct documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Aggregation Expression Operator
+     - Query API Expression
+
+   * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
+     - :manual:`$and </reference/operator/aggregation/and/>`
+       
+   * - `not() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#not()>`__
+     - :manual:`$not </reference/operator/aggregation/not/>`
+
+   * - `or() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#or(com.mongodb.client.model.mql.MqlBoolean)>`__
+     - :manual:`$or </reference/operator/aggregation/or/>`
+
+   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
+     - :manual:`$cond </reference/operator/aggregation/cond/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+   
+The following example categorizes very low or high weather temperatures
+(in degrees Fahrenheit) as extreme. The code uses the ``or()`` method to
+evaluate if the value of ``temperature`` is less than ``10`` or greater
+than ``95`` and sets the ``extreme`` field to true in these cases, and
+to ``false`` otherwise:
+
+.. code-block:: java
+   :copyable: true
+
+   import java.util.Arrays;
+   import static com.mongodb.client.model.Aggregates.*;
+   import static com.mongodb.client.model.Projections.*;
+   import static com.mongodb.client.model.mql.MqlValues.*;
+
+   // <class definition, main method, and setup code here>
+
+   var pipeline = Arrays.asList(project(fields(
+           computed("extreme",
+                   current().getInteger("temperature").lt(of(10))
+                       .or(current().getInteger("temperature").gt(of(95))))
+   )));
+      
+The following code provides an equivalent expression in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   {
+     $project:
+        {
+          extreme: { $or: [ { $lt: [ "$temperature", 10 ] }, { $gt: [ "$temperature", 95 ] } ] }
+        }
+   }
 
 More Information
 ----------------
