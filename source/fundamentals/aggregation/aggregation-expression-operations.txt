@@ -77,9 +77,11 @@ expressions link to Server manual documentation.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
    
-The following code uses the ``or()`` method to set the ``extreme``
-field to ``true`` if the value of ``temperature`` is less than ``10`` or
-greater than ``95`` and ``false`` otherwise:
+The following example categorizes very low or high weather temperatures
+(in degrees Fahrenheit) as extreme. The code uses the ``or()`` method to
+evaluate if the value of ``temperature`` is less than ``10`` or greater
+than ``95`` and sets the ``extreme`` field to true in these cases, and
+to ``false`` otherwise:
 
 .. code-block:: java
    :copyable: true
