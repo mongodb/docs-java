@@ -27,7 +27,7 @@ that is both more compact and more naturally readable.
 How to Use Operations
 ---------------------
 
-The operations in this guide are static methods available in the
+The operations in this guide use static methods available in the
 ``com.mongodb.client.model.mql`` package. To run the examples in this
 guide, consider importing the following classes in your program:
 
@@ -87,20 +87,20 @@ The following sections provide information and examples for
 aggregation expression operations available in the driver.
 The operations are categorized by purpose and functionality.
 
-.. important::
+.. note::
 
    The driver generates a Query API expression that may be different
    from the Query API expression provided in each example. However,
-   the expressions are equivalent when evaluated.
+   both expressions will produce the same aggregation result.
 
 Boolean Operations
 ~~~~~~~~~~~~~~~~~~
 
-You can construct a boolean operation from at least one value of type
-``MqlBoolean`` and one or more boolean aggregation methods.
+You can perform a boolean operation on a value of type ``MqlBoolean``
+using the methods described in this section.
 
-The following table describes boolean aggregation expression operators
-available in the driver and equivalent expressions in the
+The following table describes boolean methods
+available in the driver and corresponding expressions in the
 Query API. The methods link to API documentation and the Query API
 expressions link to Server manual documentation.
 
@@ -108,8 +108,8 @@ expressions link to Server manual documentation.
    :header-rows: 1
    :widths: 40 60
 
-   * - Java Aggregation Operation
-     - Query API Expression
+   * - Java Method
+     - Aggregation Pipeline Operator
 
    * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
      - :manual:`$and </reference/operator/aggregation/and/>`
