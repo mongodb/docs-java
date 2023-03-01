@@ -20,23 +20,21 @@ public class MongoClientConnectionExample {
                 .version(ServerApiVersion.V1)
                 .build();
 
-
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString(uri))
                 .serverApi(serverApi)
                 .build();
 
+        // Create a new client and connect to the server
         try (MongoClient mongoClient = MongoClients.create(settings)) {
-
             MongoDatabase database = mongoClient.getDatabase("admin");
-
             try {
                 // Send a ping to confirm a successful connection
                 Bson command = new BsonDocument("ping", new BsonInt64(1));
                 Document commandResult = database.runCommand(command);
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
             } catch (MongoException me) {
-                System.err.println("An error occurred while attempting to run a command: " + me);
+                System.err.println("An error occurred while attempting to ping: " + me);
             }
         }
     }
