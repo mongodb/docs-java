@@ -12,8 +12,8 @@ import com.mongodb.client.MongoDatabase;
 
 public class MongoClientConnectionExample {
     public static void main(String[] args) {
-        // Replace the placeholders with your credentials
-        String uri = "mongodb+srv://<username>:<password>@cluster0.sample.mongodb.net/?retryWrites=true&w=majority";
+        // Replace the placeholders with your credentials and hostname
+        String uri = "mongodb+srv://<username>:<password>@<hostname>/?retryWrites=true&w=majority";
 
         // Construct a ServerApi instance using the ServerApi.builder() method
         ServerApi serverApi = ServerApi.builder()
@@ -34,7 +34,7 @@ public class MongoClientConnectionExample {
                 Document commandResult = database.runCommand(command);
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
             } catch (MongoException me) {
-                System.err.println("An error occurred while attempting to ping: " + me);
+                System.err.println(me);
             }
         }
     }
