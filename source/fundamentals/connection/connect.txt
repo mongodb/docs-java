@@ -77,12 +77,36 @@ In the example, we set two connection options: ``maxPoolSize=20`` and
 
 .. _connect-atlas-java-driver:
 
-The following code shows how you can use the sample connection URI in a client
-to connect to MongoDB.
+Atlas Connection Example
+------------------------
+
+To connect to a MongoDB deployment on Atlas, create a client. You can
+create a client that uses your connection string and other 
+client options by passing a ``MongoClientSettings`` object to the
+``MongoClients.create()`` method.
+
+To create a ``MongoClientSettings`` object, use the
+``MongoClientSettings.builder()`` method.
+
+To specify your connection URI, pass it to
+the ``ConnectionString`` constructor, pass the constructor to the
+``applyConnectionString()`` method, and chain this method to the
+``MongoClientSettings.builder()`` method. To specify any other client
+options, chain the relevant methods to the
+``MongoClientSettings.builder()`` method.
+
+You can set the {+stable-api+} version as a client option to avoid
+breaking changes when you upgrade to a new server version. To 
+learn more about the {+stable-api+} feature, see the :ref:`{+stable-api+} page
+<stable-api-java>`.
+
+The following code shows how you can specify the connection string and
+the {+stable-api+} client option when connecting to a MongoDB
+deployment on Atlas and verify that the connection is successful:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/srv.java
    :language: java
-   :emphasize-lines: 17
+   :emphasize-lines: 16
 
 .. _java-other-ways-to-connect:
 
