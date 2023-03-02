@@ -86,14 +86,12 @@ client options by passing a ``MongoClientSettings`` object to the
 ``MongoClients.create()`` method.
 
 To instantiate a ``MongoClientSettings`` object, call the
-``MongoClientSettings.builder()`` method.
+``MongoClientSettings.builder()`` method. You can chain methods to your
+``MongoClientSettings`` instance to specify your connection string and other
+client options.
 
-You can chain methods to your ``MongoClientSettings`` instance to specify
-your connection string and other client options. Call the
-``applyConnectionString()`` method on your ``MongoClientSettings``
-instance to specify your connection URI. You must pass your connection
-URI to the ``ConnectionString`` constructor to create a valid parameter
-for the ``applyConnectionString()`` method.
+Chain the ``applyConnectionString()`` method to your ``MongoClientSettings``
+instance to specify your connection URI.
 
 You can set the {+stable-api+} version client option to avoid
 breaking changes when you upgrade to a new server version. To 
