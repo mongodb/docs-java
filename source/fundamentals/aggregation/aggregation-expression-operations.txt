@@ -125,29 +125,37 @@ expressions link to Server manual documentation.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
    
-The following example categorizes very low or high weather temperatures
-(in degrees Fahrenheit) as extreme. The code uses the ``or()`` method to
-evaluate if the value of ``temperature`` is less than ``10`` or greater
-than ``95`` and sets the ``extreme`` field to true in these cases, and
-to ``false`` otherwise:
+The following example specifies an extreme temperature advisory for very
+low or high weather temperatures (in degrees Fahrenheit). The code uses
+the ``or()`` method to evaluate if the value of ``temperature`` is less
+than ``10`` or greater than ``95``. Using the ``cond()`` method, the
+example sets the ``advisory`` field to ``"extreme temperature"`` if the
+document matches the criteria, and to ``"no advisory"`` otherwise:
 
 .. code-block:: java
    :copyable: true
 
    var pipeline = Arrays.asList(project(fields(
-           computed("extreme",
-                   current().getInteger("temperature").lt(of(10))
-                       .or(current().getInteger("temperature").gt(of(95))))
-   )));
-      
+           computed("advisory",
+                   current()
+                           .getInteger("temperature")
+                           .lt(of(10))
+                           .or(current()
+                                   .getInteger("temperature")
+                                   .gt(of(95)))
+                           .cond(of("extreme temperature"), of("no advisory"))
+   ))));
+
 The following code provides an equivalent expression in
 the Query API:
 
 .. code-block:: javascript
    :copyable: true
 
-   { $project: { extreme: { $or: [ { $lt: [ "$temperature", 10 ] },
-                                   { $gt: [ "$temperature", 95 ] } ] } } }
+   { $project: { advisory: { $cond: { if: { $or: [ { $lt: [ "$temperature", 10 ] },
+                                                   { $gt: [ "$temperature", 95 ] } ] },
+                                      then: "extreme temperature",
+                                      else: "no advisory" } } } }
 
 More Information
 ----------------
