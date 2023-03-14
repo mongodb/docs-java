@@ -157,5 +157,72 @@ the Query API:
                                       then: "extreme temperature",
                                       else: "no advisory" } } } }
 
+String Operations
+~~~~~~~~~~~~~~~~~
+
+You can perform a string operation on a value of type ``MqlString``
+using the methods described in this section.
+
+The following table describes string methods
+available in the driver and corresponding expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `append() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#append(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$concat </reference/operator/aggregation/concat/>`
+       
+   * - `toLower() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#toLower()>`__
+     - :manual:`$toLower </reference/operator/aggregation/toLower/>`
+
+   * - `toUpper() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#toUpper()>`__
+     - :manual:`$toUpper </reference/operator/aggregation/toUpper/>`
+
+   * - `length() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#length()>`__
+     - :manual:`$strLenCP </reference/operator/aggregation/strLenCP/>`
+
+   * - `lengthBytes() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#lengthBytes()>`__
+     - :manual:`$strLenBytes </reference/operator/aggregation/strLenBytes/>`
+
+   * - `substr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#substr(int,int)>`__
+     - :manual:`$substrCP </reference/operator/aggregation/substrCP/>`
+
+   * - `substrBytes() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#substrBytes(int,int)>`__
+     - :manual:`$substrBytes </reference/operator/aggregation/substrBytes/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+   
+The following example creates a unique employee username from their last
+name and unique employee ID. The code uses the ``append()`` method to
+concatenate the ``lastName`` and ``employeeID`` fields and makes this
+string lowercase by using the ``toLower()`` method. The resulting
+string is projected as the ``username`` field:
+
+.. code-block:: java
+   :copyable: true
+
+   var pipeline = Arrays.asList(project(fields(
+           computed("username",
+                   current()
+                           .getString("lastName")
+                           .append(current()
+                                   .getString("employeeID"))
+                           .toLower()
+   ))));
+
+The following code provides an equivalent expression in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   { $project: { username: { $toLower: { $concat: ["$lastName", "$employeeID"] } } } }
+
 More Information
 ----------------
