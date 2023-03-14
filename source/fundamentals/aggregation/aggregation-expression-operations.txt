@@ -30,7 +30,8 @@ The operations in this guide use methods from the
 How to Use Operations
 ---------------------
 
-The examples and methods referenced in this guide assume that you include the following static imports:
+The examples in this guide assume that you include the following static
+imports in your code:
 
 .. code-block:: java
    :copyable: true
@@ -41,7 +42,7 @@ The examples and methods referenced in this guide assume that you include the fo
    import static com.mongodb.client.model.mql.MqlValues.*;
    import static java.util.Arrays.asList;
 
-To access fields in an aggregation expression, you need to reference the
+To access document fields in an aggregation expression, you need to reference the
 document being processed by the aggregation pipeline. Use the
 ``current()`` method to refer to this document.
 
