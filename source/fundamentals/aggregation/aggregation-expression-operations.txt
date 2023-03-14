@@ -161,8 +161,7 @@ Date Operations
 ~~~~~~~~~~~~~~~
 
 You can perform a date operation using the methods described in this
-section. Date operations either work on values of type ``MqlDate`` or
-return ``MqlDate`` values.
+section. Date operations either work on or return values of type ``MqlDate``.
 
 The following table describes date methods
 available in the driver and corresponding expressions in the
@@ -226,17 +225,20 @@ field and checks if the month is less than ``5`` by using the ``lt()`` method:
    :copyable: true
 
    var pipeline = Arrays.asList(match(
-           expr(current().getDate("date").month(of("UTC")).lt(of(5)))
+           expr(current()
+                   .getDate("date")
+                   .month(of("UTC"))
+                   .lt(of(5)))
    ));
 
-   The following snippet provides the equivalent expression in
-   the Query API:
+The following snippet provides the equivalent expression in the Query
+API:
 
-   .. code-block:: javascript
-      :copyable: true
+.. code-block:: javascript
+   :copyable: true
 
-      { $match: { $expr: { $lt: [ { $month: { date: "$date",
-                                               timezone: "UTC" } }, 5 ] } } }
+   { $match: { $expr: { $lt: [ { $month: { date: "$date",
+                                           timezone: "UTC" } }, 5 ] } } }
 
 More Information
 ----------------
