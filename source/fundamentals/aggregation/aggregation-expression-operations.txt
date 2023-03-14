@@ -42,13 +42,12 @@ imports in your code:
    import static com.mongodb.client.model.mql.MqlValues.*;
    import static java.util.Arrays.asList;
 
-To access document fields in an aggregation expression, you need to reference the
+To access document fields in an expression, you need to reference the
 document being processed by the aggregation pipeline. Use the
-``current()`` method to refer to this document.
-
-To access the value of a field, you must use the appropriately typed
-method, such as ``getString()`` or ``getDate()``. The following code
-shows how to reference a string field called ``name``:
+``current()`` method to refer to this document. To access the value of a
+field, you must use the appropriately typed method, such as
+``getString()`` or ``getDate()``. The following code shows how to
+reference a string field called ``name``:
 
 .. code-block:: java
    :copyable: true
@@ -94,6 +93,13 @@ In most cases, you need to include your operation in a method such as
 ``computed()`` or ``expr()`` to process it for use in an aggregation
 pipeline stage.
 
+.. note::
+
+   Methods such as ``computed()`` and ``expr()`` that take values of
+   type ``TExpression`` allow you to use your expressions in
+   aggregations. For example, the ``expr()`` method processes your
+   operation as an expression that the ``match()`` method will accept.
+
 To create a usable aggregation pipeline stage, include your expression
 in an aggregates builder method such as ``match(<expression>)`` or
 ``project(<expression>)``. To learn more about these methods, see
@@ -102,11 +108,6 @@ in an aggregates builder method such as ``match(<expression>)`` or
 The examples use the ``Arrays.asList()`` method to create a list of
 aggregation stages that is passed to the ``aggregate()`` method of
 ``MongoCollection``.
-
-Methods such as ``computed()`` and ``expr()`` that take values of type
-``TExpression`` allow you to use your expressions in aggregations. For
-example, the ``expr()`` method processes your operation as an expression
-that the ``match()`` method will accept.
 
 Operations
 ----------
