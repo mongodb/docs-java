@@ -11,13 +11,12 @@ Aggregation Expression Operations
 Overview
 --------
 
-In this guide, you can learn how to use the {+driver-long+} to construct expressions 
-for use in the aggregation pipeline. 
-With the {+driver-short+}, you can perform expression operations with
-discoverable, typesafe Java methods rather than BSON documents.
-Because these methods follow the fluent interface pattern, you can chain 
-aggregation operations together to create code that is both more compact and 
-more naturally readable.  
+In this guide, you can learn how to use the {+driver-long+} to construct
+expressions for use in the aggregation pipeline. You can perform
+expression operations with discoverable, typesafe Java methods rather
+than BSON documents. Because these methods follow the fluent interface
+pattern, you can chain aggregation operations together to create code
+that is both more compact and more naturally readable.
 
 .. tip:: 
 
@@ -25,8 +24,138 @@ more naturally readable.
    :manual:`Aggregation Pipeline Operators </reference/operator/aggregation/>` 
    page in the Server manual.
 
+How to Use Operations
+---------------------
+
+The operations in this guide use static methods available in the
+``com.mongodb.client.model.mql`` package. To run the examples in this
+guide, consider importing the following classes in your program:
+
+.. code-block:: java
+   :copyable: true
+
+   import static com.mongodb.client.model.Aggregates.*;
+   import static com.mongodb.client.model.Projections.*;
+   import static com.mongodb.client.model.Filters.*;
+   import static com.mongodb.client.model.mql.MqlValues.*;
+   import static java.util.Arrays.asList;
+
+The examples use the ``Arrays.asList()`` method to create a list of
+aggregation operations that can be passed as a pipeline to the
+``aggregate()`` method.
+
+To construct an operation, first select a method that takes a value of
+type ``TExpression`` as a parameter, such as ``Projections.computed()``
+or ``Filters.expr()``. To reference document fields in an aggregation
+expression, obtain the "current" document being processed
+in the pipeline stage by calling the ``current()`` method. 
+
+Since the aggregation operations are typed, you must specify the type of each
+field you reference using a typed variation of the ``getField()``
+method, such as ``getString()`` or ``getDate()``. The following code
+shows how to reference an integer field called ``quantity``:
+
+.. code-block:: java
+   :copyable: true
+
+   var myField = current().getInteger("quantity");
+
+To reference a constant value, use the ``of()`` method, which converts
+primitive types to types that can be used in aggregation operations. The
+following code shows how to reference a constant of value ``1.0``:
+
+.. code-block:: java
+   :copyable: true
+
+   var myNum = of(1.0);
+
+When you finish composing an aggregation operation, you can pass it to
+an aggregation builder method, such as ``match()`` or ``project()`` to
+complete an aggregation pipeline stage. To learn more about these methods,
+see :ref:`Aggregates Builders <aggregates-builders>`.
+
+.. note::
+   
+   While these new operations can be used within existing aggregation
+   methods that take ``TExpression`` values, methods that return
+   ``Bson`` values are not usable with this feature.
+
 Operations
 ----------
+
+The following sections provide information and examples for
+aggregation expression operations available in the driver.
+The operations are categorized by purpose and functionality.
+
+.. note::
+
+   The driver generates a Query API expression that may be different
+   from the Query API expression provided in each example. However,
+   both expressions will produce the same aggregation result.
+
+Boolean Operations
+~~~~~~~~~~~~~~~~~~
+
+You can perform a boolean operation on a value of type ``MqlBoolean``
+using the methods described in this section.
+
+The following table describes boolean methods
+available in the driver and corresponding expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `and() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#and(com.mongodb.client.model.mql.MqlBoolean)>`__
+     - :manual:`$and </reference/operator/aggregation/and/>`
+       
+   * - `not() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#not()>`__
+     - :manual:`$not </reference/operator/aggregation/not/>`
+
+   * - `or() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#or(com.mongodb.client.model.mql.MqlBoolean)>`__
+     - :manual:`$or </reference/operator/aggregation/or/>`
+
+   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
+     - :manual:`$cond </reference/operator/aggregation/cond/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+   
+The following example specifies an extreme temperature advisory for very
+low or high weather temperatures (in degrees Fahrenheit). The code uses
+the ``or()`` method to evaluate if the value of ``temperature`` is less
+than ``10`` or greater than ``95``. Using the ``cond()`` method, the
+example sets the ``advisory`` field to ``"extreme temperature"`` if the
+document matches the criteria, and to ``"no advisory"`` otherwise:
+
+.. code-block:: java
+   :copyable: true
+
+   var pipeline = Arrays.asList(project(fields(
+           computed("advisory",
+                   current()
+                           .getInteger("temperature")
+                           .lt(of(10))
+                           .or(current()
+                                   .getInteger("temperature")
+                                   .gt(of(95)))
+                           .cond(of("extreme temperature"), of("no advisory"))
+   ))));
+
+The following code provides an equivalent expression in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   { $project: { advisory: { $cond: { if: { $or: [ { $lt: [ "$temperature", 10 ] },
+                                                   { $gt: [ "$temperature", 95 ] } ] },
+                                      then: "extreme temperature",
+                                      else: "no advisory" } } } }
 
 More Information
 ----------------
