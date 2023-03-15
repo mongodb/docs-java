@@ -20,7 +20,9 @@ that is both more compact and more naturally readable.
 
 .. tip:: 
 
-   For more information about aggregation expressions that use the Query API, see the 
+   The methods in this guide are an alternative to expression operators
+   from the Query API, a framework that you can use to interact with
+   your data. For more information about these operators, see the 
    :manual:`Aggregation Pipeline Operators </reference/operator/aggregation/>` 
    page in the Server manual.
 
@@ -160,13 +162,15 @@ the Query API:
 String Operations
 ~~~~~~~~~~~~~~~~~
 
-You can perform a string operation on a value of type ``MqlString``
-using the methods described in this section.
+You can use string operations to examine and manipulate strings. You can
+perform a string operation on a value of type ``MqlString`` using the
+methods described in this section.
 
-The following table describes string methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
+The following table describes string operation methods
+available in the driver and corresponding expression operators from the
+Query API. The method names link to API documentation and the
+aggregation pipeline operator names link to Server manual documentation,
+which has definitions and examples.
 
 .. list-table::
    :header-rows: 1
@@ -197,17 +201,20 @@ expressions link to Server manual documentation.
      - :manual:`$substrBytes </reference/operator/aggregation/substrBytes/>`
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
-   
-The following example creates a unique employee username from their last
-name and unique employee ID. The code uses the ``append()`` method to
-concatenate the ``lastName`` and ``employeeID`` fields and makes this
-string lowercase by using the ``toLower()`` method. The resulting
-string is projected as the ``username`` field:
+
+The following example creates a lowercase username from an employee's last
+name and employee ID.
+
+The example concatenates the ``lastName`` and ``employeeID`` fields by
+using the ``append()`` method and makes this string lowercase by using
+the ``toLower()`` method. The resulting string is projected as the
+``username`` field. The following code provides a pipeline stage for
+this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   var pipeline = Arrays.asList(project(fields(
+   Arrays.asList(project(fields(
            computed("username",
                    current()
                            .getString("lastName")
