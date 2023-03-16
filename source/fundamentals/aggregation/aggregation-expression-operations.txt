@@ -47,9 +47,9 @@ document being processed by the aggregation pipeline. Use the
 ``current()`` method to refer to this document. To access the value of a
 field, you must use the appropriately typed method, such as
 ``getString()`` or ``getDate()``. When you specify the type for a field,
-you ensure that the driver recognizes its type correctly and lets you
-use methods that are compatible with that type. The following code
-shows how to reference a string field called ``name``:
+you ensure that the driver provides only those methods which are
+compatible with that type. The following code shows how to reference a
+string field called ``name``:
 
 .. code-block:: java
    :copyable: true
@@ -98,7 +98,7 @@ values of type ``TExpression``, allow you to use your expressions in
 certain aggregations.
 
 To complete your aggregation pipeline stage, include your expression
-in an aggregates builder method. The following list provides formats for
+in an aggregates builder method. The following list provides examples of
 how to include your expression in common aggregates builder methods:
 
 - ``match(expr(<expression>))``
