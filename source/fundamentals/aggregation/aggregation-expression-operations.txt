@@ -46,8 +46,10 @@ To access document fields in an expression, you need to reference the
 document being processed by the aggregation pipeline. Use the
 ``current()`` method to refer to this document. To access the value of a
 field, you must use the appropriately typed method, such as
-``getString()`` or ``getDate()``. The following code shows how to
-reference a string field called ``name``:
+``getString()`` or ``getDate()``. When you specify the type for a field,
+you ensure that the driver recognizes its type correctly and lets you
+use methods that are compatible with that type. The following code
+shows how to reference a string field called ``name``:
 
 .. code-block:: java
    :copyable: true
@@ -89,20 +91,21 @@ matches only documents that meet both criteria.
                  .getString("state")
                  .eq(of("New Mexico")));
 
-In most cases, you need to include your operation in a method such as
-``computed()`` or ``expr()`` to process it for use in an aggregation
-pipeline stage.
+While some aggregation stages, such as ``group()``, accept operations
+directly, other stages expect that you first include your operation in a
+method such as ``computed()`` or ``expr()``. These methods, which take
+values of type ``TExpression``, allow you to use your expressions in
+certain aggregations.
 
-.. note::
+To complete your aggregation pipeline stage, include your expression
+in an aggregates builder method. The following list provides formats for
+how to include your expression in common aggregates builder methods:
 
-   Methods such as ``computed()`` and ``expr()`` that take values of
-   type ``TExpression`` allow you to use your expressions in
-   aggregations. For example, the ``expr()`` method processes your
-   operation as an expression that the ``match()`` method will accept.
+- ``match(expr(<expression>))``
+- ``project(fields(computed("<field name>", <expression>)))``
+- ``group(<expression>)``
 
-To create a usable aggregation pipeline stage, include your expression
-in an aggregates builder method such as ``match(<expression>)`` or
-``project(<expression>)``. To learn more about these methods, see
+To learn more about these methods, see
 :ref:`Aggregates Builders <aggregates-builders>`.
 
 The examples use the ``Arrays.asList()`` method to create a list of
