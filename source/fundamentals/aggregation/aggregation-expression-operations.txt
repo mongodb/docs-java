@@ -18,8 +18,8 @@ than BSON documents. Because these methods follow the fluent interface
 pattern, you can chain aggregation operations together to create code
 that is both more compact and more naturally readable.
 
-The methods in this guide provide an idiomatic way to implement the Query API,
-a framework that you can use to interact with your data. To learn more
+The methods in this guide provide an idiomatic way to use the Query API,
+the framework that lets the driver interact with MongoDB. To learn more
 about the Query API, see the :manual:`Server manual documentation </query-api/>`.
 
 How to Use Operations
@@ -158,15 +158,15 @@ the Query API:
 String Operations
 ~~~~~~~~~~~~~~~~~
 
-You can use string operations to examine and manipulate strings. You can
+You can use string operations to measure and manipulate strings. You can
 perform a string operation on a value of type ``MqlString`` using the
 methods described in this section.
 
 The following table describes string operation methods
 available in the driver and corresponding expression operators in the
 Query API. The method names link to API documentation and the
-aggregation pipeline operator names link to Server manual documentation,
-which has definitions and examples.
+aggregation pipeline operator names link to descriptions and examples in
+the Server manual documentation.
 
 .. list-table::
    :header-rows: 1
@@ -198,14 +198,15 @@ which has definitions and examples.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-The example creates a lowercase username from an employee's last
-name and employee ID.
+Suppose you need to generate lowercase usernames for employees of a
+company from the employees' last names and employee IDs.
 
-The example concatenates the ``lastName`` and ``employeeID`` fields by
-using the ``append()`` method and makes this string lowercase by using
-the ``toLower()`` method. The resulting string is projected as the
-``username`` field. The following code shows a pipeline stage for
-this aggregation:
+To concatenate the ``lastName`` and ``employeeID`` fields,
+use the ``append()`` method. To make the username lowercase, use the
+``toLower()`` method. To output the result as the ``username`` field,
+use the ``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -225,7 +226,15 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   { $project: { username: { $toLower: { $concat: ["$lastName", "$employeeID"] } } } }
+   {
+     $project: {
+       username: {
+         $toLower: {
+           $concat: ["$lastName", "$employeeID"],
+         }
+       }
+     }
+   }
 
 More Information
 ----------------
