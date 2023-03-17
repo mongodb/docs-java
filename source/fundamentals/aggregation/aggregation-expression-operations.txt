@@ -100,7 +100,7 @@ You can use arithmetic operations to manipulate numbers. You can perform an
 arithmetic operation on a value of ``MqlInteger`` or ``MqlNumber`` using the
 methods described in this section.
 
-The following table lists the arithemetic methods
+The following table lists the arithmetic methods
 available in the driver and corresponding expressions in the
 Query API. The methods link to API documentation and the Query API
 expressions link to Server manual documentation.
@@ -131,11 +131,12 @@ expressions link to Server manual documentation.
      - :manual:`$subtract </reference/operator/aggregation/subtract/>`
 
 Suppose you need to calculate the total cost of a sale from the item's
-cost, the quantity sold, and an applicable discount.
+price, the quantity sold, and an applicable discount.
 
 To calculate the cost of the sale, multiply the ``itemPrice`` and the ``quantity``
 fields by using the ``multiply()`` method. To apply the ``discount``, use the
-``subtract()`` method.
+``subtract()`` method. To output the result in a new ``totalSale`` field, use
+the ``project()`` method.
 
 The following code shows the pipeline stage for this aggregation and assigns
 cost of the sale to a new field ``totalSale``:
