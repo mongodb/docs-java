@@ -93,6 +93,68 @@ The operations are categorized by purpose and functionality.
    from the Query API expression provided in each example. However,
    both expressions will produce the same aggregation result.
 
+Arithmetic Operations
+~~~~~~~~~~~~~~~~~~~~~
+
+You can use the methods described in this section to perform arithmetic
+operations on values of type ``MqlInteger`` or ``MqlNumber``.
+
+The following table lists the arithemetic methods
+available in the driver and corresponding expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `abs() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#abs()>`__
+     - :manual:`$abs </reference/operator/aggregation/abs/>`
+
+   * - `add() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#add(com.mongodb.client.model.mql.MqlNumber)`__
+     - :manual:`$add </reference/operator/aggregation/add/>`
+
+   * - `divide() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#divide(com.mongodb.client.model.mql.MqlNumber)>`__
+     - :manual:`$divide </reference/operator/aggregation/divide/>`
+
+   * - `multiply() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#multiply(com.mongodb.client.model.mql.MqlNumber)>`__
+     - :manual:`$multiply </reference/operator/aggregation/multiply/>`
+
+   * - `round() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#round()>`__
+     - :manual:`$round </reference/operator/aggregation/round/>`
+
+   * - `subtract() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
+     - :manual:`$subtract </reference/operator/aggregation/subtract/>`
+
+Suppose you have a sales database and want to calculate the
+total cost of an individual sale.
+
+The first step is to multiply the ``item_cost`` and the ``quantity`` fields using
+the ``multiply`` method. Then use the ``subtract`` method to apply their
+``discount``.
+
+.. code-block:: java
+   :copyable: true
+
+   var pipeline = Arrays.asList(project(fields(
+            computed("total_sale",
+                     current()
+                           .getInteger("item_cost")
+                           .multiply(current().getInteger("quantity"))
+                           .subtract(current().getInteger("discount")))
+            )));
+
+The following code provides an equivalent expression in the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   { $project: { total_sale: { $subtract: [ { $multiply: [ "$item_cost", "$quantity" ] }, "$discount" ] } } }
+
+
 Boolean Operations
 ~~~~~~~~~~~~~~~~~~
 
