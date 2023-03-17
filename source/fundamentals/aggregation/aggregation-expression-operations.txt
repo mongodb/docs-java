@@ -157,5 +157,75 @@ the Query API:
                                       then: "extreme temperature",
                                       else: "no advisory" } } } }
 
+Comparison Operations
+~~~~~~~~~~~~~~~~~~~~~
+
+You can use comparison operations to compare two different values. You can
+perform a comparison operation on ``MqlValue`` objects using the methods
+described in this section.
+
+The following table lists the comparison methods
+available in the driver and corresponding expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `eq() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#eq(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$eq </reference/operator/aggregation/eq/>`
+
+   * - `gt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#gt(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$gt </reference/operator/aggregation/gt/>`
+
+   * - `gte() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#gte(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$gte </reference/operator/aggregation/gte/>`
+
+   * - `lt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#lt(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$lt </reference/operator/aggregation/lt/>`
+
+   * - `lte() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#lte(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$lte </reference/operator/aggregation/lte/>`
+
+   * - `ne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#ne(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$ne </reference/operator/aggregation/ne/>`
+
+The following example creates a pipeline stage that matches all the documents
+where the ``tempUnit`` is Celsius and the ``tempValue`` is between
+``20`` and ``50``:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(match(
+         expr(current()
+            .getString("tempUnit")
+               .eq(of("Celsius"))
+            .and(current()
+               .getInteger("tempValue")
+                  .gt(of(20)))
+            .and(current()
+               .getInteger("tempValue")
+                  .lt(of(50))))
+   ));
+
+The following code provides an equivalent aggregation pipeline in the
+Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [ { $match: {
+         $and: [
+            { $eq: [ "$tempUnit", "Celsius"] }, 
+            { $and: [ 
+               { $gt: [ "$tempValue", 20 ] },
+               { $lt: [ "$tempValue", 50 ] } ]
+   } ] } } ]
+
 More Information
 ----------------
