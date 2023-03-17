@@ -96,8 +96,8 @@ The operations are categorized by purpose and functionality.
 Arithmetic Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can use arithmetic operations to manipulate numbers. You can perform
-arithmetic operations on values of ``MqlInteger`` or ``MqlNumber`` using the
+You can use arithmetic operations to manipulate numbers. You can perform an
+arithmetic operation on a value of ``MqlInteger`` or ``MqlNumber`` using the
 methods described in this section.
 
 The following table lists the arithemetic methods
@@ -130,35 +130,41 @@ expressions link to Server manual documentation.
    * - `subtract() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$subtract </reference/operator/aggregation/subtract/>`
 
-Suppose you need to calculate the final value of a sale and have the item's
+Suppose you need to calculate the total cost of a sale from the item's
 cost, the quantity sold, and an applicable discount.
 
-To calculate the final value, multiple the ``item_cost`` and the ``quantity``
-fields using the ``multiply`` method. To apply the ``discount``, use the
-``subtract`` method.
+To calculate the cost of the sale, multiply the ``itemPrice`` and the ``quantity``
+fields by using the ``multiply()`` method. To apply the ``discount``, use the
+``subtract()`` method.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline stage for this aggregation and assigns
+cost of the sale to a new field ``totalSale``:
 
 .. code-block:: java
    :copyable: true
 
-   var pipeline = Arrays.asList(project(fields(
-            computed("total_sale",
-                     current()
-                           .getInteger("item_cost")
-                           .multiply(current().getInteger("quantity"))
-                           .subtract(current().getInteger("discount")))
-            )));
+   Arrays.asList(project(fields(
+            computed("totalSale",
+               current()
+                  .getInteger("itemPrice")
+                  .multiply(current()
+                     .getInteger("quantity"))
+                  .subtract(current()
+                     .getInteger("discount")))
+   )));
 
-The following code provides an equivalent expression in the Query API:
+The following code provides an equivalent aggregation pipeline in the
+Query API:
 
 .. code-block:: javascript
    :copyable: true
 
-   { $project: { total_sale: {
-         $subtract: [ {
-            $multiply: [ "$item_cost", "$quantity" ] },
-            "$discount" ] } } }
+   [ { $project: {
+         totalSale: {
+            $subtract: [
+               { $multiply: [ "$itemPrice",
+                              "$quantity" ] },
+               "$discount" ] } } } ]
 
 
 Boolean Operations
