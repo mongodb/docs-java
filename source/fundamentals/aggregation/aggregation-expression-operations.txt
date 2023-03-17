@@ -96,8 +96,9 @@ The operations are categorized by purpose and functionality.
 Arithmetic Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can use the methods described in this section to perform arithmetic
-operations on values of type ``MqlInteger`` or ``MqlNumber``.
+You can use arithmetic operations to manipulate numbers. You can perform
+arithmetic operations on values of ``MqlInteger`` or ``MqlNumber`` using the
+methods described in this section.
 
 The following table lists the arithemetic methods
 available in the driver and corresponding expressions in the
@@ -129,12 +130,14 @@ expressions link to Server manual documentation.
    * - `subtract() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$subtract </reference/operator/aggregation/subtract/>`
 
-Suppose you have a sales database and want to calculate the
-total cost of an individual sale.
+Suppose you need to calculate the final value of a sale and have the item's
+cost, the quantity sold, and an applicable discount.
 
-The first step is to multiply the ``item_cost`` and the ``quantity`` fields using
-the ``multiply`` method. Then use the ``subtract`` method to apply their
-``discount``.
+To calculate the final value, multiple the ``item_cost`` and the ``quantity``
+fields using the ``multiply`` method. To apply the ``discount``, use the
+``subtract`` method.
+
+The following code shows the pipeline stage for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -152,7 +155,10 @@ The following code provides an equivalent expression in the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   { $project: { total_sale: { $subtract: [ { $multiply: [ "$item_cost", "$quantity" ] }, "$discount" ] } } }
+   { $project: { total_sale: {
+         $subtract: [ {
+            $multiply: [ "$item_cost", "$quantity" ] },
+            "$discount" ] } } }
 
 
 Boolean Operations
