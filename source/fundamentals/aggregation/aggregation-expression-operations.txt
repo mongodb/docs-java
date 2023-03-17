@@ -19,7 +19,7 @@ pattern, you can chain aggregation operations together to create code
 that is both more compact and more naturally readable.
 
 The methods in this guide provide an idiomatic way to use the Query API,
-the framework that lets the driver interact with MongoDB. To learn more
+the mechanism by which the driver interacts with the {+mdb-server+}. To learn more
 about the Query API, see the :manual:`Server manual documentation </query-api/>`.
 
 How to Use Operations
@@ -84,6 +84,12 @@ Operations
 The following sections provide information and examples for
 aggregation expression operations available in the driver.
 The operations are categorized by purpose and functionality.
+
+Each section has a table that describes aggregation methods
+available in the driver and corresponding expression operators in the
+Query API. The method names link to API documentation and the
+aggregation pipeline operator names link to descriptions and examples in
+the Server manual documentation.
 
 .. note::
 
@@ -158,15 +164,8 @@ the Query API:
 String Operations
 ~~~~~~~~~~~~~~~~~
 
-You can use string operations to measure and manipulate strings. You can
-perform a string operation on a value of type ``MqlString`` using the
-methods described in this section.
-
-The following table describes string operation methods
-available in the driver and corresponding expression operators in the
-Query API. The method names link to API documentation and the
-aggregation pipeline operator names link to descriptions and examples in
-the Server manual documentation.
+You can perform a string operation on a value of type ``MqlString``
+using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
@@ -220,21 +219,23 @@ The following code shows the pipeline stage for this aggregation:
                            .toLower()
    ))));
 
-The following code provides an equivalent expression in
+The following code provides an equivalent aggregation pipeline in
 the Query API:
 
 .. code-block:: javascript
    :copyable: true
 
-   {
-     $project: {
-       username: {
-         $toLower: {
-           $concat: ["$lastName", "$employeeID"],
+   [
+     {
+       $project: {
+         username: {
+           $toLower: {
+             $concat: ["$lastName", "$employeeID"],
+           }
          }
        }
      }
-   }
+   ]
 
 More Information
 ----------------
