@@ -389,9 +389,20 @@ parameter as shown in the following example:
 The next examples show how to provide your credentials by setting environment
 variables for the following types of authentication:
 
+- Web identity provider
 - Programmatic access keys
 - ECS container credentials
 - EC2 container credentials
+
+You can use an OpenID Connect (OIDC)-compatible **web identity provider** to authenticate
+to Amazon Elastic Kubernetes Service (EKS) or other services.
+To use a web identity provider, create a file that contains your
+OIDC token, then set the absolute path to this file in an environment variable by using
+``bash`` or a similar shell as shown in the following example:
+
+.. code-block:: bash
+
+   export AWS_WEB_IDENTITY_TOKEN_FILE=<absolute path to file containing your OIDC token>
 
 The following example shows how you can set your **programmatic access keys**
 in environment variables by using ``bash`` or a similar shell:
