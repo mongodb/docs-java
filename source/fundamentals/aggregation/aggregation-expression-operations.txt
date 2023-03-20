@@ -160,9 +160,9 @@ the Query API:
 Comparison Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can use comparison operations to compare two different values. You can
-perform a comparison operation on ``MqlValue`` objects using the methods
-described in this section.
+You can use comparison operations to compare two values. The methods
+described in this section perform a comparison operation on ``MqlValue``
+objects.
 
 The following table lists the comparison methods
 available in the driver and corresponding expressions in the
@@ -195,8 +195,8 @@ expressions link to Server manual documentation.
      - :manual:`$ne </reference/operator/aggregation/ne/>`
 
 The following example creates a pipeline stage that matches all the documents
-where the ``tempUnit`` is Celsius and the ``tempValue`` is between
-``20`` and ``50``:
+where the ``tempUnit`` field has the value ``"Celsius"`` and the ``tempValue``
+field has a value between ``20`` and ``50``:
 
 .. code-block:: java
    :copyable: true
@@ -213,7 +213,7 @@ where the ``tempUnit`` is Celsius and the ``tempValue`` is between
                   .lt(of(50))))
    ));
 
-The following code provides an equivalent aggregation pipeline in the
+The following code shows an equivalent aggregation pipeline in the
 Query API:
 
 .. code-block:: javascript
