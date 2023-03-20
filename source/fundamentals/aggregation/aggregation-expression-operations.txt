@@ -18,16 +18,17 @@ than BSON documents. Because these methods follow the fluent interface
 pattern, you can chain aggregation operations together to create code
 that is both more compact and more naturally readable.
 
-The methods in this guide provide an idiomatic way to use the Query API,
+The operations in this guide use methods from the
+`com.mongodb.client.model.mql <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/package-summary.html>`__ package.
+These methods provide an idiomatic way to use the Query API,
 the mechanism by which the driver interacts with the {+mdb-server+}. To learn more
 about the Query API, see the :manual:`Server manual documentation </query-api/>`.
 
 How to Use Operations
 ---------------------
 
-The operations in this guide use static methods available in the
-``com.mongodb.client.model.mql`` package. To run the examples in this
-guide, consider importing the following classes in your program:
+The examples in this guide assume that you include the following static
+imports in your code:
 
 .. code-block:: java
    :copyable: true
@@ -38,45 +39,75 @@ guide, consider importing the following classes in your program:
    import static com.mongodb.client.model.mql.MqlValues.*;
    import static java.util.Arrays.asList;
 
-The examples use the ``Arrays.asList()`` method to create a list of
-aggregation operations that can be passed as a pipeline to the
-``aggregate()`` method.
-
-To construct an operation, first select a method that takes a value of
-type ``TExpression`` as a parameter, such as ``Projections.computed()``
-or ``Filters.expr()``. To reference document fields in an aggregation
-expression, obtain the "current" document being processed
-in the pipeline stage by calling the ``current()`` method. 
-
-Since the aggregation operations are typed, you must specify the type of each
-field you reference using a typed variation of the ``getField()``
-method, such as ``getString()`` or ``getDate()``. The following code
-shows how to reference an integer field called ``quantity``:
+To access document fields in an expression, you need to reference the
+document being processed by the aggregation pipeline. Use the
+``current()`` method to refer to this document. To access the value of a
+field, you must use the appropriately typed method, such as
+``getString()`` or ``getDate()``. When you specify the type for a field,
+you ensure that the driver provides only those methods which are
+compatible with that type. The following code shows how to reference a
+string field called ``name``:
 
 .. code-block:: java
    :copyable: true
-
-   var myField = current().getInteger("quantity");
-
-To reference a constant value, use the ``of()`` method, which converts
-primitive types to types that can be used in aggregation operations. The
-following code shows how to reference a constant of value ``1.0``:
-
-.. code-block:: java
-   :copyable: true
-
-   var myNum = of(1.0);
-
-When you finish composing an aggregation operation, you can pass it to
-an aggregation builder method, such as ``match()`` or ``project()`` to
-complete an aggregation pipeline stage. To learn more about these methods,
-see :ref:`Aggregates Builders <aggregates-builders>`.
-
-.. note::
    
-   While these new operations can be used within existing aggregation
-   methods that take ``TExpression`` values, methods that return
-   ``Bson`` values are not usable with this feature.
+   current().getString("name")
+
+To specify a value in an operation, pass it to the ``of()`` method to
+convert it to a valid type. The following code shows how to reference a
+value of ``1.0``:
+
+.. code-block:: java
+   :copyable: true
+   
+   of(1.0)
+
+To create an operation, chain a method to your field or value reference.
+You can build more complex operations by chaining additional methods.
+
+The following example creates an operation to find patients in New
+Mexico who have visited the doctor’s office at least once. The operation
+performs the following actions:
+
+- Checks if the size of the ``visitDates`` array is greater than ``0``
+  by using the ``gt()`` method 
+- Checks if the ``state`` field value is “New Mexico” by using the
+  ``eq()`` method
+
+The ``and()`` method links these operations so that the pipeline stage
+matches only documents that meet both criteria.
+
+.. code-block:: java
+   :copyable: true
+      
+   current()
+         .getArray("visitDates")
+         .size()
+         .gt(of(0))
+         .and(current()
+                 .getString("state")
+                 .eq(of("New Mexico")));
+
+While some aggregation stages, such as ``group()``, accept operations
+directly, other stages expect that you first include your operation in a
+method such as ``computed()`` or ``expr()``. These methods, which take
+values of type ``TExpression``, allow you to use your expressions in
+certain aggregations.
+
+To complete your aggregation pipeline stage, include your expression
+in an aggregates builder method. The following list provides examples of
+how to include your expression in common aggregates builder methods:
+
+- ``match(expr(<expression>))``
+- ``project(fields(computed("<field name>", <expression>)))``
+- ``group(<expression>)``
+
+To learn more about these methods, see
+:ref:`Aggregates Builders <aggregates-builders>`.
+
+The examples use the ``Arrays.asList()`` method to create a list of
+aggregation stages that is passed to the ``aggregate()`` method of
+``MongoCollection``.
 
 Operations
 ----------
