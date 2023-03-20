@@ -20,12 +20,9 @@ that is both more compact and more naturally readable.
 
 The operations in this guide use methods from the
 `com.mongodb.client.model.mql <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/package-summary.html>`__ package.
-
-.. tip:: 
-
-   For more information about aggregation expressions that use the Query API, see the 
-   :manual:`Aggregation Pipeline Operators </reference/operator/aggregation/>` 
-   page in the Server manual.
+These methods provide an idiomatic way to use the Query API,
+the mechanism by which the driver interacts with the {+mdb-server+}. To learn more
+about the Query API, see the :manual:`Server manual documentation </query-api/>`.
 
 How to Use Operations
 ---------------------
@@ -119,6 +116,12 @@ The following sections provide information and examples for
 aggregation expression operations available in the driver.
 The operations are categorized by purpose and functionality.
 
+Each section has a table that describes aggregation methods
+available in the driver and corresponding expression operators in the
+Query API. The method names link to API documentation and the
+aggregation pipeline operator names link to descriptions and examples in
+the Server manual documentation.
+
 .. note::
 
    The driver generates a Query API expression that may be different
@@ -188,6 +191,82 @@ the Query API:
                                                    { $gt: [ "$temperature", 95 ] } ] },
                                       then: "extreme temperature",
                                       else: "no advisory" } } } }
+
+String Operations
+~~~~~~~~~~~~~~~~~
+
+You can perform a string operation on a value of type ``MqlString``
+using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `append() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#append(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$concat </reference/operator/aggregation/concat/>`
+       
+   * - `toLower() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#toLower()>`__
+     - :manual:`$toLower </reference/operator/aggregation/toLower/>`
+
+   * - `toUpper() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#toUpper()>`__
+     - :manual:`$toUpper </reference/operator/aggregation/toUpper/>`
+
+   * - `length() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#length()>`__
+     - :manual:`$strLenCP </reference/operator/aggregation/strLenCP/>`
+
+   * - `lengthBytes() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#lengthBytes()>`__
+     - :manual:`$strLenBytes </reference/operator/aggregation/strLenBytes/>`
+
+   * - `substr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#substr(int,int)>`__
+     - :manual:`$substrCP </reference/operator/aggregation/substrCP/>`
+
+   * - `substrBytes() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#substrBytes(int,int)>`__
+     - :manual:`$substrBytes </reference/operator/aggregation/substrBytes/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you need to generate lowercase usernames for employees of a
+company from the employees' last names and employee IDs.
+
+To concatenate the ``lastName`` and ``employeeID`` fields,
+use the ``append()`` method. To make the username lowercase, use the
+``toLower()`` method. To output the result as the ``username`` field,
+use the ``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+           computed("username",
+                   current()
+                           .getString("lastName")
+                           .append(current()
+                                   .getString("employeeID"))
+                           .toLower()
+   ))));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         username: {
+           $toLower: {
+             $concat: ["$lastName", "$employeeID"],
+           }
+         }
+       }
+     }
+   ]
 
 More Information
 ----------------
