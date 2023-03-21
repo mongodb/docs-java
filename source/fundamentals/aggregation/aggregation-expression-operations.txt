@@ -161,19 +161,15 @@ Date Operations
 ~~~~~~~~~~~~~~~
 
 You can perform a date operation using the methods described in this
-section. Date operations either work on or return values of type ``MqlDate``.
-
-The following table describes date methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
+section. Date operations either work on values of type ``MqlDate`` or
+return ``MqlDate`` values.
 
 .. list-table::
    :header-rows: 1
    :widths: 40 60
 
-   * - Java Aggregation Expression
-     - Query API Expression
+   * - Java Method
+     - Aggregation Pipeline Operator
 
    * - `asString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#asString(com.mongodb.client.model.mql.MqlString,com.mongodb.client.model.mql.MqlString)>`__
      - :manual:`$dateToString </reference/operator/aggregation/dateToString/>`
@@ -198,7 +194,7 @@ expressions link to Server manual documentation.
 
    * - `month() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#month(com.mongodb.client.model.mql.MqlString)>`__
      - :manual:`$month </reference/operator/aggregation/month/>`
-
+   
    * - `week() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#week(com.mongodb.client.model.mql.MqlString)>`__
      - :manual:`$week </reference/operator/aggregation/week/>`
 
@@ -216,29 +212,47 @@ expressions link to Server manual documentation.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-The following example matches documents where the month from the
-UTC timestamp is one of the first four months of the year. The code uses the
-``month()`` method to extract the month (as a number) from the ``date``
-field and checks if the month is less than ``5`` by using the ``lt()`` method:
+Suppose you have some UTC time series data and need to
+match events that occurred on any Monday in 2018.
+
+To get the year from the ``date`` field, use the ``year()`` method, and to
+check if the year is ``2018``, use the ``eq()`` method. To get the day of
+the week (as a number), use the ``dayOfWeek()`` method, and to check if
+the day is Monday, corresponding to ``2``, use the ``eq()`` method.
+
+The following code shows the pipeline stage for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   var pipeline = Arrays.asList(match(
+   Arrays.asList(match(
            expr(current()
                    .getDate("date")
-                   .month(of("UTC"))
-                   .lt(of(5)))
+                   .year(of("UTC"))
+                   .eq(of(2018))
+                   .and(current()
+                           .getDate("date")
+                           .dayOfWeek(of("UTC"))
+                           .eq(of(2))))
    ));
-
-The following snippet provides the equivalent expression in the Query
-API:
-
+         
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+   
 .. code-block:: javascript
    :copyable: true
 
-   { $match: { $expr: { $lt: [ { $month: { date: "$date",
-                                           timezone: "UTC" } }, 5 ] } } }
+   [
+     { $match: {
+         $expr: {
+           $and: [
+             { $eq: [ { $year: { date: "$date",
+                                 timezone: "UTC" } }, 2018 ] },
+             { $eq: [ { $dayOfWeek: { date: "$date",
+                                      timezone: "UTC" } }, 2 ] },
+           ] } }
+     }
+   ]
 
 More Information
 ----------------
