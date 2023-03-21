@@ -192,8 +192,8 @@ the Query API:
                                       then: "extreme temperature",
                                       else: "no advisory" } } } }
 
-Conditional Expression Operations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Conditional Operations
+~~~~~~~~~~~~~~~~~~~~~~
 
 You can perform conditional operations using the methods described in
 this section.
@@ -210,13 +210,14 @@ this section.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you want to find all documents where a customer purchased
-enough to qualify for a discount. The amount they need to spend for a discount
-varies if they are a team member.
+Suppose you want to find customers who spent enough money to qualify for
+a discount. The amount they need to spend to qualify is $100 if they are a
+premium member and $200 if they are not.
 
-To decide whether the customer is a team member, check
-``isTeamMember`` with the ``cond()`` method. To determine whether the sale
-was large enough, check the ``totalSale`` with the ``gte()`` method.
+To check whether the customer is a premium member, check if
+``isPremiumMember`` is ``true`` by using the ``cond()`` method. To determine
+whether the sale amount qualifies the customer for a discount, compare the
+``totalSale`` to the qualifying values by using the ``gte()`` method.
 
 The following code shows the pipeline stage for this aggregation:
 
@@ -224,10 +225,13 @@ The following code shows the pipeline stage for this aggregation:
    :copyable: true
 
    Arrays.asList(match(
-            expr(current().getBoolean("isTeamMember").cond(
-                     current().getNumber("totalSale")
+            expr(current()
+                  .getBoolean("isPremiumMember")
+                  .cond(current()
+                        .getNumber("totalSale")
                         .gte(of(100)),
-                     current().getNumber("totalSale")
+                     current()
+                        .getNumber("totalSale")
                         .gte(of(200))
             ))
    ));
@@ -242,7 +246,7 @@ the Query API:
      {
        $match: {
          $cond: {
-            "$isTeamMember",
+            "$isPremiumMember",
             { $gte: [ "$totalSale", 100 ] },
             { $gte: [ "$totalSale", 200 ] }
          }
@@ -250,11 +254,11 @@ the Query API:
      }
    ]
 
-Set Expression Operations
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Set Operations
+~~~~~~~~~~~~~~
 
-Set expressions perform set operations on values of type ``MqlArray``, treating
-the arrays as sets.
+You can perform set operations on values of type ``MqlArray``. These
+operations treat the arrays as sets.
 
 .. list-table::
    :header-rows: 1
@@ -268,11 +272,11 @@ the arrays as sets.
        
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you have a collection of music teacher information, including arrays of
-the students for each of their classes. You want to create a list of
-all the students for a teacher.
+Suppose you have a collection describing music teacher, and for each teacher,
+there are arrays of students for each of their classes. You want to create a
+list of all the students a teacher has by combining the class rosters.
 
-To combine all of the ``pianoStudents`` and ``choirStudents``, use the
+To combine the ``pianoStudents`` and ``choirStudents`` arrays, use the
 ``union()`` method. To output the result as a new ``allStudents`` field, use
 the ``project()`` method.
 
@@ -281,8 +285,10 @@ the ``project()`` method.
 
    Arrays.asList(project(fields(
          computed("allStudents",
-               current().getArray("pianoStudents")
-                  .union((current().getArray("choirStudents"))))
+               current()
+                     .getArray("pianoStudents")
+                     .union((current()
+                           .getArray("choirStudents"))))
    )));
 
 
