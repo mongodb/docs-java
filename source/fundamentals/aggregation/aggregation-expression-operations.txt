@@ -198,11 +198,6 @@ Conditional Expression Operations
 You can perform conditional operations using the methods described in
 this section.
 
-The following table describes conditional methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
-
 .. list-table::
    :header-rows: 1
    :widths: 40 60
@@ -259,20 +254,7 @@ Set Expression Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Set expressions perform set operations on values of type ``MqlArray``, treating
-the arrays as sets. Set expressions ignore the duplicate entries in each input
-array and the order of the elements.
-
-If the set operation returns a set, the operation filters out duplicates in
-the result to output an array that only contains unique entries. The order of
-the elements in the output array is unspecified.
-
-If a set contains a nested array element, the set expression does not descend
-into the nested array but evaluates the array at top-level.
-
-The following table describes the set expression methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
+the arrays as sets.
 
 .. list-table::
    :header-rows: 1
@@ -286,22 +268,21 @@ expressions link to Server manual documentation.
        
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you have a collection of movie information and want to create a list of
-all the writers and directors involved in the movies. By using the ``union()``
-method, you combine these two arrays and automatically remove any duplicates.
+Suppose you have a collection of music teacher information, including arrays of
+the students for each of their classes. You want to create a list of
+all the students for a teacher.
 
-To combine all of the ``writers`` and ``directors``, use the ``union()``
-method. To output the result as a new ``staff`` field, use the
-``project()`` method.
+To combine all of the ``pianoStudents`` and ``choirStudents``, use the
+``union()`` method. To output the result as a new ``allStudents`` field, use
+the ``project()`` method.
 
 .. code-block:: java
    :copyable: true
 
    Arrays.asList(project(fields(
-         computed("staff",
-               current().getArray("writers")
-                  .union((current().getArray("directors"))))
-
+         computed("allStudents",
+               current().getArray("pianoStudents")
+                  .union((current().getArray("choirStudents"))))
    )));
 
 
@@ -314,8 +295,8 @@ the Query API:
    [
      {
        $project: {
-         staff: {
-            $setUnion: ["$writers", "$directors"]
+         allStudents: {
+            $setUnion: ["$pianoStudents", "$choirStudents"]
          }
        }
      }
