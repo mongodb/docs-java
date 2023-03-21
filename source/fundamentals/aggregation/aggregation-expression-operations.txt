@@ -192,6 +192,135 @@ the Query API:
                                       then: "extreme temperature",
                                       else: "no advisory" } } } }
 
+Conditional Expression Operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can perform conditional operations using the methods described in
+this section.
+
+The following table describes conditional methods
+available in the driver and corresponding expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
+     - :manual:`$cond </reference/operator/aggregation/cond/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you want to find all documents where a customer purchased
+enough to qualify for a discount. The amount they need to spend for a discount
+varies if they are a team member.
+
+To decide whether the customer is a team member, check
+``isTeamMember`` with the ``cond()`` method. To determine whether the sale
+was large enough, check the ``totalSale`` with the ``gte()`` method.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(match(
+            expr(current().getBoolean("isTeamMember").cond(
+                     current().getNumber("totalSale")
+                        .gte(of(100)),
+                     current().getNumber("totalSale")
+                        .gte(of(200))
+            ))
+   ));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $match: {
+         $cond: {
+            "$isTeamMember",
+            { $gte: [ "$totalSale", 100 ] },
+            { $gte: [ "$totalSale", 200 ] }
+         }
+       }
+     }
+   ]
+
+Set Expression Operations
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Set expressions perform set operations on values of type ``MqlArray``, treating
+the arrays as sets. Set expressions ignore the duplicate entries in each input
+array and the order of the elements.
+
+If the set operation returns a set, the operation filters out duplicates in
+the result to output an array that only contains unique entries. The order of
+the elements in the output array is unspecified.
+
+If a set contains a nested array element, the set expression does not descend
+into the nested array but evaluates the array at top-level.
+
+The following table describes the set expression methods
+available in the driver and corresponding expressions in the
+Query API. The methods link to API documentation and the Query API
+expressions link to Server manual documentation.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `union() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#union(com.mongodb.client.model.mql.MqlArray)>`__
+     - :manual:`$setUnion </reference/operator/aggregation/setUnion/>`
+       
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you have a collection of movie information and want to create a list of
+all the writers and directors involved in the movies. By using the ``union()``
+method, you combine these two arrays and automatically remove any duplicates.
+
+To combine all of the ``writers`` and ``directors``, use the ``union()``
+method. To output the result as a new ``staff`` field, use the
+``project()`` method.
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+         computed("staff",
+               current().getArray("writers")
+                  .union((current().getArray("directors"))))
+
+   )));
+
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         staff: {
+            $setUnion: ["$writers", "$directors"]
+         }
+       }
+     }
+   ]
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
