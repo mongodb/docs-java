@@ -170,20 +170,19 @@ using the methods described in this section.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you have documents describing upcoming events that you might want
-to sign up for. Each event document contains an array of nested
-documents corresponding to each date that the event is hosted.
-Each nested document also contains the number of available seats and
-current number of sign-ups for that date's event. You want to only see
-events that still have open seats.
+Suppose you have a collection of movies, each of which contains an array
+of nested documents for each upcoming showtime. Each nested document
+also contains the total number of seats in the theater and number of
+tickets that have already been bought for that showtime. You want to see
+only showtimes that still have available tickets.
 
-To find the number of open seats for an event, subtract the ``signups``
-field from the ``seats`` field by using the ``subtract()`` method. To
-filter only for events with open seats, pass a predicate to the
-``filter()`` method that checks if the difference between ``seats`` and
-``signups`` is greater than ``0`` by using the ``gt()`` method. To
-output the events with open seats as the ``hasOpenSeats`` array, use the
-``project()`` method.
+To find the number of tickets that are still available for a showtime,
+subtract the ``ticketsBought`` field from the ``seats`` field by
+using the ``subtract()`` method. To filter for events with available
+tickets, pass a predicate to the ``filter()`` method that checks if the
+number of available tickets is greater than ``0`` by using the ``gt()``
+method. To output the showtimes with available tickets as the
+``hasTicketsAvailable`` array, use the ``project()`` method.
 
 The following code shows the pipeline stage for this aggregation:
 
@@ -191,23 +190,22 @@ The following code shows the pipeline stage for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-                   computed("hasOpenSeats",
+                   computed("hasTicketsAvailable",
                            current()
-                                   .<MqlDocument>getArray("events")
+                                   .<MqlDocument>getArray("showtimes")
                                    .filter(e -> e
                                            .getInteger("seats")
                                            .subtract(e
-                                                   .getInteger("signups"))
+                                                   .getInteger("ticketsBought"))
                                            .gt(of(0)))
    ))));
 
 .. note:: Referencing Nested Documents and Fields
 
-   The preceding example references the ``seats`` and ``signups`` fields,
-   which are in nested documents in the ``events`` array. To access
+   The preceding example references the ``seats`` and ``ticketsBought`` fields,
+   which are in nested documents in the ``showtimes`` array. To access
    these fields, you must specify that the return type of ``getArray()``
-   is an ``MqlArray`` of ``MqlDocument`` values when retrieving the
-   ``events`` array.
+   is an ``MqlArray`` of ``MqlDocument`` values.
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -218,15 +216,15 @@ the Query API:
    [
      {
        $project: {
-         hasOpenSeats: {
+         hasTicketsAvailable: {
            $filter: {
-             input: "$events",
+             input: "$showtimes",
              as: "e",
              cond: {
                $gt: [
                  { $subtract: [
                      "$$e.seats",
-                     "$$e.signups",
+                     "$$e.ticketsBought",
                    ] }, 0 ]
              } } } }
      }
