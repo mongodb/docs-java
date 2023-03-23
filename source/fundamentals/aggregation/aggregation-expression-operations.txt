@@ -142,31 +142,31 @@ using the methods described in this section.
      - Aggregation Pipeline Operator
 
    * - `concat() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#concat(com.mongodb.client.model.mql.MqlArray)>`__
-     - :manual:`$concat </reference/operator/aggregation/concatArrays/>`
+     - :manual:`$concatArrays </reference/operator/aggregation/concatArrays/>`
 
    * - `contains() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#contains(T)>`__
-     - :manual:`$concat </reference/operator/aggregation/in/>`
+     - :manual:`$in </reference/operator/aggregation/in/>`
 
    * - `elementAt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#elementAt(int)>`__
-     - :manual:`$concat </reference/operator/aggregation/arrayElemAt/>`
+     - :manual:`$arrayElemAt </reference/operator/aggregation/arrayElemAt/>`
 
    * - `filter() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#filter(java.util.function.Function)>`__
-     - :manual:`$concat </reference/operator/aggregation/filter/>`
+     - :manual:`$filter </reference/operator/aggregation/filter/>`
 
    * - `first() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#first()>`__
-     - :manual:`$concat </reference/operator/aggregation/first/>`
+     - :manual:`$first </reference/operator/aggregation/first/>`
 
    * - `last() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#last()>`__
-     - :manual:`$concat </reference/operator/aggregation/last/>`
+     - :manual:`$last </reference/operator/aggregation/last/>`
 
    * - `map() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#map(java.util.function.Function)>`__
-     - :manual:`$concat </reference/operator/aggregation/map/>`
+     - :manual:`$map </reference/operator/aggregation/map/>`
 
    * - `size() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#size()>`__
-     - :manual:`$concat </reference/operator/aggregation/size/>`
+     - :manual:`$size </reference/operator/aggregation/size/>`
 
    * - `slice() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#slice(int,int)>`__
-     - :manual:`$concat </reference/operator/aggregation/slice/>`
+     - :manual:`$slice </reference/operator/aggregation/slice/>`
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
@@ -198,8 +198,8 @@ The following code shows the pipeline stage for this aggregation:
                                            .getInteger("seats")
                                            .subtract(e
                                                    .getInteger("signups"))
-                                           .gt(of(0)))))
-   ));
+                                           .gt(of(0)))
+   ))));
 
 .. note:: Referencing Nested Documents and Fields
 
@@ -227,7 +227,7 @@ the Query API:
                  { $subtract: [
                      "$$e.seats",
                      "$$e.signups",
-                   ] }, 0 ],
+                   ] }, 0 ]
              } } } }
      }
    ]
@@ -237,11 +237,6 @@ Boolean Operations
 
 You can perform a boolean operation on a value of type ``MqlBoolean``
 using the methods described in this section.
-
-The following table describes boolean methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
 
 .. list-table::
    :header-rows: 1
@@ -259,30 +254,29 @@ expressions link to Server manual documentation.
    * - `or() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#or(com.mongodb.client.model.mql.MqlBoolean)>`__
      - :manual:`$or </reference/operator/aggregation/or/>`
 
-   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
-     - :manual:`$cond </reference/operator/aggregation/cond/>`
-
 .. include:: /includes/fundamentals/agg-mql-diff.rst
-   
-The following example specifies an extreme temperature advisory for very
-low or high weather temperatures (in degrees Fahrenheit). The code uses
-the ``or()`` method to evaluate if the value of ``temperature`` is less
-than ``10`` or greater than ``95``. Using the ``cond()`` method, the
-example sets the ``advisory`` field to ``"extreme temperature"`` if the
-document matches the criteria, and to ``"no advisory"`` otherwise:
 
+Suppose you want to classify very low or high weather temperature
+readings (in degrees Fahrenheit) as extreme.
+
+To evaluate if the ``temperature`` field is greater than 95, use the
+``gt()`` method. To evaluate if the ``temperature`` field is less
+than 10, use the ``lt()`` method. To return ``true`` if either condition is
+satisfied, use the ``or()`` method. To output the result as the
+``extremeTemp`` field, use the ``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
 .. code-block:: java
    :copyable: true
 
-   var pipeline = Arrays.asList(project(fields(
-           computed("advisory",
-                   current()
-                           .getInteger("temperature")
-                           .lt(of(10))
-                           .or(current()
+   Arrays.asList(project(fields(
+                   computed("extremeTemp",
+                           current()
                                    .getInteger("temperature")
-                                   .gt(of(95)))
-                           .cond(of("extreme temperature"), of("no advisory"))
+                                   .lt(of(10))
+                                   .or(current()
+                                           .getInteger("temperature")
+                                           .gt(of(95)))
    ))));
 
 The following code provides an equivalent expression in
@@ -291,10 +285,14 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   { $project: { advisory: { $cond: { if: { $or: [ { $lt: [ "$temperature", 10 ] },
-                                                   { $gt: [ "$temperature", 95 ] } ] },
-                                      then: "extreme temperature",
-                                      else: "no advisory" } } } }
+   [
+     {
+       $project: {
+         extremeTemp: { $or: [ { $lt: ["$temperature", 10] },
+                               { $gt: ["$temperature", 95] },
+           ] } }
+     }
+   ]
 
 String Operations
 ~~~~~~~~~~~~~~~~~
