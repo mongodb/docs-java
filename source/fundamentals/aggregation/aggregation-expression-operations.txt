@@ -100,11 +100,6 @@ You can use arithmetic operations to manipulate numbers. You can perform an
 arithmetic operation on a value of ``MqlInteger`` or ``MqlNumber`` using the
 methods described in this section.
 
-The following table lists the arithmetic methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
-
 .. list-table::
    :header-rows: 1
    :widths: 40 60
@@ -129,6 +124,8 @@ expressions link to Server manual documentation.
 
    * - `subtract() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$subtract </reference/operator/aggregation/subtract/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
 
 Suppose you need to calculate the total cost of a sale from the item's
 price, the quantity sold, and an applicable discount.
