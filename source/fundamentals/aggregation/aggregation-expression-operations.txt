@@ -164,11 +164,6 @@ You can use comparison operations to compare two values. The methods
 described in this section perform a comparison operation on ``MqlValue``
 objects.
 
-The following table lists the comparison methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
-
 .. list-table::
    :header-rows: 1
    :widths: 40 60
@@ -193,6 +188,8 @@ expressions link to Server manual documentation.
 
    * - `ne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#ne(com.mongodb.client.model.mql.MqlValue)>`__
      - :manual:`$ne </reference/operator/aggregation/ne/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
 
 The following example creates a pipeline stage that matches all the documents
 where the ``tempUnit`` field has the value ``"Celsius"`` and the ``tempValue``
