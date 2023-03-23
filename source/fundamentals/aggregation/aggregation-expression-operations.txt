@@ -128,6 +128,110 @@ the Server manual documentation.
    from the Query API expression provided in each example. However,
    both expressions will produce the same aggregation result.
 
+Array Operations
+~~~~~~~~~~~~~~~~
+
+You can perform an array operation on a value of type ``MqlArray``
+using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `concat() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#concat(com.mongodb.client.model.mql.MqlArray)>`__
+     - :manual:`$concat </reference/operator/aggregation/concatArrays/>`
+
+   * - `contains() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#contains(T)>`__
+     - :manual:`$concat </reference/operator/aggregation/in/>`
+
+   * - `elementAt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#elementAt(int)>`__
+     - :manual:`$concat </reference/operator/aggregation/arrayElemAt/>`
+
+   * - `filter() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#filter(java.util.function.Function)>`__
+     - :manual:`$concat </reference/operator/aggregation/filter/>`
+
+   * - `first() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#first()>`__
+     - :manual:`$concat </reference/operator/aggregation/first/>`
+
+   * - `last() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#last()>`__
+     - :manual:`$concat </reference/operator/aggregation/last/>`
+
+   * - `map() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#map(java.util.function.Function)>`__
+     - :manual:`$concat </reference/operator/aggregation/map/>`
+
+   * - `size() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#size()>`__
+     - :manual:`$concat </reference/operator/aggregation/size/>`
+
+   * - `slice() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#slice(int,int)>`__
+     - :manual:`$concat </reference/operator/aggregation/slice/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you have documents describing upcoming events that you might want
+to sign up for. Each event document contains an array of nested
+documents corresponding to each date that the event is hosted.
+Each nested document also contains the number of available seats and
+current number of sign-ups for that date's event. You want to only see
+events that still have open seats.
+
+To find the number of open seats for an event, subtract the ``signups``
+field from the ``seats`` field by using the ``subtract()`` method. To
+filter only for events with open seats, pass a predicate to the
+``filter()`` method that checks if the difference between ``seats`` and
+``signups`` is greater than ``0`` by using the ``gt()`` method. To
+output the events with open seats as the ``hasOpenSeats`` array, use the
+``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+                   computed("hasOpenSeats",
+                           current()
+                                   .<MqlDocument>getArray("events")
+                                   .filter(e -> e
+                                           .getInteger("seats")
+                                           .subtract(e
+                                                   .getInteger("signups"))
+                                           .gt(of(0)))))
+   ));
+
+.. note:: Referencing Nested Documents and Fields
+
+   The preceding example references the ``seats`` and ``signups`` fields,
+   which are in nested documents in the ``events`` array. To access
+   these fields, you must specify that the return type of ``getArray()``
+   is an ``MqlArray`` of ``MqlDocument`` values when retrieving the
+   ``events`` array.
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         hasOpenSeats: {
+           $filter: {
+             input: "$events",
+             as: "e",
+             cond: {
+               $gt: [
+                 { $subtract: [
+                     "$$e.seats",
+                     "$$e.signups",
+                   ] }, 0 ],
+             } } } }
+     }
+   ]
+
 Boolean Operations
 ~~~~~~~~~~~~~~~~~~
 
