@@ -192,6 +192,77 @@ the Query API:
                                       then: "extreme temperature",
                                       else: "no advisory" } } } }
 
+Conversion Operations
+~~~~~~~~~~~~~~~~~~~~~
+
+You can perform a conversion operation to convert between ``MqlValue``
+types using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `asDocument() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#asDocument()>`__
+     - :manual:`$convert </reference/operator/aggregation/convert/>`
+       
+   * - `asMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#asMap()>`__
+     - :manual:`$convert </reference/operator/aggregation/convert/>`
+
+   * - `asString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#asString()>`__
+     - :manual:`$toString </reference/operator/aggregation/toString/>`
+
+   * - `asString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#asString(com.mongodb.client.model.mql.MqlString,com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$dateToString </reference/operator/aggregation/dateToString/>`
+
+   * - `parseDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseDate()>`__
+     - :manual:`$dateFromString </reference/operator/aggregation/dateFromString/>`
+
+   * - `parseInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseInteger()>`__
+     - :manual:`$toInt </reference/operator/aggregation/toInt/>`
+
+   * - `millisecondsAsDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#millisecondsAsDate()>`__
+     - :manual:`$toDate </reference/operator/aggregation/toDate/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you want to calculate students' fifth reunion years based on
+their graduation years, which are stored as strings. You want to add a
+new field to each document with the resulting value.
+
+To convert the ``graduationYear`` field to an integer,
+use the ``parseInteger()`` method. To add five years to this value, use the
+``add()`` method. To add the new ``reunionYear`` field with the
+result, use the ``addFields()`` method.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(addFields(
+           new Field("reunionYear", current()
+                   .getString("graduationYear")
+                   .parseInteger()
+                   .add(5))
+   ));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     { $addFields: {
+         reunionYear: {
+           $add: [ { $toInt: "$graduationYear" }, 5 ]
+         } }
+     }
+   ]
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
