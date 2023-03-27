@@ -25,8 +25,8 @@ a filter.
 
 .. tip::
 
-   You can improve performance when using ``countDocuments()`` to return the total
-   number of documents in a collection by avoiding a collection scan. To do
+   When using ``countDocuments()`` to return the total number of documents in a
+   collection, you can improve performance by avoiding a collection scan. To do
    this, use a :manual:`hint </reference/method/cursor.hint>` to take advantage
    of the built-in index on the ``_id`` field. Use this technique only when
    calling ``countDocuments()`` with an empty query parameter.
