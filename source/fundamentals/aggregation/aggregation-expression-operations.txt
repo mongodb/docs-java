@@ -212,17 +212,41 @@ using the methods described in this section.
 
 Suppose you have a collection of movies, each of which contains an array
 of nested documents for upcoming showtimes. Each nested document
-also contains the total number of seats in the theater and the number of
-tickets that have already been bought for the showtime. You want to see
-only showtimes that still have available tickets.
+contains an array that represents the total number of seats in the
+theater, where the first array entry is the number of premium seats and
+the second entry is the number of regular seats. Each nested document
+also contains the number of tickets that have already been bought for
+the showtime. A document in this collection might resemble the
+following:
 
-To find the number of tickets that are still available for a showtime,
-subtract the ``ticketsBought`` field from the ``seats`` field by
-using the ``subtract()`` method. To filter for events with available
-tickets, pass a predicate to the ``filter()`` method that checks if the
-number of available tickets is greater than ``0`` by using the ``gt()``
+.. code-block:: json
+   :copyable: false
+
+   {
+     "_id": ...,
+     "movie": "Hamlet",
+     "showtimes": [
+       {
+         "date": "May 14, 2023, 12:00 PM",
+         "seats": [ 20, 80 ],
+         "ticketsBought": 100
+       },
+       {
+         "date": "May 20, 2023, 08:00 PM",
+         "seats": [ 10, 40 ],
+         "ticketsBought": 34
+       }
+     ]
+   }
+
+You want to see only showtimes that still have available tickets.
+You can calculate the total number of seats by taking the sum of the
+``seats`` array by using the ``sum()`` method. To
+filter for showtimes with available tickets, pass a predicate to the
+``filter()`` method that checks if ``ticketsBought`` is less
+than the total number of seats by using the ``lt()``
 method. To output the showtimes with available tickets as the
-``hasTicketsAvailable`` array, use the ``project()`` method.
+``availableShowtimes`` array, use the ``project()`` method.
 
 The following code shows the pipeline stage for this aggregation:
 
@@ -230,22 +254,12 @@ The following code shows the pipeline stage for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-                   computed("hasTicketsAvailable",
-                           current()
-                                   .<MqlDocument>getArray("showtimes")
-                                   .filter(e -> e
-                                           .getInteger("seats")
-                                           .subtract(e
-                                                   .getInteger("ticketsBought"))
-                                           .gt(of(0)))
+           computed("availableShowtimes",
+                   current()
+                           .<MqlDocument>getArray("showtimes")
+                           .filter(s -> s.getInteger("ticketsBought")
+                                   .lt(s.<MqlInteger>getArray("seats").sum(n -> n)))
    ))));
-
-.. note:: Referencing Nested Documents and Fields
-
-   The preceding example references the ``seats`` and ``ticketsBought`` fields,
-   which are in nested documents in the ``showtimes`` array. To access
-   these fields, you must specify that the return type of ``getArray()``
-   is an ``MqlArray`` of ``MqlDocument`` values.
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -256,17 +270,11 @@ the Query API:
    [
      {
        $project: {
-         hasTicketsAvailable: {
+         availableShowtimes: {
            $filter: {
              input: "$showtimes",
-             as: "e",
-             cond: {
-               $gt: [
-                 { $subtract: [
-                     "$$e.seats",
-                     "$$e.ticketsBought",
-                   ] }, 0 ]
-             } } } }
+             as: "s",
+             cond: { $lt: [ "$$s.ticketsBought", { $sum: "$$s.seats" } ] } } } }
      }
    ]
 
