@@ -202,18 +202,19 @@ using the methods described in this section.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you have some time-series data and need to match events that
-occurred on any Monday in the ``"America/New_York"`` time zone.
+Suppose you have data about package deliveries and need to match
+deliveries that occurred on any Monday in the ``"America/New_York"`` time
+zone.
 
-Since the ``date`` field has string values, such as
-``"2018-01-15T16:00:00Z"``, you need to use the ``parseDate()``
-method to convert the strings to ``MqlDate`` types.
+If the ``deliveryDate`` field contains any string values representing
+valid dates, such as ``"2018-01-15T16:00:00Z"`` or ``Mar 23, 2023, 2:30
+PM EST``, you can use the ``parseDate()`` method to convert the strings
+into date types.
 
-To get the day of the week (as a number) from the ``date`` field, use the ``dayOfWeek()``
+To get the day of the week (as a number) from the date, use the ``dayOfWeek()``
 method and pass ``"America/New_York"`` as a parameter to specify that
 you are using that time zone to define when Monday is. Use the
-``eq()`` method to check if the day value is Monday, corresponding to
-``2``.
+``eq()`` method to check if the day value is ``2``, corresponding to Monday.
 
 The following code shows the pipeline stage for this aggregation:
 
@@ -222,7 +223,7 @@ The following code shows the pipeline stage for this aggregation:
 
    Arrays.asList(match(
         expr(current()
-                .getString("date")
+                .getString("deliveryDate")
                 .parseDate()
                 .dayOfWeek(of("America/New_York"))
                 .eq(of(2)))
@@ -239,7 +240,7 @@ the Query API:
          $expr: {
            $eq: [
              {
-               $dayOfWeek: { date: { $dateFromString: { dateString: "$date" } },
+               $dayOfWeek: { date: { $dateFromString: { dateString: "$deliveryDate" } },
                              timezone: "America/New_York" }
              }, 2 ] } }
      }
