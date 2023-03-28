@@ -217,25 +217,26 @@ types using the methods described in this section.
    * - `asString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#asString(com.mongodb.client.model.mql.MqlString,com.mongodb.client.model.mql.MqlString)>`__
      - :manual:`$dateToString </reference/operator/aggregation/dateToString/>`
 
+   * - `millisecondsAsDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#millisecondsAsDate()>`__
+     - :manual:`$toDate </reference/operator/aggregation/toDate/>`
+
    * - `parseDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseDate()>`__
      - :manual:`$dateFromString </reference/operator/aggregation/dateFromString/>`
 
    * - `parseInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseInteger()>`__
      - :manual:`$toInt </reference/operator/aggregation/toInt/>`
 
-   * - `millisecondsAsDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#millisecondsAsDate()>`__
-     - :manual:`$toDate </reference/operator/aggregation/toDate/>`
-
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you want to calculate students' fifth reunion years based on
-their graduation years, which are stored as strings. You want to add a
-new field to each document with the resulting value.
+Suppose you want to have a collection of student data that includes
+their graduation years, which are stored as strings. You want to
+calculate the year of their five-year reunion and store this value in a
+new field.
 
 To convert the ``graduationYear`` field to an integer,
 use the ``parseInteger()`` method. To add five years to this value, use the
-``add()`` method. To add the new ``reunionYear`` field with the
-result, use the ``addFields()`` method.
+``add()`` method. To store the result as ``reunionYear``,
+use the ``addFields()`` method.
 
 The following code shows the pipeline stage for this aggregation:
 
