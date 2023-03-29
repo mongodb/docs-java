@@ -239,14 +239,13 @@ following:
      ]
    }
 
-You want to see only showtimes that still have available tickets.
-You can calculate the total number of seats by taking the sum of the
-``seats`` array by using the ``sum()`` method. To
-filter for showtimes with available tickets, pass a predicate to the
-``filter()`` method that checks if ``ticketsBought`` is less
-than the total number of seats by using the ``lt()``
-method. To output the showtimes with available tickets as the
-``availableShowtimes`` array, use the ``project()`` method.
+To see only showtimes with available tickets, pass a predicate to the
+``filter()`` method. Within this predicate, calculate the total number
+of seats by taking the sum of the ``seats`` array by using the ``sum()``
+method. Check if ``ticketsBought`` is less than the total number of
+seats by using the ``lt()`` method. To output the showtimes with
+available tickets as the ``availableShowtimes`` array, use the
+``project()`` method.
 
 The following code shows the pipeline stage for this aggregation:
 
@@ -257,9 +256,22 @@ The following code shows the pipeline stage for this aggregation:
            computed("availableShowtimes",
                    current()
                            .<MqlDocument>getArray("showtimes")
-                           .filter(s -> s.getInteger("ticketsBought")
-                                   .lt(s.<MqlInteger>getArray("seats").sum(n -> n)))
+                           .filter(showtime -> {
+                               var totalSeats = showtime
+                                       .<MqlInteger>getArray("seats")
+                                       .sum(n -> n);
+                               var isAvailable = showtime
+                                       .getInteger("ticketsBought")
+                                       .lt(totalSeats);
+                               return isAvailable;
+                           })
    ))));
+
+.. note::
+
+   To improve readability, the previous example assigns intermediary values to
+   the ``totalSeats`` and ``isAvailable`` variables. If you define the
+   variables in-line, the code produces equivalent results.
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -273,8 +285,8 @@ the Query API:
          availableShowtimes: {
            $filter: {
              input: "$showtimes",
-             as: "s",
-             cond: { $lt: [ "$$s.ticketsBought", { $sum: "$$s.seats" } ] } } } }
+             as: "showtime",
+             cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] } } } }
      }
    ]
 
