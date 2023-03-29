@@ -298,7 +298,6 @@ You can apply user-defined and custom functions to values of type
    * - `passTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#passTo(java.util.function.Function)>`__
        
        | **Typed Variants**:
-       | 
        | `passArrayTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#passArrayTo(java.util.function.Function)>`__
        | `passBooleanTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#passBooleanTo(java.util.function.Function)>`__
        | `passDateTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#passDateTo(java.util.function.Function)>`__
@@ -314,7 +313,7 @@ You can apply user-defined and custom functions to values of type
 
 Suppose you need to determine how a class is performing against some
 benchmarks. You want to find the average final grade for each class and
-compare it against some benchmark values to identify whether the class
+compare it against the benchmark values to identify whether the class
 does not meet, meets, or exceeds expectations.
 
 To calculate each class average, write an averaging method called
@@ -333,8 +332,8 @@ The following code shows the pipeline stage for this aggregation:
    Arrays.asList(project(fields(
            computed("evaluation",
                    current().<MqlDocument>getArray("students")
-                           .passArrayTo(c -> classAvg(c))
-                           .passNumberTo(a -> evalAvg(a))
+                           .passArrayTo(u -> classAvg(u))
+                           .passNumberTo(v -> evalAvg(v))
    ))));
 
 The following code shows sample implementations of the methods that were
@@ -343,18 +342,18 @@ used in the previous aggregation:
 .. code-block:: java
    :copyable: true
 
-   public static MqlNumber classAvg(MqlArray<MqlDocument> c) {
-       var sum = c.sum(s -> s.getInteger("finalGrade"));
-       var avg = sum.divide(c.size());
+   public static MqlNumber classAvg(MqlArray<MqlDocument> u) {
+       var sum = u.sum(x -> x.getInteger("finalGrade"));
+       var avg = sum.divide(u.size());
        return avg;
    }
    
-   public static MqlString evalAvg(MqlNumber a) {
+   public static MqlString evalAvg(MqlNumber v) {
        MqlNumber[] b = {of(70), of(85)};
-       var msg = a.switchOn(on -> on
-               .lte(b[0], e -> of("Needs improvement"))
-               .lte(b[1], e -> of("Meets expectations"))
-               .defaults(e -> of("Exceeds expectations")));
+       var msg = v.switchOn(on -> on
+               .lte(b[0], m -> of("Needs improvement"))
+               .lte(b[1], m -> of("Meets expectations"))
+               .defaults(m -> of("Exceeds expectations")));
        return msg;
    }
 
