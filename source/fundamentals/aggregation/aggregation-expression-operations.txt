@@ -285,8 +285,12 @@ the Query API:
 Function Operations
 ~~~~~~~~~~~~~~~~~~~
 
-You can apply user-defined and custom functions to values of type
+You can apply custom functions to values of type
 `MqlValue` using the methods described in this section.
+
+To improve readability and brevity in your code, you can move redundant code into
+static methods. However, it is often not possible to chain these methods in
+Java. The ``passTo()`` method lets you chain custom methods in your code.
 
 .. list-table::
    :header-rows: 1
