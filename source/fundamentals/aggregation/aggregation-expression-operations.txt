@@ -209,14 +209,14 @@ this section.
      - :manual:`$cond </reference/operator/aggregation/cond/>`
 
    * - `switchOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#switchOn(java.util.function.Function)>`__,
-   `switchArrayOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#switchArrayOn(java.util.function.Function)>`__,
-   `switchBooleanOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#switchBooleanOn(java.util.function.Function)>`__,
-   `switchDateOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#switchDateOn(java.util.function.Function)>`__,
-   `switchDocumentOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#switchDocumentOn(java.util.function.Function)>`__,
-   `switchIntegerOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#switchIntegerOn(java.util.function.Function)>`__,
-   `switchMapOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#switchMapOn(java.util.function.Function)>`__,
-   `switchNumberOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#switchNumberOn(java.util.function.Function)>`__,
-   `switchStringOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#switchStringOn(java.util.function.Function)>`__
+       `switchArrayOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#switchArrayOn(java.util.function.Function)>`__,
+       `switchBooleanOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#switchBooleanOn(java.util.function.Function)>`__,
+       `switchDateOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#switchDateOn(java.util.function.Function)>`__,
+       `switchDocumentOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#switchDocumentOn(java.util.function.Function)>`__,
+       `switchIntegerOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#switchIntegerOn(java.util.function.Function)>`__,
+       `switchMapOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#switchMapOn(java.util.function.Function)>`__,
+       `switchNumberOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#switchNumberOn(java.util.function.Function)>`__,
+       `switchStringOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#switchStringOn(java.util.function.Function)>`__
      - :manual:`$switch </reference/operator/aggregation/switch/>`
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
@@ -260,21 +260,21 @@ the Query API:
    [
      {
        $project: {
-         result: { 
+         result: {
            $switch: {
              branches: [
                { case:
-                 { $eq: [ "$miscData", "string" ] }, 
+                 { $eq: [ "$miscData", "string" ] },
                  then:
                    "$miscData" },
                { case:
-                 { $eq: [ "$miscData", "bool" ] }, 
+                 { $eq: [ "$miscData", "bool" ] },
                  then:
                    { $cond: { if: "$miscData",
                      then: "Customer is premium member",
                      else: "Customer is not premium member" } } },
                { case:
-                 { $eq: [ "$miscData", "array" ] }, 
+                 { $eq: [ "$miscData", "array" ] },
                  then:
                    { $toString: { $arrayElemAt: [ "$miscData", 0 ] } } }
              ],
