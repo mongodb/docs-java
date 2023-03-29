@@ -264,17 +264,17 @@ the Query API:
            $switch: {
              branches: [
                { case:
-                 { $eq: [ "$miscData", "string" ] },
+                 { $eq: [ { $type: "$miscData" }, "string" ] },
                  then:
                    "$miscData" },
                { case:
-                 { $eq: [ "$miscData", "bool" ] },
+                 { $eq: [ { $type: "$miscData" }, "bool" ] },
                  then:
                    { $cond: { if: "$miscData",
                      then: "Customer is premium member",
                      else: "Customer is not premium member" } } },
                { case:
-                 { $eq: [ "$miscData", "array" ] },
+                 { $eq: [ { $type: "$miscData" }, "array" ] },
                  then:
                    { $toString: { $arrayElemAt: [ "$miscData", 0 ] } } }
              ],
