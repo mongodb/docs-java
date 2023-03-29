@@ -282,6 +282,77 @@ the Query API:
      }
    ]
 
+Miscellaneous Operations
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can apply functions to values of type ``MqlValue`` using the methods
+described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `passTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#passTo(java.util.function.Function)>`__
+       
+       | **Typed Variations**:
+       | 
+       | `passArrayTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#passArrayTo(java.util.function.Function)>`__
+       | `passBooleanTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#passBooleanTo(java.util.function.Function)>`__
+       | `passDateTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#passDateTo(java.util.function.Function)>`__
+       | `passDocumentTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#passDocumentTo(java.util.function.Function)>`__
+       | `passIntegerTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#passIntegerTo(java.util.function.Function)>`__
+       | `passMapTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#passMapTo(java.util.function.Function)>`__
+       | `passNumberTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#passNumberTo(java.util.function.Function)>`__
+       | `passStringTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#passStringTo(java.util.function.Function)>`__
+
+     - :manual:`$function </reference/operator/aggregation/function/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you need to generate lowercase usernames for employees of a
+company from the employees' last names and employee IDs.
+
+To concatenate the ``lastName`` and ``employeeID`` fields,
+use the ``append()`` method. To make the username lowercase, use the
+``toLower()`` method. To output the result as the ``username`` field,
+use the ``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+           computed("username",
+                   current()
+                           .getString("lastName")
+                           .append(current()
+                                   .getString("employeeID"))
+                           .toLower()
+   ))));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         username: {
+           $toLower: {
+             $concat: ["$lastName", "$employeeID"],
+           }
+         }
+       }
+     }
+   ]
+
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
@@ -340,7 +411,6 @@ The following code shows the pipeline stage for this aggregation:
                            .toLower()
    ))));
    
-
 The following code provides an equivalent aggregation pipeline in
 the Query API:
 
