@@ -208,33 +208,48 @@ this section.
    * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
      - :manual:`$cond </reference/operator/aggregation/cond/>`
 
+   * - `switchOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#switchOn(java.util.function.Function)>`__,
+   `switchArrayOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#switchArrayOn(java.util.function.Function)>`__,
+   `switchBooleanOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#switchBooleanOn(java.util.function.Function)>`__,
+   `switchDateOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#switchDateOn(java.util.function.Function)>`__,
+   `switchDocumentOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#switchDocumentOn(java.util.function.Function)>`__,
+   `switchIntegerOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#switchIntegerOn(java.util.function.Function)>`__,
+   `switchMapOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#switchMapOn(java.util.function.Function)>`__,
+   `switchNumberOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#switchNumberOn(java.util.function.Function)>`__,
+   `switchStringOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#switchStringOn(java.util.function.Function)>`__
+     - :manual:`$switch </reference/operator/aggregation/switch/>`
+
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you want to find customers who spent enough money to qualify for
-a discount. The amount they need to spend to qualify is $100 if they are a
-premium member and $200 if they are not.
+Suppose you have a collection which has a generic parameter used to store
+miscellaneous customer data. What you want to do with that data varies,
+depending on the type of data that is stored.
 
-To check whether the customer is a premium member, check if
-``isPremiumMember`` is ``true`` by using the ``cond()`` method. To determine
-whether the sale amount qualifies the customer for a discount, compare the
-``totalSale`` to the qualifying values by using the ``gte()`` method.
+To change what you are doing based on the data type of ``miscData``, use the
+``switchOn()`` method. If the data type is ``String``, just copy the data
+without altering it. If the data type is ``Boolean``, check the value with the
+``cond()`` method and return a string indicating whether the customer is a
+premium member. If the data type is ``Array``, get the first element by using
+the ``elementAt()`` method. If it is not one of these types, record a message
+by using ``defaults()``. Regardless of the type, use the ``project()`` method
+to output the result as ``result``.
 
 The following code shows the pipeline stage for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(match(
-            expr(current()
-                  .getBoolean("isPremiumMember")
-                  .cond(current()
-                        .getNumber("totalSale")
-                        .gte(of(100)),
-                     current()
-                        .getNumber("totalSale")
-                        .gte(of(200))
-            ))
-   ));
+   Arrays.asList(project(fields(
+         computed("result",
+               current().getField("miscData").switchOn(field -> field
+                        .isString(s -> s)
+                        .isBoolean(b -> b.cond(
+                                 of("Customer is premium member"),
+                                 of("Customer is not premium member")))
+                        .isArray(a -> a.elementAt(0).asString())
+                        .defaults(d -> of("Not an anticipated type"))
+               ))
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -244,11 +259,27 @@ the Query API:
 
    [
      {
-       $match: {
-         $cond: {
-            "$isPremiumMember",
-            { $gte: [ "$totalSale", 100 ] },
-            { $gte: [ "$totalSale", 200 ] }
+       $project: {
+         result: { 
+           $switch: {
+             branches: [
+               { case:
+                 { $eq: [ "$miscData", "string" ] }, 
+                 then:
+                   "$miscData" },
+               { case:
+                 { $eq: [ "$miscData", "bool" ] }, 
+                 then:
+                   { $cond: { if: "$miscData",
+                     then: "Customer is premium member",
+                     else: "Customer is not premium member" } } },
+               { case:
+                 { $eq: [ "$miscData", "array" ] }, 
+                 then:
+                   { $toString: { $arrayElemAt: [ "$miscData", 0 ] } } }
+             ],
+             default: "Not an anticipated type"
+           }
          }
        }
      }
