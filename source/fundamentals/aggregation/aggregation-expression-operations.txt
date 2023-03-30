@@ -317,31 +317,18 @@ Java. The ``passTo()`` method lets you chain custom methods in your code.
 
 Suppose you need to determine how a class is performing against some
 benchmarks. You want to find the average final grade for each class and
-compare it against the benchmark values to identify whether the class
-does not meet, meets, or exceeds expectations.
+compare it against the benchmark values.
 
 To calculate each class average, write an averaging method called
 ``classAvg()`` and pass the ``students`` array to this method by using
 the ``passArrayTo()`` method. To compare each class average against your
-defined benchmarks, write a method called ``evalAvg()`` and apply this
-method to the class averages by chaining the ``passNumberTo()`` method.
-To output the result as the ``evaluation`` field, use the ``project()``
-method.
+defined benchmarks, write a method called ``evalAvg()``. Apply this
+method to the class averages by chaining the ``passNumberTo()`` method
+to the previous method. To output the result as the ``evaluation``
+field, use the ``project()`` method.
 
-The following code shows the pipeline stage for this aggregation:
-
-.. code-block:: java
-   :copyable: true
-
-   Arrays.asList(project(fields(
-           computed("evaluation",
-                   current().<MqlDocument>getArray("students")
-                           .passArrayTo(u -> classAvg(u))
-                           .passNumberTo(v -> evalAvg(v))
-   ))));
-
-The following code shows sample implementations of the methods that were
-used in the previous aggregation:
+The following code shows sample implementations of the methods used in
+this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -360,6 +347,18 @@ used in the previous aggregation:
                .defaults(m -> of("Exceeds expectations")));
        return msg;
    }
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+           computed("evaluation",
+                   current().<MqlDocument>getArray("students")
+                           .passArrayTo(u -> classAvg(u))
+                           .passNumberTo(v -> evalAvg(v))
+   ))));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
