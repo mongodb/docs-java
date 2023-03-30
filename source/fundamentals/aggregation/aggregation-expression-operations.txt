@@ -160,9 +160,11 @@ the Query API:
 Comparison Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can use comparison operations to compare two values. The methods
-described in this section perform a comparison operation on ``MqlValue``
-objects.
+You can perform a comparison operation on any value of type ``MqlValue``
+using the methods described in this section. For more information about how
+the driver compares values of different types, see
+:manual:`Aggregation Pipeline Operators </reference/bson-type-comparison-order/#std-label-bson-types-comparison-order>`
+in the Server manual.
 
 .. list-table::
    :header-rows: 1
@@ -192,23 +194,16 @@ objects.
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
 The following example creates a pipeline stage that matches all the documents
-where the ``tempUnit`` field has the value ``"Celsius"`` and the ``tempValue``
-field has a value between ``20`` and ``50``:
+where the ``location`` field has the value ``"California"``:
 
 .. code-block:: java
    :copyable: true
 
    Arrays.asList(match(
          expr(current()
-            .getString("tempUnit")
-               .eq(of("Celsius"))
-            .and(current()
-               .getInteger("tempValue")
-                  .gt(of(20)))
-            .and(current()
-               .getInteger("tempValue")
-                  .lt(of(50))))
-   ));
+            .getString("location")
+               .eq(of("California"))
+   )));
 
 The following code shows an equivalent aggregation pipeline in the
 Query API:
@@ -218,11 +213,8 @@ Query API:
 
    [ { $match: {
          $and: [
-            { $eq: [ "$tempUnit", "Celsius"] }, 
-            { $and: [ 
-               { $gt: [ "$tempValue", 20 ] },
-               { $lt: [ "$tempValue", 50 ] } ]
-   } ] } } ]
+            { $eq: [ "$tempUnit", "Celsius"] }
+   ] } } ]
 
 More Information
 ----------------
