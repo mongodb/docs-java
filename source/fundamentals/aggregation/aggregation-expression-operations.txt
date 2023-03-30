@@ -592,5 +592,64 @@ the Query API:
      }
    ]
 
+Comparison Operations
+~~~~~~~~~~~~~~~~~~~~~
+
+You can perform a comparison operation on any value of type ``MqlValue``
+using the methods described in this section. For more information about how
+the driver compares values of different types, see
+:manual:`Aggregation Pipeline Operators </reference/bson-type-comparison-order/#std-label-bson-types-comparison-order>`
+in the Server manual.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `eq() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#eq(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$eq </reference/operator/aggregation/eq/>`
+
+   * - `gt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#gt(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$gt </reference/operator/aggregation/gt/>`
+
+   * - `gte() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#gte(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$gte </reference/operator/aggregation/gte/>`
+
+   * - `lt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#lt(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$lt </reference/operator/aggregation/lt/>`
+
+   * - `lte() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#lte(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$lte </reference/operator/aggregation/lte/>`
+
+   * - `ne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#ne(com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$ne </reference/operator/aggregation/ne/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+The following example creates a pipeline stage that matches all the documents
+where the ``location`` field has the value ``"California"``:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(match(
+         expr(current()
+            .getString("location")
+               .eq(of("California"))
+   )));
+
+The following code shows an equivalent aggregation pipeline in the
+Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [ { $match: {
+         $and: [
+            { $eq: [ "$location", "California"] }
+   ] } } ]
+
 More Information
 ----------------
