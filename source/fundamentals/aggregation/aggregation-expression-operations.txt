@@ -128,6 +128,13 @@ the Server manual documentation.
    from the Query API expression provided in each example. However,
    both expressions will produce the same aggregation result.
 
+.. important::
+
+   The driver does not provide methods for all aggregation pipeline operators in
+   the Query API. If you need to use an unsupported operation in an
+   aggregation, you can create an expression as a BSON ``Document``
+   type. To learn more about the ``Document`` type, see :ref:`<fundamentals-documents>`.
+
 Arithmetic Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -199,17 +206,167 @@ Query API:
                               "$quantity" ] },
                "$discount" ] } } } ]
 
+Array Operations
+~~~~~~~~~~~~~~~~
+
+You can perform an array operation on a value of type ``MqlArray``
+using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `all() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#all(java.util.function.Function)>`__
+     - :manual:`$allElementsTrue </reference/operator/aggregation/allElementsTrue/>`
+
+   * - `any() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#any(java.util.function.Function)>`__
+     - :manual:`$anyElementTrue </reference/operator/aggregation/anyElementTrue/>`
+
+   * - `concat() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#concat(com.mongodb.client.model.mql.MqlArray)>`__
+     - :manual:`$concatArrays </reference/operator/aggregation/concatArrays/>`
+
+   * - `contains() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#contains(T)>`__
+     - :manual:`$in </reference/operator/aggregation/in/>`
+
+   * - `distinct() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#distinct()>`__
+     - :manual:`$setUnion </reference/operator/aggregation/setUnion/>`
+
+   * - `elementAt() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#elementAt(int)>`__
+     - :manual:`$arrayElemAt </reference/operator/aggregation/arrayElemAt/>`
+
+   * - `filter() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#filter(java.util.function.Function)>`__
+     - :manual:`$filter </reference/operator/aggregation/filter/>`
+
+   * - `first() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#first()>`__
+     - :manual:`$first </reference/operator/aggregation/first-array-element/>`
+
+   * - `joinStrings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#joinStrings(java.util.function.Function)>`__
+     - :manual:`$concat </reference/operator/aggregation/concat/>`
+
+   * - `last() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#last()>`__
+     - :manual:`$last </reference/operator/aggregation/last-array-element/>`
+
+   * - `map() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#map(java.util.function.Function)>`__
+     - :manual:`$map </reference/operator/aggregation/map/>`
+
+   * - `max() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#max(T)>`__
+     - :manual:`$max </reference/operator/aggregation/max/>`
+
+   * - `maxN() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#maxN(com.mongodb.client.model.mql.MqlInteger)>`__
+     - :manual:`$maxN </reference/operator/aggregation/maxN-array-element/>`
+
+   * - `min() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#min(T)>`__
+     - :manual:`$min </reference/operator/aggregation/min/>`
+
+   * - `minN() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#minN(com.mongodb.client.model.mql.MqlInteger)>`__
+     - :manual:`$map </reference/operator/aggregation/minN-array-element/>`
+
+   * - `multiply() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#multiply(java.util.function.Function)>`__
+     - :manual:`$multiply </reference/operator/aggregation/multiply/>`
+
+   * - `size() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#size()>`__
+     - :manual:`$size </reference/operator/aggregation/size/>`
+
+   * - `slice() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#slice(int,int)>`__
+     - :manual:`$slice </reference/operator/aggregation/slice/>`
+
+   * - `sum() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#sum(java.util.function.Function)>`__
+     - :manual:`$sum </reference/operator/aggregation/sum/>`
+
+   * - `unionArrays() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#unionArrays(java.util.function.Function)>`__
+     - :manual:`$setUnion </reference/operator/aggregation/setUnion/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you have a collection of movies, each of which contains an array
+of nested documents for upcoming showtimes. Each nested document
+contains an array that represents the total number of seats in the
+theater, where the first array entry is the number of premium seats and
+the second entry is the number of regular seats. Each nested document
+also contains the number of tickets that have already been bought for
+the showtime. A document in this collection might resemble the
+following:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+     "_id": ...,
+     "movie": "Hamlet",
+     "showtimes": [
+       {
+         "date": "May 14, 2023, 12:00 PM",
+         "seats": [ 20, 80 ],
+         "ticketsBought": 100
+       },
+       {
+         "date": "May 20, 2023, 08:00 PM",
+         "seats": [ 10, 40 ],
+         "ticketsBought": 34
+       }
+     ]
+   }
+
+To see only showtimes with available tickets, pass a predicate to the
+``filter()`` method. Within this predicate, calculate the total number
+of seats by taking the sum of the ``seats`` array by using the ``sum()``
+method. Check if ``ticketsBought`` is less than the total number of
+seats by using the ``lt()`` method. To output the showtimes with
+available tickets as the ``availableShowtimes`` array, use the
+``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+           computed("availableShowtimes",
+                   current()
+                           .<MqlDocument>getArray("showtimes")
+                           .filter(showtime -> {
+                               var totalSeats = showtime
+                                       .<MqlInteger>getArray("seats")
+                                       .sum(n -> n);
+                               var isAvailable = showtime
+                                       .getInteger("ticketsBought")
+                                       .lt(totalSeats);
+                               return isAvailable;
+                           })
+   ))));
+
+.. note::
+
+   To improve readability, the previous example assigns intermediary values to
+   the ``totalSeats`` and ``isAvailable`` variables. If you don't pull
+   out these intermediary values as variables, the code still produces
+   equivalent results.
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         availableShowtimes: {
+           $filter: {
+             input: "$showtimes",
+             as: "showtime",
+             cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] } } } }
+     }
+   ]
 
 Boolean Operations
 ~~~~~~~~~~~~~~~~~~
 
 You can perform a boolean operation on a value of type ``MqlBoolean``
 using the methods described in this section.
-
-The following table describes boolean methods
-available in the driver and corresponding expressions in the
-Query API. The methods link to API documentation and the Query API
-expressions link to Server manual documentation.
 
 .. list-table::
    :header-rows: 1
@@ -227,42 +384,46 @@ expressions link to Server manual documentation.
    * - `or() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#or(com.mongodb.client.model.mql.MqlBoolean)>`__
      - :manual:`$or </reference/operator/aggregation/or/>`
 
-   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
-     - :manual:`$cond </reference/operator/aggregation/cond/>`
-
 .. include:: /includes/fundamentals/agg-mql-diff.rst
-   
-The following example specifies an extreme temperature advisory for very
-low or high weather temperatures (in degrees Fahrenheit). The code uses
-the ``or()`` method to evaluate if the value of ``temperature`` is less
-than ``10`` or greater than ``95``. Using the ``cond()`` method, the
-example sets the ``advisory`` field to ``"extreme temperature"`` if the
-document matches the criteria, and to ``"no advisory"`` otherwise:
+
+Suppose you want to classify very low or high weather temperature
+readings (in degrees Fahrenheit) as extreme.
+
+To evaluate if the ``temperature`` field is greater than 95, use the
+``gt()`` method. To evaluate if the ``temperature`` field is less
+than 10, use the ``lt()`` method. To return ``true`` if either condition is
+satisfied, use the ``or()`` method. To output the result as the
+``extremeTemp`` field, use the ``project()`` method.
+
+The following code shows the pipeline stage for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   var pipeline = Arrays.asList(project(fields(
-           computed("advisory",
-                   current()
-                           .getInteger("temperature")
-                           .lt(of(10))
-                           .or(current()
+   Arrays.asList(project(fields(
+                   computed("extremeTemp",
+                           current()
                                    .getInteger("temperature")
-                                   .gt(of(95)))
-                           .cond(of("extreme temperature"), of("no advisory"))
+                                   .lt(of(10))
+                                   .or(current()
+                                           .getInteger("temperature")
+                                           .gt(of(95)))
    ))));
 
-The following code provides an equivalent expression in
+The following code provides an equivalent aggregation pipeline in
 the Query API:
 
 .. code-block:: javascript
    :copyable: true
 
-   { $project: { advisory: { $cond: { if: { $or: [ { $lt: [ "$temperature", 10 ] },
-                                                   { $gt: [ "$temperature", 95 ] } ] },
-                                      then: "extreme temperature",
-                                      else: "no advisory" } } } }
+   [
+     {
+       $project: {
+         extremeTemp: { $or: [ { $lt: ["$temperature", 10] },
+                               { $gt: ["$temperature", 95] },
+           ] } }
+     }
+   ]
 
 Date Operations
 ~~~~~~~~~~~~~~~
