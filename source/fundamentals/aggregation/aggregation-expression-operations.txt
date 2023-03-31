@@ -224,18 +224,22 @@ this section.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-Suppose you have a collection which has a generic parameter used to store
-miscellaneous customer data. What you want to do with that data varies,
-depending on the type of data that is stored.
+Suppose you have a collection of customers with their membership information.
+Originally, customers were either members or not. Over time, membership levels
+were introduced and used the same field. The information stored in this field
+can be one of a few different types, and you want to create a consistent field
+indicating their membership level.
 
-To change what you are doing based on the data type of ``miscData``, use the
-``switchOn()`` method. If the data type is ``String``, just copy the data
-without altering it. If the data type is ``Boolean``, check the value with the
-``cond()`` method and return a string indicating whether the customer is a
-premium member. If the data type is ``Array``, get the first element by using
-the ``elementAt()`` method. If it is not one of these types, record a message
+To change what you are doing based on the data type of ``member``, use the
+``switchOn()`` method. If the data type is a string, it indicates the
+membership level and you want to use the data without altering it. If the data
+type is ``Boolean``, check the value with the ``cond()`` method and return a
+string depending on the result. The default membership level is "Gold". If the
+data type is ``Array``, it lists all of the customer's subscriptions, with the
+last one in the array being the current membership. Get the last element using
+the ``last()`` method. If it is not one of these types, label them as a "Guest"
 by using ``defaults()``. Regardless of the type, use the ``project()`` method
-to output the result as ``result``.
+to output the result as ``membershipLevel``.
 
 The following code shows the pipeline stage for this aggregation:
 
@@ -243,14 +247,12 @@ The following code shows the pipeline stage for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-         computed("result",
-               current().getField("miscData").switchOn(field -> field
+         computed("membershipLevel",
+               current().getField("member").switchOn(field -> field
                         .isString(s -> s)
-                        .isBoolean(b -> b.cond(
-                                 of("Customer is premium member"),
-                                 of("Customer is not premium member")))
-                        .isArray(a -> a.elementAt(0).asString())
-                        .defaults(d -> of("Not an anticipated type"))
+                        .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
+                        .<MqlString>isArray(a -> a.last())
+                        .defaults(d -> of("Guest"))
                ))
    )));
 
@@ -267,21 +269,21 @@ the Query API:
            $switch: {
              branches: [
                { case:
-                 { $eq: [ { $type: "$miscData" }, "string" ] },
+                 { $eq: [ { $type: "$member" }, "string" ] },
                  then:
-                   "$miscData" },
+                   "$member" },
                { case:
-                 { $eq: [ { $type: "$miscData" }, "bool" ] },
+                 { $eq: [ { $type: "$member" }, "bool" ] },
                  then:
-                   { $cond: { if: "$miscData",
-                     then: "Customer is premium member",
-                     else: "Customer is not premium member" } } },
+                   { $cond: { if: "$member",
+                     then: "Gold",
+                     else: "Guest" } } },
                { case:
-                 { $eq: [ { $type: "$miscData" }, "array" ] },
+                 { $eq: [ { $type: "$member" }, "array" ] },
                  then:
-                   { $toString: { $arrayElemAt: [ "$miscData", 0 ] } } }
+                   { $last: "$member" }
              ],
-             default: "Not an anticipated type"
+             default: "Guest"
            }
          }
        }
