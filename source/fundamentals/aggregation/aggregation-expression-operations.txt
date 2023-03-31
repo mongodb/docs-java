@@ -340,12 +340,12 @@ this aggregation:
        return avg;
    }
 
-   public static MqlString evaluate(MqlNumber avg, MqlNumber[] benchmarks) {
-       var msg = avg.switchOn(on -> on
-               .lte(benchmarks[0], m -> of("Needs improvement"))
-               .lte(benchmarks[1], m -> of("Meets expectations"))
-               .defaults(m -> of("Exceeds expectations")));
-       return msg;
+   public static MqlString evaluate(MqlNumber grade, MqlNumber cutoff1, MqlNumber cutoff2) {
+       var message = grade.switchOn(on -> on
+               .lte(cutoff1, g -> of("Needs improvement"))
+               .lte(cutoff2, g -> of("Meets expectations"))
+               .defaults(g -> of("Exceeds expectations")));
+       return message;
    }
 
 .. tip::
@@ -367,7 +367,7 @@ The following code shows the pipeline stage for this aggregation:
            computed("evaluation",
                    current().<MqlDocument>getArray("students")
                            .passArrayTo(students -> gradeAverage(students, "finalGrade"))
-                           .passNumberTo(grade -> evaluate(grade, new MqlNumber[]{of(70), of(85)}))
+                           .passNumberTo(grade -> evaluate(grade, of(70), of(85)))
    ))));
 
 The following code provides an equivalent aggregation pipeline in
