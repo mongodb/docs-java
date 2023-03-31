@@ -264,6 +264,96 @@ the Query API:
      }
    ]
 
+Date Operations
+~~~~~~~~~~~~~~~
+
+You can perform a date operation on a value of type ``MqlDate``
+using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `dayOfWeek() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#dayOfWeek(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$dayOfWeek </reference/operator/aggregation/dayOfWeek/>`
+
+   * - `dayOfMonth() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#dayOfMonth(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$dayOfMonth </reference/operator/aggregation/dayOfMonth/>`
+
+   * - `dayOfYear() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#dayOfYear(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$dayOfYear </reference/operator/aggregation/dayOfYear/>`
+
+   * - `year() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#year(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$year </reference/operator/aggregation/year/>`
+
+   * - `month() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#month(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$month </reference/operator/aggregation/month/>`
+
+   * - `week() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#week(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$week </reference/operator/aggregation/week/>`
+
+   * - `hour() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#hour(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$hour </reference/operator/aggregation/hour/>`
+
+   * - `minute() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#minute(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$minute </reference/operator/aggregation/minute/>`
+
+   * - `second() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#second(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$second </reference/operator/aggregation/second/>`
+
+   * - `millisecond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#millisecond(com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$millisecond </reference/operator/aggregation/millisecond/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you have data about package deliveries and need to match
+deliveries that occurred on any Monday in the ``"America/New_York"`` time
+zone.
+
+If the ``deliveryDate`` field contains any string values representing
+valid dates, such as ``"2018-01-15T16:00:00Z"`` or ``Jan 15, 2018, 12:00
+PM EST``, you can use the ``parseDate()`` method to convert the strings
+into date types.
+
+To get the day of the week (as a number) from the date, use the ``dayOfWeek()``
+method and pass ``"America/New_York"`` as a parameter to specify that
+you are using that time zone to define when Monday is. Use the
+``eq()`` method to check if the day value is ``2``, corresponding to Monday.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(match(
+        expr(current()
+                .getString("deliveryDate")
+                .parseDate()
+                .dayOfWeek(of("America/New_York"))
+                .eq(of(2)))
+   ));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     { $match: {
+         $expr: {
+           $eq: [
+             {
+               $dayOfWeek: { date: { $dateFromString: 
+                                       { dateString: "$deliveryDate" } },
+                             timezone: "America/New_York" }
+             }, 2 ] } }
+     }
+   ]
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
@@ -321,6 +411,7 @@ The following code shows the pipeline stage for this aggregation:
                                    .getString("employeeID"))
                            .toLower()
    ))));
+   
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
