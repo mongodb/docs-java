@@ -698,6 +698,158 @@ the Query API:
      }
    ]
 
+Conditional Operations
+~~~~~~~~~~~~~~~~~~~~~~
+
+You can perform conditional operations using the methods described in
+this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `cond() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#cond(T,T)>`__
+     - :manual:`$cond </reference/operator/aggregation/cond/>`
+
+   * - `switchOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#switchOn(java.util.function.Function)>`__
+
+       | **Typed Variants**:
+       | `switchArrayOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#switchArrayOn(java.util.function.Function)>`__
+       | `switchBooleanOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#switchBooleanOn(java.util.function.Function)>`__
+       | `switchDateOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#switchDateOn(java.util.function.Function)>`__
+       | `switchDocumentOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#switchDocumentOn(java.util.function.Function)>`__
+       | `switchIntegerOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#switchIntegerOn(java.util.function.Function)>`__
+       | `switchMapOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#switchMapOn(java.util.function.Function)>`__
+       | `switchNumberOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#switchNumberOn(java.util.function.Function)>`__
+       | `switchStringOn() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#switchStringOn(java.util.function.Function)>`__
+
+     - :manual:`$switch </reference/operator/aggregation/switch/>`
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you have a collection of customers with their membership information.
+Originally, customers were either members or not. Over time, membership levels
+were introduced and used the same field. The information stored in this field
+can be one of a few different types, and you want to create a consistent field
+indicating their membership level.
+
+To change what you are doing based on the data type of ``member``, use the
+``switchOn()`` method. If the data type is a string, it indicates the
+membership level and you want to use the data without altering it. If the data
+type is ``Boolean``, check the value with the ``cond()`` method and return a
+string depending on the result. The default membership level is "Gold". If the
+data type is ``Array``, it lists all of the customer's subscriptions, with the
+last one in the array being the current membership. Get the last element using
+the ``last()`` method. If it is not one of these types, label them as a "Guest"
+by using ``defaults()``. Regardless of the type, use the ``project()`` method
+to output the result as ``membershipLevel``.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+         computed("membershipLevel",
+               current().getField("member").switchOn(field -> field
+                        .isString(s -> s)
+                        .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
+                        .<MqlString>isArray(a -> a.last())
+                        .defaults(d -> of("Guest"))
+               ))
+   )));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         result: {
+           $switch: {
+             branches: [
+               { case:
+                 { $eq: [ { $type: "$member" }, "string" ] },
+                 then:
+                   "$member" },
+               { case:
+                 { $eq: [ { $type: "$member" }, "bool" ] },
+                 then:
+                   { $cond: { if: "$member",
+                     then: "Gold",
+                     else: "Guest" } } },
+               { case:
+                 { $eq: [ { $type: "$member" }, "array" ] },
+                 then:
+                   { $last: "$member" }
+             ],
+             default: "Guest"
+           }
+         }
+       }
+     }
+   ]
+
+Set Operations
+~~~~~~~~~~~~~~
+
+You can perform set operations on values of type ``MqlArray``. These
+operations treat the arrays as sets.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `union() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#union(com.mongodb.client.model.mql.MqlArray)>`__
+     - :manual:`$setUnion </reference/operator/aggregation/setUnion/>`
+       
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you have a collection describing music teachers, and for each teacher,
+there are arrays of students for each of their classes. You want to create a
+list of all the students a teacher has by combining the class rosters.
+
+To combine the ``pianoStudents`` and ``choirStudents`` arrays, use the
+``union()`` method. To output the result as a new ``allStudents`` field, use
+the ``project()`` method.
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+         computed("allStudents",
+               current()
+                     .getArray("pianoStudents")
+                     .union((current()
+                           .getArray("choirStudents"))))
+   )));
+
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         allStudents: {
+            $setUnion: ["$pianoStudents", "$choirStudents"]
+         }
+       }
+     }
+   ]
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
