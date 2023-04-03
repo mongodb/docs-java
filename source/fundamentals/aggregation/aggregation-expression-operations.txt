@@ -587,6 +587,117 @@ the Query API:
      }
    ]
 
+Custom Operations
+~~~~~~~~~~~~~~~~~
+
+You can apply custom functions to values of type
+``MqlValue`` using the methods described in this section.
+
+To improve readability and allow for code reuse, you can move redundant
+code into static methods. However, it is not possible to directly chain
+static methods in Java. The ``passTo()`` method lets you chain values
+into custom static methods.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `passTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#passTo(java.util.function.Function)>`__
+       
+       | **Typed Variants**:
+       | `passArrayTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#passArrayTo(java.util.function.Function)>`__
+       | `passBooleanTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#passBooleanTo(java.util.function.Function)>`__
+       | `passDateTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#passDateTo(java.util.function.Function)>`__
+       | `passDocumentTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#passDocumentTo(java.util.function.Function)>`__
+       | `passIntegerTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#passIntegerTo(java.util.function.Function)>`__
+       | `passMapTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#passMapTo(java.util.function.Function)>`__
+       | `passNumberTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#passNumberTo(java.util.function.Function)>`__
+       | `passStringTo() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#passStringTo(java.util.function.Function)>`__
+
+     - *No corresponding operator*
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Suppose you need to determine how a class is performing against some
+benchmarks. You want to find the average final grade for each class and
+compare it against the benchmark values.
+
+To calculate each class average, write an averaging method called
+``gradeAverage()`` and pass the ``students`` array to this method by using
+the ``passArrayTo()`` method. To compare each class average against your
+defined benchmarks, write a method called ``evaluate()``. Apply this
+method to the class averages by chaining the ``passNumberTo()`` method
+to the previous method. To output the result as the ``evaluation``
+field, use the ``project()`` method.
+
+The following code shows sample implementations of the methods used in
+this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   public static MqlNumber gradeAverage(MqlArray<MqlDocument> students, String fieldName) {
+       var sum = students.sum(student -> student.getInteger(fieldName));
+       var avg = sum.divide(students.size());
+       return avg;
+   }
+
+   public static MqlString evaluate(MqlNumber grade, MqlNumber cutoff1, MqlNumber cutoff2) {
+       var message = grade.switchOn(on -> on
+               .lte(cutoff1, g -> of("Needs improvement"))
+               .lte(cutoff2, g -> of("Meets expectations"))
+               .defaults(g -> of("Exceeds expectations")));
+       return message;
+   }
+
+.. tip::
+
+   One advantage of using the ``passTo()`` method is that you can reuse
+   your custom methods for other aggregations. You could
+   use the ``gradeAverage()`` method to find the average of grades for
+   groups of students filtered by, for example, entry year or district, not just their
+   class. You could use the ``evaluate()`` method to evaluate, for
+   example, an individual student's performance, or an entire school's or
+   district's performance.
+
+The following code shows the pipeline stage for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+           computed("evaluation",
+                   current().<MqlDocument>getArray("students")
+                           .passArrayTo(students -> gradeAverage(students, "finalGrade"))
+                           .passNumberTo(grade -> evaluate(grade, of(70), of(85)))
+   ))));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $project: {
+         evaluation: {
+           $switch: {
+             branches: [
+               { case: { $lte: [ { $avg: "$students.finalGrade" }, 70 ] },
+                 then: "Needs improvement"
+               },
+               { case: { $lte: [ { $avg: "$students.finalGrade" }, 85 ] },
+                 then: "Meets expectations"
+               }
+             ],
+             default: "Exceeds expectations" } } }
+     }
+   ]
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
@@ -645,7 +756,6 @@ The following code shows the pipeline stage for this aggregation:
                            .toLower()
    ))));
    
-
 The following code provides an equivalent aggregation pipeline in
 the Query API:
 
