@@ -106,7 +106,7 @@ To learn more about these methods, see
 :ref:`Aggregates Builders <aggregates-builders>`.
 
 The examples use the ``Arrays.asList()`` method to create a list of
-aggregation stages that is passed to the ``aggregate()`` method of
+aggregation stages. This list is passed to the ``aggregate()`` method of
 ``MongoCollection``.
 
 Operations
@@ -138,9 +138,8 @@ the Server manual documentation.
 Arithmetic Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can use arithmetic operations to manipulate numbers. You can perform an
-arithmetic operation on a value of ``MqlInteger`` or ``MqlNumber`` using the
-methods described in this section.
+You can perform an arithmetic operation on a value of type ``MqlInteger`` or
+``MqlNumber`` using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
@@ -177,7 +176,7 @@ fields by using the ``multiply()`` method. To apply the ``discount``, use the
 ``subtract()`` method. To output the result in a new ``totalSale`` field, use
 the ``project()`` method.
 
-The following code shows the pipeline stage for this aggregation and assigns
+The following code shows the pipeline for this aggregation and assigns
 cost of the sale to a new field ``totalSale``:
 
 .. code-block:: java
@@ -199,12 +198,18 @@ Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [ { $project: {
+   [
+     {
+       $project: {
          totalSale: {
-            $subtract: [
-               { $multiply: [ "$itemPrice",
-                              "$quantity" ] },
-               "$discount" ] } } } ]
+           $subtract: [
+             { $multiply: [ "$itemPrice", "$quantity" ] },
+             "$discount"
+            ]
+         }
+       }
+     }
+   ]
 
 Array Operations
 ~~~~~~~~~~~~~~~~
@@ -318,7 +323,7 @@ seats by using the ``lt()`` method. To output the showtimes with
 available tickets as the ``availableShowtimes`` array, use the
 ``project()`` method.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -358,7 +363,10 @@ the Query API:
            $filter: {
              input: "$showtimes",
              as: "showtime",
-             cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] } } } }
+             cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] }
+           }
+         }
+       }
      }
    ]
 
@@ -395,7 +403,7 @@ than 10, use the ``lt()`` method. To return ``true`` if either condition is
 satisfied, use the ``or()`` method. To output the result as the
 ``extremeTemp`` field, use the ``project()`` method.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -421,14 +429,15 @@ the Query API:
        $project: {
          extremeTemp: { $or: [ { $lt: ["$temperature", 10] },
                                { $gt: ["$temperature", 95] },
-           ] } }
+         ] }
+       }
      }
    ]
 
 Comparison Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can perform a comparison operation on any value of type ``MqlValue``
+You can perform a comparison operation on a value of type ``MqlValue``
 using the methods described in this section. For more information about how
 the driver compares values of different types, see
 :manual:`Aggregation Pipeline Operators </reference/bson-type-comparison-order/#std-label-bson-types-comparison-order>`
@@ -461,7 +470,7 @@ in the Server manual.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
-The following example creates a pipeline stage that matches all the documents
+The following example shows a pipeline that matches all the documents
 where the ``location`` field has the value ``"California"``:
 
 .. code-block:: java
@@ -473,21 +482,22 @@ where the ``location`` field has the value ``"California"``:
                .eq(of("California"))
    )));
 
-The following code shows an equivalent aggregation pipeline in the
-Query API:
+The following code provides an equivalent aggregation pipeline in
+the Query API:
 
 .. code-block:: javascript
    :copyable: true
 
-   [ { $match: {
-         $and: [
-            { $eq: [ "$location", "California"] }
-   ] } } ]
+   [
+     {
+       $match: { $eq: [ "$location", "California"] }
+     }
+   ]
 
 Conditional Operations
 ~~~~~~~~~~~~~~~~~~~~~~
 
-You can perform conditional operations using the methods described in
+You can perform a conditional operation using the methods described in
 this section.
 
 .. list-table::
@@ -533,7 +543,7 @@ the ``last()`` method. If it is not one of these types, label them as a "Guest"
 by using ``defaults()``. Regardless of the type, use the ``project()`` method
 to output the result as ``membershipLevel``.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -562,18 +572,19 @@ the Query API:
              branches: [
                { case:
                  { $eq: [ { $type: "$member" }, "string" ] },
-                 then:
-                   "$member" },
+                 then: "$member"
+               },
                { case:
                  { $eq: [ { $type: "$member" }, "bool" ] },
-                 then:
-                   { $cond: { if: "$member",
+                 then: {
+                   $cond: { if: "$member",
                      then: "Gold",
-                     else: "Guest" } } },
+                     else: "Guest" } } 
+                 },
                { case:
                  { $eq: [ { $type: "$member" }, "array" ] },
-                 then:
-                   { $last: "$member" }
+                 then: { $last: "$member" }
+               }
              ],
              default: "Guest"
            }
@@ -628,7 +639,7 @@ use the ``parseInteger()`` method. To add five years to this value, use the
 ``add()`` method. To store the result as ``reunionYear``,
 use the ``addFields()`` method.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -647,10 +658,12 @@ the Query API:
    :copyable: true
 
    [
-     { $addFields: {
+     {
+       $addFields: {
          reunionYear: {
            $add: [ { $toInt: "$graduationYear" }, 5 ]
-         } }
+         }
+       }
      }
    ]
 
@@ -730,7 +743,7 @@ this aggregation:
    example, an individual student's performance, or an entire school's or
    district's performance.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -761,7 +774,10 @@ the Query API:
                  then: "Meets expectations"
                }
              ],
-             default: "Exceeds expectations" } } }
+             default: "Exceeds expectations" }
+           }
+         }
+       }
      }
    ]
 
@@ -824,7 +840,7 @@ method and pass ``"America/New_York"`` as a parameter to specify that
 you are using that time zone to define when Monday is. Use the
 ``eq()`` method to check if the day value is ``2``, corresponding to Monday.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
@@ -844,22 +860,28 @@ the Query API:
    :copyable: true
 
    [
-     { $match: {
+     {
+       $match: {
          $expr: {
            $eq: [
              {
-               $dayOfWeek: { date: { $dateFromString: 
-                                       { dateString: "$deliveryDate" } },
-                             timezone: "America/New_York" }
-             }, 2 ] } }
+               $dayOfWeek: { 
+                 date: { $dateFromString: { dateString: "$deliveryDate" } },
+                 timezone: "America/New_York"
+               }
+             },
+             2
+           ]
+         }
+       }
      }
    ]
 
 Set Operations
 ~~~~~~~~~~~~~~
 
-You can perform set operations on values of type ``MqlArray``. These
-operations treat the arrays as sets.
+You can perform a set operation on a value of type ``MqlArray`` using the
+methods described in this section. These operations treat the arrays as sets.
 
 .. list-table::
    :header-rows: 1
@@ -953,7 +975,7 @@ use the ``append()`` method. To make the username lowercase, use the
 ``toLower()`` method. To output the result as the ``username`` field,
 use the ``project()`` method.
 
-The following code shows the pipeline stage for this aggregation:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
