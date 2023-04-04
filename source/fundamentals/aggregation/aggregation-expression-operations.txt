@@ -408,15 +408,15 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
+   var temperature = current().getInteger("temperature");
+
    Arrays.asList(project(fields(
-                   computed("extremeTemp",
-                           current()
-                                   .getInteger("temperature")
-                                   .lt(of(10))
-                                   .or(current()
-                                           .getInteger("temperature")
-                                           .gt(of(95)))
-   ))));
+               computed("extremeTemp",
+                   temperature
+                       .lt(of(10))
+                       .or(temperature.gt(of(95)))
+    )
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
