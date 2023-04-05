@@ -626,6 +626,51 @@ the Query API:
      }
    ]
 
+Convenience Operations
+~~~~~~~~~~~~~~~~~~~~~~
+
+You can use these convenience operators when working with Java aggregation
+expressions.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `current() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#current()>`__
+     - *No corresponding operator*
+
+   * - `currentAsMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#currentAsMap()>`__
+     - *No corresponding operator*
+
+   * - `of() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(boolean)>`__
+     - *No corresponding operator*
+
+   * - `ofArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofArray(T...)>`__
+
+       | **Typed Variants**:
+       | `ofBooleanArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofBooleanArray(boolean...)>`__
+       | `ofDateArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofDateArray(java.time.Instant...)>`__
+       | `ofIntegerArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofIntegerArray(int...)>`__
+       | `ofNumberArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNumberArray(double...)>`__
+       | `ofStringArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofStringArray(java.lang.String...)>`__
+
+   * - `ofEntry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofEntry(com.mongodb.client.model.mql.MqlString,T)>`__
+     - *No corresponding operator*
+
+   * - `ofMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofMap()>`__
+     - *No corresponding operator*
+
+   * - `ofNull() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNull()>`__
+     - *No corresponding operator*
+
+.. include:: /includes/fundamentals/agg-mql-diff.rst
+
+Refer to any of the other sections for examples using these convenience
+operators.
+
 Conversion Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -1153,6 +1198,65 @@ the Query API:
        }
      }
    ]
+
+Type-Checking Operations
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can perform a type-check operation on a value of type ``MqlValue``
+using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `isArrayOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isArrayOr(com.mongodb.client.model.mql.MqlArray)>`__
+     - *No corresponding operator*
+
+   * - `isBooleanOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isBooleanOr(com.mongodb.client.model.mql.MqlBoolean)>`__
+     - *No corresponding operator*
+
+   * - `isDateOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isDateOr(com.mongodb.client.model.mql.MqlDate)>`__
+     - *No corresponding operator*
+
+   * - `isDocumentOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isDocumentOr(T)>`__
+     - *No corresponding operator*
+
+   * - `isIntegerOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isIntegerOr(com.mongodb.client.model.mql.MqlInteger)>`__
+     - *No corresponding operator*
+
+   * - `isMapOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isMapOr(com.mongodb.client.model.mql.MqlMap)>`__
+     - *No corresponding operator*
+
+   * - `isNumberOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isNumberOr(com.mongodb.client.model.mql.MqlNumber)>`__
+     - *No corresponding operator*
+
+   * - `isStringOr() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#isStringOr(com.mongodb.client.model.mql.MqlString)>`__
+     - *No corresponding operator*
+
+Suppose you have a collection of rating data. Early versions of the reviews
+allowed users to submit reviews without a star rating. You want to clean up
+the data, and convert any reviews without a star rating to be the minimum
+value of 1 star.
+
+To determine whether or not there is a valid star rating, use the
+``isNumberOr()`` method with a default value of ``1``. To store the value as a
+new field, use the ``project()`` method.
+
+The following code shows the pipeline for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(project(fields(
+            computed("filteredRating",
+               current()
+                  .getField("originalRating")
+                  .isNumberOr(of(1))
+            )
+   )));
 
 More Information
 ----------------
