@@ -304,6 +304,11 @@ using the methods described in this section.
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
 
+.. tip::
+
+   When retrieving arrays, you must specify the type of array that is returned
+   if you want to continue working with the return value.
+
 Suppose you have a collection of movies, each of which contains an array
 of nested documents for upcoming showtimes. Each nested document
 contains an array that represents the total number of seats in the
@@ -359,7 +364,7 @@ The following code shows the pipeline for this aggregation:
                               .lt(totalSeats);
                         return isAvailable;
                   })
-      )
+            )
    )));
 
 .. note::
