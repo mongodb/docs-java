@@ -1014,6 +1014,69 @@ the Query API:
      }
    ]
 
+Map Operations
+~~~~~~~~~~~~~~
+
+You can perform a map operation on a value of either type ``MqlMap`` or
+``MqlEntry`` using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `entries() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#entries()>`__
+     - *No corresponding operator*
+
+   * - `get() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#get(com.mongodb.client.model.mql.MqlString)>`__
+     - *No corresponding operator*
+
+   * - `getKey() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlEntry.html#getKey()>`__
+     - *No corresponding operator*
+
+   * - `getValue() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlEntry.html#getValue()>`__
+     - *No corresponding operator*
+
+   * - `has() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#has(com.mongodb.client.model.mql.MqlString)>`__
+     - *No corresponding operator*
+
+   * - `merge() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#merge(com.mongodb.client.model.mql.MqlMap)>`__
+     - *No corresponding operator*
+
+   * - `set() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#set(com.mongodb.client.model.mql.MqlString,T)>`__
+     - *No corresponding operator*
+
+   * - `setKey() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlEntry.html#setKey(com.mongodb.client.model.mql.MqlString)>`__
+     - *No corresponding operator*
+
+   * - `setValue() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlEntry.html#setValue(T)>`__
+     - *No corresponding operator*
+
+   * - `unset() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#unset(com.mongodb.client.model.mql.MqlString)>`__
+     - *No corresponding operator*
+
+Suppose you have a collection of theater data where each document represents
+an individual theater. One of the fields in that document is a map of the
+price tiers for tickets. You want to find all the theaters that have a rate
+for seniors.
+
+To determine whether or not the ``rates`` map has a ``senior`` field, use the
+``has()`` method. To find the matching fields, use the ``match()`` method.
+
+The following code shows the pipeline for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(match(
+         expr(current()
+               .getMap("rates")
+               .has(of("senior"))
+         )
+   ));
+
 String Operations
 ~~~~~~~~~~~~~~~~~
 
