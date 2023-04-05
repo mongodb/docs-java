@@ -347,19 +347,20 @@ The following code shows the pipeline for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-           computed("availableShowtimes",
-                   current()
-                           .<MqlDocument>getArray("showtimes")
-                           .filter(showtime -> {
-                               var totalSeats = showtime
-                                       .<MqlInteger>getArray("seats")
-                                       .sum(n -> n);
-                               var isAvailable = showtime
-                                       .getInteger("ticketsBought")
-                                       .lt(totalSeats);
-                               return isAvailable;
-                           })
-   ))));
+            computed("availableShowtimes",
+               current()
+                  .<MqlDocument>getArray("showtimes")
+                  .filter(showtime -> {
+                        var totalSeats = showtime
+                              .<MqlInteger>getArray("seats")
+                              .sum(n -> n);
+                        var isAvailable = showtime
+                              .getInteger("ticketsBought")
+                              .lt(totalSeats);
+                        return isAvailable;
+                  })
+      )
+   )));
 
 .. note::
 
@@ -429,11 +430,11 @@ The following code shows the pipeline for this aggregation:
    var temperature = current().getInteger("temperature");
 
    Arrays.asList(project(fields(
-               computed("extremeTemp",
-                   temperature
-                       .lt(of(10))
-                       .or(temperature.gt(of(95)))
-    )
+            computed("extremeTemp",
+               temperature
+                  .lt(of(10))
+                  .or(temperature.gt(of(95)))
+      )
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -509,8 +510,9 @@ where the ``location`` field has the value ``"California"``:
    Arrays.asList(match(
          expr(current()
             .getString("location")
-               .eq(of("California"))
-   )));
+            .eq(of("California"))
+         )
+   ));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -579,13 +581,14 @@ The following code shows the pipeline for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-         computed("membershipLevel",
+            computed("membershipLevel",
                current().getField("member").switchOn(field -> field
-                        .isString(s -> s)
-                        .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
-                        .<MqlString>isArray(a -> a.last())
-                        .defaults(d -> of("Guest"))
-               ))
+                     .isString(s -> s)
+                     .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
+                     .<MqlString>isArray(a -> a.last())
+                     .defaults(d -> of("Guest"))
+               )
+            )
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -675,10 +678,11 @@ The following code shows the pipeline for this aggregation:
    :copyable: true
 
    Arrays.asList(addFields(
-           new Field("reunionYear", current()
-                   .getString("graduationYear")
-                   .parseInteger()
-                   .add(5))
+         new Field("reunionYear", current()
+               .getString("graduationYear")
+               .parseInteger()
+               .add(5)
+         )
    ));
 
 The following code provides an equivalent aggregation pipeline in
@@ -750,17 +754,17 @@ this aggregation:
    :copyable: true
 
    public static MqlNumber gradeAverage(MqlArray<MqlDocument> students, String fieldName) {
-       var sum = students.sum(student -> student.getInteger(fieldName));
-       var avg = sum.divide(students.size());
-       return avg;
+      var sum = students.sum(student -> student.getInteger(fieldName));
+      var avg = sum.divide(students.size());
+      return avg;
    }
 
    public static MqlString evaluate(MqlNumber grade, MqlNumber cutoff1, MqlNumber cutoff2) {
-       var message = grade.switchOn(on -> on
-               .lte(cutoff1, g -> of("Needs improvement"))
-               .lte(cutoff2, g -> of("Meets expectations"))
-               .defaults(g -> of("Exceeds expectations")));
-       return message;
+      var message = grade.switchOn(on -> on
+            .lte(cutoff1, g -> of("Needs improvement"))
+            .lte(cutoff2, g -> of("Meets expectations"))
+            .defaults(g -> of("Exceeds expectations")));
+      return message;
    }
 
 .. tip::
@@ -779,11 +783,12 @@ The following code shows the pipeline for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-           computed("evaluation",
-                   current().<MqlDocument>getArray("students")
-                           .passArrayTo(students -> gradeAverage(students, "finalGrade"))
-                           .passNumberTo(grade -> evaluate(grade, of(70), of(85)))
-   ))));
+         computed("evaluation",
+            current().<MqlDocument>getArray("students")
+               .passArrayTo(students -> gradeAverage(students, "finalGrade"))
+               .passNumberTo(grade -> evaluate(grade, of(70), of(85)))
+         )
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -876,11 +881,12 @@ The following code shows the pipeline for this aggregation:
    :copyable: true
 
    Arrays.asList(match(
-        expr(current()
-                .getString("deliveryDate")
-                .parseDate()
-                .dayOfWeek(of("America/New_York"))
-                .eq(of(2)))
+         expr(current()
+               .getString("deliveryDate")
+               .parseDate()
+               .dayOfWeek(of("America/New_York"))
+               .eq(of(2))
+         )
    ));
 
 The following code provides an equivalent aggregation pipeline in
@@ -904,6 +910,107 @@ the Query API:
            ]
          }
        }
+     }
+   ]
+
+Document Operations
+~~~~~~~~~~~~~~~~~~~
+
+You can perform a document operation on a value of type ``MqlDocument``
+using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `getArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getArray(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getBoolean() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getBoolean(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getDate(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getDocument() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getDocument(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getField(java.lang.String)>`__
+     - :manual:`$getField </reference/operator/aggregation/getField/>`
+
+   * - `getInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getInteger(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getMap(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getNumber() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getNumber(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `getString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getString(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `hasField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#hasField(java.lang.String)>`__
+     - *No corresponding operator*
+
+   * - `merge() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#merge(com.mongodb.client.model.mql.MqlDocument)>`__
+     - :manual:`$mergeObjects </reference/operator/aggregation/mergeObjects/>`
+
+   * - `setField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#setField(java.lang.String,com.mongodb.client.model.mql.MqlValue)>`__
+     - :manual:`$setField </reference/operator/aggregation/setField/>`
+
+   * - `unsetField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/>`__
+     - :manual:`$unsetField </reference/operator/aggregation/unsetField/MqlDocument.html#unsetField(java.lang.String)>`
+
+Suppose you have a collection of customer data which includes their current and
+addresses as a nested document. You want to find all the customers who
+currently live in Washington state. A document in this collection might
+resemble the following:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+     "_id": ...,
+     "customerName": "Elizabeth Ray",
+     "currentAddress":
+     {
+       "street": "9286 Bethany Glens",
+       "city": "Vasqueztown",
+       "state": "CO"
+       "zip": 22939
+     },
+   }
+
+To access the nested ``currentAddress`` document, use the ``getDocument()``
+method. To get the string code for the state, use the ``getString()`` method.
+To compare the string field, use the ``.eq()`` method.
+
+The following code shows the pipeline for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   Arrays.asList(match(
+         expr(current()
+               .getDocument("currentAddress")
+               .getString("state")
+               .eq(of("WA"))
+         )
+   ));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [
+     {
+       $match: { $eq: [ "$currentAddress.state", "WA"] }
      }
    ]
 
@@ -957,13 +1064,14 @@ The following code shows the pipeline for this aggregation:
    :copyable: true
 
    Arrays.asList(project(fields(
-           computed("username",
-                   current()
-                           .getString("lastName")
-                           .append(current()
-                                   .getString("employeeID"))
-                           .toLower()
-   ))));
+            computed("username",
+                  current()
+                     .getString("lastName")
+                     .append(current()
+                           .getString("employeeID"))
+                     .toLower()
+            )
+   )));
    
 The following code provides an equivalent aggregation pipeline in
 the Query API:
