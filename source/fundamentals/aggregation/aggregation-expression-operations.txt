@@ -105,7 +105,7 @@ how to include your expression in common aggregates builder methods:
 To learn more about these methods, see
 :ref:`Aggregates Builders <aggregates-builders>`.
 
-The examples use the ``Arrays.asList()`` method to create a list of
+The examples use the ``asList()`` method to create a list of
 aggregation stages. This list is passed to the ``aggregate()`` method of
 ``MongoCollection``.
 
@@ -149,33 +149,25 @@ You can perform an arithmetic operation on a value of type ``MqlInteger`` or
      - Aggregation Pipeline Operator
 
    * - `abs() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#abs()>`__
-     - :manual:`$abs </reference/operator/aggregation/abs/>`
-
-   * - `abs() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#abs()>`__
+       | `abs() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#abs()>`__
      - :manual:`$abs </reference/operator/aggregation/abs/>`
 
    * - `add() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#add(int)>`__
-     - :manual:`$add </reference/operator/aggregation/add/>`
-
-   * - `add() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#add(com.mongodb.client.model.mql.MqlNumber)>`__
+       | `add() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#add(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$add </reference/operator/aggregation/add/>`
 
    * - `divide() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#divide(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$divide </reference/operator/aggregation/divide/>`
 
    * - `multiply() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#multiply(int)>`__
-     - :manual:`$multiply </reference/operator/aggregation/multiply/>`
-
-   * - `multiply() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#multiply(com.mongodb.client.model.mql.MqlNumber)>`__
+       | `multiply() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#multiply(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$multiply </reference/operator/aggregation/multiply/>`
 
    * - `round() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#round()>`__
      - :manual:`$round </reference/operator/aggregation/round/>`
 
    * - `subtract() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#subtract(int)>`__
-     - :manual:`$subtract </reference/operator/aggregation/subtract/>`
-
-   * - `subtract() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
+       | `subtract() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$subtract </reference/operator/aggregation/subtract/>`
 
 .. include:: /includes/fundamentals/agg-mql-diff.rst
@@ -183,10 +175,10 @@ You can perform an arithmetic operation on a value of type ``MqlInteger`` or
 Suppose you need to calculate the total cost of a sale from the item's
 price, the quantity sold, and an applicable discount.
 
-To calculate the cost of the sale, multiply the ``itemPrice`` and the ``quantity``
-fields by using the ``multiply()`` method. To apply the ``discount``, use the
-``subtract()`` method. To output the result in a new ``totalSale`` field, use
-the ``project()`` method.
+The ``multiply()`` operator multiples the ``itemPrice`` and the ``quantity``
+to calculate the initial amount for the sale. The ``subtract()`` operator
+deducts the ``discount`` from the initial sale value to evaluate the
+total value.
 
 The following code shows the pipeline for this aggregation and assigns
 cost of the sale to a new field ``totalSale``:
@@ -194,7 +186,7 @@ cost of the sale to a new field ``totalSale``:
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
             computed("totalSale",
                current()
                   .getInteger("itemPrice")
@@ -216,12 +208,8 @@ Query API:
          totalSale: {
            $subtract: [
              { $multiply: [ "$itemPrice", "$quantity" ] },
-             "$discount"
-            ]
-         }
-       }
-     }
-   ]
+             "$discount"]}}
+   }]
 
 Array Operations
 ~~~~~~~~~~~~~~~~
@@ -334,24 +322,21 @@ following:
          "date": "May 20, 2023, 08:00 PM",
          "seats": [ 10, 40 ],
          "ticketsBought": 34
-       }
-     ]
+       }]
    }
 
-To see only showtimes with available tickets, pass a predicate to the
-``filter()`` method. Within this predicate, calculate the total number
-of seats by taking the sum of the ``seats`` array by using the ``sum()``
-method. Check if ``ticketsBought`` is less than the total number of
-seats by using the ``lt()`` method. To output the showtimes with
-available tickets as the ``availableShowtimes`` array, use the
-``project()`` method.
+The ``filter()`` method displays only the results matching the provided
+predicate. In this case, the predicate uses ``sum()`` to calculate the
+total number of seats and compares that value to the number of ``ticketsBought``
+with ``lt()``. The ``project()`` method stores these filtered results as a new
+``availableShowtimes`` array.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
             computed("availableShowtimes",
                current()
                   .<MqlDocument>getArray("showtimes")
@@ -364,8 +349,7 @@ The following code shows the pipeline for this aggregation:
                               .lt(totalSeats);
                         return isAvailable;
                   })
-            )
-   )));
+   ))));
 
 .. note::
 
@@ -388,11 +372,7 @@ the Query API:
              input: "$showtimes",
              as: "showtime",
              cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] }
-           }
-         }
-       }
-     }
-   ]
+   }}}}]
 
 Boolean Operations
 ~~~~~~~~~~~~~~~~~~
@@ -421,11 +401,9 @@ using the methods described in this section.
 Suppose you want to classify very low or high weather temperature
 readings (in degrees Fahrenheit) as extreme.
 
-To evaluate if the ``temperature`` field is greater than 95, use the
-``gt()`` method. To evaluate if the ``temperature`` field is less
-than 10, use the ``lt()`` method. To return ``true`` if either condition is
-satisfied, use the ``or()`` method. To output the result as the
-``extremeTemp`` field, use the ``project()`` method.
+The ``or()`` operator checks to see if temperatures are extreme by comparing
+the ``temperature`` field to predefined values with ``lt()`` and ``gt()``.
+The ``project()`` method records this result in the ``extremeTemp`` field.
 
 The following code shows the pipeline for this aggregation:
 
@@ -434,13 +412,12 @@ The following code shows the pipeline for this aggregation:
 
    var temperature = current().getInteger("temperature");
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
             computed("extremeTemp",
                temperature
                   .lt(of(10))
                   .or(temperature.gt(of(95)))
-      )
-   )));
+   ))));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -452,11 +429,8 @@ the Query API:
      {
        $project: {
          extremeTemp: { $or: [ { $lt: ["$temperature", 10] },
-                               { $gt: ["$temperature", 95] },
-         ] }
-       }
-     }
-   ]
+                               { $gt: ["$temperature", 95] } ] }
+   }}]
 
 Comparison Operations
 ~~~~~~~~~~~~~~~~~~~~~
@@ -490,15 +464,11 @@ in the Server manual.
      - :manual:`$lte </reference/operator/aggregation/lte/>`
 
    * - `max() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#max(com.mongodb.client.model.mql.MqlInteger)>`__
-     - *No corresponding operator*
-
-   * - `max() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#max(com.mongodb.client.model.mql.MqlNumber)>`__
+       | `max() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#max(com.mongodb.client.model.mql.MqlNumber)>`__
      - *No corresponding operator*
 
    * - `min() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#min(com.mongodb.client.model.mql.MqlInteger)>`__
-     - *No corresponding operator*
-
-   * - `min() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#min(com.mongodb.client.model.mql.MqlNumber)>`__
+       | `min() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#min(com.mongodb.client.model.mql.MqlNumber)>`__
      - *No corresponding operator*
 
    * - `ne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#ne(com.mongodb.client.model.mql.MqlValue)>`__
@@ -512,11 +482,10 @@ where the ``location`` field has the value ``"California"``:
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(match(
+   asList(match(
          expr(current()
             .getString("location")
-            .eq(of("California"))
-         )
+            .eq(of("California")))
    ));
 
 The following code provides an equivalent aggregation pipeline in
@@ -525,11 +494,7 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $match: { $eq: [ "$location", "California"] }
-     }
-   ]
+   [ { $match: { $eq: [ "$location", "California"] } } ]
 
 Conditional Operations
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -566,34 +531,31 @@ this section.
 Suppose you have a collection of customers with their membership information.
 Originally, customers were either members or not. Over time, membership levels
 were introduced and used the same field. The information stored in this field
-can be one of a few different types, and you want to create a consistent field
-indicating their membership level.
+can be one of a few different types, and you want to create a standardized value
+indicating their membership level. If the type is a string, it indicates the
+membership level. If the data type is a boolean value, it indicates whether the
+member is a ``Gold`` member. If the type is an array, it lists all of the
+customer's subscriptions, with the last one in the array being the current
+membership.
 
-To change what you are doing based on the data type of ``member``, use the
-``switchOn()`` method. If the data type is a string, it indicates the
-membership level and you want to use the data without altering it. If the data
-type is ``Boolean``, check the value with the ``cond()`` method and return a
-string depending on the result. The default membership level is "Gold". If the
-data type is ``Array``, it lists all of the customer's subscriptions, with the
-last one in the array being the current membership. Get the last element using
-the ``last()`` method. If it is not one of these types, label them as a "Guest"
-by using ``defaults()``. Regardless of the type, use the ``project()`` method
-to output the result as ``membershipLevel``.
+The ``switchOn()`` method runs through possible clauses without assuming the
+type of the ``member`` field. Once the ``switchOn()`` method determines the
+data type of the field, it calculates a string value corresponding to the
+membership level. If the ``member`` field is an unknown type, the ``switchOn()``
+method provides a default value of ``Guest``.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
             computed("membershipLevel",
                current().getField("member").switchOn(field -> field
                      .isString(s -> s)
                      .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
                      .<MqlString>isArray(a -> a.last())
-                     .defaults(d -> of("Guest"))
-               )
-            )
+                     .defaults(d -> of("Guest"))))
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -624,12 +586,8 @@ the Query API:
                  then: { $last: "$member" }
                }
              ],
-             default: "Guest"
-           }
-         }
-       }
-     }
-   ]
+             default: "Guest"}
+   }}}]
 
 Convenience Operations
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -719,22 +677,20 @@ their graduation years, which are stored as strings. You want to
 calculate the year of their five-year reunion and store this value in a
 new field.
 
-To convert the ``graduationYear`` field to an integer,
-use the ``parseInteger()`` method. To add five years to this value, use the
-``add()`` method. To store the result as ``reunionYear``,
-use the ``addFields()`` method.
+The ``parseInteger()`` method converts the ``graduationYear`` to an integer
+so that ``add()`` can calculate the reunion year. The ``addFields()`` method
+stores this result as a new ``reunionYear`` field.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(addFields(
+   asList(addFields(
          new Field("reunionYear", current()
                .getString("graduationYear")
                .parseInteger()
-               .add(5)
-         )
+               .add(5))
    ));
 
 The following code provides an equivalent aggregation pipeline in
@@ -747,11 +703,8 @@ the Query API:
      {
        $addFields: {
          reunionYear: {
-           $add: [ { $toInt: "$graduationYear" }, 5 ]
-         }
-       }
-     }
-   ]
+           $add: [ { $toInt: "$graduationYear" }, 5 ]}}
+   }]
 
 Custom Operations
 ~~~~~~~~~~~~~~~~~
@@ -791,16 +744,11 @@ Suppose you need to determine how a class is performing against some
 benchmarks. You want to find the average final grade for each class and
 compare it against the benchmark values.
 
-To calculate each class average, write an averaging method called
-``gradeAverage()`` and pass the ``students`` array to this method by using
-the ``passArrayTo()`` method. To compare each class average against your
-defined benchmarks, write a method called ``evaluate()``. Apply this
-method to the class averages by chaining the ``passNumberTo()`` method
-to the previous method. To output the result as the ``evaluation``
-field, use the ``project()`` method.
-
-The following code shows sample implementations of the methods used in
-this aggregation:
+The following custom method ``gradeAverage()`` takes an array and a field in
+the array, and calculates the average of that field across all the elements in
+the provided array. The ``evaluate()`` method compares a provided value to
+two provided range limits and generates a response string based on
+how the values compare:
 
 .. code-block:: java
    :copyable: true
@@ -829,17 +777,22 @@ this aggregation:
    example, an individual student's performance, or an entire school's or
    district's performance.
 
+The ``passArrayTo()`` method takes all of the students and calculates the
+average score by using the ``gradeAverage()`` method. Then, the
+``passNumberTo()`` method uses the ``evaluate()`` method to determine how the
+classes are performing. This example stores the result as the ``evaluation``
+field using the ``project()`` method.
+
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
          computed("evaluation",
             current().<MqlDocument>getArray("students")
                .passArrayTo(students -> gradeAverage(students, "finalGrade"))
-               .passNumberTo(grade -> evaluate(grade, of(70), of(85)))
-         )
+               .passNumberTo(grade -> evaluate(grade, of(70), of(85))))
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -861,12 +814,8 @@ the Query API:
                  then: "Meets expectations"
                }
              ],
-             default: "Exceeds expectations" }
-           }
-         }
-       }
-     }
-   ]
+             default: "Exceeds expectations" }}
+   }}}]
 
 Date Operations
 ~~~~~~~~~~~~~~~
@@ -922,23 +871,22 @@ valid dates, such as ``"2018-01-15T16:00:00Z"`` or ``Jan 15, 2018, 12:00
 PM EST``, you can use the ``parseDate()`` method to convert the strings
 into date types.
 
-To get the day of the week (as a number) from the date, use the ``dayOfWeek()``
-method and pass ``"America/New_York"`` as a parameter to specify that
-you are using that time zone to define when Monday is. Use the
-``eq()`` method to check if the day value is ``2``, corresponding to Monday.
+The ``dayOfWeek()`` method determines which day of the week it is and checks
+if it's a Monday by comparing it to ``2`` using the ``eq()`` method. The
+``"Anerica/New_York"`` parameter specifies which number corresponds to
+Monday.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(match(
+   asList(match(
          expr(current()
                .getString("deliveryDate")
                .parseDate()
                .dayOfWeek(of("America/New_York"))
-               .eq(of(2))
-         )
+               .eq(of(2)))
    ));
 
 The following code provides an equivalent aggregation pipeline in
@@ -955,15 +903,9 @@ the Query API:
              {
                $dayOfWeek: { 
                  date: { $dateFromString: { dateString: "$deliveryDate" } },
-                 timezone: "America/New_York"
-               }
-             },
-             2
-           ]
-         }
-       }
-     }
-   ]
+                 timezone: "America/New_York" }},
+             2 ]}
+   }}]
 
 Document Operations
 ~~~~~~~~~~~~~~~~~~~
@@ -1034,24 +976,23 @@ resemble the following:
        "city": "Vasqueztown",
        "state": "CO"
        "zip": 22939
-     },
+     }
    }
 
-To access the nested ``currentAddress`` document, use the ``getDocument()``
-method. To get the string code for the state, use the ``getString()`` method.
-To compare the string field, use the ``.eq()`` method.
+The ``getDocument()`` method retrieves the nested ``currentAddress`` document
+so the state can be retrieved with the ``getString()`` method. The ``eq()``
+method compares the string to ``"WA"`` to see if the state matches.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(match(
+   asList(match(
          expr(current()
                .getDocument("currentAddress")
                .getString("state")
-               .eq(of("WA"))
-         )
+               .eq(of("WA")))
    ));
 
 The following code provides an equivalent aggregation pipeline in
@@ -1060,11 +1001,7 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $match: { $eq: [ "$currentAddress.state", "WA"] }
-     }
-   ]
+   [ { $match: { $eq: [ "$currentAddress.state", "WA"] } } ]
 
 Map Operations
 ~~~~~~~~~~~~~~
@@ -1111,22 +1048,21 @@ You can perform a map operation on a value of either type ``MqlMap`` or
 
 Suppose you have a collection of theater data where each document represents
 an individual theater. One of the fields in that document is a map of the
-price tiers for tickets. You want to find all the theaters that have a rate
-for seniors.
+ticket prices for different age groups. You want to find all the theaters that
+have a rate for a senior age group.
 
-To determine whether or not the ``rates`` map has a ``senior`` field, use the
-``has()`` method. To find the matching fields, use the ``match()`` method.
+The ``has()`` method determines whether the ``rates`` map has a ``senior``
+field.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(match(
+   asList(match(
          expr(current()
                .getMap("rates")
-               .has(of("senior"))
-         )
+               .has(of("senior")))
    ));
 
 String Operations
@@ -1168,24 +1104,23 @@ using the methods described in this section.
 Suppose you need to generate lowercase usernames for employees of a
 company from the employees' last names and employee IDs.
 
-To concatenate the ``lastName`` and ``employeeID`` fields,
-use the ``append()`` method. To make the username lowercase, use the
-``toLower()`` method. To output the result as the ``username`` field,
-use the ``project()`` method.
+The ``append()`` method combines the ``firstName`` and ``lastName`` fields into
+a single username, while the ``toLower()`` method makes the entire username
+lowercase. This example stores the result as a new ``username`` field using
+the ``project()`` method.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
             computed("username",
                   current()
                      .getString("lastName")
                      .append(current()
                            .getString("employeeID"))
-                     .toLower()
-            )
+                     .toLower())
    )));
    
 The following code provides an equivalent aggregation pipeline in
@@ -1199,12 +1134,8 @@ the Query API:
        $project: {
          username: {
            $toLower: {
-             $concat: ["$lastName", "$employeeID"],
-           }
-         }
-       }
-     }
-   ]
+             $concat: ["$lastName", "$employeeID"], } }
+   }}]
 
 Type-Checking Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1248,21 +1179,20 @@ allowed users to submit reviews without a star rating. You want to clean up
 the data, and convert any reviews without a star rating to be the minimum
 value of 1 star.
 
-To determine whether or not there is a valid star rating, use the
-``isNumberOr()`` method with a default value of ``1``. To store the value as a
-new field, use the ``project()`` method.
+The ``isNumberOr()`` method returns either the value of ``originalNumber``, or
+a value of ``1`` if ``originalNumber`` is not a number or is null. The
+``project()`` method returns this value as a new ``filteredRating`` field.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   Arrays.asList(project(fields(
+   asList(project(fields(
             computed("filteredRating",
                current()
                   .getField("originalRating")
-                  .isNumberOr(of(1))
-            )
+                  .isNumberOr(of(1)))
    )));
 
 More Information
