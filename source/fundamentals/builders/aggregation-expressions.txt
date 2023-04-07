@@ -1,6 +1,6 @@
-=======================
-Aggregation Expressions
-=======================
+=================================
+Aggregation Expression Operations
+=================================
 
 .. contents:: On this page
    :local:
@@ -8,7 +8,7 @@ Aggregation Expressions
    :depth: 2
    :class: singlecol
 
-.. _java-aggregation-expressions:
+.. _java-aggregation-expression-operations:
 
 Overview
 --------
@@ -145,7 +145,7 @@ You can perform an arithmetic operation on a value of type ``MqlInteger`` or
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -221,7 +221,7 @@ using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -384,7 +384,7 @@ using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -438,14 +438,11 @@ Comparison Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
 You can perform a comparison operation on a value of type ``MqlValue``
-using the methods described in this section. For more information about how
-the driver compares values of different types, see
-:manual:`Aggregation Pipeline Operators </reference/bson-type-comparison-order/#std-label-bson-types-comparison-order>`
-in the Server manual.
+using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -506,7 +503,7 @@ this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -534,17 +531,17 @@ Suppose you have a collection of customers with their membership information.
 Originally, customers were either members or not. Over time, membership levels
 were introduced and used the same field. The information stored in this field
 can be one of a few different types, and you want to create a standardized value
-indicating their membership level. If the type is a string, it indicates the
-membership level. If the data type is a boolean value, it indicates whether the
-member is a ``Gold`` member. If the type is an array, it lists all of the
-customer's subscriptions, with the last one in the array being the current
-membership.
+indicating their membership level.
 
 The ``switchOn()`` method runs through possible clauses without assuming the
 type of the ``member`` field. Once the ``switchOn()`` method determines the
 data type of the field, it calculates a string value corresponding to the
-membership level. If the ``member`` field is an unknown type, the ``switchOn()``
-method provides a default value of ``Guest``.
+membership level. If the data type is a string, it returns the membership
+level value. If the data type is a boolean, it returns either a ``Gold`` or
+``Guest`` membership level. If the data type is an array, it returns the
+most recent membership level, which is the last item in the array. If the
+``member`` field is an unknown type, the ``switchOn()`` method provides a
+default value of ``Guest``.
 
 The following code shows the pipeline for this aggregation:
 
@@ -599,7 +596,7 @@ expressions.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -646,7 +643,7 @@ types using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -721,7 +718,7 @@ into custom static methods.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -827,7 +824,7 @@ using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -917,7 +914,7 @@ using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -1013,7 +1010,7 @@ You can perform a map operation on a value of either type ``MqlMap`` or
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -1075,7 +1072,7 @@ using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
@@ -1147,7 +1144,7 @@ using the methods described in this section.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 60 60
 
    * - Java Method
      - Aggregation Pipeline Operator
