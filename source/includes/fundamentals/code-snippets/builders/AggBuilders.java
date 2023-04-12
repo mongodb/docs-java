@@ -82,11 +82,11 @@ public class AggBuilders {
     }
 
     private void aggregationExample() {
-        // begin sampleAggregation
+        // begin aggregationSample
         Bson matchStage = match(eq("some_field", "some_criteria"));
         Bson sortByCountStage = sortByCount("some_field");
         collection.aggregate(asList(matchStage, sortByCountStage)).forEach(doc -> System.out.println(doc));
-        // end sampleAggregation
+        // end aggregationSample
     }
 
     private void setWindowFieldsStage() {
@@ -301,5 +301,14 @@ public class AggBuilders {
         // begin match
         match(eq("title", "The Shawshank Redemption"));
         // end match
+    }
+
+    private void documents() {
+        // begin documents
+        documents(asList(
+                new Document("title", "The Shawshank Redemption"),
+                new Document("title", "Back to the Future"),
+                new Document("title", "Jurassic Park")));
+        // end documents
     }
 }
