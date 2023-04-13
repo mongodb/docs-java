@@ -84,12 +84,12 @@ matches only documents that meet both criteria.
    :copyable: true
       
    current()
-         .getArray("visitDates")
-         .size()
-         .gt(of(0))
-         .and(current()
-                 .getString("state")
-                 .eq(of("New Mexico")));
+       .getArray("visitDates")
+       .size()
+       .gt(of(0))
+       .and(current()
+           .getString("state")
+           .eq(of("New Mexico")));
 
 While some aggregation stages, such as ``group()``, accept operations
 directly, other stages expect that you first include your operation in a
@@ -158,7 +158,7 @@ You can perform an arithmetic operation on a value of type ``MqlInteger`` or
 
      - :manual:`$abs </reference/operator/aggregation/abs/>`
 
-   * - |`add() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#add(int)>`__
+   * - | `add() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#add(int)>`__
        | `add() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#add(com.mongodb.client.model.mql.MqlNumber)>`__
 
      - :manual:`$add </reference/operator/aggregation/add/>`
@@ -989,8 +989,8 @@ You can perform a map operation on a value of either type ``MqlMap`` or
 
 .. tip::
    
-   You should represent data in a map if the data is a mapping of
-   arbitrary keys, such as date strings or item IDs, to values.
+   You should represent data in a map if the data maps
+   arbitrary keys such as dates or item IDs to values.
 
 .. list-table::
    :header-rows: 1
