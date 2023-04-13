@@ -1,3 +1,5 @@
+.. _java-aggregation-expression-operations:
+
 =================================
 Aggregation Expression Operations
 =================================
@@ -7,8 +9,6 @@ Aggregation Expression Operations
    :backlinks: none
    :depth: 2
    :class: singlecol
-
-.. _java-aggregation-expression-operations:
 
 Overview
 --------
@@ -36,13 +36,14 @@ imports in your code:
    :copyable: true
 
    import static com.mongodb.client.model.Aggregates.*;
+   import static com.mongodb.client.model.Accumulators.*
    import static com.mongodb.client.model.Projections.*;
    import static com.mongodb.client.model.Filters.*;
    import static com.mongodb.client.model.mql.MqlValues.*;
    import static java.util.Arrays.asList;
 
 To access document fields in an expression, you need to reference the
-document being processed by the aggregation pipeline. Use the
+current document being processed by the aggregation pipeline. Use the
 ``current()`` method to refer to this document. To access the value of a
 field, you must use the appropriately typed method, such as
 ``getString()`` or ``getDate()``. When you specify the type for a field,
@@ -122,7 +123,9 @@ Each section has a table that describes aggregation methods
 available in the driver and corresponding expression operators in the
 Query API. The method names link to API documentation and the
 aggregation pipeline operator names link to descriptions and examples in
-the Server manual documentation.
+the Server manual documentation. While each Java method is functionally
+equivalent to the corresponding Query API expression, they may differ in
+expected parameters and implementation.
 
 .. note::
 
@@ -150,53 +153,54 @@ You can perform an arithmetic operation on a value of type ``MqlInteger`` or
    * - Java Method
      - Aggregation Pipeline Operator
 
-   * - `abs() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#abs()>`__
+   * - | `abs() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#abs()>`__
        | `abs() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#abs()>`__
+
      - :manual:`$abs </reference/operator/aggregation/abs/>`
 
-   * - `add() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#add(int)>`__
+   * - |`add() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#add(int)>`__
        | `add() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#add(com.mongodb.client.model.mql.MqlNumber)>`__
+
      - :manual:`$add </reference/operator/aggregation/add/>`
 
    * - `divide() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#divide(com.mongodb.client.model.mql.MqlNumber)>`__
      - :manual:`$divide </reference/operator/aggregation/divide/>`
 
-   * - `multiply() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#multiply(int)>`__
+   * - | `multiply() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#multiply(int)>`__
        | `multiply() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#multiply(com.mongodb.client.model.mql.MqlNumber)>`__
+
      - :manual:`$multiply </reference/operator/aggregation/multiply/>`
 
    * - `round() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#round()>`__
      - :manual:`$round </reference/operator/aggregation/round/>`
 
-   * - `subtract() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#subtract(int)>`__
+   * - | `subtract() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#subtract(int)>`__
        | `subtract() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#subtract(com.mongodb.client.model.mql.MqlNumber)>`__
+
      - :manual:`$subtract </reference/operator/aggregation/subtract/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
+Suppose you have weather data for a specific year that includes the
+precipitation measurement (in inches) for each day. You want find the average
+precipitation, in millimeters, for each month.
 
-Suppose you need to calculate the total cost of a sale from the item's
-price, the quantity sold, and an applicable discount.
+The ``multiply()`` operator multiplies the ``precipitation`` field by
+``25.4`` to convert the value to millimeters. The ``avg()`` accumulator method
+returns the average as the ``avgPrecipMM`` field. The ``group()`` method
+groups the values by month.
 
-The ``multiply()`` operator multiples the ``itemPrice`` and the ``quantity``
-to calculate the initial amount for the sale. The ``subtract()`` operator
-deducts the ``discount`` from the initial sale value to evaluate the
-total value.
-
-The following code shows the pipeline for this aggregation and assigns
-cost of the sale to a new field ``totalSale``:
+The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   asList(project(fields(
-            computed("totalSale",
-               current()
-                  .getInteger("itemPrice")
-                  .multiply(current()
-                     .getInteger("quantity"))
-                  .subtract(current()
-                     .getInteger("discount")))
-   )));
+   var precip = current().getInteger("precipitation");
+
+   asList(group(
+       "$month",
+       avg(
+           "avgPrecipMM",
+           precip.multiply(25.4))
+   ));
 
 The following code provides an equivalent aggregation pipeline in the
 Query API:
@@ -204,14 +208,11 @@ Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $project: {
-         totalSale: {
-           $subtract: [
-             { $multiply: [ "$itemPrice", "$quantity" ] },
-             "$discount"]}}
-   }]
+   [ { $group: {
+       _id: "$month",
+       avgPrecipMM: {
+           $avg: { $multiply: ["$precipitation", 25.4] } }
+   } } ]
 
 Array Operations
 ~~~~~~~~~~~~~~~~
@@ -292,8 +293,6 @@ using the methods described in this section.
    * - `unionArrays() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#unionArrays(java.util.function.Function)>`__
      - :manual:`$setUnion </reference/operator/aggregation/setUnion/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 .. tip::
 
    When retrieving arrays, you must specify the type of array that is returned
@@ -338,20 +337,20 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
+   var showtimes = current().<MqlDocument>getArray("showtimes");
+
    asList(project(fields(
-            computed("availableShowtimes",
-               current()
-                  .<MqlDocument>getArray("showtimes")
-                  .filter(showtime -> {
-                        var totalSeats = showtime
-                              .<MqlInteger>getArray("seats")
-                              .sum(n -> n);
-                        var isAvailable = showtime
-                              .getInteger("ticketsBought")
-                              .lt(totalSeats);
-                        return isAvailable;
-                  })
-   ))));
+       computed("availableShowtimes", showtimes
+           .filter(showtime -> {
+               var totalSeats = showtime
+                   .<MqlInteger>getArray("seats")
+                   .sum(n -> n);
+               var isAvailable = showtime
+                   .getInteger("ticketsBought")
+                   .lt(totalSeats);
+               return isAvailable;
+           }))
+   )));
 
 .. note::
 
@@ -366,15 +365,14 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $project: {
-         availableShowtimes: {
+   [ { $project: {
+       availableShowtimes: {
            $filter: {
-             input: "$showtimes",
-             as: "showtime",
-             cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] }
-   }}}}]
+               input: "$showtimes",
+               as: "showtime",
+               cond: { $lt: [ "$$showtime.ticketsBought", { $sum: "$$showtime.seats" } ] }
+       } } 
+   } } ]
 
 Boolean Operations
 ~~~~~~~~~~~~~~~~~~
@@ -398,8 +396,6 @@ using the methods described in this section.
    * - `or() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlBoolean.html#or(com.mongodb.client.model.mql.MqlBoolean)>`__
      - :manual:`$or </reference/operator/aggregation/or/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 Suppose you want to classify very low or high weather temperature
 readings (in degrees Fahrenheit) as extreme.
 
@@ -415,11 +411,11 @@ The following code shows the pipeline for this aggregation:
    var temperature = current().getInteger("temperature");
 
    asList(project(fields(
-            computed("extremeTemp",
-               temperature
-                  .lt(of(10))
-                  .or(temperature.gt(of(95)))
-   ))));
+       computed("extremeTemp",
+           temperature
+               .lt(of(10))
+               .or(temperature.gt(of(95))))
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -427,12 +423,10 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $project: {
-         extremeTemp: { $or: [ { $lt: ["$temperature", 10] },
-                               { $gt: ["$temperature", 95] } ] }
-   }}]
+   [ { $project: {
+       extremeTemp: { $or: [ { $lt: ["$temperature", 10] },
+                             { $gt: ["$temperature", 95] } ] }
+   } } ]
 
 Comparison Operations
 ~~~~~~~~~~~~~~~~~~~~~
@@ -462,18 +456,18 @@ using the methods described in this section.
    * - `lte() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#lte(com.mongodb.client.model.mql.MqlValue)>`__
      - :manual:`$lte </reference/operator/aggregation/lte/>`
 
-   * - `max() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#max(com.mongodb.client.model.mql.MqlInteger)>`__
+   * - | `max() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#max(com.mongodb.client.model.mql.MqlInteger)>`__
        | `max() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#max(com.mongodb.client.model.mql.MqlNumber)>`__
+
      - *No corresponding operator*
 
-   * - `min() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#min(com.mongodb.client.model.mql.MqlInteger)>`__
+   * - | `min() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#min(com.mongodb.client.model.mql.MqlInteger)>`__
        | `min() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#min(com.mongodb.client.model.mql.MqlNumber)>`__
+
      - *No corresponding operator*
 
    * - `ne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#ne(com.mongodb.client.model.mql.MqlValue)>`__
      - :manual:`$ne </reference/operator/aggregation/ne/>`
-
-.. include:: /includes/fundamentals/agg-mql-diff.rst
 
 The following example shows a pipeline that matches all the documents
 where the ``location`` field has the value ``"California"``:
@@ -481,11 +475,11 @@ where the ``location`` field has the value ``"California"``:
 .. code-block:: java
    :copyable: true
 
-   asList(match(
-         expr(current()
-            .getString("location")
-            .eq(of("California")))
-   ));
+   var location = current().getString("location");
+
+   asList(match(expr(location
+       .eq(of("California"))
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -493,7 +487,7 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [ { $match: { $eq: [ "$location", "California"] } } ]
+   [ { $match: { $eq: [ "$location", "California" ] } } ]
 
 Conditional Operations
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -525,8 +519,6 @@ this section.
 
      - :manual:`$switch </reference/operator/aggregation/switch/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 Suppose you have a collection of customers with their membership information.
 Originally, customers were either members or not. Over time, membership levels
 were introduced and used the same field. The information stored in this field
@@ -548,13 +540,15 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
+   var member = current().getField("member");
+
    asList(project(fields(
-            computed("membershipLevel",
-               current().getField("member").switchOn(field -> field
-                     .isString(s -> s)
-                     .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
-                     .<MqlString>isArray(a -> a.last())
-                     .defaults(d -> of("Guest"))))
+       computed("membershipLevel",
+           member.switchOn(field -> field
+               .isString(s -> s)
+               .isBoolean(b -> b.cond(of("Gold"), of("Guest")))
+               .<MqlString>isArray(a -> a.last())
+               .defaults(d -> of("Guest"))))
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -563,30 +557,19 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $project: {
-         result: {
+   [ { $project: {
+       membershipLevel: {
            $switch: {
              branches: [
-               { case:
-                 { $eq: [ { $type: "$member" }, "string" ] },
-                 then: "$member"
-               },
-               { case:
-                 { $eq: [ { $type: "$member" }, "bool" ] },
-                 then: {
-                   $cond: { if: "$member",
-                     then: "Gold",
-                     else: "Guest" } } 
-                 },
-               { case:
-                 { $eq: [ { $type: "$member" }, "array" ] },
-                 then: { $last: "$member" }
-               }
+               { case: { $eq: [ { $type: "$member" }, "string" ] }, then: "$member" },
+               { case: { $eq: [ { $type: "$member" }, "bool" ] }, then: { $cond: {
+                                                                              if: "$member",
+                                                                              then: "Gold",
+                                                                              else: "Guest" } } },
+               { case: { $eq: [ { $type: "$member" }, "array" ] }, then: { $last: "$member" } }
              ],
-             default: "Guest"}
-   }}}]
+             default: "Guest" } }
+   } } ]
 
 Convenience Operations
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -607,7 +590,15 @@ expressions.
    * - `currentAsMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#currentAsMap()>`__
      - *No corresponding operator*
 
-   * - `of() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(boolean)>`__
+   * - | `of() for MqlBoolean <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(boolean)>`__
+       | `of() for MqlNumber (double) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(double)>`__
+       | `of() for MqlNumber (Decimal128) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.types.Decimal128)>`__
+       | `of() for MqlInteger (int) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(int)>`__
+       | `of() for MqlInteger (long) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(long)>`__
+       | `of() for MqlString <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.lang.String)>`__
+       | `of() for MqlDate <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.time.Instant)>`__
+       | `of() for MqlDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.conversions.Bson)>`__
+
      - *No corresponding operator*
 
    * - `ofArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofArray(T...)>`__
@@ -629,8 +620,6 @@ expressions.
 
    * - `ofNull() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNull()>`__
      - *No corresponding operator*
-
-.. include:: /includes/fundamentals/agg-mql-diff.rst
 
 Refer to any of the other sections for examples using these convenience
 operators.
@@ -669,8 +658,6 @@ types using the methods described in this section.
    * - `parseInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseInteger()>`__
      - :manual:`$toInt </reference/operator/aggregation/toInt/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 Suppose you want to have a collection of student data that includes
 their graduation years, which are stored as strings. You want to
 calculate the year of their five-year reunion and store this value in a
@@ -685,9 +672,11 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
+   var graduationYear = current().getString("graduationYear");
+
    asList(addFields(
-         new Field("reunionYear", current()
-               .getString("graduationYear")
+       new Field("reunionYear", 
+           graduationYear
                .parseInteger()
                .add(5))
    ));
@@ -698,12 +687,10 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $addFields: {
-         reunionYear: {
-           $add: [ { $toInt: "$graduationYear" }, 5 ]}}
-   }]
+   [ { $addFields: {
+       reunionYear: {
+           $add: [ { $toInt: "$graduationYear" }, 5 ] }
+   } } ]
 
 Custom Operations
 ~~~~~~~~~~~~~~~~~
@@ -737,8 +724,6 @@ into custom static methods.
 
      - *No corresponding operator*
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 Suppose you need to determine how a class is performing against some
 benchmarks. You want to find the average final grade for each class and
 compare it against the benchmark values.
@@ -753,17 +738,17 @@ how the values compare:
    :copyable: true
 
    public static MqlNumber gradeAverage(MqlArray<MqlDocument> students, String fieldName) {
-      var sum = students.sum(student -> student.getInteger(fieldName));
-      var avg = sum.divide(students.size());
-      return avg;
+       var sum = students.sum(student -> student.getInteger(fieldName));
+       var avg = sum.divide(students.size());
+       return avg;
    }
 
    public static MqlString evaluate(MqlNumber grade, MqlNumber cutoff1, MqlNumber cutoff2) {
-      var message = grade.switchOn(on -> on
-            .lte(cutoff1, g -> of("Needs improvement"))
-            .lte(cutoff2, g -> of("Meets expectations"))
-            .defaults(g -> of("Exceeds expectations")));
-      return message;
+       var message = grade.switchOn(on -> on
+           .lte(cutoff1, g -> of("Needs improvement"))
+           .lte(cutoff2, g -> of("Meets expectations"))
+           .defaults(g -> of("Exceeds expectations")));
+       return message;
    }
 
 .. tip::
@@ -786,12 +771,13 @@ The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
+   
+   var students = current().<MqlDocument>getArray("students");
 
    asList(project(fields(
-         computed("evaluation",
-            current().<MqlDocument>getArray("students")
-               .passArrayTo(students -> gradeAverage(students, "finalGrade"))
-               .passNumberTo(grade -> evaluate(grade, of(70), of(85))))
+       computed("evaluation", students
+           .passArrayTo(students -> gradeAverage(students, "finalGrade"))
+           .passNumberTo(grade -> evaluate(grade, of(70), of(85))))
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -800,21 +786,18 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $project: {
-         evaluation: {
-           $switch: {
-             branches: [
+   [ { $project: {
+       evaluation: { $switch: {
+           branches: [
                { case: { $lte: [ { $avg: "$students.finalGrade" }, 70 ] },
                  then: "Needs improvement"
                },
                { case: { $lte: [ { $avg: "$students.finalGrade" }, 85 ] },
                  then: "Meets expectations"
                }
-             ],
-             default: "Exceeds expectations" }}
-   }}}]
+           ],
+           default: "Exceeds expectations" } }
+   } } ]
 
 Date Operations
 ~~~~~~~~~~~~~~~
@@ -859,8 +842,6 @@ using the methods described in this section.
    * - `year() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#year(com.mongodb.client.model.mql.MqlString)>`__
      - :manual:`$year </reference/operator/aggregation/year/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 Suppose you have data about package deliveries and need to match
 deliveries that occurred on any Monday in the ``"America/New_York"`` time
 zone.
@@ -880,13 +861,13 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
-   asList(match(
-         expr(current()
-               .getString("deliveryDate")
-               .parseDate()
-               .dayOfWeek(of("America/New_York"))
-               .eq(of(2)))
-   ));
+   var deliveryDate = current().getString("deliveryDate");
+
+   asList(match(expr(deliveryDate
+       .parseDate()
+       .dayOfWeek(of("America/New_York"))
+       .eq(of(2))
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -894,17 +875,15 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $match: {
-         $expr: {
-           $eq: [
-             {
+   [ { $match: {
+       $expr: {
+           $eq: [ {
                $dayOfWeek: { 
-                 date: { $dateFromString: { dateString: "$deliveryDate" } },
-                 timezone: "America/New_York" }},
-             2 ]}
-   }}]
+                   date: { $dateFromString: { dateString: "$deliveryDate" } },
+                   timezone: "America/New_York" }},
+               2 
+           ] }
+   } } ]
 
 Document Operations
 ~~~~~~~~~~~~~~~~~~~
@@ -987,12 +966,12 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
-   asList(match(
-         expr(current()
-               .getDocument("currentAddress")
-               .getString("state")
-               .eq(of("WA")))
-   ));
+   var address = current().getDocument("currentAddress");
+
+   asList(match(expr(address
+       .getString("state")
+       .eq(of("WA"))
+   )));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -1000,13 +979,18 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [ { $match: { $eq: [ "$currentAddress.state", "WA"] } } ]
+   [ { $match: { $eq: [ "$currentAddress.state", "WA" ] } } ]
 
 Map Operations
 ~~~~~~~~~~~~~~
 
 You can perform a map operation on a value of either type ``MqlMap`` or
 ``MqlEntry`` using the methods described in this section.
+
+.. tip::
+   
+   You should represent data in a map if the data is a mapping of
+   arbitrary keys, such as date strings or item IDs, to values.
 
 .. list-table::
    :header-rows: 1
@@ -1045,24 +1029,26 @@ You can perform a map operation on a value of either type ``MqlMap`` or
    * - `unset() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#unset(com.mongodb.client.model.mql.MqlString)>`__
      - *No corresponding operator*
 
-Suppose you have a collection of theater data where each document represents
-an individual theater. One of the fields in that document is a map of the
-ticket prices for different age groups. You want to find all the theaters that
-have a rate for a senior age group.
+Suppose you have a collection of warehouse data where each document
+represents an individual warehouse. Each document contains a field that
+is a map of the quantities for individual item IDs. You want to
+represent this map as an array to prepare the data for future array
+operations.
 
-The ``has()`` method determines whether the ``rates`` map has a ``senior``
-field.
+The ``entries()`` method returns the map entries in the ``inventory``
+field as an array. This example stores the result as a new
+``inventoryArray`` field using the ``project()`` method.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   asList(match(
-         expr(current()
-               .getMap("rates")
-               .has(of("senior")))
-   ));
+   var inventory = current().getMap("inventory");
+
+   asList(project(fields(
+       computed("inventoryArray", inventory.entries())
+   )));
 
 String Operations
 ~~~~~~~~~~~~~~~~~
@@ -1098,8 +1084,6 @@ using the methods described in this section.
    * - `toUpper() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#toUpper()>`__
      - :manual:`$toUpper </reference/operator/aggregation/toUpper/>`
 
-.. include:: /includes/fundamentals/agg-mql-diff.rst
-
 Suppose you need to generate lowercase usernames for employees of a
 company from the employees' last names and employee IDs.
 
@@ -1113,13 +1097,13 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
+   var lastName = current().getString("lastName");
+   var employeeID = current().getString("employeeID");
+
    asList(project(fields(
-            computed("username",
-                  current()
-                     .getString("lastName")
-                     .append(current()
-                           .getString("employeeID"))
-                     .toLower())
+       computed("username", lastName
+           .append(employeeID)
+           .toLower())
    )));
    
 The following code provides an equivalent aggregation pipeline in
@@ -1128,13 +1112,10 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [
-     {
-       $project: {
-         username: {
-           $toLower: {
-             $concat: ["$lastName", "$employeeID"], } }
-   }}]
+   [ { $project: {
+       username: {
+           $toLower: { $concat: ["$lastName", "$employeeID"] } }
+   } } ]
 
 Type-Checking Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1187,11 +1168,11 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
+   var rating = current().getField("originalRating");
+
    asList(project(fields(
-            computed("filteredRating",
-               current()
-                  .getField("originalRating")
-                  .isNumberOr(of(1)))
+       computed("filteredRating", rating
+           .isNumberOr(of(1)))
    )));
 
 More Information
