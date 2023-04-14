@@ -186,20 +186,19 @@ precipitation, in millimeters, for each month.
 The ``multiply()`` operator multiplies the ``precipitation`` field by
 ``25.4`` to convert the value to millimeters. The ``avg()`` accumulator method
 returns the average as the ``avgPrecipMM`` field. The ``group()`` method
-groups the values by month.
+groups the values by month given in each document's ``date`` field.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
+   var month = current().getDate("date").month(of("UTC"));
    var precip = current().getInteger("precipitation");
 
    asList(group(
-       "$month",
-       avg(
-           "avgPrecipMM",
-           precip.multiply(25.4))
+       month,
+       avg("avgPrecipMM", precip.multiply(25.4))
    ));
 
 The following code provides an equivalent aggregation pipeline in the
@@ -209,7 +208,7 @@ Query API:
    :copyable: true
 
    [ { $group: {
-       _id: "$month",
+       _id: { $month: "$date" },
        avgPrecipMM: {
            $avg: { $multiply: ["$precipitation", 25.4] } }
    } } ]
@@ -411,10 +410,9 @@ The following code shows the pipeline for this aggregation:
    var temperature = current().getInteger("temperature");
 
    asList(project(fields(
-       computed("extremeTemp",
-           temperature
-               .lt(of(10))
-               .or(temperature.gt(of(95))))
+       computed("extremeTemp", temperature
+           .lt(of(10))
+           .or(temperature.gt(of(95))))
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -477,9 +475,7 @@ where the ``location`` field has the value ``"California"``:
 
    var location = current().getString("location");
 
-   asList(match(expr(location
-       .eq(of("California"))
-   )));
+   asList(match(expr(location.eq(of("California")))));
 
 The following code provides an equivalent aggregation pipeline in
 the Query API:
@@ -853,7 +849,7 @@ into date types.
 
 The ``dayOfWeek()`` method determines which day of the week it is and converts
 it to a number based on which day is a Monday according to the
-``"Anerica/New_York"`` parameter. The ``eq()`` method compares this value to
+``"America/New_York"`` parameter. The ``eq()`` method compares this value to
 ``2``, which corresponds to Monday based on the provided timezone parameter.
 
 The following code shows the pipeline for this aggregation:
@@ -937,36 +933,37 @@ using the methods described in this section.
    * - `unsetField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/>`__
      - :manual:`$unsetField </reference/operator/aggregation/unsetField/MqlDocument.html#unsetField(java.lang.String)>`
 
-Suppose you have a collection of customer data which includes their current and
-addresses as a nested document. You want to find all the customers who
-currently live in Washington state. A document in this collection might
-resemble the following:
+Suppose you have a collection of legacy customer data which includes
+addresses as nested documents in the ``mailing.address`` field. You want
+to find all the customers who currently live in Washington state. A
+document in this collection might resemble the following:
 
 .. code-block:: json
    :copyable: false
 
    {
      "_id": ...,
-     "customerName": "Elizabeth Ray",
-     "currentAddress":
+     "customer.name": "Elizabeth Ray",
+     "mailing.address":
      {
        "street": "9286 Bethany Glens",
        "city": "Vasqueztown",
-       "state": "CO"
+       "state": "CO",
        "zip": 22939
      }
    }
 
-The ``getDocument()`` method retrieves the nested ``currentAddress`` document
-so the state can be retrieved with the ``getString()`` method. The ``eq()``
-method compares the string to ``"WA"`` to see if the state matches.
+The ``getDocument()`` method retrieves the ``mailing.address`` field as a
+document so the nested ``state`` field can be retrieved with the
+``getString()`` method. The ``eq()`` method checks if the value of the
+``state`` field is ``"WA"``.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   var address = current().getDocument("currentAddress");
+   var address = current().getDocument("mailing.address");
 
    asList(match(expr(address
        .getString("state")
@@ -979,7 +976,11 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [ { $match: { $eq: [ "$currentAddress.state", "WA" ] } } ]
+   [ 
+       { $addFields: { a: { $objectToArray: { $getField: "mailing.address" } } } },
+       { $match: { "a.k": "state", "a.v": "WA" } },
+       { $project: { a: 0 } }
+   ]
 
 Map Operations
 ~~~~~~~~~~~~~~
@@ -989,7 +990,7 @@ You can perform a map operation on a value of either type ``MqlMap`` or
 
 .. tip::
    
-   You should represent data in a map if the data maps
+   You should represent data as a map if the data maps
    arbitrary keys such as dates or item IDs to values.
 
 .. list-table::
@@ -1032,12 +1033,13 @@ You can perform a map operation on a value of either type ``MqlMap`` or
 Suppose you have a collection of warehouse data where each document
 represents an individual warehouse. Each document contains a field that
 is a map of the quantities for individual item IDs. You want to
-represent this map as an array to prepare the data for future array
-operations.
+represent this map as an array to highlight the two lowest stocked items in
+each warehouse.
 
 The ``entries()`` method returns the map entries in the ``inventory``
-field as an array. This example stores the result as a new
-``inventoryArray`` field using the ``project()`` method.
+field as an array. The ``minN()`` method finds the two lowest valued array
+entries for each document. This example stores the result
+as the new ``lowInventory`` field using the ``project()`` method.
 
 The following code shows the pipeline for this aggregation:
 
@@ -1047,7 +1049,9 @@ The following code shows the pipeline for this aggregation:
    var inventory = current().getMap("inventory");
 
    asList(project(fields(
-       computed("inventoryArray", inventory.entries())
+       computed("lowInventory", inventory
+           .entries()
+           .minN(of(2)))
    )));
 
 String Operations
@@ -1159,8 +1163,8 @@ schema allowed users to submit reviews without a star rating. You want to clean 
 the data, and convert any reviews without a star rating to be the minimum
 value of 1 star.
 
-The ``isNumberOr()`` method returns either the value of ``originalRating``, or
-a value of ``1`` if ``originalRating`` is not a number or is null. The
+The ``isNumberOr()`` method returns either the value of ``rating``, or
+a value of ``1`` if ``rating`` is not a number or is null. The
 ``project()`` method returns this value as a new ``filteredRating`` field.
 
 The following code shows the pipeline for this aggregation:
@@ -1168,12 +1172,26 @@ The following code shows the pipeline for this aggregation:
 .. code-block:: java
    :copyable: true
 
-   var rating = current().getField("originalRating");
+   var rating = current().getField("rating");
 
    asList(project(fields(
        computed("filteredRating", rating
            .isNumberOr(of(1)))
    )));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [ { $project: {
+       filteredRating: {
+           $cond: { if: { $isNumber: "$rating" },
+                    then: "$rating",
+                    else: 1,
+           } }
+   } } ]
 
 More Information
 ----------------
