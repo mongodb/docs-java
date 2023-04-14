@@ -112,6 +112,50 @@ The examples use the ``asList()`` method to create a list of
 aggregation stages. This list is passed to the ``aggregate()`` method of
 ``MongoCollection``.
 
+Constructor Methods
+-------------------
+
+You can use these constructor methods to define values for use in Java aggregation
+expressions.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 100
+
+   * - Java Method
+
+   * - `current() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#current()>`__
+   
+   * - `currentAsMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#currentAsMap()>`__
+
+   * - | `of() for MqlBoolean <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(boolean)>`__
+       | `of() for MqlNumber (double) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(double)>`__
+       | `of() for MqlNumber (Decimal128) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.types.Decimal128)>`__
+       | `of() for MqlInteger (int) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(int)>`__
+       | `of() for MqlInteger (long) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(long)>`__
+       | `of() for MqlString <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.lang.String)>`__
+       | `of() for MqlDate <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.time.Instant)>`__
+       | `of() for MqlDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.conversions.Bson)>`__
+
+   * - `ofArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofArray(T...)>`__
+
+       | **Typed Variants**:
+       | `ofBooleanArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofBooleanArray(boolean...)>`__
+       | `ofDateArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofDateArray(java.time.Instant...)>`__
+       | `ofIntegerArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofIntegerArray(int...)>`__
+       | `ofNumberArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNumberArray(double...)>`__
+       | `ofStringArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofStringArray(java.lang.String...)>`__
+
+   * - `ofEntry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofEntry(com.mongodb.client.model.mql.MqlString,T)>`__
+
+   * - `ofMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofMap()>`__
+
+   * - `ofNull() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNull()>`__
+
+Refer to any of the sections in :ref:`Operations <java-aggregation-expression-ops-section>` for examples using these methods.
+
+.. _java-aggregation-expression-ops-section:
+
 Operations
 ----------
 
@@ -341,12 +385,10 @@ The following code shows the pipeline for this aggregation:
    asList(project(fields(
        computed("availableShowtimes", showtimes
            .filter(showtime -> {
-               var totalSeats = showtime
-                   .<MqlInteger>getArray("seats")
-                   .sum(n -> n);
-               var isAvailable = showtime
-                   .getInteger("ticketsBought")
-                   .lt(totalSeats);
+               var seats = showtime.<MqlInteger>getArray("seats");
+               var totalSeats = seats.sum(n -> n);
+               var ticketsBought = showtime.getInteger("ticketsBought");
+               var isAvailable = ticketsBought.lt(totalSeats);
                return isAvailable;
            }))
    )));
@@ -567,59 +609,6 @@ the Query API:
              default: "Guest" } }
    } } ]
 
-Convenience Operations
-~~~~~~~~~~~~~~~~~~~~~~
-
-You can use these convenience operators when working with Java aggregation
-expressions.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 50 50
-
-   * - Java Method
-     - Aggregation Pipeline Operator
-
-   * - `current() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#current()>`__
-     - *No corresponding operator*
-
-   * - `currentAsMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#currentAsMap()>`__
-     - *No corresponding operator*
-
-   * - | `of() for MqlBoolean <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(boolean)>`__
-       | `of() for MqlNumber (double) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(double)>`__
-       | `of() for MqlNumber (Decimal128) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.types.Decimal128)>`__
-       | `of() for MqlInteger (int) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(int)>`__
-       | `of() for MqlInteger (long) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(long)>`__
-       | `of() for MqlString <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.lang.String)>`__
-       | `of() for MqlDate <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.time.Instant)>`__
-       | `of() for MqlDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.conversions.Bson)>`__
-
-     - *No corresponding operator*
-
-   * - `ofArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofArray(T...)>`__
-
-       | **Typed Variants**:
-       | `ofBooleanArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofBooleanArray(boolean...)>`__
-       | `ofDateArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofDateArray(java.time.Instant...)>`__
-       | `ofIntegerArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofIntegerArray(int...)>`__
-       | `ofNumberArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNumberArray(double...)>`__
-       | `ofStringArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofStringArray(java.lang.String...)>`__
-
-     - *No corresponding operator*
-
-   * - `ofEntry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofEntry(com.mongodb.client.model.mql.MqlString,T)>`__
-     - *No corresponding operator*
-
-   * - `ofMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofMap()>`__
-     - *No corresponding operator*
-
-   * - `ofNull() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNull()>`__
-     - *No corresponding operator*
-
-Refer to any of the other sections for examples using these convenience
-operators.
-
 Conversion Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -688,8 +677,8 @@ the Query API:
            $add: [ { $toInt: "$graduationYear" }, 5 ] }
    } } ]
 
-Custom Operations
-~~~~~~~~~~~~~~~~~
+Convenience Operations
+~~~~~~~~~~~~~~~~~~~~~~
 
 You can apply custom functions to values of type
 ``MqlValue`` using the methods described in this section.
