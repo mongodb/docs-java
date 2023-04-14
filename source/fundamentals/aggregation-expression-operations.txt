@@ -119,10 +119,6 @@ You can use these constructor methods to define values for use in Java aggregati
 expressions.
 
 .. list-table::
-   :header-rows: 1
-   :widths: 100
-
-   * - Java Method
 
    * - `current() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#current()>`__
    
@@ -152,6 +148,12 @@ expressions.
 
    * - `ofNull() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNull()>`__
 
+.. important::
+
+   When you provide a value to one of these methods, the driver treats
+   it literally. For example, ``of("$x")`` represents the string value
+   ``"$x"``, rather than a field named ``x``.
+
 Refer to any of the sections in :ref:`Operations <java-aggregation-expression-ops-section>` for examples using these methods.
 
 .. _java-aggregation-expression-ops-section:
@@ -167,7 +169,7 @@ Each section has a table that describes aggregation methods
 available in the driver and corresponding expression operators in the
 Query API. The method names link to API documentation and the
 aggregation pipeline operator names link to descriptions and examples in
-the Server manual documentation. While each Java method is functionally
+the Server manual documentation. While each Java method is effectively
 equivalent to the corresponding Query API expression, they may differ in
 expected parameters and implementation.
 
@@ -181,7 +183,7 @@ expected parameters and implementation.
 
    The driver does not provide methods for all aggregation pipeline operators in
    the Query API. If you need to use an unsupported operation in an
-   aggregation, you can create an expression as a BSON ``Document``
+   aggregation, you must define the entire expression using the BSON ``Document``
    type. To learn more about the ``Document`` type, see :ref:`<fundamentals-documents>`.
 
 Arithmetic Operations
@@ -316,7 +318,7 @@ using the methods described in this section.
      - :manual:`$min </reference/operator/aggregation/min/>`
 
    * - `minN() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#minN(com.mongodb.client.model.mql.MqlInteger)>`__
-     - :manual:`$map </reference/operator/aggregation/minN-array-element/>`
+     - :manual:`$minN </reference/operator/aggregation/minN-array-element/>`
 
    * - `multiply() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#multiply(java.util.function.Function)>`__
      - :manual:`$multiply </reference/operator/aggregation/multiply/>`
@@ -335,11 +337,6 @@ using the methods described in this section.
 
    * - `unionArrays() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlArray.html#unionArrays(java.util.function.Function)>`__
      - :manual:`$setUnion </reference/operator/aggregation/setUnion/>`
-
-.. tip::
-
-   When retrieving arrays, you must specify the type of array that is returned
-   if you want to continue working with the return value.
 
 Suppose you have a collection of movies, each of which contains an array
 of nested documents for upcoming showtimes. Each nested document
@@ -375,6 +372,16 @@ total number of seats and compares that value to the number of ``ticketsBought``
 with ``lt()``. The ``project()`` method stores these filtered results as a new
 ``availableShowtimes`` array.
 
+.. tip::
+
+   You must specify the type of the array that you retrieve with the
+   ``getArray()`` method if you need to work with the values of the
+   array as their specific type.
+   
+   In this example, we specify that the ``seats`` array contains values
+   of type ``MqlDocument`` so that we can extract nested fields from
+   each array entry.
+
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
@@ -397,7 +404,7 @@ The following code shows the pipeline for this aggregation:
 
    To improve readability, the previous example assigns intermediary values to
    the ``totalSeats`` and ``isAvailable`` variables. If you don't pull
-   out these intermediary values as variables, the code still produces
+   out these intermediary values into variables, the code still produces
    equivalent results.
 
 The following code provides an equivalent aggregation pipeline in
@@ -499,12 +506,12 @@ using the methods described in this section.
    * - | `max() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#max(com.mongodb.client.model.mql.MqlInteger)>`__
        | `max() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#max(com.mongodb.client.model.mql.MqlNumber)>`__
 
-     - *No corresponding operator*
+     - :manual:`$max </reference/operator/aggregation/max/>`
 
    * - | `min() for MqlInteger <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#min(com.mongodb.client.model.mql.MqlInteger)>`__
        | `min() for MqlNumber <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlNumber.html#min(com.mongodb.client.model.mql.MqlNumber)>`__
 
-     - *No corresponding operator*
+     - :manual:`$min </reference/operator/aggregation/min/>`
 
    * - `ne() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#ne(com.mongodb.client.model.mql.MqlValue)>`__
      - :manual:`$ne </reference/operator/aggregation/ne/>`
