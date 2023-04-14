@@ -119,10 +119,17 @@ You can use these constructor methods to define values for use in Java aggregati
 expressions.
 
 .. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Method
+     - Description
 
    * - `current() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#current()>`__
-   
+     - Reference the current document being processed by the aggregation pipeline.
+
    * - `currentAsMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#currentAsMap()>`__
+     - Reference the current document being processed by the aggregation pipeline as a map value.
 
    * - | `of() for MqlBoolean <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(boolean)>`__
        | `of() for MqlNumber (double) <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(double)>`__
@@ -133,6 +140,8 @@ expressions.
        | `of() for MqlDate <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(java.time.Instant)>`__
        | `of() for MqlDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#of(org.bson.conversions.Bson)>`__
 
+     - Returns an ``MqlValue`` type corresponding to the provided primitive.
+
    * - `ofArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofArray(T...)>`__
 
        | **Typed Variants**:
@@ -142,11 +151,16 @@ expressions.
        | `ofNumberArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNumberArray(double...)>`__
        | `ofStringArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofStringArray(java.lang.String...)>`__
 
-   * - `ofEntry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofEntry(com.mongodb.client.model.mql.MqlString,T)>`__
+     - Returns an array of ``MqlValue`` types corresponding to the provided array of primitives.
 
+   * - `ofEntry() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofEntry(com.mongodb.client.model.mql.MqlString,T)>`__
+     - Returns an entry value.
+     
    * - `ofMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofMap()>`__
+     - Returns an empty map value.
 
    * - `ofNull() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValues.html#ofNull()>`__
+     - Returns the null value as exists in the Query API.
 
 .. important::
 
