@@ -483,7 +483,7 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [ { $match: { $eq: [ "$location", "California" ] } } ]
+   [ { $match: { location: { $eq: "California" } } } ]
 
 Conditional Operations
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -1001,7 +1001,7 @@ You can perform a map operation on a value of either type ``MqlMap`` or
      - Aggregation Pipeline Operator
 
    * - `entries() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#entries()>`__
-     - *No corresponding operator*
+     - :manual:`$objectToArray </reference/operator/aggregation/objectToArray/>`
 
    * - `get() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#get(com.mongodb.client.model.mql.MqlString)>`__
      - *No corresponding operator*
@@ -1053,6 +1053,20 @@ The following code shows the pipeline for this aggregation:
            .entries()
            .minN(of(2)))
    )));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [ { $project: {
+       lowInventory: {
+           $minN: {
+             input: { $objectToArray: "$inventory" },
+             n: 2
+           } }
+   } } ]
 
 String Operations
 ~~~~~~~~~~~~~~~~~
