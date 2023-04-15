@@ -56,7 +56,7 @@ string field called ``name``:
    
    current().getString("name")
 
-To specify a value in an operation, pass it to the ``of()`` method to
+To specify a value in an operation, pass it to the ``of()`` constructor method to
 convert it to a valid type. The following code shows how to reference a
 value of ``1.0``:
 
@@ -495,6 +495,13 @@ Comparison Operations
 You can perform a comparison operation on a value of type ``MqlValue``
 using the methods described in this section.
 
+.. tip::
+
+   The ``cond()`` method is similar to the ternary operator in Java and you
+   should use it for simple branches based on a boolean value. You should use
+   the ``switchOn()`` methods for more complex comparisons such as performing
+   pattern matching on the value type or other arbitrary checks on the value.
+
 .. list-table::
    :header-rows: 1
    :widths: 50 50
@@ -553,6 +560,8 @@ Conditional Operations
 
 You can perform a conditional operation using the methods described in
 this section.
+
+
 
 .. list-table::
    :header-rows: 1
@@ -628,74 +637,6 @@ the Query API:
                { case: { $eq: [ { $type: "$member" }, "array" ] }, then: { $last: "$member" } }
              ],
              default: "Guest" } }
-   } } ]
-
-Conversion Operations
-~~~~~~~~~~~~~~~~~~~~~
-
-You can perform a conversion operation to convert between ``MqlValue``
-types using the methods described in this section.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 50 50
-
-   * - Java Method
-     - Aggregation Pipeline Operator
-
-   * - `asDocument() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#asDocument()>`__
-     - *No corresponding operator*
-       
-   * - `asMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#asMap()>`__
-     - *No corresponding operator*
-
-   * - `asString() for MqlDate <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#asString(com.mongodb.client.model.mql.MqlString,com.mongodb.client.model.mql.MqlString)>`__
-     - :manual:`$dateToString </reference/operator/aggregation/dateToString/>`
-
-   * - `asString() for MqlValue <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#asString()>`__
-     - :manual:`$toString </reference/operator/aggregation/toString/>`
-
-   * - `millisecondsAsDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#millisecondsAsDate()>`__
-     - :manual:`$toDate </reference/operator/aggregation/toDate/>`
-
-   * - `parseDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseDate()>`__
-     - :manual:`$dateFromString </reference/operator/aggregation/dateFromString/>`
-
-   * - `parseInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseInteger()>`__
-     - :manual:`$toInt </reference/operator/aggregation/toInt/>`
-
-Suppose you want to have a collection of student data that includes
-their graduation years, which are stored as strings. You want to
-calculate the year of their five-year reunion and store this value in a
-new field.
-
-The ``parseInteger()`` method converts the ``graduationYear`` to an integer
-so that ``add()`` can calculate the reunion year. The ``addFields()`` method
-stores this result as a new ``reunionYear`` field.
-
-The following code shows the pipeline for this aggregation:
-
-.. code-block:: java
-   :copyable: true
-
-   var graduationYear = current().getString("graduationYear");
-
-   asList(addFields(
-       new Field("reunionYear", 
-           graduationYear
-               .parseInteger()
-               .add(5))
-   ));
-
-The following code provides an equivalent aggregation pipeline in
-the Query API:
-
-.. code-block:: javascript
-   :copyable: true
-
-   [ { $addFields: {
-       reunionYear: {
-           $add: [ { $toInt: "$graduationYear" }, 5 ] }
    } } ]
 
 Convenience Operations
@@ -803,6 +744,74 @@ the Query API:
                }
            ],
            default: "Exceeds expectations" } }
+   } } ]
+
+Conversion Operations
+~~~~~~~~~~~~~~~~~~~~~
+
+You can perform a conversion operation to convert between ``MqlValue``
+types using the methods described in this section.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - Java Method
+     - Aggregation Pipeline Operator
+
+   * - `asDocument() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#asDocument()>`__
+     - *No corresponding operator*
+       
+   * - `asMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#asMap()>`__
+     - *No corresponding operator*
+
+   * - `asString() for MqlDate <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#asString(com.mongodb.client.model.mql.MqlString,com.mongodb.client.model.mql.MqlString)>`__
+     - :manual:`$dateToString </reference/operator/aggregation/dateToString/>`
+
+   * - `asString() for MqlValue <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlValue.html#asString()>`__
+     - :manual:`$toString </reference/operator/aggregation/toString/>`
+
+   * - `millisecondsAsDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlInteger.html#millisecondsAsDate()>`__
+     - :manual:`$toDate </reference/operator/aggregation/toDate/>`
+
+   * - `parseDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseDate()>`__
+     - :manual:`$dateFromString </reference/operator/aggregation/dateFromString/>`
+
+   * - `parseInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#parseInteger()>`__
+     - :manual:`$toInt </reference/operator/aggregation/toInt/>`
+
+Suppose you want to have a collection of student data that includes
+their graduation years, which are stored as strings. You want to
+calculate the year of their five-year reunion and store this value in a
+new field.
+
+The ``parseInteger()`` method converts the ``graduationYear`` to an integer
+so that ``add()`` can calculate the reunion year. The ``addFields()`` method
+stores this result as a new ``reunionYear`` field.
+
+The following code shows the pipeline for this aggregation:
+
+.. code-block:: java
+   :copyable: true
+
+   var graduationYear = current().getString("graduationYear");
+
+   asList(addFields(
+       new Field("reunionYear", 
+           graduationYear
+               .parseInteger()
+               .add(5))
+   ));
+
+The following code provides an equivalent aggregation pipeline in
+the Query API:
+
+.. code-block:: javascript
+   :copyable: true
+
+   [ { $addFields: {
+       reunionYear: {
+           $add: [ { $toInt: "$graduationYear" }, 5 ] }
    } } ]
 
 Date Operations
@@ -986,11 +995,15 @@ the Query API:
 .. code-block:: javascript
    :copyable: true
 
-   [ 
-       { $addFields: { a: { $objectToArray: { $getField: "mailing.address" } } } },
-       { $match: { "a.k": "state", "a.v": "WA" } },
-       { $project: { a: 0 } }
-   ]
+   [
+       { $match: {
+           $expr: {
+               $eq: [{ 
+                   $getField: {
+                       input: { $getField: { input: "$$CURRENT", field: "mailing.address"}}, 
+                       field: "state" }}, 
+                   "WA" ]
+   }}}]
 
 Map Operations
 ~~~~~~~~~~~~~~
@@ -1040,28 +1053,29 @@ You can perform a map operation on a value of either type ``MqlMap`` or
    * - `unset() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlMap.html#unset(com.mongodb.client.model.mql.MqlString)>`__
      - *No corresponding operator*
 
-Suppose you have a collection of warehouse data where each document
-represents an individual warehouse. Each document contains a field that
-is a map of the quantities for individual item IDs. You want to
-represent this map as an array to highlight the two lowest stocked items in
-each warehouse.
+Suppose you have a collection of inventory data where each document represents
+an individual item you're responsible for supplying. Each document contains a
+field that is a map of all your warehouses and how many copies they currently
+have in their inventory of the item. You want to determine the total number of
+copies of items you have across all of your warehouses.
 
-The ``entries()`` method returns the map entries in the ``inventory``
-field as an array. The ``minN()`` method finds the two lowest valued array
-entries for each document. This example stores the result
-as the new ``lowInventory`` field using the ``project()`` method.
+The ``entries()`` method returns the map entries in the ``warehouses``
+field as an array. The ``sum()`` method calculates the total value of items
+based on the values in the array retrieved with the ``getValue()`` method.
+This example stores the result as the new ``totalInventory`` field using the
+``project()`` method.
 
 The following code shows the pipeline for this aggregation:
 
 .. code-block:: java
    :copyable: true
 
-   var inventory = current().getMap("inventory");
+   var warehouses = current().getMap("warehouses");
 
    asList(project(fields(
-       computed("lowInventory", inventory
+       computed("totalInventory", warehouses
            .entries()
-           .minN(of(2)))
+           .sum(v -> v.getValue()))
    )));
 
 The following code provides an equivalent aggregation pipeline in
@@ -1071,10 +1085,9 @@ the Query API:
    :copyable: true
 
    [ { $project: {
-       lowInventory: {
-           $minN: {
-             input: { $objectToArray: "$inventory" },
-             n: 2
+       totalInventory: {
+           $sum: {
+             $getField: { $objectToArray: "$warehouses" },
            } }
    } } ]
 
@@ -1151,6 +1164,12 @@ Type-Checking Operations
 You can perform a type-check operation on a value of type ``MqlValue``
 using the methods described in this section.
 
+These methods do not return boolean values. Instead, you provide a default value
+that matches the type specified by the method. If the checked value
+matches the method type, the checked value is returned. Otherwise, the supplied
+default value is returned. If you want to program branching logic based on the
+data type, see ``switchOn()``.
+
 .. list-table::
    :header-rows: 1
    :widths: 50 50
@@ -1183,13 +1202,13 @@ using the methods described in this section.
      - *No corresponding operator*
 
 Suppose you have a collection of rating data. An early version of the review
-schema allowed users to submit reviews without a star rating. You want to clean up
-the data, and convert any reviews without a star rating to be the minimum
+schema allowed users to submit negative reviews without a star rating. You want
+convert any of these negative reviews without a star rating to have the minimum
 value of 1 star.
 
 The ``isNumberOr()`` method returns either the value of ``rating``, or
 a value of ``1`` if ``rating`` is not a number or is null. The
-``project()`` method returns this value as a new ``filteredRating`` field.
+``project()`` method returns this value as a new ``numericalRating`` field.
 
 The following code shows the pipeline for this aggregation:
 
@@ -1199,7 +1218,7 @@ The following code shows the pipeline for this aggregation:
    var rating = current().getField("rating");
 
    asList(project(fields(
-       computed("filteredRating", rating
+       computed("numericalRating", rating
            .isNumberOr(of(1)))
    )));
 
@@ -1210,7 +1229,7 @@ the Query API:
    :copyable: true
 
    [ { $project: {
-       filteredRating: {
+       numericalRating: {
            $cond: { if: { $isNumber: "$rating" },
                     then: "$rating",
                     else: 1,
