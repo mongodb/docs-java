@@ -1232,6 +1232,6 @@ the Query API:
        numericalRating: {
            $cond: { if: { $isNumber: "$rating" },
                     then: "$rating",
-                    else: 1,
+                    else: 1
            } }
    } } ]
