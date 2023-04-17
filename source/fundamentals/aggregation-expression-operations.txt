@@ -593,15 +593,14 @@ were introduced and used the same field. The information stored in this field
 can be one of a few different types, and you want to create a standardized value
 indicating their membership level.
 
-The ``switchOn()`` method runs through possible clauses without assuming the
-type of the ``member`` field. Once the ``switchOn()`` method determines the
-data type of the field, it calculates a string value corresponding to the
-membership level. If the data type is a string, it returns the membership
-level value. If the data type is a boolean, it returns either a ``Gold`` or
-``Guest`` membership level. If the data type is an array, it returns the
-most recent membership level, which is the last item in the array. If the
-``member`` field is an unknown type, the ``switchOn()`` method provides a
-default value of ``Guest``.
+The ``switchOn()`` method checks each clause in order. If the value matches the
+type indicated by the clause, that clause determines the string value
+corresponding to the membership level. If the original value is a string, it
+represents the membership level and that value is used. If the data type is a
+boolean, it returns either ``Gold`` or ``Guest`` for the membership level. If
+the data type is an array, it returns the most recent string in the array which
+matches the most recent membership level. If the ``member`` field is an
+unknown type, the ``switchOn()`` method provides a default value of ``Guest``.
 
 The following code shows the pipeline for this aggregation:
 
@@ -675,8 +674,10 @@ Suppose you need to determine how a class is performing against some
 benchmarks. You want to find the average final grade for each class and
 compare it against the benchmark values.
 
-The following custom method ``gradeAverage()`` takes an array and a field in
-the array, and calculates the average of that field across all the elements in
+The following custom method ``gradeAverage()`` takes an array of documents and
+the name of an integer field shared across those documents. It calculates the
+average of that field across all the documents in the provided array and
+determines the average of that field across all the elements in
 the provided array. The ``evaluate()`` method compares a provided value to
 two provided range limits and generates a response string based on
 how the values compare:
@@ -749,7 +750,7 @@ the Query API:
 Conversion Operations
 ~~~~~~~~~~~~~~~~~~~~~
 
-You can perform a conversion operation to convert between ``MqlValue``
+You can perform a conversion operation to convert between certain ``MqlValue``
 types using the methods described in this section.
 
 .. list-table::
@@ -913,32 +914,16 @@ using the methods described in this section.
    * - Java Method
      - Aggregation Pipeline Operator
 
-   * - `getArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getArray(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getBoolean() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getBoolean(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getDate(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getDocument() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getDocument(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getField(java.lang.String)>`__
+   * - | `getArray() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getArray(java.lang.String)>`__
+       | `getBoolean() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getBoolean(java.lang.String)>`__
+       | `getDate() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getDate(java.lang.String)>`__
+       | `getDocument() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getDocument(java.lang.String)>`__
+       | `getField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getField(java.lang.String)>`__
+       | `getInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getInteger(java.lang.String)>`__
+       | `getMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getMap(java.lang.String)>`__
+       | `getNumber() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getNumber(java.lang.String)>`__
+       | `getString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getString(java.lang.String)>`__
      - :manual:`$getField </reference/operator/aggregation/getField/>`
-
-   * - `getInteger() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getInteger(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getMap() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getMap(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getNumber() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getNumber(java.lang.String)>`__
-     - *No corresponding operator*
-
-   * - `getString() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#getString(java.lang.String)>`__
-     - *No corresponding operator*
 
    * - `hasField() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDocument.html#hasField(java.lang.String)>`__
      - *No corresponding operator*
@@ -953,7 +938,7 @@ using the methods described in this section.
      - :manual:`$unsetField </reference/operator/aggregation/unsetField/MqlDocument.html#unsetField(java.lang.String)>`
 
 Suppose you have a collection of legacy customer data which includes
-addresses as nested documents in the ``mailing.address`` field. You want
+addresses as child documents under the ``mailing.address`` field. You want
 to find all the customers who currently live in Washington state. A
 document in this collection might resemble the following:
 
@@ -962,13 +947,13 @@ document in this collection might resemble the following:
 
    {
      "_id": ...,
-     "customer.name": "Elizabeth Ray",
+     "customer.name": "Mary Kenneth Keller",
      "mailing.address":
      {
-       "street": "9286 Bethany Glens",
+       "street": "601 Mongo Drive",
        "city": "Vasqueztown",
        "state": "CO",
-       "zip": 22939
+       "zip": 27017
      }
    }
 
@@ -1057,7 +1042,22 @@ Suppose you have a collection of inventory data where each document represents
 an individual item you're responsible for supplying. Each document contains a
 field that is a map of all your warehouses and how many copies they currently
 have in their inventory of the item. You want to determine the total number of
-copies of items you have across all of your warehouses.
+copies of items you have across all of your warehouses. A document in this
+collection might resemble the following:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+     "_id": ...,
+     "item": "notebook"
+     "warehouses": [
+       { "Atlanta", 50 },
+       { "Chicago", 0 },
+       { "Portland", 120 },
+       { "Dallas", 6 }
+     ]
+   }
 
 The ``entries()`` method returns the map entries in the ``warehouses``
 field as an array. The ``sum()`` method calculates the total value of items
