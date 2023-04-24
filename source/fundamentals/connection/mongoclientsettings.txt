@@ -71,6 +71,10 @@ connection behavior:
      - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the
        :ref:`connection pool settings <mcs-connectionpool-settings>`.
 
+   * - ``applyToLoggerSettings()``
+     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the
+       :ref:`logger settings <mcs-logger-settings>`.
+
    * - ``applyToServerSettings()``
      - Applies the ``ServerSettings.Builder`` block and then sets the
        :ref:`server settings <mcs-server-settings>`.
@@ -363,6 +367,43 @@ This example specifies the following driver behavior in a pool of
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ConnectionPoolSettings
    :end-before: end ConnectionPoolSettings
+   :language: java
+   :emphasize-lines: 3-5
+   :dedent:
+
+.. _mcs-logger-settings:
+
+Logger Settings
+---------------
+
+Chain the `applyToLoggerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToLoggerSettings(com.mongodb.Block)>`__
+method to modify the logging behavior of the driver.
+
+The following table describes all the methods you can chain to your
+settings to modify the driver's logger behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``maxDocumentLength()``
+     - Sets the maximum document length, in characters, of a single log
+       message. The default value is 1000 characters.
+
+Example
+~~~~~~~
+
+This example specifies the following logging driver behavior:
+
+- The maximum number of characters for a single log message is set to
+  ``5000`` characters.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
+   :start-after: begin ServerSettings
+   :end-before: end ServerSettings
    :language: java
    :emphasize-lines: 3-5
    :dedent:
