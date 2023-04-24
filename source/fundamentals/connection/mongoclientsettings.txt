@@ -291,60 +291,6 @@ regardless of the type of MongoDB cluster its' a part of:
 
 .. _mcs-socket-settings:
 
-Socket Settings
----------------
-
-Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
-method to modify the driver's behavior when connecting and communicating
-with your MongoDB server.
-
-The following table describes all the methods you can chain to your settings
-to modify the driver's behavior:
-
-.. list-table::
-   :widths: 40 60
-   :header-rows: 1
-
-   * - Method
-     - Description
-
-   * - ``applyConnectionString()``
-     - Uses the settings from a ``ConnectionString`` object.
-
-   * - ``applySettings()``
-     - Uses the socket settings specified in a ``SocketSettings`` object.
-
-   * - ``connectTimeout()``
-     - Sets the maximum time to connect to an available socket before throwing
-       a timeout exception.
-
-   * - ``readTimeout()``
-     - Sets the maximum time to read to an available socket before throwing a
-       timeout exception.
-
-   * - ``receiveBufferSize()``
-     - Sets the socket's buffer size when receiving.
-
-   * - ``sendBufferSize()``
-     - Sets the socket's buffer size when sending.
-
-Example
-~~~~~~~
-
-This example specifies the following driver behavior in a MongoDB socket:
-
-- To connect to an available socket within ``10 SECONDS``
-- To read from an available socket within ``15 SECONDS``
-
-.. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
-   :start-after: begin SocketSettings
-   :end-before: end SocketSettings
-   :language: java
-   :emphasize-lines: 3-5
-   :dedent:
-
-.. _mcs-connectionpool-settings:
-
 Connection Pool Settings
 ------------------------
 
@@ -475,6 +421,60 @@ This example specifies the following driver behavior in a MongoDB server:
    :dedent:
 
 .. _mcs-ssl-settings:
+
+Socket Settings
+---------------
+
+Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
+method to modify the driver's behavior when connecting and communicating
+with your MongoDB server.
+
+The following table describes all the methods you can chain to your settings
+to modify the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``applyConnectionString()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the socket settings specified in a ``SocketSettings`` object.
+
+   * - ``connectTimeout()``
+     - Sets the maximum time to connect to an available socket before throwing
+       a timeout exception.
+
+   * - ``readTimeout()``
+     - Sets the maximum time to read to an available socket before throwing a
+       timeout exception.
+
+   * - ``receiveBufferSize()``
+     - Sets the socket's buffer size when receiving.
+
+   * - ``sendBufferSize()``
+     - Sets the socket's buffer size when sending.
+
+Example
+~~~~~~~
+
+This example specifies the following driver behavior in a MongoDB socket:
+
+- To connect to an available socket within ``10 SECONDS``
+- To read from an available socket within ``15 SECONDS``
+
+.. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
+   :start-after: begin SocketSettings
+   :end-before: end SocketSettings
+   :language: java
+   :emphasize-lines: 3-5
+   :dedent:
+
+.. _mcs-connectionpool-settings:
 
 TLS/SSL Settings
 ----------------
