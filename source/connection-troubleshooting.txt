@@ -12,16 +12,20 @@ Connection Troubleshooting Guide
    :depth: 2
    :class: singlecol
 
-This page examines common issues and offers potential solutions if you have
-trouble connecting to a MongoDB instance or replica set using the
-{+driver-long+}. This page only lists connection issues. If you are
-having any other issues with MongoDB, consider the following resources:
+This page offers potential solutions to issues you might see when
+connecting to a MongoDB instance or replica set while using the
+{+driver-long+}.
 
-- The :ref:`Frequently Asked Questions (FAQ) <java-faq>` for the Java driver
-- The :ref:`Issues & Help <java-issues-and-help>` topic for information about
-  reporting bugs, contributing to the driver, and additional resources
-- The `MongoDB Community Forums <https://community.mongodb.com>`__ for questions,
-  discussions, or general technical support
+.. note::
+
+   This page lists only connection issues. If you are having any other issues
+   with MongoDB, consider the following resources:
+
+   - The :ref:`Frequently Asked Questions (FAQ) <java-faq>` for the Java driver
+   - The :ref:`Issues & Help <java-issues-and-help>` topic for information about
+     reporting bugs, contributing to the driver, and additional resources
+   - The `MongoDB Community Forums <https://community.mongodb.com>`__ for
+     questions, discussions, or general technical support
 
 Connection Error
 ~~~~~~~~~~~~~~~~
@@ -34,7 +38,17 @@ cannot connect to a server on the specified hostname or port:
 
    Error: couldn't connect to server 127.0.0.1:27017
 
-If you receive this error, try the following methods to resolve this issue.
+If you receive this error, try the following methods to resolve the issue.
+
+.. _java-connection-string-port:
+
+Check Connection String
+-----------------------
+
+Verify that the hostname and port number in the connection string are both
+accurate. In the sample error message, the hostname is ``127.0.0.1`` and the
+port is ``27017``. The default port value for a MongoDB instance is
+``27017``, but you can configure MongoDB to communicate on another port.
 
 .. _java-connection-firewall:
 
@@ -42,23 +56,20 @@ Configure Firewall
 ------------------
 
 Assuming that your MongoDB deployment uses the default port, verify that your
-firewall has port ``27017`` open. This is the default port used by MongoDB.
+firewall has port ``27017`` open. This is the default port used by MongoDB. If
+your deployment is using a different port, verify that port is open in your
+firewall.
 
-.. _java-connection-string-port:
+.. important::
 
-Check Connection String
------------------------
-
-Verify the hostname and port number in the connection string are both
-accurate. In the sample error message, the hostname is ``127.0.0.1`` and the
-port is ``27017``. The default port value for a MongoDB instance is
-``27017``, but you can configure MongoDB to communicate on another port.
+   Do not open ports in your firewall unless you are sure that is the port used
+   by your MongoDB instance.
 
 Authentication Error
 ~~~~~~~~~~~~~~~~~~~~
 
-When attempting to connect to a MongoDB instance, the connection can fail if
-the authorization is not correctly configured. This often results in an error
+The {+driver-short+} can fail to connect to a MongoDB instance if
+the authorization is not configured correctly. This often results in an error
 message similar to the following:
 
 .. code-block:: none
@@ -66,7 +77,7 @@ message similar to the following:
 
    Command failed with error 18 (AuthenticationFailed): 'Authentication failed.' on server localhost:27017.
 
-If you receive this error, try the following methods to resolve this issue.
+If you receive this error, try the following methods to resolve the issue.
 
 .. _java-connection-string-auth:
 
@@ -74,23 +85,25 @@ Check Connection String
 -----------------------
 
 The most common issue when attempting to connect to MongoDB is an invalid
-connection string. For more information about using connection
-strings with the Java driver, see :ref:`Connection URI <connection-uri>` in the
-Connection Guide.
-
-If your MongoDB deployment requires authentication, your connection string
-might require including a username and password.
+connection string.
 
 .. note::
 
-   If the username or password includes the following characters:
+   For more information about using connection strings with the Java driver,
+   see :ref:`Connection URI <connection-uri>` in the Connection Guide.
+
+If your connection string contains a username and password, ensure that they
+are in the correct format.
+
+.. note::
+
+   If the username or password includes any of the following characters, they
+   must be `percent encoded <https://tools.ietf.org/html/rfc3986#section-2.1>`__:
 
    .. code-block:: none
 
       : / ? # [ ] @
 
-   those characters must be converted using `percent encoding
-   <https://tools.ietf.org/html/rfc3986#section-2.1>`__.
 
 If your MongoDB deployment is on MongoDB Atlas, you can check your connection
 string by using the :ref:`Connect to MongoDB Atlas <connect-atlas-java-driver>`
@@ -103,54 +116,53 @@ connection if one of the hosts is unreachable.
 
 .. _java-connection-admin:
 
-Verify User is in ``admin`` Database
-------------------------------------
+Verify User Is in Authentication Database
+-----------------------------------------
 
-When connecting with authentication, you need to specify the username and
-password when attempting to connect to the MongoDB deployment. If you have
-verified that the connection string is accurate, your user might not be defined
-in the ``admin`` database.
+To successfully authenticate a connection by using a username and password,
+the username must be defined in the authentication database. The default
+authentication database is the ``admin`` database. To use a different database
+for authentication, specify the ``authSource`` in the connection string. The
+following example instructs the driver to use ``users`` as the authentication
+database:
 
-You can create users for each database in your collection. By default,
-MongoDB uses the ``admin`` database for authentication. If your user is defined
-in a different database, the driver will return an error when attempting to
-connect.
+.. code-block:: java
+   :copyable: false
 
-You could also change the ``authSource`` in the connection string to point to
-the database where the user is defined.
+   MongoClient mongoClient = MongoClients.create("mongodb://<username>:<password>@<hostname>:<port>/?authSource=users");
 
 Error Sending Message
 ~~~~~~~~~~~~~~~~~~~~~
 
-When the driver is unable to send a message, it often responds with the
-following general error message:
+When you end a request through the driver and it is unable to send the command,
+it often displays the following general error message:
 
 .. code-block:: none
    :copyable: false
 
    com.mongodb.MongoSocketWriteException: Exception sending message
 
-If you receive this error, try the following methods to resolve this issue.
+If you receive this error, try the following methods to resolve the issue.
 
 Check Connection String
 -----------------------
 
-One of the first things to check is to verify that the connection string in
+Verify that the connection string in
 your app is accurate. This is described under :ref:`Connection Error <java-connection-string-port>`
 and :ref:`Authentication Error <java-connection-string-auth>`.
 
-Verify User is in ``admin`` Database
-------------------------------------
+Verify User Is in Authentication Database
+-----------------------------------------
 
-The user you are using to send the message needs to be recognized in your
+The user needs to be recognized in your
 authentication database. This is described under :ref:`Authentication
 Error <java-connection-admin>.
 
 Configure Firewall
 ------------------
 
-The firewall needs to be open to receiving messages. This is described under
-:ref:`Connection Error <java-connection-firewall>`.
+The firewall needs to have an open port for communicating with the MongoDB
+instance. This is described under :ref:`Connection Error <java-connection-firewall>`.
 
 .. _java-connection-number-connections:
 
@@ -158,20 +170,20 @@ Check the Number of Connections
 -------------------------------
 
 Each ``MongoClient`` instance supports a maximum number of concurrent open
-connections in its connection pool. This is defined by the ``maxPoolSize``
-configuration parameter. By default, this is set to ``100``. If there are already a
-number of open connections equal to ``maxPoolSize``, the server will wait until
+connections in its connection pool. The configuration parameter ``maxPoolSize``
+defines this value and is set to ``100`` by default. If there are already a
+number of open connections equal to ``maxPoolSize``, the server waits until
 a connection becomes available. If this wait time exceeds the ``maxIdleTimeMS``
-value, the driver will respond with an error.
+value, the driver responds with an error.
 
 .. _java-connection-certificate:
 
 Install Certificate
 -------------------
 
-If you are using Java version 8 or earlier, you may need to manually add a
-certificate to your trust store. Either use a more recent version of the JDK
-or see our `Security FAQ
+If you are using Java version 8 or earlier, you might need to manually add a
+certificate to your trust store. You can either upgrade to a later version of
+the JDK or see our `Security FAQ
 <https://www.mongodb.com/docs/atlas/reference/faq/security/#java-users>`__ for
 information about how to add the certificate.
 
@@ -192,17 +204,16 @@ similar to one of the following error messages:
 
    No server chosen by ReadPreferenceServerSelector{readPreference=primary} from cluster description
 
-If you receive one of these errors, try the following methods to resolve this
+If you receive one of these errors, try the following methods to resolve the
 issue.
 
 Set ``maxConnectionTimeoutMS``
 ------------------------------
 
-Try setting the value of ``maxConnectionTimeoutMS``. This
-option indicates the amount of time the Java driver waits for a connection
-before timing out. By default, the value is 10000. You can increase this value
+The ``maxConnectionTimeoutMS`` option indicates the amount of time the Java
+driver waits for a connection
+before timing out. The default value is ``10000``. You can increase this value
 or set it to ``0`` if you want the driver to never timeout.
-
 
 Set ``maxConnectionLifeTime`` and ``maxConnectionIdleTime``
 -----------------------------------------------------------
