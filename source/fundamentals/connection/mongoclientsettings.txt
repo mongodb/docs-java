@@ -293,7 +293,8 @@ regardless of the type of MongoDB cluster its' a part of:
    in your connection URI. See :ref:`<connection-options>` for more
    information.
 
-.. _mcs-socket-settings:
+.. _mcs-connectionpool-settings:
+
 
 Connection Pool Settings
 ------------------------
@@ -379,7 +380,7 @@ Logger Settings
 Chain the `applyToLoggerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToLoggerSettings(com.mongodb.Block)>`__
 method to modify the logging behavior of the driver.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's logger behavior:
 
 .. list-table::
@@ -391,15 +392,13 @@ settings to modify the driver's logger behavior:
 
    * - ``maxDocumentLength()``
      - Sets the maximum document length, in characters, of a single log
-       message. The default value is 1000 characters.
+       message.
 
 Example
 ~~~~~~~
 
-This example specifies the following logging driver behavior:
-
-- The maximum number of characters for a single log message is set to
-  ``5000`` characters.
+This example specifies that the maximum number of characters for a single log
+message is set to ``5000`` characters.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin LoggerSettings
@@ -461,7 +460,7 @@ This example specifies the following driver behavior in a MongoDB server:
    :emphasize-lines: 3-5
    :dedent:
 
-.. _mcs-ssl-settings:
+.. _mcs-socket-settings:
 
 Socket Settings
 ---------------
@@ -515,7 +514,7 @@ This example specifies the following driver behavior in a MongoDB socket:
    :emphasize-lines: 3-5
    :dedent:
 
-.. _mcs-connectionpool-settings:
+.. _mcs-ssl-settings:
 
 TLS/SSL Settings
 ----------------
