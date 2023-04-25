@@ -141,7 +141,7 @@ public class MCSettings {
             MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
                 .applyToLoggerSettings(builder ->
-                     builder.maxDocumentLength(5000))
+                     builder.maxDocumentLength(5_000))
                 .build());
             //end LoggerSettings
             mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));

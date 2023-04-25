@@ -42,7 +42,7 @@ To create a ``MongoClientSettings`` object, use the
 settings. After chaining them, use the ``build()`` method to create the
 ``MongoClientSettings`` object.
 
-The following table describes all the methods you can chain to modify your
+The following table describes the methods you can chain to modify your
 connection behavior:
 
 .. list-table::
@@ -72,7 +72,7 @@ connection behavior:
        :ref:`connection pool settings <mcs-connectionpool-settings>`.
 
    * - ``applyToLoggerSettings()``
-     - Applies the ``LoggerPoolSettings.Builder`` block and then sets the
+     - Applies the ``LoggerSettings.Builder`` block and then sets the
        :ref:`logger settings <mcs-logger-settings>`.
 
    * - ``applyToServerSettings()``
@@ -205,7 +205,7 @@ Chain the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mon
 method to modify the driver's behavior when interacting with your
 MongoDB cluster.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
@@ -301,7 +301,7 @@ Connection Pool Settings
 Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
 method to modify the way the driver manages its connection pool.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
@@ -380,7 +380,7 @@ Chain the `applyToLoggerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mong
 method to modify the logging behavior of the driver.
 
 The following table describes the methods you can chain to your
-settings to modify the driver's logger behavior:
+settings to modify the logging behavior:
 
 .. list-table::
    :widths: 40 60
@@ -415,7 +415,7 @@ Chain the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mong
 method to modify the driver's behavior when monitoring each MongoDB
 server.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
@@ -468,7 +468,7 @@ Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mong
 method to modify the driver's behavior when connecting and communicating
 with your MongoDB server.
 
-The following table describes all the methods you can chain to your settings
+The following table describes the methods you can chain to your settings
 to modify the driver's behavior:
 
 .. list-table::
@@ -522,7 +522,7 @@ Chain the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb
 method to modify the driver's behavior when using TLS/SSL to secure a
 connection between your application and MongoDB.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
