@@ -64,9 +64,13 @@ longest books. It first matches all the documents with the query, then sorts on 
 books with shorter lengths. Lastly, it limits the return value to ``3`` documents:
 
 .. code-block:: java
-   :emphasize-lines: 6
+   :emphasize-lines: 9
 
-   import com.mongodb.client.model.Sorts;
+   import com.mongodb.client.*;
+   import org.bson.Document;
+   import static com.mongodb.client.model.Sorts.descending;
+
+   // ...
 
    // define a cursor that will return the first 3 sorted items
    MongoCursor<Document> cursor = collection.find()
@@ -116,7 +120,7 @@ how many documents the find operation returns:
    :emphasize-lines: 3, 4
 
    MongoCursor<Document> cursor = collection.find()
-       .sort(ascending("length"))
+       .sort(descending("length"))
        .limit(3)
        .skip(3)
        .iterator();
