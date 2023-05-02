@@ -347,7 +347,7 @@ settings to modify the driver's behavior:
        closed.
 
    * - ``maxSize()``
-     - | Sets the maximum amount of connections associated with a connection
+     - | Sets the maximum number of connections associated with a connection
        | pool.
        |
        | **Default**: ``100``
@@ -358,7 +358,7 @@ settings to modify the driver's behavior:
        | **Default**: ``2 minutes``
 
    * - ``minSize()``
-     - | Sets the minimum amount of connections associated with a connection
+     - | Sets the minimum number of connections associated with a connection
        | pool.
        |
        | **Default**: ``0``
@@ -515,10 +515,10 @@ to modify the driver's behavior:
        | **Default**: ``10 seconds``
 
    * - ``readTimeout()``
-     - | Sets the maximum time to read to an available socket before throwing a
+     - | Sets the maximum time to read from an available socket before throwing a
        | timeout exception.
        |
-       | **Default**: ``0``
+       | **Default**: ``0 seconds``
 
    * - ``receiveBufferSize()``
      - | Sets the socket's buffer size when receiving.
