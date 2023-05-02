@@ -118,19 +118,19 @@ connection behavior:
    * - ``readPreference()``
      - | Sets the :manual:`read preference </core/read-preference/>`.
        |
-       | Default: ``primary``
+       | **Default**: ``primary``
 
    * - ``retryReads()``
      - | Whether the driver should :manual:`retry reads </core/retryable-reads/>`
        | if a network error occurs.
        |
-       | Default: ``true``
+       | **Default**: ``true``
 
    * - ``retryWrites()``
      - | Whether the driver should :manual:`retry writes </core/retryable-writes/>`
        | if a network error occurs.
        |
-       | Default: ``true``
+       | **Default**: ``true``
 
    * - ``serverApi()``
      - Sets the :ref:`server API <stable-api-java>` to use when sending
@@ -146,7 +146,7 @@ connection behavior:
    * - ``writeConcern()``
      - | Sets the :manual:`write concern </reference/write-concern/>`.
        |
-       | Default: ``"majority"``
+       | **Default**: ``"majority"``
 
 .. _connection-string-example:
 
@@ -239,7 +239,7 @@ settings to modify the driver's behavior:
      - | Sets the amount of time that a server’s round trip can take and still
        | be eligible for server selection.
        |
-       | Default: ``15 milliseconds``
+       | **Default**: ``15 milliseconds``
 
    * - ``mode()``
      - Sets how to connect to a MongoDB server.
@@ -254,7 +254,7 @@ settings to modify the driver's behavior:
      - | Sets the maximum time to select a primary node before throwing a
        | timeout exception.
        |
-       | Default: ``30 seconds``
+       | **Default**: ``30 seconds``
 
    * - ``serverSelector()``
      - Adds a server selector to apply before server selection.
@@ -350,18 +350,18 @@ settings to modify the driver's behavior:
      - | Sets the maximum amount of connections associated with a connection
        | pool.
        |
-       | Default: ``100``
+       | **Default**: ``100``
 
    * - ``maxWaitTime()``
      - | Sets the maximum time to wait for an available connection.
        |
-       | Default: ``2 minutes``
+       | **Default**: ``2 minutes``
 
    * - ``minSize()``
      - | Sets the minimum amount of connections associated with a connection
        | pool.
        |
-       | Default: ``0``
+       | **Default**: ``0``
 
 
 .. note::
@@ -411,7 +411,7 @@ settings to modify the logging behavior:
      - | Sets the maximum document length, in characters, of a single log
        | message.
        |
-       | Default: ``1000``
+       | **Default**: ``1000``
 
 Example
 ~~~~~~~
@@ -460,12 +460,12 @@ settings to modify the driver's behavior:
    * - ``heartbeatFrequency()``
      - | Sets the interval for a cluster monitor to attempt reaching a server.
        |
-       | Default: ``10 seconds``
+       | **Default**: ``10 seconds``
 
    * - ``minHeartbeatFrequency()``
      - | Sets the minimum interval for server monitoring checks.
        |
-       | Default: ``500 milliseconds``
+       | **Default**: ``500 milliseconds``
 
 Example
 ~~~~~~~
@@ -512,23 +512,23 @@ to modify the driver's behavior:
      - | Sets the maximum time to connect to an available socket before throwing
        | a timeout exception.
        |
-       | Default: ``10 seconds``
+       | **Default**: ``10 seconds``
 
    * - ``readTimeout()``
      - | Sets the maximum time to read to an available socket before throwing a
        | timeout exception.
        |
-       | Default: ``0``
+       | **Default**: ``0``
 
    * - ``receiveBufferSize()``
      - | Sets the socket's buffer size when receiving.
        |
-       | Default: The operating system default
+       | **Default**: The operating system default
 
    * - ``sendBufferSize()``
      - | Sets the socket's buffer size when sending.
        |
-       | Default: The operating system default
+       | **Default**: The operating system default
 
 Example
 ~~~~~~~
