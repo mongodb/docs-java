@@ -220,8 +220,8 @@ settings to modify the driver's behavior:
    * - ``applySettings()``
      - Uses the cluster settings specified in a ``ClusterSettings`` object.
 
-   * - ``hosts​()``
-     - Sets all the specified locations of a Mongo server.
+   * - ``hosts()``
+     - Sets all the specified locations of a Mongo deployment.
 
    * - ``localThreshold()``
      - | Sets the amount of time that a server’s round trip can take and still
@@ -229,8 +229,13 @@ settings to modify the driver's behavior:
        |
        | **Default**: ``15 milliseconds``
 
+<<<<<<< HEAD
    * - ``mode​()``
      - Sets how to connect to a MongoDB server.
+=======
+   * - ``mode()``
+     - Sets how to connect to a MongoDB deployment.
+>>>>>>> a460fec (DOCSP-26498 - Standardize MongoDB Server Naming (#399))
 
    * - ``requiredClusterType()``
      - Sets the type of cluster required for the cluster.
@@ -377,7 +382,7 @@ Server Settings
 
 Chain the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
 method to modify the driver's behavior when monitoring each MongoDB
-server.
+deployment.
 
 The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
@@ -414,7 +419,7 @@ settings to modify the driver's behavior:
 Example
 ~~~~~~~
 
-This example specifies the following driver behavior in a MongoDB server:
+This example specifies the following driver behavior in a MongoDB deployment:
 
 - The minimum interval for server monitoring checks to be at least
   ``700 MILLISECONDS``
@@ -434,7 +439,7 @@ Socket Settings
 
 Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
 method to modify the driver's behavior when connecting and communicating
-with your MongoDB server.
+with your MongoDB deployment.
 
 The following table describes all the methods you can chain to your settings
 to modify the driver's behavior:
