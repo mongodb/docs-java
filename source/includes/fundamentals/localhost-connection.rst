@@ -3,10 +3,10 @@ purposes instead of using an Atlas cluster, you need to complete the following:
 
 1. Download the `Community <https://www.mongodb.com/try/download/community>`__
    or `Enterprise <https://www.mongodb.com/try/download/enterprise>`__ version
-   of MongoDB Server.
+   of {+mdb-server+}.
 
 #. :ref:`Install and configure <tutorials-installation>`
-   MongoDB Server.
+   {+mdb-server+}.
 
 #. Start the deployment.
 
