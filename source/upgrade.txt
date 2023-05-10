@@ -132,6 +132,12 @@ Version 4.0 Breaking Changes
   UUID values must explicitly specify which representation to use. You can
   specify the representation in the ``uuidRepresentation`` property of
   ``MongoClientSettings``.
+
+  The UUID representation that you specify strictly controls how the driver
+  decodes UUIDs. For example, if you specify any of the ``LEGACY`` UUID
+  representations, the driver decodes only binary objects of subtype 3
+  as UUIDs. If you specify the ``STANDARD`` UUID representation, the
+  driver decodes only binary objects of subtype 4 as UUIDs.
 - The connection pool no longer restricts the number of wait queue threads
   or asynchronous tasks that require a connection to MongoDB. The
   application should throttle requests as necessary rather than depend on
