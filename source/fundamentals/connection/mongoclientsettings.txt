@@ -42,7 +42,7 @@ To create a ``MongoClientSettings`` object, use the
 settings. After chaining them, use the ``build()`` method to create the
 ``MongoClientSettings`` object.
 
-The following table describes all the methods you can chain to modify your
+The following table describes the methods you can chain to modify your
 connection behavior:
 
 .. list-table::
@@ -71,6 +71,10 @@ connection behavior:
      - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the
        :ref:`connection pool settings <mcs-connectionpool-settings>`.
 
+   * - ``applyToLoggerSettings()``
+     - Applies the ``LoggerSettings.Builder`` block and then sets the
+       :ref:`logger settings <mcs-logger-settings>`.
+
    * - ``applyToServerSettings()``
      - Applies the ``ServerSettings.Builder`` block and then sets the
        :ref:`server settings <mcs-server-settings>`.
@@ -87,13 +91,13 @@ connection behavior:
      - | Sets the :ref:`auto-encryption settings <csfle-fundamentals-automatic-encryption>`.
        |
        | If you omit ``keyVaultClient`` or set
-       | ``bypassAutomaticEncryption`` to false in your
-       | ``AutoEncryptionSettings``, the driver creates a separate,
-       | internal ``MongoClient``.
+         ``bypassAutomaticEncryption`` to false in your
+         ``AutoEncryptionSettings``, the driver creates a separate,
+         internal ``MongoClient``.
        |
        | The internal ``MongoClient`` configuration differs from the
-       | parent ``MongoClient`` by setting the ``minPoolSize`` to  0 and
-       | omitting the ``AutoEncryptionSettings``.
+         parent ``MongoClient`` by setting the ``minPoolSize`` to  0 and
+         omitting the ``AutoEncryptionSettings``.
 
    * - ``codecRegistry()``
      - Sets the :ref:`codec registry <codecs-codecregistry>`.
@@ -112,15 +116,21 @@ connection behavior:
      - Sets the :manual:`read concern </reference/read-concern/>`.
 
    * - ``readPreference()``
-     - Sets the :manual:`read preference </core/read-preference/>`.
+     - | Sets the :manual:`read preference </core/read-preference/>`.
+       |
+       | **Default**: ``primary``
 
    * - ``retryReads()``
-     - Whether the driver should :manual:`retry reads </core/retryable-reads/>`
-       if a network error occurs.
+     - | Whether the driver should :manual:`retry reads </core/retryable-reads/>`
+         if a network error occurs.
+       |
+       | **Default**: ``true``
 
    * - ``retryWrites()``
-     - Whether the driver should :manual:`retry writes </core/retryable-writes/>`
-       if a network error occurs.
+     - | Whether the driver should :manual:`retry writes </core/retryable-writes/>`
+         if a network error occurs.
+       |
+       | **Default**: ``true``
 
    * - ``serverApi()``
      - Sets the :ref:`server API <stable-api-java>` to use when sending
@@ -134,7 +144,10 @@ connection behavior:
        and decoding BSON binary values with subtype of 3.
 
    * - ``writeConcern()``
-     - Sets the :manual:`write concern </reference/write-concern/>`.
+     - | Sets the :manual:`write concern </reference/write-concern/>`.
+       |
+       | **Default**: ``WriteConcern#ACKNOWLEDGED``. For more information about
+         the default value, see :manual:`Implicit Default Write Concern </reference/write-concern/#implicit-default-write-concern>`.
 
 .. _connection-string-example:
 
@@ -201,7 +214,7 @@ Chain the `applyToClusterSettings() <{+api+}/apidocs/mongodb-driver-core/com/mon
 method to modify the driver's behavior when interacting with your
 MongoDB cluster.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
@@ -221,14 +234,16 @@ settings to modify the driver's behavior:
      - Uses the cluster settings specified in a ``ClusterSettings`` object.
 
    * - ``hosts()``
-     - Sets all the specified locations of a Mongo server.
+     - Sets all the specified locations of a Mongo deployment.
 
    * - ``localThreshold()``
-     - Sets the amount of time that a server’s round trip can take and still
-       be eligible for server selection.
+     - | Sets the amount of time that a server’s round trip can take and still
+         be eligible for server selection.
+       |
+       | **Default**: ``15 milliseconds``
 
    * - ``mode()``
-     - Sets how to connect to a MongoDB server.
+     - Sets how to connect to a MongoDB deployment.
 
    * - ``requiredClusterType()``
      - Sets the type of cluster required for the cluster.
@@ -237,8 +252,10 @@ settings to modify the driver's behavior:
      - Sets the replica set name required for the cluster.
 
    * - ``serverSelectionTimeout()``
-     - Sets the maximum time to select a primary node before throwing a
-       timeout exception.
+     - | Sets the maximum time to select a primary node before throwing a
+         timeout exception.
+       |
+       | **Default**: ``30 seconds``
 
    * - ``serverSelector()``
      - Adds a server selector to apply before server selection.
@@ -274,7 +291,7 @@ Example
 ~~~~~~~
 
 This example specifies for the driver to connect directly to a server,
-regardless of the type of MongoDB cluster its' a part of:
+regardless of the type of MongoDB cluster it's a part of:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ClusterSettings
@@ -289,60 +306,6 @@ regardless of the type of MongoDB cluster its' a part of:
    in your connection URI. See :ref:`<connection-options>` for more
    information.
 
-.. _mcs-socket-settings:
-
-Socket Settings
----------------
-
-Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
-method to modify the driver's behavior when connecting and communicating
-with your MongoDB server.
-
-The following table describes all the methods you can chain to your settings
-to modify the driver's behavior:
-
-.. list-table::
-   :widths: 40 60
-   :header-rows: 1
-
-   * - Method
-     - Description
-
-   * - ``applyConnectionString()``
-     - Uses the settings from a ``ConnectionString`` object.
-
-   * - ``applySettings()``
-     - Uses the socket settings specified in a ``SocketSettings`` object.
-
-   * - ``connectTimeout()``
-     - Sets the maximum time to connect to an available socket before throwing
-       a timeout exception.
-
-   * - ``readTimeout()``
-     - Sets the maximum time to read to an available socket before throwing a
-       timeout exception.
-
-   * - ``receiveBufferSize()``
-     - Sets the socket's buffer size when receiving.
-
-   * - ``sendBufferSize()``
-     - Sets the socket's buffer size when sending.
-
-Example
-~~~~~~~
-
-This example specifies the following driver behavior in a MongoDB socket:
-
-- To connect to an available socket within ``10 SECONDS``
-- To read from an available socket within ``15 SECONDS``
-
-.. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
-   :start-after: begin SocketSettings
-   :end-before: end SocketSettings
-   :language: java
-   :emphasize-lines: 3-5
-   :dedent:
-
 .. _mcs-connectionpool-settings:
 
 Connection Pool Settings
@@ -351,7 +314,7 @@ Connection Pool Settings
 Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
 method to modify the way the driver manages its connection pool.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
@@ -384,16 +347,22 @@ settings to modify the driver's behavior:
      - Sets the maximum time a pooled connection can be alive before it's
        closed.
 
-   * - ``maxWaitTime()``
-     - Sets the maximum time to wait for an available connection.
-
    * - ``maxSize()``
-     - Sets the maximum amount of connections associated with a connection
-       pool.
+     - | Sets the maximum number of connections associated with a connection
+         pool.
+       |
+       | **Default**: ``100``
+
+   * - ``maxWaitTime()``
+     - | Sets the maximum time to wait for an available connection.
+       |
+       | **Default**: ``2 minutes``
 
    * - ``minSize()``
-     - Sets the minimum amount of connections associated with a connection
-       pool.
+     - | Sets the minimum number of connections associated with a connection
+         pool.
+       |
+       | **Default**: ``0``
 
 
 .. note::
@@ -421,6 +390,43 @@ This example specifies the following driver behavior in a pool of
    :emphasize-lines: 3-5
    :dedent:
 
+.. _mcs-logger-settings:
+
+Logger Settings
+---------------
+
+Chain the `applyToLoggerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToLoggerSettings(com.mongodb.Block)>`__
+method to modify the logging behavior of the driver.
+
+The following table describes the methods you can chain to your
+settings to modify the logging behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``maxDocumentLength()``
+     - | Sets the maximum document length, in characters, of a single log
+         message.
+       |
+       | **Default**: ``1000``
+
+Example
+~~~~~~~
+
+This example specifies that the maximum number of characters for a single log
+message is set to ``5000`` characters.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
+   :start-after: begin LoggerSettings
+   :end-before: end LoggerSettings
+   :language: java
+   :emphasize-lines: 3-4
+   :dedent:
+
 .. _mcs-server-settings:
 
 Server Settings
@@ -428,9 +434,9 @@ Server Settings
 
 Chain the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
 method to modify the driver's behavior when monitoring each MongoDB
-server.
+deployment.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::
@@ -453,15 +459,19 @@ settings to modify the driver's behavior:
      - Uses the server settings specified in a ``ServerSettings`` object.
 
    * - ``heartbeatFrequency()``
-     - Sets the interval for a cluster monitor to attempt reaching a server.
+     - | Sets the interval for a cluster monitor to attempt reaching a server.
+       |
+       | **Default**: ``10 seconds``
 
    * - ``minHeartbeatFrequency()``
-     - Sets the minimum interval for server monitoring checks.
+     - | Sets the minimum interval for server monitoring checks.
+       |
+       | **Default**: ``500 milliseconds``
 
 Example
 ~~~~~~~
 
-This example specifies the following driver behavior in a MongoDB server:
+This example specifies the following driver behavior in a MongoDB deployment:
 
 - The minimum interval for server monitoring checks to be at least
   ``700 MILLISECONDS``
@@ -470,6 +480,68 @@ This example specifies the following driver behavior in a MongoDB server:
 .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
    :start-after: begin ServerSettings
    :end-before: end ServerSettings
+   :language: java
+   :emphasize-lines: 3-5
+   :dedent:
+
+.. _mcs-socket-settings:
+
+Socket Settings
+---------------
+
+Chain the `applyToSocketSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSocketSettings(com.mongodb.Block)>`__
+method to modify the driver's behavior when connecting and communicating
+with your MongoDB deployment.
+
+The following table describes the methods you can chain to your settings
+to modify the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``applyConnectionString()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the socket settings specified in a ``SocketSettings`` object.
+
+   * - ``connectTimeout()``
+     - | Sets the maximum time to connect to an available socket before throwing
+         a timeout exception.
+       |
+       | **Default**: ``10 seconds``
+
+   * - ``readTimeout()``
+     - | Sets the maximum time to read from an available socket before throwing a
+         timeout exception.
+       |
+       | **Default**: ``0``, which indicates no timeout
+
+   * - ``receiveBufferSize()``
+     - | Sets the socket's buffer size when receiving.
+       |
+       | **Default**: The operating system default
+
+   * - ``sendBufferSize()``
+     - | Sets the socket's buffer size when sending.
+       |
+       | **Default**: The operating system default
+
+Example
+~~~~~~~
+
+This example specifies the following driver behavior in a MongoDB socket:
+
+- To connect to an available socket within ``10 SECONDS``
+- To read from an available socket within ``15 SECONDS``
+
+.. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
+   :start-after: begin SocketSettings
+   :end-before: end SocketSettings
    :language: java
    :emphasize-lines: 3-5
    :dedent:
@@ -483,7 +555,7 @@ Chain the `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb
 method to modify the driver's behavior when using TLS/SSL to secure a
 connection between your application and MongoDB.
 
-The following table describes all the methods you can chain to your
+The following table describes the methods you can chain to your
 settings to modify the driver's behavior:
 
 .. list-table::

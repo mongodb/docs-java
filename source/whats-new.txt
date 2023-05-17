@@ -1,3 +1,5 @@
+.. _java-whats-new:
+
 ==========
 What's New
 ==========
@@ -18,6 +20,7 @@ Learn what's new in:
 * :ref:`Version 4.7.1 <version-4.7.1>`
 * :ref:`Version 4.7.0 <version-4.7.0>`
 * :ref:`Version 4.6 <version-4.6>`
+* :ref:`Version 4.5.1 <version-4.5.1>`
 * :ref:`Version 4.5 <version-4.5>`
 * :ref:`Version 4.4 <version-4.4>`
 * :ref:`Version 4.3 <version-4.3>`
@@ -34,6 +37,7 @@ Upcoming Breaking Changes
   and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
   are deprecated in MongoDB v4.2 and later. They will be replaced by the
   aggregation framework and removed in a future release.
+- Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
 
 .. _version-4.9:
 
@@ -60,7 +64,7 @@ What's New in 4.8
 
 .. warning:: Breaking Changes in v4.8
 
-   The v4.8 driver contains breaking changes. See :ref:`<java-breaking-changes-v4.8>` 
+   The v4.8 driver contains breaking changes. See :ref:`<java-breaking-changes-v4.8>`
    and :ref:`<java-server-release-change-v4.8>` for more information.
 
 .. important:: Deprecation Notice
@@ -203,6 +207,16 @@ New features of the 4.6 Java driver release include:
   for more information.
 
 .. _version-4.5:
+.. _version-4.5.1:
+
+What's New in 4.5.1
+-------------------
+
+If the DNS server returns an NXDomain error,
+indicating a non-existent domain, the 4.5.1
+driver no longer throws an exception.
+
+.. _version-4.5.0:
 
 What's New in 4.5
 -----------------
@@ -323,7 +337,8 @@ What's New in 4.2
 New features of the 4.2 Java driver release include:
 
 - Added Azure and GCP key stores to client-side field level encryption
-- Added Kerberos caching tickets for reuse in multiple authentication requests- Added `MongoClients <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html>`_ instances with ``MongoClientSettings`` or ``ConnectionString`` as the configuration
+- Added Kerberos caching tickets for reuse in multiple authentication requests
+- Added `MongoClients <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html>`_ instances with ``MongoClientSettings`` or ``ConnectionString`` as the configuration
 - Use of the ``explain()`` method on `find <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#explain()>`_ and `aggregate <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-sync/com/mongodb/client/AggregateIterable.html#explain()>`_ commands
 - Added a `JsonObject <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/bson/org/bson/json/JsonObject.html>`_ class to make encoding from and decoding to JSON more efficient by avoiding an intermediate Map representation
 - Added a `BsonRepresentation <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/bson/org/bson/codecs/pojo/annotations/BsonRepresentation.html>`_ annotation that allows you to represent the ``ObjectId`` BSON values as a ``String`` in `POJO <https://en.wikipedia.org/wiki/Plain_old_Java_object>`_ classes

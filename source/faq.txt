@@ -1,3 +1,5 @@
+.. _java-faq:
+
 ===
 FAQ
 ===
@@ -12,6 +14,13 @@ FAQ
 
 General
 -------
+
+What if I can't connect to a MongoDB instance?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have trouble connecting to a MongoDB deployment, see
+the :ref:`Connection Troubleshooting Guide <java-connection-troubleshooting>`
+for possible solutions.
 
 Why are there two types of ``MongoClient`` in the Java driver?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,20 +70,6 @@ tasks with the ``MongoClientSettings`` class:
 For more information on the ``MongoClientSettings`` class, see the
 `API Documentation for MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__.
 
-How do I fix: "javax.net.ssl.SSLHandshakeException: extension (5) should not be presented in certificate_request"?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is a `known error
-<https://bugs.openjdk.java.net/browse/JDK-8236039>`__ that can occur
-when using the TLS 1.3 protocol with specific versions of the JDK. If
-you encounter this error when connecting to your MongoDB instance or
-cluster, update your JDK to one of the following patch versions or
-newer:
-
-- JDK 11.0.7
-- JDK 13.0.3
-- JDK 14.0.2
-
 .. _java-faq-connection-pool:
 
 How Does Connection Pooling Work in the Java Driver?
@@ -82,7 +77,7 @@ How Does Connection Pooling Work in the Java Driver?
 
 Every ``MongoClient`` instance has a built-in connection pool for each server
 in your MongoDB topology. Connection pools open sockets on demand to
-support concurrent MongoDB operations in your multi-threaded application.
+support concurrent MongoDB operations in your multithreaded application.
 
 The maximum size of each connection pool is set by the ``maxPoolSize`` option, which
 defaults to ``100``. If the number of in-use connections to a server reaches
@@ -177,7 +172,7 @@ What is a discriminator?
 A discriminator is a property that identifies a specific document
 schema. You can use it for inheritance and storing multiple types of
 documents within the same collection or parent document (if you embed
-sub-documents).
+subdocuments).
 
 For example, if you have an ``Event`` class that you extend in Java (e.g.
 ``MachineEvent`` or ``NetworkEvent``), using a discriminator identifies
