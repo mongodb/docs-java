@@ -63,8 +63,9 @@ changes in the connected MongoDB deployment.
 Example
 ~~~~~~~
 
-The following code example shows how to open a change stream and print
-change stream events whenever the data in the collection changes:
+The following code example shows how to open a change stream on a
+collection and print change stream events whenever the data in the
+collection changes:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
    :language: java
@@ -84,6 +85,14 @@ following text:
       namespace=myDb.myChangeStreamCollection,
       ...
    }
+
+.. note:: ``ChangeStreamIterable`` and ``ChangeStreamDocument`` Types
+   
+   The driver stores change stream events in a variable of type
+   ``ChangeStreamIterable``. In the preceding example, the driver stores
+   individual change stream events as ``ChangeStreamDocument`` objects,
+   since we specified that the driver should populate the ``ChangeStreamIterable``
+   with ``Document`` types.
 
 For a runnable example, see the :ref:`<java-usage-watch>` usage example page.
 
