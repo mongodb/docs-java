@@ -19,9 +19,11 @@ Overview
 In this guide, you can learn how to use a **change stream** to monitor
 real-time changes to your database. A change stream is a {+mdb-server+}
 feature that allows your application to subscribe to data changes on a single
-collection, database, or deployment. You can specify a set of aggregation
+collection, database, or deployment.
+
+You can specify a set of aggregation
 operators to filter and transform the data your application receives. When
-connecting to a MongoDB deployment v6.0 or later, you can configure the
+connecting to a MongoDB deployment v6.0 or later, you can also configure the
 events to include the document data before and after the change.
 
 Learn how to open and configure your change streams in the following
@@ -78,8 +80,7 @@ types. As a result, the driver stores individual change stream events as
    :start-after: begin openChangeStreamExample
    :end-before: end openChangeStreamExample
 
-An insert operation on the collection should produce output similar to the
-following text:
+An insert operation on the collection produces the following output:
 
 .. code-block::
    :copyable: false
@@ -124,8 +125,7 @@ update operations:
    :start-after: begin aggregationExample
    :end-before: end aggregationExample
 
-An update operation on the collection should produce output similar to the
-following text:
+An update operation on the collection produces the following output:
 
 .. code-block::
    :copyable: false
@@ -144,14 +144,18 @@ Include Pre-images and Post-images
 
 You can configure the change event to contain or omit the following data:
 
-- The **pre-image**, which is a document that represents the version of the
+- The **pre-image**, a document that represents the version of the
   document before the operation, if it exists
-- The **post-image**, which is a document that represents the version of the
+- The **post-image**, a document that represents the version of the
   document after the operation, if it exists
 
+.. important::
+
+   You can enable pre- and post-images on collections only if your
+   deployment uses MongoDB v6.0 or later.
+
 To receive change stream events that include a pre-image or post-image, you
-must connect to a deployment running MongoDB v6.0 or later and perform the
-following actions:
+must perform the following actions:
 
 - Enable pre-images and post-images for the collection on your MongoDB
   deployment.
@@ -182,7 +186,7 @@ following actions:
 Create a Collection with Pre-Image and Post-Images Enabled
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To use the driver to create a collection that has the pre-image and post-image options
+To use the driver to create a collection with the pre-image and post-image options
 enabled, specify an instance of  ``ChangeStreamPreAndPostImagesOptions``
 and call the ``createCollection()`` method as shown in the following example:
 
@@ -199,9 +203,9 @@ in the Server manual.
 
 .. warning::
 
-   When you modify this option on a collection, any change streams open on
-   that collection in your application may fail if you configure them to require
-   the pre-image or post-image.
+   If you enabled pre-images or post-images on a collection, modifying
+   these settings with ``collMod`` can cause existing change streams on
+   that collection to fail.
 
 .. _java-pre-image-example:
 
@@ -223,9 +227,8 @@ The preceding example configures the change stream to use the
 stream to require pre-images for replace, update, and delete change
 events. If the pre-image is not available, the driver raises an error.
 
-Suppose you update the ``amount`` field of a document from ``150`` to
-``2000``. The change event produced by this change should appear in the
-output as follows:
+Suppose you update the value of the ``amount`` field in a document from
+``150`` to ``2000``. This change event produces the following output:
 
 .. code-block::
    :emphasize-lines: 7
@@ -261,12 +264,13 @@ change events:
 
 The preceding example configures the change stream to use the
 ``FullDocument.WHEN_AVAILABLE`` option. This option configures the change
-stream to the change stream to return the post-image of the modified
-document for replace and update change events, if it is available.
+stream to return the post-image of the modified document for replace and
+update change events, if it's available.
 
-Suppose you update the ``color`` field of a document from ``"purple"`` to
-``"pink"``. The change event produced by this change should appear in the
-output as follows:
+Suppose you update the value of the ``color`` field in a document from
+``"purple"`` to ``"pink"``. The change event produces the following
+output:
+
 
 .. code-block::
    :emphasize-lines: 6-7
