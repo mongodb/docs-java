@@ -202,13 +202,20 @@ the collection and then retrieve it as a ``List`` of your POJO class objects:
 
    Flower flower = new Flower("rose", false, 25.4f, Arrays.asList(new String[] {"red", "green"}));
 
-   // insert the instance
+   // insert the a document
    collection.insertOne(flower);
 
    // return all documents in the collection
    List<Flower> flowers = new ArrayList<>();
    collection.find().into(flowers);
    System.out.println(flowers);
+
+   //update a document in the collection
+   collection.updateOne(flower);
+
+   //delete a document in the collection
+   collection.deleteOne(flower);
+
 
 When you run this code, your output should look something like this:
 
