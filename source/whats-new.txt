@@ -42,9 +42,9 @@ Upcoming Breaking Changes
 What's New in 4.10
 ------------------
 
-- Interfaces in the ``com.mongodb.client.model.search`` package have the
-  ``@Sealed`` marking instead of ``@Evolving``. Sealed interfaces
-  restrict users from extending or implementing them.
+- Interfaces in the ``com.mongodb.client.model.search`` package are now
+  marked as ``@Sealed`` instead of ``@Evolving``. Sealed interfaces must
+  not be extended or implemented by consumers of the library.
 
 .. _version-4.9:
 
