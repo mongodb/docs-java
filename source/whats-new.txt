@@ -42,6 +42,12 @@ Upcoming Breaking Changes
 What's New in 4.10
 ------------------
 
+.. important:: Aggregation Expression Operations are in Beta
+   
+   Version 4.9 of the {+driver-short+} introduced an API for creating
+   :ref:`aggregation expressions <java-aggregation-expression-operations>`. 
+   This feature is still in beta phase.
+
 - Implementation of the ``Accumulators.percentile()`` and
   ``Accumulators.median()`` methods for statistical aggregations.
 - Interfaces in the ``com.mongodb.client.model.search`` package are now
@@ -53,7 +59,7 @@ What's New in 4.10
 - The ``org.bson.codecs.Parameterizable`` interface is deprecated. Instead of
   implementing this interface on a custom ``Codec`` type, you should
   override the ``CodecProvider.get()`` method on the
-  ``CodecProvider`` for your ``Codec``instance if the codec is intended
+  ``CodecProvider`` for your ``Codec`` instance if the codec is intended
   for a parameterized type.
 - Support for custom DNS resolvers.
 
