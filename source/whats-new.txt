@@ -59,9 +59,13 @@ What's New in 4.10
 - The ``org.bson.codecs.Parameterizable`` interface is deprecated. Instead of
   implementing this interface on a custom ``Codec`` type, you should
   override the ``CodecProvider.get()`` method on the
-  ``CodecProvider`` for your ``Codec`` instance if the codec is intended
-  for a parameterized type.
+  codec's ``CodecProvider`` if the codec is intended for a parameterized
+  type.
 - Support for custom DNS resolvers.
+- Support for :ref:`qe-manual-feature-qe` (QE). To learn
+  more about the requirements for using the QE feature, see the
+  :ref:`Queryable Encryption Driver Compatibility Table
+  <qe-compatibility-reference>`.
 
 .. _version-4.9:
 
