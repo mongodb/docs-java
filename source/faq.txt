@@ -148,6 +148,26 @@ When ``MongoClient.close()`` is called by any thread, the driver
 closes all idle sockets and closes all sockets that are in
 use as they are returned to the pool.
 
+Why does the application throw "IllegalStateException: state should be: open"?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You may encounter this exception if you call an operation on a ``MongoClient``
+instance that closed its connections to MongoDB. The connections could be
+closed due to one of the following conditions:
+
+- The ``close()`` method was called on that ``MongoClient`` instance
+- The ``MongoClient`` instance is out of scope
+- The framework your application uses to manage your MongoDB operations, such
+  as Spring Boot, has closed the connection automatically.
+
+To avoid this exception, make sure not to call any operations on a
+``MongoClient`` instance that was closed explicitly or automatically.
+
+If your application uses a framework to manage the ``MongoClient``,
+check the documentation of the framework to locate the best practices for
+managing the connection behavior.
+
+
 POJOs
 -----
 
