@@ -159,7 +159,7 @@ can be closed for one of the following reasons:
   to the operation call.
 - Another thread or process closed the connection. This can happen when
   the framework that your application uses to manage your MongoDB operations,
-  such as Spring Boot, manages the ``MongoClient``.
+  such as Spring Boot, closes connections.
 
 To avoid this exception, do not call operations on ``MongoClient`` instance 
 that closed its connections.
