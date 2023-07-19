@@ -4,8 +4,6 @@
 FAQ
 ===
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -147,6 +145,32 @@ during a load spike than it is to complete every operation.
 When ``MongoClient.close()`` is called by any thread, the driver
 closes all idle sockets and closes all sockets that are in
 use as they are returned to the pool.
+
+Why does the application throw "IllegalArgumentException: Invalid BSON field name"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You may encounter this exception when you attempt to specify a document field
+name that contain special characters such as periods (``.``) or are prefixed by
+dollar signs (``$``).
+
+
+
+For versions of MongoDB server 5.0 and earlier,
+
+
+when using unacknowledged writes.
+
+
+
+
+While you can use field names that contain periods or are prefixed by dollar
+signs in MongoDB 5.0 and later, these documents will have restricted functionality.
+
+To learn more about the functionality restrictions, see
+:manual:`General Restrictions <core/dot-dollar-considerations/#general-restrictions>`.
+
+
+
 
 POJOs
 -----
