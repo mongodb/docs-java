@@ -148,24 +148,30 @@ When ``MongoClient.close()`` is called by any thread, the driver
 closes all idle sockets and closes all sockets that are in
 use as they are returned to the pool.
 
-Why does the application throw "IllegalStateException: state should be: open"?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How do I prevent the "IllegalStateException: state should be: open" error?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You may encounter this exception if you call an operation on a ``MongoClient``
-instance that closed its connections to MongoDB. The connections could be
-closed due to one of the following conditions:
+instance that closed its connections to MongoDB. The client's connections
+can be closed for one of the following reasons:
 
-- The ``close()`` method was called on that ``MongoClient`` instance
-- The ``MongoClient`` instance is out of scope
-- The framework your application uses to manage your MongoDB operations, such
-  as Spring Boot, has closed the connection automatically.
+- The ``close()`` method was called on that ``MongoClient`` instance prior
+  to the operation call.
+- Another thread or process closed the connection. This can happen when
+  the framework that your application uses to manage your MongoDB operations,
+  such as Spring Boot, manages the ``MongoClient``.
 
-To avoid this exception, make sure not to call any operations on a
-``MongoClient`` instance that was closed explicitly or automatically.
+To avoid this exception, do not call operations on ``MongoClient`` instance 
+that closed its connections.
 
 If your application uses a framework to manage the ``MongoClient``,
 check the documentation of the framework to locate the best practices for
 managing the connection behavior.
+
+.. seealso::
+
+   To learn more about accessing MongoDB from Spring Boot, see
+   `Spring Boot and MongoDB <https://www.mongodb.com/compatibility/spring-boot>`__.
 
 
 POJOs
@@ -244,7 +250,7 @@ For example, the following methods throws an exception during encoding:
    public String setField(String x);
 
 How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X."?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This exception means you need to register a codec for the class since
 there is none at the moment.
