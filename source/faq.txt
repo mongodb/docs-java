@@ -156,10 +156,6 @@ instance that closed its connections to MongoDB. Once the ``close()`` method
 is called on the ``MongoClient``, any further operation calls on that instance
 throw this exception.
 
-V- Another thread or process closed the connection. This can happen when
-  the framework that your application uses to manage your MongoDB operations,
-  such as Spring Boot, closes connections.
-
 To avoid this exception, do not call operations on ``MongoClient`` instance
 after any code that calls ``close()`` on it.
 
