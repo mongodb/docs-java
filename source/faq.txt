@@ -146,31 +146,30 @@ When ``MongoClient.close()`` is called by any thread, the driver
 closes all idle sockets and closes all sockets that are in
 use as they are returned to the pool.
 
-Why does the application throw "IllegalArgumentException: Invalid BSON field name"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You may encounter this exception when you attempt to specify a document field
-name that contain special characters such as periods (``.``) or are prefixed by
-dollar signs (``$``).
+Your application may throw this exception when it encounters any of the
+following issues:
 
+- Characters in field names that your MongoDB deployment cannot process
+- Syntax issues in a command
 
+In MongoDB v4.4 and earlier, names that contain characters such as
+periods (``.``) or are prefixed by dollar signs (``$``) are invalid. In
+MonogDB v5.0 and later, you can use field names that contain periods or are
+prefixed by dollar signs, but including them restricts the functionality of the
+documents.
 
-For versions of MongoDB server 5.0 and earlier,
+To learn more about how these special characters limit the
+functionality, see the :manual:`General Restrictions <core/dot-dollar-considerations/#general-restrictions>`
+Server documentation.
 
+If you pass an incorrectly formatted document to an operation, your application
+may throw this error. To avoid this error, use the appropriate builders class
+to create syntatically correct documents to pass to the MongoDB operations.
 
-when using unacknowledged writes.
-
-
-
-
-While you can use field names that contain periods or are prefixed by dollar
-signs in MongoDB 5.0 and later, these documents will have restricted functionality.
-
-To learn more about the functionality restrictions, see
-:manual:`General Restrictions <core/dot-dollar-considerations/#general-restrictions>`.
-
-
-
+To learn more about the available builders classes, see the :ref:`<java-builders>` documentation.
 
 POJOs
 -----
