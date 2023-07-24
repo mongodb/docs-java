@@ -162,12 +162,13 @@ after any code that calls ``close()`` on it.
 .. tip::
 
    The code that closes the ``MongoClient`` instance may be difficult to
-   locate in certain cases. To locate sources of this exception, search for
-   the following cases:
+   locate in certain cases. To locate potential sources of this exception,
+   search for the following cases:
 
    - Calls to ``close()`` on a ``MongoClient`` instance
-   - Operation calls outside of the scope of a ``MongoClient`` instance that
-     is declared in a try-with-resources statement.
+   - Operation calls on a ``MongoClient`` instance that are outside the scope
+     of the try-with-resources statement in which the ``MongoClient`` is
+     declared.
 
    If your application uses a framework to manage the ``MongoClient``
    such as Spring Boot, check the documentation of the framework to locate the
