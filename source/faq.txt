@@ -154,8 +154,8 @@ Your application may throw this exception if you pass an incorrectly formatted
 document to an operation and you are using a driver version v4.7 or earlier.
 
 For example, the driver throws this error when you call an update operation
-and incorrectly pass it an update document without an update operator as shown
-in the following code example:
+and incorrectly omit the update operator as shown in the following code
+example:
 
 .. code-block:: java
    :emphasize-lines: 4
@@ -168,12 +168,13 @@ in the following code example:
    );
 
 To avoid this error, use the builder class for the appropriate operation.
-The driver offers builder classes to create syntactically correct documents for
+The driver offers builder classes to create syntactically correct BSON for
 MongoDB operations. The prior example can be correctly expressed using
 the builder classes as shown in the following code example:
 
 .. code-block:: java
-   emphasize-lines: 7
+   :emphasize-lines: 7
+   :copyable:false
 
    // Builder class imports
    import static com.mongodb.client.model.Filters.*;
