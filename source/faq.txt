@@ -152,6 +152,8 @@ How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
 
 Your application may throw this exception if you pass an incorrectly formatted
 document to an operation and you are using a driver version v4.7 or earlier.
+In driver versions v4.8 and later, this error message was replaced by one
+that includes more specific details on what was incorrectly formatted.
 
 For example, the driver throws this error when you call an update operation
 and incorrectly omit the update operator as shown in the following code
