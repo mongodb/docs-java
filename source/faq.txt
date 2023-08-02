@@ -150,25 +150,38 @@ use as they are returned to the pool.
 How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Your application may throw this exception when it encounters any of the
-following issues:
+Your application may throw this exception if you pass an incorrectly formatted
+document to an operation and you are using a driver version v4.7 or earlier.
 
-- Characters in field names that your MongoDB deployment cannot process
-- Syntax issues in a command
+For example, the driver throws this error when you call an update operation
+and incorrectly pass it an update document without an update operator as shown
+in the following code example:
 
-In MongoDB v4.4 and earlier, names that contain characters such as
-periods (``.``) or are prefixed by dollar signs (``$``) are invalid. In
-MongoDB v5.0 and later, you can use field names that contain periods or are
-prefixed by dollar signs, but including them restricts the functionality of the
-documents.
+.. code-block:: java
+   :emphasize-lines: 4
+   :copyable: false
 
-To learn more about how these special characters limit the
-functionality, see the :manual:`General Restrictions </core/dot-dollar-considerations/#general-restrictions>`
-Server documentation.
+   // incorrectly formatted update document
+   collection.updateOne(
+       new Document().append("name", "fizz"),
+       new Document().append("name", "buzz")
+   );
 
-If you pass an incorrectly formatted document to an operation, your application
-may throw this error. To avoid this error, use the appropriate builders class
-to create syntactically correct documents to pass to the MongoDB operations.
+To avoid this error, use the builder class for the appropriate operation.
+The driver offers builder classes to create syntactically correct documents for
+MongoDB operations. The prior example can be correctly expressed using
+the builder classes as shown in the following code example:
+
+.. code-block:: java
+   emphasize-lines: 7
+
+   // Builder class imports
+   import static com.mongodb.client.model.Filters.*;
+   import static com.mongodb.client.model.Updates.*;
+
+   // ...
+
+   collection.updateOne(eq("name", "fizz"), set("name", "buzz"));
 
 To learn more about the available builders classes, see the :ref:`<java-builders>` documentation.
 
