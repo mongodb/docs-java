@@ -4,8 +4,6 @@
 FAQ
 ===
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -352,7 +350,7 @@ For example, the following methods throws an exception during encoding:
    public String setField(String x);
 
 How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X."?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This exception means you need to register a codec for the class since
 there is none at the moment.
