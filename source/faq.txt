@@ -174,8 +174,8 @@ your classpath, check the following items in your environment:
 How do I prevent the "com.mongodb.MongoSecurityException" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Your application may throw this exception if you attempt to connect to
-a MongoDB deployment by specifying invalid or incorrectly formatted credentials.
+Your application might throw this exception if you specify invalid or
+incorrectly formatted credentials when connecting to a MongoDB deployment.
 
 If you receive this error when you attempt to connect to a MongoDB deployment,
 check the following items in your code:
@@ -188,15 +188,15 @@ check the following items in your code:
   :ref:`authentication-mechanisms` and :ref:`enterprise-authentication-mechanisms`
   guides.
 
-- The name of the authentication database you specified is correct. To learn
-  how to set up the users and roles for your MongoDB deployment, see
+- The name of the authentication database that you specified is correct. To
+  learn how to set up the users and roles for your MongoDB deployment, see
   `Manage Users and Roles <https://www.mongodb.com/docs/manual/tutorial/manage-users-and-roles/>`__
   in the Server documentation.
 
 How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Your application may throw this exception if you pass an incorrectly formatted
+Your application might throw this exception if you pass an incorrectly formatted
 document to an operation and you are using a driver version v4.7 or earlier.
 
 .. note::
