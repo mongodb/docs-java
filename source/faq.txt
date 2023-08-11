@@ -175,25 +175,22 @@ How do I prevent the "com.mongodb.MongoSecurityException" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Your application may throw this exception if you attempt to connect to
-a MongoDB deployment by using invalid or incorrectly formatted credentials.
+a MongoDB deployment by specifying invalid or incorrectly formatted credentials.
 
-To find the potential cause of this error, verify that you properly
-specified the following items:
+To find the potential cause of this error, verify the following items:
 
 - The connection URI corresponds to the correct MongoDB deployment.
   To learn more about setting your connection URI, see :ref:`connection-uri`.
 
-- The credentials, such as the username and password, for the authentication
-  mechanism that you specified are correct. To learn how to specify your
-  credentials, see :ref:`authentication-mechanisms` or
-  :ref:`enterprise-authentication-mechanisms`.
+- The credentials for the authentication mechanism that you specified are
+  correct. To learn how to specify your credentials, see
+  :ref:`authentication-mechanisms` or :ref:`enterprise-authentication-mechanisms`.
 
 - The name of the authentication database is correct.  To learn how to specify
   your authentication database, see :ref:`java-connection-admin`
-  in the Connection Troubleshooting guide, or view the code example that
-  corresponds to your authentication mechanism in the
-  :ref:`authentication-mechanisms` or :ref:`enterprise-authentication-mechanisms`
-  guide.
+  in the Connection Troubleshooting guide. You can view code examples for
+  each authentication mechanism in the :ref:`authentication-mechanisms` and
+  :ref:`enterprise-authentication-mechanisms` guides.
 
 How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
