@@ -177,17 +177,19 @@ How do I prevent the "com.mongodb.MongoSecurityException" error?
 Your application may throw this exception if you attempt to connect to
 a MongoDB deployment by specifying invalid or incorrectly formatted credentials.
 
-To find the potential cause of this error, verify the following items:
+If you receive this error when you attempt to connect to a MongoDB deployment,
+check the following items in your code:
 
 - The connection URI corresponds to the correct MongoDB deployment.
   To learn more about setting your connection URI, see :ref:`connection-uri`.
 
 - The credentials for the authentication mechanism that you specified are
-  correct. To learn how to specify your credentials, see
-  :ref:`authentication-mechanisms` or :ref:`enterprise-authentication-mechanisms`.
+  correct. To learn how to specify your credentials, see the
+  :ref:`authentication-mechanisms` and :ref:`enterprise-authentication-mechanisms`
+  guides.
 
-- The name of the authentication database is correct.  To learn how to specify
-  your authentication database, see :ref:`java-connection-admin`
+- The name of the authentication database you specified is correct. To learn
+  how to specify your authentication database, see :ref:`java-connection-admin`
   in the Connection Troubleshooting guide. You can view code examples for
   each authentication mechanism in the :ref:`authentication-mechanisms` and
   :ref:`enterprise-authentication-mechanisms` guides.
