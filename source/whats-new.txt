@@ -46,8 +46,28 @@ What's New in 4.11
 .. note:: Upgraded Netty Version
 
    The {+driver-short+} now tests with version 4.1.87.Final of the
-   ``io.netty:netty-all`` package. This change affects you only if you use the 
+   ``io.netty:netty-all`` package. This change affects you only if you use the
    ``SslContext`` class that Netty provides.
+
+New features of the 4.11 driver release include:
+
+- The ``DBCollection.getStats()`` and ``DBCollection.isCapped()`` methods are
+  deprecated. The corresponding server commands are deprecated in MongoDB
+  v6.2 and later. Use the ``$collStats`` aggregation pipeline stage to
+  retrieve the information provided by these methods instead. You can run
+  the aggregation as shown in the following code example:
+
+  .. code-block:: java
+
+     collection.aggregate(Arrays.asList(
+                      new Document("$collStats",
+                          new Document("storageStats", new Document()))));
+
+  To check whether the collection is a capped collection, access the value of
+  the ``storageStats.capped`` field returned by this example aggregation.
+
+  To learn more about the ``$collStats`` aggregation operator, see the
+  :manual:`/reference/operator/aggregation/collStats/` Server documentation.
 
 .. _version-4.10:
 
@@ -81,9 +101,9 @@ What's New in 4.9
 -----------------
 
 .. important:: Aggregation Expression Operations Are in Beta
-   
+
    This driver version introduces an API for creating
-   :ref:`aggregation expressions <java-aggregation-expression-operations>`. 
+   :ref:`aggregation expressions <java-aggregation-expression-operations>`.
    This feature is in beta phase.
 
 New features of the 4.9 driver release include:
