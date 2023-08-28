@@ -51,11 +51,11 @@ What's New in 4.11
 
 New features of the 4.11 driver release include:
 
-- The ``DBCollection.getStats()`` and ``DBCollection.isCapped()`` methods are
-  deprecated. The corresponding server commands are deprecated in MongoDB
-  v6.2 and later. Use the ``$collStats`` aggregation pipeline stage to
-  retrieve the information provided by these methods instead. You can run
-  the aggregation as shown in the following code example:
+- The ``getStats()`` and ``isCapped()`` instance methods of the
+  ``DBCollection`` class are deprecated. The corresponding server commands are
+  deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
+  pipeline stage to retrieve the information provided by these methods
+  instead. You can run the aggregation as shown in the following code example:
 
   .. code-block:: java
 
@@ -63,8 +63,8 @@ New features of the 4.11 driver release include:
                       new Document("$collStats",
                           new Document("storageStats", new Document()))));
 
-  To check whether the collection is a capped collection, access the value of
-  the ``storageStats.capped`` field returned by this example aggregation.
+  To determine whether the collection is a capped collection, access the value
+  of the ``storageStats.capped`` field returned by this example aggregation.
 
   To learn more about the ``$collStats`` aggregation operator, see the
   :manual:`/reference/operator/aggregation/collStats/` Server documentation.
