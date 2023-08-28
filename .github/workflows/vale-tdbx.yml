@@ -1,0 +1,15 @@
+name: TDBX Vale Checks
+on:
+  push:
+    branches-ignore:
+      - master
+with:
+  files: source/
+
+jobs:
+  vale:
+    name: TDBX Vale rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: errata-ai/vale-action@reviewdog

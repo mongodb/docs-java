@@ -1,0 +1,11 @@
+extends: existence
+message: "Avoid the subjuntive '%s'."
+link: 'https://docs.mongodb.com/meta/style-guide/writing/write-to-the-user/#avoid-the-subjunctive-mood'
+ignorecase: true
+level: warning
+scope: sentence
+nonword: true
+tokens:
+  - '\bwould\b'
+  - '\ncould\b'
+  - '\bshould\b'
