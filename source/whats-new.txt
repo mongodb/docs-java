@@ -32,28 +32,7 @@ Learn what's new in:
 Upcoming Breaking Changes
 -------------------------
 
-- The ``getStats()`` and ``isCapped()`` instance methods of the
-  ``DBCollection`` class are deprecated. The corresponding server commands are
-  deprecated in MongoDB v6.2 and later. To learn how to retrieve this
-  collection information, see :ref:`version-4.11`.
-- `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html>`__
-  and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
-  are deprecated in MongoDB v4.2 and later. They will be replaced by the
-  aggregation framework and removed in a future release.
-- Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
-
-.. _version-4.11:
-
-What's New in 4.11
-------------------
-
-.. note:: Upgraded Netty Version
-
-   The {+driver-short+} now tests with version 4.1.87.Final of the
-   ``io.netty:netty-all`` package. This change affects you only if you use the
-   ``SslContext`` class that Netty provides.
-
-New features of the 4.11 driver release include:
+.. Relocate these items into the source/upgrade.txt page once they become breaking changes
 
 - The ``getStats()`` and ``isCapped()`` instance methods of the
   ``DBCollection`` class are deprecated. The corresponding server commands are
@@ -73,6 +52,25 @@ New features of the 4.11 driver release include:
   To learn more about the ``$collStats`` aggregation operator, see the
   :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
   Server manual entry.
+
+- `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html>`__
+  and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
+  are deprecated in MongoDB v4.2 and later. They will be replaced by the
+  aggregation framework and removed in a future release.
+- Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
+
+.. _version-4.11:
+
+What's New in 4.11
+------------------
+
+.. note:: Upgraded Netty Version
+
+   The {+driver-short+} now tests with version 4.1.87.Final of the
+   ``io.netty:netty-all`` package. This change affects you only if you use the
+   ``SslContext`` class that Netty provides.
+
+.. New features of the 4.11 driver release include:
 
 .. _version-4.10:
 
