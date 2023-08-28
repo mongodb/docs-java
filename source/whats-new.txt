@@ -37,8 +37,8 @@ Upcoming Breaking Changes
 The following changes affect future versions of the driver:
 
 - The ``getStats()`` and ``isCapped()`` instance methods of the
-  ``DBCollection`` class are deprecated. The corresponding server commands are
-  deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
+  ``DBCollection`` class are deprecated in v4.11. The corresponding server
+  commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
   pipeline stage to retrieve the information provided by these methods
   instead. You can run the aggregation as shown in the following code example:
 
