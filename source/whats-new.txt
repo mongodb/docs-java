@@ -32,6 +32,10 @@ Learn what's new in:
 Upcoming Breaking Changes
 -------------------------
 
+- The ``getStats()`` and ``isCapped()`` instance methods of the
+  ``DBCollection`` class are deprecated. The corresponding server commands are
+  deprecated in MongoDB v6.2 and later. To learn how to retrieve this
+  collection information, see :ref:`version-4.11`.
 - `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html>`__
   and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
   are deprecated in MongoDB v4.2 and later. They will be replaced by the
