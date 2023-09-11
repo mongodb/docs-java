@@ -17,7 +17,10 @@ Overview
 --------
 
 In this section, you can identify the changes you need to make to migrate from
-the legacy API to the current API.
+the legacy API to the current API. This page also highlights features unique to 
+the current Java Sync driver and includes the benefits of migrating to the new 
+API.
+
 
 The legacy API, packaged as the ``mongodb-driver-legacy`` JAR, contains
 the legacy synchronous Java driver and uses naming conventions used in earlier
@@ -37,6 +40,26 @@ In addition to updating your application to handle any necessary changes,
 always check for any other differences in options and return values before
 moving it to production.
 
+Current API Benefits
+--------------------
+
+You can continue to use the legacy API with each new MongoDB server release. 
+However, the legacy API does not support any new features introduced in MongoDB 3.0 
+or later. Upgrade to the current API to use the following features:
+
+- **Change streams**, a MongoDB Server feature designed to monitor real-time changes to a single 
+  collection, database, or deployment
+- **Multi-document ACID transactions**, which ensure atomicity of reads and writes to multiple 
+  documents and allow for transactions across multiple operations, collections, databases, 
+  documents, and shards
+- **Time series collections**, which store sequences of measurements over a period 
+  of time and improve query efficiency for time series data
+- **Queryable Encryption**, which allows you to encrypt sensitive workloads and to query 
+  the encrypted data
+
+To learn about more features only available after upgrading to the current API, see :ref:`java-whats-new`.
+
+ 
 API Changes
 -----------
 
