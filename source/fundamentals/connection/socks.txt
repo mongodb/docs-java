@@ -84,7 +84,7 @@ using the ``MongoClientSettings`` builder:
 
      MongoClient mongoClient = MongoClients.create(
          MongoClientSettings.builder()
-             .applyConnectionString(new ConnectionString("<connection URI>"))
+             .applyConnectionString(new ConnectionString("mongodb+srv://myDatabaseUser:myPassword@example.org/"))
              .applyToSocketSettings(builder ->
                      builder.applyToProxySettings(proxyBuilder ->
                              proxyBuilder
@@ -107,8 +107,8 @@ your connection string:
    String connectionString = "mongodb+srv://myDatabaseUser:myPassword@example.org/" +
            "?proxyHost=<proxyHost>" +
            "&proxyPort=<proxyPort>" +
-           "&proxyUsername="<proxyUsername>" +
-           "&proxyPassword="<proxyPassword>";
+           "&proxyUsername=<proxyUsername>" +
+           "&proxyPassword=<proxyPassword>";
 
    MongoClient mongoClient = MongoClients.create(connectionString);
 
@@ -117,6 +117,9 @@ API Documentation
 
 To learn more about the methods and types discussed in this guide, see the
 following API documentation:
+
+- `MongoClientSettings.Builder <{+api+}/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__
+- `MongoClients.create() <{+api+}/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 
 .. TODO
 
