@@ -22,6 +22,8 @@ through a proxy server.
    To learn more about the SOCKS5 protocol, see the Wikipedia entry on
    :wikipedia:`SOCKS <w/index.php?title=SOCKS&oldid=1160087146>`.
 
+.. _socks-proxy-settings:
+
 SOCKS5 Proxy Settings
 ---------------------
 
@@ -67,12 +69,20 @@ The following table describes the SOCKS5 client options:
        for this setting.
 
 
-Example
--------
+Examples
+--------
 
-This example shows how to instantiate a ``MongoClient`` that connects to
-MongoDB by using a SOCKS5 proxy. It uses the placeholder values described in
-the previous section:
+The following examples show how to instantiate a ``MongoClient`` that connects
+to MongoDB by using a SOCKS5 proxy by using a ``MongoClientSettings`` instance
+or a connection string. These examples use the placeholder values described in
+the :ref:`socks-proxy-settings` section. Replace the placeholders with your
+proxy settings.
+
+Specify Proxy Settings in the MongoClientSettings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following code example shows how to specify your SOCKS5 proxy settings by 
+using the ``MongoClientSettings`` builder:
 
 .. code-block:: java
    :emphasize-lines: 4-11
@@ -90,16 +100,11 @@ the previous section:
                              )
              ).build());
 
+Specify Proxy Settings in the Connection String
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. important::
-
-   The driver throws an exception if you set the ``proxyPort``,
-   ``proxyUsername``, or ``proxyPassword`` options without setting the
-   ``proxyHost`` option.
-
-Alternatively, you can specify the proxy settings in your connection string.
-The following code example shows how to include your SOCKS5 proxy settings
-in a connection string and instantiate a ``MongoClient`` from it.
+This following code example shows how to specify your SOCKS5 proxy settings in 
+your connection string:
 
 .. code-block:: java
    :emphasize-lines: 2-5
@@ -115,9 +120,8 @@ in a connection string and instantiate a ``MongoClient`` from it.
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and types discussed in this guide, see the 
+To learn more about the methods and types discussed in this guide, see the
 following API documentation:
-
 
 .. TODO
 
