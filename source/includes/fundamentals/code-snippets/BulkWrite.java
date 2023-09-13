@@ -74,11 +74,11 @@ public class BulkWrite {
         try {
             List<WriteModel<Document>> bulkOperations = new ArrayList<>();
             
-            InsertOneModel<Document> doc3 = new InsertOneModel<>(new Document("_id", 1));
-            InsertOneModel<Document> doc4 = new InsertOneModel<>(new Document("_id", 3));
+            InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
+            InsertOneModel<Document> doc3 = new InsertOneModel<>(new Document("_id", 3));
             
+            bulkOperations.add(doc1);
             bulkOperations.add(doc3);
-            bulkOperations.add(doc4);
             
             collection.bulkWrite(bulkOperations); 
         
@@ -91,11 +91,16 @@ public class BulkWrite {
     private void bulkWriteNotOrderedExample() {
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 3));
-        ReplaceOneModel<Document> doc2 = new ReplaceOneModel<>(Filters.eq("_id", 1), 
-                                            new Document("_id", 1).append("x", 2));                            
-        UpdateOneModel<Document> doc3 = new UpdateOneModel<>(Filters.eq("_id", 3), Updates.set("x", 2));
-        DeleteManyModel<Document> doc4 = new DeleteManyModel<>(Filters.eq("x", 2));
+
+        InsertOneModel<Document> insertDoc = new InsertOneModel<>(new Document("_id", 6)
+                                                                .append("name", "Zaynab Omar")
+                                                                .append("age", 37));
+        ReplaceOneModel<Document> replaceDoc = new ReplaceOneModel<>(Filters.eq("_id", 1), 
+                                                new Document("name", "Sandy Kane")
+                                                    .append("location", "Helena, MT"));                            
+        UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(Filters.eq("name", "Zaynab Omar"), 
+                                                Updates.set("name", "Zaynab Hassan"));
+        DeleteManyModel<Document> deleteDoc = new DeleteManyModel<>(Filters.gt("age", 50));
    
         bulkOperations.add(doc1);
         bulkOperations.add(doc2);
@@ -114,11 +119,16 @@ public class BulkWrite {
 
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 3));
-        ReplaceOneModel<Document> doc2 = new ReplaceOneModel<>(Filters.eq("_id", 1), 
-                                            new Document("_id", 1).append("x", 2));                            
-        UpdateOneModel<Document> doc3 = new UpdateOneModel<>(Filters.eq("_id", 3), Updates.set("x", 2));
-        DeleteManyModel<Document> doc4 = new DeleteManyModel<>(Filters.eq("x", 2));
+
+        InsertOneModel<Document> insertDoc = new InsertOneModel<>(new Document("_id", 6)
+                                                                    .append("name", "Zaynab Omar")
+                                                                    .append("age", 37));
+        ReplaceOneModel<Document> replaceDoc = new ReplaceOneModel<>(Filters.eq("_id", 1), 
+                                            new Document("name", "Sandy Kane")
+                                                .append("location", "Helena, MT"));                            
+        UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(Filters.eq("name", "Zaynab Omar"),
+                                                Updates.set("name", "Zaynab Hassan"));
+        DeleteManyModel<Document> deleteDoc = new DeleteManyModel<>(Filters.gt("age", 50));
    
         bulkOperations.add(doc1);
         bulkOperations.add(doc2);
@@ -154,7 +164,8 @@ public class BulkWrite {
         // begin replaceDocumentsExample
         ReplaceOneModel<Document> doc3 = new ReplaceOneModel<>(
                                             Filters.eq("_id", 1), 
-                                            new Document("_id", 1).append("x", 4));
+                                            new Document("name", "Celine Stork")
+                                                .append("location", "San Diego, CA"));
         //end replaceDocumentsExample
 
         bulkOperations.add(doc1);
@@ -213,8 +224,15 @@ public class BulkWrite {
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
         //end bulkOpsList
 
-        InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
-        InsertOneModel<Document> doc2 = new InsertOneModel<>(new Document("_id", 2));
+        InsertOneModel<Document> karen = new InsertOneModel<>(new Document("_id", 1)
+                                                                .append("name", "Karen Sandoval")
+                                                                .append("age", 31));
+        InsertOneModel<Document> william = new InsertOneModel<>(new Document("_id", 2)
+                                                                    .append("name", "William Chin")
+                                                                    .append("age", 54));
+        InsertOneModel<Document> shayla = new InsertOneModel<>(new Document("_id", 8)
+                                                                    .append("name", "Shayla Ray")
+                                                                    .append("age", 20));
         
         bulkOperations.add(doc1);
         bulkOperations.add(doc2);
