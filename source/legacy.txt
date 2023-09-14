@@ -42,19 +42,33 @@ moving it to production.
 Current API Benefits
 --------------------
 
-You can continue to use the legacy API with each new {+mdb-server+} release. 
-However, the legacy API does not support any new features introduced in {+mdb-server+}
-3.0 or later. Upgrade to the current API to use the following features:
+You can continue to use the legacy API with each new {+mdb-server+} release.
+However, the legacy API does not support any updates introduced in {+mdb-server+}
+3.0 or later. Additionally, the legacy API lacks support for certain features
+of the current {+driver-short+}. Some features only available in the current API
+include:
 
-- **Change streams**, a {+mdb-server+} feature designed to monitor real-time changes to a single 
-  collection, database, or deployment
-- **Multi-document ACID transactions**, which ensure atomicity of reads and writes to multiple 
-  documents and allow for transactions across multiple operations, collections, databases, 
-  documents, and shards
-- **Time series collections**, which store sequences of measurements over a period of
-  time and improve query efficiency for time series data
-- **Queryable Encryption**, which allows you to encrypt sensitive workloads and to query 
-  the encrypted data
+- **Change streams**, a {+mdb-server+} feature designed to monitor real-time
+  changes to a single collection, database, or deployment
+- **Multi-document ACID transactions**, which ensure atomicity of reads and
+  writes to multiple documents and allow for transactions across multiple
+  operations, collections, databases, documents, and shards
+- **Time series collections**, which store sequences of measurements over a
+  period of time and improve query efficiency for time series data
+- **Queryable Encryption**, which allows you to encrypt sensitive workloads
+  and to query the encrypted data
+- **Java records**, or concise Java classes that separate business logic from
+  data representation and reduce boilerplate code
+
+  .. tip::
+
+   To use Java records, upgrade your Java version to JDK 16 or later. For more
+   information about the functionality and restrictions of records, see
+   `Java 17 Language Updates: Record Classes <https://docs.oracle.com/en/java/javase/17/language/records.html>`__.
+
+   If you are using the legacy API or an earlier version of Java, you can use
+   plain old Java objects instead. For implementation details, see the :ref:`<fundamentals-pojos>`
+   guide.
 
 To learn about more features of the current API, see :ref:`java-whats-new`.
 
