@@ -121,13 +121,13 @@ connection behavior:
        | **Default**: ``primary``
 
    * - ``retryReads()``
-     - | Whether the driver should :manual:`retry reads </core/retryable-reads/>`
+     - | Whether the driver performs :manual:`retry reads </core/retryable-reads/>`
          if a network error occurs.
        |
        | **Default**: ``true``
 
    * - ``retryWrites()``
-     - | Whether the driver should :manual:`retry writes </core/retryable-writes/>`
+     - | Whether the driver performs :manual:`retry writes </core/retryable-writes/>`
          if a network error occurs.
        |
        | **Default**: ``true``
@@ -162,12 +162,6 @@ This example demonstrates specifying a ``ConnectionString``:
    :language: java
    :emphasize-lines: 3
    :dedent:
-
-.. tip::
-
-   Each setting has an ``applyConnectionString()`` method. They are
-   rarely needed within the settings, so you should use this method as shown
-   in :ref:`the preceding example <connection-string-example>`.
 
 .. note:: Chain Order
 
