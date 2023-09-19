@@ -43,25 +43,23 @@ The following table describes the SOCKS5 client options:
 
    * - **proxyHost**
      - String
-     - *Required*. Specifies the SOCKS5 proxy IPv4 address, IPv6 address, or hostname.
+     - Specifies the SOCKS5 proxy IPv4 address, IPv6 address, or hostname.
+       You must provide this value to connect to a SOCKS5 proxy.
 
    * - **proxyPort**
      - non-negative Integer
-     - Specifies the TCP port number of the SOCKS5 proxy server. If you
-       set the ``proxyHost`` option, the value of this option defaults
-       to ``1080``.
+     - Specifies the TCP port number of the SOCKS5 proxy server. This option
+       defaults to ``1080`` when you set ``proxyHost``.
 
    * - **proxyUsername**
      - String
-     - Specifies the username for authentication to the SOCKS5
-       proxy server. The driver ignores ``null`` and empty string values for
-       this setting.
+     - Specifies the username for authentication to the SOCKS5 proxy server.
+       The driver ignores ``null`` and empty string values for this setting.
 
    * - **proxyPassword**
      - String
-     - Specifies the password for authentication to the SOCKS5
-       proxy server. The driver ignores ``null`` and empty string values
-       for this setting.
+     - Specifies the password for authentication to the SOCKS5 proxy server.
+       The driver ignores ``null`` and empty string values for this setting.
 
 
 Examples
