@@ -29,7 +29,7 @@ SOCKS5 Proxy Settings
 
 The proxy settings specify the SOCKS5 proxy server address and your
 authentication credentials. You can specify your settings in an instance of
-``MongoClientSettings`` or in your connection URI.
+``MongoClientSettings`` or in your connection string.
 
 The following table describes the SOCKS5 client options:
 
@@ -68,10 +68,10 @@ Examples
 --------
 
 The following examples show how to instantiate a ``MongoClient`` that connects
-to MongoDB by using a SOCKS5 proxy by using a ``MongoClientSettings`` instance
-or a connection string. These examples use the placeholder values described in
-the :ref:`socks-proxy-settings` section. Replace the placeholders with your
-proxy settings.
+to MongoDB by using a SOCKS5 proxy. The proxy settings can be specified in a
+``MongoClientSettings`` instance or a connection string. These examples use
+the placeholder values described in the :ref:`socks-proxy-settings` section.
+Replace the placeholders with your proxy settings.
 
 Specify Proxy Settings in the MongoClientSettings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,25 +80,26 @@ The following code example shows how to specify your SOCKS5 proxy settings by
 using the ``MongoClientSettings`` builder:
 
 .. code-block:: java
-   :emphasize-lines: 4-11
+   :emphasize-lines: 5-12
 
-     MongoClient mongoClient = MongoClients.create(
-         MongoClientSettings.builder()
-             .applyConnectionString(new ConnectionString("mongodb+srv://myDatabaseUser:myPassword@example.org/"))
-             .applyToSocketSettings(builder ->
-                     builder.applyToProxySettings(proxyBuilder ->
-                             proxyBuilder
-                                 .host("<proxyHost>")
-                                 .port(<proxyPort>)
-                                 .username("<proxyUsername>")
-                                 .password("<proxyPassword>")
-                             )
-             ).build());
+   MongoClient mongoClient = MongoClients.create(
+       MongoClientSettings.builder()
+           .applyConnectionString(
+                   new ConnectionString("mongodb+srv://myDatabaseUser:myPassword@example.org/"))
+           .applyToSocketSettings(builder ->
+                   builder.applyToProxySettings(proxyBuilder ->
+                           proxyBuilder
+                               .host("<proxyHost>")
+                               .port(<proxyPort>)
+                               .username("<proxyUsername>")
+                               .password("<proxyPassword>")
+                           )
+           ).build());
 
 Specify Proxy Settings in the Connection String
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This following code example shows how to specify your SOCKS5 proxy settings in
+The following code example shows how to specify your SOCKS5 proxy settings in
 your connection string:
 
 .. code-block:: java
