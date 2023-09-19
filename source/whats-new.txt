@@ -36,24 +36,7 @@ Upcoming Breaking Changes
 
 The following changes affect future versions of the driver:
 
-- The ``getStats()`` and ``isCapped()`` instance methods of the
-  ``DBCollection`` class are deprecated in v4.11. The corresponding server
-  commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
-  pipeline stage to retrieve the information provided by these methods
-  instead. You can run the aggregation as shown in the following code example:
 
-  .. code-block:: java
-
-     collection.aggregate(Arrays.asList(
-                      new Document("$collStats",
-                          new Document("storageStats", new Document()))));
-
-  To determine whether the collection is a capped collection, access the value
-  of the ``storageStats.capped`` field returned by this example aggregation.
-
-  To learn more about the ``$collStats`` aggregation operator, see the
-  :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
-  Server manual entry.
 
 - `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html>`__
   and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
@@ -66,13 +49,107 @@ The following changes affect future versions of the driver:
 What's New in 4.11
 ------------------
 
+.. important:: Deprecation Notice
+
+   - The ``getStats()`` and ``isCapped()`` instance methods of the
+     ``DBCollection`` class are deprecated in v4.11. The corresponding server
+     commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
+     pipeline stage to retrieve the information provided by these methods
+     instead. You can run the aggregation as shown in the following code example:
+
+     .. code-block:: java
+
+        collection.aggregate(Arrays.asList(
+                         new Document("$collStats",
+                             new Document("storageStats", new Document()))));
+
+     To determine whether the collection is a capped collection, access the value
+     of the ``storageStats.capped`` field returned by this example aggregation.
+
+     To learn more about the ``$collStats`` aggregation operator, see the
+     :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
+     Server manual entry.
+
+.. fulfills JAVA-4845: (from Upcoming Breaking Changes) getstats and iscapped deprecated.
+
+   - The following methods related to socket addresses are deprecated:
+
+      - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the ``ServerAddress``
+      - ``getUnixSocketAddress()`` from the ``UnixServerAddress`` class
+
+.. fulfills DOCSP-32942
+
+   .. The following Stream API methods and classes are deprecated and will
+      be removed in v5.0:
+
+      - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
+      - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
+      - ``NettyStreamFactoryFactory`` class
+      - ``NettyStreamFactory`` class
+      - ``AsynchronousSocketChannelStreamFactory`` class
+      - ``AsynchronousSocketChannelStreamFactoryFactory`` class
+      - ``BufferProvider`` class
+      - ``SocketStreamFactory`` class
+      - ``Stream`` class
+      - ``StreamFactory`` class
+      - ``StreamFactoryFactory`` class
+      - ``TlsChannelStreamFactoryFactory`` class
+
+.. fulfills DOCSP-33033
+
 .. note:: Upgraded Netty Version
 
    The {+driver-short+} now tests with version 4.1.87.Final of the
    ``io.netty:netty-all`` package. This change affects you only if you use the
    ``SslContext`` class that Netty provides.
 
-.. New features of the 4.11 driver release include:
+New features of the 4.11 driver release include:
+
+- Support for connecting to MongoDB by using a SOCKS5 proxy. To learn more
+  see :ref:`java-connect-socks`.
+- Added a class to manage Client-Side Operations Timeout (CSOT) options.
+  To learn more, see: TODO https://jira.mongodb.org/browse/DOCSP-31693
+  connection string and ``MongoClientSettings``. To learn more, see ...
+- Added the ``getSplitEvent()`` acessor to the ``ChangeStreamDocument`` class
+  to identify fragments of a change stream event that exceeds 16MB. You must
+  use the aggregation stage ``$changeStreamSplitLargeEvent`` in your change
+  stream to handle change stream events that exceed 16MB.
+- Added an aggregation stage builder for ``$vectorSearch``. To learn more, see
+  TODO https://jira.mongodb.org/browse/JAVA-5117
+- Added search index management helpers. To learn more, see
+  TODO https://jira.mongodb.org/browse/JAVA-4983
+- Updated Snappy and Zstd compression library dependency versions. To learn
+  more about the current dependency versions, see :ref:`network-compression`.
+- TODO: https://jira.mongodb.org/browse/DOCSP-31709
+- Added the following classes and ``getElapsedTime()`` methods to them to
+  monitor the duration of connection pool events:
+
+  - TODO: link to API driver-core docs for these (DOCSP-31914)
+  - ``ConnectionCheckOutFailedEvent``
+  - ``ConnectionCheckedOutEvent``
+  - ``ConnectionReadyEvent``
+
+.. omitted JAVA-4646: Deal with consequence of interrupted socket operation throwing SocketException
+.. omitted JAVA-4761: Collect FaaS platform information as part of the environment information in driver handshake metadata
+.. omitted JAVA-5078: Avoiding Errors if Change Stream Events Exceed 16MB: test on 6.0
+.. omitted JAVA-5097: Re-write AggregatesTest#testGeoNear to pass on all platforms
+.. omitted JAVA-5124: Ensure retryable writes tests execute on non-replica sets
+.. omitted JAVA-5137: failed: explain output on latest sharded clusters
+.. omitted JAVA-4915: Can't turn TLS off in connection string if enabled in TXT record
+.. omitted JAVA-5124: Ensure retryable writes tests execute on non-replica sets
+.. omitted JAVA-5137: failed: explain output on latest sharded clusters
+.. omitted JAVA-4915: Can't turn TLS off in connection string if enabled in TXT record
+.. omitted JAVA-5124: Ensure retryable writes tests execute on non-replica sets
+.. omitted JAVA-5137: failed: explain output on latest sharded clusters
+.. omitted JAVA-4915: Can't turn TLS off in connection string if enabled in TXT record
+.. omitted JAVA-5084: InternalStreamConnection must release buffers obtained via ByteBufferBsonOutput.getByteBuffers
+.. omitted JAVA-5107: Fix race condition in ClientSession#close
+.. omitted JAVA-4641: Fix how InterruptedExceptions are handled
+.. omitted JAVA-5037: Add e2e testing against Atlas to the search index management API
+.. omitted JAVA-5066: Fix handling of EC2 Instance Profile in EG Tests
+.. omitted JAVA-5085: Override default implementation of Iterater#forEachRemaining in MongoCursor
+.. omitted JAVA-5087: Refactor OperationHelper & CommandOperationHelper
+.. omitted JAVA-5089: Update Projections Javadoc to indicate that computed expressions are allowed on find as of 4.4
 
 .. _version-4.10:
 
