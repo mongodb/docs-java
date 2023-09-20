@@ -36,13 +36,13 @@ Upcoming Breaking Changes
 
 The following changes affect future versions of the driver:
 
-
-
 - `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html>`__
   and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
   are deprecated in MongoDB v4.2 and later. They will be replaced by the
   aggregation framework and removed in a future release.
 - Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
+- Beginning with v5.0, several Stream API methods and classes will be
+  removed. To learn which methods will be removed, see `version-4.11`.
 
 .. _version-4.11:
 
@@ -52,7 +52,7 @@ What's New in 4.11
 .. important:: Deprecation Notice
 
    - The ``getStats()`` and ``isCapped()`` instance methods of the
-     ``DBCollection`` class are deprecated in v4.11. The corresponding server
+     ``DBCollection`` class are deprecated. The corresponding server
      commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
      pipeline stage to retrieve the information provided by these methods
      instead. You can run the aggregation as shown in the following code example:
@@ -72,10 +72,10 @@ What's New in 4.11
 
 .. fulfills JAVA-4845: (from Upcoming Breaking Changes) getstats and iscapped deprecated.
 
-   - The following methods related to socket addresses are deprecated:
+   - The following network address-related methods are deprecated:
 
-      - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the ``ServerAddress``
-      - ``getUnixSocketAddress()`` from the ``UnixServerAddress`` class
+      - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
+      - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
 
 .. fulfills DOCSP-32942
 
@@ -106,11 +106,10 @@ What's New in 4.11
 New features of the 4.11 driver release include:
 
 - Support for connecting to MongoDB by using a SOCKS5 proxy. To learn more
-  see :ref:`java-connect-socks`.
+  see :ref:`java-connect-socks`. TODO (DOCSP-31694)
 - Added a class to manage Client-Side Operations Timeout (CSOT) options.
   To learn more, see: TODO https://jira.mongodb.org/browse/DOCSP-31693
-  connection string and ``MongoClientSettings``. To learn more, see ...
-- Added the ``getSplitEvent()`` acessor to the ``ChangeStreamDocument`` class
+- Added the ``getSplitEvent()`` method to the ``ChangeStreamDocument`` class
   to identify fragments of a change stream event that exceeds 16MB. You must
   use the aggregation stage ``$changeStreamSplitLargeEvent`` in your change
   stream to handle change stream events that exceed 16MB.
