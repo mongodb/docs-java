@@ -4,8 +4,6 @@
 FAQ
 ===
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -14,6 +12,13 @@ FAQ
 
 General
 -------
+
+What if I can't connect to a MongoDB instance?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have trouble connecting to a MongoDB deployment, see
+the :ref:`Connection Troubleshooting Guide <java-connection-troubleshooting>`
+for possible solutions.
 
 Why are there two types of ``MongoClient`` in the Java driver?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,20 +67,6 @@ tasks with the ``MongoClientSettings`` class:
 
 For more information on the ``MongoClientSettings`` class, see the
 `API Documentation for MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__.
-
-How do I fix: "javax.net.ssl.SSLHandshakeException: extension (5) should not be presented in certificate_request"?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is a `known error
-<https://bugs.openjdk.java.net/browse/JDK-8236039>`__ that can occur
-when using the TLS 1.3 protocol with specific versions of the JDK. If
-you encounter this error when connecting to your MongoDB instance or
-cluster, update your JDK to one of the following patch versions or
-newer:
-
-- JDK 11.0.7
-- JDK 13.0.3
-- JDK 14.0.2
 
 .. _java-faq-connection-pool:
 
@@ -155,6 +146,128 @@ When ``MongoClient.close()`` is called by any thread, the driver
 closes all idle sockets and closes all sockets that are in
 use as they are returned to the pool.
 
+How do I prevent the "java.lang.NoClassDefFoundError: com/mongodb/MongoClient" error?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You may encounter a ``java.lang.NoClassDefFoundError`` exception when your
+Java runtime environment cannot locate a class file at runtime. When you
+attempt to run application code that uses the {+driver-long+}, you must include
+the appropriate driver JAR files on the classpath.
+
+If you receive this error after adding the {+driver-short+} JAR files to
+your classpath, check the following items in your environment:
+
+- The JAR files exist in the locations specified by the classpath.
+- The classpath syntax is correct.
+- If you define the classpath in an environment variable, the Java runtime
+  environment uses that variable.
+- If you use a dependency manager, it does not report any unresolvable conflicts.
+
+.. tip::
+
+   This error contains the package and class name, which can help you identify
+   which driver JAR may be missing from your classpath. To locate the
+   driver JAR that the error refers to, check each of the entries in the
+   :ref:`API documentation <java-api-landing>`.
+
+
+How do I prevent the "com.mongodb.MongoSecurityException" error?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Your application might throw this exception if you specify invalid or
+incorrectly formatted credentials when connecting to a MongoDB deployment.
+
+If you receive this error when you attempt to connect to a MongoDB deployment,
+check the following items in your code:
+
+- The connection URI corresponds to the correct MongoDB deployment.
+  To learn more about setting your connection URI, see :ref:`connection-uri`.
+
+- The credentials for the authentication mechanism that you specified are
+  correct. To learn how to specify your credentials, see the
+  :ref:`authentication-mechanisms` and :ref:`enterprise-authentication-mechanisms`
+  guides.
+
+- The name of the authentication database that you specified is correct. To
+  learn how to set up the users and roles for your MongoDB deployment, see
+  `Manage Users and Roles <https://www.mongodb.com/docs/manual/tutorial/manage-users-and-roles/>`__
+  in the Server documentation.
+
+How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Your application might throw this exception if you pass an incorrectly formatted
+document to an operation and you are using a driver version v4.7 or earlier.
+
+.. note::
+
+   In driver versions v4.8 and later, this error message was replaced by one
+   that includes more specific details on what was incorrectly formatted.
+
+For example, the driver throws this error when you call an update operation
+and incorrectly omit the update operator as shown in the following code
+example:
+
+.. code-block:: java
+   :emphasize-lines: 4
+   :copyable: false
+
+   // incorrectly formatted update document
+   collection.updateOne(
+       new Document().append("name", "fizz"),
+       new Document().append("name", "buzz")
+   );
+
+To avoid this error, use the builder class for the appropriate operation.
+The driver offers builder classes to create syntactically correct BSON for
+MongoDB operations. The prior example can be correctly expressed using
+the builder classes as shown in the following code example:
+
+.. code-block:: java
+   :emphasize-lines: 7
+   :copyable: false
+
+   // Builder class imports
+   import static com.mongodb.client.model.Filters.*;
+   import static com.mongodb.client.model.Updates.*;
+
+   // ...
+
+   collection.updateOne(eq("name", "fizz"), set("name", "buzz"));
+
+To learn more about the available builders classes, see the :ref:`<java-builders>` documentation.
+
+
+How do I prevent the "IllegalStateException: state should be: open" error?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You may encounter this exception if you call an operation on a ``MongoClient``
+instance that closed its connections to MongoDB. Once the ``close()`` method
+is called on the ``MongoClient``, any further operation calls on that instance
+throw this exception.
+
+To avoid this exception, do not call operations on ``MongoClient`` instance
+after any code that calls ``close()`` on it.
+
+.. tip::
+
+   The code that closes the ``MongoClient`` instance may be difficult to
+   locate in certain cases. To locate potential sources of this exception,
+   search for the following cases:
+
+   - Calls to ``close()`` on a ``MongoClient`` instance
+   - Operation calls on a ``MongoClient`` instance that are outside the scope
+     of the try-with-resources statement in which the ``MongoClient`` is
+     declared
+
+   If your application uses a framework to manage the ``MongoClient``
+   such as Spring Boot, check the documentation of the framework to locate the
+   best practices for managing the connection behavior.
+
+   To learn more about accessing MongoDB from Spring Boot, see
+   `Spring Boot and MongoDB <https://www.mongodb.com/compatibility/spring-boot>`__.
+
+
 POJOs
 -----
 
@@ -231,7 +344,7 @@ For example, the following methods throws an exception during encoding:
    public String setField(String x);
 
 How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X."?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This exception means you need to register a codec for the class since
 there is none at the moment.
