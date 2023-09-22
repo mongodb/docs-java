@@ -74,6 +74,18 @@ What's New in 4.11
 
 .. New features of the 4.11 driver release include:
 
+- The following network address-related methods are deprecated and will be removed
+  in v5.0:
+
+  - The `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__
+    methods ``getSocketAddress()`` and ``getSocketAddresses()``.
+    Instead of ``getSocketAddress()``, use the ``getAddress()`` method from the
+    ``InetSocketAddress`` class. Instead of ``getSocketAddresses()``, use the
+    ``getAllByName()`` method from the ``InetAddress`` class. 
+  - The `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__
+    method ``getUnixSocketAddress()``. Instead, call ``of()`` on a ``UnixDomainSocketAddress``
+    instance and pass a path name as an argument.
+
 .. _version-4.10:
 
 What's New in 4.10
