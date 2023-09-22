@@ -83,8 +83,9 @@ What's New in 4.11
     ``InetSocketAddress`` class. Instead of ``getSocketAddresses()``, use the
     ``getAllByName()`` method from the ``InetAddress`` class. 
   - The `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__
-    method ``getUnixSocketAddress()``. Instead, call ``of()`` on a ``UnixDomainSocketAddress``
-    instance and pass a path name as an argument.
+    method ``getUnixSocketAddress()``. Instead of ``getUnixSocketAddress()``, call
+    ``of()`` on a ``UnixDomainSocketAddress`` instance and pass a path name as an
+    argument.
 
 .. _version-4.10:
 
