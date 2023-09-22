@@ -42,7 +42,7 @@ The following changes affect future versions of the driver:
   aggregation framework and removed in a future release.
 - Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
 - Beginning with v5.0, several Stream API methods and classes will be
-  removed. To learn which methods will be removed, see `version-4.11`.
+  removed. To learn which methods will be removed, see :ref:`version-4.11`.
 
 .. _version-4.11:
 
@@ -79,21 +79,21 @@ What's New in 4.11
 
 .. fulfills DOCSP-32942
 
-   .. The following Stream API methods and classes are deprecated and will
-      be removed in v5.0:
+      - The following Stream API methods and classes are deprecated and are
+        scheduled for removal in v5.0:
 
-      - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
-      - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
-      - ``NettyStreamFactoryFactory`` class
-      - ``NettyStreamFactory`` class
-      - ``AsynchronousSocketChannelStreamFactory`` class
-      - ``AsynchronousSocketChannelStreamFactoryFactory`` class
-      - ``BufferProvider`` class
-      - ``SocketStreamFactory`` class
-      - ``Stream`` class
-      - ``StreamFactory`` class
-      - ``StreamFactoryFactory`` class
-      - ``TlsChannelStreamFactoryFactory`` class
+        - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
+        - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
+        - ``NettyStreamFactoryFactory`` class
+        - ``NettyStreamFactory`` class
+        - ``AsynchronousSocketChannelStreamFactory`` class
+        - ``AsynchronousSocketChannelStreamFactoryFactory`` class
+        - ``BufferProvider`` class
+        - ``SocketStreamFactory`` class
+        - ``Stream`` class
+        - ``StreamFactory`` class
+        - ``StreamFactoryFactory`` class
+        - ``TlsChannelStreamFactoryFactory`` class
 
 .. fulfills DOCSP-33033
 
@@ -119,7 +119,6 @@ New features of the 4.11 driver release include:
   TODO https://jira.mongodb.org/browse/JAVA-4983
 - Updated Snappy and Zstd compression library dependency versions. To learn
   more about the current dependency versions, see :ref:`network-compression`.
-- TODO: https://jira.mongodb.org/browse/DOCSP-31709
 - Added the following classes and ``getElapsedTime()`` methods to them to
   monitor the duration of connection pool events:
 
