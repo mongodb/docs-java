@@ -55,11 +55,15 @@ The following table describes the SOCKS5 client options:
      - String
      - Specifies the username for authentication to the SOCKS5 proxy server.
        The driver ignores ``null`` and empty string values for this setting.
+       The driver requires that you pass values for both ``proxyUsername``
+       and ``proxyPassword`` or that you omit both values.
 
    * - **proxyPassword**
      - String
      - Specifies the password for authentication to the SOCKS5 proxy server.
        The driver ignores ``null`` and empty string values for this setting.
+       The driver requires that you pass values for both ``proxyUsername``
+       and ``proxyPassword`` or that you omit both values.
 
 
 Examples
