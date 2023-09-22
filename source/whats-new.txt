@@ -100,14 +100,12 @@ What's New in 4.11
 .. note:: Upgraded Netty Version
 
    The {+driver-short+} now tests with version 4.1.87.Final of the
-   ``io.netty:netty-all`` package. 
+   ``io.netty:netty-all`` package.
 
 New features of the 4.11 driver release include:
 
 - Support for connecting to MongoDB by using a SOCKS5 proxy. To learn more
   see :ref:`java-connect-socks`. TODO (DOCSP-31694)
-- Added a class to manage Client-Side Operations Timeout (CSOT) options.
-  To learn more, see: TODO https://jira.mongodb.org/browse/DOCSP-31693
 - Added the ``getSplitEvent()`` method to the ``ChangeStreamDocument`` class
   to identify fragments of a change stream event that exceeds 16MB. You must
   use the aggregation stage ``$changeStreamSplitLargeEvent`` in your change
@@ -118,8 +116,8 @@ New features of the 4.11 driver release include:
   TODO https://jira.mongodb.org/browse/JAVA-4983
 - Updated Snappy and Zstd compression library dependency versions. To learn
   more about the current dependency versions, see :ref:`network-compression`.
-- Added the following classes and ``getElapsedTime()`` methods to them to
-  monitor the duration of connection pool events:
+- Added ``getElapsedTime()`` methods to the following classes to monitor the
+  duration of connection pool events:
 
   - TODO: link to API driver-core docs for these (DOCSP-31914)
   - ``ConnectionCheckOutFailedEvent``
