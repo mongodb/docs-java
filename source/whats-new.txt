@@ -70,32 +70,26 @@ What's New in 4.11
      :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
      Server manual entry.
 
-   .. fulfills JAVA-4845: (from Upcoming Breaking Changes) getstats and iscapped deprecated.
-
    - The following network address-related methods are deprecated:
 
-      - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
-      - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
+     - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
+     - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
 
-      .. fulfills DOCSP-32942
-
-      - The following Stream API methods and classes are deprecated and are
+     - The following Stream API methods and classes are deprecated and are
         scheduled for removal in v5.0:
 
-        - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
-        - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
-        - ``NettyStreamFactoryFactory`` class
-        - ``NettyStreamFactory`` class
-        - ``AsynchronousSocketChannelStreamFactory`` class
-        - ``AsynchronousSocketChannelStreamFactoryFactory`` class
-        - ``BufferProvider`` class
-        - ``SocketStreamFactory`` class
-        - ``Stream`` class
-        - ``StreamFactory`` class
-        - ``StreamFactoryFactory`` class
-        - ``TlsChannelStreamFactoryFactory`` class
-
-.. fulfills DOCSP-33033
+       - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
+       - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
+       - ``NettyStreamFactoryFactory`` class
+       - ``NettyStreamFactory`` class
+       - ``AsynchronousSocketChannelStreamFactory`` class
+       - ``AsynchronousSocketChannelStreamFactoryFactory`` class
+       - ``BufferProvider`` class
+       - ``SocketStreamFactory`` class
+       - ``Stream`` class
+       - ``StreamFactory`` class
+       - ``StreamFactoryFactory`` class
+       - ``TlsChannelStreamFactoryFactory`` class
 
 .. note:: Upgraded Netty Version
 
