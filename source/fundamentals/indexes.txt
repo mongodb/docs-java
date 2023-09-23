@@ -233,6 +233,102 @@ Multikey indexes behave differently from other indexes in terms of query coverag
 sort behavior. For a full explanation of multikey indexes, including a discussion of their behavior and limitations,
 refer to the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB manual.
 
+.. _search-indexes:
+
+Search Indexes
+~~~~~~~~~~~~~~
+
+Atlas Search is a feature that allows you to perform full-text
+searches. To learn more, see the :ref:`Atlas Search <fts-top-ref>`
+documentation.
+
+To perform a full-text  search on an Atlas collection, you must create an
+Atlas Search index on the collection. An Atlas Search index is a data
+structure that categorizes data in a searchable format.
+
+You can use the following methods to manage your Search indexes:
+
+- ``createSearchIndex()``
+- ``createSearchIndexes()``
+- ``listSearchIndexes()``
+- ``updateSearchIndex()``
+- ``dropSearchIndex()``
+
+The following sections provide code samples that use each of the preceding
+methods to manage Search indexes.
+
+Create a Search Index
+~~~~~~~~~~~~~~~~~~~~~
+
+You can use the `createSearchIndex()
+<{+api+}/classes/Collection.html#createSearchIndex>`__ and
+`createSearchIndexes() <{+api+}/classes/Collection.html#createSearchIndexes>`__
+methods to create new Atlas Search indexes.
+
+The following code shows how to
+use the ``createSearchIndex()`` method to create an index called
+``search1``:
+
+.. literalinclude:: /code-snippets/indexes/searchIndexes.js
+   :language: javascript
+   :dedent:
+   :start-after: start createSearchIndex example
+   :end-before: end createSearchIndex example
+
+List Search Indexes
+~~~~~~~~~~~~~~~~~~~
+
+You can use the `listSearchIndexes()
+<{+api+}/classes/Collection.html#listSearchIndexes>`__
+method to return a cursor that contains the Search indexes of a given
+collection. The ``listSearchIndexes()`` method takes an optional string
+parameter, ``name``, to return only the indexes with matching names. It
+also takes an optional `aggregateOptions <{+api+}/interfaces/AggregateOptions.html>`__ parameter.
+
+The following code uses the ``listSearchIndexes()`` method to list the
+Search indexes in a collection:
+
+.. literalinclude:: /code-snippets/indexes/searchIndexes.js
+   :language: javascript
+   :dedent:
+   :start-after: start listSearchIndexes example
+   :end-before: end listSearchIndexes example
+
+Update a Search Index
+~~~~~~~~~~~~~~~~~~~~~
+
+You can use the `updateSearchIndex()
+<{+api+}/classes/Collection.html#updateSearchIndex>`__ method to update a Search
+index.
+
+The following code shows how to
+use the ``updateSearchIndex()`` method to update an index called
+``search1`` to specify a string type for the ``description`` field:
+
+.. literalinclude:: /code-snippets/indexes/searchIndexes.js
+   :language: javascript
+   :dedent:
+   :start-after: start updateSearchIndex example
+   :end-before: end updateSearchIndex example
+
+Drop a Search Index
+~~~~~~~~~~~~~~~~~~~
+
+You can use the `dropSearchIndex()
+<{+api+}/classes/Collection.html#dropSearchIndex>`__ method to remove a Search
+index.
+
+The following code shows how to
+use the ``dropSearchIndex()`` method to remove an index called
+``search1``:
+
+.. literalinclude:: /code-snippets/indexes/searchIndexes.js
+   :language: javascript
+   :dedent:
+   :start-after: start dropSearchIndex example
+   :end-before: end dropSearchIndex example
+
+
 .. _text-indexes:
 
 Text Indexes
@@ -360,7 +456,7 @@ The following is an example of a geospatial query using the "location.geo" index
 
 MongoDB also supports ``2d`` indexes for calculating distances on a Euclidean plane and for working with the "legacy
 coordinate pairs" syntax used in MongoDB 2.2 and earlier. For more information, see the :manual:`Geospatial Queries page </geospatial-queries>`
-in the {+mdb-server+} manual. 
+in the {+mdb-server+} manual.
 
 Unique Indexes
 ~~~~~~~~~~~~~~
@@ -401,10 +497,10 @@ Wildcard Indexes
 
 .. _wildcard-indexes:
 
-Wildcard indexes enable queries against unknown or arbitrary fields. 
+Wildcard indexes enable queries against unknown or arbitrary fields.
 These indexes can be beneficial if you are using a dynamic schema.
 
-The following example creates an ascending wildcard index on all 
+The following example creates an ascending wildcard index on all
 values of the ``location`` field, including values nested in subdocuments and arrays:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
