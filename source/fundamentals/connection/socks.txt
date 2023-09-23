@@ -31,6 +31,12 @@ The proxy settings specify the SOCKS5 proxy server address and your
 authentication credentials. You can specify your settings in an instance of
 ``MongoClientSettings`` or in your connection string.
 
+.. important::
+
+   The driver ignores the proxy settings if you specify a custom
+   ``StreamFactoryFactory``, which by default creates instances of
+   ``SocketStreamFactory``.
+
 The following table describes the SOCKS5 client options:
 
 .. list-table::
@@ -126,4 +132,5 @@ following API documentation:
 - `MongoClients.create() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClients.html#create(com.mongodb.MongoClientSettings)>`__
 
 .. TODO
-   - provide the link for the proxysettings builder once the API docs are generated
+   - provide the link for the proxysettings builder once the API docs are generated. Should resemble:
+   - `ProxySettings.Builder <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/ProxySettings.Builder.html>`__
