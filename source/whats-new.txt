@@ -86,43 +86,43 @@ The 4.11 driver release deprecates the following items:
   :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
   Server manual entry.
 
-- The following network address-related methods are deprecated:
+- The following network address-related methods are deprecated: (TODO: replace this item with https://github.com/mongodb/docs-java/pull/446/files)
 
   - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
   - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
 
-  - The following Stream API methods and classes are deprecated and are
-    scheduled for removal in v5.0:
+- The following Stream API methods and classes are deprecated and are
+  scheduled for removal in v5.0:
 
-    - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
-    - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
-    - ``NettyStreamFactoryFactory`` class
-    - ``NettyStreamFactory`` class
-    - ``AsynchronousSocketChannelStreamFactory`` class
-    - ``AsynchronousSocketChannelStreamFactoryFactory`` class
-    - ``BufferProvider`` class
-    - ``SocketStreamFactory`` class
-    - ``Stream`` class
-    - ``StreamFactory`` class
-    - ``StreamFactoryFactory`` class
-    - ``TlsChannelStreamFactoryFactory`` class
+  - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
+  - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
+  - ``NettyStreamFactoryFactory`` class
+  - ``NettyStreamFactory`` class
+  - ``AsynchronousSocketChannelStreamFactory`` class
+  - ``AsynchronousSocketChannelStreamFactoryFactory`` class
+  - ``BufferProvider`` class
+  - ``SocketStreamFactory`` class
+  - ``Stream`` class
+  - ``StreamFactory`` class
+  - ``StreamFactoryFactory`` class
+  - ``TlsChannelStreamFactoryFactory`` class
 
-    To configure Netty by using a nondeprecated API, use the
-    `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
-    instead of
-    `NettyStreamFactoryFactory.builder() <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/netty/NettyStreamFactoryFactory.html>`__
-    as shown in the following example:
+  To configure Netty by using a nondeprecated API, use the
+  `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
+  instead of
+  `NettyStreamFactoryFactory.builder() <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/netty/NettyStreamFactoryFactory.html>`__
+  as shown in the following example:
 
-    .. code-block:: java
-       :emphasize-lines: 6
+  .. code-block:: java
+     :emphasize-lines: 6
 
-       import com.mongodb.connection.TransportSettings;
+     import com.mongodb.connection.TransportSettings;
 
-       // ...
+     // ...
 
-       MongoClientSettings settings = MongoClientSettings.builder()
-               .transportSettings(TransportSettings.nettyBuilder().build())
-               .build();
+     MongoClientSettings settings = MongoClientSettings.builder()
+             .transportSettings(TransportSettings.nettyBuilder().build())
+             .build();
 
 .. _java-new-features-4.11:
 
