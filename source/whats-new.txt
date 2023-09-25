@@ -59,11 +59,11 @@ This section includes the following information:
 Deprecations in 4.11
 ~~~~~~~~~~~~~~~~~~~~
 
-.. warning:: Deprecations in 4.11
+.. warning:: Deprecations in this version
 
    This version of the driver deprecates classes, methods, or both.
-   Review the list and replace your application code that depends on them
-   to avoid breaking changes in future versions.
+   To avoid breaking changes when upgrading to a future version of the driver,
+   replace any application code that depends on the deprecations.
 
 The 4.11 driver release deprecates the following items:
 
@@ -114,6 +114,7 @@ The 4.11 driver release deprecates the following items:
     as shown in the following example:
 
     .. code-block:: java
+       :emphasize-lines: 6
 
        import com.mongodb.connection.TransportSettings;
 
