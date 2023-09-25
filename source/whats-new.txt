@@ -91,6 +91,22 @@ What's New in 4.11
        - ``StreamFactoryFactory`` class
        - ``TlsChannelStreamFactoryFactory`` class
 
+       To configure Netty by using a nondeprecated API, use the
+       `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
+       instead of
+       `NettyStreamFactoryFactory.builder() <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/netty/NettyStreamFactoryFactory.html>`__
+       as shown in the following example:
+
+       .. code-block:: java
+
+          import com.mongodb.connection.TransportSettings;
+
+          // ...
+
+          MongoClientSettings settings = MongoClientSettings.builder()
+                  .transportSettings(TransportSettings.nettyBuilder().build())
+                  .build();
+
 .. note:: Upgraded Netty Version
 
    The {+driver-short+} now tests with version 4.1.87.Final of the
