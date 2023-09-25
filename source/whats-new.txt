@@ -49,68 +49,77 @@ The following changes affect future versions of the driver:
 What's New in 4.11
 ------------------
 
-.. important:: Deprecation Notice
+This section includes the following information:
 
-   - The ``getStats()`` and ``isCapped()`` instance methods of the
-     ``DBCollection`` class are deprecated. The corresponding server
-     commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
-     pipeline stage to retrieve the information provided by these methods
-     instead. You can run the aggregation as shown in the following code example:
+- Deprecations in 4.11
+- New Features in 4.11
 
-     .. code-block:: java
+Deprecations in 4.11
+~~~~~~~~~~~~~~~~~~~~
 
-        collection.aggregate(Arrays.asList(
-                         new Document("$collStats",
-                             new Document("storageStats", new Document()))));
+The 4.11 driver release deprecates the following items:
 
-     To determine whether the collection is a capped collection, access the value
-     of the ``storageStats.capped`` field returned by this example aggregation.
+- The ``getStats()`` and ``isCapped()`` instance methods of the
+  ``DBCollection`` class are deprecated. The corresponding server
+  commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
+  pipeline stage to retrieve the information provided by these methods
+  instead. You can run the aggregation as shown in the following code example:
 
-     To learn more about the ``$collStats`` aggregation operator, see the
-     :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
-     Server manual entry.
+  .. code-block:: java
 
-   - The following network address-related methods are deprecated:
+     collection.aggregate(Arrays.asList(
+                      new Document("$collStats",
+                          new Document("storageStats", new Document()))));
 
-     - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
-     - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
+  To determine whether the collection is a capped collection, access the value
+  of the ``storageStats.capped`` field returned by this example aggregation.
 
-     - The following Stream API methods and classes are deprecated and are
-       scheduled for removal in v5.0:
+  To learn more about the ``$collStats`` aggregation operator, see the
+  :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
+  Server manual entry.
 
-       - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
-       - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
-       - ``NettyStreamFactoryFactory`` class
-       - ``NettyStreamFactory`` class
-       - ``AsynchronousSocketChannelStreamFactory`` class
-       - ``AsynchronousSocketChannelStreamFactoryFactory`` class
-       - ``BufferProvider`` class
-       - ``SocketStreamFactory`` class
-       - ``Stream`` class
-       - ``StreamFactory`` class
-       - ``StreamFactoryFactory`` class
-       - ``TlsChannelStreamFactoryFactory`` class
+- The following network address-related methods are deprecated:
 
-       To configure Netty by using a nondeprecated API, use the
-       `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
-       instead of
-       `NettyStreamFactoryFactory.builder() <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/netty/NettyStreamFactoryFactory.html>`__
-       as shown in the following example:
+  - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
+  - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
 
-       .. code-block:: java
+  - The following Stream API methods and classes are deprecated and are
+    scheduled for removal in v5.0:
 
-          import com.mongodb.connection.TransportSettings;
+    - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
+    - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
+    - ``NettyStreamFactoryFactory`` class
+    - ``NettyStreamFactory`` class
+    - ``AsynchronousSocketChannelStreamFactory`` class
+    - ``AsynchronousSocketChannelStreamFactoryFactory`` class
+    - ``BufferProvider`` class
+    - ``SocketStreamFactory`` class
+    - ``Stream`` class
+    - ``StreamFactory`` class
+    - ``StreamFactoryFactory`` class
+    - ``TlsChannelStreamFactoryFactory`` class
 
-          // ...
+    To configure Netty by using a nondeprecated API, use the
+    `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
+    instead of
+    `NettyStreamFactoryFactory.builder() <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/netty/NettyStreamFactoryFactory.html>`__
+    as shown in the following example:
 
-          MongoClientSettings settings = MongoClientSettings.builder()
-                  .transportSettings(TransportSettings.nettyBuilder().build())
-                  .build();
+    .. code-block:: java
 
-.. note:: Upgraded Netty Version
+       import com.mongodb.connection.TransportSettings;
 
-   The {+driver-short+} now tests with version 4.1.87.Final of the
+       // ...
+
+       MongoClientSettings settings = MongoClientSettings.builder()
+               .transportSettings(TransportSettings.nettyBuilder().build())
+               .build();
+
+- The {+driver-short+} now tests with version 4.1.87.Final of the
    ``io.netty:netty-all`` package.
+
+New Features in 4.11
+~~~~~~~~~~~~~~~~~~~~
 
 New features of the 4.11 driver release include:
 
@@ -133,28 +142,6 @@ New features of the 4.11 driver release include:
   - ``ConnectionCheckOutFailedEvent``
   - ``ConnectionCheckedOutEvent``
   - ``ConnectionReadyEvent``
-
-.. omitted JAVA-4646: Deal with consequence of interrupted socket operation throwing SocketException
-.. omitted JAVA-4761: Collect FaaS platform information as part of the environment information in driver handshake metadata
-.. omitted JAVA-5078: Avoiding Errors if Change Stream Events Exceed 16MB: test on 6.0
-.. omitted JAVA-5097: Re-write AggregatesTest#testGeoNear to pass on all platforms
-.. omitted JAVA-5124: Ensure retryable writes tests execute on non-replica sets
-.. omitted JAVA-5137: failed: explain output on latest sharded clusters
-.. omitted JAVA-4915: Can't turn TLS off in connection string if enabled in TXT record
-.. omitted JAVA-5124: Ensure retryable writes tests execute on non-replica sets
-.. omitted JAVA-5137: failed: explain output on latest sharded clusters
-.. omitted JAVA-4915: Can't turn TLS off in connection string if enabled in TXT record
-.. omitted JAVA-5124: Ensure retryable writes tests execute on non-replica sets
-.. omitted JAVA-5137: failed: explain output on latest sharded clusters
-.. omitted JAVA-4915: Can't turn TLS off in connection string if enabled in TXT record
-.. omitted JAVA-5084: InternalStreamConnection must release buffers obtained via ByteBufferBsonOutput.getByteBuffers
-.. omitted JAVA-5107: Fix race condition in ClientSession#close
-.. omitted JAVA-4641: Fix how InterruptedExceptions are handled
-.. omitted JAVA-5037: Add e2e testing against Atlas to the search index management API
-.. omitted JAVA-5066: Fix handling of EC2 Instance Profile in EG Tests
-.. omitted JAVA-5085: Override default implementation of Iterater#forEachRemaining in MongoCursor
-.. omitted JAVA-5087: Refactor OperationHelper & CommandOperationHelper
-.. omitted JAVA-5089: Update Projections Javadoc to indicate that computed expressions are allowed on find as of 4.4
 
 .. _version-4.10:
 
