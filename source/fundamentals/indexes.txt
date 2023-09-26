@@ -208,15 +208,13 @@ Search Indexes
 ~~~~~~~~~~~~~~
 
 Atlas Search is a feature that allows you to perform full-text
-searches.
+searches on collections hosted on MongoDB Atlas. To perform a full-text search
+on an Atlas collection, you must create an Atlas Search index on the collection.
 
-To learn more, see the :ref:`Atlas Search <fts-top-ref>` documentation.
+To learn more about MongoDB Atlas Search, see the :ref:`Atlas Search <fts-top-ref>` documentation.
 
-To perform a full-text search on an Atlas collection, you must create an
-Atlas Search index on the collection. An Atlas Search index is a data
-structure that categorizes data in a searchable format.
-
-You can use the following methods to manage your Search indexes:
+You can call the following methods on a collection to manage your Atlas Search 
+indexes:
 
 - ``createSearchIndex()``
 - ``createSearchIndexes()``
@@ -224,8 +222,8 @@ You can use the following methods to manage your Search indexes:
 - ``updateSearchIndex()``
 - ``dropSearchIndex()``
 
-The following sections provide code samples that use each of the preceding
-methods to manage Search indexes.
+The following sections provide code examples that demonstrate how to use
+each of the preceding methods.
 
 Create a Search Index
 ~~~~~~~~~~~~~~~~~~~~~
@@ -235,21 +233,28 @@ You can use the `createSearchIndex()
 `createSearchIndexes() <{+api+}/classes/Collection.html#createSearchIndexes>`__
 methods to create new Atlas Search indexes.
 
-The following code shows how to
-use the ``createSearchIndex()`` method to create an index called
-``search1``:
+The following code shows how to use the ``createSearchIndex()`` method to 
+create an index called ``myAtlasSearchIndex``:
 
-.. literalinclude:: /code-snippets/indexes/searchIndexes.js
-   :language: javascript
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
+   :language: java
    :dedent:
-   :start-after: start createSearchIndex example
-   :end-before: end createSearchIndex example
+   :start-after: start create-search-index
+   :end-before: end create-search-index
+
+You can create multiple indexes at once:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
+   :language: java
+   :dedent:
+   :start-after: start create-search-indexes
+   :end-before: end create-search-indexes
+
 
 List Search Indexes
 ~~~~~~~~~~~~~~~~~~~
 
-You can use the `listSearchIndexes()
-<{+api+}/classes/Collection.html#listSearchIndexes>`__
+You can use the `listSearchIndexes() <{+api+}/classes/Collection.html#listSearchIndexes>`__
 method to return a cursor that contains the Search indexes of a given
 collection. The ``listSearchIndexes()`` method takes an optional string
 parameter, ``name``, to return only the indexes with matching names. It
@@ -258,11 +263,11 @@ also takes an optional `aggregateOptions <{+api+}/interfaces/AggregateOptions.ht
 The following code uses the ``listSearchIndexes()`` method to list the
 Search indexes in a collection:
 
-.. literalinclude:: /code-snippets/indexes/searchIndexes.js
-   :language: javascript
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
+   :language: java
    :dedent:
-   :start-after: start listSearchIndexes example
-   :end-before: end listSearchIndexes example
+   :start-after: start list-search-indexes
+   :end-before: end list-search-indexes
 
 Update a Search Index
 ~~~~~~~~~~~~~~~~~~~~~
@@ -275,11 +280,11 @@ The following code shows how to
 use the ``updateSearchIndex()`` method to update an index called
 ``search1`` to specify a string type for the ``description`` field:
 
-.. literalinclude:: /code-snippets/indexes/searchIndexes.js
-   :language: javascript
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
+   :language: java
    :dedent:
-   :start-after: start updateSearchIndex example
-   :end-before: end updateSearchIndex example
+   :start-after: start update-search-index
+   :end-before: end update-search-index
 
 Drop a Search Index
 ~~~~~~~~~~~~~~~~~~~
@@ -292,11 +297,11 @@ The following code shows how to
 use the ``dropSearchIndex()`` method to remove an index called
 ``search1``:
 
-.. literalinclude:: /code-snippets/indexes/searchIndexes.js
-   :language: javascript
+.. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
+   :language: java
    :dedent:
-   :start-after: start dropSearchIndex example
-   :end-before: end dropSearchIndex example
+   :start-after: start drop-search-index
+   :end-before: end drop-search-index
 
 
 .. _text-indexes:
