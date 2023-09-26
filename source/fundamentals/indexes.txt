@@ -4,15 +4,11 @@
 Indexes
 =======
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
    :depth: 2
    :class: singlecol
-
-.. common-content-begin
 
 Overview
 --------
@@ -22,7 +18,7 @@ In this guide, you can learn how to use **indexes** with the MongoDB Java driver
 Indexes support the efficient execution of queries in MongoDB. Without indexes, MongoDB must scan *every* document in a
 collection (a **collection scan**) to find the documents that match each query. These collection scans are slow and can
 negatively affect the performance of your application. If an appropriate index exists for a query, MongoDB can use the
-index to limit the number of documents it must inspect.
+index to limit the documents it must inspect.
 
 Indexes also:
 
@@ -43,9 +39,9 @@ Query Coverage and Performance
 When you execute a query against MongoDB, your command can include various elements:
 
 - Query criteria that specify fields and values you are looking for
-- Options that affect the query's execution (e.g. read concern)
-- Projection criteria to specify the fields MongoDB should return (optional)
-- Sort criteria to specify the order documents will be returned from MongoDB (optional)
+- Options that affect the query's execution such as read concern
+- Projection criteria to specify the fields MongoDB returns (optional)
+- Sort criteria to specify the order documents returned from MongoDB (optional)
 
 When all the fields specified in the query, projection, and sort are in the same index, MongoDB returns results directly
 from the index, also called a **covered query**.
@@ -61,24 +57,24 @@ from the index, also called a **covered query**.
 
       name_1_age_-1
 
-   MongoDB would use this index when you sort your data by either:
+   MongoDB uses this index when you sort your data by either:
 
    - ``name`` ascending, ``age`` descending
    - ``name`` descending, ``age`` ascending
 
    Specifying a sort order of ``name`` and :guilabel:`age` ascending or :guilabel:`name` and ``age``
-   descending would require an in-memory sort.
+   descending requires an in-memory sort.
 
-For additional information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
+For more information on how to ensure your index covers your query criteria and projection, see the MongoDB manual
 articles on :manual:`query coverage </core/query-optimization/#covered-query>`.
 
 Operational Considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To improve query performance, build indexes on fields that appear often in your application's queries and operations
-that return sorted results. Each index that you add consumes disk space and memory when active so you should track index
-memory and disk usage for capacity planning. In addition, when a write operation updates an indexed field, MongoDB also
-has to update the related index.
+that return sorted results. Each index that you add consumes disk space and memory when active so you can track index
+memory and disk usage for capacity planning. In addition, when a write operation updates an indexed field, MongoDB
+updates the related index.
 
 Since MongoDB supports dynamic schemas, applications can query against fields whose names cannot be known in advance or
 are arbitrary. MongoDB 4.2 introduced :manual:`wildcard indexes </core/index-wildcard/>` to help support these queries.
@@ -90,13 +86,9 @@ For more information on designing your data model and choosing indexes appropria
 Index Types
 -----------
 
-MongoDB supports a number of different index types to support querying your data. The following sections describe the
+MongoDB supports several different index types to support querying your data. The following sections describe the
 most common index types and provide sample code for creating each index type. For a full list of index types, see
 :manual:`Indexes </indexes/>`.
-
-.. common-content-end
-
-.. driver-content-begin
 
 .. tip::
 
@@ -120,10 +112,6 @@ method to create various indexes, and the following setup:
    :start-after: begin declaration
    :end-before: end declaration
 
-.. driver-content-end
-
-.. common-content-begin
-
 Single Field and Compound Indexes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -142,27 +130,19 @@ automatically remove documents from a collection after a certain amount of time 
 
 The following example creates an index in ascending order on the ``title`` field:
 
-.. common-content-end
-
-.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin single index
    :end-before: end single index
-.. driver-content-end
 
-The following is an example of a query that would be covered by the index created in the preceding code snippet:
+The following is an example of a query that is covered by the index created in the preceding code snippet:
 
-.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin covered single query
    :end-before: end covered single query
-.. driver-content-end
-
-.. common-content-begin
 
 For more information, see :manual:`Single Field Indexes </core/index-single>` in the {+mdb-server+} manual.
 
@@ -178,26 +158,19 @@ improving query and sort performance.
 
 The following example creates a compound index on the ``type`` and ``rated`` fields:
 
-.. common-content-end
-
-.. driver-content-begin
-
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin compound index
    :end-before: end compound index
 
-The following is an example of a query that would be covered by the index created in the preceding code snippet:
+The following is an example of a query that is covered by the index created in the preceding code snippet:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin covered compound query
    :end-before: end covered compound query
-.. driver-content-end
-
-.. common-content-begin
 
 For more information, see :manual:`Compound Indexes </core/index-compound>` in the {+mdb-server+} manual.
 
@@ -210,28 +183,24 @@ an array value. You can define a multikey index using the same syntax as a singl
 The following example creates a compound, multikey index on the ``rated``, ``genres`` (an array of
 Strings), and ``title`` fields:
 
-.. common-content-end
-.. driver-content-begin
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin multikey index
    :end-before: end multikey index
 
-The following is an example of a query that would be covered by the index created in the preceding code snippet:
+The following is an example of a query that is covered by the index created in the preceding code snippet:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
    :start-after: begin covered multikey query
    :end-before: end covered multikey query
-.. driver-content-end
 
-.. common-content-begin
 
 Multikey indexes behave differently from other indexes in terms of query coverage, index bound computation, and
-sort behavior. For a full explanation of multikey indexes, including a discussion of their behavior and limitations,
-refer to the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB manual.
+sort behavior. To learn more about multikey indexes, including a discussion of their behavior and limitations,
+see the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB manual.
 
 .. _search-indexes:
 
@@ -239,10 +208,11 @@ Search Indexes
 ~~~~~~~~~~~~~~
 
 Atlas Search is a feature that allows you to perform full-text
-searches. To learn more, see the :ref:`Atlas Search <fts-top-ref>`
-documentation.
+searches.
 
-To perform a full-text  search on an Atlas collection, you must create an
+To learn more, see the :ref:`Atlas Search <fts-top-ref>` documentation.
+
+To perform a full-text search on an Atlas collection, you must create an
 Atlas Search index on the collection. An Atlas Search index is a data
 structure that categorizes data in a searchable format.
 
@@ -340,13 +310,9 @@ language as an option when creating the index.
 
 .. tip::
 
-   Text indexes differ from the more powerful
-   :atlas:`Atlas full text search indexes </atlas-search/?jmp=docs_driver_java>`.
-   Atlas users should use Atlas search.
-
-.. common-content-end
-
-.. driver-content-begin
+   Text indexes differ from the more fully-featured MongoDB Atlas Search
+   indexes. To learn more about Atlas Search indexes and how to use them, see
+   the :ref:`search-indexes` section of this guide.
 
 Single Field
 ++++++++++++
@@ -359,7 +325,7 @@ The following example creates a text index on the ``plot`` field:
    :start-after: begin text index
    :end-before: end text index
 
-The following is an example of a query that would use the index created in the preceding code snippet. Note that the ``sort`` is
+The following is an example of a query that uses the index created in the preceding code snippet. Note that the ``sort`` is
 omitted because text indexes do not contain sort order.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
@@ -368,14 +334,11 @@ omitted because text indexes do not contain sort order.
    :start-after: begin text query
    :end-before: end text query
 
-.. driver-content-end
-.. common-content-begin
-
 Multiple Fields
 +++++++++++++++
 
 A collection can only contain one text index. If you want to create a
-text index for multiple text fields, you need to create a compound
+text index for multiple text fields, you must create a compound
 index. A text search runs on all the text fields within the compound
 index.
 
@@ -432,10 +395,7 @@ The following example creates a ``2dsphere`` index on the ``location.geo`` field
 
 .. important::
 
-   Attempting to create a geospatial index on a field that is covered by a geospatial index will result in an error.
-
-.. common-content-end
-.. driver-content-begin
+   Attempting to create a geospatial index on a field that is covered by a geospatial index results in an error.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
@@ -450,9 +410,6 @@ The following is an example of a geospatial query using the "location.geo" index
    :dedent:
    :start-after: begin geospatial query
    :end-before: end geospatial query
-
-.. driver-content-end
-.. common-content-begin
 
 MongoDB also supports ``2d`` indexes for calculating distances on a Euclidean plane and for working with the "legacy
 coordinate pairs" syntax used in MongoDB 2.2 and earlier. For more information, see the :manual:`Geospatial Queries page </geospatial-queries>`
@@ -469,9 +426,6 @@ fields that you want to prevent duplication on and set the ``unique`` option to 
 
 The following example creates a unique, descending index on the ``theaterId`` field:
 
-.. common-content-end
-.. driver-content-begin
-
 .. literalinclude:: /includes/fundamentals/code-snippets/IndexPage.java
    :language: java
    :dedent:
@@ -481,7 +435,7 @@ The following example creates a unique, descending index on the ``theaterId`` fi
 .. important::
 
    If you perform a write operation that stores a duplicate value that violates the unique index, the MongoDB
-   Java driver will raise a ``DuplicateKeyException``, and MongoDB will throw an error resembling the following:
+   Java driver raises a ``DuplicateKeyException``, and MongoDB throws an error resembling the following:
 
    .. code-block:: none
       :copyable: false
@@ -489,8 +443,6 @@ The following example creates a unique, descending index on the ``theaterId`` fi
       E11000 duplicate key error index
 
 For more information, see the :manual:`Unique Indexes</core/index-unique>` page in the {+mdb-server+} manual.
-
-.. driver-content-end
 
 Wildcard Indexes
 ~~~~~~~~~~~~~~~~
@@ -578,7 +530,7 @@ Remove an Index Using a Name Field
 Pass the ``name`` field of the index to the ``dropIndex()`` method to
 remove an index from a collection.
 
-If you need to find the name of your index, use the ``listIndexes()``
+To find the name of your index, use the ``listIndexes()``
 method to see the value of the ``name`` fields in your indexes.
 
 The following snippet retrieves and prints all the indexes in a
