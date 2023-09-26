@@ -29,7 +29,7 @@ public class SearchIndexMethods {
             BsonDocument indexDefinition = new BsonDocument("mappings",
                     new BsonDocument("dynamic", BsonBoolean.TRUE));
             collection.createSearchIndex("myIndex", indexDefinition);
-            // end create-search-indax
+            // end create-search-index
 
             collection.dropSearchIndex("myIndex1");
             collection.dropSearchIndex("myIndex2");
