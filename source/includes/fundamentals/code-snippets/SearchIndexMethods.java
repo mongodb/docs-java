@@ -53,7 +53,7 @@ public class SearchIndexMethods {
 
             // start drop-search-index
             collection.dropSearchIndex("myIndex");
-            // end drop-search-idnex
+            // end drop-search-index
 
             // start list-search-indexes
             try (MongoCursor<Document> resultsCursor = collection.listSearchIndexes().iterator()) {
