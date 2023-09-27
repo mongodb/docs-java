@@ -317,7 +317,7 @@ shown in the following example:
 .. code-block:: java
 
    ChangeStreamIterable<Document> changeStream = collection.watch(
-                        Arrays.asList(Document.parse("{ $changeStreamSplitLargeEvent: {} }")));
+         Arrays.asList(Document.parse("{ $changeStreamSplitLargeEvent: {} }")));
 
 You can access the ``SplitEvent`` by using your change stream cursor with the
 ``getSplitEvent()`` as follows:
