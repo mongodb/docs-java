@@ -11,19 +11,22 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchIndexMethods {
+
+    private static String URI = "mongodb://localhost:59651/?directConnection=true&serverSelectionTimeoutMS=2000";
+    private static String DB_NAME = "test_db";
+    private static String COLL_NAME = "test_coll";
+    private static void setup(MongoClient mongoClient) {
+        MongoDatabase database = mongoClient.getDatabase(DB_NAME);
+        MongoCollection<Document> collection = database.getCollection(COLL_NAME);
+        collection.dropIndexes();
+        database.createCollection(COLL_NAME);
+    }
     public static void main( String[] args ) {
 
-        String uri = "mongodb://localhost:59651/?directConnection=true&serverSelectionTimeoutMS=2000";
-
-
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-            database.createCollection("test_movies");
-            MongoCollection<Document> collection = database.getCollection("test_movies");
-
-            collection.insertOne(new Document("name", "abc"));
-
-            collection.dropSearchIndex("myIndex");
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            setup(mongoClient);
+            MongoDatabase database = mongoClient.getDatabase(DB_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLL_NAME);
 
             // start create-search-index
             BsonDocument indexDefinition = new BsonDocument("mappings",
@@ -31,16 +34,14 @@ public class SearchIndexMethods {
             collection.createSearchIndex("myIndex", indexDefinition);
             // end create-search-index
 
-            collection.dropSearchIndex("myIndex1");
-            collection.dropSearchIndex("myIndex2");
-
             // start create-search-indexes
             SearchIndexModel indexModelOne = new SearchIndexModel("myIndex1",
                     new BsonDocument("analyzer", new BsonString("lucene.standard")).append(
-                        "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
+                            "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
+
             SearchIndexModel indexModelTwo = new SearchIndexModel("myIndex2",
                     new BsonDocument("analyzer", new BsonString("lucene.simple")).append(
-                        "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
+                            "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
 
             collection.createSearchIndexes(Arrays.asList(indexModelOne, indexModelTwo));
             // end create-search-indexes
@@ -48,13 +49,15 @@ public class SearchIndexMethods {
             // start update-search-index
             collection.updateSearchIndex("myIndex",
                     new BsonDocument("analyzer", new BsonString("lucene.simple")).append(
-                            "mappings", new BsonDocument("dynamic", BsonBoolean.FALSE)));
+                            "mappings",
+                            new BsonDocument("dynamic", BsonBoolean.FALSE)
+                                    .append("fields",
+                                            new BsonDocument("title",
+                                                    new BsonDocument("type", new BsonString("string"))))
+                    )
+            );
             // end update-search-index
-
-            // start drop-search-index
-            collection.dropSearchIndex("myIndex");
-            // end drop-search-index
-
+            
             // start list-search-indexes
             try (MongoCursor<Document> resultsCursor = collection.listSearchIndexes().iterator()) {
                 while (resultsCursor.hasNext()) {
@@ -62,6 +65,10 @@ public class SearchIndexMethods {
                 }
             }
             // end list-search-indexes
+
+            // start drop-search-index
+            collection.dropSearchIndex("myIndex");
+            // end drop-search-index
         }
     }
 }

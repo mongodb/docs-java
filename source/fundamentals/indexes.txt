@@ -207,9 +207,13 @@ see the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB ma
 Atlas Search Indexes
 ~~~~~~~~~~~~~~~~~~~~
 
-Atlas Search is a feature that enables you to perform full-text searches on
-collections hosted on MongoDB Atlas. You can manage your Atlas Search indexes
-in the Atlas UI or by using one of the following methods in the driver:
+The Atlas Search feature enables you to perform full-text searches on
+collections hosted on MongoDB Atlas. The indexes specify the behavior of
+the search and which fields to index.
+
+To learn more about MongoDB Atlas Search, see the
+:ref:`Atlas Search Indexes </atlas-search/atlas-search-overview/#fts-indexes>`
+documentation.
 
 You can call the following methods on a collection to manage your Atlas Search
 indexes:
@@ -220,21 +224,18 @@ indexes:
 - ``updateSearchIndex()``
 - ``dropSearchIndex()``
 
-To learn more about MongoDB Atlas Search, see the :ref:`Atlas Search <fts-top-ref>` documentation.
-
 The following sections provide code examples that demonstrate how to use
 each of the preceding methods.
 
 Create a Search Index
 +++++++++++++++++++++
 
-You can use the `createSearchIndex()
-<{+api+}/classes/Collection.html#createSearchIndex>`__ and
-`createSearchIndexes() <{+api+}/classes/Collection.html#createSearchIndexes>`__
-methods to create new Atlas Search indexes.
+You can use the ``createSearchIndex()`` (TODO: add API link)
+ and
+``createSearchIndexes()`` (TODO: add API link)
+methods to create Atlas Search indexes.
 
-The following code shows how to use the ``createSearchIndex()`` method to
-create an index called ``myAtlasSearchIndex``:
+The following code example shows how to create a single index named "myIndex":
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
    :language: java
@@ -242,7 +243,7 @@ create an index called ``myAtlasSearchIndex``:
    :start-after: start create-search-index
    :end-before: end create-search-index
 
-You can create multiple indexes at once:
+The following code example shows how to create multiple indexes:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
    :language: java
@@ -250,18 +251,14 @@ You can create multiple indexes at once:
    :start-after: start create-search-indexes
    :end-before: end create-search-indexes
 
-
 List Search Indexes
 +++++++++++++++++++
 
-You can use the `listSearchIndexes() <{+api+}/classes/Collection.html#listSearchIndexes>`__
-method to return a cursor that contains the Search indexes of a given
-collection. The ``listSearchIndexes()`` method takes an optional string
-parameter, ``name``, to return only the indexes with matching names. It
-also takes an optional `aggregateOptions <{+api+}/interfaces/AggregateOptions.html>`__ parameter.
+You can use the 
+``listSearchIndexes()`` (TODO: add API link) method to return the Atlas
+Search indexes of a collection.
 
-The following code uses the ``listSearchIndexes()`` method to list the
-Search indexes in a collection:
+The following code example shows how to list the search indexes of a collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
    :language: java
@@ -272,13 +269,11 @@ Search indexes in a collection:
 Update a Search Index
 +++++++++++++++++++++
 
-You can use the `updateSearchIndex()
-<{+api+}/classes/Collection.html#updateSearchIndex>`__ method to update a Search
-index.
+You can use the 
+``updateSearchIndex()`` (TODO: add API link)
+method to update an Atlas Search index.
 
-The following code shows how to
-use the ``updateSearchIndex()`` method to update an index called
-``search1`` to specify a string type for the ``description`` field:
+The following code shows how to update a search index of a collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
    :language: java
@@ -289,13 +284,11 @@ use the ``updateSearchIndex()`` method to update an index called
 Drop a Search Index
 +++++++++++++++++++
 
-You can use the `dropSearchIndex()
-<{+api+}/classes/Collection.html#dropSearchIndex>`__ method to remove a Search
-index.
+You can use the 
+``dropSearchIndex()`` (TODO: add API link)
+method to remove an Atlas Search index.
 
-The following code shows how to
-use the ``dropSearchIndex()`` method to remove an index called
-``search1``:
+The following code shows how to delete a search index of a collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
    :language: java
