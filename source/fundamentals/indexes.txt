@@ -39,9 +39,9 @@ Query Coverage and Performance
 When you execute a query against MongoDB, your command can include various elements:
 
 - Query criteria that specify fields and values you are looking for
-- Options that affect the query's execution such as read concern
+- Options that affect the query's execution, such as read concern
 - Projection criteria to specify the fields MongoDB returns (optional)
-- Sort criteria to specify the order documents returned from MongoDB (optional)
+- Sort criteria to specify the order of documents returned from MongoDB (optional)
 
 When all the fields specified in the query, projection, and sort are in the same index, MongoDB returns results directly
 from the index, also called a **covered query**.
@@ -71,10 +71,12 @@ articles on :manual:`query coverage </core/query-optimization/#covered-query>`.
 Operational Considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To improve query performance, build indexes on fields that appear often in your application's queries and operations
-that return sorted results. Each index that you add consumes disk space and memory when active so you can track index
-memory and disk usage for capacity planning. In addition, when a write operation updates an indexed field, MongoDB
-updates the related index.
+To improve query performance, build indexes on fields that appear often in
+your application's queries and operations that return sorted results. Each
+index that you add consumes disk space and memory when active, so we recommend
+that you track index memory and disk usage for capacity planning. In addition,
+when a write operation updates an indexed field, MongoDB updates the related
+index.
 
 Since MongoDB supports dynamic schemas, applications can query against fields whose names cannot be known in advance or
 are arbitrary. MongoDB 4.2 introduced :manual:`wildcard indexes </core/index-wildcard/>` to help support these queries.
