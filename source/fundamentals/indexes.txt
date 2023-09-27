@@ -204,16 +204,14 @@ see the :manual:`Multikey Indexes page </core/index-multikey>` in the MongoDB ma
 
 .. _search-indexes:
 
-Search Indexes
-~~~~~~~~~~~~~~
+Atlas Search Indexes
+~~~~~~~~~~~~~~~~~~~~
 
-Atlas Search is a feature that allows you to perform full-text
-searches on collections hosted on MongoDB Atlas. To perform a full-text search
-on an Atlas collection, you must create an Atlas Search index on the collection.
+Atlas Search is a feature that enables you to perform full-text searches on
+collections hosted on MongoDB Atlas. You can manage your Atlas Search indexes
+in the Atlas UI or by using one of the following methods in the driver:
 
-To learn more about MongoDB Atlas Search, see the :ref:`Atlas Search <fts-top-ref>` documentation.
-
-You can call the following methods on a collection to manage your Atlas Search 
+You can call the following methods on a collection to manage your Atlas Search
 indexes:
 
 - ``createSearchIndex()``
@@ -222,18 +220,20 @@ indexes:
 - ``updateSearchIndex()``
 - ``dropSearchIndex()``
 
+To learn more about MongoDB Atlas Search, see the :ref:`Atlas Search <fts-top-ref>` documentation.
+
 The following sections provide code examples that demonstrate how to use
 each of the preceding methods.
 
 Create a Search Index
-^^^^^^^^^^^^^^^^^^^^^
+`````````````````````
 
 You can use the `createSearchIndex()
 <{+api+}/classes/Collection.html#createSearchIndex>`__ and
 `createSearchIndexes() <{+api+}/classes/Collection.html#createSearchIndexes>`__
 methods to create new Atlas Search indexes.
 
-The following code shows how to use the ``createSearchIndex()`` method to 
+The following code shows how to use the ``createSearchIndex()`` method to
 create an index called ``myAtlasSearchIndex``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/SearchIndexMethods.java
@@ -252,7 +252,7 @@ You can create multiple indexes at once:
 
 
 List Search Indexes
-^^^^^^^^^^^^^^^^^^^
+```````````````````
 
 You can use the `listSearchIndexes() <{+api+}/classes/Collection.html#listSearchIndexes>`__
 method to return a cursor that contains the Search indexes of a given
@@ -270,7 +270,7 @@ Search indexes in a collection:
    :end-before: end list-search-indexes
 
 Update a Search Index
-^^^^^^^^^^^^^^^^^^^^^
+`````````````````````
 
 You can use the `updateSearchIndex()
 <{+api+}/classes/Collection.html#updateSearchIndex>`__ method to update a Search
@@ -287,7 +287,7 @@ use the ``updateSearchIndex()`` method to update an index called
    :end-before: end update-search-index
 
 Drop a Search Index
-^^^^^^^^^^^^^^^^^^^
+```````````````````
 
 You can use the `dropSearchIndex()
 <{+api+}/classes/Collection.html#dropSearchIndex>`__ method to remove a Search
@@ -302,7 +302,6 @@ use the ``dropSearchIndex()`` method to remove an index called
    :dedent:
    :start-after: start drop-search-index
    :end-before: end drop-search-index
-
 
 .. _text-indexes:
 
