@@ -329,7 +329,14 @@ You can access the ``SplitEvent`` by using your change stream cursor with the
 
 .. code-block:: java
 
+   MongoChangeStreamCursor<ChangeStreamDocument<Document>> cursor = changeStream.cursor();
+   
+   // Application code that creates change stream events
+   // ...
+
    SplitEvent event = cursor.tryNext().getSplitEvent();
+
+For more information about accessing data from a cursor, see :ref:`java-fundamentals-cursor`.
 
 For more information on the ``$changeStreamSplitLargeEvent`` aggregation stage,
 see the :manual:`$changeStreamSplitLargeEvent
