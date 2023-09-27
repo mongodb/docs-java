@@ -164,7 +164,7 @@ New features of the 4.10 driver release include:
   retry operations. The driver now correctly emits one log message for
   each retry operation.
 - The ``org.bson.codecs.Parameterizable`` interface is deprecated. Instead of
-  implementing this interface on a custom ``Codec`` type, you should
+  implementing this interface on a custom ``Codec`` type,
   override the ``CodecProvider.get()`` method on the
   codec's ``CodecProvider`` if the codec is intended for a parameterized
   type.
@@ -305,7 +305,7 @@ New features of the 4.7 driver release include:
 
 - Added a new API for encryption key management.
 
-- Added builder API methods for additional aggregation stages
+- Added builder API methods for more aggregation stages
   including :pipeline:`$search`/:pipeline:`$searchMeta` (Atlas only),
   :pipeline:`$densify`, and :pipeline:`$fill`. Learn more about these
   methods on the :ref:`Aggregates Builder <aggregates-builders>` page.
@@ -381,12 +381,12 @@ New features of the 4.5 Java driver release include:
   in the Java Language Specification.
 - Added ``EnumCodec`` and ``EnumCodecProvider`` classes to separate codec
   support for ``enum`` types from the ``PojoCodec`` class. The default
-  codec registries, accessible from the ``MongoClientSettings`` and the ``Bson``
+  codec registries, which you can access from the ``MongoClientSettings`` and the ``Bson``
   interfaces, now include the ``enum`` codec classes. If your application uses
   a custom enumeration codec and one of the default registries, ensure
   you order them as described in the section on :ref:`overriding codecs <codecs-override>`.
 - Resolved performance issues that impacted versions 4.4 and 4.3 of the
-  driver. Performance in this version should be similar to performance in 4.2.
+  driver. Performance in this version is similar to performance in 4.2.
 - Resolved an issue in which errors originating from retrieving the cluster
   description weren't passed to the ``onError`` Subscriber callback
 - Resolved an issue with releasing ``ByteBuf`` instances when you connect
