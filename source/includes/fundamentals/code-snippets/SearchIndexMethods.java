@@ -29,21 +29,21 @@ public class SearchIndexMethods {
             MongoCollection<Document> collection = database.getCollection(COLL_NAME);
 
             // start create-search-index
-            BsonDocument indexDefinition = new BsonDocument("mappings",
+            BsonDocument index = new BsonDocument("mappings",
                     new BsonDocument("dynamic", BsonBoolean.TRUE));
-            collection.createSearchIndex("myIndex", indexDefinition);
+            collection.createSearchIndex("myIndex", index);
             // end create-search-index
 
             // start create-search-indexes
-            SearchIndexModel indexModelOne = new SearchIndexModel("myIndex1",
+            SearchIndexModel indexOne = new SearchIndexModel("myIndex1",
                     new BsonDocument("analyzer", new BsonString("lucene.standard")).append(
                             "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
 
-            SearchIndexModel indexModelTwo = new SearchIndexModel("myIndex2",
+            SearchIndexModel indexTwo = new SearchIndexModel("myIndex2",
                     new BsonDocument("analyzer", new BsonString("lucene.simple")).append(
                             "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
 
-            collection.createSearchIndexes(Arrays.asList(indexModelOne, indexModelTwo));
+            collection.createSearchIndexes(Arrays.asList(indexOne, indexTwo));
             // end create-search-indexes
 
             // start update-search-index
@@ -57,7 +57,7 @@ public class SearchIndexMethods {
                     )
             );
             // end update-search-index
-            
+
             // start list-search-indexes
             try (MongoCursor<Document> resultsCursor = collection.listSearchIndexes().iterator()) {
                 while (resultsCursor.hasNext()) {
