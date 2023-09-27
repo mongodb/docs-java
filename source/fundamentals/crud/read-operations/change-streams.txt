@@ -319,6 +319,11 @@ shown in the following example:
    ChangeStreamIterable<Document> changeStream = collection.watch(
          Arrays.asList(Document.parse("{ $changeStreamSplitLargeEvent: {} }")));
 
+.. note::
+
+   You can have only one ``$changeStreamSplitLargeEvent`` stage in your
+   aggregation pipeline, and it must be the last stage in the pipeline.
+
 You can access the ``SplitEvent`` by using your change stream cursor with the
 ``getSplitEvent()`` as follows:
 
