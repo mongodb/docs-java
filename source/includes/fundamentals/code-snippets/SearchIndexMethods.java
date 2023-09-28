@@ -8,17 +8,18 @@ import java.util.Arrays;
 
 public class SearchIndexMethods {
 
-    private static String URI = "mongodb://localhost:59651/?directConnection=true&serverSelectionTimeoutMS=2000";
+    private static String URI = "<your connection string>";
     private static String DB_NAME = "test_db";
     private static String COLL_NAME = "test_coll";
+
     private static void setup(MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase(DB_NAME);
         MongoCollection<Document> collection = database.getCollection(COLL_NAME);
         collection.dropIndexes();
         database.createCollection(COLL_NAME);
     }
-    public static void main( String[] args ) {
 
+    public static void main( String[] args ) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             setup(mongoClient);
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
