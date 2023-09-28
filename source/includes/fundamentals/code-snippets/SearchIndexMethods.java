@@ -2,13 +2,9 @@ package org.example;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.SearchIndexModel;
-import org.bson.BsonBoolean;
-import org.bson.BsonDocument;
-import org.bson.BsonString;
 import org.bson.Document;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class SearchIndexMethods {
 
@@ -29,31 +25,31 @@ public class SearchIndexMethods {
             MongoCollection<Document> collection = database.getCollection(COLL_NAME);
 
             // start create-search-index
-            BsonDocument index = new BsonDocument("mappings",
-                    new BsonDocument("dynamic", BsonBoolean.TRUE));
+            Document index = new Document("mappings",
+                    new Document("dynamic", true));
             collection.createSearchIndex("myIndex", index);
             // end create-search-index
 
             // start create-search-indexes
             SearchIndexModel indexOne = new SearchIndexModel("myIndex1",
-                    new BsonDocument("analyzer", new BsonString("lucene.standard")).append(
-                            "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
+                    new Document("analyzer", "lucene.standard").append(
+                            "mappings", new Document("dynamic", true)));
 
             SearchIndexModel indexTwo = new SearchIndexModel("myIndex2",
-                    new BsonDocument("analyzer", new BsonString("lucene.simple")).append(
-                            "mappings", new BsonDocument("dynamic", BsonBoolean.TRUE)));
+                    new Document("analyzer", "lucene.simple").append(
+                            "mappings", new Document("dynamic", true)));
 
             collection.createSearchIndexes(Arrays.asList(indexOne, indexTwo));
             // end create-search-indexes
 
             // start update-search-index
             collection.updateSearchIndex("myIndex",
-                    new BsonDocument("analyzer", new BsonString("lucene.simple")).append(
+                    new Document("analyzer", "lucene.simple").append(
                             "mappings",
-                            new BsonDocument("dynamic", BsonBoolean.FALSE)
+                            new Document("dynamic", false)
                                     .append("fields",
-                                            new BsonDocument("title",
-                                                    new BsonDocument("type", new BsonString("string"))))
+                                            new Document("title",
+                                                    new Document("type", "string")))
                     )
             );
             // end update-search-index
