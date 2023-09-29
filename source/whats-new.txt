@@ -79,12 +79,12 @@ What's New in 4.11
 
   - The `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__
     methods ``getSocketAddress()`` and ``getSocketAddresses()``.
-    Instead of ``getSocketAddress()``, use the ``getAddress()`` method from the
-    ``InetSocketAddress`` class. Instead of ``getSocketAddresses()``, use the
+    Instead of ``getSocketAddress()``, use the ``getByName()`` method from the
+    ``InetAddress`` class. Instead of ``getSocketAddresses()``, use the
     ``getAllByName()`` method from the ``InetAddress`` class. 
   - The `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__
-    method ``getUnixSocketAddress()``. Instead of ``getUnixSocketAddress()``, call
-    ``of()`` on a ``UnixDomainSocketAddress`` instance and pass a path name as an
+    method ``getUnixSocketAddress()``. Instead of ``getUnixSocketAddress()``, use
+    the ``UnixDomainSocketAddress`` constuctor and pass a ``String`` path name as an
     argument.
 
 .. _version-4.10:
