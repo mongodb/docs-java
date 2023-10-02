@@ -80,17 +80,21 @@ What's New in 4.11
   - The `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__
     methods ``getSocketAddress()`` and ``getSocketAddresses()``.
     
-    Instead of ``getSocketAddress()``, use the ``getByName()`` method from the
-    ``InetAddress`` class.
+    Instead of ``getSocketAddress()``, use the ``getByName()`` method.
+    ``getByName()`` is an instance method of the ``InetAddress`` class in the
+    ``java.net`` package.
     
-    Instead of ``getSocketAddresses()``, use the ``getAllByName()`` method from
-    the ``InetAddress`` class. 
+    Instead of ``getSocketAddresses()``, use the ``getAllByName()`` method.
+    ``getAllByName()`` is an instance method of the ``InetAddress`` class in
+    the ``java.net`` package. 
 
   - The `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__
     method ``getUnixSocketAddress()``.
     
-    Instead of ``getUnixSocketAddress()``, use the ``UnixSocketAddress`` constructor
-    and pass a ``String`` path name as an argument.
+    Instead of ``getUnixSocketAddress()``, use the constructor for the ``UnixSocketAddress``
+    class in the ``jnr.unixsocket`` package. Pass the file-system path name of the
+    UNIX socket file, as a ``String``, to the ``UnixSocketAddress`` constructor. By default,
+    MongoDB creates a UNIX socket file located at ``"/tmp/mongodb-27017.sock"``.
 
 .. _version-4.10:
 
