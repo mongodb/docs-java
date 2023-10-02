@@ -111,7 +111,7 @@ The 4.11 driver release deprecates the following items:
   - ``StreamFactoryFactory`` class
   - ``TlsChannelStreamFactoryFactory`` class
 
-  If you currently configure Netty by using
+  If you configure Netty by using
   ``streamFactoryFactory()``, ``getStreamFactoryFactory()``, or ``NettyStreamFactoryFactory``,
   replace your code with the `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
   in the nondeprecated API as shown in the following example:
