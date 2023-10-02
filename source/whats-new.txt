@@ -59,29 +59,32 @@ This section includes the following information:
 Deprecations in 4.11
 ~~~~~~~~~~~~~~~~~~~~
 
-.. warning:: Deprecations in this version
+.. warning:: Deprecations in this release
 
-   This version of the driver deprecates classes, methods, or both.
-   To avoid breaking changes in a future version of the driver,
+   This version of the driver deprecates classes and methods.
+   To avoid breaking changes in future major releases of the driver,
    replace any application code that depends on the deprecated code.
 
 The 4.11 driver release deprecates the following items:
 
 - The ``getStats()`` and ``isCapped()`` instance methods of the
   ``DBCollection`` class are deprecated. The corresponding server
-  commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats`` aggregation
-  pipeline stage to retrieve the information provided by these methods
-  instead. You can run the aggregation as shown in the following code example:
+  commands are deprecated in MongoDB v6.2 and later. Use the ``$collStats``
+  aggregation pipeline stage to retrieve the information provided by these
+  methods instead. You can run the aggregation as shown in the following code
+  example:
 
   .. code-block:: java
 
-     collection.aggregate(Arrays.asList(
-                      new Document("$collStats",
-                          new Document("storageStats", new Document()))));
+     Cursor cursor = collection.aggregate(Arrays.asList(
+             new BasicDBObject("$collStats",
+                     new BasicDBObject("storageStats", new BasicDBObject()))),
+             AggregationOptions.builder().build()
+     );
 
   To determine whether a collection is a capped collection, access the value
-  of the ``storageStats.capped`` field returned by the preceding example
-  aggregation.
+  of the ``storageStats.capped`` field returned by ``Cursor`` instance in the
+  preceding example aggregation.
 
   To learn more about the ``$collStats`` aggregation operator, see the
   :manual:`$collStats (aggregation) </reference/operator/aggregation/collStats/>`
@@ -108,11 +111,10 @@ The 4.11 driver release deprecates the following items:
   - ``StreamFactoryFactory`` class
   - ``TlsChannelStreamFactoryFactory`` class
 
-  To configure Netty by using a nondeprecated API, use the
-  `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
-  instead of
-  `NettyStreamFactoryFactory.builder() <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/netty/NettyStreamFactoryFactory.html>`__
-  as shown in the following example:
+  If you currently configure Netty by using
+  ``streamFactoryFactory()``, ``getStreamFactoryFactory()``, or ``NettyStreamFactoryFactory``,
+  replace your code with the `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
+  in the nondeprecated API as shown in the following example:
 
   .. code-block:: java
      :emphasize-lines: 6
