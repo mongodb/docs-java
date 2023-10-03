@@ -41,8 +41,10 @@ The following changes affect future versions of the driver:
   are deprecated in MongoDB v4.2 and later. They will be replaced by the
   aggregation framework and removed in a future release.
 - Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
-- Beginning with v5.0, several Stream API methods and classes will be
-  removed. To learn which methods will be removed, see :ref:`version-4.11`.
+- Beginning with v5.0, several API methods and classes related to the Java
+  `Stream <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html>`__
+  interface will be removed. To learn which methods will be removed, see 
+  :ref:`version-4.11`.
 
 .. _version-4.11:
 
@@ -112,7 +114,7 @@ The 4.11 driver release deprecates the following items:
   - ``TlsChannelStreamFactoryFactory`` class
 
   If you configure Netty by using
-  ``streamFactoryFactory()``, ``getStreamFactoryFactory()``, or ``NettyStreamFactoryFactory``,
+  ``MongoClientSettings.Builder.streamFactoryFactory()``,
   replace your code with the `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
   in the nondeprecated API as shown in the following example:
 
