@@ -34,17 +34,10 @@ Upcoming Breaking Changes
 
 .. Relocate these items into the source/upgrade.txt page once they become breaking changes
 
-The following changes affect future versions of the driver:
+In addition to the deprecations mentioned in specific driver versions on this
+page, anticipated breaking changes include the following:
 
-- `MapReduceIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MapReduceIterable.html>`__
-  and map-reduce methods on `MongoCollection <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#mapReduce(com.mongodb.client.ClientSession,java.lang.String,java.lang.String)>`__
-  are deprecated in MongoDB v4.2 and later. They will be replaced by the
-  aggregation framework and removed in a future release.
-- Beginning with v5.0, the {+driver-short+} will require Java 11 or later.
-- Beginning with v5.0, several API methods and classes related to the Java
-  `Stream <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html>`__
-  interface will be removed. To learn which methods will be removed, see 
-  :ref:`version-4.11`.
+- Beginning with v5.0, the {+driver-short+} requires Java 11 or later.
 
 .. _version-4.11:
 
@@ -63,9 +56,8 @@ Deprecations in 4.11
 
 .. warning:: Deprecations in this release
 
-   This version of the driver deprecates classes and methods.
    To avoid breaking changes in future major releases of the driver,
-   replace any application code that depends on the deprecated code.
+   replace any application code that depends on deprecated methods and types.
 
 The 4.11 driver release deprecates the following items:
 
@@ -97,8 +89,9 @@ The 4.11 driver release deprecates the following items:
   - ``getSocketAddress()`` and ``getSocketAddresses()`` methods from the `ServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ServerAddress.html>`__ class
   - ``getUnixSocketAddress()`` from the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__ class
 
-- The following Stream API methods and classes are deprecated and are
-  scheduled for removal in v5.0:
+- The following methods and types related to the
+  `StreamFactory <https://mongodb.github.io/mongo-java-driver/4.10/apidocs/mongodb-driver-core/com/mongodb/connection/StreamFactory.html>`__
+  interface are deprecated and scheduled for removal in v5.0:
 
   - ``streamFactoryFactory()`` method from ``MongoClientSettings.Builder``
   - ``getStreamFactoryFactory()`` method from ``MongoClientSettings``
@@ -114,9 +107,23 @@ The 4.11 driver release deprecates the following items:
   - ``TlsChannelStreamFactoryFactory`` class
 
   If you configure Netty by using
-  ``MongoClientSettings.Builder.streamFactoryFactory()``,
-  replace your code with the `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
-  in the nondeprecated API as shown in the following example:
+  ``MongoClientSettings.Builder.streamFactoryFactory()``, your code might resemble
+  the following:
+
+  .. code-block:: java
+     :emphasize-lines: 6
+     :copyable: false
+
+     import com.mongodb.connection.netty.NettyStreamFactoryFactory;
+
+     // ...
+
+     MongoClientSettings settings = MongoClientSettings.builder()
+             .streamFactoryFactory(NettyStreamFactoryFactory.builder().build())
+             .build();
+
+  Replace this code with the `TransportSettings.nettyBuilder() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__
+  as shown in the following example:
 
   .. code-block:: java
      :emphasize-lines: 6
@@ -129,7 +136,16 @@ The 4.11 driver release deprecates the following items:
              .transportSettings(TransportSettings.nettyBuilder().build())
              .build();
 
-  No replacements are planned for the rest of the Stream API classes.
+- Support for Java 21 virtual threads and structured concurrency. The driver
+  internals were updated to avoid unnecessary pinning of virtual threads
+  and to preserve interrupted status of a thread, as the latter matters for
+  structured concurrency where it is used for cancellation.
+
+  To learn more about virtual threads, see the `Virtual Threads <https://openjdk.org/jeps/444>`__
+  JDK enhancement proposal. To learn more about structured concurrency, see the
+  `Structured Concurrency <https://openjdk.org/jeps/453>`__
+  JDK enhancement proposal.
+
 
 .. _java-new-features-4.11:
 
