@@ -143,7 +143,7 @@ Split Large Change Stream Events
 Starting in MongoDB 7.0, you can use the ``$changeStreamSplitLargeEvent``
 aggregation stage to split events that exceed 16 MB into smaller fragments.
 
-You should use ``$changeStreamSplitLargeEvent`` only when strictly necessary. For
+Use ``$changeStreamSplitLargeEvent`` only when strictly necessary. For
 example, use ``$changeStreamSplitLargeEvent`` if your application requires full
 document pre- or post-images, and generates large events that exceed 16 MB.
 
