@@ -136,16 +136,6 @@ The 4.11 driver release deprecates the following items:
              .transportSettings(TransportSettings.nettyBuilder().build())
              .build();
 
-- Support for Java 21 virtual threads and structured concurrency. The driver
-  internals were updated to avoid unnecessary pinning of virtual threads
-  and to preserve interrupted status of a thread, as the latter matters for
-  structured concurrency where it is used for cancellation.
-
-  To learn more about virtual threads, see the `Virtual Threads <https://openjdk.org/jeps/444>`__
-  JDK enhancement proposal. To learn more about structured concurrency, see the
-  `Structured Concurrency <https://openjdk.org/jeps/453>`__
-  JDK enhancement proposal.
-
 
 .. _java-new-features-4.11:
 
@@ -170,6 +160,17 @@ New features of the 4.11 driver release include:
   - `ConnectionCheckOutFailedEvent <{+api+}/apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckOutFailedEvent.html>`__
   - `ConnectionCheckedOutEvent <{+api+}/apidocs/mongodb-driver-core/com/mongodb/event/ConnectionCheckedOutEvent.html>`__
   - `ConnectionReadyEvent <{+api+}/apidocs/mongodb-driver-core/com/mongodb/event/ConnectionReadyEvent.html>`__
+
+- Support for Java 21 virtual threads and structured concurrency. The driver
+  internals were updated to avoid unnecessary pinning of virtual threads
+  and to preserve interrupted status of a thread, as the latter matters for
+  structured concurrency where it is used for cancellation.
+
+  To learn more about virtual threads, see the `Virtual Threads <https://openjdk.org/jeps/444>`__
+  JDK enhancement proposal. To learn more about structured concurrency, see the
+  `Structured Concurrency <https://openjdk.org/jeps/453>`__
+  JDK enhancement proposal.
+
 
 .. _version-4.10:
 
