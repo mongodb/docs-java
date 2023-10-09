@@ -1,3 +1,9 @@
+/**
+ * This file demonstrates how to find distinct values of a field by using the Java driver.
+ * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and finds 
+ * distinct "year" values for documents that match the specified query filter.
+ */
+
 package usage.examples;
 
 import org.bson.Document;
@@ -17,17 +23,21 @@ public class Distinct {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-
+            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
             try {
+                // Find distinct "year" values for movies directed by "Carl Franklin"
                 DistinctIterable<Integer> docs = collection.distinct("year", Filters.eq("directors", "Carl Franklin"), Integer.class);
                 MongoCursor<Integer> results = docs.iterator();
 
+                // Iterate through the distinct "year" values and print them
                 while(results.hasNext()) {
                     System.out.println(results.next());
                 }
+
+            // Handle any exceptions that might occur during the operation
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }
