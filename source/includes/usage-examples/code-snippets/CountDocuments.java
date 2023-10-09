@@ -1,3 +1,10 @@
+/**
+ * This file demonstrates how to perform count operations by using the Java driver.
+ * It connects to a MongoDB deployment, accesses the "sample_mflix" database,
+ * and counts the number of documents in the "movies" collection.
+ * The code also counts the number of documents that match a specified query.
+ */
+
 package usage.examples;
 
 import static com.mongodb.client.model.Filters.eq;

@@ -1,3 +1,9 @@
+/**
+ * This file demonstrates MongoDB bulk write operations by using the Java driver.
+ * It connects to a MongoDB deployment, accesses the "sample_mflix" database,
+ * and performs bulk write operations on the "movies" collection.
+ */
+
 package usage.examples;
 
 import java.util.Arrays;

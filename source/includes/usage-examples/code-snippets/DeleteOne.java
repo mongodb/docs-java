@@ -1,3 +1,10 @@
+/**
+ * This file demonstrates how to delete a document in a collection by using the
+ * Java driver.
+ * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
+ * and deletes a document in the "movies" collection based on a specified query.
+ */
+
 package usage.examples;
 
 import static com.mongodb.client.model.Filters.eq;

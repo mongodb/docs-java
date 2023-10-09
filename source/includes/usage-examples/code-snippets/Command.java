@@ -1,3 +1,9 @@
+/**
+ * This file demonstrates how to run a command by using the Java driver.
+ * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
+ * and runs a command to retrieve database statistics.
+ */
+
 package usage.examples;
 
 import org.bson.BsonDocument;
