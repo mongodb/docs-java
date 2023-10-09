@@ -19,12 +19,17 @@ public class RunCommand {
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
 
+            // Access the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
 
             try {
+                // Define a command to retrieve database statistics using the "dbStats" command
                 Bson command = new BsonDocument("dbStats", new BsonInt64(1));
                 Document commandResult = database.runCommand(command);
+                // Print the database statistics
                 System.out.println("dbStats: " + commandResult.toJson());
+                
+            // Handle any exception that might occur during the command execution
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }
