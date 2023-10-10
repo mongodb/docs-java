@@ -239,8 +239,10 @@ each of the preceding methods.
 Create a Search Index
 +++++++++++++++++++++
 
-You can use the ``createSearchIndex()`` (TODO: add API link) and the
-``createSearchIndexes()`` (TODO: add API link) methods to create Atlas Search indexes.
+You can use the `createSearchIndex() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#createSearchIndex(org.bson.conversions.Bson)>`__
+and the
+`createSearchIndexes() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#createSearchIndexes(java.util.List)>`__
+methods to create Atlas Search indexes.
 
 The following code example shows how to create a single index:
 
@@ -262,8 +264,8 @@ List Search Indexes
 +++++++++++++++++++
 
 You can use the
-``listSearchIndexes()`` (TODO: add API link) method to return the Atlas
-Search indexes of a collection.
+`listSearchIndexes() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#listSearchIndexes()>`__
+method to return the Atlas Search indexes of a collection.
 
 The following code example shows how to print a list of the search indexes of
 a collection:
@@ -278,7 +280,7 @@ Update a Search Index
 +++++++++++++++++++++
 
 You can use the
-``updateSearchIndex()`` (TODO: add API link)
+`updateSearchIndex() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateSearchIndex(java.lang.String,org.bson.conversions.Bson)>`__
 method to update an Atlas Search index.
 
 The following code shows how to update a search index:
@@ -293,7 +295,7 @@ Drop a Search Index
 +++++++++++++++++++
 
 You can use the
-``dropSearchIndex()`` (TODO: add API link)
+`dropSearchIndex() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#dropSearchIndex(java.lang.String)>`__
 method to remove an Atlas Search index.
 
 The following code shows how to delete a search index from a collection:
@@ -592,5 +594,5 @@ For prior versions of MongoDB, pass "*" as a parameter to your call to
 
 For more information on the methods in this section, see the following API Documentation:
 
-- `dropIndex() <{+api+}/apidocs/mongodb-driver-sync//com/mongodb/client/MongoCollection.html#dropIndex(java.lang.String)>`__
-- `dropIndexes() <{+api+}/apidocs/mongodb-driver-sync//com/mongodb/client/MongoCollection.html#dropIndexes()>`__
+- `dropIndex() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#dropIndex(java.lang.String)>`__
+- `dropIndexes() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#dropIndexes()>`__
