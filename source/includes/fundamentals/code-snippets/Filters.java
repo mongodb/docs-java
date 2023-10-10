@@ -29,6 +29,7 @@ public class Filters {
         // begin declaration
         final String uri = System.getenv("DRIVER_REF_URI");
 
+        // Create a client and access the "builders.filters" collection
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("builders");
         collection = database.getCollection("filters");
@@ -41,6 +42,7 @@ public class Filters {
         // filters.setupBinaryCollection();
         // filters.setupPointsCollection();
         
+        // Perform a series of find operations on your Filters instance
         System.out.println("Equal Comparison");
         filters.equalComparison();
         System.out.println("Empty Comparison");
@@ -65,6 +67,7 @@ public class Filters {
     }
 
     private void equalComparison() {
+        // Query for documents with a "qty" field value of 5 and print them
         // begin equalComparison
         Bson equalComparison = eq("qty", 5);
         collection.find(equalComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -72,6 +75,7 @@ public class Filters {
     }
 
     private void gteComparison() {
+        // Query for documents with a "qty" field value greater than 10 and print them
         // begin gteComparison
         Bson gteComparison = gte("qty", 10);
         collection.find(gteComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -79,6 +83,7 @@ public class Filters {
     }
 
     private void orComparison() {
+        // Query for and print documents with a "qty" of 8 or a "color" of "pink"
         // begin orComparison
         Bson orComparison = or(gt("qty", 8), eq("color", "pink"));
         collection.find(orComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -86,6 +91,7 @@ public class Filters {
     }
 
     private void emptyComparison() {
+        // Use an empty filter to query for all documents
         // begin emptyComparison
         Bson emptyComparison = empty();
         collection.find(emptyComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -93,6 +99,7 @@ public class Filters {
     }
 
     private void allComparison() {
+        // Query for documents where the "vendor" field contains all elements in "search"
         // begin allComparison
         List<String> search = Arrays.asList("A", "D");
         Bson allComparison = all("vendor", search);
@@ -101,6 +108,7 @@ public class Filters {
     }
 
     private void existsComparison() {
+        // Query for documents where the "qty" field exists but is not 5 or 8
         // begin existsComparison
         Bson existsComparison = and(exists("qty"), nin("qty", 5, 8));
         collection.find(existsComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -108,6 +116,7 @@ public class Filters {
     }
 
     private void regexComparison() {
+        // Query for documents where the "color" field value starts with "p"
         // begin regexComparison
         Bson regexComparison = regex("color", "^p");
         collection.find(regexComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -115,6 +124,7 @@ public class Filters {
     }
 
     private void bitsComparison() {
+        // Query for documents that have a "bitField" field with bits set at positions of the bitmask "34" 
         // begin bitsComparison
         Bson bitsComparison = bitsAllSet("a", 34);
         collection.find(bitsComparison).forEach(doc -> System.out.println(doc.toJson()));
@@ -123,18 +133,21 @@ public class Filters {
 
     private void geoWithinComparison() {
         // begin geoWithinComparison
+        // Create a Polygon to filter your results
         Polygon square = new Polygon(Arrays.asList(new Position(0, 0), 
                                             new Position(4, 0), 
                                             new Position(4, 4), 
                                             new Position(0, 4),
                                             new Position(0, 0)));
    
+        // Match documents with "coordinates" values that fall within the Polygon filter
         Bson geoWithinComparison = geoWithin("coordinates", square);
         collection.find(geoWithinComparison).forEach(doc -> System.out.println(doc.toJson()));
         // end geoWithinComparison
     }
 
     private void preview(){
+        // Use an empty filter to print all documents in your collection
         Bson filter = new Document();
         List<Document> res = new ArrayList();
         System.out.println(collection.find(filter).into(res));
@@ -144,6 +157,8 @@ public class Filters {
     private void setupPaintCollection() {
 
         List<Document> filterdata = new ArrayList<>();
+
+        // Set up the "vendor" field for your documents
         String [] p1a = {"A"};
         String [] p2a = {"C", "D"};
         String [] p3a = {"B","A"};
@@ -153,6 +168,7 @@ public class Filters {
         String [] p7a = {"B", "C"};
         String [] p8a = {"A", "D"};
 
+        // Create a series of documents and insert them into the "paint" collection
         Document p1 = new Document("_id", 1).append("color", "red").append("qty", 5).append("vendor", Arrays.asList(p1a));
         Document p2 = new Document("_id", 2).append("color", "purple").append("qty", 10).append("vendor", Arrays.asList(p2a));
         Document p3 = new Document("_id", 3).append("color", "blue").append("qty", 8).append("vendor", Arrays.asList(p3a));
@@ -178,6 +194,7 @@ public class Filters {
     private void setupBinaryCollection(){
         List<Document> filterdata = new ArrayList<>();
         
+        // Create a series of documents and insert them into the "binary" collection
         Document p9 = new Document("_id", 9).append("a", 54).append("binaryValue", "00110110");
         Document p10 = new Document("_id", 10).append("a", 20).append("binaryValue", "00010100");
         Document p11 = new Document("_id", 11).append("a", 68).append("binaryValue", "1000100");
@@ -194,6 +211,7 @@ public class Filters {
         
         List<Document> filterdata = new ArrayList<>();
 
+        // Create a series of documents and insert them into the "points" collection
         Document p13 = new Document("_id", 13).append("coordinates", new Point(new Position(2, 2)));
         Document p14 = new Document("_id", 14).append("coordinates", new Point(new Position(5, 6)));
         Document p15 = new Document("_id", 15).append("coordinates", new Point(new Position(1, 3)));
