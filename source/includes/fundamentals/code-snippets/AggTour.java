@@ -14,6 +14,7 @@ import com.mongodb.client.model.Projections;
 import org.bson.Document;
 
 import java.util.Arrays;
+import java.util.List;
 
 // end imports
 
@@ -24,12 +25,16 @@ public class AggTour {
         // Replace the uri string with your MongoDB deployment's connection string
         final String uri = "<connection string uri>";
         
+        // Create a client and access the "restaurants" collection in the "aggregation" database
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("aggregation");
         MongoCollection<Document> collection = database.getCollection("restaurants");
         // end connection
 
+        // Drop the collection, if it exists, to ensure the collection initally does not contain any documents
         collection.drop();
+        
+        // Insert sample restaurant documents
         // begin insert
         collection.insertMany(Arrays.asList(
             new Document("name", "Sun Bakery Trattoria").append("contact", new Document().append("phone", "386-555-0189").append("email", "SunBakeryTrattoria@example.org").append("location", Arrays.asList(-74.0056649, 40.7452371))).append("stars", 4).append("categories", Arrays.asList("Pizza", "Pasta", "Italian", "Coffee", "Sandwiches")),
@@ -45,6 +50,8 @@ public class AggTour {
         ));
         // end insert
 
+        // Filter for documents whose "categories" array field contains "Bakery"
+        // Then, group documents by the "stars" field and accumulate a count of distinct "stars" values
         // begin aggregation one
         collection.aggregate(
             Arrays.asList(
@@ -53,17 +60,21 @@ public class AggTour {
             )
         ).forEach(doc -> System.out.println(doc.toJson()));
         // end aggregation one
+
+        // Use the "explain()" method to see the operation's execution plans and performance statistics
         // begin aggregation three
         Document explanation = collection.aggregate(
             Arrays.asList(
-                    Aggregates.match(Filters.eq("categories", "bakery")),
+                    Aggregates.match(Filters.eq("categories", "Bakery")),
                     Aggregates.group("$stars", Accumulators.sum("count", 1))
             )
         ).explain(ExplainVerbosity.EXECUTION_STATS);
 
+        // Obtain the winning plans for aggregation stages that produce execution plans
         List<Document> stages = explanation.get("stages", List.class);
         List<String> keys = Arrays.asList("queryPlanner", "winningPlan");
 
+        // Print the JSON representation of the winning plans
         for (Document stage : stages) {
             Document cursorStage = stage.get("$cursor", Document.class);
             if (cursorStage != null) {
@@ -71,6 +82,7 @@ public class AggTour {
             }
         }
         // end aggregation three
+        // Use a $project stage to return the "name" field and the calculated field "firstCategory" 
         // begin aggregation two
         collection.aggregate(
             Arrays.asList(
