@@ -35,7 +35,7 @@ public class Geo {
     }
 
     public void go() {
-        // Create a Geo instance and run geospatial queries on your collection
+        // Creates a Geo instance and runs geospatial queries on your collection
         Geo geo = new Geo();
         System.out.println("Near Example: ");
         geo.nearExample();
@@ -48,20 +48,20 @@ public class Geo {
         // begin findExample
 
         // code to set up your mongo client ...
-        // Access the "theaters" collection in the "sample_mflix" database
+        // Accesses the "theaters" collection in the "sample_mflix" database
         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
         MongoCollection<Document> collection = database.getCollection("theaters");
 
-        // Store the coordinates of Central Park's Great Lawn in a Point instance
+        // Stores the coordinates of Central Park's Great Lawn in a Point instance
         Point centralPark = new Point(new Position(-73.9667, 40.78));
         
-        // Query for theaters betweeen 5,000 and 10,000 meters from the specified Point
+        // Queries for theaters between 5,000 and 10,000 meters from the specified Point
         Bson query = near("location.geo", centralPark, 10000.0, 5000.0);
 
-        // Specify a projection to project the documents' "location.address.city" field
+        // Specifies a projection to project the documents' "location.address.city" field
         Bson projection = fields(include("location.address.city"), excludeId());
         
-        // Run the find operation with the specified query filter and projection
+        // Runs the find operation with the specified query filter and projection
         collection.find(query)
                 .projection(projection)
                 .forEach(doc -> System.out.println(doc.toJson()));
@@ -69,25 +69,25 @@ public class Geo {
     }
 
     private void rangeExample() {
-        // Access the "theaters" collection in the "sample_mflix" database
+        // Accesses the "theaters" collection in the "sample_mflix" database
         MongoDatabase database = mongoClient.getDatabase("sample_mflix");
         MongoCollection<Document> collection = database.getCollection("theaters");
         // begin rangeExample
 
         // code to set up your mongo collection ...
-        // Create a Polygon instance to filter for locations within a section of Long Island
+        // Creates a Polygon instance to filter for locations within a section of Long Island
         Polygon longIslandTriangle = new Polygon(Arrays.asList(new Position(-72, 40),
                 new Position(-74, 41),
                 new Position(-72, 39),
                 new Position(-72, 40)));
 
-        // Specify a projection to project the documents' "location.address.city" field
+        // Specifies a projection to project the documents' "location.address.city" field
         Bson projection = fields(include("location.address.city"), excludeId());
 
-        // Construct a query with the $geoWithin query operator
+        // Constructs a query with the $geoWithin query operator
         Bson geoWithinComparison = geoWithin("location.geo", longIslandTriangle);
         
-        // Run the find operation with the specified query filter and projection
+        // Runs the find operation with the specified query filter and projection
         collection.find(geoWithinComparison)
                 .projection(projection)
                 .forEach(doc -> System.out.println(doc.toJson()));

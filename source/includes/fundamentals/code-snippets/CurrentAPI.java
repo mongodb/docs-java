@@ -20,20 +20,19 @@ public class CurrentAPI {
     public static void main(String[] args) throws InterruptedException {
         CurrentAPI c = new CurrentAPI();
 
-        // Call methods on your CurrentAPI instance that demonstrate MongoDB operations
         c.example1();
         c.example2();
 
     }
 
     private void example1() {
-        // Connect to a MongoDB instance with the current API
+        // Connects to a MongoDB instance with the current API
         // start current-api-example
         MongoClient client = MongoClients.create(URI);
         MongoDatabase db = client.getDatabase(DATABASE);
         MongoCollection<Document> col = db.getCollection(COLLECTION);
 
-        // Find and print a document in your collection to test your connection
+        // Finds and prints a document in your collection
         Document doc = col.find().first();
         System.out.println(doc.toJson());
         // end current-api-example
@@ -41,7 +40,7 @@ public class CurrentAPI {
     }
 
     private void example2() {
-        // Set a write concern on your client with the current API
+        // Sets a write concern on your client with the current API
         // start current-api-mongoclientsettings-example
         MongoClientSettings options = MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString(URI))

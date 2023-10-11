@@ -30,7 +30,7 @@ public class Cursor {
     }
 
     public static void main(String [] args){
-        // Initialize a Cursor instance and run multiple find operations
+        // Initializes a Cursor instance and runs multiple find operations
         Cursor c = new Cursor();
         c.setupPaintCollection();
 
@@ -60,7 +60,7 @@ public class Cursor {
     }
 
     private void forEachIteration(){
-        // Iterate through your cursor results
+        // Iterates through your cursor results
         // begin forEachIteration
         FindIterable<Document> iterable = collection.find();
         iterable.forEach(doc -> System.out.println(doc.toJson()));
@@ -68,7 +68,7 @@ public class Cursor {
     }
 
     private void firstExample(){
-        // Retrieve the first matching document from your query
+        // Retrieves the first matching document from your query
         // begin firstExample
         FindIterable<Document> iterable = collection.find();
         System.out.println(iterable.first());
@@ -76,7 +76,7 @@ public class Cursor {
     }
 
     private void availableExample(){
-        // Retrieve the number of cursor results available locally without blocking
+        // Retrieves the number of cursor results available locally without blocking
         // begin availableExample
         MongoCursor<Document> cursor = collection.find().cursor();
         System.out.println(cursor.available());
@@ -84,7 +84,7 @@ public class Cursor {
     }
 
     private void explainExample(){
-        // View performance information about your find operation execution
+        // Returns performance information about your find operation execution
         // begin explainExample
         Document explanation = collection.find().explain(ExplainVerbosity.EXECUTION_STATS);
         List<String> keys = Arrays.asList("queryPlanner", "winningPlan");
@@ -93,7 +93,7 @@ public class Cursor {
     }
 
     private void intoExample(){
-        // Store your query results in a list
+        // Stores your query results in a list
         // begin intoExample
         List<Document> results = new ArrayList<>();
         FindIterable<Document> iterable = collection.find();
@@ -103,7 +103,7 @@ public class Cursor {
     }
 
     private void manualIteration(){
-        // Continue your iteration only if more documents are available on the cursor
+        // Continues your iteration only if more documents are available on the cursor
         // begin manualIteration
         MongoCursor<Document> cursor = collection.find().cursor();
         while (cursor.hasNext()){
@@ -113,7 +113,7 @@ public class Cursor {
     }
 
     private void closeExample(){
-        // Free up a cursor's consumption of resources by calling close()
+        // Frees up a cursor's consumption of resources by calling close()
         // begin closeExample
         MongoCursor<Document> cursor = collection.find().cursor();
         
@@ -128,7 +128,7 @@ public class Cursor {
     }
 
     private void tryWithResourcesExample(){
-        // Free up a cursor's consumption of resources automatically with a try statement
+        // Frees up a cursor's consumption of resources automatically with a try statement
         // begin tryWithResourcesExample
         try(MongoCursor<Document> cursor = collection.find().cursor()) {
             while (cursor.hasNext()){
@@ -141,7 +141,7 @@ public class Cursor {
     public void setupPaintCollection(){
         collection.drop();
 
-        // Insert sample documents into the "paint" collection
+        // Inserts sample documents into the "paint" collection
         collection.insertMany(Arrays.asList(
             new Document("_id", 1).append("color", "red").append("qty", 5), 
             new Document("_id", 2).append("color", "purple").append("qty", 10), 
