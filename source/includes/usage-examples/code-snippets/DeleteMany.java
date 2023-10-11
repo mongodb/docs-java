@@ -26,20 +26,20 @@ public class DeleteMany {
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
 
-            // Access the "movies" collection in the "sample_mflix" database
+            // Accesses the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Specify a query to find documents with an "imdb.rating" value less than 1.9
+            // Specifies a query to find documents with an "imdb.rating" value less than 1.9
             Bson query = lt("imdb.rating", 1.9);
 
             try {
-                // Delete documents that have an "imdb.rating" value less than 1.9
+                // Deletes documents that have an "imdb.rating" value less than 1.9
                 DeleteResult result = collection.deleteMany(query);
-                // Print the number of deleted documents
+                // Prints the number of deleted documents
                 System.out.println("Deleted document count: " + result.getDeletedCount());
             
-            // Handle any exceptions that might occur during the delete operation
+            // Handles any exceptions that might occur during the delete operation
             } catch (MongoException me) {
                 System.err.println("Unable to delete due to an error: " + me);
             }

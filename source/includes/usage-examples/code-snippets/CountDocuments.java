@@ -24,23 +24,23 @@ public class CountDocuments {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
+            // Accesses the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a query to find movies from Spain
+            // Defines a query to find movies from Spain
             Bson query = eq("countries", "Spain");
 
             try {
-                // Retrieve and print the estimated number of documents in the "movies" collection
+                // Retrieves and print the estimated number of documents in the "movies" collection
                 long estimatedCount = collection.estimatedDocumentCount();
                 System.out.println("Estimated number of documents in the movies collection: " + estimatedCount);
 
-                // Count the number of movies from Spain by using the defined query
+                // Counts the number of movies from Spain by using the defined query
                 long matchingCount = collection.countDocuments(query);
                 System.out.println("Number of movies from Spain: " + matchingCount);
             
-            // Handle any exceptions that might occur during the operation
+            // Handles any exceptions that might occur during the operation
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }
