@@ -24,6 +24,7 @@ public class Insert {
     private Insert() {
         final String uri = System.getenv("DRIVER_REF_URI");
 
+        // Instantiate a Client and access the "crudOps.insert" collection
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("crudOps");
         collection = database.getCollection("insert");
@@ -32,6 +33,7 @@ public class Insert {
     public static void main(String[] args) {
         Insert insert = new Insert();
 
+        // Run a series of insert operations
         System.out.println("Insert One:");
         insert.insertOneExample();
         insert.preview();
