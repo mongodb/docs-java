@@ -78,7 +78,7 @@ public class AggTour {
             }
         }
         // end aggregation three
-        // Prints the "name" field and the calculated field "firstCategory" 
+        // Prints the documents' "name" values and the values of a new "firstCategory" field
         // begin aggregation two
         collection.aggregate(
             Arrays.asList(
