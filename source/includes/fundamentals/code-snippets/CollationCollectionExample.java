@@ -34,20 +34,17 @@ public class CollationCollectionExample {
 
 
     private static void aggregatesExample(MongoCollection<Document> collection) {
+        // Creates instructions to calculate the frequency of "first_name" values
         // start aggregationExample
-        // Specify the group aggregation stage to use each document's "first_name" value as the result's "_id"
-        // Then, sum the number of matching "first_name" values
         Bson groupStage = Aggregates.group("$first_name", Accumulators.sum("nameCount", 1));
-        
-        // Specify the sort aggregation stage to sort by "_id" in ascending order
         Bson sortStage = Aggregates.sort(Sorts.ascending("_id"));
 
-        // Construct a collation object with the German locale
+        // Constructs a collation object with the German locale that ignores accents
         AggregateIterable<Document> results = collection
                 .aggregate(Arrays.asList(groupStage, sortStage))
                 .collation(Collation.builder().locale("de").collationStrength(CollationStrength.PRIMARY).build());
 
-        // Print the JSON representation of the results        
+        // Prints the JSON representation of the results        
         if (results != null) {
             results.forEach(doc -> System.out.println(doc.toJson()));
         }
@@ -55,16 +52,15 @@ public class CollationCollectionExample {
     }
 
     private static void findAndSortExample(MongoCollection<Document> collection) {
-        // Create a List to store the result documents
         // start findAndSort
         List<Document> results = new ArrayList<>();
 
-        // Apply a collation specifying the German locale and "phonebook" variant on find operation results and sort
+        // Runs a find operation and applies a collation to the sorted results
         collection.find()
                 .collation(Collation.builder().locale("de@collation=phonebook").build())
                 .sort(Sorts.ascending("first_name")).into(results);
 
-        // Print the JSON representation of the results          
+        // Prints the JSON representation of the results          
         if (results != null) {
             results.forEach(doc -> System.out.println(doc.toJson()));
         }
@@ -72,7 +68,7 @@ public class CollationCollectionExample {
     }
 
     private static void findOneAndUpdateExample(MongoCollection<Document> collection) {
-        // Specify a collation on an operation that updates the first match of a "first_name" field query
+        // Runs an operation that updates the first matching document with a new "verified" field
         // start findOneAndUpdate
         Document result = collection.findOneAndUpdate(
                 Filters.gt("first_name", "Gunter"),
@@ -82,7 +78,7 @@ public class CollationCollectionExample {
                         .sort(Sorts.ascending("first_name"))
                         .returnDocument(ReturnDocument.AFTER));
 
-        // Print the JSON representation of the results                
+        // Prints the JSON representation of the results                
         if (result != null) {
             System.out.println("Updated document: " + result.toJson());
         }
@@ -90,16 +86,15 @@ public class CollationCollectionExample {
     }
 
     private static void findOneAndDeleteExample(MongoCollection<Document> collection) {
-        // Create a List to store the result documents
         List<Document> results = new ArrayList<>();
 
-        // Find documents with an "a" value greater than 100 and store them in the results list
+        // Runs a find operation and stores matching documents in a list
         collection.find(Filters.gt("a", "100")).into(results);
 
-        // Print the JSON representation of the results
+        // Prints the JSON representation of the result list
         results.forEach(r -> System.out.println(r.toJson()));
 
-        // Specify a numerical string ordering collation in an operation that deletes a query's first match
+        // Runs a delete operation specifying a numerical string ordering collation
         // start findOneAndDelete
         Document result = collection.findOneAndDelete(
                 Filters.gt("a", "100"),
@@ -111,7 +106,7 @@ public class CollationCollectionExample {
                                         .build())
                         .sort(Sorts.ascending("a")));
 
-        // Print the JSON representation of the deleted document  
+        // Prints the JSON representation of the deleted document  
         if (result != null) {
             System.out.println("Deleted document: " + result.toJson());
         }
@@ -119,35 +114,31 @@ public class CollationCollectionExample {
     }
 
     private static void insertPhonebookDocuments(MongoCollection collection) {
-        // Create a List to store a series of documents
         List<Document> docs = new ArrayList<>();
 
-        // Add documents with the "first_name" field to the docs list
         docs.add(new Document("first_name", "Klara"));
         docs.add(new Document("first_name", "Gunter"));
         docs.add(new Document("first_name", "Günter"));
         docs.add(new Document("first_name", "Jürgen"));
         docs.add(new Document("first_name", "Hannah"));
 
-        // Insert the documents into your collection
+        // Inserts the sample documents into a collection
         collection.insertMany(docs);
     }
 
     private static void insertNumericalStrings(MongoCollection collection) {
-        // Create a List to store a series of documents
         List<Document> docs = new ArrayList<>();
 
-        // Add documents with an "a" field to the docs list
         docs.add(new Document("_id", 1).append("a", "16 apples"));
         docs.add(new Document("_id", 2).append("a", "84 oranges"));
         docs.add(new Document("_id", 3).append("a",  "179 bananas"));
 
-        // Insert the documents into your collection
+        // Inserts the sample documents into a collection
         collection.insertMany(docs);
     }
 
     private static void collationBuilder() {
-        // Use the Collation.Builder class to specify collation options
+        // Creates collation instructions that specify all possible collation options
         // start collationBuilder
         Collation.builder()
         .caseLevel(true)
@@ -163,7 +154,7 @@ public class CollationCollectionExample {
     }
 
     private static void createCollectionOptions(MongoDatabase database) {
-        // Create a collection and specify the "en_US" locale collation
+        // Creates a collection and sets its default collation locale as "en_US"
         // start createCollectionOptions
         database.createCollection(
                 "items",
@@ -173,42 +164,41 @@ public class CollationCollectionExample {
     }
 
     private static void listIndexes(MongoDatabase database) {
-        // Access the "items" collection
         // start listIndexes
         MongoCollection<Document> collection = database.getCollection("items");
-
-        // Create a List to store the collection's indexes
         List<Document> indexes = new ArrayList<>();
 
-        // Retrieve a list of the collection's indexes to ensure the collation was successfully created
         collection.listIndexes().into(indexes);
+
+        // Prints a list of the collection's indexes to ensure successful collation creation
         indexes.forEach(idx -> System.out.println(idx.toJson()));
         // end listIndexes
     }
 
     private static void createIndex(MongoDatabase database) {
-        // Access the "items" collection
         // start createIndex
         MongoCollection<Document> collection = database.getCollection("items");
-
-        // Create an index on the "name" field with the "en_US" locale collation in ascending order
         IndexOptions idxOptions = new IndexOptions();
         idxOptions.collation(Collation.builder().locale("en_US").build());
+
+        // Creates an index on the "name" field with a collation and ascending sort order
         collection.createIndex(Indexes.ascending("name"), idxOptions);
         // end createIndex
     }
 
     private static void createPhonebookIndex(MongoDatabase database) {
-        // Access the "phonebook" collection
         MongoCollection<Document> collection = database.getCollection("phonebook");
-
-         // Create an index on the "first_name" field with the "de@collation=search" locale collation in ascending order
         IndexOptions idxOptions = new IndexOptions();
+
+        // Specifies collation options that set punctuation guidelines, comparison levels, and locale
         idxOptions.collation(Collation.builder().locale("de@collation=search").collationStrength(CollationStrength.PRIMARY).collationAlternate(CollationAlternate.SHIFTED).build());
+        
+        // Creates an index on the "first_name" field with the collation
         collection.createIndex(Indexes.ascending("first_name"), idxOptions);
     }
 
     private static void indexOperation(MongoCollection collection) {
+        // Runs a find operation and applies a collation and ascending sort to the results
         // start indexOperation
         FindIterable<Document> cursor = collection.find()
                 .collation(Collation.builder().locale("en_US").build())
@@ -218,6 +208,7 @@ public class CollationCollectionExample {
     }
 
     private static void customCollationOperation(MongoCollection collection) {
+        // Runs a find operation and applies a collation and ascending sort to the results
         // start customCollationOperation
         FindIterable<Document> cursor = collection.find()
                 .collation(Collation.builder().locale("is").build())
@@ -226,22 +217,20 @@ public class CollationCollectionExample {
     }
 
     private static void operationCollation(MongoCollection collection) {
-        // Run a find operation that meets the criteria neccessary to use the "name" field index
+        // Runs a find operation that meets the criteria for using the "name" field index
         // start operationCollation
         FindIterable<Document> cursor = collection.find(new Document("name", "cote"))
                 .collation(Collation.builder().locale("en_US").build())
                 .sort(Sorts.ascending("name"));
         // end operationCollation
 
-        // Print the JSON representation of the returned documents
+        // Prints the JSON representation of the returned documents
         cursor.forEach(doc -> System.out.println(doc.toJson()));
     }
 
     public static void main(String[] args) {
 
         String uri = "<MongoDB connection URI>";
-
-        // Create a client and access the "fundamentals_example" database
         try (MongoClient mongoClient = MongoClients.create(uri)) {
 
             MongoDatabase database = mongoClient.getDatabase("fundamentals_example");
