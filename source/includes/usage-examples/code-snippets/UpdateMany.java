@@ -27,26 +27,24 @@ public class UpdateMany {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a query that matches documents to be updated
             Bson query = gt("num_mflix_comments", 50);
 
-            // Define the update operations to perform
+            // Creates instructions to update documents
             Bson updates = Updates.combine(
                     Updates.addToSet("genres", "Frequently Discussed"),
                     Updates.currentTimestamp("lastUpdated"));
 
             try {
-                // Perform the previously specified update operations 
+                // Runs a write operation that updates the matching documents
                 UpdateResult result = collection.updateMany(query, updates);
 
-                // Print the number of updated documents
+                // Prints the number of updated documents
                 System.out.println("Modified document count: " + result.getModifiedCount());
 
-            // Handle any exceptions that might occur during the operation
+            // Prints a message if an error occurs during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to update due to an error: " + me);
             }

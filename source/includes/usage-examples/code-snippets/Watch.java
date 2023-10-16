@@ -28,27 +28,24 @@ public class Watch {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Create a pipeline to only filter for "insert" and "update" events
+            // Creates instructions to filter for insert and update change events
             List<Bson> pipeline = Arrays.asList(
                 Aggregates.match(
                         Filters.in("operationType",
                                 Arrays.asList("insert", "update"))));
             
-            // Create a change stream with a full document lookup
+            // Opens a change stream that returns the entire updated document
             ChangeStreamIterable<Document> changeStream = database.watch(pipeline)
                 .fullDocument(FullDocument.UPDATE_LOOKUP);
            
-            // Define a mutable integer to count received events
             final int[] numberOfEvents = {0};
 
-            // Start listening to change events and print events as they occur
+            // Prints a message if a change event occurs until two events are received
             changeStream.forEach(event -> {
             System.out.println("Received a change to the collection: " + event);
-                // Increment the count of received events and exit after receiving 2 events
                 if (++numberOfEvents[0] >= 2) {
                   System.exit(0);
                 }

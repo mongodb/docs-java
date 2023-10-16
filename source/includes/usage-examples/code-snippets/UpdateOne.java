@@ -26,33 +26,29 @@ public class UpdateOne {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a query that matches a document to be updated
             Document query = new Document().append("title",  "Cool Runnings 2");
 
-            // Define the update operations to perform
+            // Creates instructions to update a document
             Bson updates = Updates.combine(
                     Updates.set("runtime", 99),
                     Updates.addToSet("genres", "Sports"),
                     Updates.currentTimestamp("lastUpdated"));
 
-            // Instruct the driver to insert a new document if no documents match the query
+            // Instructs the driver to insert a new document if none match the query
             UpdateOptions options = new UpdateOptions().upsert(true);
 
             try {
-                // Perform the previously specified update operations 
+                // Runs a write operation that updates the matching document
                 UpdateResult result = collection.updateOne(query, updates, options);
 
-                // Print the number of updated documents
+                // Prints the number of updated documents and the upserted document ID
                 System.out.println("Modified document count: " + result.getModifiedCount());
-
-                // Print the upserted document ID, which only contains a value if an upsert was performed
                 System.out.println("Upserted id: " + result.getUpsertedId());
             
-            // Handle any exceptions that might occur during the operation
+            // Prints a message if an error occurs during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to update due to an error: " + me);
             }

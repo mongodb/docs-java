@@ -27,31 +27,27 @@ public class ReplaceOne {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a query to find the document to be replaced
             Bson query = eq("title", "Music of the Heart");
 
-            // Define the replacement document
+            // Creates a new document containing "title" and "fullplot" fields
             Document replaceDocument = new Document().
                     append("title", "50 Violins").
                     append("fullplot", " A dramatization of the true story of Roberta Guaspari who co-founded the Opus 118 Harlem School of Music");
 
-            // Instruct the driver to insert a new document if no documents match the query
+            // Instructs the driver to insert a new document if none match the query
             ReplaceOptions opts = new ReplaceOptions().upsert(true);
 
-            // Replace the queried document with the specified new document
+            // Runs a write operation that replaces a matching document with the new document
             UpdateResult result = collection.replaceOne(query, replaceDocument, opts);
 
-            // Print the number of modified documents
+            // Prints the number of modified documents and the upserted document ID, which only contains a value if an upsert was performed
             System.out.println("Modified document count: " + result.getModifiedCount());
-
-            // Print the upserted document ID, which only contains a value if an upsert was performed
             System.out.println("Upserted id: " + result.getUpsertedId());
 
-        // Handle any exceptions that might occur during the operation 
+        // Prints a message if an error occurs during the operation
         } catch (MongoException me) {
             System.err.println("Unable to replace due to an error: " + me);
         }
