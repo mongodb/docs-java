@@ -28,7 +28,6 @@ public class Delete {
     }
 
     public static void main(String [] args){
-        // Initializes a Delete instance and run multiple delete operations
         Delete delete = new Delete();
         delete.preview(true);
         delete.setupPaintCollection();
@@ -53,7 +52,7 @@ public class Delete {
     }
 
     private void deleteManyExample(){
-        // Deletes documents with a "qty" value of 0
+        // Deletes all documents in the collection that contain a "qty" value of 0
         // begin deleteManyExample
         Bson filter = Filters.eq("qty", 0);
         collection.deleteMany(filter);
@@ -61,7 +60,7 @@ public class Delete {
     }
 
     private void findOneAndDeleteExample(){
-        // Finds and deletes a document with a "color" value of purple, then prints the document
+        // Deletes the first document with a "color" value of "purple", and prints the deleted document
         // begin findOneAndDeleteExample
         Bson filter = Filters.eq("color", purple);
         System.out.println(collection.findOneAndDelete(filter).toJson());
@@ -69,7 +68,7 @@ public class Delete {
     }
 
     private void findOneAndDeleteNullExample(){
-        // Attempts to find and delete a nonexistent document, then prints the result
+        // Deletes the first document with a "qty" value of 1, and prints the deleted document
         // begin findOneAndDeleteNullExample
         Bson filter = Filters.eq("qty", 1);
         System.out.println(collection.findOneAndDelete(filter));
@@ -77,7 +76,7 @@ public class Delete {
     }
 
     private void deleteOneExample(){
-        // Deletes a document with a "color" value of "yellow"
+        // Deletes the first document with a "color" value of "yellow"
         // begin deleteOneExample
         Bson filter = Filters.eq("color", "yellow");
         collection.deleteOne(filter);
@@ -88,7 +87,6 @@ public class Delete {
         Bson filter = Filters.empty();
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         
-        // Deletes each document in your collection if the value of "drop" is "true"
         if (drop){
           collection.drop();  
         }
@@ -98,7 +96,6 @@ public class Delete {
 
         List<Document> deletedata = new ArrayList<>();
 
-        // Inserts sample documents into the "paint" collection
         Document p1 = new Document("_id", 1).append("color", "red").append("qty", 5);
         Document p2 = new Document("_id", 2).append("color", "purple").append("qty", 8);
         Document p3 = new Document("_id", 3).append("color", "blue").append("qty", 0);

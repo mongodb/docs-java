@@ -26,13 +26,13 @@ public class CurrentAPI {
     }
 
     private void example1() {
-        // Connects to a MongoDB instance with the current API
+        // Connects to MongoDB and retrieves a document by using the non-legacy API
         // start current-api-example
         MongoClient client = MongoClients.create(URI);
         MongoDatabase db = client.getDatabase(DATABASE);
         MongoCollection<Document> col = db.getCollection(COLLECTION);
 
-        // Finds and prints a document in your collection
+        // Prints the first document retrieved from the collection in JSON format
         Document doc = col.find().first();
         System.out.println(doc.toJson());
         // end current-api-example
@@ -40,7 +40,7 @@ public class CurrentAPI {
     }
 
     private void example2() {
-        // Sets a write concern on your client with the current API
+        // Creates a MongoClient that requests write acknowledgement from at least one node
         // start current-api-mongoclientsettings-example
         MongoClientSettings options = MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString(URI))
