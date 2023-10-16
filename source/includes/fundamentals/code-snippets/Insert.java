@@ -24,7 +24,6 @@ public class Insert {
     private Insert() {
         final String uri = System.getenv("DRIVER_REF_URI");
 
-        // Instantiate a Client and access the "crudOps.insert" collection
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("crudOps");
         collection = database.getCollection("insert");
@@ -33,7 +32,6 @@ public class Insert {
     public static void main(String[] args) {
         Insert insert = new Insert();
 
-        // Run a series of insert operations
         System.out.println("Insert One:");
         insert.insertOneExample();
         insert.preview();
@@ -49,6 +47,7 @@ public class Insert {
 
     private void insertOneExample() {
         collection.drop();
+        // Runs an operation to insert a sample document and prints the document's ID
         // begin insertOneExample
         Document doc1 = new Document("color", "red").append("qty", 5);
         
@@ -60,6 +59,7 @@ public class Insert {
 
     private void insertManyExample() {
         collection.drop();
+        // Runs an operation to insert sample documents
         // begin insertManyExample
         List<Document> documents = new ArrayList<>();
 
@@ -71,6 +71,7 @@ public class Insert {
         
         InsertManyResult result = collection.insertMany(documents);
         
+        // Retrieves and prints the ID values of each inserted document
         List<ObjectId> insertedIds = new ArrayList<>();
         result.getInsertedIds().values()
             .forEach(doc -> insertedIds.add(doc.asObjectId().getValue()));
@@ -97,11 +98,15 @@ public class Insert {
 
         // begin insertManyErrorExample
         List<Integer> insertedIds = new ArrayList<>();
+        
+        // Runs an operation to insert sample documents and prints their ID values
         try {
             InsertManyResult result = collection.insertMany(documents);  
             result.getInsertedIds().values()
                 .forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
             System.out.println("Inserted documents with the following ids: " + insertedIds);
+
+        // Prints a message if an error occurs during the operation
         } catch(MongoBulkWriteException exception) {
             exception.getWriteResult().getInserts()
                 .forEach(doc -> insertedIds.add(doc.getId().asInt32().getValue()));
