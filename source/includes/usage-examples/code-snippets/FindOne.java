@@ -27,22 +27,21 @@ public class FindOne {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a projection to include the "title" and "imdb" fields and exclude "_id"
+            // Creates instructions to project two document fields
             Bson projectionFields = Projections.fields(
                     Projections.include("title", "imdb"),
                     Projections.excludeId());
 
-            // Find documents with a "title" of "The Room", apply the projection, sort, and retrieve the first match
+            // Runs a find operation that retrieves only the first matching document
             Document doc = collection.find(eq("title", "The Room"))
                     .projection(projectionFields)
                     .sort(Sorts.descending("imdb.rating"))
                     .first();
 
-            // Print the returned document, or print that none were found
+            // Prints a message if there are no result documents, or prints two fields of the matched document
             if (doc == null) {
                 System.out.println("No results found.");
             } else {

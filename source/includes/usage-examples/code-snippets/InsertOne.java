@@ -25,21 +25,20 @@ public class InsertOne {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
             try {
-                // Create a document to insert
+                // Runs a write operation that inserts a sample document into the collection
                 InsertOneResult result = collection.insertOne(new Document()
                         .append("_id", new ObjectId())
                         .append("title", "Ski Bloopers")
                         .append("genres", Arrays.asList("Documentary", "Comedy")));
 
-                // Print the ID of the inserted document
+                // Prints the ID of the inserted document
                 System.out.println("Success! Inserted document id: " + result.getInsertedId());
             
-            // Handle any exceptions that might occur during the operation
+            // Prints a message if the operation generates an error
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }

@@ -26,23 +26,22 @@ public class InsertMany {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a list of documents to insert
+            // Creates two sample documents containing a "title" field
             List<Document> movieList = Arrays.asList(
                     new Document().append("title", "Short Circuit 3"),
                     new Document().append("title", "The Lego Frozen Movie"));
 
             try {
-                // Insert the documents into the collection
+                // Runs a write operation that inserts sample documents into the collection
                 InsertManyResult result = collection.insertMany(movieList);
 
-                // Print the IDs of the inserted documents
+                // Prints the IDs of the inserted documents
                 System.out.println("Inserted document ids: " + result.getInsertedIds());
             
-            // Handle any exceptions that might occur during the operation
+            // Prints a message if the operation generates an error
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }

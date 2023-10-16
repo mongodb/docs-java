@@ -23,21 +23,20 @@ public class Distinct {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
             try {
-                // Find distinct "year" values for movies directed by "Carl Franklin"
+                // Runs an operation that retrieves the distinct "year" values of matching documents
                 DistinctIterable<Integer> docs = collection.distinct("year", Filters.eq("directors", "Carl Franklin"), Integer.class);
                 MongoCursor<Integer> results = docs.iterator();
 
-                // Iterate through the distinct "year" values and print them
+                // Prints the distinct "year" values
                 while(results.hasNext()) {
                     System.out.println(results.next());
                 }
 
-            // Handle any exceptions that might occur during the operation
+            // Prints a message if the operation generates an error
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }

@@ -28,21 +28,20 @@ public class Find {
         String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            // Access the "movies" collection in the "sample_mflix" database
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Define a projection to include the "title" and "imdb" fields and exclude "_id"
+            // Creates instructions to project two document fields
             Bson projectionFields = Projections.fields(
                     Projections.include("title", "imdb"),
                     Projections.excludeId());
 
-            // Find documents that have a "runtime" value less than 15, apply the projection, and sort the results
+            // Runs a find operation that matches documents with a "runtime" value under 15
             MongoCursor<Document> cursor = collection.find(lt("runtime", 15))
                     .projection(projectionFields)
                     .sort(Sorts.descending("title")).iterator();
 
-            // Iterate through the returned documents and print them
+            // Prints two fields of each matching document and sorts the result documents
             try {
                 while(cursor.hasNext()) {
                     System.out.println(cursor.next().toJson());
