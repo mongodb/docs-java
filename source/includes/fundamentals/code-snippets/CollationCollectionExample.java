@@ -57,7 +57,7 @@ public class CollationCollectionExample {
         // start findAndSort
         List<Document> results = new ArrayList<>();
 
-        // Retrieves all documents and sorts by the "first_name" values by using the "de@collation-phonebook" collation
+        // Retrieves all documents and applies a "de@collation-phonebook" collation and ascending sort to the results
         collection.find()
                 .collation(Collation.builder().locale("de@collation=phonebook").build())
                 .sort(Sorts.ascending("first_name")).into(results);
@@ -90,7 +90,7 @@ public class CollationCollectionExample {
     private static void findOneAndDeleteExample(MongoCollection<Document> collection) {
         List<Document> results = new ArrayList<>();
 
-        //  Finds documents that match the filter and stores the matches in a list
+        // Retrieves documents that match the filter and adds them to a list
         collection.find(Filters.gt("a", "100")).into(results);
 
         // Prints the JSON representation of the result list
@@ -180,10 +180,10 @@ public class CollationCollectionExample {
         MongoCollection<Document> collection = database.getCollection("items");
         IndexOptions idxOptions = new IndexOptions();
 
-        // Specifies collation options to set a locale
+        // Defines options that set a collation locale
         idxOptions.collation(Collation.builder().locale("en_US").build());
 
-        // Creates an index on the "name" field with a collation and ascending sort order
+        // Creates an index on the "name" field with the collation and ascending sort order
         collection.createIndex(Indexes.ascending("name"), idxOptions);
         // end createIndex
     }
@@ -192,7 +192,7 @@ public class CollationCollectionExample {
         MongoCollection<Document> collection = database.getCollection("phonebook");
         IndexOptions idxOptions = new IndexOptions();
 
-        // Specifies collation options that set a locale, comparison levels, and punctuation guidelines
+        // Defines options that set a collation's locale, comparison levels, and punctuation guidelines
         idxOptions.collation(Collation.builder().locale("de@collation=search").collationStrength(CollationStrength.PRIMARY).collationAlternate(CollationAlternate.SHIFTED).build());
         
         // Creates an index on the "first_name" field with the collation and ascending sort order
@@ -200,7 +200,7 @@ public class CollationCollectionExample {
     }
 
     private static void indexOperation(MongoCollection collection) {
-        // Retrieves all documents and applies a collation and ascending sort to these documents
+        // Retrieves all documents and applies a collation and ascending sort to them
         // start indexOperation
         FindIterable<Document> cursor = collection.find()
                 .collation(Collation.builder().locale("en_US").build())
@@ -210,7 +210,7 @@ public class CollationCollectionExample {
     }
 
     private static void customCollationOperation(MongoCollection collection) {
-        // Retrieves all documents and applies a collation and ascending sort to these documents
+        // Retrieves all documents and applies a collation and ascending sort to them
         // start customCollationOperation
         FindIterable<Document> cursor = collection.find()
                 .collation(Collation.builder().locale("is").build())

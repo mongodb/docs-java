@@ -114,10 +114,10 @@ class DemoClientUnsafe extends DemoClient {
 
     // start the-unsafe-book-a-room
     public void bookARoom() {
-         // Creates a filter to match documents representing available rooms
+        // Creates a filter to match documents representing available rooms
         Bson filter = Filters.eq("reserved", false);
 
-        // Finds the first available room
+        // Retrieves a document that represents the first available room
         Document myRoom = this.collection.find(filter).first();
 
         // Prints a message if no documents representing available rooms are found

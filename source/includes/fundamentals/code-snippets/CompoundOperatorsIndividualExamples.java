@@ -57,10 +57,10 @@ public class CompoundOperatorsIndividualExamples {
         //start findOneAndUpdate-example
         // <MongoCollection set up code here>
 
-        // Configures a projection to exclude the "_id" field from the printed documents
+        // Creates a projection to exclude the "_id" field from the printed documents
         Bson projection = Projections.excludeId();
 
-        // Defines a filter to match documents with a "color" value of "green"
+        // Creates a filter to match documents with a "color" value of "green"
         Bson filter = Filters.eq("color", "green");
 
         // Creates an update document to set the value of "food" to "pizza"
@@ -86,13 +86,15 @@ public class CompoundOperatorsIndividualExamples {
         //start findOneAndDelete-example
         // <MongoCollection set up code here>
         Bson sort = Sorts.descending("_id");
+
+        // Creates an empty filter to match all documents in the collection
         Bson filter = Filters.empty();
 
         // Defines options that specify a descending sort on the "_id" field
         FindOneAndDeleteOptions options = new FindOneAndDeleteOptions().
                 sort(sort);
 
-        // Runs the operation and prints the deleted document
+        // Deletes the document containing the highest "_id" value and prints the deleted document
         Document result = collection.findOneAndDelete(filter, options);
         System.out.println(result.toJson());
         //end findOneAndDelete-example
@@ -104,6 +106,7 @@ public class CompoundOperatorsIndividualExamples {
         MongoCollection<Document> collection = getCollection();
         //start findOneAndReplace-example
         // <MongoCollection set up code here>
+
         // Creates instructions to replace the matching document with a new document
         Bson filter = Filters.eq("color", "green");
         Document replace = new Document("music", "classical").append("color", "green");
