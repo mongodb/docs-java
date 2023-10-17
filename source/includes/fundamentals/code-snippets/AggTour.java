@@ -48,16 +48,13 @@ public class AggTour {
         ));
         // end insert
 
+        // Creates an aggregation pipeline that matches documents, groups them by the "stars" field, and tallies them by distinct values
         // begin aggregation one
         collection.aggregate(
             Arrays.asList(
-                // Creates instructions to match documents that contain the "Bakery" category
                 Aggregates.match(Filters.eq("categories", "Bakery")),
-
-                // Creates instructions to group documents by the "stars" field and tally them by distinct values
                 Aggregates.group("$stars", Accumulators.sum("count", 1))
             )
-
         // Prints the result of the aggregation pipeline
         ).forEach(doc -> System.out.println(doc.toJson()));
         // end aggregation one
