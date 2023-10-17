@@ -27,6 +27,8 @@ public class JMXMonitoring {
 
             // Pauses the code execution so you can navigate to JConsole and inspect your connection pools
             Thread.sleep(Long.MAX_VALUE);
+
+        // Prints exception details if any exceptions occur during the code execution
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -50,13 +50,13 @@ public class IndexPage {
     private void singleIndex() {
         System.out.println("single index");
 
-        // Creates an index in ascending order on the "title" field
+        // Creates an index on the "title" field in ascending order 
         // begin single index
         String resultCreateIndex = collection.createIndex(Indexes.ascending("title"));
         System.out.println(String.format("Index created: %s", resultCreateIndex));
         // end single index
 
-        // Runs a find operation that retrieves results directly from the "title" field index
+        // Retrieves matching documents directly from the "title" index, applying a sort and projection
         // begin covered single query
         Bson filter = eq("title", "Batman");
         Bson sort = Sorts.ascending("title");
@@ -64,7 +64,7 @@ public class IndexPage {
         FindIterable<Document> cursor = collection.find(filter).sort(sort).projection(projection);
         // end covered single query
         
-        // Prints each document retrieved by the find operation
+        // Prints the results of the find operation
         cursor.forEach(doc -> System.out.println(doc));
 
     }
@@ -72,13 +72,13 @@ public class IndexPage {
     private void compoundIndex() {
         System.out.println("compound index");
 
-        // Creates a compound index on the "type" and "rated" fields
+        // Creates a compound index on the "type" and "rated" fields in ascending order
         // begin compound index
         String resultCreateIndex = collection.createIndex(Indexes.ascending("type", "rated"));
         System.out.println(String.format("Index created: %s", resultCreateIndex));
         // end compound index
 
-        // Runs a find operation that retrieves results directly from the compound index
+        // Retrieves matching documents directly from the compound index, applying a sort and projection
         // begin covered compound query
         Bson filter = and(eq("type", "movie"), eq("rated", "G"));
         Bson sort = Sorts.ascending("type", "rated");
@@ -86,19 +86,19 @@ public class IndexPage {
         FindIterable<Document> cursor = collection.find(filter).sort(sort).projection(projection);
         // end covered compound query
 
-        // Prints each document retrieved by the find operation
+        // Prints the results of the find operation
         cursor.forEach(doc -> System.out.println(doc));
     }
 
     private void multiKeyIndex() {
         System.out.println("multikey index");
-        // Creates a compound multikey index on the "rated", "genres", and "title" fields
+        // Creates a compound multikey index on the "rated", "genres", and "title" fields in ascending order
         // begin multikey index
         String resultCreateIndex = collection.createIndex(Indexes.ascending("rated", "genres", "title"));
         System.out.println(String.format("Index created: %s", resultCreateIndex));
         // end multikey index
 
-        // Runs a find operation that retrieves results directly from the compound multikey index
+        // Retrieves matching documents directly from the multikey index, applying a sort and projection
         // begin covered multikey query
         Bson filter = and(eq("genres", "Animation"), eq("rated", "G"));
         Bson sort = Sorts.ascending("title");
@@ -106,7 +106,7 @@ public class IndexPage {
         FindIterable<Document> cursor = collection.find(filter).sort(sort).projection(projection);
         // end covered multikey query
 
-        // Prints each document retrieved by the find operation
+       // Prints the results of the find operation
         cursor.forEach(doc -> System.out.println(doc));
     }
 
@@ -125,14 +125,14 @@ public class IndexPage {
         }
         // end text index
 
-        // Runs a find operation that retrieves results directly from the text index
+        // Retrieves matching documents directly from the text index, applying a projection
         // begin text query
         Bson filter = text("java coffee shop");
         Bson projection = fields(include("fullplot"), excludeId());
         FindIterable<Document> cursor = collection.find(filter).projection(projection);
         // end text query
 
-        // Prints each document retrieved by the find operation
+        // Prints the results of the find operation
         cursor.forEach(doc -> System.out.println(doc));
     }
 
@@ -157,12 +157,13 @@ public class IndexPage {
         // Stores the coordinates of the NY MongoDB headquarters
         Point refPoint = new Point(new Position(-73.98456, 40.7612));
 
-        // Runs a find operation that retrieves results directly from the geospatial index
+        // Retrieves documents that represent locations up to 1000 meters from the specified point directly from the geospatial index
+        // Creates a filter to match a document 
         Bson filter = near("location.geo", refPoint, 1000.0, 0.0);
         FindIterable<Document> cursor = collection.find(filter);
         // end geospatial query
 
-        // Prints each document retrieved by the find operation
+        // Prints the results of the find operation
         cursor.forEach(doc -> System.out.println(doc));
     }
 
@@ -170,7 +171,7 @@ public class IndexPage {
         System.out.println("unique index");
         collection = database.getCollection("theaters");
 
-        // Creates a unique index on the "theaterID" field
+        // Creates a unique index on the "theaterID" field in descending order
         // begin unique index
         try {
             IndexOptions indexOptions = new IndexOptions().unique(true);
@@ -187,7 +188,7 @@ public class IndexPage {
         System.out.println("wildcard index");
         collection = database.getCollection("theaters");
 
-        // Creates an ascending wildcard index on all values of the "location" field
+        // Creates a wildcard index on all values of the "location" field in ascending order
         // begin wildcard index
         String resultCreateIndex = collection.createIndex(Indexes.ascending("location.$**")); 
         System.out.println(String.format("Index created: %s", resultCreateIndex));

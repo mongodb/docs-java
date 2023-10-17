@@ -38,7 +38,7 @@ public final class GridFSOperations {
     }
 
     private static void uploadOptions() {
-        // Specifies configuration information for files uploaded to the bucket
+        // Defines options that specify configuration information for files uploaded to the bucket
         // start uploadOptions
         GridFSUploadOptions options = new GridFSUploadOptions()
                 .chunkSizeBytes(1048576) // 1MB chunk size
@@ -50,7 +50,7 @@ public final class GridFSOperations {
         // start uploadFromInputStream
         String filePath = "/path/to/project.zip";
         try (InputStream streamToUploadFrom = new FileInputStream(filePath) ) {
-            // Specifies configuration information for files uploaded to the bucket
+            // Defines options that specify configuration information for files uploaded to the bucket
             GridFSUploadOptions options = new GridFSUploadOptions()
                     .chunkSizeBytes(1048576)
                     .metadata(new Document("type", "zip archive"));
@@ -58,7 +58,7 @@ public final class GridFSOperations {
             // Uploads a file from an input stream to the GridFS bucket
             ObjectId fileId = gridFSBucket.uploadFromStream("myProject.zip", streamToUploadFrom, options);
 
-            // Prints the ID of the uploaded file
+            // Prints the "_id" value of the uploaded file
             System.out.println("The file id of the uploaded file is: " + fileId.toHexString());
         }
         // end uploadFromInputStream
@@ -70,7 +70,7 @@ public final class GridFSOperations {
         Path filePath = Paths.get("/path/to/project.zip");
         byte[] data = Files.readAllBytes(filePath);
 
-        // Specifies configuration information for files uploaded to the bucket
+        // Defines options that specify configuration information for files uploaded to the bucket
         GridFSUploadOptions options = new GridFSUploadOptions()
                 .chunkSizeBytes(1048576)
                 .metadata(new Document("type", "zip archive"));
@@ -80,10 +80,10 @@ public final class GridFSOperations {
             uploadStream.write(data);
             uploadStream.flush();
 
-            // Prints the ID of the uploaded file
+            // Prints the "_id" value of the uploaded file
             System.out.println("The file id of the uploaded file is: " + uploadStream.getObjectId().toHexString());
         
-        // Prints a message if an error occurs during the upload process
+        // Prints a message if any exceptions occur during the upload process
         } catch (Exception e) {
             System.err.println("The file upload failed: " + e);
         }
@@ -91,7 +91,7 @@ public final class GridFSOperations {
     }
 
     private static void findAllFiles(GridFSBucket gridFSBucket) throws Exception {
-        // Prints details of each file in the GridFS bucket
+        // Prints the details of each file in the GridFS bucket
         // start findAllFiles
         gridFSBucket.find().forEach(new Consumer<GridFSFile>() {
             @Override
@@ -102,12 +102,12 @@ public final class GridFSOperations {
         // end findAllFiles
     }
     private static void findMatchingFiles(GridFSBucket gridFSBucket) throws Exception {
-        // Defines a filter to match certain documents and specifies an ascending sort
+        // Creates a filter and sort document to match documents and sort them by ascending "filename" values
         // start findMatchingFiles
         Bson query = Filters.eq("metadata.type", "zip archive");
         Bson sort = Sorts.ascending("filename");
         
-        // Runs a find operation to retrieve 5 documents in the bucket and prints metadata
+        // Retrieves 5 documents in the bucket that match the filter and prints metadata
         gridFSBucket.find(query)
                 .sort(sort)
                 .limit(5)
@@ -121,7 +121,7 @@ public final class GridFSOperations {
     }
 
     private static void downloadToOutputStream(GridFSBucket gridFSBucket) throws Exception {
-        // Creates instructions to select the first version of a bucket file
+        // Defines options to select the first version of a bucket file
         // start downloadToStream
         GridFSDownloadOptions downloadOptions = new GridFSDownloadOptions().revision(0);
 
@@ -134,11 +134,10 @@ public final class GridFSOperations {
     }
 
     private static void downloadToMemory(GridFSBucket gridFSBucket) throws Exception {
-        // Retrieves a file to download by specifying its ObjectID
         // start downloadToMemory
         ObjectId fileId = new ObjectId("60345d38ebfcf47030e81cc9");
 
-        // Opens an input stream to read the specified file and downloads the file into memory
+        // Opens an input stream to read a file containing a specified "_id" value and downloads the file
         try (GridFSDownloadStream downloadStream = gridFSBucket.openDownloadStream(fileId)) {
             int fileLength = (int) downloadStream.getGridFSFile().getLength();
             byte[] bytesToWriteTo = new byte[fileLength];
@@ -152,21 +151,19 @@ public final class GridFSOperations {
 
 
     private static void renameFile(GridFSBucket gridFSBucket) throws Exception {
-        // Retrieves a file to rename by specifying its ObjectID
         // start renameFile
         ObjectId fileId = new ObjectId("60345d38ebfcf47030e81cc9");
         
-        // Renames the specified file to "mongodbTutorial.zip"
+        // Renames the file that has a specified "_id" value to "mongodbTutorial.zip"
         gridFSBucket.rename(fileId, "mongodbTutorial.zip");
         // end renameFile
     }
 
     private static void deleteFile(GridFSBucket gridFSBucket) throws Exception {
-        // Retrieves a file to delete by specifying its ObjectID
         // start deleteFile
         ObjectId fileId = new ObjectId("60345d38ebfcf47030e81cc9");
 
-        // Deletes the specified file from the GridFS bucket
+        // Deletes the file that has a specified "_id" value from the GridFS bucket
         gridFSBucket.delete(fileId);
         // end deleteFile
     }

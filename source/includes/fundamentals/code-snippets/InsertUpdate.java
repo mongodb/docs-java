@@ -43,7 +43,7 @@ public class InsertUpdate {
     }
 
     private void updateOneAttemptExample(){
-        // Runs a write operation that increments the "qty" value of the matching document
+        // Updates the "qty" value of the document that matches the filter
         // begin updateOneAttemptExample
         Bson filter = Filters.eq("color", "orange");
         Bson update = Updates.inc("qty", 10);
@@ -52,12 +52,12 @@ public class InsertUpdate {
     }
 
     private void updateOneExample(){
-        // Runs a write operation that increments the "qty" value of the matching document
         // begin updateOneExample
+        // Creates a filter and update document to increment the matching document's "qty" value
         Bson filter = Filters.eq("color", "orange");
         Bson update = Updates.inc("qty", 10);
 
-        // Creates instructions to insert a document if none match the query filter
+        // Updates the matching document or inserts a document if none match the query filter
         UpdateOptions options = new UpdateOptions().upsert(true);
         System.out.println(collection.updateOne(filter, update, options));
         // end updateOneExample

@@ -47,7 +47,7 @@ public class Insert {
 
     private void insertOneExample() {
         collection.drop();
-        // Runs an operation to insert a sample document and prints the document's ID
+        // Inserts a sample document and prints the document's ID
         // begin insertOneExample
         Document doc1 = new Document("color", "red").append("qty", 5);
         
@@ -59,7 +59,7 @@ public class Insert {
 
     private void insertManyExample() {
         collection.drop();
-        // Runs an operation to insert sample documents
+        // Inserts sample documents into a collection
         // begin insertManyExample
         List<Document> documents = new ArrayList<>();
 
@@ -99,14 +99,14 @@ public class Insert {
         // begin insertManyErrorExample
         List<Integer> insertedIds = new ArrayList<>();
         
-        // Runs an operation to insert sample documents and prints their ID values
+        // Inserts sample documents and prints their "_id" values
         try {
             InsertManyResult result = collection.insertMany(documents);  
             result.getInsertedIds().values()
                 .forEach(doc -> insertedIds.add(doc.asInt32().getValue()));
             System.out.println("Inserted documents with the following ids: " + insertedIds);
 
-        // Prints a message if an error occurs during the operation
+        // Prints a message if any exceptions occur during the operation and the "_id" values of inserted documents
         } catch(MongoBulkWriteException exception) {
             exception.getWriteResult().getInserts()
                 .forEach(doc -> insertedIds.add(doc.getId().asInt32().getValue()));
