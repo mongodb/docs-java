@@ -34,17 +34,19 @@ public class CollationCollectionExample {
 
 
     private static void aggregatesExample(MongoCollection<Document> collection) {
-        // Creates instructions to calculate the frequency of "first_name" values
+        // Runs an aggregation pipeline to tally the frequencies of "first_name" values
         // start aggregationExample
         Bson groupStage = Aggregates.group("$first_name", Accumulators.sum("nameCount", 1));
         Bson sortStage = Aggregates.sort(Sorts.ascending("_id"));
 
-        // Constructs a collation object with the German locale that ignores accents
         AggregateIterable<Document> results = collection
+                // Runs the aggregation pipeline that includes tallying "first_name" frequencies
                 .aggregate(Arrays.asList(groupStage, sortStage))
+
+                // Applies a collation to sort documents alphabetically by using the German locale, ignoring accents
                 .collation(Collation.builder().locale("de").collationStrength(CollationStrength.PRIMARY).build());
 
-        // Prints the JSON representation of the results        
+        // Prints the results of the aggregation that tallied value frequencies and sorted the results
         if (results != null) {
             results.forEach(doc -> System.out.println(doc.toJson()));
         }
@@ -55,7 +57,7 @@ public class CollationCollectionExample {
         // start findAndSort
         List<Document> results = new ArrayList<>();
 
-        // Runs a find operation and applies a collation to the sorted results
+        // Retrieves all documents and sorts by the "first_name" values by using the "de@collation-phonebook" collation
         collection.find()
                 .collation(Collation.builder().locale("de@collation=phonebook").build())
                 .sort(Sorts.ascending("first_name")).into(results);

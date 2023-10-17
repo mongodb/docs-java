@@ -48,17 +48,20 @@ public class AggTour {
         ));
         // end insert
 
-        // Groups matching documents by the "stars" field and accumulates a count of distinct "stars" values
         // begin aggregation one
         collection.aggregate(
             Arrays.asList(
+                // Creates instructions to match documents that contain the "Bakery" category
                 Aggregates.match(Filters.eq("categories", "Bakery")),
+
+                // Creates instructions to group documents by the "stars" field and tally them by distinct values
                 Aggregates.group("$stars", Accumulators.sum("count", 1))
             )
+
+        // Prints the result of the aggregation pipeline
         ).forEach(doc -> System.out.println(doc.toJson()));
         // end aggregation one
 
-        // Outputs the operation's winning and rejected execution plans
         // begin aggregation three
         Document explanation = collection.aggregate(
             Arrays.asList(
@@ -78,7 +81,7 @@ public class AggTour {
             }
         }
         // end aggregation three
-        // Prints the documents' "name" values and the values of a new "firstCategory" field
+        // Prints the restaurant name and the first value in the "categories" array as a field named "firstCategory"
         // begin aggregation two
         collection.aggregate(
             Arrays.asList(

@@ -83,7 +83,7 @@ public class BulkWrite {
             bulkOperations.add(doc1);
             bulkOperations.add(doc3);
             
-            // Runs write operations on the insert WriteModels
+            // Runs a bulk write operation for the specified insert WriteModels
             collection.bulkWrite(bulkOperations); 
         
         // Prints a message if any exceptions occur during the operations
@@ -106,11 +106,11 @@ public class BulkWrite {
                                                 new Document("name", "Sandy Kane")
                                                     .append("location", "Helena, MT")); 
         
-        // Creates instructions to update the matching document
+        // Creates instructions to update the first document that matches the query
         UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(Filters.eq("name", "Zaynab Omar"), 
                                                 Updates.set("name", "Zaynab Hassan"));
         
-        // Creates instructions to delete the matching document  
+        // Creates instructions to delete all matching documents
         DeleteManyModel<Document> deleteDoc = new DeleteManyModel<>(Filters.gt("age", 50));
    
         bulkOperations.add(insertDoc);
@@ -121,7 +121,7 @@ public class BulkWrite {
         // begin bulkWriteNotOrderedExample
         BulkWriteOptions options = new BulkWriteOptions().ordered(false);
         
-        // Runs write operations on the insert, replace, update, and delete WriteModels in any order
+        // Runs a bulk write operation for the specified insert, replace, update, and delete WriteModels in any order
         collection.bulkWrite(bulkOperations, options); 
         //end bulkWriteNotOrderedExample
     }
@@ -130,7 +130,7 @@ public class BulkWrite {
         // begin bulkWriteExample
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        // Creates instructions to insert a new document
+        // Creates instructions to insert a document
         InsertOneModel<Document> insertDoc = new InsertOneModel<>(new Document("_id", 6)
                                                                 .append("name", "Zaynab Omar")
                                                                 .append("age", 37));
@@ -144,7 +144,7 @@ public class BulkWrite {
         UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(Filters.eq("name", "Zaynab Omar"), 
                                                 Updates.set("name", "Zaynab Hassan"));
         
-        // Creates instructions to delete the matching document                                    
+        // Creates instructions to delete all matching documents                                  
         DeleteManyModel<Document> deleteDoc = new DeleteManyModel<>(Filters.gt("age", 50));
    
         bulkOperations.add(insertDoc);
@@ -152,7 +152,7 @@ public class BulkWrite {
         bulkOperations.add(updateDoc);
         bulkOperations.add(deleteDoc);
 
-        // Runs write operations on the insert, replace, update, and delete WriteModels in order
+        // Runs a bulk write operation for the specified the insert, replace, update, and delete WriteModels in order
         collection.bulkWrite(bulkOperations);               
         //end bulkWriteExample
     }
@@ -160,7 +160,7 @@ public class BulkWrite {
     private void insertDocumentsExample(){
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        // Creates instructions to insert two new documents
+        // Creates instructions to insert multiple documents
         // begin insertDocumentsExample
         InsertOneModel<Document> juneDoc = new InsertOneModel<>(new Document("name", "June Carrie")
                                                                     .append("age", 17));
@@ -172,7 +172,7 @@ public class BulkWrite {
         bulkOperations.add(juneDoc);
         bulkOperations.add(kevinDoc);
 
-        // Runs write operations on the insert WriteModels
+        // Runs a bulk write operation for the specified insert WriteModels
         collection.bulkWrite(bulkOperations);
     }
     
@@ -224,7 +224,6 @@ public class BulkWrite {
     }
 
     private void preview(){
-        // Prints the JSON representation of each document in the collection
         collection.find().forEach(doc -> System.out.println(doc.toJson()));
     }
 
