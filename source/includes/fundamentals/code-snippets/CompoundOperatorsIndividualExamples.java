@@ -6,6 +6,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
 import com.mongodb.client.result.InsertOneResult;
+
+import docs.builders.Filters;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -36,7 +39,7 @@ public class CompoundOperatorsIndividualExamples {
         docs.add(insert_pizza);
         docs.add(insert_pear);
 
-        // Inserts documents describing food into the collection
+        // Inserts sample documents describing food
         collection.insertMany(docs);
     }
 
@@ -53,10 +56,14 @@ public class CompoundOperatorsIndividualExamples {
         MongoCollection<Document> collection = getCollection();
         //start findOneAndUpdate-example
         // <MongoCollection set up code here>
+
+        // Configures a projection to exclude the "_id" field from the printed documents
         Bson projection = Projections.excludeId();
 
-        // Creates instructions to modify the "food" value of the matching document
+        // Defines a filter to match documents with a "color" value of "green"
         Bson filter = Filters.eq("color", "green");
+
+        // Creates an update document to set the value of "food" to "pizza"
         Bson update = Updates.set("food", "pizza");
 
         // Defines options that specify projected fields, permit an upsert and limit execution time
@@ -65,7 +72,7 @@ public class CompoundOperatorsIndividualExamples {
                 upsert(true).
                 maxTime(5, TimeUnit.SECONDS);
         
-        // Runs the update operation and applies the operation instructions
+        // Updates the first matching document with the content of the update document, applying the specified options
         Document result = collection.findOneAndUpdate(filter, update, options);
 
         // Prints the matched document in its state before the operation
@@ -101,11 +108,11 @@ public class CompoundOperatorsIndividualExamples {
         Bson filter = Filters.eq("color", "green");
         Document replace = new Document("music", "classical").append("color", "green");
 
-        // Defines options specifying that the document is returned in its post-operation state
+        // Defines options specifying that the operation should return a document in its post-operation state
         FindOneAndReplaceOptions options = new FindOneAndReplaceOptions().
                 returnDocument(ReturnDocument.AFTER);
 
-        // Runs the operation and prints the replacement document
+        // Atomically finds and replaces the matching document and prints the replacement document
         Document result = collection.findOneAndReplace(filter, replace, options);
         System.out.println(result.toJson());
         //end findOneAndReplace-example

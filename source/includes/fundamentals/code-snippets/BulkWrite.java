@@ -77,6 +77,8 @@ public class BulkWrite {
         // begin insertExceptionExample
         try {
             List<WriteModel<Document>> bulkOperations = new ArrayList<>();
+
+            // Creates instructions to insert documents
             InsertOneModel<Document> doc1 = new InsertOneModel<>(new Document("_id", 1));
             InsertOneModel<Document> doc3 = new InsertOneModel<>(new Document("_id", 3));
             
@@ -88,7 +90,7 @@ public class BulkWrite {
         
         // Prints a message if any exceptions occur during the operations
         } catch (MongoBulkWriteException e){
-            System.out.println("A MongoBulkWriteException occured with the following message: " + e.getMessage());
+            System.out.println("A MongoBulkWriteException occurred with the following message: " + e.getMessage());
         }
         //end insertExceptionExample
     }
@@ -96,7 +98,7 @@ public class BulkWrite {
     private void bulkWriteNotOrderedExample() {
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        // Creates instructions to insert a new document
+        // Creates instructions to insert a document
         InsertOneModel<Document> insertDoc = new InsertOneModel<>(new Document("_id", 6)
                                                                 .append("name", "Zaynab Omar")
                                                                 .append("age", 37));
@@ -189,7 +191,7 @@ public class BulkWrite {
 
         bulkOperations.add(celineDoc);
 
-        // Runs the write operation on the replace WriteModel
+        // Runs a bulk write operation for the specified replace WriteModel
         collection.bulkWrite(bulkOperations);
     }
 
@@ -205,7 +207,7 @@ public class BulkWrite {
 
         bulkOperations.add(updateDoc);
 
-        // Runs the write operation on the update WriteModel
+        // Runs a bulk write operation for the specified update WriteModel
         collection.bulkWrite(bulkOperations);
     }
 
@@ -219,7 +221,7 @@ public class BulkWrite {
 
         bulkOperations.add(deleteDoc);
 
-        // Runs the write operation on the delete WriteModel
+        // Runs a bulk write operation for the specified delete WriteModel
         collection.bulkWrite(bulkOperations);
     }
 
