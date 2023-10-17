@@ -18,32 +18,38 @@ public class MongoDbAwsAuth {
     // Placeholder functions
 
     private static void encodeText() throws UnsupportedEncodingException {
+        // Defines the encoding scheme used to translate a string
         // start urlEncode
         String encodedField = java.net.URLEncoder.encode("<fieldValue>".toString(), "ISO-8859-1");
         // end urlEncode
     }
     private static void connectionString() {
+        // Instantiates a client and provides AWS credentials to enable the MONGODB-AWS authentication mechanism
         // start connectionString
         MongoClient mongoClient = MongoClients.create("mongodb://<awsKeyId>:<awsSecretKey>@<atlasUri>?authMechanism=MONGODB-AWS");
         // end connectionString
     }
 
     private static void mechOnlyConnectionString() {
+        // Instantiates a client that MongoDB authenticates by using the MONGODB-AWS mechanism
         // start mechOnlyConnectionString
         MongoClient mongoClient = MongoClients.create("mongodb://<atlasUri>?authMechanism=MONGODB-AWS");
         // end mechOnlyConnectionString
     }
 
     private static void connectionStringSessionToken() {
+        // Instantiates a client and provides AWS credentials and a session token to enable the MONGODB-AWS authentication mechanism
         // start connectionStringSessionToken
         MongoClient mongoClient = MongoClients.create("mongodb://<awsKeyId>:<awsSecretKey>@<atlasUri>?authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:<awsSessionToken>");
         // end connectionStringSessionToken
     }
 
     private static void mongoCredential() {
+        // Defines a MongoCredential instance to specify the authentication mechanism and credentials
         // start mongoCredential
         MongoCredential credential = MongoCredential.createAwsCredential("<awsKeyId>", "<awsSecretKey>".toCharArray());
 
+        // Instantiates a client 
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                 .applyToClusterSettings(builder ->
