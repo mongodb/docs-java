@@ -59,7 +59,7 @@ public class Cursor {
     }
 
     private void forEachIteration(){
-        // Prints all the document in the collection in JSON format
+        // Prints the JSON representation of all documents in the collection
         // begin forEachIteration
         FindIterable<Document> iterable = collection.find();
         iterable.forEach(doc -> System.out.println(doc.toJson()));
@@ -75,7 +75,7 @@ public class Cursor {
     }
 
     private void availableExample(){
-        // Prints the number of query results that available in the returned cursor
+        // Prints the number of query results that are available in the returned cursor
         // begin availableExample
         MongoCursor<Document> cursor = collection.find().cursor();
         System.out.println(cursor.available());
@@ -92,7 +92,7 @@ public class Cursor {
     }
 
     private void intoExample(){
-        // Prints the query results
+        // Prints the results of the find operation as a list
         // begin intoExample
         List<Document> results = new ArrayList<>();
         FindIterable<Document> iterable = collection.find();
@@ -102,7 +102,7 @@ public class Cursor {
     }
 
     private void manualIteration(){
-        // Iterates through cursor results of a query and prints them as JSON
+        // Prints the results of the find operation by iterating through a cursor
         // begin manualIteration
         MongoCursor<Document> cursor = collection.find().cursor();
         while (cursor.hasNext()){

@@ -52,13 +52,13 @@ public class Geo {
 
         Point centralPark = new Point(new Position(-73.9667, 40.78));
         
-        // Builds a query that matches all theaters between 5,000 and 10,000 meters from the specified Point
+        // Creates a query that matches all theaters between 5,000 and 10,000 meters from the specified Point
         Bson query = near("location.geo", centralPark, 10000.0, 5000.0);
 
-        // Builds a projection to include only the "location.address.city" field in the results
+        // Creates a projection to include only the "location.address.city" field in the results
         Bson projection = fields(include("location.address.city"), excludeId());
         
-        // Prints the projected field of the results from the geolocation query
+        // Prints the projected field of the results from the geolocation query as JSON
         collection.find(query)
                 .projection(projection)
                 .forEach(doc -> System.out.println(doc.toJson()));
@@ -77,13 +77,13 @@ public class Geo {
                 new Position(-72, 39),
                 new Position(-72, 40)));
 
-        // Builds a projection to include only the "location.address.city" field in the results
+        // Creates a projection to include only the "location.address.city" field in the results
         Bson projection = fields(include("location.address.city"), excludeId());
 
-        // Constructs a query with the $geoWithin query operator
+        // Creates a query that matches documents containing "location.geo" values within the specified Polygon
         Bson geoWithinComparison = geoWithin("location.geo", longIslandTriangle);
         
-        // Prints the projected field of the results from the geolocation query
+        // Prints the projected field of the results from the geolocation query as JSON
         collection.find(geoWithinComparison)
                 .projection(projection)
                 .forEach(doc -> System.out.println(doc.toJson()));

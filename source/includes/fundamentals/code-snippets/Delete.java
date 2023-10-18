@@ -60,7 +60,7 @@ public class Delete {
     }
 
     private void findOneAndDeleteExample(){
-        // Deletes the first document with a "color" value of "purple", and prints the deleted document
+        // Deletes the first document with a "color" value of "purple" and prints the deleted document
         // begin findOneAndDeleteExample
         Bson filter = Filters.eq("color", purple);
         System.out.println(collection.findOneAndDelete(filter).toJson());
@@ -68,7 +68,7 @@ public class Delete {
     }
 
     private void findOneAndDeleteNullExample(){
-        // Deletes the first document with a "qty" value of 1, and prints the deleted document
+        // Deletes the first document with a "qty" value of 1 and prints the deleted document
         // begin findOneAndDeleteNullExample
         Bson filter = Filters.eq("qty", 1);
         System.out.println(collection.findOneAndDelete(filter));
@@ -83,7 +83,7 @@ public class Delete {
         // end deleteOneExample
     }
     private void preview(boolean drop){
-        // Prints each document in your collection
+        // Prints the results of a find operation as JSON
         Bson filter = Filters.empty();
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         
