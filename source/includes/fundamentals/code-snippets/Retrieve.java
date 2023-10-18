@@ -55,7 +55,7 @@ public class Retrieve {
         // begin findExample
         Bson filter = Filters.and(Filters.gt("qty", 3), Filters.lt("qty", 9));
 
-        // // Retrieves documents that match the filter and prints them as JSON
+        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end findExample
     }
@@ -65,7 +65,7 @@ public class Retrieve {
         // begin aggregateExample
         Bson filter = Filters.empty();
 
-        // Prints each document's "color" value and the value's frequency in descending frequency order
+        // Prints the collection's "color" values and each value's frequency in descending frequency order
         collection.aggregate(Arrays.asList(
             Aggregates.match(filter), 
             Aggregates.group("$color", Accumulators.sum("qty", "$qty")),
