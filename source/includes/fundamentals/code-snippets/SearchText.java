@@ -47,29 +47,41 @@ public class SearchText {
     }
 
     private void termExample(){
+        // Creates a filter to match documents that have "title" values containing the string "fast"
         // begin termExample
         Bson filter = Filters.text("fast");
+
+        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end termExample
     }
 
     private void multipleTermExample(){
+        // Creates a filter to match documents that have "title" values containing the string "fate 7"
         // begin multipleTermExample
         Bson filter = Filters.text("fate 7");
+
+        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end multipleTermExample
     }
     
     private void negateExample(){
+        // Creates a filter to match documents that have "title" values containing the string "furious" but not the string "fast"
         // begin negateExample
         Bson filter = Filters.text("furious -fast");
+
+        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end negateExample
     }
 
     private void phraseExample(){
+        // Creates a filter to match documents that have "title" values containing the phrase "fate of the furious"
         // begin phraseExample
         Bson filter = Filters.text("\"fate of the furious\"");
+
+        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end phraseExample
     }
