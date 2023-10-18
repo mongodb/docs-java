@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to perform count operations by using the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and counts the number of documents in the "movies" collection.
- * The code also counts the number of documents that match a specified query.
- */
+// Runs count operations on a collection by using the Java driver
 
 package usage.examples;
 
@@ -34,11 +29,11 @@ public class CountDocuments {
                 long estimatedCount = collection.estimatedDocumentCount();
                 System.out.println("Estimated number of documents in the movies collection: " + estimatedCount);
 
-                // Counts and prints the number of documents with a "countries" value of "Spain"
+                // Retrieves and prints the number of documents with a "countries" value of "Spain"
                 long matchingCount = collection.countDocuments(query);
                 System.out.println("Number of movies from Spain: " + matchingCount);
             
-            // Prints a message if an error occurs during the operation
+            // Prints a message if any exceptions occur during the operations
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }

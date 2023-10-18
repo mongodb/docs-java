@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to delete multiple documents in a collection by
- * using the Java driver.
- * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and deletes documents in the "movies" collection based on a specified query.
- */
+// Deletes multiple documents from a collection by using the Java driver
 
 package usage.examples;
 
@@ -32,13 +27,13 @@ public class DeleteMany {
             Bson query = lt("imdb.rating", 1.9);
 
             try {
-                // Runs an operation to delete documents that have an "imdb.rating" value less than 1.9
+                // Deletes all documents that have an "imdb.rating" value less than 1.9
                 DeleteResult result = collection.deleteMany(query);
                 
                 // Prints the number of deleted documents
                 System.out.println("Deleted document count: " + result.getDeletedCount());
             
-            // Prints a message if an error occurs during the operation
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to delete due to an error: " + me);
             }

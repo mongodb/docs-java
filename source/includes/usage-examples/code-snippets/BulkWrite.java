@@ -1,8 +1,4 @@
-/**
- * This file demonstrates MongoDB bulk write operations by using the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and performs bulk write operations on the "movies" collection.
- */
+// Runs bulk write operations on a collection by using the Java driver
 
 package usage.examples;
 
@@ -32,7 +28,7 @@ public class BulkWrite {
             MongoCollection<Document> collection = database.getCollection("movies");
 
             try {
-                // Runs write operations on insert, update, delete, and replace WriteModels
+                // Runs a bulk write operation for the specified insert, update, delete, and replace operations
                 BulkWriteResult result = collection.bulkWrite(
                         Arrays.asList(
                                 new InsertOneModel<>(new Document("name", "A Sample Movie")),
@@ -48,13 +44,13 @@ public class BulkWrite {
                                 new ReplaceOneModel<>(new Document("name", "Yet Another Sample Movie"),
                                         new Document("name", "The Other Sample Movie").append("runtime",  "42"))
                                 ));
-
+                // Prints the number of inserted, updated, and deleted documents
                 System.out.println("Result statistics:" +
                         "\ninserted: " + result.getInsertedCount() +
                         "\nupdated: " + result.getModifiedCount() +
                         "\ndeleted: " + result.getDeletedCount());
 
-            // Prints a message if an error occurs during the operations
+            // Prints a message if any exceptions occur during the operations
             } catch (MongoException me) {
                 System.err.println("The bulk write operation failed due to an error: " + me);
             }

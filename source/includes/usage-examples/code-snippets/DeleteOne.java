@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to delete a document in a collection by using the
- * Java driver.
- * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and deletes a document in the "movies" collection based on a specified query.
- */
+// Deletes a document from a collection by using the Java driver
 
 package usage.examples;
 
@@ -33,11 +28,11 @@ public class DeleteOne {
             Bson query = eq("title", "The Garbage Pail Kids Movie");
 
             try {
-                // Runs an operation to delete the document with a "title" of "The Garbage Pail Kids Movie"
+                // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
                 DeleteResult result = collection.deleteOne(query);
                 System.out.println("Deleted document count: " + result.getDeletedCount());
 
-            // Prints a message if an error occurs during the operation
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to delete due to an error: " + me);
             }

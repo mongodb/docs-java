@@ -1,8 +1,4 @@
-/**
- * This file demonstrates how to run a command by using the Java driver.
- * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and runs a command to retrieve database statistics.
- */
+// Runs a database command by using the Java driver
 
 package usage.examples;
 
@@ -28,14 +24,15 @@ public class RunCommand {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
 
             try {
-                // Defines and runs a command to retrieve database statistics
                 Bson command = new BsonDocument("dbStats", new BsonInt64(1));
+
+                // Retrieves statistics about the specified database
                 Document commandResult = database.runCommand(command);
                 
                 // Prints the database statistics
                 System.out.println("dbStats: " + commandResult.toJson());
                 
-            // Prints a message if an error occurs during the operation
+            // Prints a message if any exceptions occur during the command execution
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }
