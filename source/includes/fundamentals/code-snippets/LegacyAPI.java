@@ -29,7 +29,7 @@ public class LegacyAPI {
     }
 
     private void example2() {
-        // Sets a write concern with the legacy API
+        // Creates a MongoClient with the legacy API that requests write acknowledgement from at least one node
         // start legacy-api-mongoclientoptions-example
         MongoClientURI mongoURI = new MongoClientURI(URI,
                 MongoClientOptions.builder()

@@ -40,7 +40,7 @@ public class JsonFormats {
                             .append("createdAt", new Date())
                             .append("myNumber", 36520312L));
 
-                // Retrieves documents containing the specified "_id" value and stores the first matching document 
+                // Retrieves the first document that has the specified "_id" value
                 Document doc = collection.find(idDocument)
                         .first();
 
