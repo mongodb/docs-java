@@ -117,7 +117,7 @@ public class MongoDbAwsAuth {
         // Creates a lambda expression that returns new AWS credentials
         // start refreshCredentials
         Supplier<AwsCredential> awsFreshCredentialSupplier = () -> {
-            // Add your code here to fetch new credentials here
+            // Add your code to fetch new credentials
 
             return new AwsCredential("<awsKeyId>", "<awsSecretKey>", "<awsSessionToken>");
         };
