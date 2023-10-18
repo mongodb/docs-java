@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to insert a document into a collection by using the
- * Java driver.
- * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and inserts a new document into the "movies" collection.
- */
+// Inserts a sample document describing a movie by using the Java driver
 
 package usage.examples;
 
@@ -29,7 +24,7 @@ public class InsertOne {
             MongoCollection<Document> collection = database.getCollection("movies");
 
             try {
-                // Runs a write operation that inserts a sample document into the collection
+                // Inserts a sample document describing a movie into the collection
                 InsertOneResult result = collection.insertOne(new Document()
                         .append("_id", new ObjectId())
                         .append("title", "Ski Bloopers")
@@ -38,7 +33,7 @@ public class InsertOne {
                 // Prints the ID of the inserted document
                 System.out.println("Success! Inserted document id: " + result.getInsertedId());
             
-            // Prints a message if the operation generates an error
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }

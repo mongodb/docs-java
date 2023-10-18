@@ -1,8 +1,4 @@
-/**
- * This file demonstrates how to find distinct values of a field by using the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and finds 
- * distinct "year" values for documents that match the specified query filter.
- */
+// Retrieves distinct values of a field by using the Java driver
 
 package usage.examples;
 
@@ -27,7 +23,7 @@ public class Distinct {
             MongoCollection<Document> collection = database.getCollection("movies");
 
             try {
-                // Runs an operation that retrieves the distinct "year" values of matching documents
+                // Retrieves the distinct values of the "year" field present in documents that match the filter
                 DistinctIterable<Integer> docs = collection.distinct("year", Filters.eq("directors", "Carl Franklin"), Integer.class);
                 MongoCursor<Integer> results = docs.iterator();
 
@@ -36,7 +32,7 @@ public class Distinct {
                     System.out.println(results.next());
                 }
 
-            // Prints a message if the operation generates an error
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("An error occurred: " + me);
             }

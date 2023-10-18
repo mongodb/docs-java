@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to find a document by using the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and finds
- * a document in the "movies" collection that matches the specified query filter.
- * The code projects certain fields in the returned document.
- */
+// Retrieves a document that matches a query filter by using the Java driver
 
 package usage.examples;
 
@@ -35,13 +30,13 @@ public class FindOne {
                     Projections.include("title", "imdb"),
                     Projections.excludeId());
 
-            // Runs a find operation that retrieves only the first matching document
+            // Retrieves the first matching document, applying a projection and a descending sort to the results
             Document doc = collection.find(eq("title", "The Room"))
                     .projection(projectionFields)
                     .sort(Sorts.descending("imdb.rating"))
                     .first();
 
-            // Prints a message if there are no result documents, or prints two fields of the matched document
+            // Prints a message if there are no result documents, or prints the result document as JSON
             if (doc == null) {
                 System.out.println("No results found.");
             } else {

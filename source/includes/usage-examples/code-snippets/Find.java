@@ -1,10 +1,4 @@
-/**
- * This file demonstrates how to find multiple documents by using the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and finds
- * documents in the "movies" collection that match the specified query filter.
- * The code projects certain fields in the returned documents and sorts them according to
- * specified criteria.
- */
+// Retrieves documents that match a query filter by using the Java driver
 
 package usage.examples;
 
@@ -36,12 +30,12 @@ public class Find {
                     Projections.include("title", "imdb"),
                     Projections.excludeId());
 
-            // Runs a find operation that matches documents with a "runtime" value under 15
+            // Retrieves documents that match the filter, applying a projection and a descending sort to the results
             MongoCursor<Document> cursor = collection.find(lt("runtime", 15))
                     .projection(projectionFields)
                     .sort(Sorts.descending("title")).iterator();
 
-            // Prints two fields of each matching document and sorts the result documents
+            // Prints the results of the find operation as JSON
             try {
                 while(cursor.hasNext()) {
                     System.out.println(cursor.next().toJson());

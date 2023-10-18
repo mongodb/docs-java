@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to insert multiple documents into a collection by
- * using the Java driver.
- * The file connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and inserts two new documents into the "movies" collection.
- */
+// Inserts sample documents describing movies by using the Java driver
 
 package usage.examples;
 
@@ -35,13 +30,13 @@ public class InsertMany {
                     new Document().append("title", "The Lego Frozen Movie"));
 
             try {
-                // Runs a write operation that inserts sample documents into the collection
+                // Inserts sample documents describing movies into the collection
                 InsertManyResult result = collection.insertMany(movieList);
 
                 // Prints the IDs of the inserted documents
                 System.out.println("Inserted document ids: " + result.getInsertedIds());
             
-            // Prints a message if the operation generates an error
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }
