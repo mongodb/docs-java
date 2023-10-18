@@ -90,7 +90,7 @@ public class Query {
     }
 
     private void arrayFilter(){
-        // Creates a filter to match documents whose vendor values are an array of 3 elements
+        // Creates a filter to match documents whose "vendor" values are an array of 3 elements
         // begin arrayFilter
         Bson filter = Filters.size("vendor", 3);
 
