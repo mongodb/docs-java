@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to update a document in a collection by using
- * the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and
- * updates a document in the "movies" collection that matches a specified query.
- */
+// Updates the first document that matches a query filter by using the Java driver
 
 package usage.examples;
 
@@ -31,7 +26,7 @@ public class UpdateOne {
 
             Document query = new Document().append("title",  "Cool Runnings 2");
 
-            // Creates instructions to update a document
+            // Creates instructions to update the values of three document fields
             Bson updates = Updates.combine(
                     Updates.set("runtime", 99),
                     Updates.addToSet("genres", "Sports"),
@@ -41,14 +36,14 @@ public class UpdateOne {
             UpdateOptions options = new UpdateOptions().upsert(true);
 
             try {
-                // Runs a write operation that updates the matching document
+                // Updates the first document that has a "title" value of "Cool Runnings 2"
                 UpdateResult result = collection.updateOne(query, updates, options);
 
-                // Prints the number of updated documents and the upserted document ID
+                // Prints the number of updated documents and the upserted document ID, if an upsert was performed
                 System.out.println("Modified document count: " + result.getModifiedCount());
                 System.out.println("Upserted id: " + result.getUpsertedId());
             
-            // Prints a message if an error occurs during the operation
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to update due to an error: " + me);
             }

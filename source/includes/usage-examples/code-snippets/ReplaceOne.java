@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to replace a document in a collection by using
- * the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database,
- * and replaces a single document in the "movies" collection.
- */
+// Replaces the first document that matches a filter by using the Java driver
 
 package usage.examples;
 
@@ -40,14 +35,14 @@ public class ReplaceOne {
             // Instructs the driver to insert a new document if none match the query
             ReplaceOptions opts = new ReplaceOptions().upsert(true);
 
-            // Runs a write operation that replaces a matching document with the new document
+            // Replaces the first document that matches the filter with a new document
             UpdateResult result = collection.replaceOne(query, replaceDocument, opts);
 
-            // Prints the number of modified documents and the upserted document ID, which only contains a value if an upsert was performed
+            // Prints the number of modified documents and the upserted document ID, if an upsert was performed
             System.out.println("Modified document count: " + result.getModifiedCount());
             System.out.println("Upserted id: " + result.getUpsertedId());
 
-        // Prints a message if an error occurs during the operation
+        // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to replace due to an error: " + me);
         }

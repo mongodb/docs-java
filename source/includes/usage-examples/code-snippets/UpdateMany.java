@@ -1,9 +1,4 @@
-/**
- * This file demonstrates how to update multiple documents in a collection by using
- * the Java driver.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and updates
- * documents in the "movies" collection that match a specified query.
- */
+// Updates documents that match a query filter by using the Java driver
 
 package usage.examples;
 
@@ -32,19 +27,19 @@ public class UpdateMany {
 
             Bson query = gt("num_mflix_comments", 50);
 
-            // Creates instructions to update documents
+            // Creates instructions to update the values of two document fields
             Bson updates = Updates.combine(
                     Updates.addToSet("genres", "Frequently Discussed"),
                     Updates.currentTimestamp("lastUpdated"));
 
             try {
-                // Runs a write operation that updates the matching documents
+                // Updates documents that have a "num_mflix_comments" value over 50
                 UpdateResult result = collection.updateMany(query, updates);
 
                 // Prints the number of updated documents
                 System.out.println("Modified document count: " + result.getModifiedCount());
 
-            // Prints a message if an error occurs during the operation
+            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to update due to an error: " + me);
             }

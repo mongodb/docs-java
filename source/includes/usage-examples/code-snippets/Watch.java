@@ -31,19 +31,19 @@ public class Watch {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Creates instructions to filter for insert and update change events
+            // Creates instructions to match insert and update operations
             List<Bson> pipeline = Arrays.asList(
                 Aggregates.match(
                         Filters.in("operationType",
                                 Arrays.asList("insert", "update"))));
             
-            // Opens a change stream that returns the entire updated document
+            // Creates a change stream that receives change events for the specified operations
             ChangeStreamIterable<Document> changeStream = database.watch(pipeline)
                 .fullDocument(FullDocument.UPDATE_LOOKUP);
            
             final int[] numberOfEvents = {0};
 
-            // Prints a message if a change event occurs until two events are received
+            // Prints a message each time the change stream receives a change event, until it receives two events
             changeStream.forEach(event -> {
             System.out.println("Received a change to the collection: " + event);
                 if (++numberOfEvents[0] >= 2) {

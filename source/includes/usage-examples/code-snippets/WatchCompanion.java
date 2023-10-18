@@ -1,9 +1,5 @@
-/**
- * This file performs basic CRUD operations and generates change events when run with the
- * Watch application.
- * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and performs
- * insert, update, and delete operations on the "movies" collection. 
- */
+// Performs CRUD operations to generate change events when run with the Watch application
+
 
 package usage.examples;
 
@@ -41,7 +37,7 @@ public class WatchCompanion {
                 DeleteResult deleteResult = collection.deleteOne(new Document("field2", "sample movie document update"));
                 System.out.println("Deleted " + deleteResult.getDeletedCount() + " document.");
             
-            // Prints a message if errors occur during the operations
+            // Prints a message if any exceptions occur during the operations
             } catch (MongoException me) {
                 System.err.println("Unable to insert, update, or replace due to an error: " + me);
             }
