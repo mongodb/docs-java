@@ -47,41 +47,33 @@ public class SearchText {
     }
 
     private void termExample(){
-        // Creates a filter to match documents that have "title" values containing the string "fast"
+        // Retrieves and prints documents containing the "fast" string in any fields associated with a text index
         // begin termExample
         Bson filter = Filters.text("fast");
-
-        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end termExample
     }
 
     private void multipleTermExample(){
-        // Creates a filter to match documents that have "title" values containing the string "fate 7"
+        // Retrieves and prints documents containing the "fate 7" string in any fields associated with a text index
         // begin multipleTermExample
         Bson filter = Filters.text("fate 7");
-
-        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end multipleTermExample
     }
     
     private void negateExample(){
-        // Creates a filter to match documents that have "title" values containing the string "furious" but not the string "fast"
+        // Retrieves and prints documents containing the "furious" but not the "fast" string in any fields associated with a text index
         // begin negateExample
         Bson filter = Filters.text("furious -fast");
-
-        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end negateExample
     }
 
     private void phraseExample(){
-        // Creates a filter to match documents that have "title" values containing the phrase "fate of the furious"
+        // Retrieves and prints documents containing the "fate of the furious" string in any fields associated with a text index
         // begin phraseExample
         Bson filter = Filters.text("\"fate of the furious\"");
-
-        // Retrieves documents that match the filter and prints them as JSON
         collection.find(filter).forEach(doc -> System.out.println(doc.toJson()));
         // end phraseExample
     }
