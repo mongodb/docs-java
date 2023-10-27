@@ -57,7 +57,7 @@ public class CompoundOperatorsIndividualExamples {
         //start findOneAndUpdate-example
         // <MongoCollection set up code here>
 
-        // Creates a projection to exclude the "_id" field from the printed documents
+        // Creates a projection to exclude the "_id" field from the retrieved documents
         Bson projection = Projections.excludeId();
 
         // Creates a filter to match documents with a "color" value of "green"

@@ -88,7 +88,7 @@ public class BulkWrite {
             // Runs a bulk write operation for the specified insert WriteModels
             collection.bulkWrite(bulkOperations); 
         
-        // Prints a message if any exceptions occur during the operations
+        // Prints a message if any exceptions occur during the bulk write operation
         } catch (MongoBulkWriteException e){
             System.out.println("A MongoBulkWriteException occurred with the following message: " + e.getMessage());
         }
@@ -103,7 +103,7 @@ public class BulkWrite {
                                                                 .append("name", "Zaynab Omar")
                                                                 .append("age", 37));
 
-        // Creates instructions to replace the matching document
+        // Creates instructions to replace the first document that matches the query
         ReplaceOneModel<Document> replaceDoc = new ReplaceOneModel<>(Filters.eq("_id", 1), 
                                                 new Document("name", "Sandy Kane")
                                                     .append("location", "Helena, MT")); 
@@ -112,7 +112,7 @@ public class BulkWrite {
         UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(Filters.eq("name", "Zaynab Omar"), 
                                                 Updates.set("name", "Zaynab Hassan"));
         
-        // Creates instructions to delete all matching documents
+        // Creates instructions to delete all documents that match the query
         DeleteManyModel<Document> deleteDoc = new DeleteManyModel<>(Filters.gt("age", 50));
    
         bulkOperations.add(insertDoc);
@@ -137,16 +137,16 @@ public class BulkWrite {
                                                                 .append("name", "Zaynab Omar")
                                                                 .append("age", 37));
 
-        // Creates instructions to replace the matching document                                            
+        // Creates instructions to replace the first document matched by the query                                       
         ReplaceOneModel<Document> replaceDoc = new ReplaceOneModel<>(Filters.eq("_id", 1), 
                                                 new Document("name", "Sandy Kane")
                                                     .append("location", "Helena, MT")); 
         
-        // Creates instructions to update the matching document                                                                 
+        // Creates instructions to update the first document matched by the query                                                                 
         UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(Filters.eq("name", "Zaynab Omar"), 
                                                 Updates.set("name", "Zaynab Hassan"));
         
-        // Creates instructions to delete all matching documents                                  
+        // Creates instructions to delete all documents matched by the query                                
         DeleteManyModel<Document> deleteDoc = new DeleteManyModel<>(Filters.gt("age", 50));
    
         bulkOperations.add(insertDoc);
@@ -181,7 +181,7 @@ public class BulkWrite {
     private void replaceDocumentsExample(){
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        // Creates instructions to replace the matching document
+        // Creates instructions to replace the first document matched by the query
         // begin replaceDocumentsExample
         ReplaceOneModel<Document> celineDoc = new ReplaceOneModel<>(
                                             Filters.eq("_id", 1), 
@@ -198,7 +198,7 @@ public class BulkWrite {
     private void updateDocumentsExample(){
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        // Creates instructions to update the matching document
+        // Creates instructions to update the first document matched by the query
         // begin updateDocumentsExample
         UpdateOneModel<Document> updateDoc = new UpdateOneModel<>(
                                             Filters.eq("_id", 2), 
@@ -214,7 +214,7 @@ public class BulkWrite {
     private void deleteDocumentsExample(){
         List<WriteModel<Document>> bulkOperations = new ArrayList<>();
 
-        // Creates instructions to delete the matching document
+        // Creates instructions to delete the first document matched by the query
         // begin deleteDocumentsExample
         DeleteOneModel<Document> deleteDoc = new DeleteOneModel<>(Filters.eq("_id", 1));
         //end deleteDocumentsExample

@@ -46,7 +46,7 @@ public class CollationCollectionExample {
                 // Applies a collation to sort documents alphabetically by using the German locale, ignoring accents
                 .collation(Collation.builder().locale("de").collationStrength(CollationStrength.PRIMARY).build());
 
-        // Prints the results of the aggregation that tallied value frequencies and sorted the results
+        // Prints the JSON representation of the results
         if (results != null) {
             results.forEach(doc -> System.out.println(doc.toJson()));
         }
@@ -80,7 +80,7 @@ public class CollationCollectionExample {
                         .sort(Sorts.ascending("first_name"))
                         .returnDocument(ReturnDocument.AFTER));
 
-        // Prints the JSON representation of the updated document, if an update occurred           
+        // Prints the JSON representation of the updated document if an update occurred           
         if (result != null) {
             System.out.println("Updated document: " + result.toJson());
         }
@@ -219,7 +219,7 @@ public class CollationCollectionExample {
     }
 
     private static void operationCollation(MongoCollection collection) {
-        // Runs a find operation that meets the criteria for using the "name" field index
+        // Retrieves documents that match the query filter and applies a collation and ascending sort to the results
         // start operationCollation
         FindIterable<Document> cursor = collection.find(new Document("name", "cote"))
                 .collation(Collation.builder().locale("en_US").build())

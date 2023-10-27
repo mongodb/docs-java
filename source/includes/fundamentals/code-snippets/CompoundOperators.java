@@ -164,7 +164,7 @@ class DemoClientSafe extends DemoClient {
         // Creates a filter to match a document representing an available room
         Bson filter = Filters.eq("reserved", false);
 
-        // Atomically finds and updates a document to mark it as reserved
+        // Updates the first document that matches the filter to mark it as reserved
         Document myRoom = this.collection.findOneAndUpdate(filter, update);
        
         // Prints a message when there are no available rooms
