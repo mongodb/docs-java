@@ -26,7 +26,6 @@ public class CurrentAPI {
     }
 
     private void example1() {
-        // Connects to MongoDB and retrieves a document by using the non-legacy API
         // start current-api-example
         MongoClient client = MongoClients.create(URI);
         MongoDatabase db = client.getDatabase(DATABASE);
