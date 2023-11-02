@@ -16,7 +16,7 @@ import org.bson.conversions.Bson;
 public class RunCommand {
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string
-        String uri = "mongodb://localhost:27017";
+        String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
 
