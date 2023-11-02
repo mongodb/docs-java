@@ -4,12 +4,11 @@ import org.bson.BsonDocument;
 import org.bson.BsonInt64;
 import org.bson.Document;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import org.bson.conversions.Bson;
 
 
 public class RunCommand {
@@ -24,8 +23,12 @@ public class RunCommand {
             try {
                 Bson command = new BsonDocument("dbStats", new BsonInt64(1));
                 Document commandResult = database.runCommand(command);
+
+                // Prints the database statistics
                 System.out.println("dbStats: " + commandResult.toJson());
+
             } catch (MongoException me) {
+                // Prints a message if any exceptions occur during the command execution
                 System.err.println("An error occurred: " + me);
             }
         }
