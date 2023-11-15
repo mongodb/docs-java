@@ -44,15 +44,16 @@ The ``bulkWrite()`` method accepts the following parameters:
 .. tip::
 
    By default, MongoDB executes operations in a bulk write in the
-   specified order (i.e. serially). During an ordered bulk write, if
+   specified order. During an ordered bulk write, if
    an error occurs during the processing of an operation, MongoDB returns
    without processing the remaining operations in the list.
   
    In contrast, when you set the ``ordered`` option to ``false``, MongoDB
    continues to process the remaining write operations in the list even in the
    event of an error. Unordered operations are usually faster since
-   MongoDB can execute them in parallel, but you should only use an
-   unordered bulk write if the order of your writes is not important.
+   MongoDB can execute them in parallel, but only use an
+   unordered bulk write if the order of your write operations is not
+   important.
 
 The ``bulkWrite()`` method returns a ``BulkWriteResult`` object that
 contains information about the write operation results including the number
