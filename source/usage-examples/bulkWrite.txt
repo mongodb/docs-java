@@ -17,20 +17,21 @@ requirements of your use case.
 You can specify one or more of the following write operations in
 ``bulkWrite()``:
 
-- ``insertOne``
-- ``updateOne``
-- ``updateMany``
-- ``deleteOne``
-- ``deleteMany``
-- ``replaceOne``
+- Insert a document
+- Update a document
+- Update multiple documents
+- Delete a document
+- Delete multiple documents
+- Replace a document
 
 The ``bulkWrite()`` method accepts the following parameters:
 
 - A ``List`` of objects that implement ``WriteModel``: the classes that
   implement ``WriteModel`` correspond to the preceding write
-  operation methods. For example, the ``InsertOneModel`` class wraps the
-  ``insertOne`` write operation. See the links to the API documentation
-  at the end of this page for more information about each class.
+  operations. For example, the ``InsertOneModel`` class wraps the
+  ``insertOne()`` write method, which inserts a document. See the links
+  to the API documentation at the end of this page for more information
+  about each class.
   
 - ``BulkWriteOptions``: *optional* object that specifies settings such as
   whether to ensure your MongoDB instance orders your write operations.
