@@ -424,7 +424,6 @@ to the absolute path to this file, as shown in the following example:
 
    export AWS_WEB_IDENTITY_TOKEN_FILE=<absolute path to file containing your OIDC token>
 
-
 To authenticate by using **ECS container credentials**, set the ECS
 endpoint relative URI in an environment variable by using ``bash`` or
 a similar shell as shown in the following example:
@@ -433,9 +432,10 @@ a similar shell as shown in the following example:
 
    export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=<your ECS endpoint>
 
-To authenticate using **EC2 container credentials**, make sure none of the
-aforementioned environment variables are set. The driver obtains the
-credentials from the default IPv4 EC2 instance metadata endpoint.
+To authenticate by using **EC2 container credentials**, make sure none of the
+environment variables mentioned in this section are set. The driver obtains the
+credentials from the default IPv4 EC2 instance metadata endpoint instead
+of from environment variables.
 
 .. _java-mongodb-aws-mongoclient-configuration:
 
