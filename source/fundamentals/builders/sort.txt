@@ -43,12 +43,12 @@ contains the following documents:
 
 .. code-block:: json
 
-   {"_id": 1, "letter": "c", "food": "coffee with milk"}
-   {"_id": 3, "letter": "a", "food": "maple syrup"}
-   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
-   {"_id": 5, "letter": "a", "food": "milk and cookies"}
-   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
-   {"_id": 6, "letter": "c", "food": "maple donut"}
+   {"_id": 1, "customer-name": "Carl", "food": "coffee with milk"}
+   {"_id": 3, "customer-name": "Arla", "food": "maple syrup"}
+   {"_id": 4, "customer-name": "Bob", "food": "coffee with sugar"}
+   {"_id": 5, "customer-name": "Arla", "food": "milk and cookies"}
+   {"_id": 2, "customer-name": "Arla", "food": "donuts and coffee"}
+   {"_id": 6, "customer-name": "Carl", "food": "maple donut"}
 
 The Sorts Class
 ---------------
@@ -92,9 +92,9 @@ The output of the preceding example should look something like this:
 .. code-block:: json
    :copyable: false
 
-   {"_id": 1, "letter": "c", "food": "coffee with milk"}
-   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
-   {"_id": 3, "letter": "a", "food": "maple syrup"}
+   {"_id": 1, "customer-name": "Carl", "food": "coffee with milk"}
+   {"_id": 2, "customer-name": "Arla", "food": "donuts and coffee"}
+   {"_id": 3, "customer-name": "Arla", "food": "maple syrup"}
    ...
 
 Descending
@@ -120,9 +120,9 @@ The preceding example should output something like this:
 .. code-block:: json
    :copyable: false
 
-   {"_id": 6, "letter": "c", "food": "maple donut"}
-   {"_id": 5, "letter": "a", "food": "milk and cookies"}
-   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
+   {"_id": 6, "customer-name": "Carl", "food": "maple donut"}
+   {"_id": 5, "customer-name": "Arla", "food": "milk and cookies"}
+   {"_id": 4, "customer-name": "Bob", "food": "coffee with sugar"}
    ...
 
 Combining Sort Criteria
@@ -154,12 +154,12 @@ The output of the preceding example should look something like this:
 .. code-block:: json
    :copyable: false
 
-   {"_id": 1, "letter": "c", "food": "coffee with milk"}
-   {"_id": 6, "letter": "c", "food": "maple donut"}
-   {"_id": 4, "letter": "b", "food": "coffee with sugar"}
-   {"_id": 2, "letter": "a", "food": "donuts and coffee"}
-   {"_id": 3, "letter": "a", "food": "maple syrup"}
-   {"_id": 5, "letter": "a", "food": "milk and cookies"}
+   {"_id": 1, "customer-name": "Carl", "food": "coffee with milk"}
+   {"_id": 6, "customer-name": "Carl", "food": "maple donut"}
+   {"_id": 4, "customer-name": "Bob", "food": "coffee with sugar"}
+   {"_id": 2, "customer-name": "Arla", "food": "donuts and coffee"}
+   {"_id": 3, "customer-name": "Arla", "food": "maple syrup"}
+   {"_id": 5, "customer-name": "Arla", "food": "milk and cookies"}
 
 Text Score
 ----------
