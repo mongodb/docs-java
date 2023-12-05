@@ -1,20 +1,12 @@
 .. _java-connection-troubleshooting:
 
-==========================
-Connection Troubleshooting
-==========================
+.. comment
 
-.. contents:: On this page
-   :local:
-   :backlinks: none
-   :depth: 1
-   :class: singlecol
-   
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
    .. replacement:: non-connection-issue-list
       
-      TODO 
+      .. comment
 
       - The :ref:`Frequently Asked Questions (FAQ) <java-faq>` for the Java driver
       - The :ref:`Issues & Help <java-issues-and-help>` topic for information about
@@ -70,11 +62,28 @@ Connection Troubleshooting
 
   .. replacement:: authsource-param-code-block
 
-     TODO
+     .. code-block:: java
+        :copyable: false
+
+        String uri = "mongodb://<username>:<password>@<hostname>:<port>/?authSource=users&authMechanism=SCRAM-SHA-256";
+        MongoClient mongoClient = MongoClients.create(uri);
+
+  .. replacement:: credentials-provider-alternative-method-description
+
+     If you construct a client by using a ``MongoCredential``, the builder method
+     corresponds to the authentication mechanism. The following code shows the builder
+     method for the ``SCRAM-SHA-256` authentication mechanism:
+
+     .. code-block:: java
+        :copyable: false
+        
+        MongoCredential credential = MongoCredential.createScramSha256Credential("<username>", "<authenticationDb>", "<password>");
+
 
   .. replacement:: authentication-guide-reference
 
-     TODO
+     To learn more about specifying authentication mechanisms, see the :ref:`authentication-mechanisms` and
+     :ref:`enterprise-authentication-mechanisms` guides.
 
   .. replacement:: verify-authentication-mechanism-anchor
 
@@ -120,28 +129,29 @@ Connection Troubleshooting
 
   .. replacement:: connection-pools-learn-more
 
-     TODO
+     To learn more about how connection pooling works in the driver, see
+     :ref:`java-faq-connection-pool` in the FAQ.
 
   .. replacement:: authentication-error-anchor
 
-     TODO
+     .. _java-authentication-error:
 
   .. replacement:: scram-failure-error
 
-     TODO
+     .. code-block::
+
+        Command failed with error 18 (AuthenticationFailed): 'Authentication failed.' on server localhost:27017.
 
   .. replacement:: check-credential-formatting-anchor
 
      TODO
 
-  .. replacement:: credentials-provider-alternative-method-description
 
-     TODO
 
 .. _java-connection-certificate:
 
 Install Security Certificates
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you are using Java version 8 or earlier, you might need to manually add a
 certificate to your trust store. You can either upgrade to a later version of
@@ -150,7 +160,7 @@ instructions in the Atlas documentation for information on how to add the
 certificate.
 
 Timeout Error
-~~~~~~~~~~~~~
+-------------
 
 Sometimes when you send messages through the driver to the server, the messages
 take a while to respond. When this happens, you might receive an error message
@@ -170,7 +180,7 @@ If you receive one of these errors, try the following methods to resolve the
 issue.
 
 Set ``maxConnectionTimeoutMS``
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``maxConnectionTimeoutMS`` option indicates the amount of time the Java
 driver waits for a connection
@@ -178,35 +188,27 @@ before timing out. The default value is ``10000``. You can increase this value
 or set it to ``0`` if you want the driver to never timeout.
 
 Set ``maxConnectionLifeTime`` and ``maxConnectionIdleTime``
------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Consider setting ``maxConnectionLifeTime`` and
 ``maxConnectionIdleTime``. These parameters configure how long a connection
 can be maintained with a MongoDB instance. For more information about these
 parameters, see :ref:`Connection Pool Settings <mcs-connectionpool-settings>`.
 
-Check the Number of Connections
--------------------------------
-
-You might have too many open connections. The solution to this is described
-in the :ref:`Error Sending Message <java-connection-num-connections>` section.
-
 Install Certificate
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 If you are using an older version of Java, you might need to manually install
 some certificates as described under
 :ref:`Error Sending Message <java-connection-certificate>`.
 
 Miscellaneous Errors
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 This section shows connection errors that do not fall into a broader category.
-Each section lists the error message and then the specific steps you should
-take to resolve it.
 
 Monitor Thread Exception
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
    :copyable: false
@@ -217,34 +219,42 @@ To resolve this error, you must manually install certificates as described
 under :ref:`Error Sending Message <java-connection-certificate>`.
 
 Certificate Request Exception
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
    :copyable: false
 
    javax.net.ssl.SSLHandshakeException: extension (5) should not be presented in certificate_request
 
-This is a `known error <https://bugs.openjdk.java.net/browse/JDK-8236039>`__
-that can occur when using the TLS 1.3 protocol with specific versions of the
-JDK. If you encounter this error when connecting to your MongoDB instance or
+This is a known issue in certain versions of the JDK that can occur when
+attempting to connect by using the TLS 1.3 protocol.
+
+If you encounter this error when connecting to your MongoDB instance or
 cluster, update your JDK to one of the following patch versions or newer:
 
 - JDK 11.0.7
 - JDK 13.0.3
 - JDK 14.0.2
 
-Additional Tips
-~~~~~~~~~~~~~~~
+To learn more about this issue, see the
+`issue description <https://bugs.openjdk.java.net/browse/JDK-8236039>`__
+in the OpenJDK Bug system tracker issue.
+
+Debugging Tips
+--------------
 
 While not related to a specific error message, this section includes
-additional information that can be useful when attempting to troubleshoot
-connection issues.
+information that can help in the process of troubleshooting connection
+issues.
 
-Get Log Information for TLS/SSL
--------------------------------
+Verbose Logging for TLS/SSL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When using TLS/SSL, you can use the ``-Djavax.net.debug=all`` system property
-to view additional log statements. This can help when attempting to debug any
-connection issues. See `the Oracle guide to debugging TLS/SSL connections
-<https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html>`__
-for more information.
+You can use the ``-Djavax.net.debug=all`` system property to enable
+debug-level logging related to all connections including those 
+established by using TLS/SSL.
+
+This can help diagnose the root problem of connection issues that
+you encounter. To learn more about the TLS/SSL logging messages,
+see the `Debugging SSL/TLS Connections <https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html>`__
+Java documentation.
