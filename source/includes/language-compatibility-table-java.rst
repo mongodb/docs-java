@@ -6,7 +6,7 @@
    * - Java Driver Version
      - Java 21
      - Java 17
-     - Java 11 [#lts-note]_
+     - Java 11
      - Java 8
      - Java 7
      - Java 6
@@ -219,5 +219,4 @@
      - ✓
      -
 
-.. [#lts-note] In the future, only LTS Java versions will be explicitly listed.
 .. [#virtual-threads-note] This driver version is compatible with Java 21 if your application uses virtual threads.
