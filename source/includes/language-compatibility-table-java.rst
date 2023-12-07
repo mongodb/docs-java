@@ -219,4 +219,4 @@
      - ✓
      -
 
-.. [#virtual-threads-note] This driver version is compatible with Java 21 if your application uses virtual threads.
+.. [#virtual-threads-note] This driver version is not compatible with virtual threads.
