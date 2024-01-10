@@ -52,6 +52,27 @@ changes between the current and upgrade versions. For example, if you
 are upgrading the driver from v4.0 to v4.5, address all breaking changes from
 the version after v4.0 including any listed under v4.5.
 
+.. _java-breaking-changes-v5.0:
+
+Version 5.0 Breaking Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Several changes were made to the ``ConnectionId`` class.
+  
+  The ``ConnectionId`` constructor now accepts a value of type ``long`` as its second
+  parameter instead of type ``int``. Similarly, the constructor now accepts a value of
+  type ``Long`` as its third parameter instead of type ``Integer``. Since this change breaks
+  binary compatibility, recompile any existing code that calls the ``ConnectionId`` constructor.
+
+  The ``withServerValue()`` method now accepts a parameter of type ``long`` rather than
+  type ``int``. This change also breaks binary compatibility, so you must recompile any code
+  that calls the ``withServerValue()`` method.
+
+  The ``getServerValue()`` method now returns a value of type ``Long`` instead of type
+  ``Integer``. Similarly, the ``getLocalValue()`` method returns a value of type
+  ``long`` instead of type ``int``. Since this change breaks both binary and source
+  compatibility, update any source code that uses these methods and rebuild your binary.
+
 .. _java-breaking-changes-v4.8:
 
 Version 4.8 Breaking Changes
