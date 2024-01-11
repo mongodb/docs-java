@@ -4,8 +4,6 @@
 Upgrade Driver Versions
 =======================
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -51,6 +49,23 @@ introduced them. When upgrading driver versions, address all the breaking
 changes between the current and upgrade versions. For example, if you
 are upgrading the driver from v4.0 to v4.5, address all breaking changes from
 the version after v4.0 including any listed under v4.5.
+
+.. _java-breaking-changes-v5.0:
+
+Version 5.0 Breaking Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- The driver removes the following record annotations:
+  
+  - ``BsonId``
+  - ``BsonProperty``
+  - ``BsonRepresentation``
+
+- The first parameter for each of the following ``SocketSettings`` builder
+  methods is updated from type ``int`` to ``long``:
+
+  - ``connectTimeout()``
+  - ``readTimeout()``
 
 .. _java-breaking-changes-v4.8:
 

@@ -183,7 +183,7 @@ This example demonstrates specifying a ``ConnectionString``:
       MongoClient mongoClient = MongoClients.create(
          MongoClientSettings.builder().applyConnectionString(new ConnectionString("mongodb+srv://<username>:<password>@<hostname>:<port>/<auth db>?connectTimeoutMS=2000"))
             .applyToSocketSettings(builder ->
-            builder.connectTimeout(5, SECONDS))
+            builder.connectTimeout(5L, SECONDS))
             .build());
 
    Since the driver reads the socket settings options last, the driver
