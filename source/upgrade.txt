@@ -4,14 +4,18 @@
 Upgrade Driver Versions
 =======================
 
-.. default-domain:: mongodb
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: java sync, backwards compatibility, update
 
 .. contents:: On this page
    :local:
    :backlinks: none
    :depth: 1
    :class: singlecol
-
 
 Overview
 --------
@@ -72,6 +76,24 @@ Version 5.0 Breaking Changes
     ``Integer``. Similarly, the ``getLocalValue()`` method returns a value of type
     ``long`` instead of type ``int``. Because this change breaks both binary and source
     compatibility, update any source code that uses these methods and rebuild your binary.
+
+- The driver removes the following record annotations:
+  
+  - ``BsonId``
+  - ``BsonProperty``
+  - ``BsonRepresentation``
+
+- You must pass a timeout duration, which is the first parameter, to the
+  following ``SocketSettings`` builder methods as a ``long`` type:
+
+  - ``connectTimeout()``
+  - ``readTimeout()``
+
+  In earlier versions, this parameter is of type ``int`` for both methods. To view an example
+  that shows how to instantiate a ``SocketSettings`` instance by using
+  these methods, see the :ref:`SocketSettings Example
+  <java-socketsettings-example>` in the Specify MongoClient Settings
+  guide.
 
 .. _java-breaking-changes-v4.8:
 

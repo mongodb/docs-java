@@ -4,6 +4,13 @@
 What's New
 ==========
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: java sync, backwards compatibility, update, version
+
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -12,6 +19,7 @@ What's New
 
 Learn what's new in:
 
+* :ref:`Version 5.0 <version-5.0>`
 * :ref:`Version 4.11 <version-4.11>`
 * :ref:`Version 4.10 <version-4.10>`
 * :ref:`Version 4.9 <version-4.9>`
@@ -27,15 +35,24 @@ Learn what's new in:
 * :ref:`Version 4.1 <version-4.1>`
 * :ref:`Version 4.0 <version-4.0>`
 
-.. _upcoming-breaking-changes:
+.. _version-5.0:
 
-.. Upcoming Breaking Changes
-   -------------------------
+What's New in 5.0
+-----------------
 
-.. Relocate these items into the source/upgrade.txt page once they become breaking changes
+.. warning:: Breaking Changes in v5.0
 
-.. In addition to the deprecations mentioned in specific driver versions on this
-   page, anticipated breaking changes include the following:
+   This driver version introduces breaking changes. For a list of these changes, see 
+   the :ref:`Version 5.0 Breaking Changes section <java-breaking-changes-v5.0>` in the 
+   Upgrade guide.
+
+The 5.0 driver release introduces the following features:
+
+- Consistent computation of the ``ClusterConnectionMode`` type after
+  instantiating a ``ClusterSettings``. The connection mode defaults to
+  ``SINGLE`` if you specify one host and do not specify a replica set
+  name, or it defaults to ``MULTIPLE`` if you specify more than one
+  host.
 
 .. _version-5.0:
 
@@ -159,7 +176,6 @@ The 4.11 driver release deprecates the following items:
      MongoClientSettings settings = MongoClientSettings.builder()
              .transportSettings(TransportSettings.nettyBuilder().build())
              .build();
-
 
 .. _java-new-features-4.11:
 
