@@ -79,6 +79,16 @@ Version 5.0 Breaking Changes
   <java-socketsettings-example>` in the Specify MongoClient Settings
   guide.
 
+- The driver removes the ``Filters.eqFull()`` method, which allowed you
+  to construct an equality filter when performing a vector search.
+  You can use the ``Filters.eq()`` method when instantiating a
+  ``VectorSearchOptions`` type as you would when creating any other
+  equality filter, as shown in the following code:
+
+  .. code-block:: java
+     
+     VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
+
 .. _java-breaking-changes-v4.8:
 
 Version 4.8 Breaking Changes
