@@ -37,6 +37,19 @@ Learn what's new in:
 .. In addition to the deprecations mentioned in specific driver versions on this
    page, anticipated breaking changes include the following:
 
+.. _version-5.0:
+
+What's New in 5.0
+-----------------
+
+New features of the 4.10 driver release include:
+
+- Consistent computation of the ``ClusterConnectionMode`` type after
+  instantiating a ``ClusterSettings``. The connection mode defaults to
+  ``SINGLE`` if you specify one host and do not specify a replica set
+  name, or it defaults to ``MULTIPLE`` if you specify more than one
+  host.
+
 .. _version-4.11:
 
 What's New in 4.11
@@ -149,7 +162,6 @@ The 4.11 driver release deprecates the following items:
      MongoClientSettings settings = MongoClientSettings.builder()
              .transportSettings(TransportSettings.nettyBuilder().build())
              .build();
-
 
 .. _java-new-features-4.11:
 
