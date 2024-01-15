@@ -54,10 +54,16 @@ The 5.0 driver release introduces the following features:
   name, or it defaults to ``MULTIPLE`` if you specify more than one
   host.
 
+<<<<<<< HEAD
 - ``BsonDecimal128`` values respond to method calls in the same way as Java
   ``Decimal128`` values. In particular, the error responses for the
   ``isNumber()`` and ``asNumber()`` methods match the Java responses for
   equivalent ``Decimal128`` values.
+=======
+- The ``ConnectionCheckedOutEvent.getElapsedTime`` method now includes the time
+  taken to create the connection. That is, the "timer" starts before the
+  connection is confirmed, rather than after.
+>>>>>>> 1b774b1 (connection even time)
 
 - The ``org.mongodb.scala.Observable.completeWithUnit()`` method is deprecated.
   This relates to a :ref:`breaking change about Observables in this version
