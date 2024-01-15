@@ -104,6 +104,13 @@ Version 5.0 Breaking Changes
      
      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
+- **Scala Driver**: This driver version uses ``Observable[Unit]`` in place of ``Observable[Void]``
+  to allow for composable Observables.
+
+  .. code-block:: java
+
+      
+
 .. _java-breaking-changes-v4.8:
 
 Version 4.8 Breaking Changes
