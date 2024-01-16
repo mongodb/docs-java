@@ -93,8 +93,8 @@ public class AggBuilders {
         // begin setWindowFields
         Window pastMonth = Windows.timeRange(-1, MongoTimeUnit.MONTH, Windows.Bound.CURRENT);
         setWindowFields("$localityId", Sorts.ascending("measurementDateTime"),
-                WindowedComputations.sum("monthlyRainfall", "$rainfall", pastMonth),
-                WindowedComputations.avg("monthlyAvgTemp", "$temperature", pastMonth));
+                WindowOutputFields.sum("monthlyRainfall", "$rainfall", pastMonth),
+                WindowOutputFields.avg("monthlyAvgTemp", "$temperature", pastMonth));
         // end setWindowFields
     }
 
