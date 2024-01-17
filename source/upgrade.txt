@@ -104,8 +104,13 @@ Version 5.0 Breaking Changes
      
      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
-- **Scala Driver**: This driver version uses ``Observable[Unit]`` in place of ``Observable[Void]``
-  to allow for composable Observables.
+- This driver removes the
+  ``org.mongodb.scala.ObservableImplicits.ToSingleObservableVoid`` implicit
+  class, which means that ``org.reactivestreams.Publisher[Void]`` is no longer
+  automatically convertible to ``org.mongodb.scala.SingleObservable[Void]``. The
+  API exposes ``org.mongodb.scala.Observable[Unit]`` instead of
+  ``org.mongodb.scala.Observable[Void]``. For more information, see the
+  `Observable trait documentation <https://mongodb.github.io/mongo-java-driver/5.0/apidocs/mongo-scala-driver/org/mongodb/scala/Observable.html>`__.
 
   .. code-block:: java
 
