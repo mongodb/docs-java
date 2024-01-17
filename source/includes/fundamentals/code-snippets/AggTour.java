@@ -67,7 +67,10 @@ public class AggTour {
         ).explain(ExplainVerbosity.EXECUTION_STATS);
 
         String winningPlans = explanation
-            .getEmbedded(Arrays.asList("queryPlanner", "winningPlan", "queryPlan"), Document.class)
+            .getEmbedded(
+                Arrays.asList("queryPlanner", "winningPlan", "queryPlan"),
+                Document.class
+            )
             .toJson(JsonWriterSettings.builder().indent(true).build());
 
         System.out.println(winningPlans);
@@ -83,7 +86,10 @@ public class AggTour {
                         Projections.include("name"),
                         Projections.computed(
                             "firstCategory",
-                            new Document("$arrayElemAt", Arrays.asList("$categories", 0))
+                            new Document(
+                                "$arrayElemAt", 
+                                Arrays.asList("$categories", 0)
+                            )
                         )
                     )
                 )
