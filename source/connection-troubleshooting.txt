@@ -166,8 +166,8 @@ Connection Troubleshooting
 
 .. _java-connection-certificate:
 
-Install Security Certificates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Security Certificate Errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you are using Java version 8 or earlier, you might need to manually add a
 certificate to your trust store. You can either upgrade to a later version of
@@ -175,8 +175,10 @@ the JDK or read the :atlas:`Security FAQ </reference/faq/security/#java-users>`
 instructions in the Atlas documentation for information on how to add the
 certificate.
 
-Timeout Error
--------------
+.. _java-timeout-errors:
+
+Timeout Errors
+--------------
 
 Sometimes when you send messages through the driver to the server, the messages
 take a while to respond. When this happens, you might receive an error message
@@ -218,6 +220,8 @@ If you are using an older version of Java, you might need to manually install
 some certificates as described under
 :ref:`Error Sending Message <java-connection-certificate>`.
 
+.. _java-miscellaneous-errors:
+
 Miscellaneous Errors
 --------------------
 
@@ -255,6 +259,8 @@ cluster, update your JDK to one of the following patch versions or newer:
 To learn more about this issue, see the
 `issue description <https://bugs.openjdk.java.net/browse/JDK-8236039>`__
 in the OpenJDK Bug system tracker issue.
+
+.. _java-debugging-tips:
 
 Debugging Tips
 --------------
