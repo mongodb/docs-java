@@ -10,6 +10,13 @@ Connection Troubleshooting
    :depth: 2
    :class: singlecol
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+  :keyworrds: code example, disconnected, deployment
+
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
    .. replacement:: non-connection-issue-callout
@@ -24,6 +31,9 @@ Connection Troubleshooting
            reporting bugs, contributing to the driver, and additional resources
          - The `MongoDB Community Forums <{+communityForums+}>`__ for
            questions, discussions, or general technical support
+         - The :ref:`Frequently Asked Questions (FAQ) <java-faq>` section for
+           common questions and corresponding answers about the
+           {+driver-short+}
 
    .. replacement:: server-selection-timeout-error
 
@@ -38,8 +48,9 @@ Connection Troubleshooting
 
    .. replacement:: multiple-hosts-connection-guide-link
 
-      To learn how to specify multiple replica set hosts,
-      see :ref:`Connect to a Replica set <connect-replica-set>`
+      To learn how to specify multiple replica set hosts, see the
+      :ref:`Connect to a Replica Set <connect-replica-set>` section of the
+      Connection Guide.
 
    .. replacement:: configure-firewall-anchor
 
@@ -62,9 +73,9 @@ Connection Troubleshooting
 
   .. replacement:: learn-more-connection-string-admonition
 
-     .. note::
+     .. tip::
 
-        For more information about using connection strings with the Java driver,
+        For more information about using connection strings,
         see :ref:`Connection URI <connection-uri>` in the Connection Guide.
 
   .. replacement:: verify-authentication-database-anchor
@@ -87,7 +98,7 @@ Connection Troubleshooting
 
      .. code-block:: java
         :copyable: false
-        
+
         MongoCredential credential = MongoCredential.createScramSha256Credential("<username>", "<authenticationDb>", "<password>");
 
 
@@ -123,7 +134,7 @@ Connection Troubleshooting
      .. _java-connection-num-connections:
 
   .. replacement:: mongo-client-class
-  
+
      ``MongoClient``
 
   .. replacement:: max-pool-size-param
@@ -151,9 +162,7 @@ Connection Troubleshooting
 
   .. replacement:: check-credentials-formatting-anchor
 
-     TODO
-
-
+     .. _java-troubleshooting-connection-string-auth:
 
 .. _java-connection-certificate:
 
@@ -258,7 +267,7 @@ Verbose Logging for TLS/SSL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can use the ``-Djavax.net.debug=all`` system property to enable
-debug-level logging related to all connections including those 
+debug-level logging related to all connections including those
 established by using TLS/SSL.
 
 This can help diagnose the root problem of connection issues that
