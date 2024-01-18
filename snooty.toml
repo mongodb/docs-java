@@ -1,5 +1,7 @@
 name = "java"
 title = "Java Sync"
+eol = true
+
 intersphinx = ["https://mongodb.com/docs/manual/objects.inv",
                "https://mongodb.com/docs/drivers/objects.inv"]
 
@@ -23,3 +25,11 @@ package-name-org = "mongodb-org"
 api = "https://mongodb.github.io/mongo-java-driver/{+version+}"
 stable-api = "Stable API"
 mongocrypt-version="1.4.0" # ensure compatibilty with driver version
+current-base-url = "https://www.mongodb.com/docs/drivers/java/sync/current"
+
+[[banners]]
+targets = ["*"]
+variant = "info"
+value = """\
+    This version of the documentation is archived and no longer supported. View the `current documentation <{+current-base-url+}>`__ to learn how to `upgrade your version of the Java Sync Driver <{+current-base-url+}/upgrade/>`__.\
+    """
