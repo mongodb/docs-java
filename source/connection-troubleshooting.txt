@@ -15,7 +15,7 @@ Connection Troubleshooting
    :values: reference
 
 .. meta::
-  :keyworrds: code example, disconnected, deployment
+  :keywords: code example, disconnected, deployment
 
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
@@ -227,7 +227,7 @@ Monitor Thread Exception
    INFO: Exception in monitor thread while connecting to server ssc-cluster-01-shard-00-02.9cbnp.mongodb.net:27017
 
 To resolve this error, you must install certificates as described under
-:ref:`Error Sending Message <java-connection-certificate>`.
+:ref:`Security Certificate Errors <java-connection-certificate>`.
 
 Certificate Request Exception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,10 +264,10 @@ Verbose Logging for TLS/SSL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can use the ``-Djavax.net.debug=all`` system property to enable
-debug-level logging related to all connections including those
+debug-level logging related to all connections, including those
 established by using TLS/SSL.
 
-This can help diagnose the root problem of connection issues that
-you encounter. To learn more about the TLS/SSL logging messages,
+Enabling debug-level logging can help you diagnose the root problem of
+connection issues. To learn more about the TLS/SSL logging messages,
 see the `Debugging SSL/TLS Connections <https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html>`__
 Java documentation.
