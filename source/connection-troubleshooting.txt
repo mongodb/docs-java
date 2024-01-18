@@ -169,20 +169,19 @@ Connection Troubleshooting
 Security Certificate Errors
 ---------------------------
 
-If you are using Java version 8 or earlier, you might need to manually add a
-certificate to your trust store. You can either upgrade to a later version of
-the JDK or read the :atlas:`Security FAQ </reference/faq/security/#java-users>`
-instructions in the Atlas documentation for information on how to add the
-certificate.
+If you use Java version 8 or earlier, you might need to add a certificate to
+your trust store. You can either upgrade to a later version of the JDK or read
+the :atlas:`Security FAQ </reference/faq/security/#java-users>` instructions
+in the Atlas documentation for information on how to add the certificate.
 
 .. _java-timeout-errors:
 
 Timeout Errors
 --------------
 
-Sometimes when you send messages through the driver to the server, the messages
-take a while to respond. When this happens, you might receive an error message
-similar to one of the following error messages:
+When you send messages through the driver to the server, sometimes the
+messages take a while to respond. When this happens, you might receive an error
+message similar to one of the following messages:
 
 .. code-block:: none
    :copyable: false
@@ -200,25 +199,17 @@ issue.
 Set ``maxConnectionTimeoutMS``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``maxConnectionTimeoutMS`` option indicates the amount of time the Java
-driver waits for a connection
-before timing out. The default value is ``10000``. You can increase this value
-or set it to ``0`` if you want the driver to never timeout.
+The ``maxConnectionTimeoutMS`` option indicates the time the Java driver waits
+for a connection before timing out. The default value is ``10000``. You can
+increase this value or set it to ``0`` if you want the driver to never timeout.
 
 Set ``maxConnectionLifeTime`` and ``maxConnectionIdleTime``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Consider setting ``maxConnectionLifeTime`` and
-``maxConnectionIdleTime``. These parameters configure how long a connection
-can be maintained with a MongoDB instance. For more information about these
+``maxConnectionIdleTime``. These parameters configure how long the driver
+maintains a connection to a MongoDB instance. For more information about these
 parameters, see :ref:`Connection Pool Settings <mcs-connectionpool-settings>`.
-
-Install Certificate
-~~~~~~~~~~~~~~~~~~~
-
-If you are using an older version of Java, you might need to manually install
-some certificates as described under
-:ref:`Error Sending Message <java-connection-certificate>`.
 
 .. _java-miscellaneous-errors:
 
@@ -235,8 +226,8 @@ Monitor Thread Exception
 
    INFO: Exception in monitor thread while connecting to server ssc-cluster-01-shard-00-02.9cbnp.mongodb.net:27017
 
-To resolve this error, you must manually install certificates as described
-under :ref:`Error Sending Message <java-connection-certificate>`.
+To resolve this error, you must install certificates as described under
+:ref:`Error Sending Message <java-connection-certificate>`.
 
 Certificate Request Exception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
