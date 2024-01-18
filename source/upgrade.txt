@@ -104,10 +104,12 @@ Version 5.0 Breaking Changes
      
      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
-- This driver removes the
+.. _java-breaking-changes-v5.0-observables:
+
+- This driver version removes the
   ``org.mongodb.scala.ObservableImplicits.ToSingleObservableVoid`` implicit
-  class, which means that ``org.reactivestreams.Publisher[Void]`` is no longer
-  automatically convertible to ``org.mongodb.scala.SingleObservable[Void]``. The
+  class. This means the ``org.reactivestreams.Publisher[Void]`` type no longer
+  converts automatically to ``org.mongodb.scala.SingleObservable[Void]``. The also
   API exposes ``org.mongodb.scala.Observable[Unit]`` instead of
   ``org.mongodb.scala.Observable[Void]``. 
   
