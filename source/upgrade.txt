@@ -152,6 +152,95 @@ Version 5.0 Breaking Changes
   ``BsonDecimal128.isNumber()`` now returns ``true``, and
   ``BsonDecimal128.asNumber()`` returns the equivalent ``BsonNumber``.
 
+- This driver version removes the ``Parameterizable`` interface. Instead of
+  implementing this interface on a custom ``Codec`` type,
+  override the ``CodecProvider.get()`` method on the
+  codec's ``CodecProvider`` if the codec is intended for a parameterized
+  type.
+
+- This driver version removes the ``isSlaveOk()`` method from the
+  ``ReadPreference`` and ``TaggableReadPreference`` classes. To check whether a read preference allows
+  reading from a secondary member of a replica set, use the ``isSecondaryOk()`` methods from
+  these classes instead.
+
+- This driver version removes the ``DBCollection.getStats()`` and ``DBCollection.isCapped()``
+  helper methods for the ``collStats`` command. Instead of these methods, you can use the
+  ``$collStats`` aggregation pipeline stage. For an example of how to use this pipeline
+  stage, see `What's New <java-deprecations-4.11>` for v4.11 of the {+driver-short+}.
+
+- This driver version removes the ``IterableCodec`` and ``MapCodec`` types.
+  Use ``MapCodecProvider`` instead of ``MapCodec`` and ``CollectionCodecProvider``
+  instead of ``IterableCodec``.
+
+- This driver version removes the ``sharded`` and ``nonAtomic`` options from the
+  ``MapReducePublisher`` and ``MapReduceIterable`` classes.
+
+- This driver version removes the following methods for use with ``geoHaystack`` indexes:
+
+  - ``Indexes.geoHaystack()``
+  - ``IndexOptions.getBucketSize()``
+  - ``IndexOptions.bucketSize()``
+  
+  Instead, you can use the ``$geoNear`` aggregation pipeline stage or a geospatial
+  query operator on a 2d index. For more information about geospatial queries, see the
+  `Server manual <https://www.mongodb.com/docs/manual/geospatial-queries/#geospatial-queries-1>`__.
+
+- This driver version removes the ``oplogReplay`` option from find operations. This
+  includes the following methods:
+
+  - ``DBCursor.oplogReplay()``
+  - ``DBCollectionFindOptions.isOplogReplay()``
+  - ``DBCollectionFindOptions.oplogReplay()``
+  - ``FindPublisher.oplogReplay()``
+  - ``FindIterable.oplogReplay()``
+
+- This driver version removes the following ``Exception`` constructors:
+
+  - ``MongoBulkWriteException(BulkWriteResult, List<BulkWriteError>, WriteConcernError, ServerAddress)``
+  - ``MongoCursorNotFoundException(long, ServerAddress)``
+  - ``MongoQueryException(ServerAddress, int, String)``
+  - ``MongoQueryException(ServerAddress, int, String, String)``
+  - ``MongoQueryException(MongoCommandException)``
+
+- This driver version removes the following overloads for the
+  ``BulkWriteResult.acknowledged()`` method:
+
+  - ``acknowledged(Type, int, List<BulkWriteUpsert>)``
+  - ``acknowledged(Type, int, Integer, List<BulkWriteUpsert>)``
+  - ``acknowledged(int, int, int, Integer, List<BulkWriteUpsert>)<String>)``
+
+- This driver version removes the following ``ChangeStreamDocument`` constructors:
+
+  - ``ChangeStreamDocument(String, BsonDocument, BsonDocument, BsonDocument, TDocument, TDocument, BsonDocument, ...)``
+  - ``ChangeStreamDocument(String, BsonDocument, BsonDocument, BsonDocument, TDocument, BsonDocument, BsonTimestamp, ...)``
+  - ``ChangeStreamDocument(OperationType, BsonDocument, BsonDocument, BsonDocument, TDocument, BsonDocument, BsonTimestamp, ...)``
+
+- This driver version removes the following constructors for events:
+
+  - ``CommandEvent(RequestContext, int, ConnectionDescription, String)``
+  - ``CommandEvent(int, ConnectionDescription, String)``
+  - ``CommandEvent(RequestContext, long, int, ConnectionDescription, String)``
+  - ``CommandFailedEvent(RequestContext, int, ConnectionDescription, String, long, Throwable)``
+  - ``CommandFailedEvent(int, ConnectionDescription, String, long, Throwable)``
+  - ``CommandStartedEvent(RequestContext, int, ConnectionDescription, String, String, BsonDocument)``
+  - ``CommandStartedEvent(int, ConnectionDescription, String, String, BsonDocument)``
+  - ``CommandSucceededEvent(RequestContext, int, ConnectionDescription, String, BsonDocument, long)``
+  - ``CommandSucceededEvent(int, ConnectionDescription, String, BsonDocument, long)``
+  - ``ConnectionCheckedInEvent(ConnectionId)``
+  - ``ConnectionCheckedOutEvent(ConnectionId, long)``
+  - ``ConnectionCheckedOutEvent(ConnectionId)``
+  - ``ConnectionCheckOutFailedEvent(ServerId, long, Reason)``
+  - ``ConnectionCheckOutFailedEvent(ServerId, Reason)``
+  - ``ConnectionCheckOutStartedEvent(ServerId)``
+  - ``ConnectionReadyEvent(ConnectionId)``
+  - ``ServerHeartbeatFailedEvent(ConnectionId, long, Throwable)``
+  - ``ServerHeartbeatSucceededEvent(ConnectionId, BsonDocument, long)``
+
+- This driver version removes the ``errorLabels`` option from the ``WriteConcernError``
+  class. This includes the ``addLabel()`` and ``getErrorLabels()`` methods and the
+  constructor that includes an ``errorLabels`` parameter. Instead, you can use
+  the error labels included in the top-level response document.
+
 .. _java-breaking-changes-v4.8:
 
 Version 4.8 Breaking Changes
