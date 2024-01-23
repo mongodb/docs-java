@@ -166,7 +166,7 @@ Version 5.0 Breaking Changes
 - This driver version removes the ``DBCollection.getStats()`` and ``DBCollection.isCapped()``
   helper methods for the ``collStats`` command. Instead of these methods, you can use the
   ``$collStats`` aggregation pipeline stage. For an example of how to use this pipeline
-  stage, see :ref:`What's New <java-deprecations-4.11>` for v4.11 of the {+driver-short+}.
+  stage, see :manual:`What's New <java-deprecations-4.11>` for v4.11 of the {+driver-short+}.
 
 - This driver version removes the ``IterableCodec`` and ``MapCodec`` types.
   Use ``MapCodecProvider`` instead of ``MapCodec`` and ``CollectionCodecProvider``
@@ -182,8 +182,8 @@ Version 5.0 Breaking Changes
   - ``IndexOptions.bucketSize()``
   
   Instead, you can use the ``$geoNear`` aggregation pipeline stage or a geospatial
-  query operator on a 2d index. For more information about geospatial queries, see the
-  `Server manual <https://www.mongodb.com/docs/manual/geospatial-queries/#geospatial-queries-1>`__.
+  query operator on a 2d index. For more information, see the
+  :manual:`Geospatial Queries page </geospatial-queries>` in the {+mdb-server+} manual.
 
 - This driver version removes the ``oplogReplay`` option from find operations. This
   includes the following methods:
