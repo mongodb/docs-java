@@ -104,7 +104,7 @@ use the sample POJO defined in the preceding section:
 
    .. _get-default-codec-registry-example:
 
-   See the following code to see how to instantiate the ``CodecRegistry``:
+   The following code shows how to instantiate the ``CodecRegistry``:
 
    .. code-block:: java
 
@@ -118,9 +118,11 @@ use the sample POJO defined in the preceding section:
       CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
 #. Configure the ``MongoDatabase`` or ``MongoCollection`` instance to use the
-   Codecs in the ``CodecRegistry``. You only need to configure one of these.
+   Codecs in the ``CodecRegistry``. You only need to configure either a
+   database or collection.
+
    In this example, we set the ``CodecRegistry`` on a ``MongoDatabase`` called
-   ``sample_pojos`` using the ``withCodecRegistry()`` method.
+   ``sample_pojos`` by using the ``withCodecRegistry()`` method:
 
    .. literalinclude:: /includes/fundamentals/code-snippets/POJO-crud.java
       :language: java
@@ -130,7 +132,7 @@ use the sample POJO defined in the preceding section:
 
 #. Pass your POJO class to your call to ``getCollection()`` as the
    document class parameter and specify it as the type argument of your
-   ``MongoCollection`` instance as follows:
+   ``MongoCollection`` instance, as shown in the following code:
 
    .. literalinclude:: /includes/fundamentals/code-snippets/POJO-crud.java
       :language: java
@@ -138,12 +140,11 @@ use the sample POJO defined in the preceding section:
       :start-after: start-get-coll
       :end-before: end-get-coll
 
-Perform Operations with POJOs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perform CRUD Operations
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Once you have configured the ``MongoCollection`` instance to use the
-``Flower`` POJO, you can perform CRUD operations on data modeled by the
-``Flower`` class.
+``Flower`` POJO, you can perform CRUD operations on data modeled by the POJO.
 
 This example demonstrates how to perform the following operations by
 using the ``Flower`` POJO:
