@@ -4,6 +4,13 @@
 Document Data Format: POJOs
 ===========================
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: java sync, code example, custom class, data model
+
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -108,7 +115,7 @@ use the sample POJO defined in the preceding section:
 
    .. code-block:: java
 
-      // Ensure you include these static imports before your class definition
+      // Include the following static imports before your class definition
       import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
       import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
       import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
