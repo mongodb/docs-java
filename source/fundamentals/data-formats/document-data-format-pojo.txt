@@ -53,7 +53,7 @@ which describes the characteristics of flowers:
 When defining a POJO to store and retrieve data within MongoDB,
 use the following guidelines:
 
-- The POJO class should not implement interfaces or extend classes from a
+- The POJO class cannot implement interfaces or extend classes from a
   framework.
 - Include all the fields for which you want to store and retrieve data, and
   make sure they are not marked as ``static`` or ``transient``.
@@ -73,11 +73,11 @@ components:
   :ref:`Codecs <fundamentals-codecs>` that define how to
   encode and decode the data between the POJO format and BSON. The
   provider also specifies which POJO classes or packages that the codecs
-  should apply to.
+  apply to.
 - ``CodecRegistry`` instance that contains the codecs and other related information.
 - ``MongoDatabase`` or ``MongoCollection`` instance configured to use the
   ``CodecRegistry``.
-- ``MongoCollection`` instance created with the POJO document class
+- ``MongoCollection`` instance that is created with the POJO document class
   bound to the ``TDocument`` generic type.
 
 The following steps perform each of the configuration requirements to
@@ -125,8 +125,8 @@ use the sample POJO defined in the preceding section:
       CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
 #. Configure the ``MongoDatabase`` or ``MongoCollection`` instance to use the
-   Codecs in the ``CodecRegistry``. You only need to configure either a
-   database or collection.
+   Codecs in the ``CodecRegistry``. You can configure either a database
+   or collection to specify the Codecs.
 
    In this example, we set the ``CodecRegistry`` on a ``MongoDatabase`` called
    ``sample_pojos`` by using the ``withCodecRegistry()`` method:
