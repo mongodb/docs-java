@@ -92,10 +92,12 @@ Version 5.0 Breaking Changes
   - ``readTimeout()``
 
   In earlier versions, this parameter is of type ``int`` for both methods. To view an example
-  that shows how to instantiate a ``SocketSettings`` instance by using
-  these methods, see the :ref:`SocketSettings Example
+  that shows how to call ``SocketSettings`` methods, see the :ref:`SocketSettings Example
   <java-socketsettings-example>` in the Specify MongoClient Settings
   guide.
+
+  This change breaks binary compatibility (requires recompiling) but does not
+  require code changes.
 
 - This driver version removes the ``Filters.eqFull()`` method, released
   exclusively in ``Beta``, which allowed you
