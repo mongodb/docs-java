@@ -23,14 +23,25 @@ Overview
 On this page, you can learn about the tools and frameworks available for integration
 with the {+driver-short+}.
 
+This guide describes the following third-party integrations:
+
+- :ref:`spring-framework`
+- :ref:`quarkus-framework`
+- :ref:`graalvm-integration`
+- :ref:`micronaut-framework`
+
+.. note::
+
+   MongoDB does not own the tools included in this guide.
+
 .. _spring-framework:
 
 Spring Data
 -----------
 
-The Spring Java framework offers flexible third-party libraries, streamlined code
-features, and efficient performance to allow for fast and intuitive application
-development.
+The `Spring <https://spring.io/>`__ Java framework offers flexible third-party libraries,
+streamlined code features, and efficient performance to allow for fast and intuitive
+application development.
 
 Spring Data, a Spring umbrella project, focuses on database access for 
 Spring-powered applications. Several Spring Data features, including a high-level
@@ -39,10 +50,11 @@ interface for database interaction and database query generation, simplify data 
 Using Spring Data and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Spring Data MongoDB is one of the modules included under the Spring Data umbrella.
-This module supports the use of MongoDB databases during Spring application development.
-Additionally, Spring Data MongoDB reduces the boilerplate code and MongoDB API knowledge
-required for MongoDB data access. The module offers the following features:
+`Spring Data MongoDB <https://spring.io/projects/spring-data-mongodb/>`__ is one of the
+modules included under the Spring Data umbrella. This module supports the use of MongoDB
+databases during Spring application development. Additionally, Spring Data MongoDB reduces
+the boilerplate code and MongoDB API knowledge required for MongoDB database access. The
+module offers the following features:
 
 - ``MongoTemplate`` helper class that implements the ``MongoOperation`` interface.
   This interface provides methods such as ``find()``, ``insert()``, and ``update()``
@@ -62,10 +74,10 @@ To learn more about Spring Data MongoDB and its features, see the `Spring Data M
 Quarkus
 -------
 
-Quarkus, a Java framework, aims to leverage the functionality of `Kubernetes
-<https://kubernetes.io/>`__ to create lightweight applications. Much like the Spring
-framework described in the :ref:`spring-framework` section of this page, Quarkus
-offers improved code efficiency and builds upon a range of third-party libraries.
+`Quarkus <https://quarkus.io/>`__, a Java framework, aims to leverage the functionality of
+`Kubernetes <https://kubernetes.io/>`__ to create lightweight applications. Much like the
+Spring framework described in the :ref:`spring-framework` section of this page, Quarkus
+offers improved code efficiency and builds on a range of third-party libraries.
 Quarkus also supports a variety of application styles, including HTTP microservices,
 reactive applications, and serverless functions. As a result, the Quarkus development
 model is adaptive to individual developers and application needs.
@@ -94,9 +106,9 @@ For details and instructions on using these extensions, see the following Quarku
 GraalVM
 -------
 
-GraalVM is a JDK distribution that uses an ahead-of-time compiler, Graal,
-to compile Java applications into native executables. These executables include
-only the code required at runtime. Consequently, GraalVM allows your application
+`GraalVM <https://www.graalvm.org/>`__ is a JDK distribution that uses an ahead-of-time
+compiler, Graal, to compile Java applications into native executables. These executables
+include only the code required at runtime. Consequently, GraalVM allows your application
 to run faster, use fewer resources, and reduce its deployment cost. 
 
 .. 
@@ -110,10 +122,10 @@ to run faster, use fewer resources, and reduce its deployment cost.
 Micronaut
 ---------
 
-The Micronaut framework allows you to create efficient and easily testable JVM
-applications. Designed for creating server-side microservices, Micronaut aims
-to reduce application startup time and memory usage. The framework reduces code
-reflection to achieve these performance improvements.
+The `Micronaut <https://micronaut.io/>`__ framework allows you to create efficient JVM
+applications. Designed for creating server-side microservices, Micronaut aims to
+reduce application startup time and memory usage. The framework reduces code reflection
+to achieve these performance improvements.
 
 Key features of the Micronaut framework include aspect-oriented programming, inversion
 of control, and automatic code configuration.
