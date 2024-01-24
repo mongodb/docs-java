@@ -1,0 +1,130 @@
+.. _java-frameworks-integrations:
+
+==========
+Frameworks
+==========
+
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: java sync, third party
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Overview
+--------
+
+On this page, you can learn about the tools and frameworks available for integration
+with the {+driver-short+}.
+
+.. _spring-framework:
+
+Spring Data
+-----------
+
+The Spring Java framework offers flexible third-party libraries, streamlined code
+features, and efficient performance to allow for fast and intuitive application
+development.
+
+Spring Data, a Spring umbrella project, focuses on database access for 
+Spring-powered applications. Several Spring Data features, including a high-level
+interface for database interaction and database query generation, simplify data access. 
+
+Using Spring Data and MongoDB
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Spring Data MongoDB is one of the modules included under the Spring Data umbrella.
+This module supports the use of MongoDB databases during Spring application development.
+Additionally, Spring Data MongoDB reduces the boilerplate code and MongoDB API knowledge
+required for MongoDB data access. The module offers the following features:
+
+- ``MongoTemplate`` helper class that implements the ``MongoOperation`` interface.
+  This interface provides methods such as ``find()``, ``insert()``, and ``update()``
+  to perform MongoDB operations.
+- Exception translation that allows for custom, portable exception handling code
+  without losing error information provided by the {+driver-long+}.
+- Converter, called ``MappingMongoConverter``, to map domain objects to MongoDB documents.
+  You can also write a custom converter.
+- ``GridFsOperations`` and ``ReactiveGridFsOperations`` interfaces for interactions
+  with the GridFS filesystem.
+
+To learn more about Spring Data MongoDB and its features, see the `Spring Data MongoDB
+<https://spring.io/projects/spring-data-mongodb/>`__ project overview.
+
+.. _quarkus-framework:
+
+Quarkus
+-------
+
+Quarkus, a Java framework, aims to leverage the functionality of `Kubernetes
+<https://kubernetes.io/>`__ to create lightweight applications. Much like the Spring
+framework described in the :ref:`spring-framework` section of this page, Quarkus
+offers improved code efficiency and builds upon a range of third-party libraries.
+Quarkus also supports a variety of application styles, including HTTP microservices,
+reactive applications, and serverless functions. As a result, the Quarkus development
+model is adaptive to individual developers and application needs.
+
+Using Quarkus and MongoDB
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Quarkus offers the ``quarkus-mongodb-client`` extension to connect to MongoDB. This
+extension allows you to create a Quarkus application that configures a MongoDB ``Client``
+instance and interacts with data stored in MongoDB.
+
+Additionally, you can install the ``quarkus-mongodb-panache`` extension to further
+simplify MongoDB database interactions. This extension wraps the ``quarkus-mongodb-client``
+extension and the {+driver-short+}. After installing ``quarkus-mongodb-panache``, you
+can create compact Panache entities to represent MongoDB documents. Several annotations,
+including ``@MongoEntity``, ``@BsonProperty``, and ``@BsonIgnore``, allow for
+customized mapping between entities and MongoDB documents.
+
+For details and instructions on using these extensions, see the following Quarkus guides:
+
+- `Using the MongoDB Client <https://quarkus.io/guides/mongodb>`__
+- `Simplified MongoDB with Panache <https://quarkus.io/guides/mongodb-panache>`__
+
+GraalVM
+-------
+
+GraalVM is a JDK distribution that uses an ahead-of-time compiler, Graal,
+to compile Java applications into native executables. These executables include
+only the code required at runtime. Consequently, GraalVM allows your application
+to run faster, use fewer resources, and reduce its deployment cost. 
+
+Using GraalVM and MongoDB
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Add MongoDB information here
+
+Micronaut
+---------
+
+The Micronaut framework allows you to create efficient and easily testable JVM
+applications. Designed for creating server-side microservices, Micronaut aims
+to reduce application startup time and memory usage. The framework reduces code
+reflection to achieve these performance improvements.
+
+Key features of the Micronaut framework include aspect-oriented programming, inversion
+of control, and automatic code configuration.
+
+Using Micronaut and MongoDB
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can create a Micronaut application that interacts with MongoDB. To create this
+type of application, use the ``data-mongodb`` or ``data-mongodb-async`` feature. For
+instructions on specifying these features and creating a MongoDB-backed Micronaut application,
+see the `Micronaut Data MongoDB <https://micronaut-projects.github.io/micronaut-data/latest/guide/#mongo>`__
+guide.
+
+The integration of Micronaut and MongoDB relies on Micronaut's serialization library and
+BSON annotations. To access a MongoDB database from your application, you must create a class
+that represents a MongoDB collection. Then, use the ``@MappedEntity`` annotation before the class
+declaration. To learn more about this annotation, see the `MappedEntity
+<https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/annotation/MappedEntity.html>`__
+API documentation.

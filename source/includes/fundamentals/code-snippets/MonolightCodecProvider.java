@@ -14,7 +14,7 @@ public class MonolightCodecProvider implements CodecProvider {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> Codec<T> get(Class<T> clazz, CodecRegistry registry) {
+    public <T> Codec<T> get(Class<T> clazz, List<Type> typeArguments, CodecRegistry registry) {
         if (clazz == Monolight.class) {
             return (Codec<T>) new MonolightCodec(registry);
         }
