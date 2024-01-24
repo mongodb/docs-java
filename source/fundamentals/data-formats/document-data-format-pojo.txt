@@ -4,8 +4,6 @@
 Document Data Format: POJOs
 ===========================
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -15,23 +13,29 @@ Document Data Format: POJOs
 Overview
 --------
 
-In this guide, you can learn how to store and retrieve data in the
-MongoDB Java driver using plain old Java objects (`POJOs <https://en.wikipedia.org/wiki/Plain_old_Java_object>`__).
-POJOs are often used for data encapsulation, separating business logic from
+In this guide, you can learn how to store and retrieve data modeled by
+plain old Java objects, or POJOs. POJOs are often used for data
+encapsulation, which is the practice of separating business logic from
 data representation.
 
-The example in this guide shows how to perform the following:
+.. tip::
+   
+   To learn more about POJOs, see the :wikipedia:`Plain old Java object
+   <w/index.php?title=Plain_old_Java_object&oldid=1143317019>`__ Wikipedia article.
+
+The example in this guide demonstrates how to perform the following
+tasks:
 
 - Configure the driver to serialize and deserialize POJOs
-- How to read and write to documents using POJOs
+- Perform CRUD operations that use data modeled by POJOs
 
 .. _fundamentals-example-pojo:
 
 Example POJO
 ------------
 
-To follow the steps in this guide, use the following sample POJO class
-which describes characteristics of a flower:
+The sections in this guide use the following sample POJO class,
+which describes the characteristics of flowers:
 
 .. code-block:: java
 
@@ -99,14 +103,14 @@ which describes characteristics of a flower:
        }
    }
 
-If you are creating your own POJO for storing and retrieving data in MongoDB,
-make sure to follow these guidelines:
+When defining a POJO to store and retrieve data within MongoDB,
+use the following guidelines:
 
 - The POJO class should not implement interfaces or extend classes from a
   framework.
-- Include all the fields for which you want to store and retrieve data;
-  make sure they are not ``static`` or ``transient``.
-- If you include public getter or setter methods using the
+- Include all the fields for which you want to store and retrieve data, and
+  make sure they are not marked as ``static`` or ``transient``.
+- If you include public getter or setter methods by using the
   `JavaBean naming conventions <https://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html>`__
   in your POJO, the driver calls them when serializing or deserializing data.
   If you omit the getter or setter methods for a public property field, the
@@ -115,20 +119,22 @@ make sure to follow these guidelines:
 Configure the Driver for POJOs
 ------------------------------
 
-To set up the driver to store and retrieve POJOs, we need to specify:
+To configure the driver to use POJOs, you must specify the following
+components:
 
-- The ``PojoCodecProvider``, a codec provider that includes
-  :doc:`Codecs </fundamentals/data-formats/codecs>` that define how to
-  encode/decode the data between the POJO and MongoDB document, and which
-  POJO classes or packages that the codecs should apply to.
-- A ``CodecRegistry`` instance that contains the codecs and other related information.
-- A ``MongoDatabase`` or ``MongoCollection`` instance configured to use the
+- ``PojoCodecProvider``, a codec provider that includes
+  :ref:`Codecs <fundamentals-codecs>` that define how to
+  encode and decode the data between the POJO format and BSON. The
+  provider also specifies which POJO classes or packages that the codecs
+  should apply to.
+- ``CodecRegistry`` instance that contains the codecs and other related information.
+- ``MongoDatabase`` or ``MongoCollection`` instance configured to use the
   ``CodecRegistry``.
-- A ``MongoCollection`` instance created with the POJO document class
+- ``MongoCollection`` instance created with the POJO document class
   bound to the ``TDocument`` generic type.
 
-Consult the following steps to see how to perform each of the configuration
-requirements:
+The following steps perform each of the configuration requirements to
+use the sample POJO defined in the preceding section:
 
 1. Configure the ``PojoCodecProvider``. In this example, we use the ``automatic(true)``
    setting of the ``PojoCodecProvider.Builder`` to apply the Codecs to
@@ -143,13 +149,14 @@ requirements:
       Codec providers also contain other objects such as ``ClassModel`` and
       ``Convention`` instances that further define serialization behavior.
       For more information on codec providers and customization, see the guide
-      on :doc:`POJO Customization </fundamentals/data-formats/pojo-customization>`.
+      on :ref:`POJO Customization <fundamentals-pojo-customization>`.
 
 #. Add the ``PojoCodecProvider`` instance to a ``CodecRegistry``. The
    ``CodecRegistry`` allows you to specify one or more codec providers to
    encode the POJO data. In this example, we call the following methods:
 
-   - ``fromRegistries()`` to combine multiple ``CodecRegistry`` instances into a single one
+   - ``fromRegistries()`` to combine multiple ``CodecRegistry``
+     instances into one instance
    - ``getDefaultCodecRegistry()`` to retrieve a ``CodecRegistry`` instance from a list of codec providers
    - ``fromProviders()`` to create a ``CodecRegistry`` instance from the ``PojoCodecProvider``
 
@@ -188,15 +195,20 @@ requirements:
 
       MongoCollection<Flower> collection = database.getCollection("flowers", Flower.class);
 
-Once you have configured the preceding ``MongoCollection`` instance, you
-can perform the following :ref:`CRUD operations <java-crud-operations>`
-with the POJOs:
+Perform Operations with POJOs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Create a document from a POJO
-- Retrieve data in a POJO instance
+Once you have configured the ``MongoCollection`` instance to use the
+``Flower`` POJO, you can perform CRUD operations on data modeled by the
+``Flower`` class.
 
-The following code snippet shows how you can insert an instance of ``Flower`` into
-the collection and then retrieve it as a ``List`` of your POJO class objects:
+This example demonstrates how to perform the following operations by
+using the ``Flower`` POJO:
+
+- Insert an instance of ``Flower`` into the ``flowers`` collection
+- Update a document in the collection
+- Delete a document in the collection
+- Find and print all documents in the collection
 
 .. code-block:: java
 
