@@ -121,6 +121,17 @@ Version 5.0 Breaking Changes
   .. After the 5.0 Scala API docs are released, this line will be uncommented. 
     For more information, see the `Observable trait documentation <https://mongodb.github.io/mongo-java-driver/5.0/apidocs/mongo-scala-driver/org/mongodb/scala/Observable.html>`__.
 
+- This driver changes how ``ClusterSettings`` computes
+  ``ClusterConnectionMode``, making it more consistent by using the specified
+  replica set name, regardless of how it is configured. Previously, replica set
+  name was only considered if it was set by the connection string. This may
+  change how 
+
+- This driver changes how ``BsonDecimal128`` values respond to method calls, by
+  responding in the same way as ``Decimal128`` values. In particular,
+  ``BsonDecimal128.isNumber()`` now returns ``true``, and
+  ``BsonDecimal128.asNumber()`` returns the equivalent ``BsonNumber``.
+
 .. _java-breaking-changes-v4.8:
 
 Version 4.8 Breaking Changes
