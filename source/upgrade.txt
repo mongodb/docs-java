@@ -78,25 +78,23 @@ Version 5.0 Breaking Changes
     compatibility, update any source code that uses these methods and rebuild
     your binary.
 
-- The following record annotations from the
-  ``org.bson.codecs.record.annotations`` package are replaced with
-  annotations of the same name from the ``org.bson.codecs.pojo.annotations`` package:
-  
-  - ``BsonId``
-  - ``BsonProperty``
-  - ``BsonRepresentation``
-
-- This driver version removes the ``Filters.eqFull()`` method, released
-  exclusively in ``Beta``, which allowed you
-  to construct an equality filter when performing a vector search.
-  You can use the ``Filters.eq()`` method when instantiating a
-  ``VectorSearchOptions`` type, as shown in the following code:
-
-  .. code-block:: java
+  - The following record annotations from the
+    ``org.bson.codecs.record.annotations`` package are replaced with
+    annotations of the same name from the ``org.bson.codecs.pojo.annotations`` package:
     
-    VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
+    - ``BsonId``
+    - ``BsonProperty``
+    - ``BsonRepresentation``
 
-.. _java-breaking-changes-v5.0-observables:
+  - This driver version removes the ``Filters.eqFull()`` method, released
+    exclusively in ``Beta``, which allowed you
+    to construct an equality filter when performing a vector search.
+    You can use the ``Filters.eq()`` method when instantiating a
+    ``VectorSearchOptions`` type, as shown in the following code:
+
+    .. code-block:: java
+      
+      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
   - The ``getServerValue()`` method now returns a value of type ``Long`` instead of type
     ``Integer``. Similarly, the ``getLocalValue()`` method returns a value of type
@@ -113,20 +111,17 @@ Version 5.0 Breaking Changes
     that shows how to call ``SocketSettings`` methods, see the :ref:`SocketSettings Example
     <java-socketsettings-example>` in the Specify MongoClient Settings
     guide. This change breaks binary compatibility (requires recompiling) but does not
-  require code changes.
+    require code changes.
 
-  This change breaks binary compatibility (requires recompiling) but does not
-  require code changes.
+  - This driver version removes the ``Filters.eqFull()`` method, released
+    exclusively in ``Beta``, which allowed you
+    to construct an equality filter when performing a vector search.
+    You can use the ``Filters.eq()`` method when instantiating a
+    ``VectorSearchOptions`` type, as shown in the following code:
 
-- This driver version removes the ``Filters.eqFull()`` method, released
-  exclusively in ``Beta``, which allowed you
-  to construct an equality filter when performing a vector search.
-  You can use the ``Filters.eq()`` method when instantiating a
-  ``VectorSearchOptions`` type, as shown in the following code:
-
-  .. code-block:: java
-    
-    VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
+    .. code-block:: java
+      
+      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
 .. _java-breaking-changes-v5.0-observables:
 

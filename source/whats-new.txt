@@ -48,15 +48,6 @@ What's New in 5.0
 
 The 5.0 driver release introduces the following features:
 
-- ``ClusterSettings`` computes ``ClusterConnectionMode`` more consistently using
-  the specified replica set name, regardless of how it is configured.
-  Previously, replica set name was only considered if it was set by the
-  connection string.
-
-- ``BsonDecimal128`` values respond to method calls in the same way as
-  ``Decimal128`` values. In particular, ``BsonDecimal128.isNumber`` now returns
-  ``true``, and ``BsonDecimal128.asNumber`` returns the equivalent ``BsonNumber``.
-
 - The ``getElapsedTime()`` method on ``com.mongodb.event.ConnectionReadyEvent``
   includes the time taken to deliver the ``ConnectionCreatedEvent``. That is,
   the time returned includes the duration of the
