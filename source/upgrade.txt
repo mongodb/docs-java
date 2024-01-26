@@ -151,6 +151,11 @@ Version 5.0 Breaking Changes
   responding in the same way as ``Decimal128`` values. In particular,
   ``BsonDecimal128.isNumber()`` now returns ``true``, and
   ``BsonDecimal128.asNumber()`` returns the equivalent ``BsonNumber``.
+.. _java-breaking-changes-v5.0-list-collections:
+
+- This driver version breaks binary compatibility by adding a new
+  ``authorizedCollection`` option to the ``listCollections`` command. This
+  change does not require any changes to source code.
 
 .. _java-breaking-changes-v4.8:
 
