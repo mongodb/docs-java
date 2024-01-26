@@ -139,6 +139,7 @@ Version 5.0 Breaking Changes
   ``ClusterConnectionMode``, making it more consistent by using the specified
   replica set name, regardless of how it is configured. Previously, replica set
   name was only considered if it was set by the connection string.
+<<<<<<< HEAD
 
   For example, the following two code samples both return the value
   ``ClusterConnectionMode.MULTIPLE``, while previously the second one returned
@@ -160,6 +161,8 @@ Version 5.0 Breaking Changes
         .requiredReplicaSetName("replset")
         .build()
         .getMode()
+=======
+>>>>>>> 0b9ba11 (VK review)
 
 - This driver changes how ``BsonDecimal128`` values respond to method calls, by
   responding in the same way as ``Decimal128`` values. In particular,
