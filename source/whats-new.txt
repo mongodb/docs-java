@@ -69,11 +69,18 @@ The 5.0 driver release introduces the following features:
 
 - A new ``authorizedCollections`` option has been added to the
   ``listCollections`` command. It can be configured using the
-  ``MongoDatabase.listCollectionNames()`` method. This introduces a :ref:`breaking change to the listCollections
+  ``MongoDatabase.listCollectionNames()`` method. This introduces a
+  :ref:`breaking change to the listCollections
+  
+- The ``listCollections`` command has an ``authorizedCollections`` option. It can be configured using the
+  ``MongoDatabase.listCollectionNames()`` method. This introduces a :ref:`binary
+  breaking change to the listCollections
   command<java-breaking-changes-v5.0-list-collections>`.
 
   For more information about ``authorizedCollections``, see the
-  :manual:`listCollections </reference/command/listCollections/>` server manual page.
+  :manual:`listCollections </reference/command/listCollections/>` server manual
+  page. For more information about the ``listCollectionNames()`` method, see the
+  :ref:`Database Collections<java-collection-names>` page.
   
 .. _version-4.11:
 
