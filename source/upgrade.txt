@@ -126,7 +126,9 @@ Version 5.0 Breaking Changes
   replica set name, regardless of how it is configured. Previously, replica set
   name was only considered if it was set by the connection string.
 
-  For example, the following two code samples return the value ``ClusterConnectionMode.MULTIPLE``
+  For example, the following two code samples both return the value
+  ``ClusterConnectionMode.MULTIPLE``, while previously the second one returned
+  ``ClusterConnectionMode.SINGLE``.
 
   .. code-block:: java
 
