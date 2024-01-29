@@ -27,8 +27,10 @@ This page describes the following third-party integrations:
 
 - :ref:`spring-framework`
 - :ref:`quarkus-framework`
-- :ref:`graalvm-integration`
 - :ref:`micronaut-framework`
+
+.. TODO (add after JAVA-3580 is finished):
+   - :ref:`graalvm-integration`
 
 .. note::
 
@@ -40,8 +42,7 @@ Spring Data
 -----------
 
 The `Spring <https://spring.io/>`__ Java framework offers flexible third-party libraries,
-streamlined code features, and efficient performance to allow for fast and intuitive
-application development.
+streamlined code features, and efficient performance to facilitate application development.
 
 Spring Data, a Spring umbrella project, focuses on database access for 
 Spring-powered applications. Several Spring Data features, including a high-level
@@ -79,8 +80,7 @@ Quarkus
 Spring framework described in the :ref:`spring-framework` section of this page, Quarkus
 offers improved code efficiency and builds on a range of third-party libraries.
 Quarkus also supports a variety of application styles, including HTTP microservices,
-reactive applications, and serverless functions. As a result, the Quarkus development
-model is adaptive to individual developers and application needs.
+reactive applications, and serverless functions.
 
 Using Quarkus and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,21 +101,18 @@ For details and instructions on using these extensions, see the following Quarku
 - `Using the MongoDB Client <https://quarkus.io/guides/mongodb>`__
 - `Simplified MongoDB with Panache <https://quarkus.io/guides/mongodb-panache>`__
 
-.. _graalvm-integration:
+.. TODO (after JAVA-3580):
+  .. _graalvm-integration:
+  GraalVM
+  -------
+  `GraalVM <https://www.graalvm.org/>`__ is a JDK distribution that uses an ahead-of-time
+  compiler, Graal, to compile Java applications into native executables. These executables
+  include only the code required at runtime. Consequently, GraalVM allows your application
+  to run faster, use fewer resources, and reduce its deployment cost. 
 
-GraalVM
--------
-
-`GraalVM <https://www.graalvm.org/>`__ is a JDK distribution that uses an ahead-of-time
-compiler, Graal, to compile Java applications into native executables. These executables
-include only the code required at runtime. Consequently, GraalVM allows your application
-to run faster, use fewer resources, and reduce its deployment cost. 
-
-.. 
+..
   Using GraalVM and MongoDB
   ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Add MongoDB information here
 
 .. _micronaut-framework:
 
@@ -124,7 +121,7 @@ Micronaut
 
 The `Micronaut <https://micronaut.io/>`__ framework allows you to create efficient JVM
 applications. Designed for creating server-side microservices, Micronaut aims to
-reduce application startup time and memory usage. The framework reduces code reflection
+decrease application startup time and memory usage. The framework reduces code reflection
 to achieve these performance improvements.
 
 Key features of the Micronaut framework include aspect-oriented programming, inversion
