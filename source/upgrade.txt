@@ -164,6 +164,25 @@ Version 5.0 Breaking Changes
 =======
 >>>>>>> 0b9ba11 (VK review)
 
+  For example, the following two code samples return the value ``ClusterConnectionMode.MULTIPLE``
+
+  .. code-block:: java
+
+    ClusterSettings.builder()
+        .applyConnectionString(new ConnectionString("mongodb://127.0.0.1:27017/?replicaSet=replset"))
+        .build()
+        .getMode()
+
+  .. code-block:: java
+
+    ClusterSettings.builder()
+        .hosts(Collections.singletonList(
+                new ServerAddress("127.0.0.1", 27017)
+        ))
+        .requiredReplicaSetName("replset")
+        .build()
+        .getMode()
+
 - This driver changes how ``BsonDecimal128`` values respond to method calls, by
   responding in the same way as ``Decimal128`` values. In particular,
   ``BsonDecimal128.isNumber()`` now returns ``true``, and
