@@ -64,6 +64,19 @@ The 5.0 driver release introduces the following features:
   This relates to a :ref:`breaking change about Observables in this version
   <java-breaking-changes-v5.0-observables>`.
 
+  - The first parameter, time durations, of the following ``SocketSettings``
+    builder methods is of ``long`` type:
+
+  - ``connectTimeout()``
+  - ``readTimeout()``
+
+  In earlier versions, this parameter is of type ``int`` for both methods. To
+  view an example that shows how to instantiate a ``SocketSettings`` instance by
+  using these methods, see the :ref:`SocketSettings Example
+  <java-socketsettings-example>` in the Specify MongoClient Settings guide. This
+  correlates with a :ref:`binary breaking change
+  <java-breaking-changes-v5.0-socketsettings>`.
+
   - Changes to the ``ConnectionId`` class. To learn more, see the
     :ref:`Version 5.0 Breaking Changes <java-breaking-changes-v5.0>`.
 
