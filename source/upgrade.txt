@@ -162,27 +162,6 @@ Version 5.0 Breaking Changes
         .build()
         .getMode()
 
-  For example, the following two code samples both return the value
-  ``ClusterConnectionMode.MULTIPLE``, while previously the second one returned
-  ``ClusterConnectionMode.SINGLE``.
-
-  .. code-block:: java
-
-    ClusterSettings.builder()
-        .applyConnectionString(new ConnectionString("mongodb://127.0.0.1:27017/?replicaSet=replset"))
-        .build()
-        .getMode()
-
-  .. code-block:: java
-
-    ClusterSettings.builder()
-        .hosts(Collections.singletonList(
-                new ServerAddress("127.0.0.1", 27017)
-        ))
-        .requiredReplicaSetName("replset")
-        .build()
-        .getMode()
-
 - This driver changes how ``BsonDecimal128`` values respond to method calls, by
   responding in the same way as ``Decimal128`` values. In particular,
   ``BsonDecimal128.isNumber()`` now returns ``true``, and
