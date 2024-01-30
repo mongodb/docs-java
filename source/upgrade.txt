@@ -77,8 +77,7 @@ Version 5.0 Breaking Changes
   - The ``getServerValue()`` method now returns a value of type ``Long`` instead of type
     ``Integer``. Similarly, the ``getLocalValue()`` method returns a value of type
     ``long`` instead of type ``int``. Because this change breaks both binary and source
-    compatibility, update any source code that uses these methods and rebuild
-    your binary.
+    compatibility, update any source code that uses these methods and rebuild your binary.
 
 - The following record annotations from the
   ``org.bson.codecs.record.annotations`` package are replaced with
@@ -112,7 +111,9 @@ Version 5.0 Breaking Changes
   In earlier versions, this parameter is of type ``int`` for both methods. To view an example
   that shows how to call ``SocketSettings`` methods, see the :ref:`SocketSettings Example
   <java-socketsettings-example>` in the Specify MongoClient Settings
-  guide. This change breaks binary compatibility (requires recompiling) but does not
+  guide. 
+  
+  This change breaks binary compatibility (requires recompiling) but does not
   require code changes.
 
 - This driver version removes the ``Filters.eqFull()`` method, released
