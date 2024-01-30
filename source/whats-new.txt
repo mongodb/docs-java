@@ -48,6 +48,9 @@ What's New in 5.0
 
 The 5.0 driver release introduces the following features:
 
+- Changes to the ``ConnectionId`` class. To learn more, see the
+  :ref:`breaking change description <java-breaking-changes-v5.0-connectionid>`.
+
 - The ``getElapsedTime()`` method on ``com.mongodb.event.ConnectionReadyEvent``
   includes the time taken to deliver the ``ConnectionCreatedEvent``. That is,
   the time returned includes the duration of the
@@ -64,7 +67,7 @@ The 5.0 driver release introduces the following features:
   This relates to a :ref:`breaking change about Observables in this version
   <java-breaking-changes-v5.0-observables>`.
 
-  - The first parameter, time durations, of the following ``SocketSettings``
+- The first parameter, time durations, of the following ``SocketSettings``
     builder methods is of ``long`` type:
 
   - ``connectTimeout()``
@@ -76,9 +79,6 @@ The 5.0 driver release introduces the following features:
   <java-socketsettings-example>` in the Specify MongoClient Settings guide. This
   correlates with a :ref:`binary breaking change
   <java-breaking-changes-v5.0-socketsettings>`.
-
-  - Changes to the ``ConnectionId`` class. To learn more, see the
-    :ref:`Version 5.0 Breaking Changes <java-breaking-changes-v5.0>`.
 
 .. _version-4.11:
 

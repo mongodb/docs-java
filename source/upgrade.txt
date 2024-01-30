@@ -61,6 +61,8 @@ the version after v4.0 including any listed under v4.5.
 Version 5.0 Breaking Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. _java-breaking-changes-v5.0-connectionid:
+
 - This driver version introduces the following changes to the ``ConnectionId`` class:
   
   - The ``ConnectionId`` constructor now accepts a value of type ``long`` as its second
@@ -78,50 +80,50 @@ Version 5.0 Breaking Changes
     compatibility, update any source code that uses these methods and rebuild
     your binary.
 
-  - The following record annotations from the
-    ``org.bson.codecs.record.annotations`` package are replaced with
-    annotations of the same name from the ``org.bson.codecs.pojo.annotations`` package:
+- The following record annotations from the
+  ``org.bson.codecs.record.annotations`` package are replaced with
+  annotations of the same name from the ``org.bson.codecs.pojo.annotations`` package:
+  
+  - ``BsonId``
+  - ``BsonProperty``
+  - ``BsonRepresentation``
+
+- This driver version removes the ``Filters.eqFull()`` method, released
+  exclusively in ``Beta``, which allowed you
+  to construct an equality filter when performing a vector search.
+  You can use the ``Filters.eq()`` method when instantiating a
+  ``VectorSearchOptions`` type, as shown in the following code:
+
+  .. code-block:: java
     
-    - ``BsonId``
-    - ``BsonProperty``
-    - ``BsonRepresentation``
+    VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
-  - This driver version removes the ``Filters.eqFull()`` method, released
-    exclusively in ``Beta``, which allowed you
-    to construct an equality filter when performing a vector search.
-    You can use the ``Filters.eq()`` method when instantiating a
-    ``VectorSearchOptions`` type, as shown in the following code:
+- The ``getServerValue()`` method now returns a value of type ``Long`` instead of type
+  ``Integer``. Similarly, the ``getLocalValue()`` method returns a value of type
+  ``long`` instead of type ``int``. Because this change breaks both binary and source
+  compatibility, update any source code that uses these methods and rebuild your binary.
 
-    .. code-block:: java
-      
-      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
+- You must pass a timeout duration, which is the first parameter, to the
+  following ``SocketSettings`` builder methods as a ``long`` type:
 
-  - The ``getServerValue()`` method now returns a value of type ``Long`` instead of type
-    ``Integer``. Similarly, the ``getLocalValue()`` method returns a value of type
-    ``long`` instead of type ``int``. Because this change breaks both binary and source
-    compatibility, update any source code that uses these methods and rebuild your binary.
+  - ``connectTimeout()``
+  - ``readTimeout()``
 
-  - You must pass a timeout duration, which is the first parameter, to the
-    following ``SocketSettings`` builder methods as a ``long`` type:
+  In earlier versions, this parameter is of type ``int`` for both methods. To view an example
+  that shows how to call ``SocketSettings`` methods, see the :ref:`SocketSettings Example
+  <java-socketsettings-example>` in the Specify MongoClient Settings
+  guide. This change breaks binary compatibility (requires recompiling) but does not
+  require code changes.
 
-    - ``connectTimeout()``
-    - ``readTimeout()``
+- This driver version removes the ``Filters.eqFull()`` method, released
+  exclusively in ``Beta``, which allowed you
+  to construct an equality filter when performing a vector search.
+  You can use the ``Filters.eq()`` method when instantiating a
+  ``VectorSearchOptions`` type, as shown in the following code:
 
-    In earlier versions, this parameter is of type ``int`` for both methods. To view an example
-    that shows how to call ``SocketSettings`` methods, see the :ref:`SocketSettings Example
-    <java-socketsettings-example>` in the Specify MongoClient Settings
-    guide. This change breaks binary compatibility (requires recompiling) but does not
-    require code changes.
-
-  - This driver version removes the ``Filters.eqFull()`` method, released
-    exclusively in ``Beta``, which allowed you
-    to construct an equality filter when performing a vector search.
-    You can use the ``Filters.eq()`` method when instantiating a
-    ``VectorSearchOptions`` type, as shown in the following code:
-
-    .. code-block:: java
-      
-      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
+  .. code-block:: java
+    
+     VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
 .. _java-breaking-changes-v5.0-observables:
 
@@ -139,7 +141,6 @@ Version 5.0 Breaking Changes
   ``ClusterConnectionMode``, making it more consistent by using the specified
   replica set name, regardless of how it is configured. Previously, replica set
   name was only considered if it was set by the connection string.
-<<<<<<< HEAD
 
   For example, the following two code samples both return the value
   ``ClusterConnectionMode.MULTIPLE``, while previously the second one returned
@@ -161,8 +162,6 @@ Version 5.0 Breaking Changes
         .requiredReplicaSetName("replset")
         .build()
         .getMode()
-=======
->>>>>>> 0b9ba11 (VK review)
 
   For example, the following two code samples both return the value
   ``ClusterConnectionMode.MULTIPLE``, while previously the second one returned
