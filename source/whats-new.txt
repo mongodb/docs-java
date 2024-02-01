@@ -293,9 +293,10 @@ What's New in 4.8
 
 .. important:: Deprecation Notice
 
-   The ``IterableCodec`` and ``MapCodec`` classes are deprecated.
-   Use ``MapCodecProvider`` instead of ``MapCodec`` and ``CollectionCodecProvider``
-   instead of ``IterableCodec``.
+   The ``MapCodec`` and ``IterableCodec`` classes are deprecated.
+   Instead of ``MapCodec``, use ``MapCodecProvider``. Instead of ``IterableCodec``,
+   use ``CollectionCodecProvider``, or ``IterableCodecProvider`` for ``Iterable``
+   types that aren't ``Collection``s.  
 
 Behavioral changes with the 4.8 driver release include:
 

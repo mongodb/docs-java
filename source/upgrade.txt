@@ -87,11 +87,6 @@ This driver version introduces the following breaking changes:
      
      VectorSearchOptions opts = vectorSearchOptions().filter(eq("x", 8));
 
-.. _java-breaking-changes-v5.0-observables:
-  
-  .. After the 5.0 Scala API docs are released, this line will be uncommented. 
-    For more information, see the `Observable trait documentation <https://mongodb.github.io/mongo-java-driver/5.0/apidocs/mongo-scala-driver/org/mongodb/scala/Observable.html>`__.
-
 - Removes the ``Parameterizable`` interface. Instead of
   implementing this interface on a custom ``Codec`` type,
   override the ``CodecProvider.get()`` method on the
@@ -108,11 +103,12 @@ This driver version introduces the following breaking changes:
   ``$collStats`` aggregation pipeline stage. For an example of how to use this pipeline
   stage, see :manual:`What's New <java-deprecations-4.11>` for v4.11 of the {+driver-short+}.
 
-- Removes the ``IterableCodec`` and ``MapCodec`` types.
-  Use ``MapCodecProvider`` instead of ``MapCodec``, and ``CollectionCodecProvider``
-  instead of ``IterableCodec``.
+- The ``MapCodec`` and ``IterableCodec`` classes are deprecated.
+   Instead of ``MapCodec``, use ``MapCodecProvider``. Instead of ``IterableCodec``,
+   use ``CollectionCodecProvider``, or ``IterableCodecProvider`` for ``Iterable``
+   types that aren't ``Collection``s.  
 
-- Removes the ``sharded`` and ``nonAtomic`` options from the
+- Removes the ``sharded()`` and ``nonAtomic()`` methods from the
   ``MapReducePublisher`` and ``MapReduceIterable`` classes.
 
 - Removes the following methods for use with ``geoHaystack`` indexes:
@@ -146,7 +142,7 @@ This driver version introduces the following breaking changes:
 
   - ``acknowledged(Type, int, List<BulkWriteUpsert>)``
   - ``acknowledged(Type, int, Integer, List<BulkWriteUpsert>)``
-  - ``acknowledged(int, int, int, Integer, List<BulkWriteUpsert>)<String>)``
+  - ``acknowledged(int, int, int, Integer, List<BulkWriteUpsert>)``
 
 - Removes the following ``ChangeStreamDocument`` constructors:
 
@@ -178,7 +174,10 @@ This driver version introduces the following breaking changes:
 - Removes the ``errorLabels`` option from the ``WriteConcernError``
   class. This includes the ``addLabel()`` and ``getErrorLabels()`` methods and the
   constructor that includes an ``errorLabels`` parameter. Instead, you can use
-  the error labels included in the top-level response document.
+  the error labels included in the ``MongoException`` object that contains the
+  ``WriteConcernError``.
+
+.. _java-breaking-changes-v5.0-observables:
 
 - Removes the
   ``org.mongodb.scala.ObservableImplicits.ToSingleObservableVoid`` implicit
@@ -186,7 +185,10 @@ This driver version introduces the following breaking changes:
   ``org.reactivestreams.Publisher[Void]`` type no longer
   converts automatically to ``org.mongodb.scala.SingleObservable[Void]``. The
   API also exposes ``org.mongodb.scala.Observable[Unit]`` instead of
-  ``org.mongodb.scala.Observable[Void]``. 
+  ``org.mongodb.scala.Observable[Void]``.
+  
+  .. After the 5.0 Scala API docs are released, this line will be uncommented. 
+    For more information, see the `Observable trait documentation <https://mongodb.github.io/mongo-java-driver/5.0/apidocs/mongo-scala-driver/org/mongodb/scala/Observable.html>`__.
 
 - Introduces the following changes to the ``ConnectionId`` class:
   
