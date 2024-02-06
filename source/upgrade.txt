@@ -159,7 +159,7 @@ Version 5.0 Breaking Changes
   ``$collStats`` aggregation pipeline stage. For an example of how to use this pipeline
   stage, see :manual:`What's New <java-deprecations-4.11>` for v4.11 of the {+driver-short+}.
 
-- The ``MapCodec`` and ``IterableCodec`` classes are deprecated.
+- Removes the ``MapCodec`` and ``IterableCodec`` classes.
   Instead of ``MapCodec``, use ``MapCodecProvider``. Instead of ``IterableCodec``,
   use ``CollectionCodecProvider``, or ``IterableCodecProvider`` for ``Iterable``
   types that aren't ``Collection`` types.  
