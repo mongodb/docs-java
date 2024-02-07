@@ -244,13 +244,20 @@ This driver version introduces the following breaking changes:
 - Removes the following classes from the
   ``com.mongodb.event`` package:
   
-  - ``ClusterListenerAdapter``
   - ``ConnectionAddedEvent``
-  - ``ConnectionPoolListenerAdapter``
   - ``ConnectionPoolOpenedEvent``
   - ``ConnectionRemovedEvent``
+  - ``ClusterListenerAdapter``
+  - ``ConnectionPoolListenerAdapter``
   - ``ServerListenerAdapter``
   - ``ServerMonitorListenerAdapter``
+
+  Because of these removals, the following methods were also removed from the
+  ``ConnectionPoolListener`` class:
+  
+  - ``connectionAdded``
+  - ``connectionPoolOpened``
+  - ``connectionRemoved``
   
   For more information about the events package, see the `com.mongodb.event
   package documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`__
