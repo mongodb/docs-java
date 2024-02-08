@@ -66,7 +66,8 @@ Version 5.0 Breaking Changes
   - The ``ConnectionId`` constructor now accepts a value of type ``long`` as its second
     parameter instead of type ``int``. Similarly, the constructor now accepts a value of
     type ``Long`` as its third parameter instead of type ``Integer``. Because this change breaks
-    binary compatibility, recompile any existing code that calls the ``ConnectionId`` constructor.
+    binary compatibility, recompile any existing code that calls the
+    ``ConnectionId`` constructor.
 
   - The ``withServerValue()`` method now accepts a parameter of type ``long`` rather than
     type ``int``. This change breaks binary compatibility, so you must recompile any code
@@ -153,9 +154,10 @@ Version 5.0 Breaking Changes
   ``BsonDecimal128.asNumber()`` returns the equivalent ``BsonNumber``.
 .. _java-breaking-changes-v5.0-list-collections:
 
-- This driver version breaks binary compatibility by adding a new
-  ``authorizedCollection`` option to the ``listCollections`` command. This
-  change does not require any changes to source code.
+- This driver version adds a new ``authorizedCollection`` option to the
+  ``listCollections`` command. This introduces a breaking binary compatibility
+  change in the ``MongoDatabase.listCollectionNames`` methods, meaning any code
+  using these methods must be recompiled. This change does not require any changes to source code.
 
 .. _java-breaking-changes-v4.8:
 

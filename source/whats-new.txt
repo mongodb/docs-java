@@ -66,21 +66,26 @@ The 5.0 driver release introduces the following features:
 
 - Changes to the ``ConnectionId`` class. To learn more, see the
   :ref:`Version 5.0 Breaking Changes <java-breaking-changes-v5.0>`.
-
-- A new ``authorizedCollections`` option has been added to the
-  ``listCollections`` command. It can be configured using the
-  ``MongoDatabase.listCollectionNames()`` method. This introduces a
-  :ref:`breaking change to the listCollections
   
-- The ``listCollections`` command has an ``authorizedCollections`` option. It can be configured using the
-  ``MongoDatabase.listCollectionNames()`` method. This introduces a :ref:`binary
-  breaking change to the listCollections
-  command<java-breaking-changes-v5.0-list-collections>`.
+- Changes to the ``com.mongodb.client.MongoDatabase.listCollectionNames()``
+  methods. The return type is now a
+  ``com.mongodb.client.ListCollectionNamesIterable`` type, while previously it
+  was a ``MongoIterable<String>``. This changes allows the return value to be
+  configured using the ``ListCollectionNamesIterable.authorizedCollections()``
+  method and specifying the ``authorizedCollections`` option. Equivalent changes
+  were made to following classes and interfaces:
 
-  For more information about ``authorizedCollections``, see the
+  - ``com.mongodb.reactivestreams.client.MongoDatabase``
+  - ``org.mongodb.scala.MongoDatabase``
+  - ``com.mongodb.kotlin.client.MongoDatabase``
+  - ``com.mongodb.kotlin.client.coroutine.MongoDatabase``
+
+  These changes introduce a :ref:` binary breaking change to the listCollections
+  command<java-breaking-changes-v5.0-list-collections>`. For more information
+  about the ``MongoDatabase.listCollectionNames()`` method and the
+  ``authorizedCollections`` option, see the
   :manual:`listCollections </reference/command/listCollections/>` server manual
-  page. For more information about the ``listCollectionNames()`` method, see the
-  :ref:`Database Collections<java-collection-names>` page.
+  page.
   
 .. _version-4.11:
 
