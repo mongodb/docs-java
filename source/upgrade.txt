@@ -164,7 +164,7 @@ Version 5.0 Breaking Changes
 - This driver version removes the `UnixServerAddress <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__
   methods ``getSocketAddress()`` and ``getUnixSocketAddress()``.
 
-  Instead of ``getSocketAddress()`` or ``getUnixSocketAddress()``, construct an instance of
+  Instead of ``getUnixSocketAddress()``, construct an instance of
   ``jnr.unixsocket.UnixSocketAddress``. Pass the full path of the UNIX
   socket file to the constructor. By default, MongoDB creates a UNIX
   socket file located at ``"/tmp/mongodb-27017.sock"``. To learn more
