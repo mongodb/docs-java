@@ -152,10 +152,11 @@ Version 5.0 Breaking Changes
   responding in the same way as ``Decimal128`` values. In particular,
   ``BsonDecimal128.isNumber()`` now returns ``true``, and
   ``BsonDecimal128.asNumber()`` returns the equivalent ``BsonNumber``.
+
 .. _java-breaking-changes-v5.0-list-collections:
 
-- This driver version adds a new ``authorizedCollection`` option to the
-  ``listCollections`` command. This introduces a breaking binary compatibility
+- This driver version adds support for a new ``authorizedCollection`` option of the
+  ``listCollectionsNames()`` method. This introduces a breaking binary compatibility
   change in the ``MongoDatabase.listCollectionNames()`` methods, meaning any
   code using these methods must be recompiled. This change does not require any
   changes to source code.

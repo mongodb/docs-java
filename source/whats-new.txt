@@ -70,7 +70,7 @@ The 5.0 driver release introduces the following features:
 - Changes to the ``com.mongodb.client.MongoDatabase.listCollectionNames()``
   methods. The return type is now a
   ``com.mongodb.client.ListCollectionNamesIterable`` type, while previously it
-  was a ``MongoIterable<String>``. This changes allows the return value to be
+  was a ``MongoIterable<String>``. This change allows the return value to be
   configured using the ``ListCollectionNamesIterable.authorizedCollections()``
   method and specifying the ``authorizedCollections`` option. Equivalent changes
   were made to following classes and interfaces:
@@ -80,8 +80,8 @@ The 5.0 driver release introduces the following features:
   - ``com.mongodb.kotlin.client.MongoDatabase``
   - ``com.mongodb.kotlin.client.coroutine.MongoDatabase``
 
-  These changes introduce a :ref:` binary breaking change to the listCollections
-  command<java-breaking-changes-v5.0-list-collections>`. For more information
+  These changes introduce a :ref:` binary breaking change to the listCollectionsNames()
+  method<java-breaking-changes-v5.0-list-collections>`. For more information
   about the ``MongoDatabase.listCollectionNames()`` method and the
   ``authorizedCollections`` option, see the
   :manual:`listCollections </reference/command/listCollections/>` Server manual
