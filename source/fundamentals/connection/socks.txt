@@ -31,6 +31,15 @@ The proxy settings specify the SOCKS5 proxy server address and your
 authentication credentials. You can specify your settings in an instance of
 ``MongoClientSettings`` or in your connection string.
 
+.. important::
+   
+   The driver ignores the proxy settings if either of the following are true:
+   
+   - A Unix domain socket handles the communication.
+     For more information, see the `UnixServerAddress class description <{+api+}/apidocs/mongodb-driver-core/com/mongodb/UnixServerAddress.html>`__.
+   - ``TransportSettings`` are configured.
+     For more information, see the `TransportSettings class description <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__.
+
 The following table describes the SOCKS5 client options:
 
 .. list-table::
