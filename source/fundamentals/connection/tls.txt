@@ -278,8 +278,9 @@ provided by Netty.
 
    The driver tests with Netty version ``{+nettyVersion+}``
 
-See the method documentation for details about the different `io.netty.handler.ssl.SslProvider <https://netty.io/4.1/api/io/netty/handler/ssl/SslProvider.html>`__
-variants the driver supports and the implications of using them.
+To instruct the driver to use `com.mongodb.MongoClientSettings.Builder.transportSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#transportSettings(com.mongodb.connection.TransportSettings)>`__,
+use the `com.mongodb.connection.NettyTransportSettings.Builder.sslContext <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/NettyTransportSettings.Builder.html#sslContext(io.netty.handler.ssl.SslContext)>`__
+method. See the method documentation for details about the different `io.netty.handler.ssl.SslProvider <https://netty.io/4.1/api/io/netty/handler/ssl/SslProvider.html>`__
 
 .. code-block:: java
    :copyable: true
@@ -290,7 +291,8 @@ variants the driver supports and the implications of using them.
    MongoClientSettings settings = MongoClientSettings.builder()
            .applyToSslSettings(builder -> builder.enabled(true))
            .transportSettings(TransportSettings.nettyBuilder()
-            .sslContext(sslContext).build())
+                              .sslContext(sslContext)
+                              .build())
            .build();
    MongoClient client = MongoClients.create(settings);
 
