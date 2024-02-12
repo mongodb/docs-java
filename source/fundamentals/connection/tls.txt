@@ -283,13 +283,14 @@ To instruct the driver to use
 configure
 `NettyTransportSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/NettyTransportSettings.html>`__
 when you define your `MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__.
-Use `NettyTransportSettings.Builder.sslContext <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/NettyTransportSettings.Builder.html#sslContext(io.netty.handler.ssl.SslContext)>`__
-and
-`MongoClientSettings.Builder.transportSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#transportSettings(com.mongodb.connection.TransportSettings)>`__,
-respectively:
+Use `MongoClientSettings.Builder.transportSettings
+<{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#transportSettings(com.mongodb.connection.TransportSettings)>`__
+and `NettyTransportSettings.Builder.sslContext
+<{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/NettyTransportSettings.Builder.html#sslContext(io.netty.handler.ssl.SslContext)>`__
+to build your settings:
 
 .. code-block:: java
-   :emphasize-lines: 6-8
+   :emphasize-lines: 3-8
    :copyable: true
 
    SslContext sslContext = SslContextBuilder.forClient()
