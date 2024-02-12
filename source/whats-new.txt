@@ -42,22 +42,11 @@ What's New in 5.0
 
 .. warning:: Breaking Changes in v5.0
 
-   This driver version introduces breaking changes. For a list of these changes, see 
-   the :ref:`Version 5.0 Breaking Changes section <java-breaking-changes-v5.0>` in the 
-   Upgrade guide.
+  This driver version introduces breaking changes. For a list of these changes, see 
+  the :ref:`Version 5.0 Breaking Changes section <java-breaking-changes-v5.0>` in the 
+  Upgrade guide.
 
 The 5.0 driver release introduces the following features:
-
-- Consistent computation of the ``ClusterConnectionMode`` type after
-  instantiating a ``ClusterSettings``. The connection mode defaults to
-  ``SINGLE`` if you specify one host and do not specify a replica set
-  name, or it defaults to ``MULTIPLE`` if you specify more than one
-  host.
-
-- ``BsonDecimal128`` values respond to method calls in the same way as Java
-  ``Decimal128`` values. In particular, the error responses for the
-  ``isNumber()`` and ``asNumber()`` methods match the Java responses for
-  equivalent ``Decimal128`` values.
 
 - The ``getElapsedTime()`` method on ``com.mongodb.event.ConnectionReadyEvent``
   includes the time taken to deliver the ``ConnectionCreatedEvent``. That is,
@@ -75,6 +64,29 @@ The 5.0 driver release introduces the following features:
   This relates to a :ref:`breaking change about Observables in this version
   <java-breaking-changes-v5.0-observables>`.
 
+- Changes to the ``ConnectionId`` class. To learn more, see the
+  :ref:`Version 5.0 Breaking Changes <java-breaking-changes-v5.0>`.
+  
+- Changes to the ``com.mongodb.client.MongoDatabase.listCollectionNames()``
+  methods. The return type is now a
+  ``com.mongodb.client.ListCollectionNamesIterable`` type, while previously it
+  was a ``MongoIterable<String>``. This change allows the return value to be
+  configured using the ``ListCollectionNamesIterable.authorizedCollections()``
+  method and specifying the ``authorizedCollections`` option. Equivalent changes
+  were made to following classes and interfaces:
+
+  - ``com.mongodb.reactivestreams.client.MongoDatabase``
+  - ``org.mongodb.scala.MongoDatabase``
+  - ``com.mongodb.kotlin.client.MongoDatabase``
+  - ``com.mongodb.kotlin.client.coroutine.MongoDatabase``
+
+  These changes introduce a :ref:`binary breaking change to the listCollectionsNames()
+  method <java-breaking-changes-v5.0-list-collections>`. For more information
+  about the ``MongoDatabase.listCollectionNames()`` method and the
+  ``authorizedCollections`` option, see the
+  :manual:`listCollections </reference/command/listCollections/>` Server manual
+  page or :ref:`java-collection-names`.
+  
 .. _version-4.11:
 
 What's New in 4.11
@@ -293,10 +305,10 @@ What's New in 4.8
 
 .. important:: Deprecation Notice
 
-   The ``IterableCodec`` and ``MapCodec`` classes are deprecated. Instead,
-   use ``CollectionCodec`` and ``MapCodecV2``.
-   These support any class that implements ``Collection`` or
-   ``Map``.
+   The ``MapCodec`` and ``IterableCodec`` classes are deprecated.
+   Instead of ``MapCodec``, use ``MapCodecProvider``. Instead of ``IterableCodec``,
+   use ``CollectionCodecProvider``, or ``IterableCodecProvider`` for ``Iterable``
+   types that aren't ``Collection`` types.
 
 Behavioral changes with the 4.8 driver release include:
 
