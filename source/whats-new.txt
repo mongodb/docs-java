@@ -40,11 +40,16 @@ Learn what's new in:
 What's New in 5.0
 -----------------
 
-.. warning:: Breaking Changes in v5.0
+.. warning:: Breaking changes in this release
 
   This driver version introduces breaking changes. For a list of these changes, see 
   the :ref:`Version 5.0 Breaking Changes section <java-breaking-changes-v5.0>` in the 
   Upgrade guide.
+
+.. warning:: Deprecations in this release
+
+   To avoid breaking changes in future major releases of the driver,
+   replace any application code that depends on deprecated program elements.
 
 This section includes the following information:
 
@@ -58,6 +63,9 @@ Deprecations in 5.0
 ~~~~~~~~~~~~~~~~~~~~
 
 - The ``org.mongodb.scala.Observable.completeWithUnit()`` method is deprecated.
+  This method is not useful anymore because
+  the driver now exposes ``org.mongodb.scala.Observable[Unit]``
+  instead of ``org.mongodb.scala.Observable[Void]``.
   This relates to a :ref:`breaking change about Observables in this version
   <java-breaking-changes-v5.0-observables>`.
 
