@@ -96,7 +96,7 @@ The 5.0 driver release introduces the following features:
 - Adds support for the ``authorizedCollection`` option of
   the ``listCollections`` command. This was done by changing the
   ``com.mongodb.client.MongoDatabase.listCollectionNames()`` methods.
-  The return type is now a ``com.mongodb.client.ListCollectionNamesIterable`` type,
+  The return type is now ``com.mongodb.client.ListCollectionNamesIterable``,
   while previously it was a ``MongoIterable<String>``.
   This change allows the return value to be
   configured using the ``ListCollectionNamesIterable.authorizedCollections()``
