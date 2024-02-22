@@ -91,7 +91,7 @@ mechanism:
 
       To specify the default authentication mechanism using a connection
       string, omit the mechanism. Your code to instantiate a ``MongoClient``
-      should look something like this:
+      should resemble the following:
 
       .. code-block:: java
 
@@ -102,7 +102,7 @@ mechanism:
 
       To specify the default authentication mechanism using the
       ``MongoCredential`` class, use the ``createCredential()`` method. Your
-      code to instantiate a ``MongoClient`` should look something like this:
+      code to instantiate a ``MongoClient`` should resemble the following:
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-default.rst
 
@@ -153,7 +153,7 @@ mechanism:
       To specify the ``SCRAM-SHA-256`` authentication mechanism using a
       connection string, assign the ``authMechanism`` parameter the value
       ``SCRAM-SHA-256`` in your connection string. Your code to instantiate
-      a ``MongoClient`` should look something like this:
+      a ``MongoClient`` should resemble the following:
 
       .. code-block:: java
 
@@ -165,7 +165,8 @@ mechanism:
       To specify the default authentication mechanism using the
       ``MongoCredential`` class, use the
       `createScramSha256Credential() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#createScramSha256Credential(java.lang.String,java.lang.String,char[])>`__
-      method. Your code to instantiate a ``MongoClient`` should look something like this:
+      method. Your code to instantiate a ``MongoClient`` should resemble
+      the following:
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-sha256.rst
 
@@ -210,7 +211,7 @@ mechanism:
       To specify the ``SCRAM-SHA-1`` authentication mechanism using a
       connection string, assign the ``authMechanism`` parameter the value
       ``SCRAM-SHA-1`` in your connection string. Your code to instantiate
-      a ``MongoClient`` should look something like this:
+      a ``MongoClient`` should resemble the following:
 
       .. code-block:: java
 
@@ -222,7 +223,7 @@ mechanism:
       To specify the default authentication mechanism using the
       ``MongoCredential`` class, use the
       `createScramSha1Credential() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#createScramSha1Credential(java.lang.String,java.lang.String,char[])>`__
-      method. Your code to instantiate a ``MongoClient`` should look something like this:
+      method. Your code to instantiate a ``MongoClient`` should resemble the following:
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-sha1.rst
 
@@ -550,7 +551,7 @@ mechanism:
       string, assign the ``authMechanism`` parameter the value ``MONGODB-X509``
       and enable TLS by assigning the ``tls``
       parameter a ``true`` value. Your code to instantiate a ``MongoClient``
-      should look something like this:
+      should resemble the following:
 
       .. code-block:: java
 
@@ -566,7 +567,8 @@ mechanism:
       `applyToSslSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToSslSettings(com.mongodb.Block)>`__
       method and setting the ``enabled`` property to ``true`` in the
       `SslSettings.Builder <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/SslSettings.Builder.html>`__
-      block. Your code to instantiate a ``MongoClient`` should look something like this:
+      block. Your code to instantiate a ``MongoClient`` should resemble
+      the following:
 
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-x509.rst
 

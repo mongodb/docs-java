@@ -198,8 +198,8 @@ behavior of a ``ClassModel`` or ``PropertyModel``. You can specify a
 
 .. note::
 
-   The builders apply ``Convention`` instances in order which may override
-   behavior defined in one applied earlier.
+   The builders apply ``Convention`` instances in order which can override
+   the behavior defined in one applied earlier.
 
 You can access the ``Convention`` instances defined in the BSON library
 from the following static fields in the ``Conventions`` class:
@@ -610,7 +610,7 @@ following code:
 
 If you insert a POJO that contains a value greater than 29 in the ``age``
 field, the serialized document omits it. The POJO declaration and
-resulting document could look something like this:
+resulting document resemble the following:
 
 .. code-block:: java
 
@@ -622,7 +622,7 @@ resulting document could look something like this:
        );
 
 Since the ``age`` field value is greater than 29, the serialized document
-should look something like this:
+should resemble the following:
 
 .. code-block:: json
    :copyable: false

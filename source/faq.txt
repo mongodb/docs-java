@@ -149,7 +149,7 @@ use as they are returned to the pool.
 How do I prevent the "java.lang.NoClassDefFoundError: com/mongodb/MongoClient" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You may encounter a ``java.lang.NoClassDefFoundError`` exception when your
+You might encounter a ``java.lang.NoClassDefFoundError`` exception when your
 Java runtime environment cannot locate a class file at runtime. When you
 attempt to run application code that uses the {+driver-long+}, you must include
 the appropriate driver JAR files on the classpath.
@@ -166,7 +166,7 @@ your classpath, check the following items in your environment:
 .. tip::
 
    This error contains the package and class name, which can help you identify
-   which driver JAR may be missing from your classpath. To locate the
+   which driver JAR might be missing from your classpath. To locate the
    driver JAR that the error refers to, check each of the entries in the
    :ref:`API documentation <java-api-landing>`.
 
@@ -241,7 +241,7 @@ To learn more about the available builders classes, see the :ref:`<java-builders
 How do I prevent the "IllegalStateException: state should be: open" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You may encounter this exception if you call an operation on a ``MongoClient``
+You might encounter this exception if you call an operation on a ``MongoClient``
 instance that closed its connections to MongoDB. Once the ``close()`` method
 is called on the ``MongoClient``, any further operation calls on that instance
 throw this exception.
@@ -251,7 +251,7 @@ after any code that calls ``close()`` on it.
 
 .. tip::
 
-   The code that closes the ``MongoClient`` instance may be difficult to
+   The code that closes the ``MongoClient`` instance might be difficult to
    locate in certain cases. To locate potential sources of this exception,
    search for the following cases:
 
@@ -405,7 +405,7 @@ Imagine we are connecting to a collection that contains only this document:
          :start-after: start current-api-example
          :end-before: end current-api-example
 
-The output of the preceding code snippet should look like this:
+The output of the preceding code snippet should resemble the following:
 
 .. code-block:: json
    :copyable: false
