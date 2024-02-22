@@ -134,7 +134,7 @@ Ascending
 
 To specify an ascending sort, use the ``Sorts.ascending()`` static
 factory method. Pass the ``Sorts.ascending()`` method
-the name of the field you need to sort in ascending order.
+the name of the field to sort on in ascending order.
 
 You can pass the ``sort()`` method the output of the ``Sorts.ascending()``
 method to specify an ascending sort on a field as follows:
@@ -167,7 +167,7 @@ by the ``_id`` field:
          System.out.println(result.toJson());
    }
 
-The output of the preceding code example should resemble the following: 
+The output of the preceding code resembles the following:
 
 .. code-block:: json
    :copyable: false
@@ -181,7 +181,8 @@ Descending
 ~~~~~~~~~~
 
 To specify a descending sort, use the ``Sorts.descending()`` static factory
-method. Pass the ``Sorts.descending()`` method the name of the field you need to sort in descending order.
+method. Pass the ``Sorts.descending()`` method the name of the field to
+sort on in descending order.
 
 The following code snippet shows how to specify a descending sort on the
 ``_id`` field: 
@@ -237,7 +238,7 @@ in any order:
    {"_id": 5, "letter": "a", "food": "milk and cookies"}
    {"_id": 2, "letter": "a", "food": "donuts and coffee"}
 
-If you need to guarantee a specific sort order for documents that have fields
+If you must guarantee a specific sort order for documents that have fields
 with identical values, you can specify additional fields to sort on in the event
 of a tie.
 
@@ -363,7 +364,7 @@ The code example performs the following actions:
          System.out.println(result.toJson());
    }
 
-The output of the preceding code example should resemble the following: 
+The output of the preceding code resembles the following:
 
 .. code-block:: json
    :copyable: false
@@ -375,7 +376,7 @@ The output of the preceding code example should resemble the following:
 .. note:: Text Search Behavior in MongoDB 4.4 or Later
 
    The structure of text search has changed for MongoDB 4.4 or later. You no
-   longer need to project ``Projections.metaTextScore()`` into your
+   longer project ``Projections.metaTextScore()`` into your
    ``FindIterable`` instance in order to sort on the text score. In addition,
    the field name you specify in a ``$meta`` text score aggregation operation
    used in a sort is ignored. This means that the field name argument you pass

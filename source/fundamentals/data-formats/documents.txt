@@ -162,7 +162,7 @@ data from the collection using the following code:
    You can call the ``get()`` method specified by the ``Map`` interface
    to retrieve field values as type ``Object`` and to skip type checking.
 
-The output should resemble the following:
+The output of the preceding code resembles the following:
 
 .. code-block:: none
    :copyable: false
@@ -186,7 +186,7 @@ BsonDocument
 ------------
 
 The ``BsonDocument`` class provides a type-safe API to access and manipulate
-a BSON document. You need to specify the BSON type from the Java BSON
+a BSON document. You must specify the BSON type from the Java BSON
 library for each field. See the following table for mappings between
 frequently-used BSON and Java BSON library types:
 
@@ -278,7 +278,7 @@ data from the collection using the following code:
    ``Map`` interface to retrieve field values as type ``BsonValue`` and
    to skip type checking.
 
-The output should resemble the following:
+The output of the preceding code resembles the following:
 
 .. code-block:: none
    :copyable: false
@@ -354,7 +354,7 @@ here is how to query your data using a ``JsonObject``:
        System.out.println("query result in extended json format: " + jsonResult.getJson());
    }
 
-The output should resemble the following:
+The output of the preceding code resembles the following:
 
 .. code-block:: none
    :copyable: false
@@ -403,7 +403,7 @@ The output should resemble the following:
           System.out.println("query result in relaxed json format: " + jsonResult.getJson());
       }
 
-   The output of this code should resemble the following:
+The output of the preceding code resembles the following:
 
    .. code-block:: none
       :copyable: false
@@ -432,7 +432,7 @@ because of the following limitations:
   cannot extend the API without breaking `binary compatibility <https://docs.oracle.com/javase/specs/jls/se7/html/jls-13.html#jls-13.2>`__.
   This means that if the interface was ever changed in a way that broke
   the binary compatibility, all applications and classes that use the
-  interface need to be recompiled to run the new version without errors.
+  interface must be recompiled to run the new version without errors.
 
 In the following code snippet, we show how to instantiate and build a sample
 ``BasicDBObject`` instance representing a document containing several
@@ -493,7 +493,7 @@ data from the collection using the following code:
    You can call the ``get()`` method to retrieve values as type
    ``Object`` and to skip type checking.
 
-The output should resemble the following:
+The output of the preceding code resembles the following:
 
 .. code-block:: none
    :copyable: false

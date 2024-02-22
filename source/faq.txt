@@ -32,13 +32,13 @@ introduced in Java 9.
 Which type of ``MongoClient`` should I use?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-New applications should generally use the
+New applications generally use the
 ``com.mongodb.client.MongoClient`` interface, which supports:
 
 - Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create instances of this interface via factory methods defined in the ``com.mongodb.client.MongoClients`` class.
 - CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``
 
-You should use the ``com.mongodb.MongoClient`` class if you require support for the legacy API, which supports:
+Use the ``com.mongodb.MongoClient`` class if you require support for the legacy API, which supports:
 
 - Configuration with ``MongoClientOptions`` and ``MongoClientURI``
 - CRUD API using ``DB``, and from there, ``DBCollection``.  You can access this API via the ``getDB()`` method.
@@ -346,7 +346,7 @@ For example, the following methods throws an exception during encoding:
 How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for class X."?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This exception means you need to register a codec for the class since
+This exception means you must register a codec for the class since
 there is none at the moment.
 
 How do I specify the collection name for a particular POJO class? Is there an annotation?
@@ -405,7 +405,7 @@ Imagine we are connecting to a collection that contains only this document:
          :start-after: start current-api-example
          :end-before: end current-api-example
 
-The output of the preceding code snippet should resemble the following:
+The output of the preceding code snippet resembles the following:
 
 .. code-block:: json
    :copyable: false

@@ -42,7 +42,7 @@ imports in your code:
    import static com.mongodb.client.model.mql.MqlValues.*;
    import static java.util.Arrays.asList;
 
-To access document fields in an expression, you need to reference the
+To access document fields in an expression, you must reference the
 current document being processed by the aggregation pipeline. Use the
 ``current()`` method to refer to this document. To access the value of a
 field, you must use the appropriately typed method, such as
@@ -196,7 +196,7 @@ expected parameters and implementation.
 .. important::
 
    The driver does not provide methods for all aggregation pipeline operators in
-   the Query API. If you need to use an unsupported operation in an
+   the Query API. If you must use an unsupported operation in an
    aggregation, you must define the entire expression using the BSON ``Document``
    type. To learn more about the ``Document`` type, see :ref:`<fundamentals-documents>`.
 
@@ -389,7 +389,7 @@ with ``lt()``. The ``project()`` method stores these filtered results as a new
 .. tip::
 
    You must specify the type of the array that you retrieve with the
-   ``getArray()`` method if you need to work with the values of the
+   ``getArray()`` method if you work with the values of the
    array as their specific type.
 
    In this example, we specify that the ``seats`` array contains values
@@ -670,7 +670,7 @@ into custom static methods.
 
      - *No corresponding operator*
 
-Suppose you need to determine how a class is performing against some
+Suppose you want to determine how a class is performing against some
 benchmarks. You want to find the average final grade for each class and
 compare it against the benchmark values.
 
@@ -858,7 +858,7 @@ using the methods described in this section.
    * - `year() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlDate.html#year(com.mongodb.client.model.mql.MqlString)>`__
      - :manual:`$year </reference/operator/aggregation/year/>`
 
-Suppose you have data about package deliveries and need to match
+Suppose you have data about package deliveries and want to match
 deliveries that occurred on any Monday in the ``"America/New_York"`` time
 zone.
 
@@ -1125,7 +1125,7 @@ using the methods described in this section.
    * - `toUpper() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/mql/MqlString.html#toUpper()>`__
      - :manual:`$toUpper </reference/operator/aggregation/toUpper/>`
 
-Suppose you need to generate lowercase usernames for employees of a
+Suppose you want to generate lowercase usernames for employees of a
 company from the employees' last names and employee IDs.
 
 The ``append()`` method combines the ``firstName`` and ``lastName`` fields into

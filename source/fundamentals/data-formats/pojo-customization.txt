@@ -29,11 +29,11 @@ and :ref:`Annotations <annotations>` to specify common serialization actions.
 See the section on :ref:`Discriminators <pojo-discriminators>` if you want to
 serialize multiple POJO classes to documents in the same collection.
 
-If you need to implement conditional serialization, or if you need to use
+If you must implement conditional serialization or use
 enums, generics, interface types, or abstract types, see the section on
 :ref:`Advanced Configuration <pojo-advanced-configuration>`.
 
-If you only need to use the predefined behavior to convert data between
+If you are only using the predefined behavior to convert data between
 BSON and POJOs, you can use the **automatic** setting for the
 ``PojoCodecProvider`` shown in the :doc:`Document Data Formats: POJOs guide </fundamentals/data-formats/document-data-format-pojo>`.
 
@@ -621,8 +621,8 @@ resulting document resemble the following:
            LocalDateTime.of(2021, Month.JANUARY, 18, 30, 0)
        );
 
-Since the ``age`` field value is greater than 29, the serialized document
-should resemble the following:
+Since the ``age`` field value is greater than 29, the serialized
+document resembles the following:
 
 .. code-block:: json
    :copyable: false
