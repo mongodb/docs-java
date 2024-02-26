@@ -97,7 +97,7 @@ GeoJSON data to a ``2dsphere`` index. The following snippet creates a
    // <MongoCollection setup code here>
    collection.createIndex(Indexes.geo2dsphere("location.geo"));
 
-For more information on the ``Indexes`` builder, see our 
+For more information about the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`.
 
 .. guide resource
@@ -130,10 +130,10 @@ legacy coordinate pairs to  a ``2d`` index. The following snippet creates a
    // <MongoCollection setup code here>
    collection.createIndex(Indexes.geo2d("coordinates"));
 
-For more information on the ``Indexes`` builder, see our 
+For more information about the ``Indexes`` builder, see our 
 :doc:`guide on the Indexes builder </fundamentals/builders/indexes>`. 
    
-For more information on legacy coordinate pairs, see the
+For more information about legacy coordinate pairs, see the
 :manual:`{+mdb-server+} manual page on legacy coordinate pairs </geospatial-queries/#legacy-coordinate-pairs>`.
 
 .. external resource
@@ -167,12 +167,12 @@ You can specify these query operators in the MongoDB Java driver with the
 ``near()``, ``geoWithin()``, ``nearSphere()``, and ``geoIntersects()`` utility
 methods of the ``Filters`` builder class.
 
-For more information on geospatial query operators, see the
+For more information about geospatial query operators, see the
 :manual:`manual entry for geospatial queries </geospatial-queries/#geospatial-query-operators>`.
 
 .. external resource
 
-For more information on ``Filters``, see our 
+For more information about ``Filters``, see our 
 :doc:`guide on the Filters builder </fundamentals/builders/filters>`.  
 
 Query Parameters
@@ -254,10 +254,10 @@ The output of the preceding code resembles the following:
    :manual:`same reference system </reference/glossary/#std-term-WGS84>`
    as GPS satellites to calculate geometries over the Earth.
 
-For more information on the ``$near`` operator, see  
+For more information about the ``$near`` operator, see  
 :manual:`the reference documentation for $near </reference/operator/query/near/#mongodb-query-op.-near>`.
 
-For more information on ``Filters``,
+For more information about ``Filters``,
 :doc:`see our guide on the Filters builder </fundamentals/builders/filters>`.
 
 Query Within a Range
@@ -295,12 +295,12 @@ the movie theaters returned by our query.
 .. figure:: /includes/figures/geo_geometry.png
    :alt: Area of Long Island we are searching for movie theaters
 
-For more information on the ``$geoWithin`` operator, see the
+For more information about the ``$geoWithin`` operator, see the
 :manual:`reference documentation for $geoWithin </reference/operator/query/geoWithin/>`
 
 .. external resource
 
-For more information on the operators you can use in your query, see the
+For more information about the operators you can use in your query, see the
 :manual:`{+mdb-server+} manual page on geospatial query operators </geospatial-queries/index.html>`
 
 .. external resource
