@@ -9,7 +9,7 @@ Driver Integrations
    :values: reference
 
 .. meta::
-   :keywords: java sync, third party
+   :keywords: java sync, third party, tools, frameworks
 
 .. contents:: On this page
    :local:
@@ -20,8 +20,8 @@ Driver Integrations
 Overview
 --------
 
-On this page, you can learn about the tools and frameworks available for integration
-with the {+driver-short+}.
+On this page, you can learn about using tools and frameworks together
+with the {+driver-short+} to develop applications.
 
 This page describes the following third-party integrations:
 
@@ -32,41 +32,35 @@ This page describes the following third-party integrations:
 .. TODO (add after JAVA-3580 is finished):
    - :ref:`graalvm-integration`
 
-.. note::
+.. important::
 
-   MongoDB does not own the tools included on this page.
+   The integrations on this page are not official MongoDB partners.
 
 .. _spring-framework:
 
 Spring Data
 -----------
 
-The `Spring <https://spring.io/>`__ Java framework offers flexible third-party libraries,
-streamlined code features, and performance improvements to facilitate application
-development.
+`Spring <https://spring.io/>`__ is a Java framework that offers infrastructure support
+for Java applications. Spring's modules enable aspect-oriented programming, authentication
+protocols, inversion of control, and other services to facilitate application development.
 
-Spring Data, a Spring umbrella project, focuses on database access for 
-Spring-powered applications. Several Spring Data features simplify data access, including
-a high-level interface for database interaction and database query generation.
+Spring Data provides map-reduce frameworks, cloud-based data services, and an access layer
+for relational and non-relational databases. To learn more about the Spring Data project and its
+features, see `Spring Data <https://spring.io/projects/spring-data>`__.
 
 Using Spring Data and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Spring Data MongoDB <https://spring.io/projects/spring-data-mongodb/>`__ is one of the
-modules included under the Spring Data umbrella. This module supports the use of MongoDB
-databases during Spring application development. Additionally, Spring Data MongoDB reduces
-the boilerplate code and MongoDB API knowledge required for MongoDB database access. The
-module offers the following features:
+`Spring Data MongoDB <https://spring.io/projects/spring-data-mongodb/>`__ allows you to access
+MongoDB databases by using a Spring-based programming model. For instructions on how to use
+Spring Data MongoDB to build an application and interact with MongoDB data, see the 
+`Accessing Data with MongoDB <https://spring.io/guides/gs/accessing-data-mongodb>`__ guide in
+the Spring documentation.
 
-- ``MongoTemplate`` helper class that implements the ``MongoOperation`` interface.
-  This interface provides methods such as ``find()``, ``insert()``, and ``update()``
-  to perform MongoDB operations.
-- Exception translation that allows for custom, portable exception handling code
-  without losing error information provided by the {+driver-long+}.
-- Converter, called ``MappingMongoConverter``, to map domain objects to MongoDB documents.
-  You can also write a custom converter.
-- ``GridFsOperations`` and ``ReactiveGridFsOperations`` interfaces for accessing
-  the GridFS filesystem.
+You can use Spring Data MongoDB's template API to perform CRUD operations on MongoDB data.
+Additionally, the MongoDB converter allows you to map domain objects to MongoDB documents,
+and the GridFS template provides access to MongoDB's GridFS filesystem. 
 
 To learn more about Spring Data MongoDB and its features, see the `Spring Data MongoDB
 <https://spring.io/projects/spring-data-mongodb/>`__ project overview.
@@ -76,54 +70,42 @@ To learn more about Spring Data MongoDB and its features, see the `Spring Data M
 Quarkus
 -------
 
-`Quarkus <https://quarkus.io/>`__, a Java framework, aims to leverage the functionality of
-`Kubernetes <https://kubernetes.io/>`__ to create lightweight applications. Much like the
-Spring framework described in the :ref:`spring-framework` section of this page, Quarkus
-offers improved code efficiency and builds on a range of third-party libraries.
-Quarkus also supports a variety of application styles, including HTTP microservices,
-reactive applications, and serverless functions.
+The `Quarkus <https://quarkus.io/>`__ Java framework supports the development of microservices
+and serverless systems. Quarkus is native to `Kubernetes <https://kubernetes.io/>`__, a platform
+that manages the deployment of containerized applications.
+
+Quarkus' features include an interactive developer interface, live coding, and container-first application
+development that reduces the memory usage of Java applications.
 
 Using Quarkus and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quarkus offers the ``quarkus-mongodb-client`` extension to connect to MongoDB. This
-extension allows you to create a Quarkus application that configures a MongoDB ``Client``
-instance and interacts with data stored in MongoDB.
+Quarkus provides a MongoDB client for MongoDB data access. For instructions on how to use
+the ``quarkus-mongodb-client`` extension to connect to MongoDB, see the `Using the MongoDB Client
+<https://quarkus.io/guides/mongodb>`__ guide in the Quarkus documentation.
 
-Additionally, you can install the ``quarkus-mongodb-panache`` extension to further
-simplify MongoDB database interactions. This extension wraps the ``quarkus-mongodb-client``
-extension and the {+driver-short+}. After installing ``quarkus-mongodb-panache``, you
-can create compact Panache entities to represent MongoDB documents. Several annotations,
-including ``@MongoEntity``, ``@BsonProperty``, and ``@BsonIgnore``, allow for
-customized mapping between entities and MongoDB documents.
+Use the MongoDB client extension to access the following features:
 
-For details and instructions on using these extensions, see the following Quarkus guides:
+- CRUD operation methods, such as ``find()`` and ``insertOne()``
+- Automatic translation of domain objects to MongoDB documents by using the BSON Codec
+- Customized domain object mapping by using the POJO Codec
 
-- `Using the MongoDB Client <https://quarkus.io/guides/mongodb>`__
-- `Simplified MongoDB with Panache <https://quarkus.io/guides/mongodb-panache>`__
+You can also install the ``quarkus-mongodb-panache`` extension to further simplify MongoDB
+database interactions. For details and instructions on using this extension, see the
+`Simplified MongoDB with Panache <https://quarkus.io/guides/mongodb-panache>`__ guide in the
+Quarkus documentation.
 
 .. TODO (after JAVA-3580):
   .. _graalvm-integration:
-  GraalVM
-  -------
-  `GraalVM <https://www.graalvm.org/>`__ is a JDK distribution that uses an ahead-of-time
-  compiler, Graal, to compile Java applications into native executables. These executables
-  include only the code required at runtime. Consequently, GraalVM allows your application
-  to run faster, use fewer resources, and reduce its deployment cost. 
-
-..
-  Using GraalVM and MongoDB
-  ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _micronaut-framework:
 
 Micronaut
 ---------
 
-The `Micronaut <https://micronaut.io/>`__ framework allows you to create efficient JVM
-applications. Designed for creating server-side microservices, Micronaut aims to
-decrease application startup time and memory usage. The framework reduces code reflection
-to achieve these performance improvements.
+`Micronaut <https://micronaut.io/>`__ is a framework that focuses on server-side microservice
+development. Micronaut reduces code reflection, which allows for performance improvements such as
+decreased application startup time and memory usage.
 
 Key features of the Micronaut framework include aspect-oriented programming, inversion
 of control, and automatic code configuration.
@@ -131,15 +113,16 @@ of control, and automatic code configuration.
 Using Micronaut and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can create a Micronaut application that interacts with MongoDB. To create this
-type of application, use the ``data-mongodb`` or ``data-mongodb-async`` feature. For
-instructions on specifying these features and creating a MongoDB-backed Micronaut application,
-see the `Micronaut Data MongoDB <https://micronaut-projects.github.io/micronaut-data/latest/guide/#mongo>`__
-guide.
+You can create a Micronaut application that interacts with MongoDB. For instructions on using
+the ``data-mongodb`` or ``data-mongodb-async`` feature to create a MongoDB-backed Micronaut application, see the
+`Micronaut Data MongoDB <https://micronaut-projects.github.io/micronaut-data/latest/guide/#mongo>`__
+guide in the Micronaut documentation.
 
-The integration of Micronaut and MongoDB relies on Micronaut's serialization library and
-BSON annotations. To access a MongoDB database from your application, you must create a class
-that represents a MongoDB collection. Then, use the ``@MappedEntity`` annotation before the class
-declaration. To learn more about this annotation, see the `MappedEntity
-<https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/annotation/MappedEntity.html>`__
-API documentation.
+Use BSON annotations and Micronaut's serialization library to manage MongoDB data from your
+Micronaut application. These features allow you to create POJOs that correspond to MongoDB documents,
+interfaces that map to MongoDB collections, and other custom mappings. For a full list of available
+annotations, see the `io.micronaut.data.annotation
+<https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/annotation/package-summary.html>`__
+package API documentation.
+
+
