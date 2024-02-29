@@ -53,18 +53,23 @@ non-relational databases. To learn more about the Spring Data project, see `Spri
 Using Spring Data and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Spring Data MongoDB <https://spring.io/projects/spring-data-mongodb/>`__ allows you to access
-MongoDB databases by using a Spring-based programming model. For instructions on using
-Spring Data MongoDB to build an application and interact with MongoDB, see the 
+`Spring Data MongoDB <https://spring.io/projects/spring-data-mongodb/>`__ enables you to access
+MongoDB databases by using a Spring-based programming model. 
+
+You can use Spring Data MongoDB's template API to perform the following actions:
+
+- Run CRUD operations on MongoDB data
+- Map domain objects to MongoDB documents using the MongoDB converter
+- Access MongoDB's GridFS filesystem using the GridFS template
+
+For instructions on using Spring Data MongoDB to build an application and interact with MongoDB, see the 
 `Accessing Data with MongoDB <https://spring.io/guides/gs/accessing-data-mongodb>`__ guide in
 the Spring documentation.
 
-You can use Spring Data MongoDB's template API to perform CRUD operations on MongoDB data.
-Additionally, the MongoDB converter allows you to map domain objects to MongoDB documents,
-and the GridFS template provides access to MongoDB's GridFS filesystem. 
+.. tip:: 
 
-To learn more about Spring Data MongoDB and its features, see the `Spring Data MongoDB
-<https://spring.io/projects/spring-data-mongodb/>`__ project overview.
+   To learn more about Spring Data MongoDB and its features, see the `Spring Data MongoDB
+   <https://spring.io/projects/spring-data-mongodb/>`__ project overview.
 
 .. _quarkus-framework:
 
@@ -72,7 +77,7 @@ Quarkus
 -------
 
 The `Quarkus <https://quarkus.io/>`__ Java framework supports the development of microservices
-and serverless systems. Quarkus is native to `Kubernetes <https://kubernetes.io/>`__, a platform
+and serverless applications. Quarkus is native to `Kubernetes <https://kubernetes.io/>`__, a platform
 that manages the deployment of containerized applications.
 
 Quarkus' features include an interactive developer interface, live coding, and container-first application
@@ -81,20 +86,24 @@ development that reduces the memory usage of Java applications.
 Using Quarkus and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quarkus provides a MongoDB client for MongoDB data access. For instructions on how to use
-the ``quarkus-mongodb-client`` extension to connect to MongoDB, see the `Using the MongoDB Client
-<https://quarkus.io/guides/mongodb>`__ guide in the Quarkus documentation.
+Quarkus provides a MongoDB client for MongoDB data access.
 
-Use the MongoDB client extension to access the following features:
+You can use the MongoDB client extension to access the following features:
 
 - CRUD operation methods, such as ``find()`` and ``insertOne()``
 - Automatic translation of domain objects to MongoDB documents by using the BSON Codec
 - Customized domain object mapping by using the POJO Codec
 
-You can also install the ``quarkus-mongodb-panache`` extension to further simplify MongoDB
-database interactions. For details and instructions on using this extension, see the
-`Simplified MongoDB with Panache <https://quarkus.io/guides/mongodb-panache>`__ guide in the
-Quarkus documentation.
+For instructions on how to use the ``quarkus-mongodb-client`` extension to connect to MongoDB,
+see the `Using the MongoDB Client <https://quarkus.io/guides/mongodb>`__ guide in the Quarkus
+documentation.
+
+.. tip::
+
+   You can also install the ``quarkus-mongodb-panache`` extension to further simplify MongoDB
+   database interactions. For details and instructions on using this extension, see the
+   `Simplified MongoDB with Panache <https://quarkus.io/guides/mongodb-panache>`__ guide in the
+   Quarkus documentation.
 
 .. TODO (after JAVA-3580):
   .. _graalvm-integration:
@@ -105,7 +114,7 @@ Micronaut
 ---------
 
 `Micronaut <https://micronaut.io/>`__ is a framework that focuses on server-side microservice
-development. Micronaut reduces code reflection, which allows for performance improvements such as
+development. Micronaut reduces code reflection, enabling performance improvements such as
 decreased application startup time and memory usage.
 
 Key features of the Micronaut framework include aspect-oriented programming, inversion
@@ -114,16 +123,20 @@ of control, and automatic code configuration.
 Using Micronaut and MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can create a Micronaut application that interacts with MongoDB. For instructions on using
-the ``data-mongodb`` or ``data-mongodb-async`` feature to create a MongoDB-backed Micronaut application, see the
-`Micronaut Data MongoDB <https://micronaut-projects.github.io/micronaut-data/latest/guide/#mongo>`__
+You can create a Micronaut application that interacts with MongoDB. 
+
+You can use BSON annotations and Micronaut's serialization library to manage MongoDB data from your
+Micronaut application. These features enable you to create POJOs that correspond to MongoDB documents,
+interfaces that map to MongoDB collections, and other custom mappings. 
+
+For instructions on using the ``data-mongodb`` or ``data-mongodb-async`` feature to create a MongoDB-backed
+Micronaut application, see the `Micronaut Data MongoDB <https://micronaut-projects.github.io/micronaut-data/latest/guide/#mongo>`__
 guide in the Micronaut documentation.
 
-Use BSON annotations and Micronaut's serialization library to manage MongoDB data from your
-Micronaut application. These features allow you to create POJOs that correspond to MongoDB documents,
-interfaces that map to MongoDB collections, and other custom mappings. For a full list of available
-annotations, see the `io.micronaut.data.annotation
-<https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/annotation/package-summary.html>`__
-package API documentation.
+.. tip::
+
+   For a full list of Micronaut's available annotations, see the `io.micronaut.data.annotation
+   <https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/annotation/package-summary.html>`__
+   package API documentation.
 
 
