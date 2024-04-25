@@ -19,6 +19,7 @@ What's New
 
 Learn what's new in:
 
+* :ref:`Version 5.1 <version-5.1>`
 * :ref:`Version 5.0 <version-5.0>`
 * :ref:`Version 4.11 <version-4.11>`
 * :ref:`Version 4.10 <version-4.10>`
@@ -34,6 +35,20 @@ Learn what's new in:
 * :ref:`Version 4.2 <version-4.2>`
 * :ref:`Version 4.1 <version-4.1>`
 * :ref:`Version 4.0 <version-4.0>`
+
+.. _version-5.1:
+
+What's New in 5.1
+-----------------
+
+.. _java-behavioral-changes-5.1:
+
+Behavioral Changes in 5.1
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- When a sharded cluster operation is unsuccessful, the {+driver-short+} avoids selecting
+  the same ``mongos`` server for operation retry attempts if other ``mongos`` servers are
+  available.
 
 .. _version-5.0:
 
