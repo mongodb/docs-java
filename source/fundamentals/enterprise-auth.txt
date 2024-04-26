@@ -335,9 +335,11 @@ see the corresponding syntax.
    .. tab:: MongoCredential
       :tabid: mongodb-azure-mongo-credential
 
-      Replace the ``<username>`` placeholder with the client ID of the Azure managed
-      identity, and replace the ``<resource>`` placeholder with the percent-encoded
-      application or service that the OIDC access token is intended for.
+      Replace the ``<username>`` placeholder with the client ID or application ID of the
+      Azure managed identity or enterprise application. Replace the ``<resource>``
+      placeholder with the application or service that the OIDC access token is intended for.
+      You must percent-encode the resource value
+      if it contains a comma (``,``), plus sign (``+``), or ampersand (``&``). 
       
       .. code-block:: java
 
@@ -383,8 +385,10 @@ see the corresponding syntax.
       :tabid: mongodb-gcp-mongo-credential
 
       Replace the ``<username>`` placeholder with the client ID of the GCP managed
-      identity, and replace the ``<resource>`` placeholder with the percent-encoded
+      identity. Replace the ``<resource>`` placeholder with the
       application or service that the OIDC access token is intended for.
+      You must percent-encode the resource value
+      if it contains a comma (``,``), plus sign (``+``), or ampersand (``&``). 
       
       .. code-block:: java
 
