@@ -409,9 +409,9 @@ your ``MongoCredential`` object to set the following options:
 
 - ``"ALLOWED_HOSTS"``: The list of allowed hostnames or IP addresses for MongoDB.
   The hostnames may include ``"*."`` as a leading wildcard, which allows for
-  matching subdomains. This property defaults to
-  ``["*.mongodb.net", "*.mongodb-qa.net", "*.mongodb-dev.net",
-  "*.mongodbgov.net", "localhost", "127.0.0.1", "::1"]``.
+  matching subdomains. By default, this property includes ``"*.mongodb.net"``,
+  ``"*.mongodb-qa.net"``, ``"*.mongodb-dev.net"``, ``"*.mongodbgov.net"``, ``"localhost"``,
+  ``"127.0.0.1"``, and ``"::1"``.
 - ``"OIDC_CALLBACK"``: The method that retrieves the OIDC token. This method must accept
   a ``context`` object as a parameter and return an ``OidcCallbackResult`` object.
 
