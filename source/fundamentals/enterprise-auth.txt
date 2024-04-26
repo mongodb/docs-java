@@ -383,7 +383,7 @@ see the corresponding syntax.
       .. code-block:: java
 
          MongoClient mongoClient = MongoClients.create(
-            "mongodb://<username>@<hostname>:<port>/?" +
+            "mongodb://<hostname>:<port>/?" +
             "authMechanism=MONGODB-OIDC" +
             "&authMechanismProperties=ENVIRONMENT:gcp,TOKEN_RESOURCE:<percent-encoded audience>");
 
