@@ -302,8 +302,9 @@ The following sections describe how to use the MONGODB-OIDC authentication mecha
 authenticate to various platforms.
 
 For more information about the MONGODB-OIDC authentication mechanism, see
-:manual:`OpenID Connect Authentication </core/security-oidc/>` in the MongoDB Server
-manual.
+:manual:`OpenID Connect Authentication </core/security-oidc/>` and
+:manual:`</reference/parameters/#mongodb-parameter-param.oidcIdentityProviders>`
+in the MongoDB Server manual.
 
 .. _java-mongodb-oidc-azure-imds:
 
@@ -325,27 +326,29 @@ see the corresponding syntax.
    .. tab:: Connection String
       :tabid: mongodb-azure-imds-connection-string
     
-      Replace the ``<resource>`` placeholder with the percent-encoded application or
-      service that the OIDC access token is intended for.
+      Replace the ``<percent-encoded audience>`` placeholder with the percent-encoded
+      value of the ``audience`` parameter configured on your MongoDB deployment.
      
       .. code-block:: java
          
-         MongoClient mongoClient = MongoClients.create("mongodb://<username>@<hostname>:<port>/?authMechanism=MONGODB-OIDC&authMechanismProperties=ENVIRONMENT:azure,TOKEN_RESOURCE:<resource>");
+         MongoClient mongoClient = MongoClients.create(
+            "mongodb://<username>@<hostname>:<port>/?" + 
+            "?authMechanism=MONGODB-OIDC" +
+            "&authMechanismProperties=ENVIRONMENT:azure,TOKEN_RESOURCE:<percent-encoded audience>");
 
    .. tab:: MongoCredential
       :tabid: mongodb-azure-mongo-credential
 
       Replace the ``<username>`` placeholder with the client ID or application ID of the
-      Azure managed identity or enterprise application. Replace the ``<resource>``
-      placeholder with the application or service that the OIDC access token is intended for.
-      You must percent-encode the resource value
-      if it contains a comma (``,``), plus sign (``+``), or ampersand (``&``). 
+      Azure managed identity or enterprise application. Replace the ``<audience>``
+      placeholder with the value of the
+      ``audience`` parameter configured on your MongoDB deployment.
       
       .. code-block:: java
 
          MongoCredential credential = MongoCredential.createOidcCredential("<username>")
-            .withMechanismProperty("TOKEN_RESOURCE", "<resource>")
             .withMechanismProperty("ENVIRONMENT", "azure");  
+            .withMechanismProperty("TOKEN_RESOURCE", "<audience>")
    
          MongoClient mongoClient = MongoClients.create(
              MongoClientSettings.builder()
@@ -374,27 +377,27 @@ see the corresponding syntax.
    .. tab:: Connection String
       :tabid: mongodb-gcp-imds-connection-string
     
-      Replace the ``<resource>`` placeholder with the percent-encoded application or
-      service that the OIDC access token is intended for.
+      Replace the ``<percent-encoded audience>`` placeholder with the percent-encoded
+      value of the ``audience`` parameter configured on your MongoDB deployment.
      
       .. code-block:: java
 
-         MongoClient mongoClient = MongoClients.create("mongodb://<username>@<hostname>:<port>/?authMechanism=MONGODB-OIDC&authMechanismProperties=ENVIRONMENT:gcp,TOKEN_RESOURCE:<resource>");
+         MongoClient mongoClient = MongoClients.create(
+            "mongodb://<username>@<hostname>:<port>/?" +
+            "authMechanism=MONGODB-OIDC" +
+            "&authMechanismProperties=ENVIRONMENT:gcp,TOKEN_RESOURCE:<percent-encoded audience>");
 
    .. tab:: MongoCredential
       :tabid: mongodb-gcp-mongo-credential
 
-      Replace the ``<username>`` placeholder with the client ID of the GCP managed
-      identity. Replace the ``<resource>`` placeholder with the
-      application or service that the OIDC access token is intended for.
-      You must percent-encode the resource value
-      if it contains a comma (``,``), plus sign (``+``), or ampersand (``&``). 
+      Replace the ``<audience>`` placeholder with the value of the
+      ``audience`` parameter configured on your MongoDB deployment.
       
       .. code-block:: java
 
-         MongoCredential credential = MongoCredential.createOidcCredential("<username>")
-            .withMechanismProperty("TOKEN_RESOURCE", "<resource>")
+         MongoCredential credential = MongoCredential.createOidcCredential()
             .withMechanismProperty("ENVIRONMENT", "gcp");  
+            .withMechanismProperty("TOKEN_RESOURCE", "<audience>")
    
          MongoClient mongoClient = MongoClients.create(
              MongoClientSettings.builder()
@@ -406,27 +409,30 @@ see the corresponding syntax.
 Custom Callback
 +++++++++++++++
 
-On some platforms, such as Azure Functions and Azure Kubernetes Service (AKS), you
-must define a custom callback method to use OIDC to authenticate. To use a custom
-callback to retrieve an OIDC token, call the ``withMechanismProperty()`` method on
-your ``MongoCredential`` object to set the following options:
-
-- ``"ALLOWED_HOSTS"``: The list of allowed hostnames or IP addresses for MongoDB.
-  The hostnames may include ``"*."`` as a leading wildcard, which allows for
-  matching subdomains. By default, this property includes ``"*.mongodb.net"``,
-  ``"*.mongodb-qa.net"``, ``"*.mongodb-dev.net"``, ``"*.mongodbgov.net"``, ``"localhost"``,
-  ``"127.0.0.1"``, and ``"::1"``.
-- ``"OIDC_CALLBACK"``: The method that retrieves the OIDC token. This method must accept
-  a ``context`` object as a parameter and return an ``OidcCallbackResult`` object.
-
-The following code example shows how to include
-a callback method in your ``MongoCredential`` object. In this example, the callback
-retrieves an OIDC token from a file named ``"access-token.dat"`` in the local file system.
+The {+driver-short+} doesn't offer built-in support for all platforms, including
+Azure Functions and Azure Kubernetes Service (AKS). Instead, you
+must define a custom callback to use OIDC to authenticate from these platforms.
+To do so, use the ``"OIDC_CALLBACK"`` authentication property, as shown in the following
+code example:
 
 .. code-block:: java
 
-   MongoCredential credential = new Credential()
-      .withMechanismProperty("ALLOWED_HOSTS", allowedHosts)
+   MongoCredential credential = MongoCredential.createOidcCredential(null)
+      .withMechanismProperty("OIDC_CALLBACK", (context) ->  {
+         ... 
+         return new OidcCallbackResult(...);
+      });
+
+The value of the ``"OIDC_CALLBACK"`` property must be a lambda or other implementation
+of the ``OidcCallback`` functional interface that accepts an ``OidcCallbackContext`` object
+as a parameter and returns an ``OidcCallbackResult`` object.
+
+The following example uses an example callback to retrieve an OIDC token from a file
+named ``"access-token.dat"`` in the local file system:
+
+.. code-block:: java
+
+   MongoCredential credential = MongoCredential.createOidcCredential(null)
       .withMechanismProperty("OIDC_CALLBACK", (context) ->  {
          string accessToken = new String(Files.readAllBytes(Paths.get("access-token.dat"));
          return new OidcCallbackResult(accessToken, 0);
