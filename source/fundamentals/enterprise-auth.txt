@@ -317,7 +317,7 @@ If your application runs on an Azure VM, or otherwise uses the
 support.
 
 You can specify Azure IMDS OIDC authentication either by 
-using a ``MongoCredential`` object or as part of the connection string. Select the 
+using a ``MongoCredential`` or as part of the connection string. Select the 
 :guilabel:`Connection String` or :guilabel:`MongoCredential` tab to
 see the corresponding syntax.
 
@@ -327,7 +327,7 @@ see the corresponding syntax.
       :tabid: mongodb-azure-imds-connection-string
     
       Replace the ``<percent-encoded audience>`` placeholder with the percent-encoded
-      value of the ``audience`` parameter configured on your MongoDB deployment.
+      value of the ``audience`` server parameter configured on your MongoDB deployment.
      
       .. code-block:: java
          
@@ -342,13 +342,13 @@ see the corresponding syntax.
       Replace the ``<username>`` placeholder with the client ID or application ID of the
       Azure managed identity or enterprise application. Replace the ``<audience>``
       placeholder with the value of the
-      ``audience`` parameter configured on your MongoDB deployment.
+      ``audience`` server parameter configured on your MongoDB deployment.
       
       .. code-block:: java
 
          MongoCredential credential = MongoCredential.createOidcCredential("<username>")
-            .withMechanismProperty("ENVIRONMENT", "azure");  
-            .withMechanismProperty("TOKEN_RESOURCE", "<audience>")
+            .withMechanismProperty("ENVIRONMENT", "azure")  
+            .withMechanismProperty("TOKEN_RESOURCE", "<audience>");
    
          MongoClient mongoClient = MongoClients.create(
              MongoClientSettings.builder()
@@ -368,7 +368,7 @@ you can authenticate to MongoDB by using {+driver-short+}'s built-in GCP
 support.
 
 You can specify GCP IMDS OIDC authentication either by 
-using a ``MongoCredential`` object or as part of the connection string. Select the 
+using a ``MongoCredential`` or as part of the connection string. Select the 
 :guilabel:`Connection String` or :guilabel:`MongoCredential` tab to
 see the corresponding syntax.
 
@@ -378,7 +378,7 @@ see the corresponding syntax.
       :tabid: mongodb-gcp-imds-connection-string
     
       Replace the ``<percent-encoded audience>`` placeholder with the percent-encoded
-      value of the ``audience`` parameter configured on your MongoDB deployment.
+      value of the ``audience`` server parameter configured on your MongoDB deployment.
      
       .. code-block:: java
 
@@ -391,13 +391,13 @@ see the corresponding syntax.
       :tabid: mongodb-gcp-mongo-credential
 
       Replace the ``<audience>`` placeholder with the value of the
-      ``audience`` parameter configured on your MongoDB deployment.
+      ``audience`` server parameter configured on your MongoDB deployment.
       
       .. code-block:: java
 
          MongoCredential credential = MongoCredential.createOidcCredential()
-            .withMechanismProperty("ENVIRONMENT", "gcp");  
-            .withMechanismProperty("TOKEN_RESOURCE", "<audience>")
+            .withMechanismProperty("ENVIRONMENT", "gcp")
+            .withMechanismProperty("TOKEN_RESOURCE", "<audience>");
    
          MongoClient mongoClient = MongoClients.create(
              MongoClientSettings.builder()
@@ -419,13 +419,13 @@ code example:
 
    MongoCredential credential = MongoCredential.createOidcCredential(null)
       .withMechanismProperty("OIDC_CALLBACK", (context) ->  {
-         ... 
-         return new OidcCallbackResult(...);
+         String accessToken = ...
+         return new OidcCallbackResult(accessToken);
       });
 
 The value of the ``"OIDC_CALLBACK"`` property must be a lambda or other implementation
-of the ``OidcCallback`` functional interface that accepts an ``OidcCallbackContext`` object
-as a parameter and returns an ``OidcCallbackResult`` object.
+of the ``OidcCallback`` functional interface that accepts an ``OidcCallbackContext``
+as a parameter and returns an ``OidcCallbackResult``.
 
 The following example uses an example callback to retrieve an OIDC token from a file
 named ``"access-token.dat"`` in the local file system:
@@ -435,7 +435,7 @@ named ``"access-token.dat"`` in the local file system:
    MongoCredential credential = MongoCredential.createOidcCredential(null)
       .withMechanismProperty("OIDC_CALLBACK", (context) ->  {
          string accessToken = new String(Files.readAllBytes(Paths.get("access-token.dat"));
-         return new OidcCallbackResult(accessToken, 0);
+         return new OidcCallbackResult(accessToken);
       });
 
    MongoClient mongoClient = MongoClients.create(
