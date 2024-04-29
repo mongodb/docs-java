@@ -41,6 +41,21 @@ Learn what's new in:
 What's New in 5.1
 -----------------
 
+.. warning:: Deprecations in this release
+
+   To avoid breaking changes in future major releases of the driver,
+   replace any application code that depends on deprecated program elements.
+
+.. _java-deprecations-5.1:
+
+Deprecations in 5.1
+~~~~~~~~~~~~~~~~~~~
+
+- Support for {+mdb-server+} v3.6 is deprecated and will be removed in the
+  next driver version release. To learn how to upgrade your {+mdb-server+}
+  deployment, see :manual:`Release Notes </release-notes>` in the {+mdb-server+}
+  manual.
+
 .. _java-behavioral-changes-5.1:
 
 Behavioral Changes in 5.1
@@ -48,7 +63,7 @@ Behavioral Changes in 5.1
 
 - When a sharded cluster operation is unsuccessful, the {+driver-short+} avoids selecting
   the same ``mongos`` server for operation retry attempts if other ``mongos`` servers are
-  available.
+  available.  
 
 .. _version-5.0:
 
