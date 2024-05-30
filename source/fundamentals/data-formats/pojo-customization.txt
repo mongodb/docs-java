@@ -289,7 +289,7 @@ package:
 
        .. seealso::
 
-          :ref:`BsonRepresentation Annotation Example <bsonrepresentation-annotation-code-example>`
+          :ref:`bsonrepresentation-annotation-code-example`
 
    * - ``BsonId``
      - Marks a property to serialize as the _id property.
@@ -453,8 +453,8 @@ BsonRepresentation Error Example
 The ``@BsonRepresentation`` annotation allows you to store a POJO class field
 as a different data type in your MongoDB database. The :ref:`Product POJO
 <bson-annotation-code-example>` code example in the :ref:`annotations` section
-of this page uses ``@BsonRepresentation`` to store ``serialNumber`` values as
-``ObjectId`` values in the database.
+of this page uses ``@BsonRepresentation`` to store ``String`` values as
+``ObjectId`` values in the database documents.
 
 However, using the ``@BsonRepresentation`` annotation to convert between data types other
 than ``String`` and ``ObjectId`` causes the following error message:
@@ -469,6 +469,7 @@ For example, the following code adds a ``purchaseDate`` field of type ``Long`` t
 values in the database:
 
 .. code-block:: java
+   :emphasize-lines: 9-10
 
    public class Product {
        @BsonProperty("modelName")
