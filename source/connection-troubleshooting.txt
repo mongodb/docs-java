@@ -236,8 +236,8 @@ request to a replica set without a primary:
 The error includes a view of the cluster state that describes the
 connection state of each node. In the preceding error, the only
 connected servers are secondary nodes, ``node02`` and ``node03``. Thus,
-the request timed out as MongoDB was unable to select a server that
-satisfied the read preference of ``primary``. In this situation, reads
+the request times out as MongoDB is unable to select a server that
+satisfies the read preference of ``primary``. In this situation, reads
 can still be sent to the connected secondary nodes if you set the read
 preference to ``secondary``, ``secondaryPreferred``, or ``nearest``.
 
