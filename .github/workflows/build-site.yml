@@ -1,0 +1,69 @@
+on: push
+name: Build site
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+      - name: Restore cache
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            *.cache.gz
+            snooty/
+          key: ${{runner.os}}-site-cache
+      - name: Install parser
+        run: |
+          curl -L -o snooty-parser.zip https://github.com/mongodb/snooty-parser/releases/download/v0.16.6/snooty-v0.16.6-linux_x86_64.zip
+          unzip -d /opt/ snooty-parser.zip
+      - name: Add env
+        run: echo "/opt/snooty" >> $GITHUB_PATH
+      - name: Run parser
+        run: snooty build . --output=./bundle.zip
+
+      - name: Install frontend
+        env:
+          NPM_BASE_64_AUTH: ${{secrets.NPM_AUTH}}
+          NPM_EMAIL: ${{secrets.NPM_EMAIL}}
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          git clone -b v0.16.14 --depth 1 https://github.com/mongodb/snooty.git 
+          echo GATSBY_MANIFEST_PATH=$(pwd)/bundle.zip >> ./snooty/.env.production
+          cd snooty                
+          npm ci --legacy-peer-deps
+          git clone --depth 1 https://github.com/mongodb/docs-tools.git
+          mkdir -p ./static/images
+          mv ./docs-tools/themes/mongodb/static ./static/docs-tools
+          mv ./docs-tools/themes/guides/static/images/bg-accent.svg ./static/docs-tools/images/bg-accent.svg
+      - name: Build HTML
+        run: |
+          cd snooty                
+          npm run build
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: "./snooty/public"
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+      - name: Create parser cache
+        run: snooty create-cache .
+      - name: Cache Snooty parser
+        id: cache-snooty-parser
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            *.cache.gz
+            snooty/
+          key: ${{ steps.cache.outputs.cache-primary-key }}
