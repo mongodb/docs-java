@@ -204,6 +204,43 @@ Consider setting ``maxConnectionLifeTime`` and
 maintains a connection to a MongoDB instance. For more information about these
 parameters, see :ref:`Connection Pool Settings <mcs-connectionpool-settings>`.
 
+.. _java-server-selection-errors:
+
+Server Selection Errors
+-----------------------
+
+MongoDB might not be able to complete a request even when some servers
+are available, causing the driver to return a server selection error.
+The following list describes some situations in which you
+might encounter a server selection error:
+
+- You use tag sets in a read preference specification when no server
+  with those tags exists.
+- You write to a replica set when the primary node is unavailable.
+
+This error is of type ``MongoTimeoutException``. The following code
+shows a sample of the exception that occurs if you attempt to send a
+request to a replica set without a primary:
+
+.. code-block:: none
+
+   com.mongodb.MongoTimeoutException: Timed out after 30000 ms while
+   waiting for a server that matches ReadPreferenceServerSelector{readPreference=primary}.
+
+   Client view of cluster state is {type=REPLICA_SET, servers=[
+     {address=node01:27017, type=UNKNOWN, state=DISCONNECTED},
+     {address=node02:27017, type=REPLICA_SET_SECONDARY, roundTripTime=..., state=CONNECTED},
+     {address=node03:27017, type=REPLICA_SET_SECONDARY, roundTripTime=..., state=CONNECTED}
+   ];
+
+The error includes a view of the cluster state that describes the
+connection state of each node. In the preceding error, the only
+connected servers are secondary nodes, ``node02`` and ``node03``. Thus,
+the request timed out as MongoDB was unable to select a server that
+satisfied the read preference of ``primary``. In this situation, reads
+can still be sent to the connected secondary nodes if you set the read
+preference to ``secondary``, ``secondaryPreferred``, or ``nearest``.
+
 .. _java-miscellaneous-errors:
 
 Miscellaneous Errors
