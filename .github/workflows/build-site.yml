@@ -47,7 +47,7 @@ jobs:
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: "./snooty/public"
-          alias: $${{github.ref_name}}
+          alias: ${{github.ref_name}}
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
