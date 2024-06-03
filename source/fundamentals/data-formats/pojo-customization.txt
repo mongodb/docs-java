@@ -465,8 +465,8 @@ than ``String`` and ``ObjectId`` causes the following error message:
    Codec must implement RepresentationConfigurable to support BsonRepresentation
 
 For example, the following code adds a ``purchaseDate`` field of type ``Long`` to the
-``Product`` POJO. This example attempts to represent ``Long`` values as ``DateTime``
-values in the database:
+``Product`` POJO. This example attempts to use ``@BsonRepresentation`` to represent ``Long``
+values as ``DateTime`` values in the database:
 
 .. code-block:: java
    :emphasize-lines: 9-10
@@ -493,7 +493,7 @@ convert the ``purchaseDate`` values from type ``Long`` to ``DateTime``:
    :start-after: start class
    :end-before: end class
 
-Then, you can add an instance of the ``LongCodec`` to your ``CodecRegistry``, which contains
+Then, add an instance of the ``LongCodec`` to your ``CodecRegistry``, which contains
 a mapping between your Codec and the Java object type to which it applies. For instructions
 on registering your custom Codec with the ``CodecRegistry``, see the :ref:`fundamentals-codecs`
 guide.
