@@ -135,7 +135,7 @@ API Documentation for more information.
 
 .. important:: Use a ``MAJORITY`` Write Concern
 
-   When storing files in a GridFS bucket, ensure that you use the default ``WriteConcern.MAJORITY``
+   When storing files in a GridFS bucket, ensure that you use the ``WriteConcern.MAJORITY``
    write concern. If you specify a different write concern, replica set elections that occur
    during a GridFS file upload might interrupt the upload process and cause some file chunks
    to be lost.
