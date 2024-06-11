@@ -336,6 +336,8 @@ see the corresponding syntax.
             "?authMechanism=MONGODB-OIDC" +
             "&authMechanismProperties=ENVIRONMENT:azure,TOKEN_RESOURCE:<percent-encoded audience>");
 
+      .. include:: /includes/fundamentals/oidc-value-comma.rst
+
    .. tab:: MongoCredential
       :tabid: mongodb-azure-mongo-credential
 
@@ -360,7 +362,7 @@ see the corresponding syntax.
 .. _java-mongodb-oidc-gcp-imds:
 
 GCP IMDS
-++++++++++
+++++++++
 
 If your application runs on a GCP VM, or otherwise uses the
 `GCP Instance Metadata Service <https://cloud.google.com/compute/docs/metadata/querying-metadata>`__,
@@ -386,6 +388,8 @@ see the corresponding syntax.
             "mongodb://<hostname>:<port>/?" +
             "authMechanism=MONGODB-OIDC" +
             "&authMechanismProperties=ENVIRONMENT:gcp,TOKEN_RESOURCE:<percent-encoded audience>");
+      
+      .. include:: /includes/fundamentals/oidc-value-comma.rst
 
    .. tab:: MongoCredential
       :tabid: mongodb-gcp-mongo-credential
