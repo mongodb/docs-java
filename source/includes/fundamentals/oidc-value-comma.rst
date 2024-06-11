@@ -15,7 +15,7 @@
       String uri =
           "mongodb://<hostname>:<port>/?" +
           "authMechanism=MONGODB-OIDC" +
-          &authMechanismProperties=ENVIRONMENT:azure,TOKEN_RESOURCE:abc,def";
+          "&authMechanismProperties=ENVIRONMENT:azure,TOKEN_RESOURCE:abc,def";
    
    If a value contains a comma character, you must use provide your
    credentials in a ``MongoCredential`` instance, as demonstrated in the
