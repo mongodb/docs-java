@@ -317,8 +317,11 @@ If your application runs on an Azure VM, or otherwise uses the
 support.
 
 You can specify Azure IMDS OIDC authentication either by 
-using a ``MongoCredential`` or as part of the connection string. Select the 
-:guilabel:`Connection String` or :guilabel:`MongoCredential` tab to
+using a ``MongoCredential`` or as part of the connection string.
+
+.. include:: /includes/fundamentals/oidc-value-comma.rst
+
+Select from the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to
 see the corresponding syntax.
 
 .. tabs::
@@ -335,8 +338,6 @@ see the corresponding syntax.
             "mongodb://<username>@<hostname>:<port>/?" + 
             "?authMechanism=MONGODB-OIDC" +
             "&authMechanismProperties=ENVIRONMENT:azure,TOKEN_RESOURCE:<percent-encoded audience>");
-
-      .. include:: /includes/fundamentals/oidc-value-comma.rst
 
    .. tab:: MongoCredential
       :tabid: mongodb-azure-mongo-credential
@@ -370,8 +371,11 @@ you can authenticate to MongoDB by using {+driver-short+}'s built-in GCP
 support.
 
 You can specify GCP IMDS OIDC authentication either by 
-using a ``MongoCredential`` or as part of the connection string. Select the 
-:guilabel:`Connection String` or :guilabel:`MongoCredential` tab to
+using a ``MongoCredential`` or as part of the connection string.
+
+.. include:: /includes/fundamentals/oidc-value-comma.rst
+
+Select from the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to
 see the corresponding syntax.
 
 .. tabs::
@@ -388,8 +392,6 @@ see the corresponding syntax.
             "mongodb://<hostname>:<port>/?" +
             "authMechanism=MONGODB-OIDC" +
             "&authMechanismProperties=ENVIRONMENT:gcp,TOKEN_RESOURCE:<percent-encoded audience>");
-      
-      .. include:: /includes/fundamentals/oidc-value-comma.rst
 
    .. tab:: MongoCredential
       :tabid: mongodb-gcp-mongo-credential
