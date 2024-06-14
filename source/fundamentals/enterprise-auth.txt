@@ -332,8 +332,8 @@ see the corresponding syntax.
       parameter configured on your MongoDB deployment.
 
       The comma (``,``) character and its encoding (``%2C``) are
-      reserved, and using a comma in an unencoded value might cause the
-      driver to parse your connection string ambiguously. You must
+      reserved, so using a comma in an unencoded value causes the
+      driver to parse your connection string incorrectly. You must
       specify values that contain commas in a ``MongoCredential`` instance, as
       demonstrated in the :guilabel:`MongoCredential` tab.
      
@@ -391,8 +391,8 @@ see the corresponding syntax.
       parameter configured on your MongoDB deployment.
 
       The comma (``,``) character and its encoding (``%2C``) are
-      reserved, and using a comma in an unencoded value might cause the
-      driver to parse your connection string ambiguously. You must
+      reserved, so using a comma in an unencoded value causes the
+      driver to parse your connection string incorrectly. You must
       specify values that contain commas in a ``MongoCredential`` instance, as
       demonstrated in the :guilabel:`MongoCredential` tab.
      
