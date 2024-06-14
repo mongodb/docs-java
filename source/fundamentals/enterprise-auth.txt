@@ -319,8 +319,6 @@ support.
 You can specify Azure IMDS OIDC authentication either by 
 using a ``MongoCredential`` or as part of the connection string.
 
-.. include:: /includes/fundamentals/oidc-value-comma.rst
-
 Select from the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to
 see the corresponding syntax.
 
@@ -329,8 +327,15 @@ see the corresponding syntax.
    .. tab:: Connection String
       :tabid: mongodb-azure-imds-connection-string
     
-      Replace the ``<percent-encoded audience>`` placeholder with the percent-encoded
-      value of the ``audience`` server parameter configured on your MongoDB deployment.
+      Replace the ``<percent-encoded audience>`` placeholder in the
+      following code with the percent-encoded value of the audience server
+      parameter configured on your MongoDB deployment.
+
+      The comma (``,``) character and its encoding (``%2C``) are
+      reserved, and using a comma in an unencoded value might cause the
+      driver to parse your connection string ambiguously. You must
+      specify values that contain commas in a ``MongoCredential`` instance, as
+      demonstrated in the :guilabel:`MongoCredential` tab.
      
       .. code-block:: java
          
@@ -373,8 +378,6 @@ support.
 You can specify GCP IMDS OIDC authentication either by 
 using a ``MongoCredential`` or as part of the connection string.
 
-.. include:: /includes/fundamentals/oidc-value-comma.rst
-
 Select from the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to
 see the corresponding syntax.
 
@@ -383,8 +386,15 @@ see the corresponding syntax.
    .. tab:: Connection String
       :tabid: mongodb-gcp-imds-connection-string
     
-      Replace the ``<percent-encoded audience>`` placeholder with the percent-encoded
-      value of the ``audience`` server parameter configured on your MongoDB deployment.
+      Replace the ``<percent-encoded audience>`` placeholder in the
+      following code with the percent-encoded value of the audience server
+      parameter configured on your MongoDB deployment.
+
+      The comma (``,``) character and its encoding (``%2C``) are
+      reserved, and using a comma in an unencoded value might cause the
+      driver to parse your connection string ambiguously. You must
+      specify values that contain commas in a ``MongoCredential`` instance, as
+      demonstrated in the :guilabel:`MongoCredential` tab.
      
       .. code-block:: java
 
