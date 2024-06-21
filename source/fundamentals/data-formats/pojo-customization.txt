@@ -488,12 +488,12 @@ values as ``DateTime`` values in the database:
 The preceding code results in an error. Instead, you can create a custom Codec to
 convert the ``purchaseDate`` values from type ``Long`` to ``DateTime``:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/LongCodec.java
+.. literalinclude:: /includes/fundamentals/code-snippets/LongRepresentableCodec.java
    :language: java
    :start-after: start class
    :end-before: end class
 
-Then, add an instance of the ``LongCodec`` to your ``CodecRegistry``, which contains
+Then, add an instance of the ``LongRepresentableCodec`` to your ``CodecRegistry``, which contains
 a mapping between your Codec and the Java object type to which it applies. For instructions
 on registering your custom Codec with the ``CodecRegistry``, see the :ref:`fundamentals-codecs`
 guide.
