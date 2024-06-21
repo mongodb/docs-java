@@ -34,7 +34,8 @@ public class LongRepresentableCodec implements Codec<Long>, RepresentationConfig
     @Override
     public Codec<Long> withRepresentation(final BsonType representation) {
         if (representation != BsonType.INT64 && representation != BsonType.DATE_TIME) {
-            throw new CodecConfigurationException(representation + " is not a supported representation for LongRepresentableCodec");
+            throw new CodecConfigurationException(representation 
+            + " is not a supported representation for LongRepresentableCodec");
         }
         return new LongRepresentableCodec(representation);
     }
@@ -50,7 +51,8 @@ public class LongRepresentableCodec implements Codec<Long>, RepresentationConfig
                 writer.writeDateTime(value);
                 break;
             default:
-                throw new BsonInvalidOperationException("Cannot encode a Long to a " + representation);
+                throw new BsonInvalidOperationException("Cannot encode a Long to a " 
+                + representation);
         }
     }
 
@@ -62,7 +64,8 @@ public class LongRepresentableCodec implements Codec<Long>, RepresentationConfig
             case DATE_TIME:
                 return reader.readDateTime();
             default:
-                throw new CodecConfigurationException("Cannot decode " + representation + " to a Long");
+                throw new CodecConfigurationException("Cannot decode " + representation 
+                + " to a Long");
         }
     }
 
