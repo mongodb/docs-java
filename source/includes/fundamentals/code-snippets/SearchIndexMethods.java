@@ -26,21 +26,28 @@ public class SearchIndexMethods {
             MongoCollection<Document> collection = database.getCollection(COLL_NAME);
 
             // start create-search-index
-            Document index = new Document("mappings",
+            Document searchIdx = new Document("mappings",
                     new Document("dynamic", true));
-            collection.createSearchIndex("myIndex", index);
+            collection.createSearchIndex("myIndex", searchIdx);
             // end create-search-index
-
+            
             // start create-search-indexes
-            SearchIndexModel indexOne = new SearchIndexModel("myIndex1",
-                    new Document("analyzer", "lucene.standard").append(
-                            "mappings", new Document("dynamic", true)));
+            SearchIndexModel searchIdxMdl = new SearchIndexModel(
+                "myIndex1",
+                new Document("analyzer", "lucene.standard").append(
+                    "mappings", new Document("dynamic", true)),
+                SearchIndexType.search()
+            );
 
-            SearchIndexModel indexTwo = new SearchIndexModel("myIndex2",
-                    new Document("analyzer", "lucene.simple").append(
-                            "mappings", new Document("dynamic", true)));
+            SearchIndexModel vectorSearchIdxMdl = new SearchIndexModel(
+                "myIndex1",
+                new Document("mappings", new Document("dynamic", true)),
+                SearchIndexType.vectorSearch()
+            );
 
-            collection.createSearchIndexes(Arrays.asList(indexOne, indexTwo));
+            collection.createSearchIndexes(
+                Arrays.asList(searchIdxMdl, vectorSearchIdxMdl)
+            );
             // end create-search-indexes
 
             // start update-search-index
