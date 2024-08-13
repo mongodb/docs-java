@@ -33,14 +33,14 @@ public class SearchIndexMethods {
             
             // start create-search-indexes
             SearchIndexModel searchIdxMdl = new SearchIndexModel(
-                "myIndex1",
+                "searchIdx",
                 new Document("analyzer", "lucene.standard").append(
                     "mappings", new Document("dynamic", true)),
                 SearchIndexType.search()
             );
 
             SearchIndexModel vectorSearchIdxMdl = new SearchIndexModel(
-                "myIndex1",
+                "vsIdx",
                 new Document(
                     "fields",
                     Arrays.asList(
