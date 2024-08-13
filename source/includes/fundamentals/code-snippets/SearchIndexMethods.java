@@ -41,7 +41,15 @@ public class SearchIndexMethods {
 
             SearchIndexModel vectorSearchIdxMdl = new SearchIndexModel(
                 "myIndex1",
-                new Document("mappings", new Document("dynamic", true)),
+                new Document(
+                    "fields",
+                    Arrays.asList(
+                        new Document("type", "vector")
+                            .append("path", "embeddings")
+                            .append("numDimensions", 1536)
+                            .append("similarity", "dotProduct")
+                    )
+                ),
                 SearchIndexType.vectorSearch()
             );
 
