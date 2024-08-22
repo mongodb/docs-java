@@ -97,8 +97,9 @@ and commit a multi-document insert operation through the following steps:
    the transaction. If any operation results in errors, ``withTransaction()`` handles canceling
    the transaction.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/Transactions.java
+.. literalinclude:: /includes/fundamentals/code-snippets/Transaction.java
    :language: java
+   :start-after: end imports
 
 If you require more control over your transactions, you can use the ``startTransaction()``
 method. This method allows you to explicitly commit or abort the transaction and manually
@@ -130,4 +131,4 @@ guide, see the following API Documentation:
 - `abortTransaction <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html#abortTransaction()>`_
 - `withTransaction <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html#withTransaction(com.mongodb.client.TransactionBody)>`_
 - `TransactionOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/TransactionOptions.html>`_
-- 
+  
