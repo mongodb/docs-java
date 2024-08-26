@@ -16,7 +16,7 @@ public class Transaction {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase("yourDatabaseName");
             MongoCollection<Document> collection = database.getCollection("yourCollectionName");
-
+// start transaction
             // Set transaction options
             TransactionOptions txnOptions = TransactionOptions.builder()
                     .writeConcern(WriteConcern.MAJORITY)
@@ -37,5 +37,6 @@ public class Transaction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+// end transaction
     }
 }

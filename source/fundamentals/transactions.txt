@@ -4,8 +4,6 @@
 Transactions
 ============
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -40,23 +38,24 @@ guarantees that the data involved in your transaction operations remains
 consistent, even if the operations encounter unexpected errors.
 
 When using the {+driver-short+}, you can create a new session from a 
-``Client`` instance as a ``ClientSession``. We recommend that you reuse
+``MongoClient`` instance as a ``ClientSession`` type. We recommend that you reuse
 your client for multiple sessions and transactions instead of
 instantiating a new client each time.
 
 .. warning::
 
-   Use a ``Session`` only with the ``Client`` (or associated
-   ``Database`` or ``Collection``) that created it. Using a
-   ``Session`` with a different ``Client`` results in operation
+   Use a ``ClientSession`` only with the ``MongoClient`` (or associated
+   ``MongoDatabase`` or ``MongoCollection``) that created it. Using a
+   ``ClientSession`` with a different ``MongoClient`` results in operation
    errors.
 
 Methods
 -------
 
-After you start a session by using the ``startSession()`` method, you can modify
-the session state by using the method set provided by the ``Session`` interface.
-The following table describes these methods:
+Create a ``ClientSession`` by using the ``startSession()`` method on your 
+``MongoClient``instance. You can then modify the session state by using the 
+methods provided by the ``ClientSession``. The following table details the 
+methods you can use to manage your transaction:
 
 .. list-table::
    :widths: 25 75
@@ -108,7 +107,8 @@ and commit a multi-document insert operation through the following steps:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Transaction.java
    :language: java
-   :start-after: end imports
+   :start-after: start transaction
+   :end-after: end transaction
 
 If you require more control over your transactions, you can use the ``startTransaction()``
 method. This method allows you to explicitly commit or abort the transaction and manually
