@@ -53,8 +53,8 @@ Methods
 -------
 
 Create a ``ClientSession`` by using the ``startSession()`` method on your 
-``MongoClient``instance. You can then modify the session state by using the 
-methods provided by the ``ClientSession``. The following table details the 
+``MongoClient`` instance. You can then modify the session state by using the 
+methods provided by the ``ClientSession``. The following table describes the 
 methods you can use to manage your transaction:
 
 .. list-table::
@@ -66,12 +66,12 @@ methods you can use to manage your transaction:
 
    * - ``startTransaction()``
      - | Starts a new transaction for this session with the
-         default transaction options. Use the ``TransactionOptions`` 
-         parameter to start a transaction with given options. You 
+         default transaction options. Pass an instance of ``TransactionOptions`` 
+         as a parameter to start a transaction with given options. You 
          cannot start a transaction if there's already an active transaction
-         on the session.
+         running in the session.
        |
-       | **Parameter**: ``transactionOptions``
+       | **Parameter**: ``TransactionOptions transactionOptions``
 
    * - ``abortTransaction()``
      - | Ends the active transaction for this session. Returns an error 
@@ -84,13 +84,15 @@ methods you can use to manage your transaction:
          transaction was ended.
 
    * - ``withTransaction()``
-     - | Starts a new transaction for this session and runs the given function.
+     - | Starts a new transaction for this session and runs the given function. This
+         method handles retries, committing, and aborting transactions. Pass an 
+         instance of ``TransactionBody`` as a parameter that defines the 
+         operations you want to execute within the transaction.
        |
-       | **Parameter**: ``transactionBody``
+       | **Parameter**: ``TransactionBody<T> transactionBody``
 
 A ``ClientSession`` also has methods to retrieve session properties and modify mutable 
-session properties. View the `API documentation <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html>`__ 
-to learn more about these methods.
+session properties. View the :ref:`API Documentation` to learn more about these methods.
 
 Example
 -------
@@ -98,8 +100,8 @@ Example
 The following example demonstrates how you can create a session, create a transaction, 
 and commit a multi-document insert operation through the following steps:
 
-1. Create a session from the client using the ``startSession()`` method.
-#. Set transaction options to configure transactional behavior.
+1. Create a session from the client by using the ``startSession()`` method.
+#. Set transaction options to configure transaction behavior.
 #. Use the ``withTransaction()`` method to start a transaction.
 #. Insert multiple documents. The ``withTransaction()`` method executes, commits, and aborts 
    the transaction. If any operation results in errors, ``withTransaction()`` handles canceling
@@ -107,12 +109,13 @@ and commit a multi-document insert operation through the following steps:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Transaction.java
    :language: java
+   :dedent:
    :start-after: start transaction
    :end-before: end transaction
 
 If you require more control over your transactions, you can use the ``startTransaction()``
 method. This method allows you to explicitly commit or abort the transaction and manually
-manage the transaction lifecycle.
+manage the transaction lifecycle. See :ref:`Methods`.
 
 Additional Information
 ----------------------

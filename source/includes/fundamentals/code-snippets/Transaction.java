@@ -12,11 +12,11 @@ import java.util.Arrays;
 public class Transaction {
     public static void main(String[] args) {
         // Connect to MongoDB
-        String connectionString = "mongodb://localhost:27017"; // Update with your MongoDB URI
+        String connectionString = "<connection string>"; // Replace with your connection string
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("yourDatabaseName");
-            MongoCollection<Document> collection = database.getCollection("yourCollectionName");
-// start transaction
+            MongoDatabase database = mongoClient.getDatabase("transaction_db");
+            MongoCollection<Document> collection = database.getCollection("books");
+            // start transaction
             // Set transaction options
             TransactionOptions txnOptions = TransactionOptions.builder()
                     .writeConcern(WriteConcern.MAJORITY)
@@ -37,6 +37,6 @@ public class Transaction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-// end transaction
+        // end transaction
     }
 }
