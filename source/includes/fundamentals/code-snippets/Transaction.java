@@ -16,7 +16,7 @@ public class Transaction {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase("transaction_db");
             MongoCollection<Document> collection = database.getCollection("books");
-            // start transaction
+        // start transaction
             // Set transaction options
             TransactionOptions txnOptions = TransactionOptions.builder()
                     .writeConcern(WriteConcern.MAJORITY)
