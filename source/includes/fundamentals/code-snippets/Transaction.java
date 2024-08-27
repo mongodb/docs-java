@@ -11,12 +11,12 @@ import java.util.Arrays;
 
 public class Transaction {
     public static void main(String[] args) {
-        // Connect to MongoDB
+        // start transaction
         String connectionString = "<connection string>"; // Replace with your connection string
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase("transaction_db");
             MongoCollection<Document> collection = database.getCollection("books");
-        // start transaction
+
             // Set transaction options
             TransactionOptions txnOptions = TransactionOptions.builder()
                     .writeConcern(WriteConcern.MAJORITY)
@@ -24,7 +24,7 @@ public class Transaction {
 
             try (ClientSession session = mongoClient.startSession()) {
 
-                // Use withTransaction and lambda for transactional operations
+                // Use withTransaction and lambda for transaction operations
                 session.withTransaction(() -> {
                     collection.insertMany(session, Arrays.asList(
                             new Document("title", "The Bluest Eye").append("author", "Toni Morrison"),
