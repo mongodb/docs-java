@@ -17,14 +17,14 @@ public class Transaction {
             MongoDatabase database = mongoClient.getDatabase("transaction_db");
             MongoCollection<Document> collection = database.getCollection("books");
 
-            // Set transaction options
+            // Sets transaction options
             TransactionOptions txnOptions = TransactionOptions.builder()
                     .writeConcern(WriteConcern.MAJORITY)
                     .build();
 
             try (ClientSession session = mongoClient.startSession()) {
 
-                // Use withTransaction and lambda for transaction operations
+                // Uses withTransaction and lambda for transaction operations
                 session.withTransaction(() -> {
                     collection.insertMany(session, Arrays.asList(
                             new Document("title", "The Bluest Eye").append("author", "Toni Morrison"),

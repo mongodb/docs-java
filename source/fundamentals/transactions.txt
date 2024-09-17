@@ -49,6 +49,11 @@ instantiating a new client each time.
    ``ClientSession`` with a different ``MongoClient`` results in operation
    errors.
 
+.. important::
+
+   You must include the ``session`` as a parameter for any operations that you
+   want to include in a transaction.
+
 Methods
 -------
 
