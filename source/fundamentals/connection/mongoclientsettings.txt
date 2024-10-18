@@ -270,10 +270,11 @@ settings to modify the driver's behavior:
        | For example:
        
        .. code-block:: java
-           :emphasize-lines: 3 
-          MongoClient mongoClient = 
-            MongoClients.create(MongoClientSettings.builder()
-            .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
+          :emphasize-lines: 3
+     
+              MongoClient mongoClient = 
+                MongoClients.create(MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
 
    * - ``srvMaxHosts()``
      - | Sets the maximum number of hosts the driver can connect to when using
