@@ -259,22 +259,16 @@ settings to modify the driver's behavior:
 
    * - ``serverSelector()``
      - Adds a server selector to apply before server selection.
-
+  
    * - ``srvHost()``
-     - Sets the host name to use to look up an SRV DNS record to find the
-       MongoDB hosts.
+     - | Sets the host name to use to look up an SRV DNS record to find the
+         MongoDB hosts. When setting ``srvHost``, the driver does not process any associated 
+         TXT records associated with the host. If you want to enable the processing of TXT records, 
+         you must specify the SRV host in the connection string 
+         using the ``applyConnectionString()`` method.
 
-       .. note::
-
-          When setting ``srvHost``, the driver does not process any
-          associated TXT records associated with the host.
-
-          If you want to enable the processing of TXT records, you must
-          specify the SRV host in the connection string using the
-          ``applyConnectionString()`` method.
-
-          .. code-block:: java
-             :emphasize-lines: 3
+          | .. code-block:: java
+            :emphasize-lines: 3
 
              MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
