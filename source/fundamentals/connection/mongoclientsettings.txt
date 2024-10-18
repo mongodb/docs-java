@@ -266,11 +266,12 @@ settings to modify the driver's behavior:
          TXT records associated with the host. If you want to enable the processing of TXT records, 
          you must specify the SRV host in the connection string 
          using the ``applyConnectionString()`` method.
-          .. code-block:: java
-           :emphasize-lines: 3
-               MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
-                   .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
+       | For example:  
+            .. code-block:: java
+              :emphasize-lines: 3 
+                MongoClient mongoClient = MongoClients.create(
+                    MongoClientSettings.builder()
+                      .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
 
    * - ``srvMaxHosts()``
      - | Sets the maximum number of hosts the driver can connect to when using
