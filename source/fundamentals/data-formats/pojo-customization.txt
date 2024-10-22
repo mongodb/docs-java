@@ -298,10 +298,12 @@ package:
      - Specifies a custom document field name when converting the POJO
        field to BSON. You can include a discriminator to serialize POJOs
        nested within the field. 
-       |
-       |  When applying ``@BsonProperty`` to a private field, 
+
+      | 
+      |  When applying ``@BsonProperty`` to a private field, 
        **you must also add getter and setter methods for that field to serialize and 
        customize the field name**.
+
 
    * - ``BsonExtraElements``
      - Specifies the POJO field on which to deserialize all elements that are
@@ -310,8 +312,8 @@ package:
 
        - `Document <{+api+}/apidocs/bson/org/bson/Document.html>`__
        - `BsonDocument <{+api+}/apidocs/bson/org/bson/BsonDocument.html>`__
-       - ``Map<String, Object>``  
-       
+       - ``Map<String, Object>``
+
       | See an example of :ref:`BsonExtraElements Annotation Example <bsonextraelements-annotation-code-example>`
 
 The following code snippet shows a sample POJO called ``Product`` that uses
