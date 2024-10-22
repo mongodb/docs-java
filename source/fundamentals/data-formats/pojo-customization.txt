@@ -295,11 +295,13 @@ package:
        and/or deserialize a property.
 
    * - ``BsonProperty``
-     - Specifies a custom document field name when converting the POJO
-       field to BSON. You can include a discriminator to serialize POJOs
-       nested within the field. When applying ``@BsonProperty`` to a private field, 
-       **you must also add getter and setter methods for that field to serialize and 
-       customize the field name**.
+     - | Specifies a custom document field name when converting the POJO
+         field to BSON. You can include a discriminator to serialize POJOs
+         nested within the field. 
+       | 
+       | When applying ``@BsonProperty`` to a private field, 
+         **you must also add getter and setter methods for that field to serialize and 
+         customize the field name**.
 
 
    * - ``BsonExtraElements``
@@ -310,7 +312,7 @@ package:
          - `BsonDocument <{+api+}/apidocs/bson/org/bson/BsonDocument.html>`__
          - ``Map<String, Object>``
        |  
-       | See an example of :ref:`BsonExtraElements Annotation Example <bsonextraelements-annotation-code-example>`
+       | See an example of :ref:`BsonExtraElements Annotation Example <bsonextraelements-annotation-code-example>`.
 
 The following code snippet shows a sample POJO called ``Product`` that uses
 several of the preceding annotations.
