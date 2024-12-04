@@ -16,22 +16,33 @@ Overview
 In this guide, you can learn how to use bulk operations in the
 MongoDB Java Driver. 
 
-To perform a create, replace, update, or delete operation,
-use its corresponding method. For example, to insert one document,
-update multiple documents, and delete one document in your collection,
-use the ``insertOne()``, ``updateMany()`` and ``deleteOne()`` methods.
+To perform a single create, replace, update, or delete operation, you can use
+the corresponding method. For example, to insert one document and replace one 
+document, you can use the ``insertOne()`` and ``replaceOne()`` methods. In this
+case, the ``MongoClient`` makes a call to the database for each operation. However,
+by using bulk write operations, you can reduce the number of calls.
 
-The ``MongoClient`` performs these operations by making a call for each
-operation to the database. You can reduce the number of calls to the
-database to one by using bulk operations. 
+You can perform bulk write operations by using the bulk write API in the
+{+driver-short+} to define multiple data changes in one method call. You can 
+perform bulk operations at the following levels:
 
-Performing Bulk Operations
---------------------------
+- :ref:`Collection Level <java-sync-coll-bulk-write>`: You can use the 
+  ``MongoCollection.bulkWrite()`` method to perform bulk write operations on a 
+  single collection.
+
+- :ref:`Client Level <java-sync-client-bulk-write>`: When running {+mdb-server+} 
+  version 8.0 or later, you can use the ``MongoClient.bulkWrite()`` method to perform 
+  bulk write operations on multiple collections and databases in the same cluster.
+
+.. _java-sync-coll-bulk-write:
+
+Collection Bulk Write
+---------------------
 
 Bulk operations consist of a large number of write operations. To perform
-a bulk operation, pass a ``List`` of ``WriteModel`` documents to the
-``bulkWrite()`` method. A ``WriteModel`` is a model that represents any
-of the write operations. 
+a bulk operation at the collection level, pass a ``List`` of ``WriteModel`` 
+documents to the ``MongoCollection.bulkWrite()`` method. A ``WriteModel`` is a model that 
+represents any of the write operations. 
 
 The following sections show how to create and use each ``WriteModel``
 document. The examples in each section use the following documents in the
@@ -44,7 +55,7 @@ document. The examples in each section use the following documents in the
    { "_id": 8, "name": "Shayla Ray", "age": 20 }
 
 For more information about the methods and classes mentioned in this section,
-see the following API Documentation:
+see the following API documentation:
 
 - `bulkWrite() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#bulkWrite(java.util.List,com.mongodb.client.model.BulkWriteOptions)>`__
 - `WriteModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/WriteModel.html>`__
@@ -100,7 +111,7 @@ describing people:
 For more information about the methods and classes mentioned in this section,
 see the `InsertOneModel
 <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/InsertOneModel.html>`__
-API Documentation. 
+API documentation. 
 
 Replace Operation
 ~~~~~~~~~~~~~~~~~
@@ -132,7 +143,7 @@ contains an added ``location`` field:
 For more information about the methods and classes mentioned in this section,
 see the following resources:
 
-- `ReplaceOneModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOneModel.html>`__ API Documentation
+- `ReplaceOneModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOneModel.html>`__ API documentation
 - :manual:`Unique indexes </core/index-unique/>` Server Manual Explanation
 
 Update Operation
@@ -168,8 +179,8 @@ the ``age`` field in a document where the ``_id`` is ``2``:
 For more information about the methods and classes mentioned in this section,
 see the following resources:
 
-- `UpdateOneModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOneModel.html>`__ API Documentation
-- `UpdateManyModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateManyModel.html>`__ API Documentation
+- `UpdateOneModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOneModel.html>`__ API documentation
+- `UpdateManyModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateManyModel.html>`__ API documentation
 - :manual:`unique indexes </core/index-unique/>` Server Manual Explanation
 
 Delete Operation
@@ -202,7 +213,7 @@ a document where the ``_id`` is ``1``:
    :end-before: end deleteDocumentsExample
 
 For more information about the methods and classes mentioned in this section,
-see the following API Documentation:
+see the following API documentation:
 
 - `DeleteOneModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOneModel.html>`__
 - `DeleteManyModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteManyModel.html>`__
@@ -288,18 +299,187 @@ operations to execute in any order:
       { "_id": 6, "name": "Zaynab Omar", "age": 37 }
 
 For more information about the methods and classes mentioned in this section,
-see the following API Documentation:
+see the following API documentation:
 
 - `BulkWriteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html>`__
 - `ordered() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html#ordered(boolean)>`__
 
+.. _java-sync-client-bulk-write:
+
+Client Bulk Write
+-----------------
+
+When connecting to a deployment running {+mdb-server+} 8.0 or later,
+you can use the ``MongoClient.bulkWrite()`` method to write
+to multiple databases and collections in the same cluster.
+
+In the examples in preceding sections of this page, the ``MongoCollection.bulkWrite()`` method 
+takes a list of ``WriteModel`` instances in which the specified subclass of 
+``WriteModel`` represents the corresponding write operation. For example, an
+instance of ``InsertOneModel`` represents an operation to insert one document. 
+
+Similarly, the ``MongoClient.bulkWrite()`` method takes a 
+list of ``ClientNamespacedWriteModel`` instances to represent different write operations.
+For example, an instance of ``ClientNamespacedInsertOneModel`` represents an
+operation to insert one document.
+
+You can construct these ``ClientNamespacedWriteModel`` instances using different
+methods to represent write operations. ``ClientNamespacedWriteModel`` contains 
+the methods ``insertOne()``, ``updateOne()``, ``updateMany()``, ``replaceOne()``, 
+``deleteOne()``, and ``deleteMany()``. These methods are used to construct corresponding
+write models. For example, ``ClientNamespacedWriteModel.updateOne()`` is used to
+construct a ``ClientNamespacedUpdateOneModel`` instance, which represents an
+update operation.
+
+These methods take a ``MongoNamespace`` object that defines which
+database and collection to write to. Some, such as ``insertOne()``, can take a 
+``Document`` instance that defines information about the write operation. 
+Some other methods, such as ``updateOne()`` and ``replaceOne()``, take a filter 
+object that defines the subset of documents to be updated or replaced.
+
+The following sections provide examples of how to use the client ``bulkWrite()`` 
+method.
+
+Insert Example
+~~~~~~~~~~~~~~
+
+This example shows how to use the ``bulkWrite()`` method to insert 
+two documents. One document is inserted into the ``db.people`` collection, while
+the other document is inserted into the ``db.things`` collection. 
+The ``MongoNamespace`` instance defines the databases and collections that 
+each write operation applies to.
+
+.. code-block:: java
+
+   MongoNamespace peopleNamespace = new MongoNamespace("db", "people");
+   MongoNamespace thingsNamespace = new MongoNamespace("db", "things");
+
+   List<ClientNamespacedWriteModel> bulkOperations = new ArrayList<>();
+
+   ClientNamespacedInsertOneModel insertDocument1 = new ClientNamespacedWriteModel
+      .insertOne(
+         peopleNamespace, 
+         new Document("name", "Julia Smith")
+      );
+
+   ClientNamespacedInsertOneModel insertDocument2 = new ClientNamespacedWriteModel
+      .insertOne(
+         thingsNamespace, 
+         new Document("object", "washing machine")
+      );
+
+   bulkOperations.add(insertDocument1);
+   bulkOperations.add(insertDocument2);
+
+   ClientBulkWriteResult result = mongoClient.bulkWrite(bulkOperations);
+
+.. TODO: link documentation
+
+Replace Example
+~~~~~~~~~~~~~~~
+
+The following example shows how to use the ``bulkWrite()`` method to replace
+existing documents in the ``db.people`` and ``db.things`` collections.
+
+.. code-block:: java
+
+   MongoNamespace peopleNamespace = new MongoNamespace("db", "people");
+   MongoNamespace thingsNamespace = new MongoNamespace("db", "things");
+
+   List<ClientNamespacedWriteModel> bulkOperations = new ArrayList<>();
+
+   bulkOperations.add(ClientNamespacedWriteModel.replaceOne(
+         peopleNamespace, 
+         Filters.eq("_id", 1),
+         new Document("name", "Frederic Hilbert")
+      )
+   );
+
+   bulkOperations.add(ClientNamespacedWriteModel.replaceOne(
+         thingsNamespace, 
+         Filters.eq("_id", 1),
+         new Document("object", "potato")
+      )
+   );
+
+   ClientBulkWriteResult result = mongoClient.bulkWrite(bulkOperations);
+
+After this example runs successfully, the document that has an ``_id`` value of ``1`` 
+in the ``people`` collection is replaced with a new document. The document in 
+the ``things`` collection that has an ``_id`` value of ``1`` 
+is replaced with a new document.
+
+.. _java-sync-client-bulk-write-options:
+
+Bulk Write Options
+~~~~~~~~~~~~~~~~~~
+
+You can pass an instance of ``ClientBulkWriteOptions`` to the ``bulkWrite()``
+method to specify options when running the bulk write operations.
+
+Order of Execution Example
+``````````````````````````
+
+By default, the individual operations in a bulk operation are executed in the
+order that you specify them until an error occurs, or until they execute 
+successfully. However, you can pass ``false`` to the ``ordered()`` method on 
+the ``ClientBulkWriteOptions`` interface to perform write operations in an 
+unordered way. When using the unordered option, an error-producing operation 
+does not prevent execution of other write operations in the call to the 
+``bulkWrite()`` method.
+
+The following code sets the ``ordered()`` method on an
+instance of ``ClientBulkWriteOptions`` and performs a bulk write operation to 
+insert multiple documents.
+
+.. code-block:: java
+
+   MongoNamespace namespace = new MongoNamespace("db", "people");
+
+   ClientBulkWriteOptions options = new ClientBulkWriteOptions().ordered(false);
+
+   List<ClientNamespacedWriteModel> bulkOperations = new ArrayList<>();
+
+   bulkOperations.add(
+      ClientNamespacedWriteModel.insertOne(
+         namespace, 
+         new Document("_id", 1).append("name", "Rudra Suraj")
+      )
+   );
+   
+   // Causes a duplicate key error
+   bulkOperations.add(
+      ClientNamespacedWriteModel.insertOne(
+         namespace, 
+         new Document("_id", 1).append("name", "Mario Bianchi")
+      )
+   );
+
+   bulkOperations.add(
+      ClientNamespacedWriteModel.insertOne(
+         namespace, 
+         new Document("name", "Wendy Zhang")
+      )
+   );
+
+   ClientBulkWriteResult result = mongoClient.bulkWrite(bulkOperations, options);
+
+Even though the write operation inserting a document with a duplicate key results
+in an error, the other operations are executed because the write operation is
+unordered.
+
+.. TODO: link documentation
+
 Summary
 -------
 
-To perform a bulk operation, you create and pass a list of
-``WriteModel`` documents to the ``bulkWrite()`` method. 
+``MongoCollection.bulkWrite()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are 6 different ``WriteModel`` documents: ``InsertOneModel``,
+To perform a bulk operation, you create and pass a list of
+``WriteModel`` instances to the ``bulkWrite()`` method. 
+
+There are 6 different ``WriteModel`` subtypes: ``InsertOneModel``,
 ``ReplaceOneModel``, ``UpdateOneModel``, ``UpdateManyModel``,
 ``DeleteOneModel`` and ``DeleteManyModel``. 
 
@@ -308,3 +488,29 @@ There are two ways to execute the ``bulkWrite()`` method:
 - Ordered, which performs the bulk operations in order until an error occurs, if any
 - Unordered, which performs all the bulk operations in any order and reports errors
   at the end, if any
+
+``MongoClient.bulkWrite()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When connecting to a deployment running {+mdb-server+} version 8.0 or later, you 
+can use the ``MongoClient.bulkWrite()`` method to perform bulk operations on multiple 
+databases and collections at once.
+
+To perform a client bulk operation, you create an pass a list of 
+``ClientNamespacedWriteModel`` instances to this method.
+
+There are six subtypes of ``ClientNamespacedWriteModel`` that are used to
+represent write operations. To construct these write models, you can use the
+corresponding ``ClientNamespacedWriteModel`` methods ``insertOne()``, ``updateOne()``, 
+``updateMany()``, ``replaceOne()``, ``deleteOne()``, and ``deleteMany()``. These 
+methods take a ``MongoNamespace`` object that defines which
+database and collection to write to.
+
+The ``MongoClient.bulkWrite()`` method can also take a ``ClientBulkWriteOptions``
+object to specify different options for how the command is executed.
+
+To learn more about the client ``bulkWrite`` command, see the 
+:manual:`bulkWrite() <reference/command/bulkWrite/>` method reference in the {+mdb-server+}
+Manual.
+
+.. TODO: Add API Documentation
