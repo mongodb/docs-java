@@ -328,7 +328,8 @@ public class AggBuilders {
         int limit = 1;
 
         // Create a pre-filter to only search within a subset of documents
-        VectorSearchOptions options = exactVectorSearchOptions().filter(gte("year", 2016));
+        VectorSearchOptions options = exactVectorSearchOptions()
+            .filter(gte("year", 2016));
 
         // Create the vectorSearch pipeline stage
         List<Bson> pipeline = asList(
