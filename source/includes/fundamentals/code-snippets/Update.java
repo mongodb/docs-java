@@ -46,10 +46,10 @@ public class Update {
     private void updateOneExample(){
         // Creates a filter and update document to change the value of ``color``
         // begin updateOneExample
-        Bson filter = Filters.eq("qty", "0");
+        Bson filter = Filters.eq("qty", 0);
         Bson update = Updates.set("color", "dandelion");
 
-        // Updates first document and prints the number of matched and modified documents
+        // Updates first matching document
         UpdateResult result = collection.updateOne(filter, update);
         // end updateOneExample
         
