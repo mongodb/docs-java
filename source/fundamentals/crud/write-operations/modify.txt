@@ -73,7 +73,9 @@ parameters:
   builder </fundamentals/builders/updates>` to create the update
   document.
 - *(Optional)* ``updateOptions`` specifies options that you can set to
-  customize how the driver performs the update operation.
+  customize how the driver performs the update operation. To learn more
+  about this type, see the API documentation for `UpdateOptions
+  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__
 
 You can create the ``updateDocument`` using an ``Updates`` builder as
 follows:
@@ -188,11 +190,14 @@ Replace Operation Parameters
 
 The ``replaceOne()`` method has the following parameters:
 
-- ``query`` specifies a query filter with the criteria to match a document to replace in your collection
+- ``query`` specifies a query filter with the criteria to match a
+  document to replace in your collection.
 - ``replacement`` specifies fields and values of a new ``Document``
-  object to replace in the matched document
+  object to replace in the matched document.
 - *(Optional)* ``replaceOptions`` specifies options that you can set to
-  customize how the driver performs the replace operation
+  customize how the driver performs the replace operation. To learn more
+  about this type, see the API documentation for `ReplaceOptions
+  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`__
 
 Replace One Example
 ~~~~~~~~~~~~~~~~~~~
