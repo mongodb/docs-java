@@ -56,9 +56,8 @@ You can call the ``updateOne()`` and ``updateMany()`` methods on a
 
 .. code-block:: java
 
-    collection.updateOne(query, updateDocument);
-
-    collection.updateMany(query, updateDocument);
+    collection.updateOne(<query>, <updateDocument>);
+    collection.updateMany(<query>, <updateDocument>);
     
 Update Operation Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,7 +81,7 @@ follows:
 
 .. code-block:: java
 
-    Bson updateDocument = Updates.operator(<field>, <value>);
+   Bson update = Updates.operator(<field>, <value>);
 
 See the MongoDB API documentation for a `complete list of
 Updates builders and their usage
