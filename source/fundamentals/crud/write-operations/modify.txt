@@ -68,13 +68,12 @@ parameters:
 - ``query`` specifies a query filter with the criteria to match
   documents to update in your collection.
 - ``update`` specifies the fields and values to modify in the matching
-  document or documents. For this example, we use the :doc:`Updates
-  builder </fundamentals/builders/updates>` to create the update
-  document.
+  document or documents. The examples in this section use the
+  :ref:`updates-builders` to create the update document.
 - *(Optional)* ``updateOptions`` specifies options that you can set to
   customize how the driver performs the update operation. To learn more
   about this type, see the API documentation for `UpdateOptions
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__
+  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__.
 
 You can create the ``updateDocument`` using an ``Updates`` builder as
 follows:
@@ -83,9 +82,9 @@ follows:
 
    Bson update = Updates.operator(<field>, <value>);
 
-See the MongoDB API documentation for a `complete list of
-Updates builders and their usage
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html>`__.
+To view a complete list of Updates builders and their usage, see `Updates
+<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html>`__
+in the API documentation.
 
 Update One Example
 ~~~~~~~~~~~~~~~~~~
@@ -121,8 +120,9 @@ The shipment contains 20 cans of each paint color.
 To update the inventory, call the ``updateMany()`` method specifying the
 following:
 
-- A query filter that matches all the colors
-- An update document that contains instructions to increment the ``qty`` field by ``20``
+- Query filter that matches all the colors
+- Update document that contains instructions to increment the ``qty``
+  field by ``20``
 
 .. literalinclude:: /includes/fundamentals/code-snippets/Update.java
    :language: java
@@ -192,11 +192,11 @@ The ``replaceOne()`` method has the following parameters:
 - ``query`` specifies a query filter with the criteria to match a
   document to replace in your collection.
 - ``replacement`` specifies fields and values of a new ``Document``
-  object to replace in the matched document.
+  object to replace the matched document.
 - *(Optional)* ``replaceOptions`` specifies options that you can set to
   customize how the driver performs the replace operation. To learn more
   about this type, see the API documentation for `ReplaceOptions
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`__
+  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`__.
 
 Replace One Example
 ~~~~~~~~~~~~~~~~~~~
