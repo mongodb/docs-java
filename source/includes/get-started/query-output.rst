@@ -1,6 +1,3 @@
-When you run the ``QuickStart`` class, it should output the details of the
-movie from the sample dataset, which will resemble the following:
-
 .. code-block:: json
    :copyable: false
 
@@ -13,6 +10,5 @@ movie from the sample dataset, which will resemble the following:
      ...
    }
 
-If you receive no output or an error, check whether you included the proper
-connection string in your Java class, and whether you loaded the sample dataset
-into your MongoDB Atlas cluster.
+If you encounter an error or see no output, ensure that you specified the
+correct connection string and that you loaded the sample data.
