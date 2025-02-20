@@ -1,4 +1,5 @@
 .. _java-fundamentals-bulkwrite:
+.. _java-usage-bulkwrite:
 
 ===============
 Bulk Operations
@@ -357,6 +358,32 @@ see the following API documentation:
 
 - `BulkWriteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html>`__
 - `ordered() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html#ordered(boolean)>`__
+
+
+Example File 
+~~~~~~~~~~~~
+
+The following code is a complete, standalone file that performs an ordered bulk
+write operation on the ``movies`` collection in the ``sample_mflix`` database.
+The example call to ``bulkWrite()`` includes examples of the ``InsertOneModel``,
+``UpdateOneModel``, and ``DeleteOneModel``. 
+
+.. include:: /includes/connect-guide-note.rst
+
+.. io-code-block::
+
+   .. input:: /includes/usage-examples/code-snippets/BulkWrite.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      Result statistics:
+      inserted: 3
+      updated: 2
+      deleted: 1
 
 .. _java-sync-client-bulk-write:
 
