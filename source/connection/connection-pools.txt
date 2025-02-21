@@ -52,7 +52,8 @@ string or by passing a ``MongoClientSettings`` object to the
 ``MongoClients.create()`` method.
 
 The following code creates a client with a maximum connection pool size of ``50`` 
-by using either a connection string or ``MongoClientSettings`` object:
+by using either a :guilabel:`Connection String` or :guilabel:`MongoClientSettings` 
+object:
 
 .. tabs::
 
@@ -61,7 +62,8 @@ by using either a connection string or ``MongoClientSettings`` object:
 
       .. code-block:: java
 
-         MongoClient mongoClient = MongoClients.create("mongodb://<host>:<port>/?maxPoolSize=50")
+        ConnectionString connectionString = "mongodb://<host>:<port>/?maxPoolSize=50"
+        MongoClient mongoClient = MongoClients.create(connectionString)
 
   .. tab:: MongoClientSettings
      :tabid: MongoClient
