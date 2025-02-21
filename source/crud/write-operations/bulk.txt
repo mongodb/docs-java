@@ -363,14 +363,20 @@ see the following API documentation:
 Example File 
 ~~~~~~~~~~~~
 
-The following code is a complete, standalone file that performs an ordered bulk
-write operation.  
+This code example is a complete, standalone file that performs an ordered bulk
+write operation. It uses the  on the ``movies`` collection in the
+``sample_mflix`` database included in the :atlas:`sample datasets
+</sample-data?jmp=docs_driver_java>` provided by Atlas. You can load them into
+your database on the free tier of MongoDB Atlas by following the :atlas:`Get
+Started with Atlas Guide </getting-started/#atlas-getting-started?jmp=docs_driver_java>`
 
 .. include:: /includes/sample-data-note.rst
 
-It uses the  on the ``movies`` collection in the ``sample_mflix`` database.
+
 The example call to ``bulkWrite()`` includes examples of the ``InsertOneModel``,
 ``UpdateOneModel``, and ``DeleteOneModel``. 
+
+The following code 
 
 .. include:: /includes/connect-guide-note.rst
 
