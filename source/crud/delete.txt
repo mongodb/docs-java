@@ -1,4 +1,5 @@
 .. _java-fundamentals-delete:
+.. _java-usage-deletemany:
 
 ================
 Delete Documents
@@ -147,14 +148,54 @@ collection:
     { "_id": 1, "color": "red", "qty": 5 }
     { "_id": 8, "color": "black", "qty": 8 }
 
+Delete Example File
+-------------------
+
+This code example is a complete, standalone file that performs a delete one
+operation and a delete many operation. It uses the ``movies`` collection in the
+``sample_mflix`` database included in the :atlas:`sample datasets
+</sample-data?jmp=docs_driver_java>` provided by Atlas. You can load them into
+your database on the free tier of MongoDB Atlas by following the :atlas:`Get
+Started with Atlas Guide </getting-started/#atlas-getting-started?jmp=docs_driver_java>`
+
+This example used the ``eq()`` and ``lt()`` filters to query documents. For more
+information about filters, see the `Filters Class
+<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`__
+API documentation.
+
+.. include:: /includes/connect-guide-note.rst
+
+.. io-code-block::
+
+   .. input:: /includes/crud/Delete.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      DeleteOne document count: 1
+      DeleteMany document count: 4
+
+More Information
+----------------
+
 For more information about the methods and classes mentioned in this guide,
 see the following resources:
 
-- `deleteOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__ API Documentation 
-- `deleteMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__ API Documentation
-- `findOneAndDelete() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>`__ API Documentation
-- `DeleteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html>`__ API Documentation
-- `FindOneAndDeleteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`__ API Documentation
-- :manual:`db.collection.deleteOne() </reference/method/db.collection.deleteMany/>` Server Manual Entry
-- :manual:`db.collection.deleteMany() </reference/method/db.collection.deleteOne/>` Server Manual Entry
-- :manual:`db.collection.findOneAndDelete() </reference/method/db.collection.findOneAndDelete/>` Server Manual Entry
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+- `deleteOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__  
+- `deleteMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__ 
+- `findOneAndDelete() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>`__ 
+- `DeleteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html>`__ 
+- `FindOneAndDeleteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/FindOneAndDeleteOptions.html>`__ 
+
+Server Manual Entries
+~~~~~~~~~~~~~~~~~~~~~
+
+- :manual:`db.collection.deleteOne() </reference/method/db.collection.deleteMany/>`
+- :manual:`db.collection.deleteMany() </reference/method/db.collection.deleteOne/>`
+- :manual:`db.collection.findOneAndDelete() </reference/method/db.collection.findOneAndDelete/>`
