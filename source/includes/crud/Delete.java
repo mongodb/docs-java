@@ -1,8 +1,8 @@
-// Deletes multiple documents from a collection by using the Java driver
+// Deletes a document from a collection by using the Java driver
 
 package usage.examples;
 
-import static com.mongodb.client.model.Filters.lt;
+import static com.mongodb.client.model.Filters.eq;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -14,7 +14,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 
-public class DeleteMany {
+public class DeleteOne {
+
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string
         String uri = "<connection string uri>";
@@ -24,14 +25,26 @@ public class DeleteMany {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            Bson query = lt("imdb.rating", 1.9);
+            Bson deleteOneQuery = eq("title", "The Garbage Pail Kids Movie");
+
+            try {
+                // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
+                DeleteResult deleteOneResult = collection.deleteOne(deleteOneQuery);
+                System.out.println("Deleted document count: " + deleteOneResult.getDeletedCount());
+
+            // Prints a message if any exceptions occur during the operation
+            } catch (MongoException me) {
+                System.err.println("Unable to delete due to an error: " + me);
+            }
+
+            Bson deleteManyQuery = lt("imdb.rating", 1.9);
 
             try {
                 // Deletes all documents that have an "imdb.rating" value less than 1.9
-                DeleteResult result = collection.deleteMany(query);
+                DeleteResult deleteManyResult = collection.deleteMany(deleteManyQuery);
                 
                 // Prints the number of deleted documents
-                System.out.println("Deleted document count: " + result.getDeletedCount());
+                System.out.println("Deleted document count: " + deleteManyResult.getDeletedCount());
             
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
