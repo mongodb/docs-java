@@ -159,7 +159,33 @@ The output of the preceding code resembles the following:
 .. code-block::
    :copyable: false
 
-   Inserted documents with the following ids: [60930c3aa982931c20ef6cd7, 60930c3aa982931c20ef6cd8] 
+   Inserted documents with the following ids: [60930c3aa982931c20ef6cd7,
+   60930c3aa982931c20ef6cd8] 
+
+
+Insert Example
+--------------
+
+The following code is a complete, standalone file that performs an insert one
+operation and an insert many operation. 
+
+.. include:: /includes/crud/example-intro.rst
+
+.. io-code-block::
+
+   .. input:: /includes/crud/Insert.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      InsertOne document id: BsonObjectId{value=...}
+      InsertMany document ids: {0=BsonObjectId{value=...}, 1=BsonObjectId{value=...}}
+
+More Information
+----------------
 
 For more information about the methods and classes mentioned in this section,
 see the following resources: 
@@ -167,18 +193,3 @@ see the following resources:
 - `insertMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertMany(java.util.List)>`__ API Documentation
 - `InsertManyResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`__ API Documentation
 - Manual Explanation on :manual:`insertMany() </reference/method/db.collection.insertMany/>`
-- Runnable :ref:`Insert Multiple Documents Example <java-usage-insertmany>`
-
-Summary
--------
-
-There are three ways to perform an insert operation, but we focused on two:
-
-- The ``insertOne()`` method inserts a single document.
-- The ``insertMany()`` method inserts multiple documents.
-
-Both methods automatically generate an ``_id`` if you omit the field in
-your document. 
-
-If the insertion is successful, both methods return an instance
-representing the ``_id`` of each new document.

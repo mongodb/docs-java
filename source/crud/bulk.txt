@@ -360,20 +360,16 @@ see the following API documentation:
 - `ordered() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html#ordered(boolean)>`__
 
 
-BulkWrite Example File 
-~~~~~~~~~~~~~~~~~~~~~~
+BulkWrite Example
+~~~~~~~~~~~~~~~~~
 
-This code example is a complete, standalone file that performs an ordered bulk
-write operation. It uses the ``movies`` collection in the
-``sample_mflix`` database included in the :atlas:`sample datasets
-</sample-data?jmp=docs_driver_java>` provided by Atlas. You can load them into
-your database on the free tier of MongoDB Atlas by following the :atlas:`Get
-Started with Atlas Guide </getting-started/#atlas-getting-started?jmp=docs_driver_java>`
+The following code is a complete, standalone file that performs an ordered bulk
+write operation. 
+
+.. include:: /includes/crud/example-intro.rst
 
 This example call to ``bulkWrite()`` includes examples of the ``InsertOneModel``,
 ``UpdateOneModel``, ``DeleteOneModel``, and ``ReplaceOneModel``. 
-
-.. include:: /includes/connect-guide-note.rst
 
 .. io-code-block::
 
