@@ -14,3 +14,141 @@ Connection Pools
    :name: genre
    :values: reference
 
+Overview
+--------
+
+This guide shows you how to create and configure a connection pool associated
+with a ``MongoClient``.
+
+Create and Use a Connection Pool
+--------------------------------
+
+Every ``MongoClient`` instance has a built-in connection pool for each server 
+in your MongoDB topology. Connection pools open sockets on demand to support 
+concurrent MongoDB operations in your multi-threaded application.
+
+The maximum size of each connection pool is set by the ``maxPoolSize`` option, which 
+defaults to 100. If the number of in-use connections to a server reaches the 
+value of maxPoolSize, the next request to that server will wait until a 
+connection becomes available.
+
+Each ``MongoClient`` instance opens two additional sockets per server in your MongoDB 
+topology for monitoring the server's state.
+
+Configure a Connection Pool
+---------------------------
+
+You can specify settings for your connection pool using either a connection
+string or by passing a ``MongoClientSettings`` object to the 
+``MongoClients.create()`` method.
+
+The following code creates a client with a maximum connection pool size of ``50`` 
+by using either a connection string or ``MongoClientSettings`` object:
+
+. tabs::
+
+   .. tab:: Connection String
+      :tabid: uri
+
+      .. code-block:: java
+
+         MongoClient mongoClient = MongoClients.create("mongodb://<host>:<port>/?maxPoolSize=50")
+
+  .. tab:: ``MongoClientSettings``
+     :tabid: MongoClient
+
+     .. literalinclude:: /includes/fundamentals/code-snippets/mcs.java
+        :start-after: begin MongoSettings
+        :end-before: end MongoSettings
+        :language: java
+        :dedent:
+
+For more information on these connection string options, see the 
+:ref:`Connection Options <connection-options>`
+guide. 
+
+For more information on configuring you connection pool by using a 
+``MongoClientSettings`` object see the Connection Pool Settings section
+of the :ref:`<specify-mongoclient-settings>` guide. 
+
+Connection Pool Settings
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following are connection string settings you can use to configure your 
+connection pool:
+
+.. list-table::
+   :widths: 25,75                                                          
+   :header-rows: 1
+
+   * - Setting
+     - Description
+     
+   * - :urioption:`connectTimeoutMS`
+
+     - Specifies the maximum amount of time, in milliseconds, the Java driver 
+       waits for a connection to open before timing out. A value of 0 instructs 
+       the driver to never time out while waiting for a connection to open.
+       
+       *Default:* ``10000`` (10 seconds)
+   
+   * - :urioption:`maxConnecting`
+   
+     - Maximum number of connections a pool may be establishing
+       concurrently.
+
+       .. include:: /includes/connection-pool/max-connecting-use-case.rst
+
+       *Default:* ``2``
+   
+   * - :urioption:`maxIdleTimeMS`
+   
+     - The maximum number of milliseconds that a connection can 
+       remain idle in the pool before being removed and closed.
+
+       *Default:* ``0``
+   
+   * - :urioption:`maxPoolSize`
+
+     - Maximum number of connections opened in the pool. When the 
+       connection pool reaches the maximum number of connections, new 
+       connections wait up until to the value of 
+       :urioption:`waitQueueTimeoutMS`.
+
+       *Default:* ``100`` 
+
+   * - :urioption:`minPoolSize`
+
+     - Minimum number of connections opened in the pool. 
+       The value of :urioption:`minPoolSize` must be less than 
+       the value of :urioption:`maxPoolSize`.
+
+       *Default*: ``0``
+
+   * - :urioption:`socketTimeoutMS`
+
+     - Number of milliseconds to wait before timeout on a TCP 
+       connection.
+       
+       Do *not* use :urioption:`socketTimeoutMS` as a mechanism for 
+       preventing long-running server operations.
+
+       Setting low socket timeouts may result in operations that error 
+       before the server responds.
+       
+       *Default*: ``0``, which means no timeout.
+
+   * - :urioption:`waitQueueTimeoutMS`
+
+     - Maximum wait time in milliseconds that a can thread wait for 
+       a connection to become available. A value of ``0`` means there
+       is no limit. 
+
+       *Default*: ``120000`` (120 seconds)
+
+Additional Information
+----------------------
+
+For more information on using a connection pool, see the 
+:manual:`Connection Pool </administration/connection-pool-overview>`
+documentation in the Server manual. 
