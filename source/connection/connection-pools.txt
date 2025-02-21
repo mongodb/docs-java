@@ -7,7 +7,7 @@ Connection Pools
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 .. facet::
@@ -17,8 +17,17 @@ Connection Pools
 Overview
 --------
 
-This guide shows you how to create and configure a connection pool associated
-with a ``MongoClient``.
+In this guide, you can learn about how {+driver-short+} uses connection pools to manage
+connections to a MongoDB deployment and how you can configure connection pool settings
+in your application.
+
+A connection pool is a cache of open database connections maintained by {+driver-short+}.
+When your application requests a connection to MongoDB, {+driver-short+} seamlessly
+gets a connection from the pool, performs operations, and returns the connection
+to the pool for reuse.
+
+Connection pools help reduce application latency and the number of times new connections
+are created by {+driver-short+}.
 
 Create and Use a Connection Pool
 --------------------------------
@@ -54,7 +63,7 @@ by using either a connection string or ``MongoClientSettings`` object:
 
          MongoClient mongoClient = MongoClients.create("mongodb://<host>:<port>/?maxPoolSize=50")
 
-  .. tab:: ``MongoClientSettings``
+  .. tab:: MongoClientSettings
      :tabid: MongoClient
 
      .. literalinclude:: /includes/fundamentals/code-snippets/ConnectionPool.java
@@ -62,14 +71,6 @@ by using either a connection string or ``MongoClientSettings`` object:
         :end-before: end MongoSettings
         :language: java
         :dedent:
-
-For more information on these connection string options, see the 
-:ref:`Connection Options <connection-options>`
-guide. 
-
-For more information on configuring you connection pool by using a 
-``MongoClientSettings`` object see the Connection Pool Settings section
-of the :ref:`<specify-mongoclient-settings>` guide. 
 
 Connection Pool Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,6 +146,14 @@ connection pool:
        is no limit. 
 
        *Default*: ``120000`` (120 seconds)
+
+For more information on these connection string options, see the 
+:ref:`Connection Options <connection-options>`
+guide. 
+
+For more information on configuring you connection pool by using a 
+``MongoClientSettings`` object see the Connection Pool Settings section
+of the :ref:`<specify-mongoclient-settings>` guide. 
 
 Additional Information
 ----------------------
