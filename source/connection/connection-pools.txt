@@ -75,7 +75,7 @@ see the corresponding syntax:
       * - Setting
         - Description
         
-      * - :urioption:`connectTimeoutMS`
+      * - ``connectTimeoutMS``
 
         - Specifies the maximum amount of time, in milliseconds, the Java driver 
           waits for a connection to open before timing out. A value of 0 instructs 
@@ -83,43 +83,43 @@ see the corresponding syntax:
           
           *Default:* ``10000`` (10 seconds)
       
-      * - :urioption:`maxConnecting`
+      * - ``maxConnecting``
       
         - Maximum number of connections a pool may establish
           concurrently.
 
           *Default:* ``2``
       
-      * - :urioption:`maxIdleTimeMS`
+      * - ``maxIdleTimeMS``
       
         - The maximum number of milliseconds that a connection can 
           remain idle in the pool before being removed and closed.
 
           *Default:* ``0``
       
-      * - :urioption:`maxPoolSize`
+      * - ``maxPoolSize``
 
         - Maximum number of connections opened in the pool. When the 
           connection pool reaches the maximum number of connections, new 
           connections wait up until to the value of 
-          :urioption:`waitQueueTimeoutMS`.
+          ``waitQueueTimeoutMS``.
 
           *Default:* ``100`` 
 
-      * - :urioption:`minPoolSize`
+      * - ``minPoolSize``
 
         - Minimum number of connections opened in the pool. 
-          The value of :urioption:`minPoolSize` must be less than 
-          the value of :urioption:`maxPoolSize`.
+          The value of ``minPoolSize`` must be less than 
+          the value of ``maxPoolSize``.
 
           *Default*: ``0``
 
-      * - :urioption:`socketTimeoutMS`
+      * - ``socketTimeoutMS``
 
         - Number of milliseconds to wait before timeout on a TCP 
           connection.
           
-          Do *not* use :urioption:`socketTimeoutMS` as a mechanism for 
+          Do *not* use ``socketTimeoutMS`` as a mechanism for 
           preventing long-running server operations.
 
           Setting low socket timeouts may result in operations that error 
@@ -127,7 +127,7 @@ see the corresponding syntax:
           
           *Default*: ``0``, which means no timeout.
 
-      * - :urioption:`waitQueueTimeoutMS`
+      * - ``waitQueueTimeoutMS``
 
         - Maximum wait time in milliseconds that a thread can wait for 
           a connection to become available. A value of ``0`` means there
