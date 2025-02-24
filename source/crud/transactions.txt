@@ -61,6 +61,31 @@ operations. If you perform a series of operations where one operation
 logically depends on the result of another, any subsequent
 reads reflect the dependent relationship.
 
+The following tables describes the guarantees that causally
+consistent sessions provide:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Guarantee
+     - Description
+
+   * - Read your writes
+     - Read operations reflect the results of preceding write operations.
+
+   * - Monotonic reads
+     - Read operations do not return results that reflect an earlier data state than
+       a preceding read operation.
+
+   * - Monotonic writes
+     - The driver runs write operations that logically must precede other write operations
+       before these dependent writes.
+
+   * - Writes follow reads
+     - The driver runs write operations that logically must follow other read operations
+       after these reads.
+
 In a causally consistent session, MongoDB ensures a
 causal relationship between the following operations:
 
