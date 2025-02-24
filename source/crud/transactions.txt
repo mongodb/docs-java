@@ -29,7 +29,9 @@ before they ever become visible.
 
 In MongoDB, transactions run within logical **sessions**. A
 session is a grouping of related read or write operations that you
-intend to run sequentially. 
+intend to run sequentially. Sessions allow you to run operations
+in an ACID-compliant transaction, which is a transaction that meets
+an expectation of atomicity, consistency, isolation, and durability.
 
 When using the {+driver-short+}, you can create a new session from a 
 ``MongoClient`` instance as a ``ClientSession`` type. We recommend that you reuse
@@ -51,8 +53,7 @@ instantiating a new client each time.
 Causal Consistency
 ~~~~~~~~~~~~~~~~~~
 
-MongoDB enables **causal consistency** in client sessions, which allows
-you to execute operations in an :website:`ACID transaction </basics/acid-transactions>`.
+MongoDB enables **causal consistency** in client sessions.
 The causal consistency model guarantees that operations within a session
 run in a causal order. Additionally, clients observe results that
 are consistent with the causal relationships, or the dependencies between
