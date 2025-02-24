@@ -29,8 +29,8 @@ public class DeleteOne {
 
             try {
                 // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
-                DeleteResult deleteOneResult = collection.deleteOne(deleteOneQuery);
-                System.out.println("DeleteOne document count: " + deleteOneResult.getDeletedCount());
+                DeleteResult result = collection.deleteOne(deleteOneQuery);
+                System.out.println("DeleteOne document count: " + result.getDeletedCount());
 
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
@@ -41,10 +41,10 @@ public class DeleteOne {
 
             try {
                 // Deletes all documents that have an "imdb.rating" value less than 1.9
-                DeleteResult deleteManyResult = collection.deleteMany(deleteManyQuery);
+                DeleteResult result = collection.deleteMany(deleteManyQuery);
                 
                 // Prints the number of deleted documents
-                System.out.println("DeleteMany document count: " + deleteManyResult.getDeletedCount());
+                System.out.println("DeleteMany document count: " + result.getDeletedCount());
             
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {

@@ -163,6 +163,27 @@ documents match.
     see :manual:`Unique Indexes </core/index-unique/>` in the
     {+mdb-server+} manual.
 
+Update Example
+~~~~~~~~~~~~~~
+
+The following code is a complete, standalone file that performs an update one
+operation and an update many operation. 
+
+.. include:: /includes/crud/example-intro.rst
+
+.. io-code-block::
+
+   .. input:: /includes/crud/Insert.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      InsertOne document id: BsonObjectId{value=...}
+      InsertMany document ids: {0=BsonObjectId{value=...}, 1=BsonObjectId{value=...}}
+
 .. _replace-operation:
 
 Replace
