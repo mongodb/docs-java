@@ -14,7 +14,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 
-public class DeleteOne {
+import static com.mongodb.client.model.Filters.lt;
+
+public class Delete {
 
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string

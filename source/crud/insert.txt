@@ -163,8 +163,8 @@ The output of the preceding code resembles the following:
    60930c3aa982931c20ef6cd8] 
 
 
-Insert Example
---------------
+Insert Example: Full File
+-------------------------
 
 The following code is a complete, standalone file that performs an insert one
 operation and an insert many operation. 
@@ -184,12 +184,18 @@ operation and an insert many operation.
       InsertOne document id: BsonObjectId{value=...}
       InsertMany document ids: {0=BsonObjectId{value=...}, 1=BsonObjectId{value=...}}
 
-More Information
-----------------
+API Documentation
+-----------------
 
-For more information about the methods and classes mentioned in this section,
-see the following resources: 
+For additional information on the methods and classes used to insert documents, see the following API Documentation: 
 
-- `insertMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertMany(java.util.List)>`__ API Documentation
-- `InsertManyResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`__ API Documentation
-- Manual Explanation on :manual:`insertMany() </reference/method/db.collection.insertMany/>`
+- `insertOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertOne(TDocument)>`__
+- `InsertOneResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`__
+- `insertMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertMany(java.util.List)>`__
+- `InsertManyResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`__ 
+
+Server Manual Entries
+---------------------
+
+- :manual:`db.collection.insertOne() </reference/method/db.collection.insertOne/>`
+- :manual:`db.collection.insertMany() </reference/method/db.collection.insertMany/>`
