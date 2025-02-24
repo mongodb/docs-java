@@ -30,28 +30,22 @@ The following sections focus on ``insertOne()`` and
 method, see our
 :ref:`guide on Bulk Operations <java-fundamentals-bulkwrite>`. 
 
-A Note About ``_id``
---------------------
+.. note:: The ``id_`` field in Insert Operations
 
-When inserting a document, MongoDB enforces one constraint on your
-documents by default: each document *must* contain a unique ``_id``
-field. 
+   When inserting a document, MongoDB enforces one constraint on your
+   documents by default: each document *must* contain a unique ``_id``
+   field. Duplicate ``_id`` values violate unique index constraints, resulting in a ``WriteError``.
 
-There are two ways to manage this field:
+   There are two ways to manage this field:
 
-- You can manage this field yourself, ensuring each value you use is unique.
-- You can let the driver automatically generate unique ObjectId values.
+   - You can manage this field yourself, ensuring each value you use is unique.
+   - You can let the driver automatically generate unique ObjectId values.
 
-Unless you have provided strong guarantees for uniqueness, we recommend
-you let the driver automatically generate ``_id`` values. 
-
-.. note::
-
-   Duplicate ``_id`` values violate unique index constraints, resulting
-   in a ``WriteError``. 
- 
-For additional information on unique indexes, see the manual entry on 
-:manual:`Unique Indexes </core/index-unique/>`.
+   Unless you have provided strong guarantees for uniqueness, we recommend
+   you let the driver automatically generate ``_id`` values.  
+   
+   For additional information on unique indexes, see the manual entry on 
+   :manual:`Unique Indexes </core/index-unique/>`.
 
 .. _java-insertone:
 
