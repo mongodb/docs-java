@@ -26,7 +26,7 @@ public class InsertOne {
 
             try {
                 // Inserts a sample document describing a movie into the collection
-                InsertOneResult iOResult = collection.insertOne(new Document()
+                InsertOneResult result = collection.insertOne(new Document()
                         .append("_id", new ObjectId())
                         .append("title", "Ski Bloopers")
                         .append("genres", Arrays.asList("Documentary", "Comedy")));
