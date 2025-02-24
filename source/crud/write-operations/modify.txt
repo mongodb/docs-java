@@ -163,8 +163,8 @@ documents match.
     see :manual:`Unique Indexes </core/index-unique/>` in the
     {+mdb-server+} manual.
 
-Update Example
-~~~~~~~~~~~~~~
+Update Example: Full File
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following code is a complete, standalone file that performs an update one
 operation and an update many operation. 
@@ -181,8 +181,10 @@ operation and an update many operation.
       :language: none
       :visible: false
 
-      InsertOne document id: BsonObjectId{value=...}
-      InsertMany document ids: {0=BsonObjectId{value=...}, 1=BsonObjectId{value=...}}
+      UpdateOne modified document count: 1
+      Upserted ID: null
+
+      UpdateMany modified document count: 242
 
 .. _replace-operation:
 
@@ -277,3 +279,54 @@ documents match.
     For more information about constraints on unique indexes,
     see :manual:`Unique Indexes </core/index-unique/>` in the
     {+mdb-server+} manual.
+
+ReplaceOne Example: Full File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following code is a complete, standalone file that performs an update one
+operation and an update many operation. 
+
+.. include:: /includes/crud/example-intro.rst
+
+.. io-code-block::
+
+   .. input:: /includes/crud/ReplaceOne.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      UpdateOne modified document count: 1
+      Upserted ID: null
+
+      UpdateMany modified document count: 242
+
+API Documentation
+-----------------
+
+For additional information on the methods and classes used to modify documents, see the following API Documentation:
+
+- `updateOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.UpdateOptions)>`__
+- `updateMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.UpdateOptions)>`__
+- `UpdateOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__
+- `replaceOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
+- `ReplaceOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html?is-external=true>`__
+- - `UpdateResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
+ 
+For additional information on the methods used in the examples on this
+page, see the following API Documentation:
+
+- `eq() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html#eq(java.lang.String,TItem)>`__
+- `combine() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html#combine(org.bson.conversions.Bson...)>`__
+- `set() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html#set(java.lang.String,TItem)>`__
+- `addToSet() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html#addToSet(java.lang.String,TItem)>`__
+- `currentTimestamp() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Updates.html#currentTimestamp(java.lang.String)>`__
+
+Server Manual Entries
+---------------------
+
+- :manual:`db.collection.updateOne() </reference/method/db.collection.updateOne/>`
+- :manual:`db.collection.updateMany() </reference/method/db.collection.updateMany/>`
+- :manual:`db.collection.replaceOne() </reference/method/db.collection.replaceOne/>`

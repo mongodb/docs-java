@@ -15,7 +15,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.InsertManyResult;
 
-public class InsertOne {
+import java.util.List;
+
+public class Insert {
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string
         String uri = "<connection string uri>";

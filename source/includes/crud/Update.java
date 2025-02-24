@@ -14,7 +14,9 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 
-public class UpdateOne {
+import static com.mongodb.client.model.Filters.gt;
+
+public class Update {
 
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string
@@ -41,8 +43,8 @@ public class UpdateOne {
                 UpdateResult result = collection.updateOne(updateOneQuery, updateOneUpdates, options);
 
                 // Prints the number of updated documents and the upserted document ID, if an upsert was performed
-                System.out.println("Modified document count: " + result.getModifiedCount());
-                System.out.println("Upserted id: " + result.getUpsertedId());
+                System.out.println("UpdateOne modified document count: " + result.getModifiedCount());
+                System.out.println("Upserted ID: " + result.getUpsertedId());
             
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
@@ -61,7 +63,7 @@ public class UpdateOne {
                 UpdateResult result = collection.updateMany(updateManyQuery, updateManyUpdates);
 
                 // Prints the number of updated documents
-                System.out.println("Modified document count: " + result.getModifiedCount());
+                System.out.println("\nUpdateMany modified document count: " + result.getModifiedCount());
 
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
