@@ -5,8 +5,6 @@
 Open Change Streams
 ===================
 
-
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -92,7 +90,26 @@ An insert operation on the collection produces the following output:
       ...
    }
 
-For a runnable example, see the :ref:`<java-usage-watch>` usage example page.
+watch() Example: Full File 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following code is a complete, standalone file that performs an ordered bulk
+write operation. 
+
+.. include:: /includes/crud/example-intro.rst
+
+.. io-code-block::
+
+   .. input:: /includes/crud/Watch.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      Received a change to the collection: ChangeStreamDocument{ operationType=insert, resumeToken={...}, namespace=sample_mflix.movies, ... }
+
 
 To learn more about the ``watch()`` method, see the following API
 documentation:
