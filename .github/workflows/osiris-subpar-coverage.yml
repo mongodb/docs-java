@@ -1,0 +1,114 @@
+name: Coverage Check for Osiris Generated AST files
+on:
+  pull_request:
+    paths:
+        - '**/*.ast'  # Only trigger if .ast files are changed
+    branches:
+      - main
+      - DOP-5399
+  workflow_dispatch:
+
+jobs:
+  check-coverage:
+    runs-on: ubuntu-latest
+    outputs:
+      coverage_percent: ${{ steps.set_coverage.outputs.coverage_percent }}
+      coverage_below_threshold: ${{ steps.set_coverage.outputs.coverage_below_threshold }}
+      low_coverage_sites: ${{ steps.set_coverage.outputs.low_coverage_sites }}
+
+    steps:
+      - name: Checkout Repos
+        uses: actions/checkout@v4
+
+      - name: Install Wget
+        run: sudo apt-get update && sudo apt-get install -y wget
+
+      - name: Clone Docs Java
+        run: git clone --branch DOP-5399 https://github.com/mongodb/docs-java.git cloned-docs-java-repo
+
+      - name: Clone Osiris
+        run: git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/10gen/osiris.git cloned-osiris-repo
+
+      - name: Run Coverage Check
+        id: run_coverage
+        run: |
+          cd cloned-osiris-repo
+          npm ci
+          COVERAGE_OUTPUT=$(npm run dev -- -c "$GITHUB_WORKSPACE/cloned-docs-java-repo" -v --sp 95 | tee /dev/tty)
+
+          
+          # Extract the last reported overall coverage percentage
+          COVERAGE_PERCENT=$(echo "$COVERAGE_OUTPUT" | grep -oE 'Average Coverage: [0-9]+(\.[0-9]+)?%' | tail -1 | grep -oE '[0-9]+(\.[0-9]+)?')
+
+          REQUIRED_COVERAGE=90.0
+
+          # Extract site names where Average Coverage is below the required coverage%
+          LOW_COVERAGE_SITES=$(echo "$COVERAGE_OUTPUT" | awk -v threshold=$REQUIRED_COVERAGE '
+            /Average Coverage:/ {
+              coverage = $3 + 0;  # Convert to number
+              if (coverage < threshold) {
+                low_coverage_detected = 1;  # Flag that we have low coverage
+              } else {
+                low_coverage_detected = 0;  # Reset if coverage is above threshold
+              }
+            }
+            /Finished processing site "/ {
+              if (low_coverage_detected) {
+                site = $4; 
+                gsub(/"/, "", site);  # Extract site name
+                sites[site] = 1;  # Store site name
+              }
+            }
+            END { for (s in sites) printf "%s,", s }
+          ' | sed 's/,$//')
+
+          echo "Detected Coverage: $COVERAGE_PERCENT%"
+          echo "Sites with Low Coverage: $LOW_COVERAGE_SITES"
+
+          # Ensure we have a valid number
+          if [ -z "$COVERAGE_PERCENT" ]; then
+            echo "Coverage percentage could not be determined."
+            exit 1
+          fi
+
+          echo "Required Coverage: $REQUIRED_COVERAGE"
+
+          if awk "BEGIN {exit !($COVERAGE_PERCENT < $REQUIRED_COVERAGE)}"; then
+            echo "Test coverage ($COVERAGE_PERCENT%) is below required threshold ($REQUIRED_COVERAGE%)."
+            echo "coverage_below_threshold=true" >> $GITHUB_ENV
+            echo "COVERAGE_PERCENT=$COVERAGE_PERCENT" >> $GITHUB_ENV
+            echo "LOW_COVERAGE_SITES=$LOW_COVERAGE_SITES" >> $GITHUB_ENV
+          else
+            echo "Test coverage ($COVERAGE_PERCENT%) meets the required threshold."
+            echo "coverage_below_threshold=false" >> $GITHUB_ENV
+          fi
+
+      - name: Set Workflow Outputs
+        id: set_coverage
+        run: |
+          echo "coverage_percent=${COVERAGE_PERCENT}" >> $GITHUB_OUTPUT
+          echo "coverage_below_threshold=${coverage_below_threshold}" >> $GITHUB_OUTPUT
+          echo "low_coverage_sites=${LOW_COVERAGE_SITES}" >> $GITHUB_OUTPUT
+
+  send-slack-notification:
+    runs-on: ubuntu-latest
+    needs: check-coverage
+    if: needs.check-coverage.outputs.coverage_below_threshold == 'true'
+
+    steps:
+      - name: Send Slack Notification
+        env:
+          COVERAGE_PERCENT: ${{ needs.check-coverage.outputs.coverage_percent }}
+          LOW_COVERAGE_SITES: ${{ needs.check-coverage.outputs.low_coverage_sites }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPOSITORY: ${{ github.repository }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          curl -v -X POST -H 'Content-type: application/json' \
+          --data '{
+            "text": "⚠️ *Test Coverage Alert* ⚠️\n\nThe test coverage is below the required threshold of 90%.\n\n*Detected Coverage:* '"$COVERAGE_PERCENT"%'\n\n*Repository:* <https://github.com/'"$REPOSITORY"'|'"$REPOSITORY"'>\n*PR Title:* '"$PR_TITLE"'\n*PR Number:* #'"$PR_NUMBER"'\n*PR URL:* <'"$PR_URL"'|View PR>\n*Commit SHA:* `'"$PR_SHA"'`\n\n*Sites with Low Coverage:* \n`'"$LOW_COVERAGE_SITES"'`\n\nPlease review the test coverage and take action if necessary."
+          }' \
+          $SLACK_WEBHOOK_URL
