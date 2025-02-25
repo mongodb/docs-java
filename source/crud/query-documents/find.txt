@@ -60,6 +60,9 @@ match the query filter you provide. For more information about how to
 specify a query, see our :ref:`Specify a Query
 <java-query>` guide.
 
+To retrieve a single document, you can append the ``first()`` method to your
+``find()`` operation.
+
 Example
 ~~~~~~~
 
@@ -91,8 +94,9 @@ criteria.
 Find Example: Full File
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The following code is a complete, standalone file that performs a find one
-operation and a find many operation. 
+The following code is a complete, standalone file that performs a find
+operation to retrieve multiple douments, and a find operation with the first
+method to retrieve a single document. 
 
 .. include:: /includes/crud/example-intro.rst
 
