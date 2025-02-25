@@ -1,4 +1,4 @@
-// Creates and uses Atlas Search indexes by using the Java driver
+// Runs an Atlas Search query by using the Java driver
 
 package org.example;
 
@@ -15,22 +15,23 @@ import java.util.Arrays;
 
 public class AtlasSearch {
     public static void main(String[] args) {
-        String uri = "<connection-string>";
+        String uri = "<connection string>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
         
+        // Queries for documents that have a "title" value containing the word "Alabama"
         // begin-atlas-search
-	    collection.aggregate(
-		    Arrays.asList(
-		    	Aggregates.search(SearchOperator.text(
-	                          SearchPath.fieldPath("title"), "Alabama")),
-		        Aggregates.project(Projections.include("title"))
-		    )
-		).forEach(doc -> System.out.println(doc.toJson()));
+        collection.aggregate(
+            Arrays.asList(
+            	Aggregates.search(SearchOperator.text(
+                              SearchPath.fieldPath("title"), "Alabama")),
+                Aggregates.project(Projections.include("title"))
+            )
+        ).forEach(doc -> System.out.println(doc.toJson()));
         // end-atlas-search
-	   
+        
         }
     }
 }

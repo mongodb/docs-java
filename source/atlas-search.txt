@@ -25,12 +25,20 @@ In this guide, you can learn how to use the **Atlas Search** feature on a collec
 Atlas Search enables you to perform full-text searches on collections hosted on MongoDB
 Atlas. Atlas Search indexes specify the behavior of the search and which fields to index.
 
+Sample Data
+~~~~~~~~~~~
+
+The example in this guide uses the ``movies`` collection in the ``sample_mflix``
+database from the :atlas:`Atlas sample datasets </sample-data>`. To learn how to
+create a free MongoDB Atlas cluster and load the sample datasets, see the
+:atlas:`Get Started with Atlas </getting-started>` guide.
+
 Run an Atlas Search Query
 -------------------------
 
 This section shows how to create an aggregation pipeline to run an
-Atlas Search on a collection. You can use ``Aggregates.search`` builder to
-create a ``$search`` pipeline stage and specify your search. Then, call
+Atlas Search on a collection. You can use the ``Aggregates.search()`` builder
+method to create a ``$search`` pipeline stage and specify your search. Then, call
 the ``aggregate()`` method and pass your pipeline as a parameter.
 
 .. tip:: 
@@ -42,23 +50,16 @@ Before running an Atlas Search query, you must create an Atlas Search index
 on your collection. To learn how to programmatically create an Atlas Search
 index, see the :ref:`java-search-indexes` section in the Indexes guide. 
 
-Sample Data
-~~~~~~~~~~~
-
-The example in this section uses the ``movies`` collection in the ``sample_mflix``
-database from the :atlas:`Atlas sample datasets </sample-data>`. To learn how to
-create a free MongoDB Atlas cluster and load the sample datasets, see the
-:atlas:`Get Started with Atlas </getting-started>` guide.
-
 Atlas Search Example
 ~~~~~~~~~~~~~~~~~~~~
 
 This example performs an Atlas Search query by calling the
-``aggregate()`` method and passing the following pipeline stages:
+``aggregate()`` method and passing the following pipeline stage
+builders:
 
-- ``Aggregates.search``: Specifies a search query for documents in which
+- ``Aggregates.search()``: Specifies a search query for documents in which
   the ``title`` field contains the word ``"Alabama"``
-- ``Aggregates.project``: Projects the ``title`` field of each matching document
+- ``Aggregates.project()``: Projects the ``title`` field of each matching document
 
 .. io-code-block::
    :copyable:
@@ -92,9 +93,9 @@ in the Atlas documentation.
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and pipeline stages mentioned in this guide, see
+To learn more about the methods mentioned in this guide, see
 the following API documentation:
 
 - `MongoCollection.aggregate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#aggregate(java.util.List)>`__
-- `Aggregates.search <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#search(com.mongodb.client.model.search.SearchCollector)>`__
-- `Aggregates.project <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#project(org.bson.conversions.Bson)>`__
+- `Aggregates.search() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#search(com.mongodb.client.model.search.SearchCollector)>`__
+- `Aggregates.project() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#project(org.bson.conversions.Bson)>`__
