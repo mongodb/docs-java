@@ -151,15 +151,10 @@ collection:
 Delete Example: Full File
 -------------------------
 
-The following code is a complete, standalone file that performs a delete one
-operation and a delete many operation. 
-
 .. include:: /includes/crud/example-intro.rst
 
-The query uses the ``eq()`` and ``lt()`` filters to query documents. For more
-information about filters, see the `Filters Class
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`__
-API documentation.
+The following code is a complete, standalone file that performs a delete one
+operation and a delete many operation. 
 
 .. io-code-block::
 
@@ -174,10 +169,19 @@ API documentation.
       DeleteOne document count: 1
       DeleteMany document count: 4
 
-API Documentation
------------------
 
-For more information on the methods and classes used to delete documents, see the following API Documentation: 
+The query in this examples uses the ``eq()`` and ``lt()`` filters to query documents. For more
+information about filters, see the `Filters Class
+<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Filters.html>`__
+API documentation.
+
+Additional Information
+----------------------
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+For more information about the methods and classes used to delete documents, see the following API cocumentation: 
 
 - `deleteOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__  
 - `deleteMany() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__ 
@@ -187,7 +191,7 @@ For more information on the methods and classes used to delete documents, see th
 - `DeleteResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/DeleteResult.html>`__ 
 
 Server Manual Entries
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 - :manual:`db.collection.deleteOne() </reference/method/db.collection.deleteOne/>`
 - :manual:`db.collection.deleteMany() </reference/method/db.collection.deleteMany/>`

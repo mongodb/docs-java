@@ -34,7 +34,7 @@ public class Insert {
                         .append("genres", Arrays.asList("Documentary", "Comedy")));
 
                 // Prints the ID of the inserted document
-                System.out.println("InsertOne document id: " + result.getInsertedId());
+                System.out.println("insertOne() document id: " + result.getInsertedId());
             
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
@@ -51,7 +51,7 @@ public class Insert {
                 InsertManyResult result = collection.insertMany(movieList);
 
                 // Prints the IDs of the inserted documents
-                System.out.println("InsertMany document ids: " + result.getInsertedIds());
+                System.out.println("insertMany() document ids: " + result.getInsertedIds());
             
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {

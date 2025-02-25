@@ -30,11 +30,12 @@ The following sections focus on ``insertOne()`` and
 method, see our
 :ref:`guide on Bulk Operations <java-fundamentals-bulkwrite>`. 
 
-.. note:: The ``id_`` field in Insert Operations
+.. note:: The ``id_`` Field in Insert Operations
 
    When inserting a document, MongoDB enforces one constraint on your
-   documents by default: each document *must* contain a unique ``_id``
-   field. Duplicate ``_id`` values violate unique index constraints, resulting in a ``WriteError``.
+   documents by default: each document *must* contain a unique ``_id`` value.
+   Duplicate ``_id`` values violate unique index constraints, resulting in a
+   ``WriteError``. 
 
    There are two ways to manage this field:
 
@@ -44,7 +45,7 @@ method, see our
    Unless you have provided strong guarantees for uniqueness, we recommend
    you let the driver automatically generate ``_id`` values.  
    
-   For more information on unique indexes, see the manual entry on 
+   For more information about unique indexes, see the manual entry on 
    :manual:`Unique Indexes </core/index-unique/>`.
 
 .. _java-insertone:
@@ -160,10 +161,10 @@ The output of the preceding code resembles the following:
 Insert Example: Full File
 -------------------------
 
+.. include:: /includes/crud/example-intro.rst
+
 The following code is a complete, standalone file that performs an insert one
 operation and an insert many operation. 
-
-.. include:: /includes/crud/example-intro.rst
 
 .. io-code-block::
 
@@ -178,10 +179,13 @@ operation and an insert many operation.
       InsertOne document id: BsonObjectId{value=...}
       InsertMany document ids: {0=BsonObjectId{value=...}, 1=BsonObjectId{value=...}}
 
-API Documentation
------------------
+Additional Information
+----------------------
 
-For more information on the methods and classes used to insert documents, see the following API Documentation: 
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+For more information about the methods and classes used to insert documents, see the following API cocumentation: 
 
 - `insertOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#insertOne(TDocument)>`__
 - `InsertOneResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/InsertOneResult.html>`__
@@ -189,7 +193,7 @@ For more information on the methods and classes used to insert documents, see th
 - `InsertManyResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/InsertManyResult.html>`__ 
 
 Server Manual Entries
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 - :manual:`db.collection.insertOne() </reference/method/db.collection.insertOne/>`
 - :manual:`db.collection.insertMany() </reference/method/db.collection.insertMany/>`
