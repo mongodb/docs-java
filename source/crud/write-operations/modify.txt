@@ -173,7 +173,7 @@ operation and an update many operation.
 
 .. io-code-block::
 
-   .. input:: /includes/crud/Insert.java
+   .. input:: /includes/crud/Update.java
       :language: java
       :dedent:
 
@@ -283,14 +283,13 @@ documents match.
 ReplaceOne Example: Full File
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following code is a complete, standalone file that performs an update one
-operation and an update many operation. 
+The following code is a complete, standalone file that performs a replace one operation. 
 
 .. include:: /includes/crud/example-intro.rst
 
 .. io-code-block::
 
-   .. input:: /includes/crud/Replace.java
+   .. input:: /includes/crud/ReplaceOne.java
       :language: java
       :dedent:
 
@@ -313,7 +312,7 @@ For additional information on the methods and classes used to modify documents, 
 - `UpdateOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__
 - `replaceOne() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
 - `ReplaceOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html?is-external=true>`__
-- - `UpdateResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
+- `UpdateResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__
  
 For additional information on the methods used in the examples on this
 page, see the following API Documentation:
