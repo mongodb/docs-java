@@ -4,6 +4,14 @@
 Find Documents
 ==============
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: find, findOne, findMany, get, lookup
+   :description: Learn about how to retrieve data in the {+driver-long+}.
+
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -80,8 +88,27 @@ The following shows the output of the preceding query:
 After the owner runs this query, they find two orders that matched the
 criteria.
 
-For a runnable ``find()`` example, see our :ref:`Find Multiple
-Documents <retrieve-find>` page.
+Find Example: Full File
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The following code is a complete, standalone file that performs a find one
+operation and a find many operation. 
+
+.. include:: /includes/crud/example-intro.rst
+
+.. io-code-block::
+
+   .. input:: /includes/crud/Find.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      Number of documents found with find(): 101
+
+      Document found with find().first(){"title": "The Room", "imdb": {"rating": 3.5, "votes": 25673, "id": 368226}}
 
 .. _retrieve-aggregate:
 
@@ -97,7 +124,8 @@ instance of a ``MongoCollection``. This method accepts aggregation
 expressions to run in sequence. To perform aggregations, you can
 define aggregation stages that specify how to match documents, rename
 fields, and group values. For more information, see our
-:ref:`Aggregation <java-aggregation>` guide.
+:ref:`Aggregation <java-aggregation>` guide and the :ref:`Aggregation Expression
+Operations <java-aggregation-expression-operations>` page.
 
 Example
 ~~~~~~~
@@ -132,8 +160,21 @@ purchased color.
 For more information about how to construct an aggregation pipeline, see
 the {+mdb-server+} manual page on :manual:`Aggregation </aggregation>`.
 
-For additional information on the methods mentioned on this page, see
-the following API Documentation:
+API Documentation
+-----------------
 
-- `MongoCollection.find() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#find()>`__
-- `MongoCollection.aggregate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#aggregate(java.util.List)>`__
+For additional information on the methods and classes used to retrieve documents
+on this page, see the following API Documentation:
+
+- `find() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#find()>`__
+- `first() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`__
+- `FindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`__
+- `aggregate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#aggregate(java.util.List)>`__
+
+Server Manual Entries
+---------------------
+
+- :manual:`Collections </core/databases-and-collections/#collections>`
+- :manual:`Query Documents </tutorial/query-documents>`
+- :manual:`Aggregation </aggregation>`
+- :manual:`Aggregation stages </meta/aggregation-quick-reference/#stages>`
