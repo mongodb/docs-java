@@ -48,7 +48,7 @@ public class Find {
             if (doc == null) {
                 System.out.println("No results found.");
             } else {
-                System.out.println("Document found with find().first()" + doc.toJson());
+                System.out.println("Document found with find().first(): " + doc.toJson());
             }
         }
     }

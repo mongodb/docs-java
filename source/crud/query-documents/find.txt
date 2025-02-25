@@ -15,7 +15,7 @@ Find Documents
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 Overview
@@ -61,7 +61,8 @@ specify a query, see our :ref:`Specify a Query
 <java-query>` guide.
 
 To retrieve a single document, you can append the ``first()`` method to your
-``find()`` operation.
+``find()`` operation. You can use the ``sort()`` operation before selecting the first
+document to help choose the correct file.
 
 Example
 ~~~~~~~
@@ -94,11 +95,13 @@ criteria.
 Find Example: Full File
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The following code is a complete, standalone file that performs a find
-operation to retrieve multiple douments, and a find operation with the first
-method to retrieve a single document. 
-
 .. include:: /includes/crud/example-intro.rst
+
+The following code is a complete, standalone file that performs the following
+actions:
+
+- Calls the ``find()`` method to retrieve multiple documents that have a ``runtime`` value less than 15, applying a projection and sort to the results 
+- Calls the ``find()`` and ``first()`` method to retrieve a document that has a ``title`` value of ``"The Room"``, applying a projection and sort before returning the first match 
 
 .. io-code-block::
 
@@ -112,7 +115,7 @@ method to retrieve a single document.
 
       Number of documents found with find(): 101
 
-      Document found with find().first(){"title": "The Room", "imdb": {"rating": 3.5, "votes": 25673, "id": 368226}}
+      Document found with find().first(): {"title": "The Room", "imdb": {"rating": 3.5, "votes": 25673, "id": 368226}}
 
 .. _retrieve-aggregate:
 
@@ -164,11 +167,14 @@ purchased color.
 For more information about how to construct an aggregation pipeline, see
 the {+mdb-server+} manual page on :manual:`Aggregation </aggregation>`.
 
-API Documentation
------------------
+Additional Information
+----------------------
 
-For more information on the methods and classes used to retrieve documents
-on this page, see the following API Documentation:
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+For more information about the methods and classes used to retrieve documents
+on this page, see the following API cocumentation:
 
 - `find() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#find()>`__
 - `first() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`__
@@ -176,7 +182,7 @@ on this page, see the following API Documentation:
 - `aggregate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#aggregate(java.util.List)>`__
 
 Server Manual Entries
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 - :manual:`Collections </core/databases-and-collections/#collections>`
 - :manual:`Query Documents </tutorial/query-documents>`

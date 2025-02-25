@@ -32,7 +32,7 @@ public class Delete {
             try {
                 // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
                 DeleteResult result = collection.deleteOne(deleteOneQuery);
-                System.out.println("DeleteOne document count: " + result.getDeletedCount());
+                System.out.println("deleteOne() document count: " + result.getDeletedCount());
 
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
@@ -46,7 +46,7 @@ public class Delete {
                 DeleteResult result = collection.deleteMany(deleteManyQuery);
                 
                 // Prints the number of deleted documents
-                System.out.println("DeleteMany document count: " + result.getDeletedCount());
+                System.out.println("deleteMany() document count: " + result.getDeletedCount());
             
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
