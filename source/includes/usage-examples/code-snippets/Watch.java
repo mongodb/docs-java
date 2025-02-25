@@ -20,6 +20,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.changestream.FullDocument;
+import com.mongodb.client.model.Aggregates;
 
 public class Watch {
     public static void main( String[] args ) {
