@@ -1,0 +1,497 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "text",
+      "value": "\n",
+      "is_inline": true
+    },
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "content",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "maxAwaitTime",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n    ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "maxAwaitTime",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-find-iterable/max-await-time",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "maxAwaitTime",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Long",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "timeUnit",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "TimeUnit",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " = ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "TimeUnit.MILLISECONDS",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "FindIterable",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-find-iterable",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "T",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-find-iterable",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The maximum amount of time for the server to wait on new documents to satisfy a tailable cursor query. This only applies to a TAILABLE_AWAIT cursor. When the cursor is not a TAILABLE_AWAIT cursor, this option is ignored.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "On servers >= 3.2, this option will be specified on the getMore command as \"maxTimeMS\". The default is no value: no \"maxTimeMS\" is sent to the server with the getMore command.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "On servers < 3.2, this option is ignored, and indicates that the driver should respect the server's default value",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "A zero value will be ignored.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "the maximum await execution time in the given time unit",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "max",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Await",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Time",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the max await time",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "time",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Unit",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the time unit to return results in, which defaults to Milliseconds",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Max Time",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/method/cursor.maxTimeMS/#cursor.maxTimeMS",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "\n      ",
+      "is_inline": true
+    },
+    {
+      "type": "text",
+      "value": "\n    ",
+      "is_inline": true
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-find-iterable/max-await-time.ast"
+}
