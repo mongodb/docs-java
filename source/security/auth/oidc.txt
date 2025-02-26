@@ -34,9 +34,22 @@ Enterprise Advanced, and only when authenticating to MongoDB v7.0 or later.
    in the Atlas documentation.
    
    For more information about using OIDC authentication with MongoDB, see
-   :manual:`OpenID Connect Authentication </core/security-oidc/>` and
-   :manual:`MongoDB Server Parameters </reference/parameters/#mongodb-parameter-param.oidcIdentityProviders>`
+   :manual:`Authentication and Authorization with OIDC/OAuth 2.0 </core/security-oidc/>` and
+   :manual:`oidcIdentityProviders </reference/parameters/#mongodb-parameter-param.oidcIdentityProviders>`
    in the {+mdb-server+} manual.
+
+Code Placeholders 
+~~~~~~~~~~~~~~~~~
+
+The code examples on this page use the following placeholders:
+
+- ``<db_username>``: The MongoDB username of the user to authenticate.
+- ``<hostname>``: The network address of your MongoDB deployment.
+- ``<port>``: The port number of your MongoDB deployment. If you omit this parameter,
+  the driver uses the default port number (``27017``). You don't need a port number
+  when connecting to a MongoDB Atlas cluster.
+
+To use the code examples, replace these placeholders with your own values.
 
 Specify OIDC Authentication
 ---------------------------
@@ -85,9 +98,7 @@ see the corresponding syntax:
    .. tab:: MongoCredential
       :tabid: mongodb-azure-mongo-credential
 
-      Replace the ``<db_username>`` placeholder with the client ID or application ID of the
-      Azure managed identity or enterprise application. Replace the ``<audience>``
-      placeholder with the value of the
+      Replace the ``<audience>`` placeholder with the value of the
       ``audience`` server parameter configured on your MongoDB deployment.
       
       .. code-block:: java
@@ -208,4 +219,4 @@ page, see the following API documentation:
 - `MongoClient <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`__
 - `MongoCredential <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html>`__
 - `MongoCredential.createOidcCredential() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#createOidcCredential(java.lang.String)>`__
-- `MongoCredential.withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodbMongoCredential.html#withMechanismProperty(java.lang.String,T)>`__
+- `MongoCredential.withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#withMechanismProperty(java.lang.String,T)>`__

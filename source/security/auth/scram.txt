@@ -69,7 +69,7 @@ tab below for instructions and sample code for the corresponding syntax:
    .. tab::
       :tabid: Connection String
 
-      To specify the default authentication mechanism using a connection
+      To specify the default authentication mechanism by using a connection
       string, omit the mechanism. The code to instantiate a ``MongoClient``
       resembles the following:
 
@@ -80,7 +80,7 @@ tab below for instructions and sample code for the corresponding syntax:
    .. tab::
       :tabid: MongoCredential
 
-      To specify the default authentication mechanism using the
+      To specify the default authentication mechanism by using the
       ``MongoCredential`` class, use the ``createCredential()`` method. The
       code to instantiate a ``MongoClient`` resembles the following:
 
@@ -109,7 +109,7 @@ mechanism:
    .. tab::
       :tabid: Connection String
 
-      To specify the ``SCRAM-SHA-256`` authentication mechanism using a
+      To specify the ``SCRAM-SHA-256`` authentication mechanism by using a
       connection string, assign the ``authMechanism`` parameter the value
       ``SCRAM-SHA-256`` in your connection string. The code to instantiate
       a ``MongoClient`` resembles the following:
@@ -121,7 +121,7 @@ mechanism:
    .. tab::
       :tabid: MongoCredential
 
-      To specify the default authentication mechanism using the
+      To specify the ``SCRAM-SHA-256`` authentication mechanism by using the
       ``MongoCredential`` class, use the ``createScramSha256Credential()``
       method. The code to instantiate a ``MongoClient`` resembles
       the following:
@@ -136,7 +136,7 @@ username and password, encrypted with the ``SHA-1`` algorithm, to authenticate
 your user.
 
 ``SCRAM-SHA-1`` is the default authentication method for MongoDB versions
-3.0, 3.2, 3.4, and 3.6, but this code example shows how to explicitly use this
+earlier than 4.0, but this code example shows how to explicitly use this
 mechanism. Select the :guilabel:`Connection String` or the :guilabel:`MongoCredential`
 tab for instructions and sample code for specifying this authentication
 mechanism:
@@ -146,7 +146,7 @@ mechanism:
    .. tab::
       :tabid: Connection String
 
-      To specify the ``SCRAM-SHA-1`` authentication mechanism using a
+      To specify the ``SCRAM-SHA-1`` authentication mechanism by using a
       connection string, assign the ``authMechanism`` parameter the value
       ``SCRAM-SHA-1`` in your connection string. The code to instantiate
       a ``MongoClient`` resembles the following:
@@ -158,7 +158,7 @@ mechanism:
    .. tab::
       :tabid: MongoCredential
 
-      To specify the default authentication mechanism using the
+      To specify the ``SCRAM-SHA-1`` authentication mechanism by using the
       ``MongoCredential`` class, use the ``createScramSha1Credential()``
       method. The code to instantiate a ``MongoClient`` resembles the following:
 

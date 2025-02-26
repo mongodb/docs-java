@@ -29,7 +29,7 @@ Code Placeholders
 
 The code examples on this page use the following placeholders:
 
-- ``<username>``: Your :wikipedia:`URL-encoded <Percent-encoding>` principal name. For
+- ``<db_username>``: Your :wikipedia:`URL-encoded <Percent-encoding>` principal name. For
   example: ``"username%40REALM.ME"``
 - ``<hostname>``: The network address of your MongoDB deployment.
 - ``<port>``: The port number of your MongoDB deployment. If you omit this parameter,
@@ -77,8 +77,7 @@ mechanism:
       .. include:: /includes/fundamentals/code-snippets/auth-credentials-gssapi.rst
 
 
-In order to acquire a
-`Kerberos ticket <https://docs.oracle.com/en/java/javase/11/docs/api/java.security.jgss/javax/security/auth/kerberos/KerberosTicket.html>`__,
+To acquire a `Kerberos ticket <https://docs.oracle.com/en/java/javase/11/docs/api/java.security.jgss/javax/security/auth/kerberos/KerberosTicket.html>`__,
 the GSSAPI Java libraries require you to specify the realm and Key Distribution
 Center (KDC) system properties. See the sample settings in the following example:
 
@@ -90,7 +89,7 @@ Center (KDC) system properties. See the sample settings in the following example
 Additional Properties
 ~~~~~~~~~~~~~~~~~~~~~
 
-You might need to specify one or more of the following additional
+You might need to specify one or more of the followingx
 ``MongoCredential`` mechanism properties depending on your Kerberos setup:
 
 - ``SERVICE_NAME``
@@ -210,4 +209,4 @@ page, see the following API documentation:
 - `MongoClient <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoClient.html>`__
 - `MongoCredential <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html>`__
 - `MongoCredential.createGSSAPICredential() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#createGSSAPICredential(java.lang.String)>`__
-- `MongoCredential.withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodbMongoCredential.html#withMechanismProperty(java.lang.String,T)>`__
+- `MongoCredential.withMechanismProperty() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#withMechanismProperty(java.lang.String,T)>`__
