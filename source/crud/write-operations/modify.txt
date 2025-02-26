@@ -181,10 +181,10 @@ operation and an update many operation:
       :language: none
       :visible: false
 
-      UpdateOne modified document count: 1
+      updateOne() modified document count: 1
       Upserted ID: null
 
-      UpdateMany modified document count: 242
+      updateMany() modified document count: 242
 
 .. _replace-operation:
 
@@ -280,8 +280,8 @@ documents match.
     see :manual:`Unique Indexes </core/index-unique/>` in the
     {+mdb-server+} manual.
 
-ReplaceOne Example: Full File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Replace One Example: Full File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/crud/example-intro.rst
 
@@ -297,10 +297,8 @@ The following code is a complete, standalone file that performs a replace one op
       :language: none
       :visible: false
 
-      updateOne() modified document count: 1
-      Upserted ID: null
-
-      updateMany() modified document count: 242
+      Modified document count: 0
+      Upserted id: BsonObjectId{ ... }
 
 Additional Information
 ----------------------
