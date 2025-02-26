@@ -27,7 +27,9 @@ jobs:
         run: git clone --branch DOP-5399 https://github.com/mongodb/docs-java.git cloned-docs-java-repo
 
       - name: Clone Osiris
-        run: git clone https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/10gen/osiris.git cloned-osiris-repo
+        run: |
+          export GITHUB_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          git clone https://x-access-token:$GITHUB_TOKEN@github.com/10gen/osiris.git cloned-osiris-repo
 
       - name: Run Coverage Check
         id: run_coverage
