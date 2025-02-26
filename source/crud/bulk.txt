@@ -370,7 +370,7 @@ actions:
 
 #. Creates a list of instances of the ``InsertOneModel``, ``UpdateOneModel``,
    ``DeleteOneModel``, and ``ReplaceOneModel`` classes.
-#. Runs an ordered ``bulkWrite()`` operation on the list.
+#. Runs an ordered ``bulkWrite()`` operation that performs the writes specified in the model list.
 
 .. io-code-block::
 
@@ -640,7 +640,7 @@ MongoCollection
 - `MongoBulkWriteException <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoBulkWriteException.html>`__
 
 MongoClient
-````````````
+```````````
 
 - `bulkWrite() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCluster.html#bulkWrite(com.mongodb.client.ClientSession,java.util.List)>`__
 - `ClientBulkWriteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/bulk/ClientBulkWriteOptions.html>`__
