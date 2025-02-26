@@ -1,13 +1,19 @@
 .. _java-usage-count:
+.. _java-count:
 
 ===============
 Count Documents
 ===============
 
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
 
-
-There are two instance methods in the ``MongoCollection`` class that you can
-call to count the number of documents in a collection:
+In this guide, you can learn how to count documents in your MongoDB
+database collection. There are two instance methods in the ``MongoCollection``
+class that you can call to count the number of documents in a collection:
 
 - ``countDocuments()`` returns the number of documents in the collection
   that match a specified query. If you specify an empty query filter,
@@ -84,7 +90,7 @@ collection with ``Canada`` in the ``countries`` field.
 
 .. include:: /includes/connect-guide-note.rst
 
-.. literalinclude:: /includes/usage-examples/code-snippets/CountDocuments.java
+.. literalinclude:: /includes/crud/CountDocuments.java
   :language: java
 
 If you run the preceding sample code, you should see output that looks something
