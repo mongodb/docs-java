@@ -1,0 +1,4135 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "class-proxysettings",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Class ProxySettings",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Immutable",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/annotations/Immutable",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public final class ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "extends ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Object",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This setting is only applicable when communicating with a MongoDB server using the synchronous variant of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "MongoClient",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n This setting is furthermore ignored if:\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n     ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "the communication is via ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unix domain socket",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/UnixServerAddress",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "\n     ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "TransportSettings",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/connection/TransportSettings",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " is ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "MongoClientSettings.Builder.transportSettings(TransportSettings)",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/MongoClientSettings.Builder#transportSettings(com.mongodb.connection.TransportSettings)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "\n     configured}.",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "4.11",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Since:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SocketSettings.getProxySettings()",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/SocketSettings#getProxySettings()",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ClientEncryptionSettings.getKeyVaultMongoClientSettings()",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/ClientEncryptionSettings#getKeyVaultMongoClientSettings()",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "AutoEncryptionSettings.getKeyVaultMongoClientSettings()",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/AutoEncryptionSettings#getKeyVaultMongoClientSettings()",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "nested-class-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Nested Class Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "nested-class-summary",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Nested Classes",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Modifier and Type",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Class",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Description",
+                                  "is_inline": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "static final class ",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "ProxySettings.Builder",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "\n",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "A builder for an instance of ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "ProxySettings",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "\n",
+                                  "is_inline": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "1"
+              }
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "all-methods",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "All Methods",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "directive",
+                  "name": "list-table",
+                  "argument": [],
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Modifier and Type",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Method",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Description",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "static ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ProxySettings.Builder",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "builder",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#builder()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Creates a ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "literal",
+                                              "children": [
+                                                {
+                                                  "type": "text",
+                                                  "value": "ProxySettings.Builder",
+                                                  "is_inline": true
+                                                }
+                                              ],
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " for creating a new ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "literal",
+                                              "children": [
+                                                {
+                                                  "type": "text",
+                                                  "value": "ProxySettings",
+                                                  "is_inline": true
+                                                }
+                                              ],
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " instance.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "static ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ProxySettings.Builder",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "builder",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#builder(com.mongodb.connection.ProxySettings)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ProxySettings",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " proxySettings)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Creates a ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "literal",
+                                              "children": [
+                                                {
+                                                  "type": "text",
+                                                  "value": "ProxySettings.Builder",
+                                                  "is_inline": true
+                                                }
+                                              ],
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " for creating a new ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "literal",
+                                              "children": [
+                                                {
+                                                  "type": "text",
+                                                  "value": "ProxySettings",
+                                                  "is_inline": true
+                                                }
+                                              ],
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " instance.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "boolean",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "equals",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#equals(java.lang.Object)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "Object",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " o)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "String",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "getHost",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#getHost()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Gets the SOCKS5 proxy host.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "String",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "getPassword",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#getPassword()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Gets the SOCKS5 proxy password.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "int",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "getPort",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#getPort()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Gets the SOCKS5 proxy port.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "String",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "getUsername",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#getUsername()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Gets the SOCKS5 proxy username.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "int",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "hashCode",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#hashCode()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "boolean",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "isProxyEnabled",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#isProxyEnabled()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Checks if the SOCKS5 proxy is enabled.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "String",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "toString",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#toString()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "options": {
+                    "header-rows": "1"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "methods-inherited-from-class-java.lang.Object",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Methods inherited from class java.lang.Object",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "clone",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#clone()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "finalize",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#finalize()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "getClass",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#getClass()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notify",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notifyAll",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long,int)",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public static",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings.Builder",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "builder",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Creates a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings.Builder",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " for creating a new ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " instance.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "a new ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " for ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": ".",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "builder",
+            "id": "builder()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public static",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings.Builder",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "builder",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " proxySettings)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Creates a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings.Builder",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " for creating a new ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ProxySettings",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " instance.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "proxySettings",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - existing ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " to default the builder settings on.",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "a new ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " for ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": ".",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "builder",
+            "id": "builder(com.mongodb.connection.ProxySettings)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Nullable",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/lang/Nullable",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "String",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "getHost",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Gets the SOCKS5 proxy host.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "the proxy host value. ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "null",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " if and only if the ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "proxy functionality is not enabled",
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings#isProxyEnabled()",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": ".",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder.host(String)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder#host(java.lang.String)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "getHost",
+            "id": "getHost()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "int",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "getPort",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Gets the SOCKS5 proxy port.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "The port number of the SOCKS5 proxy. If a custom port has been set using ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder.port(int)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder#port(int)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": ",\n that custom port value is returned. Otherwise, the default SOCKS5 port 1080 is returned.",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder.port(int)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder#port(int)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "getPort",
+            "id": "getPort()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Nullable",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/lang/Nullable",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "String",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "getUsername",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Gets the SOCKS5 proxy username.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "the proxy username value.",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder.username(String)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder#username(java.lang.String)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "getUsername",
+            "id": "getUsername()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Nullable",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/lang/Nullable",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "String",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "getPassword",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Gets the SOCKS5 proxy password.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "the proxy password value.",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder.password(String)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder#password(java.lang.String)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "getPassword",
+            "id": "getPassword()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "boolean",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "isProxyEnabled",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Checks if the SOCKS5 proxy is enabled.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "true",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " if the proxy is enabled, ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "false",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " otherwise.",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ProxySettings.Builder.host(String)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/connection/ProxySettings.Builder#host(java.lang.String)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "isProxyEnabled",
+            "id": "isProxyEnabled()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "boolean",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "equals",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Object",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " o)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "equals",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Object",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "equals",
+            "id": "equals(java.lang.Object)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "int",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "hashCode",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "hashCode",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#hashCode()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Object",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "hashCode",
+            "id": "hashCode()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "String",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "toString",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "toString",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#toString()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Object",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "toString",
+            "id": "toString()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/core/com/mongodb/connection/ProxySettings.ast"
+}

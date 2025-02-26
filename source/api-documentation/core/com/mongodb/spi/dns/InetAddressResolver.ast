@@ -1,0 +1,991 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "interface-inetaddressresolver",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Interface InetAddressResolver",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@ThreadSafe",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/annotations/ThreadSafe",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public interface ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddressResolver",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This interface defines operations for looking up host names.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " The default resolver for the driver can be customized by deploying an implementation of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddressResolverProvider",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolverProvider",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "4.10",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Since:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InetAddressResolverProvider",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolverProvider",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "MongoClientSettings.Builder.inetAddressResolver(InetAddressResolver)",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/MongoClientSettings.Builder#inetAddressResolver(com.mongodb.spi.dns.InetAddressResolver)",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "all-methods",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "All Methods",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "directive",
+                  "name": "list-table",
+                  "argument": [],
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Modifier and Type",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Method",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Description",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "List",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "<",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "InetAddress",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/InetAddress.html",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": ">",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "lookupByName",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver#lookupByName(java.lang.String)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "String",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " host)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Given the name of a host, returns a list of IP addresses of the requested\n address family associated with a provided hostname.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "options": {
+                    "header-rows": "1"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddress",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/InetAddress.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "lookupByName",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "String",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " host)",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n                        throws ",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Given the name of a host, returns a list of IP addresses of the requested\n address family associated with a provided hostname.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The host name can be an IP literal, as with ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddress.getAllByName(String)",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/InetAddress.html#getAllByName(java.lang.String)",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Implementations are encouraged to implement their own caching policies, as there is\n no guarantee that the caller will implement a cache.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "host",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the host",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "a list of IP addresses for the requested host",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "UnknownHostException",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/UnknownHostException.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - if no IP addresses for the ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "host",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " could be found",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Throws:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "lookupByName",
+            "id": "lookupByName(java.lang.String)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver.ast"
+}

@@ -1,0 +1,3111 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "class-jmxconnectionpoollistener",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Class JMXConnectionPoolListener",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": ", ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "EventListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/EventListener.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "All Implemented Interfaces:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public class ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "JMXConnectionPoolListener",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "extends ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Object",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\nimplements ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionPoolListener",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "A connection pool listener that manages a set of JMX MBeans, one for each connection pool.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "3.5",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Since:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "constructor-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Constructor Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "constructor-summary",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Constructors",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Constructor",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Description",
+                                  "is_inline": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "JMXConnectionPoolListener",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#%3Cinit%3E()",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "()",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": " ",
+                                  "is_inline": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "1"
+              }
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "all-methods",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "All Methods",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "directive",
+                  "name": "list-table",
+                  "argument": [],
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Modifier and Type",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Method",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Description",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "connectionCheckedIn",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#connectionCheckedIn(com.mongodb.event.ConnectionCheckedInEvent)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ConnectionCheckedInEvent",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/event/ConnectionCheckedInEvent",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " event)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Invoked when a connection is checked in to a pool.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "connectionCheckedOut",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#connectionCheckedOut(com.mongodb.event.ConnectionCheckedOutEvent)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ConnectionCheckedOutEvent",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/event/ConnectionCheckedOutEvent",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " event)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Invoked when a connection is checked out of a pool.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "connectionClosed",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#connectionClosed(com.mongodb.event.ConnectionClosedEvent)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ConnectionClosedEvent",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/event/ConnectionClosedEvent",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " event)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Invoked when a connection is removed from a pool.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "connectionCreated",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#connectionCreated(com.mongodb.event.ConnectionCreatedEvent)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ConnectionCreatedEvent",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/event/ConnectionCreatedEvent",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " event)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Invoked when a connection is created.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "connectionPoolClosed",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#connectionPoolClosed(com.mongodb.event.ConnectionPoolClosedEvent)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ConnectionPoolClosedEvent",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolClosedEvent",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " event)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Invoked when a connection pool is closed.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "connectionPoolCreated",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener#connectionPoolCreated(com.mongodb.event.ConnectionPoolCreatedEvent)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "ConnectionPoolCreatedEvent",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolCreatedEvent",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " event)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Invoked when a connection pool is created.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "options": {
+                    "header-rows": "1"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "methods-inherited-from-class-java.lang.Object",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Methods inherited from class java.lang.Object",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "clone",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#clone()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "equals",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "finalize",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#finalize()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "getClass",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#getClass()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "hashCode",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#hashCode()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notify",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notifyAll",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "toString",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#toString()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long,int)",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "methods-inherited-from-class-com.mongodb.event.ConnectionPoolListener",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Methods inherited from interface com.mongodb.event.ConnectionPoolListener",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "connectionCheckOutFailed",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionCheckOutFailed(com.mongodb.event.ConnectionCheckOutFailedEvent)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "connectionCheckOutStarted",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionCheckOutStarted(com.mongodb.event.ConnectionCheckOutStartedEvent)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "connectionPoolCleared",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionPoolCleared(com.mongodb.event.ConnectionPoolClearedEvent)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "connectionPoolReady",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionPoolReady(com.mongodb.event.ConnectionPoolReadyEvent)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "connectionReady",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionReady(com.mongodb.event.ConnectionReadyEvent)",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "constructor-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Constructor Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "JMXConnectionPoolListener",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "JMXConnectionPoolListener",
+            "id": "<init>()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "connectionPoolCreated",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionPoolCreatedEvent",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolCreatedEvent",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " event)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Invoked when a connection pool is created. The default implementation does nothing.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "connectionPoolCreated",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionPoolCreated(com.mongodb.event.ConnectionPoolCreatedEvent)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "event",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the event",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "connectionPoolCreated",
+            "id": "connectionPoolCreated(com.mongodb.event.ConnectionPoolCreatedEvent)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "connectionPoolClosed",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionPoolClosedEvent",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolClosedEvent",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " event)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Invoked when a connection pool is closed. The default implementation does nothing.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "connectionPoolClosed",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionPoolClosed(com.mongodb.event.ConnectionPoolClosedEvent)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "event",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the event",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "connectionPoolClosed",
+            "id": "connectionPoolClosed(com.mongodb.event.ConnectionPoolClosedEvent)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "connectionCheckedOut",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionCheckedOutEvent",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionCheckedOutEvent",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " event)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Invoked when a connection is checked out of a pool. The default implementation does nothing.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "connectionCheckedOut",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionCheckedOut(com.mongodb.event.ConnectionCheckedOutEvent)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "event",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the event",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "connectionCheckedOut",
+            "id": "connectionCheckedOut(com.mongodb.event.ConnectionCheckedOutEvent)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "connectionCheckedIn",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionCheckedInEvent",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionCheckedInEvent",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " event)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Invoked when a connection is checked in to a pool. The default implementation does nothing.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "connectionCheckedIn",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionCheckedIn(com.mongodb.event.ConnectionCheckedInEvent)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "event",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the event",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "connectionCheckedIn",
+            "id": "connectionCheckedIn(com.mongodb.event.ConnectionCheckedInEvent)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "connectionCreated",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionCreatedEvent",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionCreatedEvent",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " event)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Invoked when a connection is created. The default implementation does nothing.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "connectionCreated",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionCreated(com.mongodb.event.ConnectionCreatedEvent)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "event",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the event",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "connectionCreated",
+            "id": "connectionCreated(com.mongodb.event.ConnectionCreatedEvent)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "connectionClosed",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ConnectionClosedEvent",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/event/ConnectionClosedEvent",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " event)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Invoked when a connection is removed from a pool. The default implementation does nothing.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "connectionClosed",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener#connectionClosed(com.mongodb.event.ConnectionClosedEvent)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConnectionPoolListener",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/event/ConnectionPoolListener",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "event",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the event",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "connectionClosed",
+            "id": "connectionClosed(com.mongodb.event.ConnectionClosedEvent)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/core/com/mongodb/management/JMXConnectionPoolListener.ast"
+}
