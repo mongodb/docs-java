@@ -1,3 +1,5 @@
+package org.example;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class Watch {
     public static void main( String[] args ) {
 
         // Replace the uri string with your MongoDB deployment's connection string
-        String uri = "<connection string URI>";
+        String uri = "<connection string uri>";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
