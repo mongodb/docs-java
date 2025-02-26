@@ -34,7 +34,7 @@ jobs:
         run: |
           cd cloned-osiris-repo
           npm ci
-          COVERAGE_OUTPUT=$(npm run dev -- -c "$GITHUB_WORKSPACE/cloned-docs-java-repo" -v --sp 95 | tee /dev/tty)
+          COVERAGE_OUTPUT=$(npm run dev -- -c "$GITHUB_WORKSPACE/cloned-docs-java-repo" -v --sp 95)
 
           
           # Extract the last reported overall coverage percentage
