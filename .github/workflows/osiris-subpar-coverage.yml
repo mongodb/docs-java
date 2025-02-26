@@ -26,16 +26,6 @@ jobs:
       - name: Clone Docs Java
         run: git clone --branch DOP-5399 https://github.com/mongodb/docs-java.git cloned-docs-java-repo
 
-      - name: Debug GitHub Secrets
-        run: |
-          echo "Checking if PERSONAL_ACCESS_TOKEN is set..."
-          if [ -z "${{ secrets.PERSONAL_ACCESS_TOKEN }}" ]; then
-            echo "❌ PERSONAL_ACCESS_TOKEN is missing or not available in this environment."
-            exit 1
-          else
-            echo "✅ PERSONAL_ACCESS_TOKEN is set."
-          fi
-
       - name: Clone Osiris
         run: git clone https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/10gen/osiris.git cloned-osiris-repo
 
