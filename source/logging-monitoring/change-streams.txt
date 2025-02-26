@@ -95,8 +95,17 @@ Watch Example: Full File
 
 .. include:: /includes/crud/example-intro.rst
 
-The following code is a complete, standalone file that performs an ordered bulk
-write operation. 
+This file demonstrates how to open a change stream by using the watch method.
+The watch method takes a pipeline as an argument to filter for only ``"insert"``
+and ``"update"`` events. When an insert or update event occurs on the watched
+collection, a log of the even is printed to the screen.
+
+To see output in your terminal:
+
+#. Run the file in your editor.
+#. Insert or update a document in the ``sample_mflix`` database ``movies`` collection.
+ - You can insert or update documents by using :atlas:`Atlas
+   </documents/#create--view--update--and-delete-documents>` or :mongosh:`mongosh </crud/>`.
 
 .. io-code-block::
 
