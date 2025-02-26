@@ -75,7 +75,7 @@ To monitor command events, write a class that implements the
 ``MongoClient`` instance.
 
 To learn more about MongoDB database commands, see the
-:manual:`MongoDB manual entry on database commands </reference/command/>` in the
+:manual:`Database Commands </reference/command/>` guide in the
 Server Manual.
 
 .. note:: Internal Commands
@@ -90,8 +90,8 @@ Server Manual.
    As a security measure, the driver redacts the contents of some command events. This
    protects the sensitive information contained in these command events. For a
    full list of redacted command events, see the
-   :spec:`MongoDB command logging and monitoring specification </command-logging-and-monitoring/command-logging-and-monitoring.md#security>`
-   in GitHub.
+   :spec:`Security </command-logging-and-monitoring/command-logging-and-monitoring.md#security>`
+   section of the MongoDB Command Logging and Monitoring specification in GitHub.
 
 Example
 ^^^^^^^
@@ -166,15 +166,17 @@ To monitor a type of SDAM event, write a class that
 implements one of the three preceding interfaces and register an instance of that
 class with your ``MongoClient`` instance.
 
-For a detailed description of each SDAM event in the driver, see the
-:spec:`MongoDB SDAM Logging and Monitoring Specification 
-</server-discovery-and-monitoring/server-discovery-and-monitoring-logging-and-monitoring.md#events-api>`.
+For a detailed description of each SDAM event in the driver, see the 
+:spec:`Server API  
+</server-discovery-and-monitoring/server-discovery-and-monitoring-logging-and-monitoring.md#events-api>`
+section of th MongoDB SDAM Logging and Monitoring Specification in GitHub.
 
 .. note:: Load Balanced Mode
 
    The driver doesn't emit heartbeat related events when in load balanced mode. 
-   To learn more about SDAM events with load balancing, see 
-   :spec:`MongoDB Load Balancer Support Specification </load-balancers/load-balancers.md#server-discovery-logging-and-monitoring>`.
+   To learn more about SDAM events with load balancing, see the 
+   :spec:`Server Discovery Logging and Monitoring </load-balancers/load-balancers.md#server-discovery-logging-and-monitoring>`
+   section of the MongoDB Load Balancer Support Specification in GitHub.
 
 Example
 ^^^^^^^
@@ -338,9 +340,9 @@ All MXBean instances created by the driver are under the domain
 To learn more about the topics discussed in this subsection, see the
 following resources from Oracle:
 
-- `Platform MBean Server Reference Documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
-- `MXBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
-- `MBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/standard.html>`__
+- `Platform MBean Server Reference documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__
+- `MXBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__
+- `MBean documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/standard.html>`__
 
 JMX and JConsole Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -355,7 +357,7 @@ the Java Platform.
    rather than a source of truth. For guaranteed up to date information, consult
    the following official Oracle resources:
 
-   - `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+   - `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__
    - `JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__
 
 The following code snippet adds a ``JMXConnectionPoolListener`` to a
@@ -398,7 +400,7 @@ following:
 To learn more about JMX and JConsole, see the following resources from
 Oracle:
 
-- `JConsole Documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
+- `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__.
 - `Monitoring and Management Guide <https://docs.oracle.com/en/java/javase/16/management/monitoring-and-management-using-jmx-technology.html>`__
 
 To learn more about the ``JMXConnectionPoolListener`` class, see
