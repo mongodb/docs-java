@@ -43,7 +43,7 @@ public class Update {
                 UpdateResult result = collection.updateOne(updateOneQuery, updateOneUpdates, options);
 
                 // Prints the number of updated documents and the upserted document ID, if an upsert was performed
-                System.out.println("UpdateOne modified document count: " + result.getModifiedCount());
+                System.out.println("updateOne() modified document count: " + result.getModifiedCount());
                 System.out.println("Upserted ID: " + result.getUpsertedId());
             
             // Prints a message if any exceptions occur during the operation
@@ -63,7 +63,7 @@ public class Update {
                 UpdateResult result = collection.updateMany(updateManyQuery, updateManyUpdates);
 
                 // Prints the number of updated documents
-                System.out.println("\nUpdateMany modified document count: " + result.getModifiedCount());
+                System.out.println("\nupdateMany() modified document count: " + result.getModifiedCount());
 
             // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
