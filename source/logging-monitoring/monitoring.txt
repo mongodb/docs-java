@@ -58,10 +58,8 @@ The MongoDB Java driver organizes the events it defines into three categories:
 
 The following sections show how to monitor each event category.
 
-To learn more about the events you can monitor, `see the event package of the 
-MongoDB Java Driver <{+api+}/apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`__.
-
-.. fix this link text^
+To learn more about the events you can monitor, see the API documentation for `event classes 
+<{+api+}/apidocs/mongodb-driver-core/com/mongodb/event/package-summary.html>`__.
 
 .. _command-events-java:
 
@@ -78,9 +76,7 @@ To monitor command events, write a class that implements the
 
 To learn more about MongoDB database commands, see the
 :manual:`MongoDB manual entry on database commands </reference/command/>` in the
-Server (or MongoDB?) Manual.
-
-.. fix this link ^
+Server Manual.
 
 .. note:: Internal Commands
 
@@ -94,9 +90,8 @@ Server (or MongoDB?) Manual.
    As a security measure, the driver redacts the contents of some command events. This
    protects the sensitive information contained in these command events. For a
    full list of redacted command events, see the
-   :spec:`MongoDB command logging and monitoring specification </command-logging-and-monitoring/command-logging-and-monitoring.rst#security>`.
-
-.. ^fix this link
+   :spec:`MongoDB command logging and monitoring specification </command-logging-and-monitoring/command-logging-and-monitoring.md#security>`
+   in GitHub.
 
 Example
 ^^^^^^^
@@ -235,7 +230,6 @@ application run faster.
 
 .. Add when page is ready: To learn more about connection pools, see the {+driver-short+}'s 
 .. :ref:`Connection Pools <connection-pools>` guide. 
-
 
 To monitor connection pool events, write a class that implements the
 ``ConnectionPoolListener`` interface and register an instance of that class with your
