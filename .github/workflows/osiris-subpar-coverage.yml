@@ -27,7 +27,7 @@ jobs:
         run: git clone --branch DOP-5399 https://github.com/mongodb/docs-java.git cloned-docs-java-repo
 
       - name: Clone Osiris
-        run: git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/10gen/osiris.git cloned-osiris-repo
+        run: git clone https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/10gen/osiris.git cloned-osiris-repo
 
       - name: Run Coverage Check
         id: run_coverage
@@ -40,7 +40,7 @@ jobs:
           # Extract the last reported overall coverage percentage
           COVERAGE_PERCENT=$(echo "$COVERAGE_OUTPUT" | grep -oE 'Average Coverage: [0-9]+(\.[0-9]+)?%' | tail -1 | grep -oE '[0-9]+(\.[0-9]+)?')
 
-          REQUIRED_COVERAGE=90.0
+          REQUIRED_COVERAGE=100.0
 
           # Extract site names where Average Coverage is below the required coverage%
           LOW_COVERAGE_SITES=$(echo "$COVERAGE_OUTPUT" | awk -v threshold=$REQUIRED_COVERAGE '
