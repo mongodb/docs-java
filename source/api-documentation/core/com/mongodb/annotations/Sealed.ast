@@ -1,0 +1,350 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "annotation-interface-sealed",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Annotation Interface Sealed",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Retention",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Retention.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "CLASS",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/RetentionPolicy.html#CLASS",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Target",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Target.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "TYPE",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/ElementType.html#TYPE",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Documented",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Documented.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@Sealed",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/annotations/Sealed",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public @interface ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Sealed",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Signifies that the annotated class or interface should be treated as sealed:\n it must not be extended or implemented by consumers of the library.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Using such classes and interfaces is no different from using ordinary\n unannotated classes and interfaces.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This annotation does not imply that the API is experimental or\n ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Beta",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/annotations/Beta",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", or that the quality or performance of the API is inferior.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Evolving",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/annotations/Evolving",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/core/com/mongodb/annotations/Sealed.ast"
+}

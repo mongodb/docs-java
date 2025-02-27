@@ -1,0 +1,895 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "interface-inetaddressresolverprovider",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Interface InetAddressResolverProvider",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public interface ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddressResolverProvider",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Service-provider class for ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddressResolver",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " A resolver provider is a factory for custom implementations of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "InetAddress resolvers",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ". A resolver defines operations for\n looking up (resolving) host names.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The driver discovers implementations of this interface via ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ServiceLoader",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "If more fine-grained control is required for multi-tenant applications, an ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "InetAddress resolver",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "\n can be configured via ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "MongoClientSettings.Builder.inetAddressResolver(InetAddressResolver)",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/MongoClientSettings.Builder#inetAddressResolver(com.mongodb.spi.dns.InetAddressResolver)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "4.10",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Since:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ServiceLoader",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": "\n",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "See Also:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "all-methods",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "All Methods",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "directive",
+                  "name": "list-table",
+                  "argument": [],
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Modifier and Type",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Method",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Description",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "InetAddressResolver",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "create",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolverProvider#create()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Construct a new instance of a ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "literal",
+                                              "children": [
+                                                {
+                                                  "type": "text",
+                                                  "value": "InetAddressResolver",
+                                                  "is_inline": true
+                                                }
+                                              ],
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": ".",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "options": {
+                    "header-rows": "1"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddressResolver",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "create",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Construct a new instance of a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InetAddressResolver",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "a ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InetAddressResolver",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolver",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "create",
+            "id": "create()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/core/com/mongodb/spi/dns/InetAddressResolverProvider.ast"
+}

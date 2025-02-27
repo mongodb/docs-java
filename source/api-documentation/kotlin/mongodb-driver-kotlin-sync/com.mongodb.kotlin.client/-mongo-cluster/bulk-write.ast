@@ -1,0 +1,2768 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "text",
+      "value": "\n",
+      "is_inline": true
+    },
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "content",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "bulkWrite",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n    ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "bulkWrite",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientNamespacedWriteModel",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientBulkWriteResult",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Executes a client-level bulk write operation. This method is functionally equivalent to ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite(models, options)",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " with the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "default options",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation supports ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "retryable writes",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ". Depending on the number of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", encoded size of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", and the size limits in effect, executing this operation may require multiple ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " commands. The eligibility for retries is determined per each ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " command: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedUpdateManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedDeleteManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " in a command render it non-retryable.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation is not supported by MongoDB Atlas Serverless instances.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientBulkWriteResult",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " if the operation is successful.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "since",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Since",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "5.3",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "models",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "individual write operations",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "BulkWrite command",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/command/bulkWrite/",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "throws",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Throws",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Bulk",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Write",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "If and only if the operation is unsuccessful or partially unsuccessful, and there is at least one of the following pieces of information to report: ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteConcernErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getPartialResult",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Only if the operation is unsuccessful.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "bulkWrite",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientNamespacedWriteModel",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "options",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientBulkWriteOptions",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientBulkWriteResult",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Executes a client-level bulk write operation.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation supports ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "retryable writes",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ". Depending on the number of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", encoded size of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", and the size limits in effect, executing this operation may require multiple ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " commands. The eligibility for retries is determined per each ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " command: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedUpdateManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedDeleteManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " in a command render it non-retryable.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation is not supported by MongoDB Atlas Serverless instances.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientBulkWriteResult",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " if the operation is successful.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "since",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Since",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "5.3",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "models",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "individual write operations",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "options",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "options",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "BulkWrite command",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/command/bulkWrite/",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "throws",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Throws",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Bulk",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Write",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "If and only if the operation is unsuccessful or partially unsuccessful, and there is at least one of the following pieces of information to report: ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteConcernErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getPartialResult",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Only if the operation is unsuccessful.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "bulkWrite",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "clientSession",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ClientSession",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-client-session/",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientNamespacedWriteModel",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientBulkWriteResult",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Executes a client-level bulk write operation. This method is functionally equivalent to ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite(clientSession, models, options)",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " with the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "default options",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation supports ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "retryable writes",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ". Depending on the number of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", encoded size of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", and the size limits in effect, executing this operation may require multiple ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " commands. The eligibility for retries is determined per each ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " command: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedUpdateManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedDeleteManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " in a command render it non-retryable.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation is not supported by MongoDB Atlas Serverless instances.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientBulkWriteResult",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " if the operation is successful.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "since",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Since",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "5.3",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Session",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "client session",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-client-session/",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": " with which to associate this operation.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "models",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "individual write operations",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "BulkWrite command",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/command/bulkWrite/",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "throws",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Throws",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Bulk",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Write",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "If and only if the operation is unsuccessful or partially unsuccessful, and there is at least one of the following pieces of information to report: ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteConcernErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getPartialResult",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Only if the operation is unsuccessful.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "bulkWrite",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "clientSession",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ClientSession",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-client-session/",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientNamespacedWriteModel",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "options",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientBulkWriteOptions",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClientBulkWriteResult",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Executes a client-level bulk write operation.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation supports ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "retryable writes",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ". Depending on the number of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", encoded size of ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "models",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", and the size limits in effect, executing this operation may require multiple ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " commands. The eligibility for retries is determined per each ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bulkWrite",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " command: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedUpdateManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientNamespacedDeleteManyModel",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " in a command render it non-retryable.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This operation is not supported by MongoDB Atlas Serverless instances.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClientBulkWriteResult",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " if the operation is successful.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "since",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Since",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "5.3",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Session",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "client session",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-client-session/",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": " with which to associate this operation.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "models",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "individual write operations",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "options",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "The ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "options",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "BulkWrite command",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/command/bulkWrite/",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "throws",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Throws",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Bulk",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Write",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "If and only if the operation is unsuccessful or partially unsuccessful, and there is at least one of the following pieces of information to report: ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteConcernErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getWriteErrors",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ", ",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "ClientBulkWriteException.getPartialResult",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": ".",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Exception",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Only if the operation is unsuccessful.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "\n      ",
+      "is_inline": true
+    },
+    {
+      "type": "text",
+      "value": "\n    ",
+      "is_inline": true
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-cluster/bulk-write.ast"
+}
