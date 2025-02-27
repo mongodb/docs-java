@@ -11,9 +11,10 @@ Count Documents
    :depth: 2
    :class: singlecol
 
-In this guide, you can learn how to count documents in your MongoDB
-database collection. There are two instance methods in the ``MongoCollection``
-class that you can call to count the number of documents in a collection:
+In this guide, you can learn how to count the number of documents in your
+MongoDB database collections. There are two instance methods in the
+``MongoCollection`` class that you can call to count the number of documents in
+a collection:
 
 - ``countDocuments()`` returns the number of documents in the collection
   that match a specified query. If you specify an empty query filter,
@@ -83,12 +84,12 @@ Both methods return the number of matching documents as a ``long`` primitive.
 Count Documents Example: Full File
 ----------------------------------
 
+.. include:: /includes/crud/example-intro.rst
+
 The following example estimates the number of documents in the
 ``movies`` collection in the ``sample_mflix`` database, and then returns
 an accurate count of the number of documents in the ``movies``
 collection with ``Canada`` in the ``countries`` field.
-
-.. include:: /includes/connect-guide-note.rst
 
 .. literalinclude:: /includes/crud/CountDocuments.java
   :language: java

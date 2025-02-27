@@ -1,3 +1,10 @@
+/**
+ * This file demonstrates how to open a change stream by using the Java driver.
+ * It connects to a MongoDB deployment, accesses the "sample_mflix" database, and listens
+ * to change events in the "movies" collection. The code uses a change stream with a pipeline
+ * to only filter for "insert" and "update" events.
+ */
+
 package org.example;
 
 import java.util.Arrays;

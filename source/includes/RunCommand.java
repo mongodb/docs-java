@@ -1,3 +1,5 @@
+// Runs a database command by using the Java driver
+
 package org.example;
 
 import org.bson.BsonDocument;

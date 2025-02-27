@@ -1,3 +1,5 @@
+// Performs CRUD operations to generate change events when run with the Watch application
+
 package org.example;
 
 import org.bson.Document;
