@@ -12,7 +12,7 @@ jobs:
   check-coverage:
     runs-on: ubuntu-latest
     outputs:
-      coverage_percent: ${{ steps.set_coverage.outputs.coverage_percent }}
+      coverage_percent_list: ${{ steps.set_coverage.outputs.coverage_percent_list }}
       coverage_below_threshold: ${{ steps.set_coverage.outputs.coverage_below_threshold }}
       low_coverage_sites: ${{ steps.set_coverage.outputs.low_coverage_sites }}
 
@@ -36,11 +36,16 @@ jobs:
           npm ci
           COVERAGE_OUTPUT=$(npm run dev -- -c "$GITHUB_WORKSPACE/cloned-docs-java-repo" -v --sp 95)
 
+          REQUIRED_COVERAGE=90.0
           
-          # Extract the last reported overall coverage percentage
-          COVERAGE_PERCENT=$(echo "$COVERAGE_OUTPUT" | grep -oE 'Average Coverage: [0-9]+(\.[0-9]+)?%' | tail -1 | grep -oE '[0-9]+(\.[0-9]+)?')
-
-          REQUIRED_COVERAGE=100.0
+          # Extract all Average Coverage values below the threshold
+          COVERAGE_PERCENT_LIST=$(echo "$COVERAGE_OUTPUT" | awk -v threshold=$REQUIRED_COVERAGE '
+          /Average Coverage:/ {
+            coverage = $3 + 0;
+            if (coverage < threshold) {
+              printf "%s,", coverage "%";
+            }
+          }' | sed 's/,$//')
 
           # Extract site names where Average Coverage is below the required coverage%
           LOW_COVERAGE_SITES=$(echo "$COVERAGE_OUTPUT" | awk -v threshold=$REQUIRED_COVERAGE '
@@ -62,31 +67,34 @@ jobs:
             END { for (s in sites) printf "%s,", s }
           ' | sed 's/,$//')
 
-          echo "Detected Coverage: $COVERAGE_PERCENT%"
+          # Print detected values
+          echo "Detected Coverage: $COVERAGE_PERCENT_LIST"
+
           echo "Sites with Low Coverage: $LOW_COVERAGE_SITES"
 
           # Ensure we have a valid number
-          if [ -z "$COVERAGE_PERCENT" ]; then
+          if [ -z "$COVERAGE_PERCENT_LIST" ]; then
             echo "Coverage percentage could not be determined."
             exit 1
           fi
 
           echo "Required Coverage: $REQUIRED_COVERAGE"
 
-          if awk "BEGIN {exit !($COVERAGE_PERCENT < $REQUIRED_COVERAGE)}"; then
-            echo "Test coverage ($COVERAGE_PERCENT%) is below required threshold ($REQUIRED_COVERAGE%)."
+          # If COVERAGE_PERCENT_LIST is not empty, it means there are coverage values below the threshold
+          if [ -n "$COVERAGE_PERCENT_LIST" ]; then
+            echo "Test coverage is below the required threshold ($REQUIRED_COVERAGE%)."
             echo "coverage_below_threshold=true" >> $GITHUB_ENV
-            echo "COVERAGE_PERCENT=$COVERAGE_PERCENT" >> $GITHUB_ENV
+            echo "COVERAGE_PERCENT_LIST=$COVERAGE_PERCENT_LIST" >> $GITHUB_ENV
             echo "LOW_COVERAGE_SITES=$LOW_COVERAGE_SITES" >> $GITHUB_ENV
           else
-            echo "Test coverage ($COVERAGE_PERCENT%) meets the required threshold."
+            echo "Test coverage meets the required threshold."
             echo "coverage_below_threshold=false" >> $GITHUB_ENV
           fi
 
       - name: Set Workflow Outputs
         id: set_coverage
         run: |
-          echo "coverage_percent=${COVERAGE_PERCENT}" >> $GITHUB_OUTPUT
+          echo "coverage_percent_list=${COVERAGE_PERCENT_LIST}" >> $GITHUB_OUTPUT
           echo "coverage_below_threshold=${coverage_below_threshold}" >> $GITHUB_OUTPUT
           echo "low_coverage_sites=${LOW_COVERAGE_SITES}" >> $GITHUB_OUTPUT
 
@@ -98,7 +106,7 @@ jobs:
     steps:
       - name: Send Slack Notification
         env:
-          COVERAGE_PERCENT: ${{ needs.check-coverage.outputs.coverage_percent }}
+          COVERAGE_PERCENT_LIST: ${{ needs.check-coverage.outputs.coverage_percent_list }}
           LOW_COVERAGE_SITES: ${{ needs.check-coverage.outputs.low_coverage_sites }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           REPOSITORY: ${{ github.repository }}
@@ -109,6 +117,6 @@ jobs:
         run: |
           curl -v -X POST -H 'Content-type: application/json' \
           --data '{
-            "text": "⚠️ *Test Coverage Alert* ⚠️\n\nThe test coverage is below the required threshold of 90%.\n\n*Detected Coverage:* '"$COVERAGE_PERCENT"%'\n\n*Repository:* <https://github.com/'"$REPOSITORY"'|'"$REPOSITORY"'>\n*PR Title:* '"$PR_TITLE"'\n*PR Number:* #'"$PR_NUMBER"'\n*PR URL:* <'"$PR_URL"'|View PR>\n*Commit SHA:* `'"$PR_SHA"'`\n\n*Sites with Low Coverage:* \n`'"$LOW_COVERAGE_SITES"'`\n\nPlease review the test coverage and take action if necessary."
+            "text": "⚠️ *Test Coverage Alert* ⚠️\n\nThe test coverage is below the required threshold of 90%.\n\n*Detected Coverage:* \n• '"$(echo "$COVERAGE_PERCENT_LIST" | sed 's/,/\n• /g')"' \n\n*Repository:* <https://github.com/'"$REPOSITORY"'|'"$REPOSITORY"'>\n*PR Title:* '"$PR_TITLE"'\n*PR Number:* #'"$PR_NUMBER"'\n*PR URL:* <'"$PR_URL"'|View PR>\n*Commit SHA:* `'"$PR_SHA"'`\n\n*Sites with Low Coverage:* \n• '"$(echo "$LOW_COVERAGE_SITES" | sed 's/,/\n• /g')"' \n\nPlease review the test coverage and take action if necessary."
           }' \
           $SLACK_WEBHOOK_URL
