@@ -106,17 +106,20 @@ returns a ``MongoCursor`` instance that you can use to traverse the results.
 
 .. important:: forEach() blocks the current thread
 
-   Calls to ``forEach()`` block the current thread as long as the
+   Calls to ``forEach()`` block the current thread while the
    corresponding change stream listens for events. If your program
    needs to continue executing other logic, such as processing requests or
    responding to user input, consider creating and listening to your
    change stream in a separate thread.
 
-You can call methods on the ``MongoCursor`` such as ``hasNext()`` to check
-whether additional results exist, ``next()`` to return the next document
-in the collection, or ``tryNext()``, to immediately return either
-the next available element in the change stream or ``null``. Unlike the
-``MongoCursor`` returned by other queries, a ``MongoCursor`` associated
+You can call the following methods on the ``MongoCursor`:
+
+ - ``hasNext()``: checks if there are more results. 
+ - ``next()`` returns the next document in the collection.
+ - ``tryNext()`` immediately returns eitherthe next available element in the
+   change stream or ``null``. 
+
+Unlike the ``MongoCursor`` returned by other queries, a ``MongoCursor`` associated
 with a change stream waits until a change event arrives before
 returning a result from ``next()``. As a result, calls to ``next()``
 using a change stream's ``MongoCursor`` never throw a
@@ -228,7 +231,7 @@ printed, since the aggregation pipeline filters out the ``delete`` operation:
      wallTime=BsonDateTime{value=1657...}
    }
 
-``WatchCompanion`` will print all of the operations it completed:
+``WatchCompanion`` will print a summary of the operations it completed:
 
 .. code-block::
    :copyable: false
@@ -493,7 +496,7 @@ Additional Information
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and classes used to manage change streams, see the following API documentation:
+For more information about the methods and classes used to manage change streams, see the following API documentation:
 
 - `MongoCollection.watch() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#watch()>`__ 
 - `MongoDatabase.watch() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#watch()>`__ 
