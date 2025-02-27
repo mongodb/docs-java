@@ -1,0 +1,3820 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "class-gridfsdownloadstream",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Class GridFSDownloadStream",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Closeable",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Closeable.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": ", ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "AutoCloseable",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "All Implemented Interfaces:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "@NotThreadSafe",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "http://mongodb.github.io/mongo-java-driver/5.2/apidocs/mongodb-driver-core/com/mongodb/annotations/NotThreadSafe.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "public abstract class ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "GridFSDownloadStream",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "extends ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InputStream",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "A GridFS InputStream for downloading data from GridFS\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Provides the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "GridFSFile",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " for the file to being downloaded as well as the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "read",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " methods of a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "InputStream",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This implementation of a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "InputStream",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " will not throw ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "IOException",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/IOException.html",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "s. However, it  will throw a\n ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "MongoException",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "http://mongodb.github.io/mongo-java-driver/5.2/apidocs/mongodb-driver-core/com/mongodb/MongoException.html",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " if there is an error reading from MongoDB.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "3.1",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Since:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "constructor-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Constructor Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "constructor-summary",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Constructors",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Constructor",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Description",
+                                  "is_inline": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "GridFSDownloadStream",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#%3Cinit%3E()",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "()",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": " ",
+                                  "is_inline": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "1"
+              }
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Summary",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "all-methods",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "All Methods",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "directive",
+                  "name": "list-table",
+                  "argument": [],
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Modifier and Type",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Method",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "Description",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract int",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "available",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#available()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "GridFSDownloadStream",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "batchSize",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#batchSize(int)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(int batchSize)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Sets the number of chunks to return per batch.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "close",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#close()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "GridFSFile",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "http://mongodb.github.io/mongo-java-driver/5.2/apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSFile.html",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "getGridFSFile",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#getGridFSFile()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Gets the corresponding ",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "literal",
+                                              "children": [
+                                                {
+                                                  "type": "text",
+                                                  "value": "GridFSFile",
+                                                  "is_inline": true
+                                                }
+                                              ],
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "http://mongodb.github.io/mongo-java-driver/5.2/apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSFile.html",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": " for the file being downloaded",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "mark",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#mark()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    },
+                                    {
+                                      "type": "paragraph",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Marks the current position in this input stream.",
+                                          "is_inline": true
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "value": "\n",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract int",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "read",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#read()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract int",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "read",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#read(byte%5B%5D)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(byte[] b)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract int",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "read",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#read(byte%5B%5D,int,int)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(byte[] b,\n int off,\n int len)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract void",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "reset",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#reset()",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "()",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "list",
+                              "enumtype": "unordered",
+                              "children": [
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "abstract long",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "reference",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "value": "skip",
+                                              "is_inline": true
+                                            }
+                                          ],
+                                          "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream#skip(long)",
+                                          "is_inline": true
+                                        },
+                                        {
+                                          "type": "text",
+                                          "value": "(long n)",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "listItem",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": " ",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "options": {
+                    "header-rows": "1"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "methods-inherited-from-class-java.io.InputStream",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Methods inherited from class java.io.InputStream",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "mark",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#mark(int)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "markSupported",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#markSupported()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "nullInputStream",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#nullInputStream()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "readAllBytes",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#readAllBytes()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "readNBytes",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#readNBytes(byte%5B%5D,int,int)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "readNBytes",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#readNBytes(int)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "skipNBytes",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#skipNBytes(long)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "transferTo",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#transferTo(java.io.OutputStream)",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "methods-inherited-from-class-java.lang.Object",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Methods inherited from class java.lang.Object",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "clone",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#clone()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "equals",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "finalize",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#finalize()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "getClass",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#getClass()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "hashCode",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#hashCode()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notify",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notifyAll",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "toString",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#toString()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long,int)",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "constructor-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Constructor Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "GridFSDownloadStream",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "GridFSDownloadStream",
+            "id": "<init>()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "method-detail",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Method Details",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "GridFSFile",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "http://mongodb.github.io/mongo-java-driver/5.2/apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSFile.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "getGridFSFile",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Gets the corresponding ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "GridFSFile",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "http://mongodb.github.io/mongo-java-driver/5.2/apidocs/mongodb-driver-core/com/mongodb/client/gridfs/model/GridFSFile.html",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " for the file being downloaded",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "the corresponding GridFSFile for the file being downloaded",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "getGridFSFile",
+            "id": "getGridFSFile()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "GridFSDownloadStream",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "batchSize",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(int batchSize)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Sets the number of chunks to return per batch.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Can be used to control the memory consumption of this InputStream. The smaller the batchSize the lower the memory consumption\n and higher latency.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "batchSize",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " - the batch size",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Parameters:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "this",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Returns:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Batch Size",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://www.mongodb.com/docs/manual/reference/method/cursor.batchSize/#cursor.batchSize",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "MongoDB documentation",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "batchSize",
+            "id": "batchSize(int)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "int",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "read",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "read",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#read()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "read",
+            "id": "read()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "int",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "read",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(byte[] b)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "read",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#read(byte%5B%5D)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "read",
+            "id": "read(byte[])"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "int",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "read",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(byte[] b,\n int off,\n int len)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "read",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#read(byte%5B%5D,int,int)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "read",
+            "id": "read(byte[],int,int)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "long",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "skip",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(long n)",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "skip",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#skip(long)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "skip",
+            "id": "skip(long)"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "int",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "available",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "available",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#available()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "available",
+            "id": "available()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "mark",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Marks the current position in this input stream.\n\n ",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "A subsequent call to the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "reset",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " method repositions this stream at the last marked position so that subsequent reads\n re-read the same bytes.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "mark",
+            "id": "mark()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "reset",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "reset",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#reset()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "reset",
+            "id": "reset()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "collapsible",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "line_block",
+              "children": [
+                {
+                  "type": "line",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "public abstract",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "void",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "literal",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "close",
+                          "is_inline": true
+                        }
+                      ],
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "()",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "close",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html#close()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "AutoCloseable",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "close",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Closeable.html#close()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in interface ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Closeable",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Closeable.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Specified by:",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "close",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html#close()",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        },
+                        {
+                          "type": "text",
+                          "value": " in class ",
+                          "is_inline": true
+                        },
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "InputStream",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/InputStream.html",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Overrides:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n",
+              "is_inline": true
+            }
+          ],
+          "argument": [],
+          "options": {
+            "heading": "close",
+            "id": "close()"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/java-sync/com/mongodb/client/gridfs/GridFSDownloadStream.ast"
+}
