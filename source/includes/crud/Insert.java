@@ -1,6 +1,6 @@
 // Inserts a sample document describing a movie by using the Java driver
 
-package usage.examples;
+package org.example;
 
 import java.util.Arrays;
 

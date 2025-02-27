@@ -1,6 +1,6 @@
 // Deletes a document from a collection by using the Java driver
 
-package usage.examples;
+package org.example;
 
 import static com.mongodb.client.model.Filters.eq;
 

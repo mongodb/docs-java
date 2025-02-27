@@ -1,4 +1,7 @@
 // Retrieves documents that match a query filter by using the Java driver
+
+package org.example;
+
 import static com.mongodb.client.model.Filters.lt;
 
 import org.bson.Document;
