@@ -8,7 +8,7 @@ Count Documents
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 In this guide, you can learn how to count documents in your MongoDB
@@ -80,8 +80,8 @@ specify the behavior of the call:
 
 Both methods return the number of matching documents as a ``long`` primitive.
 
-Example
--------
+Count Documents Example: Full File
+----------------------------------
 
 The following example estimates the number of documents in the
 ``movies`` collection in the ``sample_mflix`` database, and then returns
@@ -104,10 +104,21 @@ like this (exact numbers can vary depending on your data):
 
 .. include:: /includes/legacy-redirect.rst
 
-For additional information on the classes and methods mentioned on this
-page, see the following API Documentation:
+Additional Information
+----------------------
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+For additional information on the classes and methods used to count documents, see the following API documentation:
 
 - `countDocuments() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#countDocuments()>`__
 - `estimatedDocumentCount() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#estimatedDocumentCount()>`__
 - `CountOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/CountOptions.html>`__
 - `EstimatedDocumentCountOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/EstimatedDocumentCountOptions.html>`__
+
+Server Manual Entries
+~~~~~~~~~~~~~~~~~~~~~
+
+- :manual:`db.collection.countDocuments() </reference/method/db.collection.countDocuments/>`
+- :manual:`db.collection.estimatedDocumentCount() </reference/method/db.collection.estimatedDocumentCount/>`
