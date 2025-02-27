@@ -6,6 +6,10 @@
 Open Change Streams
 ===================
 
+.. facet::
+   :name: genre
+   :values: reference
+
 .. meta::
    :keywords: watch, changestream, log, monitor, events
    :description: Learn about how to use change streams in the {+driver-long+}.
@@ -74,8 +78,19 @@ transform the change event output as follows:
 
    List<Bson> pipeline = Arrays.asList(
                            Aggregates.match(
+                              Filters.in("operationType",
+                                    Arrays.asList("insert", "update"))),
+                           Aggregates.match(
                               Filters.lt("fullDocument.runtime", 15)));
    ChangeStreamIterable<Document> changeStream = database.watch(pipeline);
+
+.. note::
+
+   For update operation change events, change streams only return the modified
+   fields by default rather than the entire updated document. You can configure
+   your change stream to also return the most current version of the document
+   by calling the ``fullDocument()`` member method of the ``ChangeStreamIterable``
+   object with the value ``FullDocument.UPDATE_LOOKUP`` as follows:
 
 Manage the Output
 ~~~~~~~~~~~~~~~~~
@@ -88,6 +103,14 @@ that offers several methods to access, organize, and traverse the results.
 You can call ``forEach()`` on the ``ChangeStreamIterable`` to handle
 events as they occur, or you can use the ``iterator()`` method which
 returns a ``MongoCursor`` instance that you can use to traverse the results.
+
+.. important:: forEach() blocks the current thread
+
+   Calls to ``forEach()`` block the current thread as long as the
+   corresponding change stream listens for events. If your program
+   needs to continue executing other logic, such as processing requests or
+   responding to user input, consider creating and listening to your
+   change stream in a separate thread.
 
 You can call methods on the ``MongoCursor`` such as ``hasNext()`` to check
 whether additional results exist, ``next()`` to return the next document
@@ -134,6 +157,8 @@ An insert operation on the collection produces the following output:
       namespace=myDb.myColl,
       ...
    }
+
+.. _java-usage-watch:
 
 Watch Example: Full Files 
 ~~~~~~~~~~~~~~~~~~~~~~~~~
