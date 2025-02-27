@@ -30,6 +30,7 @@ Enterprise Edition:
 - :ref:`Kerberos (GSSAPI) <gssapi-auth-mechanism>`
 - :ref:`LDAP (PLAIN) <plain-auth-mechanism>`
 - :ref:`MONGODB-OIDC <mongodb-oidc>`
+- :ref:`Kubernetes <java-sync-kubernetes>`
 
 To authenticate using another mechanism, see the
 :doc:`Authentication Mechanisms guide </fundamentals/auth>`. For more
@@ -47,7 +48,7 @@ Mechanisms
 .. _gssapi-auth-mechanism:
 
 Kerberos (GSSAPI)
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 The Generic Security Services API (``GSSAPI``) authentication mechanism
 allows the user to authenticate to a Kerberos service using the user's
@@ -460,3 +461,25 @@ named ``"access-token.dat"`` in the local file system:
                    builder.hosts(Arrays.asList(new ServerAddress("<hostname>", <port>))))
            .credential(credential)
            .build());
+
+.. _java-sync-kubernetes:
+
+Kubernetes
+~~~~~~~~~~
+
+If your application runs on a Kubernetes cluster, you can authenticate to MongoDB by using
+the {+driver-short+}'s built-in Kubernetes support.
+
+To specify Kubernetes OIDC as the authentication mechanism, set the following 
+options in your connection string:
+
+- ``authMechanism``: Set to ``MONGODB-OIDC``.
+- ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``. 
+
+The following code example shows how to set the preceding connection options:
+
+.. code-block:: java
+
+   String uri = "mongodb://<hostname>:<port>/?authMechanism=MONGODB-OIDC&authMechanismProperties=ENVIRONMENT:k8s";
+   MongoClient mongoClient = MongoClients.create(uri)
+   
