@@ -1,6 +1,6 @@
 // Runs bulk write operations on a collection by using the Java driver
 
-package usage.examples;
+package org.example;
 
 import java.util.Arrays;
 

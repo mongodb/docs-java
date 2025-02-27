@@ -1,6 +1,6 @@
 // Updates the first document that matches a query filter by using the Java driver
 
-package usage.examples;
+package org.example;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
