@@ -93,14 +93,13 @@ your project by downloading the JAR file directly from the
 Frequently Asked Questions
 --------------------------
 
-This section answers questions that may arise about
-the BSON data format.
+This section answers questions that may arise when using the BSON data format.
 
 How do I prevent the "IllegalArgumentException: Invalid BSON field name" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Your application might throw this exception if you pass an incorrectly formatted
-document to an operation and you are using a driver version v4.7 or earlier.
+document to an operation and you are using {+driver-short+} v4.7 or earlier.
 
 .. note::
 
@@ -123,8 +122,8 @@ example:
 
 To avoid this error, use the builder class for the appropriate operation.
 The driver offers builder classes to create syntactically correct BSON for
-MongoDB operations. The prior example can be correctly expressed using
-the builder classes as shown in the following code example:
+MongoDB operations. The preceding example can be correctly expressed using
+the builder classes, as shown in the following code example:
 
 .. code-block:: java
    :emphasize-lines: 7
@@ -138,4 +137,4 @@ the builder classes as shown in the following code example:
 
    collection.updateOne(eq("name", "fizz"), set("name", "buzz"));
 
-To learn more about the available builders classes, see the :ref:`<java-builders>` documentation.
+To learn more about the available builders classes, see the :ref:`<java-builders>` guide.

@@ -4,6 +4,12 @@
 Connect to MongoDB
 ==================
 
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+   
 .. facet::
    :name: genre
    :values: reference
@@ -218,21 +224,28 @@ introduced in Java 9.
 Which type of ``MongoClient`` should I use?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-New applications generally use the
-``com.mongodb.client.MongoClient`` interface, which supports:
+New applications generally use the ``com.mongodb.client.MongoClient`` interface,
+which supports the following features:
 
-- Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create instances of this interface via factory methods defined in the ``com.mongodb.client.MongoClients`` class.
-- CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``
+- Configuration with ``MongoClientSettings`` and ``ConnectionString``.  You can create
+  instances of this interface by using factory methods defined in the ``com.mongodb.client.MongoClients``
+  class.
+- Access to the CRUD API by using ``MongoDatabase``, and from there, ``MongoCollection``.
 
-Use the ``com.mongodb.MongoClient`` class if you require support for the legacy API, which supports:
+Use the ``com.mongodb.MongoClient`` class if you require support for the legacy API, which supports
+the following features:
 
-- Configuration with ``MongoClientOptions`` and ``MongoClientURI``
-- CRUD API using ``DB``, and from there, ``DBCollection``.  You can access this API via the ``getDB()`` method.
+- Configuration by using ``MongoClientOptions`` and ``MongoClientURI``.
+- Access to the CRUD API by using ``DB``, and from there, ``DBCollection``.  You can access this API
+  by using the ``getDB()`` method.
 
-For applications that require a mix of the new and legacy APIs, ``com.mongodb.MongoClient`` also supports:
+For applications that require a mix of the new and legacy APIs, ``com.mongodb.MongoClient`` also supports
+the following features:
 
-- Configuration with ``MongoClientSettings`` and ``ConnectionString``, the only difference being that you create instances via constructors instead of a factory class.
-- CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``.  You can access this API via the ``getDatabase()`` method.
+- Configuration by using ``MongoClientSettings`` and ``ConnectionString``, the only difference
+  being that you create instances via constructors instead of a factory class.
+- Access to the CRUD API using ``MongoDatabase``, and from there, ``MongoCollection``.  You can access this
+  API by using the ``getDatabase()`` method.
 
 How do I prevent the "java.lang.NoClassDefFoundError: com/mongodb/MongoClient" error?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

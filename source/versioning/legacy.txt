@@ -172,18 +172,18 @@ Frequently Asked Questions
 
 This section answers questions that may arise about the legacy API.
 
-How do I connect to my MongoDB instance with the legacy API?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How do I connect to my MongoDB instance by using the legacy API?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following example shows how to connect to a MongoDB instance with the
-legacy API and the current API.
-
-Imagine we are connecting to a collection that contains only this document:
+Imagine we are connecting to a collection that contains only the following document:
 
 .. code-block:: json
    :copyable: false
 
    {"_id": 1, "val": 1}
+
+The following example shows how to connect to this MongoDB collection by using
+the legacy API and the current API:
 
 .. tabs::
 
@@ -227,10 +227,10 @@ see the following API documentation pages:
 See the :ref:`Migrate from the Legacy API <java-legacy-api>` page
 for a list of differences between the legacy and current API.
 
-How do I use the legacy ``MongoClientOptions`` and ``MongoClientURI`` Classes?
+How do I use the legacy ``MongoClientOptions`` and ``MongoClientURI`` classes?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here is an example showing how to use the legacy ``MongoClientOptions`` and
+The following example shows how to use the legacy ``MongoClientOptions`` and
 ``MongoClientURI`` classes to set your write concern:
 
 .. tabs::
@@ -254,7 +254,7 @@ Here is an example showing how to use the legacy ``MongoClientOptions`` and
          :end-before: end current-api-mongoclientsettings-example
 
 For more information about the legacy classes and methods used in the preceding example,
-see the following API Documentation pages:
+see the following API documentation:
 
 - `Legacy API documentation <{+api+}/apidocs/mongodb-driver-legacy/index.html>`__
 - `MongoClient <{+api+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__

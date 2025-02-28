@@ -775,7 +775,8 @@ No, the ``PojoCodecProvider`` automatically generates an ObjectId.
 Can the ID field be a compound key?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes. For an example of this, see `our implementation <https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java>`_
+Yes. For an example of this, see `our implementation <https://github.com/niccottrell/mongo-java-tests/blob/master/src/test/PojoCompoundIdTest.java>`__
+in Github.
 
 Can I use polymorphism in a POJO accessor?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -786,8 +787,8 @@ Yes, by using a discriminator. For more information, see the :ref:`Discriminator
 Can I control serialization of ``LocalDate``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Yes, the 3.7 Java driver adds native support for ``JSR-310 Instant``,
-``LocalDate`` & ``LocalDateTime``.
+Yes, the {+driver-short+} v3.7 adds native support for ``JSR-310 Instant``,
+``LocalDate`` and ``LocalDateTime``.
 
 Can I serialize a ``java.util.Date`` as a string in format **yyyy-mm-dd**?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -814,7 +815,7 @@ reflection if no public setter is available.
 Can I mix private, protected, and public setters and getters?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No. The native POJO codec assumes that getters/setters have the same
+No. The native POJO codec assumes that getters and setters have the same
 modifiers for each field.
 
 For example, the following methods throws an exception during encoding:
@@ -828,12 +829,13 @@ How do I fix: "org.bson.codecs.configuration.CodecConfigurationException: Can't 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This exception means you must register a codec for the class since
-there is none at the moment.
+none exist.
 
 How do I specify the collection name for a particular POJO class? Is there an annotation?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There is no annotation. We recommend adding a static string in your class as shown:
+There is no annotation. We recommend adding a static string in your class as shown
+in the following code:
 
 .. code-block:: java
 
