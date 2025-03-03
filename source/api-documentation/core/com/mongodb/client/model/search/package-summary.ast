@@ -1,0 +1,3485 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "package-com.mongodb.client.model.search",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "Package com.mongodb.client.model.search",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "line_block",
+          "children": [
+            {
+              "type": "line",
+              "children": [
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "@NonNullApi",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/lang/NonNullApi",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "@Beta",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/annotations/Beta",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "CLIENT",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/core/com/mongodb/annotations/Reason#CLIENT",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")\n",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "package ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.client.model.search",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Query building API for MongoDB Atlas full-text search.\n ",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "\n While all the building blocks of this API, such as\n ",
+              "is_inline": true
+            },
+            {
+              "type": "reference",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "SearchOptions",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ],
+              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchOptions",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": ", ",
+              "is_inline": true
+            },
+            {
+              "type": "reference",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "SearchHighlight",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ],
+              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchHighlight",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": ", etc.,\n are not necessary ",
+              "is_inline": true
+            },
+            {
+              "type": "reference",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "immutable",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ],
+              "refuri": "api-documentation/core/com/mongodb/annotations/Immutable",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": ", they are unmodifiable due to methods like\n ",
+              "is_inline": true
+            },
+            {
+              "type": "reference",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "SearchHighlight.maxCharsToExamine(int)",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ],
+              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchHighlight#maxCharsToExamine(int)",
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": " returning new instances instead of modifying the instance\n on which they are called. This allows storing and using such instances as templates.",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "definitionList",
+          "children": [
+            {
+              "type": "definitionListItem",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "4.7",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ],
+              "term": [
+                {
+                  "type": "text",
+                  "value": "Since:",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "definitionListItem",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Aggregates.search(SearchOperator, SearchOptions)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/client/model/Aggregates#search(com.mongodb.client.model.search.SearchOperator,com.mongodb.client.model.search.SearchOptions)",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Aggregates.search(SearchCollector, SearchOptions)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/client/model/Aggregates#search(com.mongodb.client.model.search.SearchCollector,com.mongodb.client.model.search.SearchOptions)",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "literal",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Aggregates.vectorSearch(com.mongodb.client.model.search.FieldSearchPath, java.lang.Iterable, java.lang.String, long, com.mongodb.client.model.search.VectorSearchOptions)",
+                              "is_inline": true
+                            }
+                          ],
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/core/com/mongodb/client/model/Aggregates#vectorSearch(com.mongodb.client.model.search.FieldSearchPath,java.lang.Iterable,java.lang.String,long,com.mongodb.client.model.search.VectorSearchOptions)",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "\n",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ],
+              "term": [
+                {
+                  "type": "text",
+                  "value": "See Also:",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "reference",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Atlas Search",
+                              "is_inline": true
+                            }
+                          ],
+                          "refuri": "https://www.mongodb.com/docs/atlas/atlas-search/",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "MongoDB Atlas documentation",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Atlas Search aggregation pipeline stages",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://www.mongodb.com/docs/atlas/atlas-search/query-syntax/",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "related-package-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Related Packages",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "list-table",
+          "argument": [],
+          "children": [
+            {
+              "type": "list",
+              "enumtype": "unordered",
+              "children": [
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Package",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Description",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "com.mongodb.client.model",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/package-summary",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "This package contains models and options that help describe MongoCollection operations",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "options": {
+            "header-rows": "1"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "class-summary",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Interfaces",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "directive",
+          "name": "list-table",
+          "argument": [],
+          "children": [
+            {
+              "type": "list",
+              "enumtype": "unordered",
+              "children": [
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Class",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Description",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "AddSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/AddSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ApproximateVectorSearchOptions",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ApproximateVectorSearchOptions",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Represents optional fields of the ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "$vectorSearch",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " pipeline stage of an aggregation pipeline.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "AutocompleteSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/AutocompleteSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "CompoundSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "CompoundSearchOperatorBase",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperatorBase",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A base for a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "CompoundSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " which allows creating instances of this operator.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConstantSearchScore",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ConstantSearchScore",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ConstantSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ConstantSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "DateNearSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/DateNearSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "DateRangeSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/DateRangeSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "DateRangeSearchOperatorBase",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/DateRangeSearchOperatorBase",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A base for a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "DateRangeSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/DateRangeSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " which allows creating instances of this operator.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "DateSearchFacet",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/DateSearchFacet",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ExactVectorSearchOptions",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ExactVectorSearchOptions",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Represents optional fields of the ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "$vectorSearch",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " pipeline stage of an aggregation pipeline.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ExistsSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ExistsSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "FacetSearchCollector",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/FacetSearchCollector",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "FieldSearchPath",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/FieldSearchPath",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "FilterCompoundSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/FilterCompoundSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A representation of a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "CompoundSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " that allows changing\n ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "filter",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperatorBase#filter(java.lang.Iterable)",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "-specific options, if any.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "FunctionSearchScore",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/FunctionSearchScore",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "FuzzySearchOptions",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/FuzzySearchOptions",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Fuzzy search options that may be used with some ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "SearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "s.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "GaussSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/GaussSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "GeoNearSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/GeoNearSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Log1pSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/Log1pSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "LogSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/LogSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "LowerBoundSearchCount",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/LowerBoundSearchCount",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "MultiplySearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/MultiplySearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "MustCompoundSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/MustCompoundSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A representation of a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "CompoundSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " that allows changing\n ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "must",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperatorBase#must(java.lang.Iterable)",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "-specific options, if any.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "MustNotCompoundSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/MustNotCompoundSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A representation of a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "CompoundSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " that allows changing\n ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "mustNot",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperatorBase#mustNot(java.lang.Iterable)",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "-specific options, if any.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "NumberNearSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/NumberNearSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "NumberRangeSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/NumberRangeSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "NumberRangeSearchOperatorBase",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/NumberRangeSearchOperatorBase",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A base for a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "NumberRangeSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/NumberRangeSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " which allows creating instances of this operator.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "NumberSearchFacet",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/NumberSearchFacet",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "PathBoostSearchScore",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/PathBoostSearchScore",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "PathSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/PathSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "RelevanceSearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/RelevanceSearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchCollector",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchCollector",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "The core part of the ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "$search",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/Aggregates#search(com.mongodb.client.model.search.SearchCollector,com.mongodb.client.model.search.SearchOptions)",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " pipeline stage of an aggregation pipeline.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchCount",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchCount",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Counting options.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchFacet",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchFacet",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A facet definition for ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "FacetSearchCollector",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/FacetSearchCollector",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": ".",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchHighlight",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchHighlight",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Highlighting options.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "The core part of the ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "$search",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/Aggregates#search(com.mongodb.client.model.search.SearchOperator,com.mongodb.client.model.search.SearchOptions)",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " pipeline stage of an aggregation pipeline.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchOptions",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchOptions",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Represents optional fields of the ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "$search",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " pipeline stage of an aggregation pipeline.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchPath",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchPath",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A specification of fields to be searched.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchScore",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchScore",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A modifier of the relevance score.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "SearchScoreExpression",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/SearchScoreExpression",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ShouldCompoundSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ShouldCompoundSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "A representation of a ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "CompoundSearchOperator",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " that allows changing\n ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "reference",
+                                  "children": [
+                                    {
+                                      "type": "literal",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "should",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "refuri": "api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperatorBase#should(java.lang.Iterable)",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "-specific options, if any.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "StringSearchFacet",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/StringSearchFacet",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "TextSearchOperator",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/TextSearchOperator",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "TotalSearchCount",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/TotalSearchCount",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "ValueBoostSearchScore",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/ValueBoostSearchScore",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "VectorSearchOptions",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/VectorSearchOptions",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "paragraph",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Represents optional fields of the ",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "literal",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "$vectorSearch",
+                                      "is_inline": true
+                                    }
+                                  ],
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": " pipeline stage of an aggregation pipeline.",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "value": "\n",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "children": [
+                    {
+                      "type": "list",
+                      "enumtype": "unordered",
+                      "children": [
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "reference",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "WildcardSearchPath",
+                                  "is_inline": true
+                                }
+                              ],
+                              "refuri": "api-documentation/core/com/mongodb/client/model/search/WildcardSearchPath",
+                              "is_inline": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "options": {
+            "header-rows": "1"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    },
+    {
+      "type": "directive",
+      "name": "toctree",
+      "argument": [],
+      "options": {
+        "osiris_parent": true
+      },
+      "children": [],
+      "entries": [
+        {
+          "title": "Interface AddSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/AddSearchScoreExpression"
+        },
+        {
+          "title": "Interface ApproximateVectorSearchOptions",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ApproximateVectorSearchOptions"
+        },
+        {
+          "title": "Interface AutocompleteSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/AutocompleteSearchOperator"
+        },
+        {
+          "title": "Interface CompoundSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperator"
+        },
+        {
+          "title": "Interface CompoundSearchOperatorBase",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/CompoundSearchOperatorBase"
+        },
+        {
+          "title": "Interface ConstantSearchScore",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ConstantSearchScore"
+        },
+        {
+          "title": "Interface ConstantSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ConstantSearchScoreExpression"
+        },
+        {
+          "title": "Interface DateNearSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/DateNearSearchOperator"
+        },
+        {
+          "title": "Interface DateRangeSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/DateRangeSearchOperator"
+        },
+        {
+          "title": "Interface DateRangeSearchOperatorBase",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/DateRangeSearchOperatorBase"
+        },
+        {
+          "title": "Interface DateSearchFacet",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/DateSearchFacet"
+        },
+        {
+          "title": "Interface ExactVectorSearchOptions",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ExactVectorSearchOptions"
+        },
+        {
+          "title": "Interface ExistsSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ExistsSearchOperator"
+        },
+        {
+          "title": "Interface FacetSearchCollector",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/FacetSearchCollector"
+        },
+        {
+          "title": "Interface FieldSearchPath",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/FieldSearchPath"
+        },
+        {
+          "title": "Interface FilterCompoundSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/FilterCompoundSearchOperator"
+        },
+        {
+          "title": "Interface FunctionSearchScore",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/FunctionSearchScore"
+        },
+        {
+          "title": "Interface FuzzySearchOptions",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/FuzzySearchOptions"
+        },
+        {
+          "title": "Interface GaussSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/GaussSearchScoreExpression"
+        },
+        {
+          "title": "Interface GeoNearSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/GeoNearSearchOperator"
+        },
+        {
+          "title": "Interface Log1pSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/Log1pSearchScoreExpression"
+        },
+        {
+          "title": "Interface LogSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/LogSearchScoreExpression"
+        },
+        {
+          "title": "Interface LowerBoundSearchCount",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/LowerBoundSearchCount"
+        },
+        {
+          "title": "Interface MultiplySearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/MultiplySearchScoreExpression"
+        },
+        {
+          "title": "Interface MustCompoundSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/MustCompoundSearchOperator"
+        },
+        {
+          "title": "Interface MustNotCompoundSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/MustNotCompoundSearchOperator"
+        },
+        {
+          "title": "Interface NumberNearSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/NumberNearSearchOperator"
+        },
+        {
+          "title": "Interface NumberRangeSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/NumberRangeSearchOperator"
+        },
+        {
+          "title": "Interface NumberRangeSearchOperatorBase",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/NumberRangeSearchOperatorBase"
+        },
+        {
+          "title": "Interface NumberSearchFacet",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/NumberSearchFacet"
+        },
+        {
+          "title": "Interface PathBoostSearchScore",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/PathBoostSearchScore"
+        },
+        {
+          "title": "Interface PathSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/PathSearchScoreExpression"
+        },
+        {
+          "title": "Interface RelevanceSearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/RelevanceSearchScoreExpression"
+        },
+        {
+          "title": "Interface SearchCollector",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchCollector"
+        },
+        {
+          "title": "Interface SearchCount",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchCount"
+        },
+        {
+          "title": "Interface SearchFacet",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchFacet"
+        },
+        {
+          "title": "Interface SearchHighlight",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchHighlight"
+        },
+        {
+          "title": "Interface SearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchOperator"
+        },
+        {
+          "title": "Interface SearchOptions",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchOptions"
+        },
+        {
+          "title": "Interface SearchPath",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchPath"
+        },
+        {
+          "title": "Interface SearchScore",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchScore"
+        },
+        {
+          "title": "Interface SearchScoreExpression",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/SearchScoreExpression"
+        },
+        {
+          "title": "Interface ShouldCompoundSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ShouldCompoundSearchOperator"
+        },
+        {
+          "title": "Interface StringSearchFacet",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/StringSearchFacet"
+        },
+        {
+          "title": "Interface TextSearchOperator",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/TextSearchOperator"
+        },
+        {
+          "title": "Interface TotalSearchCount",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/TotalSearchCount"
+        },
+        {
+          "title": "Interface ValueBoostSearchScore",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/ValueBoostSearchScore"
+        },
+        {
+          "title": "Interface VectorSearchOptions",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/VectorSearchOptions"
+        },
+        {
+          "title": "Interface WildcardSearchPath",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/WildcardSearchPath"
+        },
+        {
+          "title": "Hierarchy For Package com.mongodb.client.model.search",
+          "slug": "/api-documentation/core/com/mongodb/client/model/search/package-tree"
+        }
+      ]
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/core/com/mongodb/client/model/search/package-summary.ast"
+}

@@ -1,0 +1,1894 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "text",
+      "value": "\n",
+      "is_inline": true
+    },
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "content",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "findOneAndUpdate",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n    ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "findOneAndUpdate",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "filter",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "options",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " = ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions()",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "T",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "?",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Atomically find a document and update it.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Use this method to only update the corresponding fields in the document according to the update operators used in the update document. To replace the entire document with a new document, use the corresponding ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "findOneAndReplace",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-replace",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " method.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Note: Supports retryable writes on MongoDB server versions 3.6 or higher when the retryWrites setting is enabled.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "the document that was updated. Depending on the value of the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "returnOriginal",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " property, this will either be the document as it was before the update or as it is after the update. If no documents matched the query filter, then null will be returned",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "filter",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a document describing the query filter, which may not be null.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "update",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a document describing the update, which may not be null. The update to apply must include at least one update operator.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "options",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the options to apply to the operation",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Update Command Behaviors",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/command/update/",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Collection.",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "find",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "One",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "And",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Replace",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "findOneAndUpdate",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "clientSession",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ClientSession",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-client-session/",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "filter",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "options",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " = ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions()",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "T",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "?",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Atomically find a document and update it.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Use this method to only update the corresponding fields in the document according to the update operators used in the update document. To replace the entire document with a new document, use the corresponding ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "findOneAndReplace",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-replace",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " method.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Note: Supports retryable writes on MongoDB server versions 3.6 or higher when the retryWrites setting is enabled.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "the document that was updated. Depending on the value of the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "returnOriginal",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " property, this will either be the document as it was before the update or as it is after the update. If no documents matched the query filter, then null will be returned",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Session",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the client session with which to associate this operation",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "filter",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a document describing the query filter, which may not be null.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "update",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a document describing the update, which may not be null. The update to apply must include at least one update operator.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "options",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the options to apply to the operation",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": []
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "reference",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "value": "Update Command Behaviors",
+                                          "is_inline": true
+                                        }
+                                      ],
+                                      "refuri": "https://www.mongodb.com/docs/manual/reference/command/update/",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Collection.",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "find",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "One",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "And",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Replace",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "findOneAndUpdate",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "filter",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "options",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " = ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions()",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "T",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "?",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Atomically find a document and update it.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Note: Supports retryable writes on MongoDB server versions 3.6 or higher when the retryWrites setting is enabled.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "the document that was updated. Depending on the value of the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "returnOriginal",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " property, this will either be the document as it was before the update or as it is after the update. If no documents matched the query filter, then null will be returned",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "filter",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a document describing the query filter, which may not be null.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "update",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a pipeline describing the update, which may not be null.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "options",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the options to apply to the operation",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fun ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "findOneAndUpdate",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "(",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "clientSession",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "ClientSession",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-client-session/",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "filter",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "update",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "List",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "<",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "Bson",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ">",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ", ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "options",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": " = ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "FindOneAndUpdateOptions()",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ")",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "T",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "?",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Atomically find a document and update it.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Note: Supports retryable writes on MongoDB server versions 3.6 or higher when the retryWrites setting is enabled.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "the document that was updated. Depending on the value of the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "returnOriginal",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " property, this will either be the document as it was before the update or as it is after the update. If no documents matched the query filter, then null will be returned",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "parameters",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Parameters",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Session",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the client session with which to associate this operation",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "filter",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a document describing the query filter, which may not be null.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "update",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "a pipeline describing the update, which may not be null.",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "options",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "paragraph",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "value": "the options to apply to the operation",
+                                      "is_inline": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "\n      ",
+      "is_inline": true
+    },
+    {
+      "type": "text",
+      "value": "\n    ",
+      "is_inline": true
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-collection/find-one-and-update.ast"
+}

@@ -1,0 +1,398 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "text",
+      "value": "\n",
+      "is_inline": true
+    },
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "heading",
+          "id": "content",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "clusterDescription",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "text",
+          "value": "\n    ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "text",
+          "value": "\n  ",
+          "is_inline": true
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "reference",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "clusterDescription",
+                          "is_inline": true
+                        }
+                      ],
+                      "refuri": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-client/cluster-description",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": ": ",
+                      "is_inline": true
+                    },
+                    {
+                      "type": "text",
+                      "value": "ClusterDescription",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Gets the current cluster description.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "This method will not block, meaning that it may return a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "ClusterDescription",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " whose ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "clusterType",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " is unknown and whose ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "com.mongodb.connection.ServerDescription",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "s are all in the connecting state. If the application requires notifications after the driver has connected to a member of the cluster, it should register a ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "com.mongodb.event.ClusterListener",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " via the ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "com.mongodb.connection.ClusterSettings",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " in ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "com.mongodb.MongoClientSettings",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "return",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Return",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "the current cluster description",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "see-also",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "See also",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directive",
+              "name": "list-table",
+              "argument": [],
+              "children": [
+                {
+                  "type": "list",
+                  "enumtype": "unordered",
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Cluster",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Settings.",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Builder.",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "add",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Cluster",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Listener",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "children": [
+                        {
+                          "type": "list",
+                          "enumtype": "unordered",
+                          "children": [
+                            {
+                              "type": "listItem",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Mongo",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Client",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Settings.",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Builder.",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "apply",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "To",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Cluster",
+                                  "is_inline": true
+                                },
+                                {
+                                  "type": "text",
+                                  "value": "Settings",
+                                  "is_inline": true
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "header-rows": "0"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "\n",
+          "is_inline": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "\n      ",
+      "is_inline": true
+    },
+    {
+      "type": "text",
+      "value": "\n    ",
+      "is_inline": true
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/kotlin/mongodb-driver-kotlin-sync/com.mongodb.kotlin.client/-mongo-client/cluster-description.ast"
+}
