@@ -94,6 +94,17 @@ In the example, you set two connection options: ``maxPoolSize=20`` and
 ``w=majority``. For more information about connection options, skip to the
 :ref:`connection-options` section of this guide.
 
+DNS Service Discovery
+~~~~~~~~~~~~~~~~~~~~~
+
+.. sharedinclude:: dbx/srv-polling.rst
+
+   .. replacement:: srv-uri
+
+      .. code-block:: java
+
+         ConnectionString uri = new ConnectionString("mongodb+srv://<hostname>/");
+
 .. _connect-atlas-java-driver:
 
 Atlas Connection Example
