@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ReplicaSets {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         // Uses the settings builder methods to set read and write settings for the client
         // start-client-settings
@@ -81,7 +81,7 @@ public class ReplicaSets {
 
         ReadPreference readPref= ReadPreference.secondary(Arrays.asList(tag1, tag2, tag3));
 
-        database = mongoClient.getDatabase("test_database")
+        MongoDatabase database = mongoClient.getDatabase("test_database")
                               .withReadPreference(readPref);
         // end-tag-set
 
@@ -95,7 +95,7 @@ public class ReplicaSets {
         // Instructs the library to distribute reads between members within 35 milliseconds
         // of the closest member's ping time using a URI option
         // start-local-threshold-settings
-        MongoClient timedClient = MongoClients.create(MongoClientSettings.builder()
+        MongoClient client = MongoClients.create(MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString("mongodb://localhost:27017/"))
                 .applyToClusterSettings(builder -> builder.localThreshold(35, TimeUnit.MILLISECONDS))
                 .build());
