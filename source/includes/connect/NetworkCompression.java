@@ -5,7 +5,7 @@ ConnectionString connectionString = new ConnectionString(
 MongoClient client = MongoClients.create(connectionString);
 // end-specify-connection-string
 
-// start-specify-uri
+// start-specify-client-settings
 MongoClientSettings settings = MongoClientSettings.builder()
         .compressorList(Arrays.asList(MongoCompressor.createSnappyCompressor(),
                         MongoCompressor.createZlibCompressor(),
@@ -13,4 +13,4 @@ MongoClientSettings settings = MongoClientSettings.builder()
         .build();
 
 MongoClient client = MongoClients.create(settings);
-// end-specify-uri
+// end-specify-client-settings
