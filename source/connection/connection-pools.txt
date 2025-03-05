@@ -17,12 +17,12 @@ Connection Pools
 Overview
 --------
 
-In this guide, you can learn about how {+driver-short+} uses connection pools to manage
+In this guide, you can learn about how the {+driver-short+} uses connection pools to manage
 connections to a MongoDB deployment and how you can configure connection pool settings
 in your application.
 
-A connection pool is a cache of open database connections maintained by {+driver-short+}.
-When your application requests a connection to MongoDB, {+driver-short+} seamlessly
+A connection pool is a cache of open database connections maintained by the {+driver-short+}.
+When your application requests a connection to MongoDB, the {+driver-short+} seamlessly
 gets a connection from the pool, performs operations, and returns the connection
 to the pool for reuse.
 
@@ -38,7 +38,7 @@ concurrent MongoDB operations in your multi-threaded application.
 
 The ``maxPoolSize`` option sets the maximum size of each connection pool, which 
 defaults to 100. If the number of in-use connections to a server reaches the 
-value of maxPoolSize, the next request to that server will wait until a 
+value of ``maxPoolSize``, the next request to that server will wait until a 
 connection becomes available.
 
 Each ``MongoClient`` instance opens two more sockets per server in your MongoDB 
