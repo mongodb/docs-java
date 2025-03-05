@@ -1,3 +1,5 @@
+eol = true
+
 name = "java"
 title = "Java Sync"
 intersphinx = [
@@ -32,3 +34,11 @@ zstdVersion = "com.github.luben:zstd-jni:1.5.5-3"
 logbackVersion = "1.2.11"
 log4j2Version = "2.17.1"
 communityForums = "https://www.mongodb.com/community/forums/"
+current-url = "https://www.mongodb.com/docs/drivers/java/sync/current"
+
+[[banners]]
+targets = ["*"]
+variant = "info"
+value = """\
+    This version of the documentation is archived and no longer supported. View the `current documentation <{+current-url+}>`__ to learn how to `upgrade your version of the {+driver-short+} <{+current-url+}/upgrade>`__.\
+    """
