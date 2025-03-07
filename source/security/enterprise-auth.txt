@@ -428,18 +428,36 @@ Kubernetes
 If your application runs on a Kubernetes cluster, you can authenticate to MongoDB by using
 the {+driver-short+}'s built-in Kubernetes support.
 
-To specify Kubernetes OIDC as the authentication mechanism, set the following 
-options in your connection string:
+Select from the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to
+see the corresponding syntax.
 
-- ``authMechanism``: Set to ``MONGODB-OIDC``.
-- ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``. 
+.. tabs::
 
-The following code example shows how to set the preceding connection options:
+   .. tab:: Connection String
+      :tabid: mongodb-kubernetes-connection-string
 
-.. code-block:: java
+      .. code-block:: java
 
-   String uri = "mongodb://<hostname>:<port>/?authMechanism=MONGODB-OIDC&authMechanismProperties=ENVIRONMENT:k8s";
-   MongoClient mongoClient = MongoClients.create(uri)
+         MongoClient mongoClient = MongoClients.create(
+            "mongodb://<hostname>:<port>/" +
+            "?authMechanism=MONGODB-OIDC" +
+            "&authMechanismProperties=ENVIRONMENT:k8s");
+    
+   .. tab:: MongoCredential
+      :tabid: mongodb-kubernetes-mongo-credential
+
+      .. code-block:: java
+
+         MongoCredential credential = MongoCredential.createOidcCredential()
+            .withMechanismProperty("ENVIRONMENT", "k8s");
+
+         MongoClient mongoClient = MongoClients.create(
+            MongoClientSettings.builder()
+               .applyToClusterSettings(builder ->
+                      builder.hosts(Arrays.asList(new ServerAddress("<hostname>", <port>))))
+               .credential(credential)
+               .build());
+
 
 Custom Callback
 +++++++++++++++
