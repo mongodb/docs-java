@@ -52,8 +52,6 @@ public class Insert {
 
                 // Prints the IDs of the inserted documents
                 System.out.println("insertMany() document ids: " + result.getInsertedIds());
-            
-            // Prints a message if any exceptions occur during the operation
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }
