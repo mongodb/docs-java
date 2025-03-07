@@ -50,9 +50,9 @@ track of the color and quantity, which corresponds to the ``color`` and
 Find Operation
 --------------
 
-Use the find operation to retrieve a subset of your existing data in
-MongoDB. You can specify what data to return including which documents
-to retrieve, in what order to retrieve them, and how many to retrieve.
+Use the find operation to retrieve your documents from MongoDB. You can specify
+which documents to retrieve, in what order to retrieve them, and how many to
+retrieve. 
 
 To perform a find operation, call the ``find()`` method on an instance
 of a ``MongoCollection``. This method searches a collection for documents that
@@ -60,9 +60,12 @@ match the query filter you provide. For more information about how to
 specify a query, see our :ref:`Specify a Query
 <java-query>` guide.
 
-To retrieve a single document, you can append the ``first()`` method to your
-``find()`` operation. You can use the ``sort()`` operation before selecting the first
-document to help choose the correct file.
+To retrieve a single document, you can add the ``first()`` method to your
+``find()`` call. To choose a specific document, you can use the ``sort()``
+operation before selecting the first document. You may also want to use the
+``limit()`` method to optimize memory usage. For more information, see the
+server manual for more information about :manual:`memory optimization when using
+the sort operation </reference/operator/aggregation/sort/#-sort----limit-memory-optimization>`. 
 
 Example
 ~~~~~~~
@@ -114,9 +117,9 @@ This example is a complete, standalone file that performs the following actions:
       :language: none
       :visible: false
 
-      Number of documents found with find(): 101
+      10 movies under 15 minutes: 10 Minutes, 3x3, 7:35 in the Morning, 8, 9, A Chairy Tale, A Corner in Wheat, A Gentle Spirit, A Is for Autism, A Movie, 
 
-      Document found with find().first(): {"title": "The Room", "imdb": {"rating": 3.5, "votes": 25673, "id": 368226}}
+      The highest rated movie under 15 minutes: {"title": "Andrè and Wally B.", "imdb": {"rating": 5.4, "votes": 3294, "id": 86855}}
 
 .. _retrieve-aggregate:
 
@@ -179,6 +182,7 @@ on this page, see the following API documentation:
 
 - `find() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#find()>`__
 - `first() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoIterable.html#first()>`__
+- `limit() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#limit(int)>`__
 - `FindIterable <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`__
 - `aggregate() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#aggregate(java.util.List)>`__
 
@@ -188,4 +192,6 @@ Server Manual Entries
 - :manual:`Collections </core/databases-and-collections/#collections>`
 - :manual:`Query Documents </tutorial/query-documents>`
 - :manual:`Aggregation </aggregation>`
+   - :manual:`$sort </aggregation/sort>`
+   - :manual:`$limit </aggregation/limit>`
 - :manual:`Aggregation stages </meta/aggregation-quick-reference/#stages>`
