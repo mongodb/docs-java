@@ -326,6 +326,12 @@ see the corresponding syntax.
 
    .. tab:: Connection String
       :tabid: mongodb-azure-imds-connection-string
+
+      To specify Kubernetes OIDC as the authentication mechanism, set the following 
+      options in your connection string:
+
+      - ``authMechanism``: Set to ``MONGODB-OIDC``.
+      - ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``.
     
       Replace the ``<percent-encoded audience>`` placeholder in the
       following code with the percent-encoded value of the audience server
@@ -385,6 +391,12 @@ see the corresponding syntax.
 
    .. tab:: Connection String
       :tabid: mongodb-gcp-imds-connection-string
+
+      To specify Kubernetes OIDC as the authentication mechanism, set the following 
+      options in your connection string:
+
+      - ``authMechanism``: Set to ``MONGODB-OIDC``.
+      - ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``.
     
       Replace the ``<percent-encoded audience>`` placeholder in the
       following code with the percent-encoded value of the audience server
@@ -436,6 +448,12 @@ see the corresponding syntax.
    .. tab:: Connection String
       :tabid: mongodb-kubernetes-connection-string
 
+      To specify Kubernetes OIDC as the authentication mechanism, set the following 
+      options in your connection string:
+
+      - ``authMechanism``: Set to ``MONGODB-OIDC``.
+      - ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``. 
+
       .. code-block:: java
 
          MongoClient mongoClient = MongoClients.create(
@@ -445,6 +463,9 @@ see the corresponding syntax.
     
    .. tab:: MongoCredential
       :tabid: mongodb-kubernetes-mongo-credential
+
+      Replace the ``hostname`` and ``port`` with the network address and port 
+      number of your MongoDB deployment.
 
       .. code-block:: java
 
