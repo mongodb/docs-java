@@ -1,6 +1,6 @@
 // Retrieves documents that match a query filter by using the Java driver
 
-package usage.examples;
+package org.example;
 
 import static com.mongodb.client.model.Filters.lt;
 
@@ -15,6 +15,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class Find {
     public static void main( String[] args ) {
 
@@ -25,23 +27,34 @@ public class Find {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
-            // Creates instructions to project two document fields
+            // Projects "title" and "imdb" fields, excludes "_id"
             Bson projectionFields = Projections.fields(
                     Projections.include("title", "imdb"),
                     Projections.excludeId());
 
-            // Retrieves documents that match the filter, applying a projection and a descending sort to the results
-            MongoCursor<Document> cursor = collection.find(lt("runtime", 15))
+            // Retrieves documents with a runtime of less than 15 minutes, applying the
+            // projection and a sorting in alphabetical order
+            FindIterable<Document> docs = collection.find(lt("runtime", 15))
                     .projection(projectionFields)
-                    .sort(Sorts.descending("title")).iterator();
+                    .sort(Sorts.ascending("title"))
+                    .limit(10);
 
             // Prints the results of the find operation as JSON
-            try {
-                while(cursor.hasNext()) {
-                    System.out.println(cursor.next().toJson());
-                }
-            } finally {
-                cursor.close();
+            System.out.print("10 movies under 15 minutes: ");
+            docs.forEach(doc -> System.out.print(doc.get("title") + ", "));
+
+            // Retrieves the document with the best imdb rating that is less
+            // than 15 minutes long, applying the projection
+            Document doc = collection.find(lt("runtime", 15))
+                    .projection(projectionFields)
+                    .sort(Sorts.ascending("imdb.rating"))
+                    .first();
+
+            // Prints result document as JSON
+            if (doc == null) {
+                System.out.println("No results found.");
+            } else {
+                System.out.println("\n\nThe highest rated movie under 15 minutes: " + doc.toJson());
             }
         }
     }
