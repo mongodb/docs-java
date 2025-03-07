@@ -331,7 +331,7 @@ see the corresponding syntax.
       options in your connection string:
 
       - ``authMechanism``: Set to ``MONGODB-OIDC``.
-      - ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``.
+      - ``authMechanismProperties``: Set to ``ENVIRONMENT:azure``.
     
       Replace the ``<percent-encoded audience>`` placeholder in the
       following code with the percent-encoded value of the audience server
@@ -396,7 +396,7 @@ see the corresponding syntax.
       options in your connection string:
 
       - ``authMechanism``: Set to ``MONGODB-OIDC``.
-      - ``authMechanismProperties``: Set to ``ENVIRONMENT:k8s``.
+      - ``authMechanismProperties``: Set to ``ENVIRONMENT:gcp``.
     
       Replace the ``<percent-encoded audience>`` placeholder in the
       following code with the percent-encoded value of the audience server
@@ -423,7 +423,7 @@ see the corresponding syntax.
       
       .. code-block:: java
 
-         MongoCredential credential = MongoCredential.createOidcCredential()
+         MongoCredential credential = MongoCredential.createOidcCredential(null)
             .withMechanismProperty("ENVIRONMENT", "gcp")
             .withMechanismProperty("TOKEN_RESOURCE", "<audience>");
    
@@ -469,7 +469,7 @@ see the corresponding syntax.
 
       .. code-block:: java
 
-         MongoCredential credential = MongoCredential.createOidcCredential()
+         MongoCredential credential = MongoCredential.createOidcCredential(null)
             .withMechanismProperty("ENVIRONMENT", "k8s");
 
          MongoClient mongoClient = MongoClients.create(
