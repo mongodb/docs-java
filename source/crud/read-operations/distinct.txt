@@ -24,7 +24,7 @@ Overview
 In this guide, you can learn how to retrieve a list of distinct values for a
 field across a collection by calling the ``distinct()`` method on a
 ``MongoCollection`` object. Pass the document field name as the first parameter
-and the class you want to cast the results to as the second parameter as shown
+and the class you want to use for the results format as the second parameter as shown
 below:
 
 .. code-block:: java
@@ -64,7 +64,7 @@ match movies that include "Carl Franklin" as one of the values in the
 
 .. include:: /includes/connect-guide-note.rst
 
-.. literalinclude:: /includes/usage-examples/code-snippets/Distinct.java
+.. literalinclude:: /includes/crud/Distinct.java
    :language: java
 
 When you run the example, you should see output that reports each distinct

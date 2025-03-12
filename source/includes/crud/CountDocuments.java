@@ -29,19 +29,13 @@ public class CountDocuments {
 
             Bson query = eq("countries", "Spain");
 
-            try {
-                // Retrieves and prints the estimated number of documents in the collection
-                long estimatedCount = collection.estimatedDocumentCount();
-                System.out.println("Estimated number of documents in the movies collection: " + estimatedCount);
+            // Retrieves and prints the estimated number of documents in the collection
+            long estimatedCount = collection.estimatedDocumentCount();
+            System.out.println("Estimated number of documents in the movies collection: " + estimatedCount);
 
-                // Retrieves and prints the number of documents with a "countries" value of "Spain"
-                long matchingCount = collection.countDocuments(query);
-                System.out.println("Number of movies from Spain: " + matchingCount);
-            
-            // Prints a message if any exceptions occur during the operations
-            } catch (MongoException me) {
-                System.err.println("An error occurred: " + me);
-            }
+            // Retrieves and prints the number of documents with a "countries" value of "Spain"
+            long matchingCount = collection.countDocuments(query);
+            System.out.println("Number of movies from Spain: " + matchingCount);
         }
     }
 }
