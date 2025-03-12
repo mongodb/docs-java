@@ -39,9 +39,10 @@ public class Find {
                     .sort(Sorts.ascending("title"))
                     .limit(10);
 
-            // Prints the results of the find operation as JSON
-            System.out.print("10 movies under 15 minutes: ");
-            docs.forEach(doc -> System.out.print(doc.get("title") + ", "));
+            // Prints the titles of the queried documents
+            System.out.println("10 movies under 15 minutes: ");
+            docs.forEach(doc -> System.out.println("- " + doc.get("title")));
+            System.out.println();
 
             // Retrieves the document with the best imdb rating that is less
             // than 15 minutes long, applying the projection
@@ -50,11 +51,11 @@ public class Find {
                     .sort(Sorts.ascending("imdb.rating"))
                     .first();
 
-            // Prints result document as JSON
+            // Prints title of the queried document
             if (doc == null) {
                 System.out.println("No results found.");
             } else {
-                System.out.println("\n\nThe highest rated movie under 15 minutes: " + doc.toJson());
+                System.out.println("The highest rated movie under 15 minutes: " + doc.toJson().get("title"));
             }
         }
     }

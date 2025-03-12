@@ -1,4 +1,4 @@
-// Deletes a document from a collection by using the Java driver
+// Deletes documents from a collection by using the Java driver
 
 package org.example;
 
@@ -22,36 +22,24 @@ public class Delete {
         // Replace the uri string with your MongoDB deployment's connection string
         String uri = "<connection string uri>";
 
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
+          try (MongoClient mongoClient = MongoClients.create(uri)) {
 
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> collection = database.getCollection("movies");
 
             Bson deleteOneQuery = eq("title", "The Garbage Pail Kids Movie");
 
-            try {
-                // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
-                DeleteResult result = collection.deleteOne(deleteOneQuery);
-                System.out.println("deleteOne() document count: " + result.getDeletedCount());
-
-            // Prints a message if any exceptions occur during the operation
-            } catch (MongoException me) {
-                System.err.println("Unable to delete due to an error: " + me);
-            }
+            // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
+            DeleteResult result = collection.deleteOne(deleteOneQuery);
+            System.out.println("Deleted document count - query for 1: " + result.getDeletedCount());
 
             Bson deleteManyQuery = lt("imdb.rating", 1.9);
 
-            try {
-                // Deletes all documents that have an "imdb.rating" value less than 1.9
-                DeleteResult result = collection.deleteMany(deleteManyQuery);
-                
-                // Prints the number of deleted documents
-                System.out.println("deleteMany() document count: " + result.getDeletedCount());
-            
-            // Prints a message if any exceptions occur during the operation
-            } catch (MongoException me) {
-                System.err.println("Unable to delete due to an error: " + me);
-            }
+            // Deletes all documents that have an "imdb.rating" value less than 1.9
+            result = collection.deleteMany(deleteManyQuery);
+
+            // Prints the number of deleted documents
+            System.out.println("Deleted document count - unlimited query: " + result.getDeletedCount());
         }
     }
 }

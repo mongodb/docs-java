@@ -54,11 +54,13 @@ Use the find operation to retrieve your documents from MongoDB. You can specify
 which documents to retrieve, in what order to retrieve them, and how many to
 retrieve. 
 
-To perform a find operation, call the ``find()`` method on an instance
-of a ``MongoCollection``. This method searches a collection for documents that
-match the query filter you provide. For more information about how to
-specify a query, see our :ref:`Specify a Query
-<java-query>` guide.
+Call the ``find()`` method on an instance of a ``MongoCollection`` to filter for
+documents that match the provided query. For more information about how to
+specify a query, see our :doc:`Specify a Query </crud/query-document>` guide.
+You can then use methods such as ``forEach()``  or ``cursor()`` to retrieve
+matching documents. For more information, see the `FindIterable
+<{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html>`__
+API documentation.
 
 To retrieve a single document, you can add the ``first()`` method to your
 ``find()`` call. To choose a specific document, you can use the ``sort()``
@@ -104,8 +106,11 @@ Find Example: Full File
 
 This example is a complete, standalone file that performs the following actions:
 
-- Calls the ``find()`` method to retrieve multiple documents that have a ``runtime`` value less than ``15``, applying a projection and sort to the results 
-- Calls the ``find()`` and ``first()`` methods to retrieve a document that has a ``title`` value of ``"The Room"``, applying a projection and sort before returning the first match 
+- Calls the ``find()`` method to retrieve 10 documents that has a ``runtime``
+  value less than ``15`` minutes, applying a projection and sort to the results  
+- Calls the ``find()`` and ``first()`` methods to retrieve the document with the
+  highest ``imdb.rating`` that is has a ``runtime`` value less than ``15``
+  minutes, applying a projection to the result
 
 .. io-code-block::
 
