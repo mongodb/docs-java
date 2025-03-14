@@ -1,0 +1,4332 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "section",
+      "children": [
+        {
+          "type": "heading",
+          "id": "definition",
+          "osiris_ignore_coverage": false,
+          "children": [
+            {
+              "type": "text",
+              "value": "WriteConcern",
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "directive",
+          "name": "contents",
+          "children": [],
+          "argument": [
+            {
+              "type": "text",
+              "value": "On this Page",
+              "is_inline": true
+            }
+          ],
+          "options": {
+            "local": true,
+            "backlinks": "none",
+            "depth": 2,
+            "class": "singlecol"
+          }
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " object WriteConcern",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Controls the acknowledgment of write operations with various options.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "w",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "w",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "- 0: Don't wait for acknowledgement from the server\n- 1: Wait for acknowledgement, but don't wait for secondaries to replicate\n- >=2: Wait for one or more secondaries to also acknowledge\n- \"majority\": Wait for a majority of secondaries to also acknowledge\n- \"<tag set name>\": Wait for one or more secondaries to also acknowledge based on a tag set name",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "wtimeout---how-long-to-wait-for-slaves-before-failing",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wTimeout - how long to wait for slaves before failing",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "- 0: indefinite\n- >0: time to wait in milliseconds",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "other-options:",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Other options:",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "- ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "journal",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": If true block until write operations have been committed to the journal. Cannot be used in combination with ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "fsync",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ".\nPrior to MongoDB 2.6 this option was ignored if the server was running without journaling.  Starting with MongoDB 2.6\nwrite operations will fail with an exception if this option is used when the server is running without journaling.",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "implicit-helper",
+                  "osiris_ignore_coverage": false,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Implicit helper",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "ScalaWriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "api-documentation/scala/org/mongodb/scala/#ScalaWriteConcern[T]extendsAnyRef",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " implicit allows for chainable building of the WriteConcern eg:",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "code",
+              "lang": "scala",
+              "copyable": true,
+              "emphasize_lines": [],
+              "value": "val myWriteConcern = WriteConcern.ACKNOWLEDGED.withJournal(true)).withWTimeout(Duration(10, TimeUnit.MILLISECONDS))",
+              "linenos": false
+            },
+            {
+              "type": "definitionList",
+              "children": [
+                {
+                  "type": "definitionListItem",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "1.0",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ],
+                  "term": [
+                    {
+                      "type": "text",
+                      "value": "Since",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Linear Supertypes",
+                  "is_inline": true
+                }
+              ]
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "AnyRef",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            },
+            {
+              "type": "text",
+              "value": ", ",
+              "is_inline": true
+            },
+            {
+              "type": "literal",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Any",
+                  "is_inline": true
+                }
+              ],
+              "is_inline": true
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "value-members",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Value Members",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "!=",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "!=",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "!=",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Any",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Boolean",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "##",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "##",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "##",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Int",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "==",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "==",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "==",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Any",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Boolean",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "acknowledged",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "ACKNOWLEDGED",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "ACKNOWLEDGED",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Write operations that use this write concern will wait for acknowledgement from the primary server before returning. Exceptions are\nraised for network issues, and server errors.\n",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "journaled",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "JOURNALED",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "JOURNALED",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Exceptions are raised for network issues, and server errors; the write operation waits for the server to group commit to the journal\nfile on disk.",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "majority",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "MAJORITY",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "MAJORITY",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Exceptions are raised for network issues, and server errors; waits on a majority of servers for the write operation.",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "unacknowledged",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "UNACKNOWLEDGED",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "UNACKNOWLEDGED",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Write operations that use this write concern will return as soon as the message is written to the socket. Exceptions are raised for\nnetwork issues, but not server errors.\n",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "w1",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "W1",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "W1",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Write operations that use this write concern will wait for acknowledgement from a single member.",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "w2",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "W2",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "W2",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Write operations that use this write concern will wait for acknowledgement from two members.",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "w3",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "W3",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "val",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "W3",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Write operations that use this write concern will wait for acknowledgement from three members.",
+                      "is_inline": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "apply",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "apply",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "apply",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "w: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "String",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Tag set named write concern or a \"majority\" write concern.\n",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Write Concern tag set name or \"majority\", representing the servers to ensure write propagation to before acknowledgment.\n         Do not use string representation of integer values for w.",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "w",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "apply",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "apply",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "apply",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "w: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Int",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "com.mongodb.WriteConcern",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Create a WriteConcern with the set number of acknowledged writes before returning\n",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "number of writes",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "w",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "asinstanceof",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "asInstanceOf",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "asInstanceOf",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "[",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "T0",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "]",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "T0",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "clone",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "clone",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "clone",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "AnyRef",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "protected[",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "lang",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "] ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Attributes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@throws",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "(",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "classOf[java.lang.CloneNotSupportedException]",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": ")",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@native",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@IntrinsicCandidate",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "eq",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "eq",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "eq",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "AnyRef",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Boolean",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "equals",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "equals",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "equals",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "AnyRef",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Boolean",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "getclass",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "getClass",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "getClass",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Class",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html#java.lang.Class",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "[_ <: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "AnyRef",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "]",
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@native",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@IntrinsicCandidate",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "hashcode",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "hashCode",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "hashCode",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Int",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@native",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@IntrinsicCandidate",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "isinstanceof",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "isInstanceOf",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "isInstanceOf",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "[",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "T0",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "]",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Boolean",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "ne",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "ne",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "ne",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "AnyRef",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Boolean",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "notify",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notify",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notify",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unit",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@native",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@IntrinsicCandidate",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "notifyall",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notifyAll",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "notifyAll",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unit",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@native",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@IntrinsicCandidate",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "synchronized",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "synchronized",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "synchronized",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "[",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "T0",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "]",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: => ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "T0",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "T0",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "tostring",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "toString",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "toString",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "reference",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "String",
+                      "is_inline": true
+                    }
+                  ],
+                  "refuri": "https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html#java.lang.String",
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef → Any",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "wait",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Long",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ", ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg1: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Int",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unit",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@throws",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "(",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "classOf[java.lang.InterruptedException]",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": ")",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "wait",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "(",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "arg0: ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Long",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ")",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unit",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@throws",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "(",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "classOf[java.lang.InterruptedException]",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": ")",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@native",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "()",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            },
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "wait",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "final ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "wait",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unit",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@throws",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "(",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "classOf[java.lang.InterruptedException]",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": ")",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "heading",
+              "id": "deprecated-value-members",
+              "osiris_ignore_coverage": false,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Deprecated Value Members",
+                  "is_inline": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "children": [
+            {
+              "type": "section",
+              "children": [
+                {
+                  "type": "heading",
+                  "id": "finalize",
+                  "osiris_ignore_coverage": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "finalize",
+                      "is_inline": true
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "def",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": " ",
+                  "is_inline": true
+                },
+                {
+                  "type": "emphasis",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "finalize",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": "()",
+                  "is_inline": true
+                },
+                {
+                  "type": "text",
+                  "value": ": ",
+                  "is_inline": true
+                },
+                {
+                  "type": "literal",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Unit",
+                      "is_inline": true
+                    }
+                  ],
+                  "is_inline": true
+                },
+                {
+                  "type": "definitionList",
+                  "children": [
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "protected[",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "literal",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "lang",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "] ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Attributes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "AnyRef",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Definition Classes",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@throws",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "(",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": "classOf[java.lang.Throwable]",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": ")",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            },
+                            {
+                              "type": "emphasis",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "@Deprecated",
+                                  "is_inline": true
+                                }
+                              ],
+                              "is_inline": true
+                            },
+                            {
+                              "type": "text",
+                              "value": " ",
+                              "is_inline": true
+                            }
+                          ]
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Annotations",
+                          "is_inline": true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "definitionListItem",
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": []
+                        }
+                      ],
+                      "term": [
+                        {
+                          "type": "text",
+                          "value": "Deprecated",
+                          "is_inline": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "directive",
+      "name": "facet",
+      "children": [],
+      "argument": [],
+      "options": {
+        "name": "genre",
+        "values": "reference"
+      }
+    }
+  ],
+  "options": {
+    "osiris": true
+  },
+  "fileid": "api-documentation/scala/org/mongodb/scala/WriteConcern$.ast"
+}
