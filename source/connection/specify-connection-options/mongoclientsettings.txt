@@ -73,9 +73,9 @@ connection behavior:
      - Applies the ``ClusterSettings.Builder`` block and then sets the
        :ref:`cluster settings <mcs-cluster-settings>`.
 
-   * - ``applyToConnectionPoolSettings()``
-     - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the
-       :ref:`connection pool settings <mcs-connectionpool-settings>`.
+  ..  * - ``applyToConnectionPoolSettings()``
+  ..    - Applies the ``ConnectionPoolSettings.Builder`` block and then sets the
+  ..      :ref:`connection pool settings <mcs-connectionpool-settings>`.
 
    * - ``applyToLoggerSettings()``
      - Applies the ``LoggerSettings.Builder`` block and then sets the
@@ -308,68 +308,68 @@ regardless of the type of MongoDB cluster it's a part of:
 Connection Pool Settings
 ------------------------
 
-Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
-method to modify the way the driver manages its connection pool.
+.. Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__
+.. method to modify the way the driver manages its connection pool.
 
-The following table describes the methods you can chain to your
-settings to modify the driver's behavior:
+.. The following table describes the methods you can chain to your
+.. settings to modify the driver's behavior:
 
-.. list-table::
-   :widths: 40 60
-   :header-rows: 1
+.. .. list-table::
+..    :widths: 40 60
+..    :header-rows: 1
 
-   * - Method
-     - Description
+..    * - Method
+..      - Description
 
-   * - ``addConnectionPoolListener()``
-     - Adds a listener for connection pool-related events.
+..    * - ``addConnectionPoolListener()``
+..      - Adds a listener for connection pool-related events.
 
-   * - ``applyConnectionString()``
-     - Uses the settings from a ``ConnectionString`` object.
+..    * - ``applyConnectionString()``
+..      - Uses the settings from a ``ConnectionString`` object.
 
-   * - ``applySettings()``
-     - Uses the connection pool settings specified in a
-       ``ConnectionPoolSettings`` object.
+..    * - ``applySettings()``
+..      - Uses the connection pool settings specified in a
+..        ``ConnectionPoolSettings`` object.
 
-   * - ``maintenanceFrequency()``
-     - Sets the frequency for running a maintenance job.
+..    * - ``maintenanceFrequency()``
+..      - Sets the frequency for running a maintenance job.
 
-   * - ``maintenanceInitialDelay()``
-     - Sets the time to wait before running the first maintenance job.
+..    * - ``maintenanceInitialDelay()``
+..      - Sets the time to wait before running the first maintenance job.
 
-   * - ``maxConnectionIdleTime()``
-     - Sets the maximum time a connection can be idle before it's closed.
+..    * - ``maxConnectionIdleTime()``
+..      - Sets the maximum time a connection can be idle before it's closed.
 
-   * - ``maxConnectionLifeTime()``
-     - Sets the maximum time a pooled connection can be alive before it's
-       closed.
+..    * - ``maxConnectionLifeTime()``
+..      - Sets the maximum time a pooled connection can be alive before it's
+..        closed.
 
-   * - ``maxSize()``
-     - | Sets the maximum number of connections associated with a connection
-         pool.
-       |
-       | **Default**: ``100``
+..    * - ``maxSize()``
+..      - | Sets the maximum number of connections associated with a connection
+..          pool.
+..        |
+..        | **Default**: ``100``
 
-   * - ``maxWaitTime()``
-     - | Sets the maximum time to wait for an available connection.
-       |
-       | **Default**: ``2 minutes``
+..    * - ``maxWaitTime()``
+..      - | Sets the maximum time to wait for an available connection.
+..        |
+..        | **Default**: ``2 minutes``
 
-   * - ``minSize()``
-     - | Sets the minimum number of connections associated with a connection
-         pool.
-       |
-       | **Default**: ``0``
+..    * - ``minSize()``
+..      - | Sets the minimum number of connections associated with a connection
+..          pool.
+..        |
+..        | **Default**: ``0``
 
 
-.. note::
+.. .. note::
 
-   This ``maxSize`` and ``minSize`` settings apply to each server
-   in the cluster you connect the driver to.
+..    This ``maxSize`` and ``minSize`` settings apply to each server
+..    in the cluster you connect the driver to.
 
-   For example, assume you connect the driver to a cluster with three
-   ``mongos`` servers. This means that there can be at most ``maxSize``
-   connections and at least ``minSize`` connections to each ``mongos`` server.
+..    For example, assume you connect the driver to a cluster with three
+..    ``mongos`` servers. This means that there can be at most ``maxSize``
+..    connections and at least ``minSize`` connections to each ``mongos`` server.
 
 Example
 ~~~~~~~
