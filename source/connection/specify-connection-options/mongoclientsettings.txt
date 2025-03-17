@@ -102,42 +102,12 @@ connection behavior:
    * - ``credential()``
      - Sets the :ref:`credential <java-authentication-mechanisms>`.
 
-   * - ``readConcern()``
-     - Sets the :manual:`read concern </reference/read-concern/>`.
-
-   * - ``readPreference()``
-     - | Sets the :manual:`read preference </core/read-preference/>`.
-       |
-       | **Default**: ``primary``
-
-   * - ``retryReads()``
-     - | Whether the driver performs :manual:`retry reads </core/retryable-reads/>`
-         if a network error occurs.
-       |
-       | **Default**: ``true``
-
-   * - ``retryWrites()``
-     - | Whether the driver performs :manual:`retry writes </core/retryable-writes/>`
-         if a network error occurs.
-       |
-       | **Default**: ``true``
-
    * - ``serverApi()``
      - Sets the :ref:`server API <stable-api-java>` to use when sending
        commands to the server.
 
    * - ``transportSettings()``
      - Sets `TransportSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/connection/TransportSettings.html>`__.
-
-   * - ``uuidRepresentation()``
-     - Sets the UUID representation to use when encoding instances of UUID
-       and decoding BSON binary values with subtype of 3.
-
-   * - ``writeConcern()``
-     - | Sets the :manual:`write concern </reference/write-concern/>`.
-       |
-       | **Default**: ``WriteConcern#ACKNOWLEDGED``. For more information about
-         the default value, see :manual:`Implicit Default Write Concern </reference/write-concern/#implicit-default-write-concern>`.
 
 .. _connection-string-example:
 

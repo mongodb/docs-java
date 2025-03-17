@@ -17,34 +17,6 @@ parameters of the connection URI to specify the behavior of the client.
      - Type
      - Description
 
-   * - **authMechanism**
-     - string
-     - Specifies the :ref:`authentication mechanism
-       <java-authentication-mechanisms>` that the driver uses if a credential
-       was supplied.
-
-       | **Default**: By default, the client picks the most secure
-         mechanism available based on the server version. For possible
-         values, see the server documentation for the
-         :manual:`authMechanism option
-         </reference/connection-string/#urioption.authMechanism>`.
-
-   * - **authSource**
-     - string
-     - Specifies the database in which the supplied credentials are validated. 
-
-       | **Default**: ``admin``
-
-   * - **authMechanismProperties**
-     - string
-     - Specifies authentication properties for the specified authentication
-       mechanism as a list of colon-separated properties and values.
-       For more information, see the server documentation for
-       the :manual:`authMechanismProperties option
-       </reference/connection-string/#urioption.authMechanismProperties>`.
-
-       | **Default**: ``null``
-
    * - **appName**
      - string
      - Specifies the name of the application provided to MongoDB instances
@@ -71,20 +43,6 @@ parameters of the connection URI to specify the behavior of the client.
        compressing slower (but resulting in smaller requests).
 
        | **Default**: ``null``
-
-   * - **retryWrites**
-     - boolean
-     - Specifies that the driver must retry supported write operations
-       if they are unable to complete due to a network error.
-
-       | **Default**: ``true``
-
-   * - **retryReads**
-     - boolean
-     - Specifies that the driver must retry supported read operations
-       if they are unable to complete due to a network error.
-
-       | **Default**: ``true``
 
    * - **serverMonitoringMode**
      - string
