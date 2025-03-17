@@ -38,15 +38,13 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
 
   .. tab:: Connection String
     :tabid: uri
+
+    Include the following parameters in your connection string to modify the
+    driver's read/write behavior:
     
-    .. code-block:: java
-
-      ConnectionString connectionString = "mongodb://<host>:<port>/?readPreference=nearest"
-      MongoClient mongoClient = MongoClients.create(connectionString)
-
     .. list-table:: 
        :header-rows: 1 
-       :widths: 25,25,50
+       :widths: 20,20,60
 
        * - Option Name
          - Type
@@ -54,80 +52,92 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
 
        * - **journal**
          - boolean
-         - | Specifies that the driver must wait for the connected MongoDB
-             instance to group commit to the journal file on disk for all
-             writes.  
-           |
-           | **Default**: ``false``
+         - Specifies that the driver must wait for the connected MongoDB instance to group commit to the journal file on disk for all writes.  
+          
+           **Default**: ``false``
 
        * - **w**
          - string or integer
-         - | Specifies the write concern. For more information about values, see the server documentation for the :manual:`w option </reference/write-concern/#w-option>`.
-           |
-           | **Default**: ``1``
+         - Specifies the write concern. For more information about values, see
+           the server documentation for the :manual:`w option
+           </reference/write-concern/#w-option>`. 
+
+           **Default**: ``1``
 
        * - **wtimeoutMS**
          - integer
-         - | Specifies a time limit, in milliseconds, for the write concern. For
-             more information, see the server documentation for the
-             :manual:`wtimeoutMS option
-             </reference/connection-string/#write-concern-options>`. A value of
-             ``0`` instructs the driver to never time out write operations. 
-           |
-           | **Default**: ``0``
+         - Specifies a time limit, in milliseconds, for the write concern. For
+           more information, see the server documentation for the
+           :manual:`wtimeoutMS option
+           </reference/connection-string/#write-concern-options>`. A value of
+           ``0`` instructs the driver to never time out write operations.
+
+           **Default**: ``0``
 
        * - **readPreference**
          - string
-         - | Specifies the read preference. For more information about values,
-             see the server documentation for the :manual:`readPreference option
-             </reference/connection-string/#urioption.readPreference>`. 
-           |
-           | **Default**: ``primary``
+         - Specifies the read preference. For more information about values, see
+           the server documentation for the :manual:`readPreference option
+           </reference/connection-string/#urioption.readPreference>`.  
+          
+           **Default**: ``primary``
 
        * - **readPreferenceTags**
          - string
-         - | Specifies the read preference tags. For more information about
-             values, see the server documentation for the
-             :manual:`readPreferenceTags option
-             </reference/connection-string/#urioption.readPreferenceTags>`. 
-           |
-           | **Default**: ``null``
+         - Specifies the read preference tags. For more information about
+           values, see the server documentation for the
+           :manual:`readPreferenceTags option
+           </reference/connection-string/#urioption.readPreferenceTags>`.  
+          
+           **Default**: ``null``
 
        * - **maxStalenessSeconds**
          - integer
-         - | Specifies, in seconds, how stale a secondary can be before the
-             driver stops communicating with that secondary. The minimum value
-             is either 90 seconds or the heartbeat frequency plus 10 seconds,
-             whichever is greater. For more information, see the server
-             documentation for the :manual:`maxStalenessSeconds option
-             </reference/connection-string/#urioption.maxStalenessSeconds>`. Not
-             providing a parameter or explicitly specifying ``-1`` indicates
-             that there must be no staleness check for secondaries. 
-           |
-           | **Default**: ``-1``
+         - Specifies, in seconds, how stale a secondary can be before the driver
+           stops communicating with that secondary. The minimum value is either
+           90 seconds or the heartbeat frequency plus 10 seconds, whichever is
+           greater. For more information, see the server documentation for the
+           :manual:`maxStalenessSeconds option
+           </reference/connection-string/#urioption.maxStalenessSeconds>`. Not
+           providing a parameter or explicitly specifying ``-1`` indicates that
+           there must be no staleness check for secondaries. 
+          
+           **Default**: ``-1``
 
        * - **uuidRepresentation**
          - string
-         - | Specifies the UUID representation to use for read and write
-             operations. For more information, see the driver documentation for
-             the `MongoClientSettings.getUuidRepresentation() method
-             <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getUuidRepresentation()>`__. 
-           |
-           | **Default**: ``unspecified``
+         - Specifies the UUID representation to use for read and write
+           operations. For more information, see the driver documentation for
+           the `MongoClientSettings.getUuidRepresentation() method
+           <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html#getUuidRepresentation()>`__.  
+          
+           **Default**: ``unspecified``
 
        * - **retryWrites**
          - boolean
-         - | Specifies that the driver must retry supported write operations if
-             they are unable to complete due to a network error. 
-           |
-           | **Default**: ``true``
+         - Specifies that the driver must retry supported write operations if
+           they are unable to complete due to a network error.  
+          
+           **Default**: ``true``
 
        * - **retryReads**
          - boolean
-         - | Specifies that the driver must retry supported read operations if
-             they are unable to complete due to a network error. 
-           |
-           | **Default**: ``true``
+         - Specifies that the driver must retry supported read operations if
+           they are unable to complete due to a network error.  
+          
+           **Default**: ``true``
+
+    The following example sets the read preference to read from the nearest
+    replica set member:
+    
+    .. code-block:: java
+
+      ConnectionString connectionString = "mongodb://<host>:<port>/?readPreference=nearest"
+      MongoClient mongoClient = MongoClients.create(connectionString)
+    
+    For more information about these parameters, see the `ConnectionString
+    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__
+    API documentation.
 
   .. tab:: MongoClientSettings
     :tabid: MongoClient
@@ -140,56 +150,48 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
        :widths: 40 60
 
        * - ``readConcern()``
-         - | Sets the read concern.
-           | - :manual:`Server manual page </reference/read-concern/>`
-           | - `API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#readConcern(com.mongodb.ReadConcern)>`__
+         - Sets the read concern.
+           :manual:`Server manual page </reference/read-concern/>`
+           `API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#readConcern(com.mongodb.ReadConcern)>`__
 
        * - ``readPreference()``
-         - | Sets the read preference.
-           | - :manual:`Server manual page </reference/read-preference/>`
-           | - `API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#readPreference(com.mongodb.ReadPreference)>`__
-           |
-           | **Default**: ``primary``
+         - Sets the :manual:`read preference </reference/read-preference/>`
+           
+           **Default**: ``primary``
 
        * - ``retryReads()``
-         - | Whether the driver performs :manual:`retry reads
-             </core/retryable-reads/>` if a network error occurs.
-           | - :manual:`Server manual page </core/retryable-reads/>`
-           |
-           | **Default**: ``true``
+         - Whether the driver performs :manual:`retry reads
+           </core/retryable-reads/>` if a network error occurs. 
+           
+           **Default**: ``true``
 
        * - ``retryWrites()``
-         - | Whether the driver performs :manual:`retry writes
-             </core/retryable-writes/>` if a network error occurs. 
-           |
-           | **Default**: ``true``
+         - Whether the driver performs :manual:`retry writes
+           </core/retryable-writes/>` if a network error occurs.  
+          
+           **Default**: ``true``
 
        * - ``uuidRepresentation()``
          - Sets the UUID representation to use when encoding instances of UUID
            and decoding BSON binary values with subtype of 3. 
 
        * - ``writeConcern()``
-         - | Sets the :manual:`write concern </reference/write-concern/>`.
-           |
-           | **Default**: ``WriteConcern#ACKNOWLEDGED``. 
+         - Sets the :manual:`write concern </reference/write-concern/>`. 
+           
+           **Default**: ``WriteConcern#ACKNOWLEDGED``. 
            | For more information about the default value, see :manual:`Implicit Default Write Concern </reference/write-concern/#implicit-default-write-concern>`.  
 
-
-
-    `readConcern()
-    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#readConcern(com.mongodb.ReadConcern)>`__,
-    `readPreference()
-    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#readPreference(com.mongodb.ReadPreference)>`__,
-    or `writeConcern()
-    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#writeConcern(com.mongodb.WriteConcern)>`__
-    method to modify the way the driver manages its connection pool. The
-    following example chains the ``readPreference()`` method to
-    set the read preference level to the ``nearest`` replica set member: 
+    The following example sets the read preference to read from the nearest
+    replica set member:
 
     .. literalinclude:: /includes/fundamentals/code-snippets/MCSettings.java
           :start-after: begin ReadConcern
           :end-before: end ReadConcern
           :language: java
           :dedent:
+    
+    For more information about these methods, see the `MongoClientSettings.Builder
+    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#>`__
+    API documentation.
 
      

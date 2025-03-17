@@ -62,21 +62,50 @@ tab to see the corresponding syntax:
 
 .. tabs::
 
-   .. tab:: Connection String
-      :tabid: connectionstring
+  .. tab:: Connection String
+    :tabid: uri
 
-      .. literalinclude:: /includes/connect/NetworkCompression.java
-         :start-after: start-specify-connection-string
-         :end-before: end-specify-connection-string
-         :language: java
+    .. literalinclude:: /includes/connect/NetworkCompression.java
+       :start-after: start-specify-connection-string
+       :end-before: end-specify-connection-string
+       :language: java
 
-   .. tab:: MongoClientSettings
-      :tabid: mongoclientsettings
+    Include the following parameters in your connection string to enable compression:
 
-      .. literalinclude:: /includes/connect/NetworkCompression.java
-         :start-after: start-specify-client-settings
-         :end-before: end-specify-client-settings
-         :language: java
+    .. list-table:: 
+       :header-rows: 1 
+       :widths: 20,20,60
+
+       * - Option Name
+         - Type
+         - Description
+
+       * - **compressors**
+         - string
+         - Specifies one or more compression algorithms that the driver will
+           attempt to use to compress requests sent to the connected MongoDB
+           instance. Possible values include: ``zlib``, ``snappy``, and
+           ``zstd``. 
+            
+           **Default**: ``null``
+
+       * - **zlibCompressionLevel**
+         - integer
+         - Specifies the degree of compression that `Zlib <https://zlib.net/>`__
+           uses to decrease the size of requests to the connected MongoDB
+           instance. The level can range from ``-1`` to ``9``, with lower values
+           compressing faster (but resulting in larger requests) and larger
+           values compressing slower (but resulting in smaller requests). 
+            
+           **Default**: ``null``
+
+  .. tab:: MongoClientSettings
+     :tabid: mongoclientsettings
+
+     .. literalinclude:: /includes/connect/NetworkCompression.java
+        :start-after: start-specify-client-settings
+        :end-before: end-specify-client-settings
+        :language: java
 
 .. _java-compression-dependencies:
 
