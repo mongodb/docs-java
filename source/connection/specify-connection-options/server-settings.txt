@@ -1,0 +1,76 @@
+.. _mcs-server-settings:
+
+===============
+Server Settings
+===============
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+.. facet::
+   :name: genre
+   :values: reference
+
+Overview
+--------
+
+In this guide, you can learn about how the {+driver-short+} manages server
+settings.
+
+Configuring Server Settings
+---------------------------
+
+Chain the `applyToServerSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToServerSettings(com.mongodb.Block)>`__
+method to modify the driver's behavior when monitoring each MongoDB
+deployment.
+
+The following table describes the methods you can chain to your
+settings to modify the driver's behavior:
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``addServerListener()``
+     - Adds a listener for server-related events.
+
+   * - ``addServerMonitorListener()``
+     - Adds a listener for server monitor-related events.
+
+   * - ``applyConnectionString()``
+     - Uses the settings from a ``ConnectionString`` object.
+
+   * - ``applySettings()``
+     - Uses the server settings specified in a ``ServerSettings`` object.
+
+   * - ``heartbeatFrequency()``
+     - | Sets the interval for a cluster monitor to attempt reaching a server.
+       |
+       | **Default**: ``10 seconds``
+
+   * - ``minHeartbeatFrequency()``
+     - | Sets the minimum interval for server monitoring checks.
+       |
+       | **Default**: ``500 milliseconds``
+
+Example
+~~~~~~~
+
+This example specifies the following driver behavior in a MongoDB deployment:
+
+- The minimum interval for server monitoring checks to be at least
+  ``700 MILLISECONDS``
+- The cluster monitor to attempt reaching a server every ``15 SECONDS``
+
+.. literalinclude:: /includes/fundamentals/code-snippets/MCSettings.java
+   :start-after: begin ServerSettings
+   :end-before: end ServerSettings
+   :language: java
+   :emphasize-lines: 3-5
+   :dedent:

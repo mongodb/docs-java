@@ -1,4 +1,5 @@
 .. _java-connection-pools:
+.. _mcs-connectionpool-settings:
 
 ================
 Connection Pools
@@ -117,7 +118,13 @@ see the corresponding syntax:
   .. tab:: MongoClientSettings
     :tabid: MongoClient
      
-    Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__ method to modify the way the driver manages its connection pool.
+    Chain the `applyToConnectionPoolSettings() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html#applyToConnectionPoolSettings(com.mongodb.Block)>`__ method to modify the way the driver manages its connection pool. The following example chains the ``applyToConnectionPoolSettings()`` method to set the thread to wait at most ``10 SECONDS`` for an available connection, and the ``maxSize`` of the connection pool to 200:
+
+    .. literalinclude:: /includes/fundamentals/code-snippets/ConnectionPool.java
+          :start-after: begin MongoSettings
+          :end-before: end MongoSettings
+          :language: java
+          :dedent:
      
     The following table describes the methods you can chain to your settings to modify the driver's behavior:
 
@@ -172,17 +179,7 @@ see the corresponding syntax:
 
       This ``maxSize`` and ``minSize`` settings apply to each server in the cluster you connect the driver to. 
        
-      For example, assume you connect the driver to a cluster with three``mongos`` servers. This means that there can be at most ``maxSize`` connections and at least ``minSize`` connections to each ``mongos`` server.
-
-      .. literalinclude:: /includes/fundamentals/code-snippets/ConnectionPool.java
-          :start-after: begin MongoSettings
-          :end-before: end MongoSettings
-          :language: java
-          :dedent:
-
-      For more information on configuring you connection pool by using a 
-      ``MongoClientSettings`` object see the Connection Pool Settings section
-      of the :ref:`<specify-mongoclient-settings>` guide. 
+      For example, assume you connect the driver to a cluster with three ``mongos`` servers. This means that there can be at most ``maxSize`` connections and at least ``minSize`` connections to each ``mongos`` server.
 
 Additional Information
 ----------------------
