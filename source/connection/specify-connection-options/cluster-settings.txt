@@ -37,54 +37,61 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
         :header-rows: 1
         :widths: 20 10 20
 
-        * - Option Name
-          - Type
-          - Description
+       * - Option Name
+         - Type
+         - Description
         
-        * - **serverSelectionTimeoutMS**
-          - integer
-          - Specifies the maximum amount of time, in milliseconds, the driver
-            will wait for server selection to succeed before throwing an
-            exception.
-
+       * - **serverSelectionTimeoutMS**
+         - integer
+         - | Specifies the maximum amount of time, in milliseconds, the driver
+              will wait for server selection to succeed before throwing an
+              exception. 
+            |
             | **Default**: ``30000`` (30 seconds)
         
-        * - **localThresholdMS**
-          - integer
-          - When communicating with multiple instances of MongoDB in a replica
-            set, the driver will only send requests to a server whose
-            response time is less than or equal to the server with the fastest
-            response time plus the local threshold, in milliseconds.
-
+       * - **localThresholdMS**
+         - integer
+         - | When communicating with multiple instances of MongoDB in a replica
+              set, the driver will only send requests to a server whose response
+              time is less than or equal to the server with the fastest response
+              time plus the local threshold, in milliseconds. 
+            |
             | **Default**: ``15``
         
-        * - **heartbeatFrequencyMS**
-          - integer
-          - Specifies the frequency, in milliseconds that the driver will
-            wait between attempts to determine the current state of each
-            server in the cluster.
-
+       * - **heartbeatFrequencyMS**
+         - integer
+         - Specifies the frequency, in milliseconds that the driver will wait
+            between attempts to determine the current state of each server in
+            the cluster. 
+            |
             | **Default**: ``10000`` (10 seconds)
         
-        * - **replicaSet**
-          - string
-          - Specifies that the :ref:`connection string <connection-uri>`
+       * - **replicaSet**
+         - string
+         - Specifies that the :ref:`connection string <connection-uri>`
             provided includes multiple hosts. When specified, the driver
-            attempts to find all members of that set.
-
+            attempts to find all members of that set. 
+            |
             | **Default**: ``null``
         
-        * - **directConnection**
-          - boolean
-          - Specifies that the driver must connect to the host directly. This
-            maps to applying ``mode(ClusterConnectionMode.SINGLE)`` to your ``MongoClientSettings``.
-
+       * - **directConnection**
+         - boolean
+         - Specifies that the driver must connect to the host directly. This
+            maps to applying ``mode(ClusterConnectionMode.SINGLE)`` to your
+            ``MongoClientSettings``. 
+            |
             | **Default**: ``false``
         
-        * - **srvServiceName**
-          - string
-          - Specifies the service name of the `SRV resource records <https://www.rfc-editor.org/rfc/rfc2782>`__ the driver retrieves to construct your :manual:`seed list </reference/glossary/#std-term-seed-list>`. You must use the :manual:`DNS Seed List Connection Format </reference/connection-string/#dns-seed-list-connection-format>` in your :ref:`connection URI <connection-uri>` to use this option.
-
+       * - **srvServiceName**
+         - string
+         - | Specifies the service name of the `SRV resource records
+            <https://www.rfc-editor.org/rfc/rfc2782>`__ the driver retrieves to
+            construct your :manual:`seed list
+            </reference/glossary/#std-term-seed-list>`. You must use the
+            :manual:`DNS Seed List Connection Format
+            </reference/connection-string/#dns-seed-list-connection-format>` in
+            your :ref:`connection URI <connection-uri>` to use this option. 
+            |
             | **Default**: ``mongodb``
 
   .. tab:: MongoClientSettings
@@ -102,62 +109,69 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
        :header-rows: 1
        :stub-columns: 1
        :widths: 40 60
-    
-    * - Method
-      - Description
-    
-    * - ``addClusterListener()``
-      - Adds a listener for cluster-related events.
-    
-    * - ``applyConnectionString()``
-      - Uses the settings from a ``ConnectionString`` object.
-    
-    * - ``applySettings()``
-      - Uses the cluster settings specified in a ``ClusterSettings`` object.
-    
-    * - ``hosts()``
-      - Sets all the specified locations of a Mongo deployment.
-    
-    * - ``localThreshold()``
-      - | Sets the amount of time that a server’s round trip can take and still be eligible for server selection.
-            | 
-            | **Default**: ``15 milliseconds``
-    
-    * - ``mode()``
-      - Sets how to connect to a MongoDB deployment.
-    
-    * - ``requiredClusterType()``
-      - Sets the type of cluster required for the cluster.
-    
-    * - ``requiredReplicaSetName()``
-      - Sets the replica set name required for the cluster.
-    
-    * - ``serverSelectionTimeout()``
-      - | Sets the maximum time to select a primary node before throwing a timeout exception.
-            | 
-            | **Default**: ``30 seconds``
-    
-    * - ``serverSelector()``
-      - Adds a server selector to apply before server selection.
-    
-    * - ``srvHost()``
-      - | Sets the host name to use to look up an SRV DNS record to find the MongoDB hosts. 
-        | 
-        | If you want to enable the processing of TXT records associated with the host, specify the SRV host in the connection string using the ``applyConnectionString()`` method.
-        | 
-        | For example:
-                
-        .. code-block:: java
-           :emphasize-lines: 3
 
-            MongoClient mongoClient = 
+       * - Method
+         - Description
+
+       * - ``addClusterListener()``
+         - Adds a listener for cluster-related events.
+
+       * - ``applyConnectionString()``
+         - Uses the settings from a ``ConnectionString`` object.
+
+       * - ``applySettings()``
+         - Uses the cluster settings specified in a ``ClusterSettings`` object.
+
+       * - ``hosts()``
+         - Sets all the specified locations of a Mongo deployment.
+
+       * - ``localThreshold()``
+         - | Sets the amount of time that a server’s round trip can take and
+              still be eligible for server selection.
+           | 
+           | **Default**: ``15 milliseconds``
+
+       * - ``mode()``
+         - Sets how to connect to a MongoDB deployment.
+
+       * - ``requiredClusterType()``
+         - Sets the type of cluster required for the cluster.
+
+       * - ``requiredReplicaSetName()``
+         - Sets the replica set name required for the cluster.
+
+       * - ``serverSelectionTimeout()``
+         - | Sets the maximum time to select a primary node before throwing a
+              timeout exception. 
+           | 
+           | **Default**: ``30 seconds``
+
+       * - ``serverSelector()``
+         - Adds a server selector to apply before server selection.
+
+       * - ``srvHost()``
+         - | Sets the host name to use to look up an SRV DNS record to find the
+              MongoDB hosts.  
+           | 
+           | If you want to enable the processing of TXT records associated
+            with the host, specify the SRV host in the connection string using
+            the ``applyConnectionString()`` method.   
+           | 
+           | For example:
+                
+           .. code-block:: java
+              :emphasize-lines: 3
+
+              MongoClient mongoClient = 
                 MongoClients.create(MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
-    
-    * - ``srvMaxHosts()``
-      - | Sets the maximum number of hosts the driver can connect to when using the DNS seedlist (SRV) connection protocol, identified by the ``mongodb+srv`` connection string prefix.
-            | 
-            | Throws an exception if you are not using the SRV connection protocol.
+                  .applyConnectionString(new ConnectionString("mongodb+srv://host1.acme.com")))
+
+       * - ``srvMaxHosts()``
+         - | Sets the maximum number of hosts the driver can connect to when
+              using the DNS seedlist (SRV) connection protocol, identified by
+              the ``mongodb+srv`` connection string prefix.  
+           | 
+           | Throws an exception if you are not using the SRV connection protocol.
 
     Example
     ~~~~~~~
@@ -174,6 +188,6 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
 
         .. tip::
 
-        This is analogous to the ``directConnection`` parameter you can specify
-        in your connection URI. See :ref:`<connection-options>` for more
-        information.
+            This is analogous to the ``directConnection`` parameter you can specify
+            in your connection URI. See :ref:`<connection-options>` for more
+            information.
