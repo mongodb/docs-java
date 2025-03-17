@@ -116,6 +116,15 @@ see the corresponding syntax:
 
           *Default*: ``120000`` (120 seconds)
 
+      * - ``maxLifeTimeMS``
+
+        - Specifies the maximum amount of time, in milliseconds, the Java driver
+          will continue to use a pooled connection before closing the
+          connection. A value of ``0`` indicates that there is no upper bound on
+          how long the driver can keep a pooled connection open. 
+
+          *Default*: ``0``
+
   .. tab:: MongoClientSettings
     :tabid: MongoClient
      

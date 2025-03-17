@@ -151,4 +151,19 @@ public class MCSettings {
             System.out.print("---------------------------------------");
         }
     }
+
+    private static void createReadConcern() {
+        try {
+            ////begin ReadConcern
+            MongoClient mongoClient = MongoClients.create(
+                    MongoClientSettings.builder().applyConnectionString(new ConnectionString("<your connection string>"))
+                            .readPreference(ReadPreference.nearest())
+                            .build());
+            //end ReadConcern
+            mongoClient.listDatabaseNames().forEach(n -> System.out.println(n));
+            mongoClient.close();
+        } finally {
+            System.out.print("---------------------------------------");
+        }
+    }
 }
