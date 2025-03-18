@@ -86,6 +86,18 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
            your :ref:`connection URI <connection-uri>` to use this option.  
             
            **Default**: ``mongodb``
+    
+    This example connects the driver directly to a server,
+    regardless of the type of MongoDB cluster it's a part of:
+
+    .. code-block:: java
+
+      ConnectionString connectionString = "mongodb://<host>:<port>/?directConnection=true"
+      MongoClient mongoClient = MongoClients.create(connectionString)
+    
+    For more information about these parameters, see the `ConnectionString
+    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__
+    API documentation.
 
   .. tab:: MongoClientSettings
     :tabid: MongoClient
@@ -163,7 +175,7 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
            
            Throws an exception if you are not using the SRV connection protocol.
 
-    This example specifies for the driver to connect directly to a server,
+    This example connects the driver directly to a server,
     regardless of the type of MongoDB cluster it's a part of:
 
     .. literalinclude:: /includes/fundamentals/code-snippets/MCSettings.java

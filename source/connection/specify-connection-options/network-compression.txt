@@ -56,19 +56,13 @@ by specifying the algorithms in one of the following ways:
 - Use the ``compressors`` parameter in your connection string.
 - Chain the ``compressorList()`` method to the ``MongoClientSettings.builder()`` method.
 
-This example shows how to specify the Snappy, Zstandard, and Zlib compression
-algorithms. Select the :guilabel:`Connection String` or :guilabel:`MongoClientSettings`
+Select the :guilabel:`Connection String` or :guilabel:`MongoClientSettings`
 tab to see the corresponding syntax:
 
 .. tabs::
 
   .. tab:: Connection String
     :tabid: uri
-
-    .. literalinclude:: /includes/connect/NetworkCompression.java
-       :start-after: start-specify-connection-string
-       :end-before: end-specify-connection-string
-       :language: java
 
     Include the following parameters in your connection string to enable compression:
 
@@ -98,14 +92,40 @@ tab to see the corresponding syntax:
            values compressing slower (but resulting in smaller requests). 
             
            **Default**: ``null``
+   
+    The following specifies the order in which the driver will attempt to
+    compress requests before they are sent:
+
+    .. literalinclude:: /includes/connect/NetworkCompression.java
+       :start-after: start-specify-connection-string
+       :end-before: end-specify-connection-string
+       :language: java
+    
+    For more information about these parameters, see the `ConnectionString
+    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/ConnectionString.html>`__
+    API documentation.
 
   .. tab:: MongoClientSettings
-     :tabid: mongoclientsettings
+    :tabid: mongoclientsettings
 
-     .. literalinclude:: /includes/connect/NetworkCompression.java
-        :start-after: start-specify-client-settings
-        :end-before: end-specify-client-settings
-        :language: java
+    Chain the following methods to your ``MongoClientSettings``  constructor to modify the driver's compression behavior:
+
+    .. list-table::
+       :widths: 40 60
+       :header-rows:  1
+
+       * - Method
+         - Description
+
+       * - ``compressorList()``
+         - Sets the compressors to use for compressing messages to the server.
+
+    .. literalinclude:: /includes/connect/NetworkCompression.java
+       :start-after: start-specify-client-settings
+       :end-before: end-specify-client-settings
+       :language: java
+
+    For more information, see the `MongoClientSettings.Builder <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__ API documentation.
 
 .. _java-compression-dependencies:
 
