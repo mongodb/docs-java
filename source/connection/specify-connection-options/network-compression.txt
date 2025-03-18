@@ -68,22 +68,22 @@ tab to see the corresponding syntax:
 
     .. list-table:: 
        :header-rows: 1 
-       :widths: 20,20,60
+       :widths: 25,20,60
 
        * - Option Name
          - Type
          - Description
 
-       * - **compressors**
+       * - ``compressors``
          - string
          - Specifies one or more compression algorithms that the driver will
            attempt to use to compress requests sent to the connected MongoDB
            instance. Possible values include: ``zlib``, ``snappy``, and
            ``zstd``. 
             
-           **Default**: ``null``
+           *Default*: ``null``
 
-       * - **zlibCompressionLevel**
+       * - ``zlibCompressionLevel``
          - integer
          - Specifies the degree of compression that `Zlib <https://zlib.net/>`__
            uses to decrease the size of requests to the connected MongoDB
@@ -91,7 +91,7 @@ tab to see the corresponding syntax:
            compressing faster (but resulting in larger requests) and larger
            values compressing slower (but resulting in smaller requests). 
             
-           **Default**: ``null``
+           *Default*: ``null``
    
     The following specifies the order in which the driver will attempt to
     compress requests before they are sent:
@@ -125,7 +125,9 @@ tab to see the corresponding syntax:
        :end-before: end-specify-client-settings
        :language: java
 
-    For more information, see the `MongoClientSettings.Builder <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__ API documentation.
+    For more information about the chained methods, see the `MongoClientSettings.Builder
+    <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__
+    API documentation.
 
 .. _java-compression-dependencies:
 

@@ -1,8 +1,8 @@
 .. _mcs-socket-settings:
 
-================
+===============
 Socket Settings
-================
+===============
 
 .. contents:: On this page
    :local:
@@ -31,29 +31,29 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
 
     .. list-table:: 
        :header-rows: 1 
-       :widths: 20,20,60
+       :widths: 25,20,60
 
        * - Option Name
          - Type
          - Description
         
-       * - **connectTimeoutMS**
+       * - ``connectTimeoutMS``
          - integer
          - Specifies the maximum amount of time, in milliseconds, the Java
            driver waits for a connection to open before timing out. A value of
            ``0`` instructs the driver to never time out while waiting for a
            connection to open. 
            
-           **Default**: ``10000`` (10 seconds)
+           *Default*: ``10000`` (10 seconds)
         
-       * - **socketTimeoutMS**
+       * - ``socketTimeoutMS``
          - integer
          - Specifies the maximum amount of time, in milliseconds, the Java
            driver will wait to send or receive a request before timing out. A
            value of ``0`` instructs the driver to never time out while waiting
            to send or receive a request.
            
-           **Default**: ``0``
+           *Default*: ``0``
     
     This example specifies that the driver will time out after 15 seconds of
     waiting for a connection to open: 
@@ -91,26 +91,26 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
         - Uses the socket settings specified in a ``SocketSettings`` object.
 
       * - ``connectTimeout()``
-        - | Sets the maximum time to connect to an available socket before throwing
+        - Sets the maximum time to connect to an available socket before throwing
             a timeout exception.
-          |
-          | **Default**: ``10 seconds``
+          
+          *Default*: ``10 seconds``
 
       * - ``readTimeout()``
-        - | Sets the maximum time to read from an available socket before throwing a
+        - Sets the maximum time to read from an available socket before throwing a
             timeout exception.
-          |
-          | **Default**: ``0``, which indicates no timeout
+          
+          *Default*: ``0``, which indicates no timeout
 
       * - ``receiveBufferSize()``
-        - | Sets the socket's buffer size when receiving.
-          |
-          | **Default**: The operating system default
+        - Sets the socket's buffer size when receiving.
+          
+          *Default*: The operating system default
 
       * - ``sendBufferSize()``
-        - | Sets the socket's buffer size when sending.
-          |
-          | **Default**: The operating system default
+        - Sets the socket's buffer size when sending.
+          
+          *Default*: The operating system default
 
     .. note:: Connect to MongoDB by using a SOCKS5 Proxy
 
@@ -127,12 +127,14 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
     - To read from an available socket within ``15 SECONDS``
 
     .. literalinclude:: /includes/fundamentals/code-snippets/MCSettings.java
-      :start-after: begin SocketSettings
-      :end-before: end SocketSettings
-      :language: java
-      :emphasize-lines: 3-5
-      :dedent:
+       :start-after: begin SocketSettings
+       :end-before: end SocketSettings
+       :language: java
+       :emphasize-lines: 3-5
+       :dedent:
     
-    For more information, see the `MongoClientSettings.Builder
+    For more information about the chained methods, see the `MongoClientSettings.Builder
     <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__
     API documentation.
+          
+          

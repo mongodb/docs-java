@@ -37,45 +37,45 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
 
     .. list-table:: 
        :header-rows: 1 
-       :widths: 20,20,60
+       :widths: 25,20,60
 
        * - Option Name
          - Type
          - Description
         
-       * - **serverSelectionTimeoutMS**
+       * - ``serverSelectionTimeoutMS``
          - integer
          - Specifies the maximum amount of time, in milliseconds, the driver
            will wait for server selection to succeed before throwing an
            exception. 
             
-           **Default**: ``30000`` (30 seconds)
+           *Default*: ``30000`` (30 seconds)
         
-       * - **localThresholdMS**
+       * - ``localThresholdMS``
          - integer
          - When communicating with multiple instances of MongoDB in a replica
            set, the driver will only send requests to a server whose response
            time is less than or equal to the server with the fastest response
            time plus the local threshold, in milliseconds.  
             
-           **Default**: ``15``
-       * - **replicaSet**
+           *Default*: ``15``
+       * - ``replicaSet``
          - string
          - Specifies that the :ref:`connection string <connection-uri>`
            provided includes multiple hosts. When specified, the driver
            attempts to find all members of that set. 
             
-           **Default**: ``null``
+           *Default*: ``null``
         
-       * - **directConnection**
+       * - ``directConnection``
          - boolean
          - Specifies that the driver must connect to the host directly. This
            maps to applying ``mode(ClusterConnectionMode.SINGLE)`` to your
            ``MongoClientSettings``. 
             
-           **Default**: ``false``
+           *Default*: ``false``
         
-       * - **srvServiceName**
+       * - ``srvServiceName``
          - string
          - Specifies the service name of the `SRV resource records
            <https://www.rfc-editor.org/rfc/rfc2782>`__ the driver retrieves to
@@ -85,7 +85,7 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
            </reference/connection-string/#dns-seed-list-connection-format>` in
            your :ref:`connection URI <connection-uri>` to use this option.  
             
-           **Default**: ``mongodb``
+           *Default*: ``mongodb``
     
     This example connects the driver directly to a server,
     regardless of the type of MongoDB cluster it's a part of:
@@ -132,9 +132,9 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
 
        * - ``localThreshold()``
          - Sets the amount of time that a server’s round trip can take and
-              still be eligible for server selection.
+           still be eligible for server selection.
            
-           **Default**: ``15 milliseconds``
+           *Default*: ``15 milliseconds``
 
        * - ``mode()``
          - Sets how to connect to a MongoDB deployment.
@@ -149,7 +149,7 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
          - Sets the maximum time to select a primary node before throwing a
            timeout exception.  
            
-           **Default**: ``30 seconds``
+           *Default*: ``30 seconds``
 
        * - ``serverSelector()``
          - Adds a server selector to apply before server selection.
@@ -170,8 +170,8 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
 
        * - ``srvMaxHosts()``
          - Sets the maximum number of hosts the driver can connect to when
-              using the DNS seedlist (SRV) connection protocol, identified by
-              the ``mongodb+srv`` connection string prefix.  
+           using the DNS seedlist (SRV) connection protocol, identified by
+           the ``mongodb+srv`` connection string prefix.  
            
            Throws an exception if you are not using the SRV connection protocol.
 
@@ -187,10 +187,12 @@ String` or :guilabel:`MongoClientSettings` tab to see the options available:
 
     .. tip::
 
-        This is analogous to the ``directConnection`` parameter you can specify
-        in your connection URI. See :ref:`<connection-options>` for more
-        information.
+       This is analogous to the ``directConnection`` parameter you can specify
+       in your connection URI. See :ref:`<connection-options>` for more
+       information.
 
-    For more information, see the `MongoClientSettings.Builder
+    For more information about the chained methods, see the `MongoClientSettings.Builder
     <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__
     API documentation.
+          
+          

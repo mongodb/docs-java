@@ -33,7 +33,7 @@ Configuring Server Settings
 
     .. list-table:: 
        :header-rows: 1 
-       :widths: 20,20,60
+       :widths: 25,20,60
 
        * - Option Name
          - Type
@@ -119,12 +119,14 @@ Configuring Server Settings
     - The cluster monitor to attempt reaching a server every ``15 SECONDS``
 
     .. literalinclude:: /includes/fundamentals/code-snippets/MCSettings.java
-      :start-after: begin ServerSettings
-      :end-before: end ServerSettings
-      :language: java
-      :emphasize-lines: 3-5
-      :dedent:
+       :start-after: begin ServerSettings
+       :end-before: end ServerSettings
+       :language: java
+       :emphasize-lines: 3-5
+       :dedent:
     
-    For more information, see the `MongoClientSettings.Builder
+    For more information about the chained methods, see the `MongoClientSettings.Builder
     <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__
     API documentation.
+          
+          
