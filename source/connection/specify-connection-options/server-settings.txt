@@ -39,15 +39,15 @@ Configuring Server Settings
          - Type
          - Description
 
-       * - **appName**
+       * - ``appName``
          - string
          - Specifies the name of the application provided to MongoDB instances
            during the connection handshake. Can be used for server logs and
            profiling. 
            
-           **Default**: ``null``
+           *Default*: ``null``
 
-       * - **serverMonitoringMode**
+       * - ``serverMonitoringMode``
          - string
          - Specifies which server monitoring protocol the driver uses. When set
            to ``auto``, the monitoring mode is determined by the environment in
@@ -55,15 +55,15 @@ Configuring Server Settings
            function-as-a-service (FaaS) environments and ``stream`` mode in
            other environments.
            
-           **Default**: ``auto``
+           *Default*: ``auto``
         
-       * - **heartbeatFrequencyMS**
+       * - ``heartbeatFrequencyMS``
          - integer
          - Specifies the frequency, in milliseconds that the driver will wait
            between attempts to determine the current state of each server in
            the cluster.   
            
-           **Default**: ``10000`` (10 seconds)
+           *Default*: ``10000`` (10 seconds)
         
 
     This example specifies that the cluster monitor will attempt to reach a
@@ -105,12 +105,12 @@ Configuring Server Settings
       * - ``heartbeatFrequency()``
         - Sets the interval for a cluster monitor to attempt reaching a server.
        
-          **Default**: ``10 seconds``
+          *Default*: ``10 seconds``
 
       * - ``minHeartbeatFrequency()``
         - Sets the minimum interval for server monitoring checks.
        
-          **Default**: ``500 milliseconds``
+          *Default*: ``500 milliseconds``
 
     This example specifies the following driver behavior in a MongoDB deployment:
 
