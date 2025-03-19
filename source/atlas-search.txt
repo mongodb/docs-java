@@ -39,7 +39,7 @@ Run an Atlas Search Query
 -------------------------
 
 This section shows how to create an aggregation pipeline to run an
-Atlas Search on a collection. You can use the ``Aggregates.search()`` builder
+Atlas Search query on a collection. You can use the ``Aggregates.search()`` builder
 method to create a ``$search`` pipeline stage, which specifies the search
 criteria. Then, call the ``aggregate()`` method and pass your pipeline as a parameter.
 
@@ -55,13 +55,17 @@ index, see the :ref:`java-search-indexes` section in the Indexes guide.
 Atlas Search Example
 ~~~~~~~~~~~~~~~~~~~~
 
-This example performs an Atlas Search query by calling the
-``aggregate()`` method and passing the following pipeline stage
-builders:
+This example runs an Atlas Search query by performing the
+following actions:
 
-- ``Aggregates.search()``: Specifies a search query for documents in which
-  the ``title`` field contains the word ``"Alabama"``
-- ``Aggregates.project()``: Projects the ``title`` field of each matching document
+- Constructs a ``$search`` stage by using the ``Aggregates.search()`` builder method,
+  instructing the driver to query for documents in which the ``title``
+  field contains the word ``"Alabama"``
+
+- Constructs a ``$project`` stage by using the ``Aggregates.project()`` builder method,
+  instructing the driver to include the ``title`` field in the query results
+
+- Passes the pipeline stages to the ``aggregate()`` method and prints the results
 
 .. io-code-block::
    :copyable:
