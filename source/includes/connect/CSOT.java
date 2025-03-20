@@ -4,11 +4,14 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.gte;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.mongodb.ClientSessionOptions;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.TransactionOptions;
 import com.mongodb.client.*;
 import com.mongodb.client.cursor.TimeoutMode;
 import com.mongodb.client.model.InsertOneOptions;
+import com.mongodb.client.model.bulk.ClientBulkWriteOptions;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 
@@ -73,6 +76,34 @@ public class csot {
             // ... perform operations on MongoCollection
         }
         // end-override
+    }
+
+    private void txnTimeout(){
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString("<connection string>"))
+                .build();
+
+        try (MongoClient mongoClient = MongoClients.create(settings)) {
+            MongoCollection<Document> collection = mongoClient
+                    .getDatabase("db")
+                    .getCollection("people");
+
+            // start-session-timeout
+            ClientSessionOptions opts = ClientSessionOptions.builder()
+                    .defaultTimeout(5L, SECONDS)
+                    .build();
+
+            ClientSession session = mongoClient.startSession(opts);
+            // ... perform operations on ClientSession
+            // end-session-timeout
+
+            // start-txn-timeout
+            TransactionOptions txnOptions = TransactionOptions.builder()
+                    .timeout(5L, SECONDS)
+                    .build();
+            // end-txn-timeout
+        }
+
     }
 
     private void cursorTimeout(){

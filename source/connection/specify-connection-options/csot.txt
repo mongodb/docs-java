@@ -164,7 +164,7 @@ You can specify a ``timeoutMS`` option at a lower level to override the
 client-level configuration. This allows you to customize timeouts based
 on the needs of individual operations.
 
-The following example demonstrates how an collection-level timeout
+The following example demonstrates how a collection-level timeout
 configuration can override a client-level timeout configuration:
 
 .. literalinclude:: /includes/connect/CSOT.java
@@ -191,13 +191,28 @@ the following methods:
 - `withTransaction() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html#withTransaction(com.mongodb.client.TransactionBody)>`__
 - `close() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/session/ClientSession.html#close()>`__
 
+The following code demonstrates how to set the ``defaultTimeout`` when
+instantiating a ``ClientSession``:
+
+.. literalinclude:: /includes/connect/CSOT.java
+   :language: java
+   :start-after: start-session-timeout
+   :end-before: end-session-timeout
+   :dedent:
+
 If you do not specify the ``defaultTimeout``, the driver uses the timeout
 value set on the parent ``MongoClient``.
 
 You can also set a transaction-level timeout by using the ``timeout()``
 method when building a ``TransactionOptions`` instance. Setting this
 option applies a timeout to all operations performed in the scope of the
-transaction.
+transaction:
+
+.. literalinclude:: /includes/connect/CSOT.java
+   :language: java
+   :start-after: start-txn-timeout
+   :end-before: end-txn-timeout
+   :dedent:
 
 To learn more about transactions, see the :ref:`java-fundamentals-transactions` guide.
 
