@@ -52,8 +52,7 @@ public class csot {
             MongoDatabase database = mongoClient.getDatabase("db");
             MongoCollection<Document> collection = database.getCollection("people");
 
-            InsertOneResult result = collection.insertOne(new Document("name", "Francine Loews"));
-            System.out.println("Inserted a document with ID: " + result.getInsertedId());
+            collection.insertOne(new Document("name", "Francine Loews"));
         }
         // end-operation-timeout
     }

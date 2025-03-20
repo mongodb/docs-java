@@ -66,6 +66,7 @@ timeout of 5 seconds by using each method:
          :language: java
          :start-after: start-string
          :end-before: end-string
+         :dedent:
 
 Behavior
 ~~~~~~~~
@@ -75,7 +76,7 @@ accepted values for ``timeoutMS``:
 
 .. list-table::
    :header-rows: 1
-   :widths: 35 65
+   :widths: 25 75
 
    * - Value
      - Behavior
@@ -90,10 +91,10 @@ accepted values for ``timeoutMS``:
      - | Defers the timeout behavior to the following settings:
        |
        | - :manual:`waitQueueTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.waitQueueTimeoutMS>`
-       | - :manual:`socketTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.socketTimeoutMS>`   
-       | - :manual:`wTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.wtimeoutMS>`
-       | - :manual:`maxTimeMS </reference/method/cursor.maxTimeMS/>` *(deprecated)*
-       | - `maxCommitTimeMS <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#maxCommitTime(java.lang.Long,java.util.concurrent.TimeUnit)>`__ *(deprecated)*
+         - :manual:`socketTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.socketTimeoutMS>`   
+         - :manual:`wTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.wtimeoutMS>`
+         - :manual:`maxTimeMS </reference/method/cursor.maxTimeMS/>` *(deprecated)*
+         - `maxCommitTimeMS <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#maxCommitTime(java.lang.Long,java.util.concurrent.TimeUnit)>`__ *(deprecated)*
        |
        | When the CSOT feature is no longer experimental, all the
          preceding options will be deprecated.
@@ -159,9 +160,9 @@ Overrides
 The {+driver-short+} supports various levels of configuration to control the
 behavior and performance of database operations. 
 
-You can specify a ``timeoutMS`` option at the operation level to override the
-client-level configuration for a specific operation. This allows you to
-customize timeouts based on the needs of individual queries.
+You can specify a ``timeoutMS`` option at a lower level to override the
+client-level configuration. This allows you to customize timeouts based
+on the needs of individual operations.
 
 The following example demonstrates how an collection-level timeout
 configuration can override a client-level timeout configuration:
@@ -292,4 +293,11 @@ API Documentation
 To learn more about using timeouts with the {+driver-short+}, see the following
 API documentation:
 
-
+- `MongoClientSettings <{+core-api+}/com/mongodb/MongoClientSettings.html>`__
+- `MongoClientSettings.Builder.timeout() <{+core-api+}/com/mongodb/MongoClientSettings.Builder.html#timeout(long,java.util.concurrent.TimeUnit)>`__
+- `MongoCollection.withTimeout() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#withTimeout(long,java.util.concurrent.TimeUnit)>`__
+- `ClientSessionOptions.Builder.defaultTimeout() <{+core-api+}/com/mongodb/ClientSessionOptions.Builder.html#defaultTimeout(long,java.util.concurrent.TimeUnit)>`__
+- `TransactionOptions.Builder.timeout() <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#timeout(java.lang.Long,java.util.concurrent.TimeUnit)>`__
+- `ClientEncryptionSettings.Builder.timeout() <{+core-api+}/com/mongodb/ClientEncryptionSettings.Builder.html#timeout(long,java.util.concurrent.TimeUnit)>`__
+- `FindIterable.timeoutMode() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/FindIterable.html#timeoutMode(com.mongodb.client.cursor.TimeoutMode)>`__
+- `TimeoutMode <{+core-api+}/com/mongodb/client/cursor/TimeoutMode.html>`__
