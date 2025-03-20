@@ -93,11 +93,10 @@ accepted values for ``timeoutMS``:
        | - :manual:`waitQueueTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.waitQueueTimeoutMS>`
          - :manual:`socketTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.socketTimeoutMS>`   
          - :manual:`wTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.wtimeoutMS>`
-         - :manual:`maxTimeMS </reference/method/cursor.maxTimeMS/>` *(deprecated)*
-         - `maxCommitTimeMS <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#maxCommitTime(java.lang.Long,java.util.concurrent.TimeUnit)>`__ *(deprecated)*
+         - :manual:`maxTimeMS </reference/method/cursor.maxTimeMS/>`
+         - `maxCommitTimeMS <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#maxCommitTime(java.lang.Long,java.util.concurrent.TimeUnit)>`__
        |
-       | When the CSOT feature is no longer experimental, all the
-         preceding options will be deprecated.
+       | These settings are deprecated and are ignored if you set ``timeoutMS``.
 
 If you specify the ``timeoutMS`` option, the driver automatically applies the
 specified timeout for each server operation. The following code example specifies
