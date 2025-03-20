@@ -87,15 +87,15 @@ accepted values for ``timeoutMS``:
    * - ``0``
      - Sets an infinite timeout.
 
-   * - ``null``
+   * - ``null`` or unset
      - | Defers the timeout behavior to the following settings:
-       |
-       | - :manual:`waitQueueTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.waitQueueTimeoutMS>`
-         - :manual:`socketTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.socketTimeoutMS>`   
-         - :manual:`wTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.wtimeoutMS>`
-         - :manual:`maxTimeMS </reference/method/cursor.maxTimeMS/>`
-         - `maxCommitTimeMS <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#maxCommitTime(java.lang.Long,java.util.concurrent.TimeUnit)>`__
-       |
+
+       - :manual:`waitQueueTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.waitQueueTimeoutMS>`
+       - :manual:`socketTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.socketTimeoutMS>`   
+       - :manual:`wTimeoutMS </reference/connection-string-options/#mongodb-urioption-urioption.wtimeoutMS>`
+       - :manual:`maxTimeMS </reference/method/cursor.maxTimeMS/>`
+       - `maxCommitTimeMS <{+core-api+}/com/mongodb/TransactionOptions.Builder.html#maxCommitTime(java.lang.Long,java.util.concurrent.TimeUnit)>`__
+
        | These settings are deprecated and are ignored if you set ``timeoutMS``.
 
 If you specify the ``timeoutMS`` option, the driver automatically applies the
