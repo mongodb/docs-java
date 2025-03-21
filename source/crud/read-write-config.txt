@@ -225,13 +225,18 @@ one server in the sharded cluster and ensures optimal performance.
 To distribute database requests, the {+driver-short+} determines the closest mongos
 by calculating which one has the lowest network round-trip time. Then, the driver
 determines the latency window by adding this mongos's average round-trip time to the
-``localThresholdMS`` value. The driver load balances data randomly across the mongos
-instances that fall within the latency window.
+:ref:`localThresholdMS value <java-local-threshold>`. The driver load balances requests
+across up to two mongos instances that fall within the latency window. For each request,
+the driver chooses the server with the lower operation load by determining its ``operationCount``
+value.
 
 .. tip::
 
-  To learn more about load balancing, see :manual:`Sharded Cluster Balancer </core/sharding-balancer-administration/>`
-  in the {+mdb-server+} manual.
+  To learn more about load balancing, see :manual:`Sharded Cluster Balancer
+  </core/sharding-balancer-administration/>` in the {+mdb-server+} manual.
+
+  To learn how to customize the driver's server selection behavior, see
+  :ref:`mcs-cluster-settings` in the Specify MongoClient Settings guide.
 
 .. _java-tag-sets:
 
