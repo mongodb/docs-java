@@ -128,48 +128,57 @@ SearchOperator Helper Methods
 To make building pipeline stages easier, the {+driver-short+} provides helper methods
 for the following operations:
 
-- :atlas:`autocomplete </atlas-search/autocomplete/>`: Performs a search for a
-     word or phrase that contains a sequence of characters from an incomplete
-     input string. 
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
 
-- :atlas:`compound </atlas-search/compound/>`: Combines two or more operators
-     into a single query. 
+   * - Operation
+     - Description
 
-- :atlas:`equals </atlas-search/equals/>` (``equals()`` and ``equalsNull()``): Checks
-     whether a field matches a value you specify. 
+   * - :atlas:`autocomplete </atlas-search/autocomplete/>`
+     - Performs a search for a word or phrase that contains a sequence of
+       characters from an incomplete input string.  
 
-- :atlas:`exists </atlas-search/exists/>`: Tests if a path to a specified
-     indexed field name exists in a document. 
+   * - :atlas:`compound </atlas-search/compound/>`
+     - Combines two or more operators into a single query. 
 
-- :atlas:`in </atlas-search/in/>`: Performs a search for an array of BSON
-     number, date, boolean, objectId, uuid, or string values at the given path
-     and returns documents where the value of the field equals any value in the
-     specified array. 
+   * - :atlas:`equals </atlas-search/equals/>` (``equals()`` and ``equalsNull()``)
+     - Checks whether a field matches a value you specify. 
 
-- :atlas:`moreLikeThis </atlas-search/moreLikeThis/>`: Returns documents similar
-     to input documents.  
+   * - :atlas:`exists </atlas-search/exists/>`
+     - Tests if a path to a specified indexed field name exists in a document. 
 
-- :atlas:`near </atlas-search/near/>`: Supports querying and scoring numeric,
-     date, and GeoJSON point values. 
+   * - :atlas:`in </atlas-search/in/>`
+     - Performs a search for an array of BSON number, date, boolean, objectId,
+       uuid, or string values at the given path and returns documents where the
+       value of the field equals any value in the specified array.  
 
-- :atlas:`phrase </atlas-search/phrase/>`: Performs a search for documents
-     containing an ordered sequence of terms using the analyzer specified in the
-     index configuration. 
+   * - :atlas:`moreLikeThis </atlas-search/moreLikeThis/>`
+     - Returns documents similar to input documents.  
 
-- :atlas:`queryString  </atlas-search/queryString/>`: Supports querying a
-     combination of indexed fields and values.  
+   * - :atlas:`near </atlas-search/near/>`
+     - Supports querying and scoring numeric, date, and GeoJSON point values. 
 
-- :atlas:`range </atlas-search/range/>` (``numberRange()`` and ``dateRange()``): Supports
-     querying and scoring numeric, date, and string values.   
+   * - :atlas:`phrase </atlas-search/phrase/>`
+     - Performs a search for documents containing an ordered sequence of terms
+       using the analyzer specified in the index configuration.  
 
-- :atlas:`regex </atlas-search/regex/>`: Interprets the query field as a regular
-     expression.   
+   * - :atlas:`queryString  </atlas-search/queryString/>`
+     - Supports querying a combination of indexed fields and values.  
 
-- :atlas:`text </atlas-search/text/>`: Performs a full-text search using the
-     analyzer that you specify in the index configuration. 
+   * - :atlas:`range </atlas-search/range/>` (``numberRange()`` and ``dateRange()``)
+     - Supports querying and scoring numeric, date, and string values.   
 
-- :atlas:`wildcard </atlas-search/wildcard/>`: Enables queries which use special
-     characters in the search string that can match any character. 
+   * - :atlas:`regex </atlas-search/regex/>`
+     - Interprets the query field as a regular expression.   
+
+   * - :atlas:`text </atlas-search/text/>`
+     - Performs a full-text search using the analyzer that you specify in the
+       index configuration.  
+
+   * - :atlas:`wildcard </atlas-search/wildcard/>`
+     - Enables queries which use special characters in the search string that
+       can match any character.  
 
 Example Pipeline Search Stage
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
