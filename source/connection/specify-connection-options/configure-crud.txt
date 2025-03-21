@@ -20,15 +20,15 @@ Configure Client-level CRUD Settings
 Overview
 --------
 
-In this guide, you can learn about how the {+driver-short+} configures CRUD
+In this guide, you can learn about how to use the {+driver-short+} to configure CRUD
 operations for ``MongoClient`` instances. 
 
 .. include:: /includes/crud/read-write-pref-concerns.rst
 
 ``MongoDatabase`` and ``MongoCollection`` instances inherit their preferences
 and concerns from the ``MongoClient`` that accesses them. However, you can apply
-custom settings to your databases and collections. See the :ref:`Configure Custom
-CRUD Settings <java-configure-custom-crud>` page for more information.
+custom settings to your databases and collections. For more information, see the
+:ref:`Configure Custom CRUD Settings <java-configure-custom-crud>` page.
 
 You can specify client-level CRUD settings by using either a :ref:`connection
 string <connection-uri>` or by passing a ``MongoClientSettings`` object to the 
@@ -40,7 +40,7 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
     :tabid: uri
 
     Include the following parameters in your connection string to modify the
-    driver's read/write behavior:
+    driver's read or write behavior:
     
     .. list-table:: 
        :header-rows: 1 
@@ -59,7 +59,7 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
        * - ``w``
          - string or integer
          - Specifies the write concern. For more information about values, see
-           the server documentation for the :manual:`w option
+           the {+mdb-server+} documentation for the :manual:`w option
            </reference/write-concern/#w-option>`. 
 
            *Default*: ``1``
@@ -67,7 +67,7 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
        * - ``wtimeoutMS``
          - integer
          - Specifies a time limit, in milliseconds, for the write concern. For
-           more information, see the server documentation for the
+           more information, see the {+mdb-server+} documentation for the
            :manual:`wtimeoutMS option
            </reference/connection-string/#write-concern-options>`. A value of
            ``0`` instructs the driver to never time out write operations.
@@ -77,7 +77,7 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
        * - ``readPreference``
          - string
          - Specifies the read preference. For more information about values, see
-           the server documentation for the :manual:`readPreference option
+           the {+mdb-server+} documentation for the :manual:`readPreference option
            </reference/connection-string/#urioption.readPreference>`.  
           
            *Default*: ``primary``
@@ -85,7 +85,7 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
        * - ``readPreferenceTags``
          - string
          - Specifies the read preference tags. For more information about
-           values, see the server documentation for the
+           values, see the {+mdb-server+} documentation for the
            :manual:`readPreferenceTags option
            </reference/connection-string/#urioption.readPreferenceTags>`.  
           
@@ -96,7 +96,7 @@ string <connection-uri>` or by passing a ``MongoClientSettings`` object to the
          - Specifies, in seconds, how stale a secondary can be before the driver
            stops communicating with that secondary. The minimum value is either
            90 seconds or the heartbeat frequency plus 10 seconds, whichever is
-           greater. For more information, see the server documentation for the
+           greater. For more information, see the {+mdb-server+} documentation for the
            :manual:`maxStalenessSeconds option
            </reference/connection-string/#urioption.maxStalenessSeconds>`. Not
            providing a parameter or explicitly specifying ``-1`` indicates that
