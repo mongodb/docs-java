@@ -30,10 +30,11 @@ search and which fields to index.
 Sample Data
 ~~~~~~~~~~~
 
-The example in this guide uses the ``movies`` collection in the ``sample_mflix``
+The examples in this guide use the ``movies`` collection in the ``sample_mflix``
 database from the :atlas:`Atlas sample datasets </sample-data>`. To learn how to
 create a free MongoDB Atlas cluster and load the sample datasets, see the
-:atlas:`Get Started with Atlas </getting-started>` guide.
+:atlas:`Get Started with Atlas </getting-started>` guide. To learn more about
+aggregation operations and builders, see the :ref:`java-aggregation` guide. 
 
 Run an Atlas Search Query
 -------------------------
@@ -41,12 +42,16 @@ Run an Atlas Search Query
 This section shows how to create an aggregation pipeline to run an
 Atlas Search query on a collection. You can use the ``Aggregates.search()`` builder
 method to create a ``$search`` pipeline stage, which specifies the search
-criteria. Then, call the ``aggregate()`` method and pass your pipeline as a parameter.
+criteria. Then, call the ``aggregate()`` method and pass your pipeline as a
+parameter.
 
-.. tip:: 
+.. note:: Only Available on Atlas for MongoDB v4.2 and later
 
-   To learn more about aggregation operations and builders, see the :ref:`java-aggregation`
-   guide. 
+   This aggregation pipeline operator is only available for collections hosted
+   on :atlas:`MongoDB Atlas </>` clusters running v4.2 or later that are
+   covered by an :atlas:`Atlas search index </reference/atlas-search/index-definitions/>`.
+   Learn more about the required setup and the functionality of this operator
+   from the :ref:`Atlas Search <java-atlas-search>` documentation.
 
 Before running an Atlas Search query, you must create an Atlas Search index
 on your collection. To learn how to programmatically create an Atlas Search
@@ -90,6 +95,107 @@ following actions:
    Search queries, see :atlas:`Atlas Search Tutorials </atlas-search/tutorials/>`
    in the Atlas documentation.
 
+Atlas Search Metadata
+---------------------
+
+Use the ``searchMeta()`` method to create a
+:manual:`$searchMeta </reference/operator/aggregation/searchMeta/>`
+pipeline stage which returns only the metadata part of the results from
+Atlas full-text search queries.
+
+.. tip:: Only Available on Atlas for MongoDB v4.4.11 and later
+
+   This aggregation pipeline operator is only available
+   on :atlas:`MongoDB Atlas </>` clusters running v4.4.11 and later. For a
+   detailed list of version availability, see the MongoDB Atlas documentation
+   on :atlas:`$searchMeta </atlas-search/query-syntax/#-searchmeta>`.
+
+The following example shows the ``count`` metadata for an Atlas search
+aggregation stage:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AggregateSearchBuilderExample.java
+   :start-after: // begin atlasSearchMeta
+   :end-before: // end atlasSearchMeta
+   :language: java
+   :dedent:
+
+Learn more about this helper from the
+`searchMeta() API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/Aggregates.html#searchMeta(com.mongodb.client.model.search.SearchCollector)>`__.
+
+SearchOperator Helper Methods
+-----------------------------
+
+To make building pipeline stages easier, the {+driver-short+} provides helper methods
+for the following operations:
+
+- :atlas:`autocomplete </atlas-search/autocomplete/>`: Performs a search for a
+     word or phrase that contains a sequence of characters from an incomplete
+     input string. 
+
+- :atlas:`compound </atlas-search/compound/>`: Combines two or more operators
+     into a single query. 
+
+- :atlas:`equals </atlas-search/equals/>` (``equals()`` and ``equalsNull()``): Checks
+     whether a field matches a value you specify. 
+
+- :atlas:`exists </atlas-search/exists/>`: Tests if a path to a specified
+     indexed field name exists in a document. 
+
+- :atlas:`in </atlas-search/in/>`: Performs a search for an array of BSON
+     number, date, boolean, objectId, uuid, or string values at the given path
+     and returns documents where the value of the field equals any value in the
+     specified array. 
+
+- :atlas:`moreLikeThis </atlas-search/moreLikeThis/>`: Returns documents similar
+     to input documents.  
+
+- :atlas:`near </atlas-search/near/>`: Supports querying and scoring numeric,
+     date, and GeoJSON point values. 
+
+- :atlas:`phrase </atlas-search/phrase/>`: Performs a search for documents
+     containing an ordered sequence of terms using the analyzer specified in the
+     index configuration. 
+
+- :atlas:`queryString  </atlas-search/queryString/>`: Supports querying a
+     combination of indexed fields and values.  
+
+- :atlas:`range </atlas-search/range/>` (``numberRange()`` and ``dateRange()``): Supports
+     querying and scoring numeric, date, and string values.   
+
+- :atlas:`regex </atlas-search/regex/>`: Interprets the query field as a regular
+     expression.   
+
+- :atlas:`text </atlas-search/text/>`: Performs a full-text search using the
+     analyzer that you specify in the index configuration. 
+
+- :atlas:`wildcard </atlas-search/wildcard/>`: Enables queries which use special
+     characters in the search string that can match any character. 
+
+Example Pipeline Search Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note:: Atlas Sample Dataset
+
+   This example uses the MongoDB Atlas sample dataset. Specifically, the
+   ``movies`` collection in the ``sample_mflix`` database. You can learn how
+   to  set up your own free-tier Atlas cluster and how to load the sample dataset
+   in our :ref:`quick start guide <java-get-started>`.
+
+The following code creates a search stage for a pipeline with the following filters:
+
+- Movies in the drama genre
+- Movies that include Sylvester Stallone in the cast, accounting for possible misspellings
+- Movies made between 1980 and 1989, inclusive
+- Movies with titles that begin with the word ``"Rocky"``
+
+.. literalinclude:: /includes/fundamentals/code-snippets/builders/AggregateSearchBuilderExample.java
+   :start-after: // begin atlasHelperMethods
+   :end-before: // end atlasHelperMethods
+   :language: java
+   :dedent:
+
+To learn more about the helper methods, see the `SearchOperator Interface API documentation <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/search/SearchOperator.html>`__.
+
 Additional Information
 ----------------------
 
@@ -105,6 +211,7 @@ the following API documentation:
 - `MongoCollection.aggregate() <{+driver-api+}/MongoCollection.html#aggregate(java.util.List)>`__
 - `Aggregates.search() <{+core-api+}/client/model/Aggregates.html#search(com.mongodb.client.model.search.SearchCollector)>`__
 - `Aggregates.project() <{+core-api+}/client/model/Aggregates.html#project(org.bson.conversions.Bson)>`__
+- `SearchOperator <{+core-api+}/client/model/search/SearchOperator.html>`__
 
 In this guide, you can learn how to use Atlas Search
 in the {+driver-short+}. For more information about Atlas Search and its
