@@ -13,12 +13,11 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.search.SearchOperator;
-
 import static com.mongodb.client.model.search.SearchPath.fieldPath;
 
 public class AggregateSearchBuilderExample {
 
-    private static final String CONNECTION_URI = "<connection uri>";
+    private static final String CONNECTION_URI = "<connection URI>";
 
     // Match aggregation
     private static void runMatch(MongoCollection<Document> collection) {
@@ -120,7 +119,7 @@ public class AggregateSearchBuilderExample {
     }
 
     public static void main(String[] args) {
-        String uri = CONNECTION_URI;
+        String uri = CONNECTION_URI; 
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
