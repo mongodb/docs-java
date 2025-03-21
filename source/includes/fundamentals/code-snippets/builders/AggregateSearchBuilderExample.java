@@ -59,6 +59,34 @@ public class AggregateSearchBuilderExample {
      * Requires Atlas cluster and full text search index
      * See https://www.mongodb.com/docs/atlas/atlas-search/tutorial/ for more info on requirements
      */
+    private static void runAtlasSearchWithSearchHelperMethods(MongoCollection<Document> collection) {
+        // begin atlasHelperMethods
+        Bson search_stage = Aggregates.search(
+                SearchOperator.compound()
+                  .filter(
+                     List.of(
+                        SearchOperator.text(fieldPath("genres"), "Drama"),
+                        SearchOperator.phrase(fieldPath("cast"), "sylvester stallone"),
+                        SearchOperator.numberRange(fieldPath("year")).gtLt(1980, 1989),
+                        SearchOperator.wildcard("Rocky *", fieldPath("title"))
+                     )));
+        // end atlasHelperMethods
+
+        // To condense result data, add this projection into the pipeline
+        // Bson projection = Aggregates.project(Projections.fields(Projections.include("title", "released")));
+
+        List<Bson> aggregateStages = List.of(searchStageFilters);
+        System.out.println("aggregateStages: " + aggregateStages);
+
+        System.out.println("explain:\n" + collection.aggregate(aggregateStages).explain());
+        collection.aggregate(aggregateStages).forEach(result -> System.out.println(result));
+    }
+
+    /*
+     * Atlas search aggregation
+     * Requires Atlas cluster and full text search index
+     * See https://www.mongodb.com/docs/atlas/atlas-search/tutorial/ for more info on requirements
+     */
     private static void runAtlasSearch(MongoCollection<Document> collection) {
         // begin atlasSearch
         Bson search_stage = Aggregates.search(
