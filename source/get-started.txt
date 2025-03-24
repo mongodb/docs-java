@@ -70,6 +70,50 @@ its dependencies in your development environment.
          or `Creating New Gradle Builds <https://guides.gradle.org/creating-new-gradle-builds/>`__
          to learn how to set up your project.
 
+   .. step:: Add the {+driver-short+} Bill of Materials
+
+      .. _java-get-started-install-bom:
+
+      Add the Bill of Materials (BOM) for the MongoDB JVM
+      artifacts to your project to organize dependency versions. The BOM
+      simplifies dependency management by ensuring that you maintain
+      consistent and compatible versions of dependencies, such as between the
+      {+driver-short+} and the core driver library. Use the BOM to
+      avoid version conflicts and simplify upgrades.
+      
+      Select from the following :guilabel:`Maven` and :guilabel:`Gradle` tabs
+      to view instructions for adding the BOM for each dependency manager:
+
+      .. tabs::
+      
+         .. tab:: Maven
+            :tabid: maven bom
+            
+            Add the following code to the ``dependencyManagement`` list in your ``pom.xml`` file:
+            
+            .. code-block:: xml
+      
+               <dependencyManagement>
+                   <dependencies>
+                       <dependency>
+                           <groupId>org.mongodb</groupId>
+                           <artifactId>mongodb-driver-bom</artifactId>
+                           <version>{+full-version+}</version>
+                           <type>pom</type>
+                           <scope>import</scope>
+                       </dependency>
+                   </dependencies>
+               </dependencyManagement> 
+
+         .. tab:: Gradle
+            :tabid: gradle bom
+
+            .. code-block:: groovy
+      
+               dependencies {
+                   implementation(platform("org.mongodb:mongodb-driver-bom:{+full-version+}"))
+               }
+
    .. step:: Install the {+driver-short+}
 
       In your IDE, create a new `Maven <https://maven.apache.org/>`__ or `Gradle <https://gradle.org/>`__
@@ -81,7 +125,6 @@ its dependencies in your development environment.
              <dependency>
                  <groupId>org.mongodb</groupId>
                  <artifactId>mongodb-driver-sync</artifactId>
-                 <version>{+full-version+}</version>
              </dependency>
          </dependencies>
 
@@ -90,13 +133,17 @@ its dependencies in your development environment.
       .. code-block:: groovy
         
          dependencies {
-           implementation 'org.mongodb:mongodb-driver-sync:{+full-version+}'
+           implementation 'org.mongodb:mongodb-driver-sync'
          }
       
+      Because you installed the BOM, you can omit a version in the
+      {+driver-short+} dependency entry. The version you specify in the
+      BOM determines the dependency versions to install.
+
       After you configure your dependencies, ensure they are available to your
       project by running your dependency manager and refreshing
       the project in your IDE.
-      
+
 After you complete these steps, you have a new project 
 and the driver dependencies installed.
 
