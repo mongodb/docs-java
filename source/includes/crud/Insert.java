@@ -33,7 +33,7 @@ public class Insert {
                     .append("genres", Arrays.asList("Documentary", "Comedy")));
 
             // Prints the ID of the inserted document
-            System.out.println("insertOne() document id: " + result.getInsertedId());
+            System.out.println("Inserted document id - insert one: " + result.getInsertedId());
 
             // Creates two sample documents containing a "title" field
             List<Document> movieList = Arrays.asList(
@@ -44,7 +44,7 @@ public class Insert {
             InsertManyResult result = collection.insertMany(movieList);
 
             // Prints the IDs of the inserted documents
-            System.out.println("insertMany() document ids: " + result.getInsertedIds());
+            System.out.println("Inserted document id - insert many: " + result.getInsertedIds());
         }
     }
 }

@@ -41,8 +41,8 @@ public class Update {
             UpdateResult result = collection.updateOne(updateOneQuery, updateOneUpdates, options);
 
             // Prints the number of updated documents and the upserted document ID, if an upsert was performed
-            System.out.println("updateOne() modified document count: " + result.getModifiedCount());
-            System.out.println("Upserted ID: " + result.getUpsertedId());
+            System.out.println("Number of documents updated - update one: " + result.getModifiedCount());
+            System.out.println("Upserted document ID: " + result.getUpsertedId());
 
             Bson updateManyQuery = gt("num_mflix_comments", 50);
 
@@ -55,7 +55,7 @@ public class Update {
             UpdateResult result = collection.updateMany(updateManyQuery, updateManyUpdates);
 
             // Prints the number of updated documents
-            System.out.println("\nupdateMany() modified document count: " + result.getModifiedCount());
+            System.out.println("\nNumber of documents updated - update many: " + result.getModifiedCount());
         }
     }
 }

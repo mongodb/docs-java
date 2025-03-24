@@ -31,7 +31,7 @@ public class Delete {
 
             // Deletes the first document that has a "title" value of "The Garbage Pail Kids Movie"
             DeleteResult result = collection.deleteOne(deleteOneQuery);
-            System.out.println("Deleted document count - query for 1: " + result.getDeletedCount());
+            System.out.println("Deleted document count - delete one: " + result.getDeletedCount());
 
             Bson deleteManyQuery = lt("imdb.rating", 1.9);
 
@@ -39,7 +39,7 @@ public class Delete {
             result = collection.deleteMany(deleteManyQuery);
 
             // Prints the number of deleted documents
-            System.out.println("Deleted document count - unlimited query: " + result.getDeletedCount());
+            System.out.println("Deleted document count - delete many: " + result.getDeletedCount());
         }
     }
 }
