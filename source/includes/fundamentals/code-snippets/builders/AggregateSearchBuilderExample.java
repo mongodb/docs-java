@@ -67,7 +67,7 @@ public class AggregateSearchBuilderExample {
                         SearchOperator.text(fieldPath("genres"), "Drama"),
                         SearchOperator.phrase(fieldPath("cast"), "sylvester stallone"),
                         SearchOperator.numberRange(fieldPath("year")).gtLt(1980, 1989),
-                        SearchOperator.wildcard("Rocky *", fieldPath("title"))
+                        SearchOperator.wildcard(fieldPath("title"),"Rocky *")
                      )));
         // end atlasHelperMethods
 
