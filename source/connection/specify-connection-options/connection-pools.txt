@@ -87,9 +87,12 @@ see the corresponding syntax:
       
       * - ``maxPoolSize``
 
-        - Maximum number of connections opened in the pool. When the 
-          connection pool reaches the maximum number of connections, new 
-          connections wait for up to the amount of time set by ``timeoutMS``.
+        - Maximum number of connections opened in the pool. If an
+          operation needs a new connection while the connection pool has
+          ``maxPoolSize`` connections open, the new
+          operation waits for a new connection to open. To limit this
+          waiting time, use the single timeout setting. To learn more,
+          see the :ref:`java-csot` guide.
 
           *Default:* ``100`` 
 
@@ -103,10 +106,13 @@ see the corresponding syntax:
 
       * - ``waitQueueTimeoutMS`` *(deprecated)*
 
-        - Maximum wait time in milliseconds that an operation can wait for 
+        - This option is deprecated. You can configure this timeout by
+          setting the the :ref:`client-level timeout <java-csot>`
+          instead.
+
+          Maximum wait time in milliseconds that an operation can wait for 
           a connection to become available. A value of ``0`` means there
-          is no limit. Set the :ref:`client-level timeout <java-csot>` to
-          replace the functionality of this deprecated option.
+          is no limit.
 
           *Default*: ``120000`` (120 seconds)
 

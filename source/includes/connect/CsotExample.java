@@ -16,7 +16,7 @@ import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 
 
-public class csot {
+public class CsotExample {
 
     public static void main(String[] args) {
         MongoClient mongoClient = new csot().mongoClientSettings();

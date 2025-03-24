@@ -39,20 +39,20 @@ To specify a timeout when connecting to a MongoDB deployment, set the
 ``timeoutMS`` connection option to the timeout length in milliseconds. You can
 set the ``timeoutMS`` option in the following ways:
 
-- Using the ``timeout()`` method from the
+- Calling the ``timeout()`` method from the
   ``MongoClientSettings.Builder`` class
 - Setting the ``timeoutMS`` parameter in your connection string
 
-Select from the following :guilabel:`MongoClientSettings` and
-:guilabel:`Connection String` tabs to view how to set a client-level
-timeout of 5 seconds by using each method:
+The following code examples set a client-level timeout of ``5`` seconds.
+Select the :guilabel:`MongoClientSettings` or :guilabel:`Connection
+String` tab to see the corresponding code.
 
 .. tabs::
 
    .. tab:: MongoClientSettings
       :tabid: mongoclientsettings
 
-      .. literalinclude:: /includes/connect/CSOT.java
+      .. literalinclude:: /includes/connect/CsotExample.java
          :language: java
          :start-after: start-mongoclientsettings
          :end-before: end-mongoclientsettings
@@ -62,14 +62,14 @@ timeout of 5 seconds by using each method:
    .. tab:: Connection String
       :tabid: connection-string
 
-      .. literalinclude:: /includes/connect/CSOT.java
+      .. literalinclude:: /includes/connect/CsotExample.java
          :language: java
          :start-after: start-string
          :end-before: end-string
          :dedent:
 
-Behavior
-~~~~~~~~
+Accepted Timeout Values
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The following table describes the timeout behavior corresponding to the
 accepted values for ``timeoutMS``:
@@ -81,11 +81,11 @@ accepted values for ``timeoutMS``:
    * - Value
      - Behavior
 
-   * - Positive value
+   * - Positive integer
      - Sets the timeout to use for operation completion.
 
    * - ``0``
-     - Sets an infinite timeout.
+     - Specifies that operations never time out.
 
    * - ``null`` or unset
      - | Defers the timeout behavior to the following settings:
@@ -99,11 +99,11 @@ accepted values for ``timeoutMS``:
        | These settings are deprecated and are ignored if you set ``timeoutMS``.
 
 If you specify the ``timeoutMS`` option, the driver automatically applies the
-specified timeout for each server operation. The following code example specifies
-a timeout of 5 seconds at the client level, and then calls the
+specified timeout to each server operation. The following code example specifies
+a timeout of ``5`` seconds at the client level, and then calls the
 ``MongoCollection.insertOne()`` method:
 
-.. literalinclude:: /includes/connect/CSOT.java
+.. literalinclude:: /includes/connect/CsotExample.java
    :language: java
    :start-after: start-operation-timeout
    :end-before: end-operation-timeout
@@ -124,24 +124,27 @@ The following table describes how the timeout value is inherited at each level:
      - Inheritance Description
 
    * - Operation
-     - Takes the highest precedence and will override ``timeoutMS``
-       options set at any other level.
+     - Takes the highest precedence and overrides the timeout
+       options that you set at any other level.
 
    * - Transaction
-     - Takes precedence over ``timeoutMS`` set at the session,
+     - Takes precedence over the timeout value that you set at the session,
        collection, database, or client level.
 
    * - Session
      - Applies to all transactions and operations within
-       that session, unless the option is overridden by options set at those levels.
+       that session, unless you set a different timeout value at those
+       levels.
 
    * - Database
      - Applies to all sessions and operations within that
-       database, unless the option is overridden by options set at those levels.
+       database, unless you set a different timeout value at those
+       levels.
 
    * - Collection
      - Applies to all sessions and operations on that
-       collection, unless the option is overridden by options set at those levels.
+       collection, unless you set a different timeout value at those
+       levels.
 
    * - Client
      - Applies to all databases, collections, sessions, transactions, and
@@ -159,14 +162,15 @@ Overrides
 The {+driver-short+} supports various levels of configuration to control the
 behavior and performance of database operations. 
 
-You can specify a ``timeoutMS`` option at a lower level to override the
-client-level configuration. This allows you to customize timeouts based
-on the needs of individual operations.
+You can specify a ``timeoutMS`` option at a more specific level to override the
+client-level configuration. The table in the preceding section describes
+the levels at which you can specify a timeout setting. This allows you
+to customize timeouts based on the needs of individual operations.
 
 The following example demonstrates how a collection-level timeout
 configuration can override a client-level timeout configuration:
 
-.. literalinclude:: /includes/connect/CSOT.java
+.. literalinclude:: /includes/connect/CsotExample.java
    :language: java
    :start-after: start-override
    :end-before: end-override
@@ -182,7 +186,7 @@ When you create a new `ClientSession
 <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html>`__
 instance to implement a transaction, use
 the ``defaultTimeout()`` method when building a ``ClientSessionOptions``
-instance. You can use this option to specify the timeout to apply for
+instance. You can use this option to specify the timeout for
 the following methods:
 
 - `commitTransaction() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html#commitTransaction()>`__
@@ -193,7 +197,7 @@ the following methods:
 The following code demonstrates how to set the ``defaultTimeout`` when
 instantiating a ``ClientSession``:
 
-.. literalinclude:: /includes/connect/CSOT.java
+.. literalinclude:: /includes/connect/CsotExample.java
    :language: java
    :start-after: start-session-timeout
    :end-before: end-session-timeout
@@ -202,12 +206,12 @@ instantiating a ``ClientSession``:
 If you do not specify the ``defaultTimeout``, the driver uses the timeout
 value set on the parent ``MongoClient``.
 
-You can also set a transaction-level timeout by using the ``timeout()``
+You can also set a transaction-level timeout by calling the ``timeout()``
 method when building a ``TransactionOptions`` instance. Setting this
 option applies a timeout to all operations performed in the scope of the
 transaction:
 
-.. literalinclude:: /includes/connect/CSOT.java
+.. literalinclude:: /includes/connect/CsotExample.java
    :language: java
    :start-after: start-txn-timeout
    :end-before: end-txn-timeout
@@ -221,17 +225,17 @@ Client Encryption
 When you use Client-Side Field Level Encryption (CSFLE), the driver uses the
 ``timeoutMS`` option to limit the time allowed for encryption and decryption
 operations. You can set a timeout option for your ``ClientEncryption``
-instance by using the ``timeout()`` method when building a
+instance by calling the ``timeout()`` method when building a
 ``ClientEncryptionSettings`` instance.
 
 If you specify the timeout when you construct a
-``ClientEncryption`` instance, it controls the lifetime of all operations
+``ClientEncryption`` instance, the timeout controls the lifetime of all operations
 performed on that instance. If you do not provide a timeout when
 instantiating ``ClientEncryption``, the instance
 inherits the timeout setting from the ``MongoClient`` used in the
 ``ClientEncryption`` constructor.
 
-If you set ``timeoutMS`` on both the client and directly in
+If you set ``timeoutMS`` both on the client and directly in
 ``ClientEncryption``, the value provided to ``ClientEncryption`` takes
 precedence.
 
@@ -261,10 +265,10 @@ Cursor Lifetime Mode
 ~~~~~~~~~~~~~~~~~~~~
 
 The cursor lifetime mode uses the timeout setting to limit the entire lifetime of a
-cursor. In this mode, the initialization of the cursor and all subsequent calls
-to the cursor methods must complete within the limit specified by the
-timeout option. All documents must be returned within this limit.
-Otherwise, the cursor's lifetime expires and a timeout error occurs.
+cursor. In this mode, your application must initialize the cursor, complete
+all calls to the cursor methods, and return all documents within the specified
+time limit. Otherwise, the cursor's lifetime expires and the driver
+raises a timeout error.
 
 When you close a cursor by calling the ``close()`` method, the
 timeout resets for the ``killCursors`` command to ensure server-side resources are
@@ -274,7 +278,7 @@ The following example shows how to set a cursor timeout to ensure that
 the cursor is initialized and all documents are retrieved within the
 inherited timeout:
 
-.. literalinclude:: /includes/connect/CSOT.java
+.. literalinclude:: /includes/connect/CsotExample.java
    :language: java
    :start-after: start-cursor-lifetime
    :end-before: end-cursor-lifetime
@@ -294,7 +298,7 @@ The following code example iterates over documents in the ``db.people`` collecti
 by using a cursor with the ``ITERATION`` timeout mode, and then retrieves
 and prints the ``name`` field value for each document:
 
-.. literalinclude:: /includes/connect/CSOT.java
+.. literalinclude:: /includes/connect/CsotExample.java
    :language: java
    :start-after: start-cursor-iteration
    :end-before: end-cursor-iteration
