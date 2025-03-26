@@ -214,30 +214,6 @@ The following example shows how to connect to a sharded cluster and specify a
     :start-after: start-sharded-cluster-uri
     :end-before: end-sharded-cluster-uri
 
-Load Balancing
-``````````````
-
-If there is more than one mongos instance in the connection seed list, the
-{+driver-short+} uses **load balancing**. Load balancing allows the driver to
-distribute read and write requests across multiple servers, which avoids overwhelming
-one server in the sharded cluster and ensures optimal performance.
-
-To distribute database requests, the {+driver-short+} determines the closest mongos
-by calculating which one has the lowest network round-trip time. Then, the driver
-determines the latency window by adding this mongos's average round-trip time to the
-:ref:`localThresholdMS value <java-local-threshold>`. The driver load balances requests
-across up to two mongos instances that fall within the latency window. For each request,
-the driver chooses the server with the lower operation load by determining its ``operationCount``
-value.
-
-.. tip::
-
-  To learn more about load balancing, see :manual:`Sharded Cluster Balancer
-  </core/sharding-balancer-administration/>` in the {+mdb-server+} manual.
-
-  To learn how to customize the driver's server selection behavior, see
-  :ref:`mcs-cluster-settings` in the Specify MongoClient Settings guide.
-
 .. _java-tag-sets:
 
 Tag Sets
@@ -271,23 +247,61 @@ to set the read order on the database:
    :start-after: start-tag-set
    :end-before: end-tag-set
 
+Load Balancing
+~~~~~~~~~~~~~~
+
+When connecting to a sharded cluster or a replica set, the {+driver-short+} uses
+**load balancing** to handle read and write requests. Load balancing allows the driver to
+distribute these requests across multiple servers, which avoids overwhelming
+any one server and ensures optimal performance.
+
+When connecting to a sharded cluster, the {+driver-short+} determines the closest mongos
+instance by calculating which one has the lowest network round-trip time. Then, the driver
+determines the latency window by adding this mongos's average round-trip time to the
+:ref:`localThresholdMS value <java-local-threshold>`. The driver load balances requests
+across up to two random mongos instances that fall within the latency window. For each request,
+the driver chooses the server with the lower operation load by determining its ``operationCount``
+value.
+
+When connecting to a replica set, the {+driver-short+} first selects replica set members
+according to your read preference. Then, the driver follows the same process as 
+described in the preceding paragraph. After calculating the latency window, the driver
+selects up to two random replica set members that fall within the window and chooses
+the member with the lower ``operationCount`` value to receive the request.
+
+.. tip::
+
+  To learn more about load balancing, see :manual:`Sharded Cluster Balancer
+  </core/sharding-balancer-administration/>` in the {+mdb-server+} manual.
+
+  To learn how to customize the driver's server selection behavior, see
+  :ref:`mcs-cluster-settings` in the Specify MongoClient Settings guide.
+
 .. _java-local-threshold:
 
 Local Threshold
-~~~~~~~~~~~~~~~
+```````````````
 
-If multiple replica set members match the read preference and tag sets that you specify,
-the {+driver-short+} reads from the nearest replica set members, chosen according to
-their ping time.
+The {+driver-short+} uses the local threshold value to calculate the
+latency window for server selection. This value determines the servers
+that are eligible to receive read and write requests.
 
-By default, the driver uses only members whose ping times are within 15 milliseconds
-of the nearest member for queries. To distribute reads among members with
-higher latencies, set the ``localThreshold`` option in a ``MongoClientSettings``
-instance or the ``localThresholdMS`` option in your connection URI.
+By default, the driver uses only mongos instances or replica set members whose
+ping times are within 15 milliseconds of the nearest server. To
+distribute reads among servers with higher latencies, set the ``localThreshold``
+option in a ``MongoClientSettings`` instance or the ``localThresholdMS`` option
+in your connection URI.
 
-The following example specifies a local threshold of 35 milliseconds. Select 
-the :guilabel:`MongoClientSettings` or :guilabel:`Connection URI` tab to see
-corresponding code for each approach:
+.. note::
+  
+   When communicating with a mongos instance, the {+driver-short+} ignores the
+   ``localThresholdMS`` URI option. In this case, use the
+   :manual:`localThreshold </reference/program/mongos/#std-option-mongos.--localThreshold>`
+   command-line option.
+
+The following example connects to a replica set and specifies a local threshold
+of 35 milliseconds. Select the :guilabel:`MongoClientSettings` or :guilabel:`Connection URI`
+tab to see corresponding code for each approach:
 
 .. tabs::
 
@@ -312,13 +326,6 @@ corresponding code for each approach:
 
 In the preceding example, the {+driver-short+} distributes reads among matching members
 within 35 milliseconds of the closest member's ping time.
-
-.. note::
-  
-   The {+driver-short+} ignores the ``localThresholdMS`` option when communicating with a
-   replica set through a ``mongos`` instance. In this case, use the
-   :manual:`localThreshold </reference/program/mongos/#std-option-mongos.--localThreshold>`
-   command-line option.
 
 API Documentation
 -----------------
