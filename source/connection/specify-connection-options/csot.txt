@@ -43,7 +43,7 @@ set the ``timeoutMS`` option in the following ways:
   ``MongoClientSettings.Builder`` class
 - Setting the ``timeoutMS`` parameter in your connection string
 
-The following code examples set a client-level timeout of ``5`` seconds.
+The following code examples set a client-level timeout of ``200`` milliseconds.
 Select the :guilabel:`MongoClientSettings` or :guilabel:`Connection
 String` tab to see the corresponding code.
 
@@ -100,7 +100,7 @@ accepted values for ``timeoutMS``:
 
 If you specify the ``timeoutMS`` option, the driver automatically applies the
 specified timeout to each server operation. The following code example specifies
-a timeout of ``5`` seconds at the client level, and then calls the
+a timeout of ``200`` milliseconds at the client level, and then calls the
 ``MongoCollection.insertOne()`` method:
 
 .. literalinclude:: /includes/connect/CsotExample.java
@@ -177,7 +177,7 @@ configuration can override a client-level timeout configuration:
    :dedent:
    :emphasize-lines: 10
 
-.. _java-csot-txn:
+.. _java-csot-transaction:
 
 Transactions
 ~~~~~~~~~~~~
@@ -213,8 +213,8 @@ transaction:
 
 .. literalinclude:: /includes/connect/CsotExample.java
    :language: java
-   :start-after: start-txn-timeout
-   :end-before: end-txn-timeout
+   :start-after: start-transaction-timeout
+   :end-before: end-transaction-timeout
    :dedent:
 
 To learn more about transactions, see the :ref:`java-fundamentals-transactions` guide.
