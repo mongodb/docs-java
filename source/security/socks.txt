@@ -29,8 +29,8 @@ SOCKS5 Proxy Settings
 
 The proxy settings specify the SOCKS5 proxy server address and your
 authentication credentials. You can specify your settings in an instance of
-:ref:`MongoClientSettings <mongoclientsettings>` or in your :ref:`connection
-string <connection-uri>`.
+`MongoClientSettings <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__
+or in your :ref:`connection string <connection-uri>`.
 
 .. important::
    
@@ -55,11 +55,14 @@ The following table describes the SOCKS5 client options:
      - String
      - Specifies the SOCKS5 proxy IPv4 address, IPv6 address, or hostname.
        You must provide this value to connect to a SOCKS5 proxy.
+       |
+       | **Default**: ``null``
 
    * - **proxyPort**
      - non-negative Integer
-     - Specifies the TCP port number of the SOCKS5 proxy server. This option
-       defaults to ``1080`` when you set ``proxyHost``.
+     - | Specifies the TCP port number of the SOCKS5 proxy server. 
+       |
+       | **Default**: ``1080`` when you set ``proxyHost``
 
    * - **proxyUsername**
      - String
@@ -67,6 +70,8 @@ The following table describes the SOCKS5 client options:
        The driver ignores ``null`` and empty string values for this setting.
        The driver requires that you pass values for both ``proxyUsername``
        and ``proxyPassword`` or that you omit both values.
+       |
+       | **Default**: ``null``
 
    * - **proxyPassword**
      - String
@@ -74,6 +79,8 @@ The following table describes the SOCKS5 client options:
        The driver ignores ``null`` and empty string values for this setting.
        The driver requires that you pass values for both ``proxyUsername``
        and ``proxyPassword`` or that you omit both values.
+
+       | **Default**: ``null``
 
 
 Examples
