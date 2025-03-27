@@ -47,10 +47,10 @@ single operation, see the following pages:
 Update operations can modify fields and values: 
 
 - The `updateOne()
-  <{+client-api+}/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
+  <{+driver-api+}/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
   method changes the first document your query filter matches and the
 - `updateMany()
-  <{+client-api+}/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
+  <{+driver-api+}/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
   method changes all the documents your query filter matches. 
 
 You can call the ``updateOne()`` and ``updateMany()`` methods on a
@@ -215,7 +215,7 @@ A replace operation substitutes one document from your collection. The
 substitution occurs between a document your query filter matches and a
 replacement document. 
 
-The `replaceOne() <{+client-api+}/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
+The `replaceOne() <{+driver-api+}/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
 method removes all the existing fields and values in the
 matching document (except the ``_id`` field) and substitutes it with the
 replacement document. 
@@ -330,10 +330,10 @@ API Documentation
 
 For more information about the methods and classes used on this page, see the following API documentation:
 
-- `updateOne() <{+client-api+}/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.UpdateOptions)>`__
-- `updateMany() <{+client-api+}/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.UpdateOptions)>`__
+- `updateOne() <{+driver-api+}/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.UpdateOptions)>`__
+- `updateMany() <{+driver-api+}/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List,com.mongodb.client.model.UpdateOptions)>`__
 - `UpdateOptions <{+core-api+}/client/model/UpdateOptions.html>`__
-- `replaceOne() <{+client-api+}/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
+- `replaceOne() <{+driver-api+}/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
 - `ReplaceOptions <{+core-api+}/client/model/ReplaceOptions.html?is-external=true>`__
 - `UpdateResult <{+core-api+}/client/result/UpdateResult.html>`__
 - `eq() <{+core-api+}/client/model/Filters.html#eq(java.lang.String,TItem)>`__

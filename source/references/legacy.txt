@@ -75,65 +75,65 @@ names between the legacy and current API.
    * - Legacy
      - Current
 
-   * - `MongoClientOptions <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
+   * - `MongoClientOptions <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
      - `MongoClientSettings <{+core-api+}/MongoClientSettings.html>`__
 
-   * - `new MongoClient() <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
-     - `MongoClients.create() <{+client-api+}/MongoClients.html#create()>`__
+   * - `new MongoClient() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
+     - `MongoClients.create() <{+driver-api+}/MongoClients.html#create()>`__
 
-   * - `MongoClient.getDB() <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClient.html#getDB(java.lang.String)>`__
-     - `MongoClient.getDatabase() <{+client-api+}/MongoClient.html#getDatabase(java.lang.String)>`__
+   * - `MongoClient.getDB() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html#getDB(java.lang.String)>`__
+     - `MongoClient.getDatabase() <{+driver-api+}/MongoClient.html#getDatabase(java.lang.String)>`__
 
-   * - `DB <{+api-root+}/mongodb-driver-legacy/com/mongodb/DB.html>`__
-     - `MongoDatabase <{+client-api+}/MongoDatabase.html>`__
+   * - `DB <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DB.html>`__
+     - `MongoDatabase <{+driver-api+}/MongoDatabase.html>`__
 
-   * - `DBCollection <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html>`__
-     - `MongoCollection<> <{+client-api+}/MongoCollection.html>`__
+   * - `DBCollection <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html>`__
+     - `MongoCollection<> <{+driver-api+}/MongoCollection.html>`__
 
-   * - `DBCursor <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCursor.html>`__
-     - `MongoCursor <{+client-api+}/MongoCursor.html>`__
+   * - `DBCursor <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCursor.html>`__
+     - `MongoCursor <{+driver-api+}/MongoCursor.html>`__
 
-   * - `DBCollection.findOne() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#findOne()>`__
+   * - `DBCollection.findOne() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#findOne()>`__
      - | ``MongoCollection.find().first()``
        |
        | See the following API documentation pages for these methods:
 
-       - `find() <{+client-api+}/MongoCollection.html#find()>`__
-       - `first() <{+client-api+}/MongoIterable.html#first()>`__
+       - `find() <{+driver-api+}/MongoCollection.html#find()>`__
+       - `first() <{+driver-api+}/MongoIterable.html#first()>`__
 
-   * - `DBCollection.insert() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#insert(com.mongodb.DBObject...)>`__
+   * - `DBCollection.insert() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#insert(com.mongodb.DBObject...)>`__
      - Use one of the following methods:
 
-       - `MongoCollection.insertOne() <{+client-api+}/MongoCollection.html#insertOne(TDocument)>`__
-       - `MongoCollection.insertMany() <{+client-api+}/MongoCollection.html#insertMany(java.util.List)>`__
+       - `MongoCollection.insertOne() <{+driver-api+}/MongoCollection.html#insertOne(TDocument)>`__
+       - `MongoCollection.insertMany() <{+driver-api+}/MongoCollection.html#insertMany(java.util.List)>`__
 
-   * - `DBCollection.update() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#update(com.mongodb.DBObject,com.mongodb.DBObject)>`__
+   * - `DBCollection.update() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#update(com.mongodb.DBObject,com.mongodb.DBObject)>`__
      - Use one of the following methods:
 
-       - `MongoCollection.updateOne() <{+client-api+}/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List)>`__
-       - `MongoCollection.updateMany() <{+client-api+}/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List)>`__
-       - `MongoCollection.replaceOne() <{+client-api+}/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
+       - `MongoCollection.updateOne() <{+driver-api+}/MongoCollection.html#updateOne(org.bson.conversions.Bson,java.util.List)>`__
+       - `MongoCollection.updateMany() <{+driver-api+}/MongoCollection.html#updateMany(org.bson.conversions.Bson,java.util.List)>`__
+       - `MongoCollection.replaceOne() <{+driver-api+}/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)>`__
 
-   * - `DBCollection.remove() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#remove(com.mongodb.DBObject)>`__
+   * - `DBCollection.remove() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#remove(com.mongodb.DBObject)>`__
      - Use one of the following methods:
 
-       - `MongoCollection.deleteOne() <{+client-api+}/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__
-       - `MongoCollection.deleteMany() <{+client-api+}/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__
+       - `MongoCollection.deleteOne() <{+driver-api+}/MongoCollection.html#deleteOne(org.bson.conversions.Bson)>`__
+       - `MongoCollection.deleteMany() <{+driver-api+}/MongoCollection.html#deleteMany(org.bson.conversions.Bson)>`__
 
-   * - `DBCollection.count() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#count()>`__
+   * - `DBCollection.count() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#count()>`__
      - Use one of the following methods:
 
-       - `MongoCollection.countDocuments() <{+client-api+}/MongoCollection.html#countDocuments()>`__
-       - `MongoCollection.estimatedDocumentCount() <{+client-api+}/MongoCollection.html#estimatedDocumentCount()>`__
+       - `MongoCollection.countDocuments() <{+driver-api+}/MongoCollection.html#countDocuments()>`__
+       - `MongoCollection.estimatedDocumentCount() <{+driver-api+}/MongoCollection.html#estimatedDocumentCount()>`__
 
-   * - `DBCollection.findAndModify() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#findAndModify(com.mongodb.DBObject,com.mongodb.client.model.DBCollectionFindAndModifyOptions)>`__
+   * - `DBCollection.findAndModify() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#findAndModify(com.mongodb.DBObject,com.mongodb.client.model.DBCollectionFindAndModifyOptions)>`__
      - Use one of the following methods:
 
-       - `MongoCollection.findOneAndUpdate() <{+client-api+}/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
-       - `MongoCollection.findOneAndReplace() <{+client-api+}/MongoCollection.html#findOneAndReplace(org.bson.conversions.Bson,TDocument)>`__
-       - `MongoCollection.findOneAndDelete() <{+client-api+}/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>`__
+       - `MongoCollection.findOneAndUpdate() <{+driver-api+}/MongoCollection.html#findOneAndUpdate(org.bson.conversions.Bson,org.bson.conversions.Bson)>`__
+       - `MongoCollection.findOneAndReplace() <{+driver-api+}/MongoCollection.html#findOneAndReplace(org.bson.conversions.Bson,TDocument)>`__
+       - `MongoCollection.findOneAndDelete() <{+driver-api+}/MongoCollection.html#findOneAndDelete(org.bson.conversions.Bson)>`__
 
-   * - `QueryBuilder <{+api-root+}/mongodb-driver-legacy/com/mongodb/QueryBuilder.html>`__
+   * - `QueryBuilder <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/QueryBuilder.html>`__
      - `Filters <{+core-api+}/client/model/Filters.html>`__
 
 In addition to the preceding items, consider the following changes:
@@ -148,7 +148,7 @@ In addition to the preceding items, consider the following changes:
   guide.
 
 - The default generic type for ``MongoCollection`` in the current API is
-  `org.bson.Document <{+api-root+}/bson/org/bson/Document.html>`__.
+  `org.bson.Document <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/bson/org/bson/Document.html>`__.
   You can specify `BasicDBObject <{+core-api+}/BasicDBObject.html>`__
   as a type parameter if it eases your migration.
 
@@ -160,9 +160,9 @@ In addition to the preceding items, consider the following changes:
   The method signatures also differ between the APIs. See the following API
   documentation for more information:
 
-  - `aggregate() <{+client-api+}/MongoCollection.html#aggregate(java.util.List)>`__ method in the current API
-  - `aggregate() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#aggregate(java.util.List,com.mongodb.AggregationOptions)>`__ method in the legacy API
-  - `Bson <{+api-root+}/bson/org/bson/conversions/Bson.html>`__ interface
+  - `aggregate() <{+driver-api+}/MongoCollection.html#aggregate(java.util.List)>`__ method in the current API
+  - `aggregate() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#aggregate(java.util.List,com.mongodb.AggregationOptions)>`__ method in the legacy API
+  - `Bson <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/bson/org/bson/conversions/Bson.html>`__ interface
   - `DBObject <{+core-api+}/DBObject.html>`__ interface
 
 .. _java-legacy-api-faq:
@@ -215,14 +215,14 @@ The output of the preceding code snippet resembles the following:
 For more information about the legacy classes and methods used in the preceding example,
 see the following API documentation pages:
 
-- `MongoClient <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
-- `DB <{+api-root+}/mongodb-driver-legacy/com/mongodb/DB.html>`__
-- `DBCollection <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html>`__
+- `MongoClient <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
+- `DB <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DB.html>`__
+- `DBCollection <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html>`__
 - `DBObject <{+core-api+}/DBObject.html>`__
-- `getDB() <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClient.html#getDB(java.lang.String)>`__
-- `getCollection() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DB.html#getCollection(java.lang.String)>`__
-- `find() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCollection.html#find()>`__
-- `one() <{+api-root+}/mongodb-driver-legacy/com/mongodb/DBCursor.html#one()>`__
+- `getDB() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html#getDB(java.lang.String)>`__
+- `getCollection() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DB.html#getCollection(java.lang.String)>`__
+- `find() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCollection.html#find()>`__
+- `one() <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/DBCursor.html#one()>`__
 
 See the :ref:`Migrate from the Legacy API <java-legacy-api>` page
 for a list of differences between the legacy and current API.
@@ -256,10 +256,10 @@ The following example shows how to use the legacy ``MongoClientOptions`` and
 For more information about the legacy classes and methods used in the preceding example,
 see the following API documentation:
 
-- `Legacy API documentation <{+api-root+}/mongodb-driver-legacy/index.html>`__
-- `MongoClient <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
-- `MongoClientOptions <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
-- `MongoClientURI <{+api-root+}/mongodb-driver-legacy/com/mongodb/MongoClientURI.html>`__
+- `Legacy API documentation <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/index.html>`__
+- `MongoClient <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClient.html>`__
+- `MongoClientOptions <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientOptions.html>`__
+- `MongoClientURI <https://mongodb.github.io/mongo-java-driver/{+version+}/apidocs/mongodb-driver-legacy/com/mongodb/MongoClientURI.html>`__
 
 See the :ref:`Migrate from the Legacy API <java-legacy-api>` page for a list
 of differences between the legacy and current API.

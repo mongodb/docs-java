@@ -24,7 +24,7 @@ connection settings when constructing your ``MongoClient``.  Select the
 For more information about these classes and methods, see the following API
 documentation:
 
-- `MongoClients.create() <{+client-api+}/MongoClients.html#create()>`__
-- `MongoClient <{+client-api+}/MongoClient.html>`__
+- `MongoClients.create() <{+driver-api+}/MongoClients.html#create()>`__
+- `MongoClient <{+driver-api+}/MongoClient.html>`__
 - `MongoClientSettings.Builder <{+core-api+}/MongoClientSettings.Builder.html>`__
 - `MongoCredential <{+core-api+}/MongoCredential.html>`__
