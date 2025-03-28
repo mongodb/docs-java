@@ -60,15 +60,23 @@ public class AggregateSearchBuilderExample {
      */
     private static void runAtlasSearchWithSearchHelperMethods(MongoCollection<Document> collection) {
         // begin atlasHelperMethods
-        Bson search_stage = Aggregates.search(
+        Bson searchStageFilters = Aggregates.search(
                 SearchOperator.compound()
-                  .filter(
-                     List.of(
-                        SearchOperator.text(fieldPath("genres"), "Drama"),
-                        SearchOperator.phrase(fieldPath("cast"), "sylvester stallone"),
-                        SearchOperator.numberRange(fieldPath("year")).gtLt(1980, 1989),
-                        SearchOperator.wildcard(fieldPath("title"),"Rocky *")
-                     )));
+                        .filter(
+                                List.of(
+                                        SearchOperator.text(fieldPath("genres"), "Drama"),
+                                        SearchOperator.phrase(fieldPath("cast"), "sylvester stallone"),
+                                        SearchOperator.numberRange(fieldPath("year")).gtLt(1980, 1989),
+                                        SearchOperator.wildcard(fieldPath("title"),"Rocky *")
+                                )));
+        
+        Bson projection = Aggregates.project(Projections.fields(
+                Projections.include("title", "year", "genres", "cast")
+        ));
+
+        List<Bson> aggregateStages = List.of(searchStageFilters, projection);
+        collection.aggregate(aggregateStages).forEach(System.out::println);
+
         // end atlasHelperMethods
 
         // To condense result data, add this projection into the pipeline
