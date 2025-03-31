@@ -79,9 +79,9 @@ document. The examples in each section use the following documents in the
 For more information about the methods and classes mentioned in this section,
 see the following API documentation:
 
-- `bulkWrite() <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCollection.html#bulkWrite(java.util.List,com.mongodb.client.model.BulkWriteOptions)>`__
-- `WriteModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/WriteModel.html>`__
-- `BulkWriteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html>`__
+- `bulkWrite() <{+driver-api+}/MongoCollection.html#bulkWrite(java.util.List,com.mongodb.client.model.BulkWriteOptions)>`__
+- `WriteModel <{+core-api+}/client/model/WriteModel.html>`__
+- `BulkWriteOptions <{+core-api+}/client/model/BulkWriteOptions.html>`__
 
 Insert Operation
 ~~~~~~~~~~~~~~~~
@@ -132,7 +132,7 @@ describing people:
 
 For more information about the methods and classes mentioned in this section,
 see the `InsertOneModel
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/InsertOneModel.html>`__
+<{+core-api+}/client/model/InsertOneModel.html>`__
 API documentation. 
 
 Replace Operation
@@ -176,10 +176,10 @@ For more information about the methods and classes mentioned in this section,
 see the following resources:
 
 - `ReplaceOneModel
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOneModel.html>`__
+  <{+core-api+}/client/model/ReplaceOneModel.html>`__
   API documentation
 - `ReplaceOptions
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/ReplaceOptions.html>`__
+  <{+core-api+}/client/model/ReplaceOptions.html>`__
   API documentation
 - :manual:`Unique indexes </core/index-unique/>` Server Manual Explanation
 
@@ -227,13 +227,13 @@ For more information about the methods and classes mentioned in this section,
 see the following resources:
 
 - `UpdateOneModel
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOneModel.html>`__
+  <{+core-api+}/client/model/UpdateOneModel.html>`__
   API documentation
 - `UpdateManyModel
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateManyModel.html>`__
+  <{+core-api+}/client/model/UpdateManyModel.html>`__
   API documentation
 - `UpdateOptions
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__
+  <{+core-api+}/client/model/UpdateOptions.html>`__
   API documentation
 - :manual:`unique indexes </core/index-unique/>` Server Manual Explanation
 
@@ -269,8 +269,8 @@ a document where the ``_id`` is ``1``:
 For more information about the methods and classes mentioned in this section,
 see the following API documentation:
 
-- `DeleteOneModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteOneModel.html>`__
-- `DeleteManyModel <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/DeleteManyModel.html>`__
+- `DeleteOneModel <{+core-api+}/client/model/DeleteOneModel.html>`__
+- `DeleteManyModel <{+core-api+}/client/model/DeleteManyModel.html>`__
 
 .. _orderOfExecution:
 
@@ -355,8 +355,37 @@ operations to execute in any order:
 For more information about the methods and classes mentioned in this section,
 see the following API documentation:
 
-- `BulkWriteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html>`__
-- `ordered() <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/BulkWriteOptions.html#ordered(boolean)>`__
+- `BulkWriteOptions <{+core-api+}/client/model/BulkWriteOptions.html>`__
+- `ordered() <{+core-api+}/client/model/BulkWriteOptions.html#ordered(boolean)>`__
+
+.. _java-usage-bulkwrite:
+
+Bulk Write Example: Full File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/crud/example-intro.rst
+
+The following code is a complete, standalone file that performs the following
+actions:
+
+#. Creates a list of instances of the ``InsertOneModel``, ``UpdateOneModel``,
+   ``DeleteOneModel``, and ``ReplaceOneModel`` classes.
+#. Runs an ordered ``bulkWrite()`` operation that performs the writes specified in the model list.
+
+.. io-code-block::
+
+   .. input:: /includes/crud/BulkWrite.java
+      :language: java
+      :dedent:
+
+   .. output:: 
+      :language: none
+      :visible: false
+
+      Result statistics:
+      inserted: 3
+      updated: 2
+      deleted: 1
 
 .. _java-sync-client-bulk-write:
 
@@ -474,10 +503,10 @@ To learn more about the methods and classes mentioned in this section,
 see the following API documentation:
 
 - `bulkWrite()
-  <{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoCluster.html#bulkWrite(java.util.List,com.mongodb.client.model.bulk.ClientBulkWriteOptions)>`__
+  <{+driver-api+}/MongoCluster.html#bulkWrite(java.util.List,com.mongodb.client.model.bulk.ClientBulkWriteOptions)>`__
 - `ClientNamespacedWriteModel
-  <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/bulk/ClientNamespacedWriteModel.html>`__
-- `MongoNamespace <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoNamespace.html>`__
+  <{+core-api+}/client/model/bulk/ClientNamespacedWriteModel.html>`__
+- `MongoNamespace <{+core-api+}/MongoNamespace.html>`__
 
 .. _java-sync-client-bulk-write-insert:
 
@@ -519,7 +548,7 @@ value of ``"electronic"`` in the ``things`` collection.
 If multiple documents match the query filter specified in
 a ``ClientNamespacedUpdateOneModel`` instance, the operation updates the
 first result. You can specify a sort order in a `ClientUpdateOneOptions
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/bulk/ClientUpdateOneOptions.html>`__
+<{+core-api+}/client/model/bulk/ClientUpdateOneOptions.html>`__
 instance to apply an order to matched documents before the driver
 performs the update operation, as shown in the following code:
 
@@ -551,7 +580,7 @@ is replaced with a new document.
 If multiple documents match the query filter specified in
 a ``ClientNamespacedReplaceOneModel`` instance, the operation replaces the
 first result. You can specify a sort order in a `ClientReplaceOneOptions
-<{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/bulk/ClientReplaceOneOptions.html>`__
+<{+core-api+}/client/model/bulk/ClientReplaceOneOptions.html>`__
 instance to apply an order to matched documents before the driver
 performs the replace operation, as shown in the following code:
 
@@ -594,55 +623,31 @@ Even though the write operation inserting a document with a duplicate key result
 in an error, the other operations are executed because the write operation is
 unordered.
 
-To learn more about the methods and classes mentioned in this section,
-see the following API documentation:
+Additional Information
+----------------------
 
-- `ClientBulkWriteOptions <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/bulk/ClientBulkWriteOptions.html>`__
-- `ClientBulkWriteResult <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/bulk/ClientBulkWriteResult.html>`__
+API Documentation
+~~~~~~~~~~~~~~~~~
 
-Summary
--------
+To learn more about the methods and classes used to perform bulk write
+operations in this section, see the following API documentation:
 
-``MongoCollection.bulkWrite()``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MongoCollection
+```````````````
 
-To perform a bulk operation, you create and pass a list of
-``WriteModel`` instances to the ``bulkWrite()`` method. 
+- `bulkWrite() <{+driver-api+}/MongoCollection.html#bulkWrite(com.mongodb.client.ClientSession,java.util.List)>`__
+- `BulkWriteOptions <{+core-api+}/client/model/BulkWriteOptions.html>`__
+- `MongoBulkWriteException <{+core-api+}/MongoBulkWriteException.html>`__
 
-There are 6 different ``WriteModel`` subtypes: ``InsertOneModel``,
-``ReplaceOneModel``, ``UpdateOneModel``, ``UpdateManyModel``,
-``DeleteOneModel`` and ``DeleteManyModel``. 
+MongoClient
+```````````
 
-There are two ways to execute the ``bulkWrite()`` method: 
+- `bulkWrite() <{+driver-api+}/MongoCluster.html#bulkWrite(com.mongodb.client.ClientSession,java.util.List)>`__
+- `ClientBulkWriteOptions <{+core-api+}/client/model/bulk/ClientBulkWriteOptions.html>`__
+- `ClientBulkWriteResult <{+core-api+}/client/model/bulk/ClientBulkWriteResult.html>`__
 
-- Ordered, which performs the bulk operations in order until an error occurs, if any
-- Unordered, which performs all the bulk operations in any order and reports errors
-  at the end, if any
+Server Manual Entries
+~~~~~~~~~~~~~~~~~~~~~
 
-To learn more about the collection ``bulkWrite`` command, see the 
-:manual:`db.collection.bulkWrite() </reference/method/db.collection.bulkWrite/>`
-method reference in the {+mdb-server+} Manual.
-
-``MongoClient.bulkWrite()``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When connecting to a deployment running {+mdb-server+} version 8.0 or later, you 
-can use the ``MongoClient.bulkWrite()`` method to perform bulk operations on multiple 
-databases and collections at once.
-
-To perform a client bulk operation, you create an pass a list of 
-``ClientNamespacedWriteModel`` instances to this method.
-
-There are six subtypes of ``ClientNamespacedWriteModel`` that are used to
-represent write operations. To construct these write models, you can use the
-corresponding ``ClientNamespacedWriteModel`` methods ``insertOne()``, ``updateOne()``, 
-``updateMany()``, ``replaceOne()``, ``deleteOne()``, and ``deleteMany()``. These 
-methods take a ``MongoNamespace`` object that defines which
-database and collection to write to.
-
-The ``MongoClient.bulkWrite()`` method can also take a ``ClientBulkWriteOptions``
-object to specify different options for how the command is executed.
-
-To learn more about the client ``bulkWrite`` command, see the 
-:manual:`bulkWrite() </reference/command/bulkWrite/>` method reference in the {+mdb-server+}
-Manual.
+- :manual:`MongoCollection.bulkWrite() </reference/method/db.collection.bulkWrite/>`
+- :manual:`MongoClient.bulkWrite() </reference/command/bulkWrite/>`
