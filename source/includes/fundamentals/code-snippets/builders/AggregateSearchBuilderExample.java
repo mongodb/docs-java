@@ -60,33 +60,25 @@ public class AggregateSearchBuilderExample {
      */
     private static void runAtlasSearchWithSearchHelperMethods(MongoCollection<Document> collection) {
         // begin atlasHelperMethods
-        Bson searchStageFilters = Aggregates.search(
+        List<Bson> pipeline = new ArrayList<>();
+
+        pipeline.add(Aggregates.search(
                 SearchOperator.compound()
                         .filter(
-                                List.of(
-                                        SearchOperator.text(fieldPath("genres"), "Drama"),
-                                        SearchOperator.phrase(fieldPath("cast"), "sylvester stallone"),
-                                        SearchOperator.numberRange(fieldPath("year")).gtLt(1980, 1989),
-                                        SearchOperator.wildcard(fieldPath("title"),"Rocky *")
-                                )));
-        
-        Bson projection = Aggregates.project(Projections.fields(
-                Projections.include("title", "year", "genres", "cast")
+                                Arrays.asList(
+                                        SearchOperator.in(fieldPath("genres"), Arrays.asList("Comedy")),
+                                        SearchOperator.phrase(fieldPath("fullplot"), "new york"),
+                                        SearchOperator.numberRange(fieldPath("year")).gtLt(1950, 2000),
+                                        SearchOperator.wildcard(fieldPath("title"), "Love *")
+                                ))));
+
+        pipeline.add(Aggregates.project(
+                Projections.include("title", "year", "genres")
         ));
 
-        List<Bson> aggregateStages = List.of(searchStageFilters, projection);
-        collection.aggregate(aggregateStages).forEach(System.out::println);
-
+        AggregateIterable<Document> results = collection.aggregate(pipeline);
+        results.forEach(doc -> System.out.println(doc.toJson()));
         // end atlasHelperMethods
-
-        // To condense result data, add this projection into the pipeline
-        // Bson projection = Aggregates.project(Projections.fields(Projections.include("title", "released")));
-
-        List<Bson> aggregateStages = List.of(searchStageFilters);
-        System.out.println("aggregateStages: " + aggregateStages);
-
-        System.out.println("explain:\n" + collection.aggregate(aggregateStages).explain());
-        collection.aggregate(aggregateStages).forEach(result -> System.out.println(result));
     }
 
     /*
@@ -137,8 +129,9 @@ public class AggregateSearchBuilderExample {
             // Uncomment the methods that correspond to what you're testing
             // runMatch(collection);
             // runAtlasTextSearch(collection);
-            runAtlasSearch(collection);
+            // runAtlasSearch(collection);
             // runAtlasTextSearchMeta(collection);
+            // runAtlasSearchWithSearchHelperMethods(collection);
         }
     }
 }

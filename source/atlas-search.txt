@@ -123,10 +123,14 @@ Learn more about this helper from the
 
 .. _java-atlas-search-helpers:
 
-Building a Pipeline Search Stage
---------------------------------
+Create Pipeline Search Stages
+-----------------------------
 
 .. sharedinclude:: dbx/jvm/atlas-search-operator-helpers.rst
+
+   .. replacement:: as-idx-link
+
+      the :ref:`java-search-indexes` section of the Indexes guide
 
    .. replacement:: atlas-query-operators-example
 
@@ -141,13 +145,9 @@ Building a Pipeline Search Stage
          .. output::
             :language: console
             :visible: false
-
-            Document{{_id=573a1397f29313caabce86db, genres=[Drama, Sport], cast=[Sylvester Stallone, Talia Shire, Burt Young, Carl Weathers], title=Rocky III, year=1982}}
-            Document{{_id=573a1398f29313caabce9af0, genres=[Drama, Sport], cast=[Sylvester Stallone, Talia Shire, Burt Young, Carl Weathers], title=Rocky IV, year=1985}}
-
-   .. replacement:: searchoperator-interface-api-docs
-
-      the `SearchOperator Interface API documentation <{+core-api+}/client/model/search/SearchOperator.html>`__
+            
+            {"_id": ..., "genres": ["Comedy", "Romance"], "title": "Love at First Bite", "year": 1979}
+            {"_id": ..., "genres": ["Comedy", "Drama"], "title": "Love Affair", "year": 1994}
 
 Additional Information
 ----------------------
