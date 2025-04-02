@@ -65,8 +65,8 @@ public class AggregateSearchBuilderExample {
         pipeline.add(Aggregates.search(
                 SearchOperator.compound()
                         .filter(
-                                Arrays.asList(
-                                        SearchOperator.in(fieldPath("genres"), Arrays.asList("Comedy")),
+                                List.of(
+                                        SearchOperator.in(fieldPath("genres"), "Comedy"),
                                         SearchOperator.phrase(fieldPath("fullplot"), "new york"),
                                         SearchOperator.numberRange(fieldPath("year")).gtLt(1950, 2000),
                                         SearchOperator.wildcard(fieldPath("title"), "Love *")
