@@ -100,7 +100,7 @@
      - ✓
 
    * - 3.11 to 3.12
-     - X [#v3-note]_
+     - ✗ [#v3-note]_
      - ⊛
      - ⊛
      - ⊛
@@ -112,7 +112,7 @@
      - ✓
 
    * - 3.8 to 3.10
-     - X [#v3-note]_
+     - ✗ [#v3-note]_
      - ⊛
      - ⊛
      - ⊛
@@ -123,4 +123,4 @@
      - ✓
      - ✓
 
-.. [#v3-note] These driver versions are not compatible with MongoDB 8.1 because of an authentication issue. To learn more, see :ref:`java-server-8.1-incompatibility`.
+.. [#v3-note] These driver versions are not compatible with MongoDB 8.1 or later because of an authentication issue. To learn more, see :ref:`java-server-8.1-incompatibility`.
