@@ -308,12 +308,12 @@ and prints the ``name`` field value for each document:
 GridFS
 ------
 
-You can set a timeout option for GridFS operations when instantiating a
-``GridFSBucket`` by using the ``withTimeout()`` method. This timeout
-applies to all operations performed on the bucket, such as uploading and
-downloading data. If you do not set a timeout, the ``GridFSBucket``
-instance inherits the timeout setting from the ``MongoDatabase`` it is
-created with.
+You can set a timeout option for :ref:`GridFS <java-crud-gridfs>`
+operations when instantiating a ``GridFSBucket`` by using the
+``withTimeout()`` method. This timeout applies to all operations
+performed on the bucket, such as uploading and downloading data. If you
+do not set a timeout, the ``GridFSBucket`` instance inherits the timeout
+setting from the ``MongoDatabase`` it is created with.
 
 The following code demonstrates how to set a timeout when instantiating
 a ``GridFSBucket``:
