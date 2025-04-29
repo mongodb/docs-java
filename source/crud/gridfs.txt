@@ -31,10 +31,10 @@ the file storage in your Java application.
 Use GridFS if the size of your files exceed the BSON document
 size limit of 16MB. To learn more about whether GridFS is
 suitable for your use case, see the :manual:`GridFS </core/gridfs>`
-reference in the Server manual.
+reference in the {+mdb-server+} manual.
 
 The following sections describe GridFS operations and demonstrate how to
-perform these actions in the driver:
+perform these actions with the driver:
 
 - :ref:`gridfs-create-bucket`
 - :ref:`gridfs-store-files`
@@ -47,7 +47,7 @@ perform these actions in the driver:
 .. tip:: Timeout Setting
 
    You can use the client-side operation timeout (CSOT) setting to limit
-   the amount of time in which the server can finish a GridFS operation.
+   the amount of time in which the server can finish GridFS operations.
    To learn more about using this setting with GridFS, see the
    :ref:`java-csot-gridfs` section of the Limit Server Execution Time
    guide.
