@@ -46,7 +46,151 @@ What's New in 5.5
 The 5.5 driver release includes the following changes, fixes,
 and features:
 
-.. sharedinclude:: dbx/jvm/v5.5-wn-items.rst
+- Introduces performance improvements that are reflected in the driver performance
+  benchmarks. To view the results of the performance benchmark tests, see the following
+  :ref:`java-5.5-performance-metrics` section.
+
+.. _java-5.5-performance-metrics:
+
+Performance Improvement Metrics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note::
+
+   The tables in this section reflect the performance
+   results of the synchronous Java driver. Since the improvements
+   were made in the shared driver core, we expect similar performance
+   improvement percentages for all Java drivers.
+
+The following table shows the results of performance improvement 
+tests for v5.5 of the driver configured with standard transport settings:
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 50 25 25
+
+   * - Feature
+     - Percent Improvement
+     - Z-score
+
+   * - Deep BSON decoding
+     - 19.44%
+     - 5.4
+
+   * - Deep BSON encoding
+     - 102%
+     - 22.8
+
+   * - Find many and empty the cursor
+     - 25.08%
+     - 13.72
+
+   * - Find one by ID
+     - 2.7%
+     - 3.16
+
+   * - Flat BSON decoding
+     - 31.2%
+     - 9.38
+
+   * - Flat BSON encoding
+     - 199.5%
+     - 12.34
+
+   * - Full BSON decoding
+     - 16.5%
+     - 7.23
+
+   * - Full BSON encoding
+     - 147.3%
+     - 10.39
+
+   * - LDJSON multi-file import
+     - 21.8%
+     - 8.21
+
+   * - Client ``BulkWrite`` insert with large documents
+     - 91.3%
+     - 24.44
+
+   * - Collection ``BulkWrite`` insert with large documents
+     - 96.5%
+     - 8.79
+
+   * - Bulk insert with large documents
+     - 93.3%
+     - 8.11
+
+   * - Insert one with large documents
+     - 82.4%
+     - 7.28
+
+   * - Client ``BulkWrite`` insert with small documents
+     - 49.5%
+     - 17.99
+
+   * - Collection ``BulkWrite`` insert with small documents
+     - 47.8%
+     - 6.44
+
+The following table shows the results of performance improvement 
+tests for v5.5 of the driver configured with Netty transport settings:
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 50 25 25
+
+   * - Feature
+     - Percent Improvement
+     - Z-score
+
+   * - Find many and empty the cursor
+     - 40.3%
+     - 14.81
+
+   * - Find one by ID
+     - 4.4%
+     - 4.12
+
+   * - LDJSON multi-file import
+     - 16.9%
+     - 3.77
+
+   * - Client ``BulkWrite`` insert with large documents
+     - 54.8%
+     - 14.49
+
+   * - Collection ``BulkWrite`` insert with large documents
+     - 104.9%
+     - 38.72
+
+   * - Bulk insert with large documents
+     - 74.6%
+     - 65.55
+
+   * - Insert one with large documents
+     - 66.6%
+     - 58.65
+
+   * - Client ``BulkWrite`` insert with small documents
+     - 36.1%
+     - 15.41
+
+   * - Collection ``BulkWrite`` insert with small documents
+     - 39.3%
+     - 37.38
+
+   * - Bulk insert with small documents
+     - 35.1%
+     - 41.51
+
+.. tip::
+
+   To learn more about how we conduct driver performance benchmark
+   tests, see the :spec:`Performance Benchmarking </extended-json/extended-json.md#special-rules-for-parsing-uuid-fields>`
+   specification.
 
 .. _java-version-5.4:
 
