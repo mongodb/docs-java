@@ -38,9 +38,9 @@ repository-style data access layers.
 The Spring Data BulkOperations Interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BulkOperations is an Spring Framework interface that contains a list of write
+BulkOperations is an Spring Framework Data interface that contains a list of write 
 operations that can be applied to your database. They can be any combination of
-the following {+driver-short+} operations:
+the following operations which map to similar {+driver-short+} operations:
 
 - ``insert``
 - ``updateOne``
@@ -55,10 +55,13 @@ sequentially and if an error is detected, will return with an error code.
 Unordered operations will be applied in parallel, which means they can be
 faster. However, you must check if there were errors during the operations. 
 
-For more information, see the `BulkOperations
-<https://www.mongodb.com/docs/manual/core/bulk-write-operations/>`__ page of the
-Spring Framework API documentation and the :manual:`Bulk Write Operations
-</core/bulk-write-operations/>` page of the MongoDB server manual. 
+For more information about bulk operations, see the following resources:
+
+- `BulkOperations
+  <https://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/core/BulkOperations.html>`__
+  in the Spring Framework API documentation
+- :ref:`Bulk Write Operations <java-fundamentals-bulkwrite>` in this guide 
+- :manual:`Bulk Write Operations </core/bulk-write-operations/>` in the MongoDB server manual. 
 
 Tutorial
 --------
@@ -69,7 +72,7 @@ You can find the completed sample app for this tutorial in the
 
 .. note:: Imports Not specified
    
-   The import statements required for the classes in the tutorial have not been included. See the GitHub repository for complete files. 
+   The import statements required for the classes in the tutorial have not been included. See the :github:`GitHub repository</jorge-imperial/SpringDataMongoBulkInsert>` for complete files.
 
 Prerequisites
 ~~~~~~~~~~~~~
