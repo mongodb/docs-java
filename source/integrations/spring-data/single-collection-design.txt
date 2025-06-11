@@ -1,0 +1,234 @@
+.. _pymongo-fastapi:
+.. original URLs: 
+.. - https://www.mongodb.com/developer/languages/java/java-single-collection-springpart1/
+.. - https://www.mongodb.com/developer/languages/java/java-single-collection-springpart2/
+
+========================
+Single-Collection Design
+========================
+
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: third party, integration, experience, orm, odm, spring, code example
+   :description: Explore how to use a single-collection pattern to integrate the Java driver with Spring Data.
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+Single-collection designs in MongoDB offer a flexible and efficient way to model
+data by storing related documents in a single collection. This approach can
+simplify data access patterns and reduce the need for complex joins, which are
+not natively supported in MongoDB.
+
+Spring Data MongoDB bridges the gap between MongoDB’s flexible document model
+and Java’s strongly typed class system, making single-collection designs easier
+to implement, manage, and scale. In this guide you can learn how to implement
+single-collection designs in Java applications using Spring Data MongoDB. 
+
+What Is a Single-Collection Design?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A single-collection design stores multiple related entities in a
+single MongoDB collection. Each document in the collection can represent a
+different entity type, distinguished by a discriminator field. This design is
+particularly useful when entities share a common set of fields and are
+frequently accessed together. 
+
+Tutorial: E-commerce Platform
+-----------------------------
+
+Consider an e-commerce platform where customers, sellers, and administrators are
+stored in the same collection. Each document includes a ``userType`` field to
+differentiate between the entity types: 
+
+.. code-block:: json
+
+    {
+      "_id": ObjectId("64b8c123abc123"),
+      "userType": "customer",
+      "name": "Alice",
+      "email": "alice@example.com",
+      "orders": [{"orderId": 1, "total": 100}]
+    }
+
+.. code-block:: json
+
+    {
+      "_id": ObjectId("64b8c456abc456"),
+      "userType": "seller",
+      "name": "Bob's Store",
+      "email": "bob@example.com",
+      "products": [{"productId": 101, "price": 20}]
+    }
+
+.. code-block:: json
+
+    {
+      "_id": ObjectId("64b8c789abc789"),
+      "userType": "admin",
+      "name": "Charlie",
+      "email": "charlie@example.com",
+      "permissions": ["manageUsers", "manageOrders"]
+    }
+
+This structure allows for efficient querying and updates, since all related data
+is contained in a single collection.
+
+Setting Up Spring Data MongoDB
+------------------------------
+
+1. Add Dependencies
+~~~~~~~~~~~~~~~~~~~
+
+Include the following dependency in your ``pom.xml`` to integrate Spring Data MongoDB:
+
+.. code-block:: xml
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+
+2. Configure MongoDB Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In your ``application.properties``:
+
+.. code-block:: properties
+
+    spring.data.mongodb.uri=mongodb://localhost:27017/yourDatabase
+
+Or define a custom configuration class:
+
+.. code-block:: java
+
+    @Configuration
+    public class MongoConfig extends AbstractMongoClientConfiguration {
+
+        @Override
+        protected String getDatabaseName() {
+            return "yourDatabase";
+        }
+
+        @Override
+        public MongoClient mongoClient() {
+            ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/yourDatabase");
+            MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+            return MongoClients.create(mongoClientSettings);
+        }
+    }
+
+Defining the Domain Model
+--------------------------
+
+Create a base class for common fields:
+
+.. code-block:: java
+
+    public abstract class User {
+        @Id
+        private String id;
+        private String name;
+        private String email;
+        private String userType;
+    }
+
+Define subclasses for each user type:
+
+.. code-block:: java
+
+    @Document(collection = "users")
+    public class Customer extends User {
+        private List<Order> orders;
+    }
+
+.. code-block:: java
+
+    @Document(collection = "users")
+    public class Seller extends User {
+        private List<Product> products;
+    }
+
+.. code-block:: java
+
+    @Document(collection = "users")
+    public class Admin extends User {
+        private List<String> permissions;
+    }
+
+Implementing Repositories
+--------------------------
+
+Create a repository interface for the ``User`` entity:
+
+.. code-block:: java
+
+    public interface UserRepository extends MongoRepository<User, String> {
+        List<User> findByUserType(String userType);
+    }
+
+Service Layer Implementation
+----------------------------
+
+Implement a service class to handle business logic:
+
+.. code-block:: java
+
+    @Service
+    public class UserService {
+
+        @Autowired
+        private UserRepository userRepository;
+
+        public List<User> getUsersByType(String userType) {
+            return userRepository.findByUserType(userType);
+        }
+    }
+
+Testing the Implementation
+--------------------------
+
+In your test class:
+
+.. code-block:: java
+
+    @SpringBootTest
+    public class UserServiceTests {
+
+        @Autowired
+        private UserService userService;
+
+        @Test
+        public void testGetUsersByType() {
+            List<User> customers = userService.getUsersByType("customer");
+            assertNotNull(customers);
+            assertFalse(customers.isEmpty());
+        }
+    }
+
+Benefits of Single-Collection Designs
+-------------------------------------
+
+- **Simplified Data Access**: All related data is stored in a single collection, reducing the need for joins.
+- **Improved Performance**: Fewer collections means fewer indexes to manage and faster queries in many use cases.
+- **Flexible Schema**: MongoDB’s schema-less nature enables storing different structures in the same collection.
+- **Easy Polymorphic Queries**: Query across all user types or filter by type using simple query parameters.
+
+Conclusion
+----------
+
+Single-collection designs are a powerful modeling pattern in MongoDB that can simplify your application's persistence layer.
+Using Spring Data MongoDB in Java, you can implement this pattern with minimal configuration while maintaining strong typing and repository support.
+
+For more advanced scenarios—including handling polymorphism, aggregations, and validation—consider diving deeper into the Spring Data MongoDB documentation and the MongoDB schema design patterns.
