@@ -2,31 +2,27 @@ package com.mongodb.examples.springdatabulkinsert;
 
 import com.mongodb.WriteConcern;
 import com.mongodb.bulk.BulkWriteResult;
-import com.mongodb.client.result.UpdateResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.Instant;
 
-// start-customproductsrepoimpl
+// start-productrepo
 @Component
-public class CustomProductsRepositoryImpl implements CustomProductsRepository {
+public class ProductRepository {
 
     private static final Logger LOG = LoggerFactory
-            .getLogger(CustomProductsRepository.class);
+            .getLogger(ProductRepository.class);
 
     private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public CustomProductsRepositoryImpl(MongoTemplate mongoTemplate){
+    public ProductRepository(MongoTemplate mongoTemplate){
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -65,4 +61,4 @@ public class CustomProductsRepositoryImpl implements CustomProductsRepository {
         return bulkWriteResult.getInsertedCount();
     }
 }
-// end-customproductsrepoimpl
+// end-productrepo

@@ -10,18 +10,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // start-application
 @SpringBootApplication
-public class SpringDataBulkInsertApplication implements CommandLineRunner {
+public class MyProjectName implements CommandLineRunner {
 
     @Value("${documentCount}")
     private int count;
     private static final Logger LOG = LoggerFactory
-            .getLogger(SpringDataBulkInsertApplication.class);
+            .getLogger(MyProjectName.class);
 
     @Autowired
-    private CustomProductsRepository repository;
+    private ProductRepository repository;
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringDataBulkInsertApplication.class, args);
+        SpringApplication.run(MyProjectName.class, args);
     }
 
     @Override
