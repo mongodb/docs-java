@@ -11,7 +11,7 @@ import java.util.Random;
 
 // start-products-class
 @Document("products")
-public class Products {
+public class Product {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(Products.class);
@@ -25,7 +25,7 @@ public class Products {
     private Date  unavailable;
     private String skuId;
 
-    public Products(String name, int qty, double price, Date available, Date unavailable, String skuId) {
+    public Product(String name, int qty, double price, Date available, Date unavailable, String skuId) {
         this.name = name;
         this.qty = qty;
         this.price = price;
@@ -34,15 +34,15 @@ public class Products {
         this.skuId = skuId;
     }
 
-    public static Products [] RandomProducts( int  count) {
+    public static Product [] RandomProducts( int  count) {
 
         Faker faker = new Faker();
         Random rand = new Random();
 
-        Products [] retProds = new Products[count];
+        Product [] retProds = new Product[count];
         for (int i=0; i<count; ++i) {
 
-            Products p = new Products(  faker.animal().name(),
+            Product p = new Product(  faker.animal().name(),
                     1+rand.nextInt(998),
                     10.0+rand.nextInt(9999),
                     new Date(), new Date(),

@@ -32,7 +32,7 @@ public class ProductRepository {
         Update update = new Update();
         update.set("quantity", newQuantity);
 
-        UpdateResult result = mongoTemplate.updateFirst(query, update, Products.class);
+        UpdateResult result = mongoTemplate.updateFirst(query, update, Product.class);
 
         if(result == null)
             LOG.error("No documents updated");
@@ -43,14 +43,14 @@ public class ProductRepository {
     public int bulkInsertProducts(int count) {
 
         LOG.info("Dropping collection...");
-        mongoTemplate.dropCollection(Products.class);
+        mongoTemplate.dropCollection(Product.class);
         LOG.info("Dropped!");
 
         Instant start = Instant.now();
         mongoTemplate.setWriteConcern(WriteConcern.W1.withJournal(true));
 
-        Products [] productList = Products.RandomProducts(count);
-        BulkOperations bulkInsertion = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Products.class);
+        Product [] productList = Product.RandomProducts(count);
+        BulkOperations bulkInsertion = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Product.class);
 
         for (int i=0; i<productList.length; ++i)
             bulkInsertion.insert(productList[i]);

@@ -9,10 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import javax.net.ssl.SSLContext;
-import java.nio.file.Paths;
-import nl.altindag.ssl.SSLFactory;
-
 // start-mongoconfig
 @Configuration
 public class MongoConfig   {
@@ -21,14 +17,6 @@ public class MongoConfig   {
     @Value("${mongodb.database}")
     private String databaseName;
 
-    @Value("${truststore.path}")
-    private String trustStorePath;
-    @Value("${truststore.pwd}")
-    private String trustStorePwd;
-
-    @Value("${mongodb.atlas}")
-    private boolean atlas;
-
     @Bean
     public MongoClient mongo() {
 
@@ -36,20 +24,6 @@ public class MongoConfig   {
 
             MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                     .applyConnectionString(connectionString)
-                    .applyToSslSettings(builder -> {
-                        if (!atlas) {
-                            // Use SSLContext if a trustStore has been provided
-                            if (!trustStorePath.isEmpty()) {
-                                SSLFactory sslFactory = SSLFactory.builder()
-                                        .withTrustMaterial(Paths.get(trustStorePath), trustStorePwd.toCharArray())
-                                        .build();
-                                SSLContext sslContext = sslFactory.getSslContext();
-                                builder.context(sslContext);
-                                builder.invalidHostNameAllowed(true);
-                            }
-                        }
-                        builder.enabled(true);
-                    })
                     .build();
 
 
