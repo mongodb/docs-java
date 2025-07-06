@@ -17,7 +17,7 @@ Tutorial: Spring Data Framework Integration
 
 .. meta::
    :description: Build an application using the Spring Data Framework and the MongoDB Java driver.
-   :keywords: spring, tutorial, bulk insert, code example
+   :keywords: spring, tutorial, bulk insert, code example, odm, orm
 
 Overview
 --------
@@ -29,31 +29,39 @@ MongoDB <https://spring.io/projects/spring-data-mongodb>`__ with the
 Spring Data MongoDB
 ~~~~~~~~~~~~~~~~~~~
 
-Spring Data MongoDB is the official Spring Data ODM for MongoDB. It allows you to
-interact with MongoDB by using plain old Java objects (POJOs) and repository
-abstraction. It supports MongoDB-specific features like dynamic queries,
+Spring Data MongoDB is the official Spring Data object document mapper (ODM) for
+MongoDB. It allows you to interact with MongoDB by using plain old Java objects
+(POJOs) and repository abstraction. It supports MongoDB-specific features like dynamic queries,
 indexing, and nested document mapping while reducing boilerplate code such as
 manual ``find()`` and ``update()`` calls. 
+
+Spring Boot
+~~~~~~~~~~~
+Spring Boot is a framework built on top of the Spring Framework. It adds
+auto-configuration, defaults, and production-ready features to simplify building
+Spring-based Java applications, including integration with Spring Data
+MongoDB. For more information, see the `Spring Boot documentation
+<https://spring.io/projects/spring-boot>`__. 
 
 Dependency Injection
 ~~~~~~~~~~~~~~~~~~~~
 
 Dependency injection (DI) is a core principle of the Spring Framework. It
-allows objects, called beans, to be created and managed by the Spring container,
+allows objects, called *beans*, to be created and managed by the Spring container,
 then injected into other beans that use them. This is distinct from typical
-object-oriented development where classes are responsible for initializing and
-constructing the objects they use.
+object-oriented development, where classes are responsible for initializing and
+constructing the objects that they use.
 
 For more information about dependency injection, see the `Dependency
 Injection <https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html>`__
 page of the Spring Framework documentation. 
 
-The Spring Data BulkOperations Interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Spring Data BulkOperations Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BulkOperations is a Spring Data MongoDB interface that contains a list of write 
+``BulkOperations`` is a Spring Data MongoDB interface that contains a list of write 
 operations that can be applied to your database. It can handle any combination of
-the following operations which map to similar {+driver-long+} operations:
+the following operations, which map to similar {+driver-long+} operations:
 
 - ``insert``
 - ``updateOne``
@@ -63,7 +71,7 @@ the following operations which map to similar {+driver-long+} operations:
 - ``deleteMany``
 - ``upsert``
 
-A BulkOperation can be ordered or unordered. Ordered bulk operations run operations
+A ``BulkOperation`` can be ordered or unordered. Ordered bulk operations run operations
 sequentially, and if an error is detected, return with an error code.
 Unordered operations are run in parallel, which means they are typically faster.
 However, you must manually check if there were errors during the operations. 
@@ -74,7 +82,7 @@ For more information about bulk operations, see the following resources:
   <https://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/core/BulkOperations.html>`__
   in the Spring Framework API documentation
 - :ref:`Bulk Write Operations <java-fundamentals-bulkwrite>` in this guide 
-- :manual:`Bulk Write Operations </core/bulk-write-operations/>` in the MongoDB server manual 
+- :manual:`Bulk Write Operations </core/bulk-write-operations/>` in the MongoDB Server manual 
 
 Tutorial
 --------
@@ -90,7 +98,7 @@ You can find the completed sample app for this tutorial in the
 Prerequisites
 ~~~~~~~~~~~~~
 
-Ensure you have the following components installed and set up before you start
+Ensure that you have the following components installed and set up before you start
 this tutorial:
 
 - `Java 8 or later <https://www.oracle.com/java/technologies/downloads/>`__
@@ -102,7 +110,7 @@ Add Dependencies
 ~~~~~~~~~~~~~~~~
 
 Ensure that you use a Spring Data MongoDB version that is compatible with the
-{+driver-long+} and Java versions you are using. For compatibility specifications, see
+{+driver-long+} and Java versions that you are using. For compatibility specifications, see
 the `Requirements
 <https://docs.spring.io/spring-data/mongodb/reference/preface.html>`__ page
 of the Spring Data MongoDB documentation, and the :ref:`Compatibility
@@ -112,7 +120,7 @@ of the Spring Data MongoDB documentation, and the :ref:`Compatibility
    
    If you used the `Spring Initializr <https://start.spring.io/>`__ or a clone of the :github:`Spring Boot sample project <spring-guides/gs-spring-boot>` to create your project, versioning compatibility has already been accounted for, and the ``spring-boot-starter-data-mongodb`` component will already be included in your ``pom.xml`` file.
 
-Add the following dependencies to your ``pom.xml``:
+Add the following dependencies to your ``pom.xml`` file:
 
 .. code-block:: xml
 
@@ -133,17 +141,17 @@ objects to use in the bulk write operation.
 Configure your MongoClient
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``MongoConfig`` class contains the configuration for the ``MongoClient``
-that will allow the Spring Data framework to interact with the MongoDB server,
+The ``MongoConfig`` class contains the configuration for the ``MongoClient`` object
+that will allow the Spring Data framework to interact with the MongoDB Server,
 and sets other configuration options. For more information about configuration
 options, see the :ref:`Specify Connection Options <specify-mongoclient-settings>`
 page of this guide.
 
 This application uses ``@Configuration`` annotations for classes, ``@Bean``
 annotations for methods, and ``@Value`` annotations for parameter conversion.
-These annotations allow the Spring IoC container to manage objects. For a
-detailed explanation of these annotations, see the following sections of the
-Spring Data framework guide: 
+These annotations allow the Spring IoC (Inversion of Control) container to
+manage objects. For a detailed explanation of these annotations, see the
+following sections of the Spring Data framework guide: 
 
 - ``@Configuration`` and ``@Bean`` annotations: `Java-based Container
   Configuration
@@ -158,7 +166,6 @@ template classes to set up your MongoDB connection:
    :start-after: // start-mongoconfig
    :end-before: // end-mongoconfig
    :language: java
-   :dedent:
 
 .. note:: API vs Interface
 
@@ -173,7 +180,6 @@ database name (``mongodb.database``), and bulk operation count (``documentCount`
    :start-after: # start-mongoconfig-properties
    :end-before: # end-mongoconfig-properties
    :language: console
-   :dedent:
 
 This tutorial uses a database named ``bulk``, and creates 25000 documents to save. Replace the ``<connection
 string>`` placeholder with a connection string for your Atlas deployment. For
@@ -191,7 +197,7 @@ documents, see the `Mapping Annotation Overview
 section of the Spring Data MongoDB documentation.
 
 The ``@Id`` annotation in the following code indicates that the ``id`` field
-maps to the ``_id`` field which is used as a unique identifier in MongoDB documents. You can choose any field of
+maps to the ``_id`` field, which is used as a unique identifier in MongoDB documents. You can choose any field of
 any type, except arrays, to be the unique identifier. For more information, see
 the `How the _id field is handled in the mapping layer
 <https://docs.spring.io/spring-data/mongodb/reference/mongodb/mapping/mapping.html#mapping.conventions.id-field>`__
@@ -204,7 +210,6 @@ your ``products`` collection with the following code:
    :start-after: // start-products-class
    :end-before: // end-products-class
    :language: java
-   :dedent:
 
 The ``Product`` class includes a static method that generates an array of
 ``Product`` objects. You may also define getters and setters for each field.
@@ -212,8 +217,8 @@ The ``Product`` class includes a static method that generates an array of
 Define a Repository to Store Your Products
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``ProductRepository`` will manage a collection of ``Product`` objects. 
-Your ``ProductRepository`` references the client creation methods defined in the ``MongoConfig`` class, which you
+The ``ProductRepository`` object will manage a collection of ``Product`` objects. 
+Your ``ProductRepository`` object references the client-creation methods defined in the ``MongoConfig`` class, which you
 annotated with ``@Bean``. By using the ``@Autowired`` annotation with the
 ``mongoTemplate`` variable together with a constructor that includes
 ``mongoTemplate`` as an argument, the Spring container uses constructor
@@ -229,7 +234,6 @@ class to manage a collection of ``Product`` objects with the following code:
    :start-after: // start-productrepo
    :end-before: // end-productrepo
    :language: java
-   :dedent:
 
 The ``bulkInsertProducts()`` method uses unordered bulk inserts, which can
 improve performance by not guaranteeing the order of operations. 
@@ -247,7 +251,6 @@ Add the following code to your main class to run your application:
    :start-after: // start-application
    :end-before: // end-application
    :language: java
-   :dedent:
 
 Conclusion
 ----------
